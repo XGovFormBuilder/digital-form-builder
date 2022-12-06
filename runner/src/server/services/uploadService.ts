@@ -225,7 +225,7 @@ export class UploadService {
       ).filter((value) => !!value);
 
       let pageTitle = page.title;
-      let sectionTitle = page.section.title ?? "";
+      let sectionTitle = page.section?.title ?? "";
 
       if (page.def.metadata.isWelsh) {
         pageTitle = encodeURI(pageTitle);
