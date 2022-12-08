@@ -59,7 +59,7 @@ export class CacheService {
     if (!!state.pay) {
       this.logger.info(
         ["cacheService"],
-        `Pay state detected, setting session TTL to ${paymentSessionTimeout}.`
+        `Pay state detected for ${request.yar.id} setting session TTL to ${paymentSessionTimeout}.`
       );
       ttl = paymentSessionTimeout;
     }
