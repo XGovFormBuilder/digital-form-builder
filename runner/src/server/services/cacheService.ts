@@ -58,8 +58,8 @@ export class CacheService {
     hoek.merge(state, value, nullOverride, arrayMerge);
     if (!!state.pay) {
       this.logger.info(
-        ["cacheService"],
-        `Pay state detected for ${request.yar.id} setting session TTL to ${paymentSessionTimeout}.`
+        ["cacheService", request.yar.id],
+        `Pay state detected setting session TTL to ${paymentSessionTimeout}.`
       );
       ttl = paymentSessionTimeout;
     }
