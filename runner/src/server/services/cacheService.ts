@@ -21,6 +21,7 @@ const {
   isSandbox,
   sessionTimeout,
   confirmationSessionTimeout,
+  paymentSessionTimeout,
 } = config;
 const partition = "cache";
 
@@ -53,8 +54,16 @@ export class CacheService {
   ) {
     const key = this.Key(request);
     const state = await this.getState(request);
+    let ttl = sessionTimeout;
     hoek.merge(state, value, nullOverride, arrayMerge);
-    await this.cache.set(key, state, sessionTimeout);
+    if (!!state.pay) {
+      this.logger.info(
+        ["cacheService", request.yar.id],
+        `Pay state detected setting session TTL to ${paymentSessionTimeout}.`
+      );
+      ttl = paymentSessionTimeout;
+    }
+    await this.cache.set(key, state, ttl);
     return this.cache.get(key);
   }
 
