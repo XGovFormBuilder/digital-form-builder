@@ -57,7 +57,7 @@
     "blipp": "4.0.1",
     "boom": "7.3.0",
     "btoa": "^1.2.1",
-    "concurrently": "^5.3.0",
+    "concurrently": "^7.6.0",
     "config": "^3.3.7",
     "dotenv": "8.2.0",
     "expr-eval": "^2.0.2",
