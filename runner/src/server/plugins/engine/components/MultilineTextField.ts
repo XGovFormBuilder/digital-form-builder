@@ -95,6 +95,10 @@ export class MultilineTextField extends FormComponent {
     if (options.maxWords ?? false) {
       viewModel.maxwords = options.maxWords;
     }
+    if (options.hideTitle) {
+      viewModel.label = { text: viewModel.hint?.html!, classes: "" };
+      viewModel.hint = { html: "" };
+    }
     return viewModel;
   }
 }
