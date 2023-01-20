@@ -1,0 +1,193 @@
+{
+  "metadata": {},
+  "startPage": "/give-feedback-on-this-page",
+  "pages": [
+    {
+      "title": "Give feedback on this page",
+      "path": "/give-feedback-on-this-page",
+      "components": [
+        {
+          "name": "EUMdQp",
+          "options": {},
+          "type": "Para",
+          "content": "Thank you for taking the time to complete this questionnaire. Please tell us about your experience using our service. All your responses will be considered when developing future services.",
+          "schema": {}
+        },
+        {
+          "name": "WFZvEw",
+          "options": {
+            "required": true,
+            "optionalText": false
+          },
+          "type": "RadiosField",
+          "title": "How do you feel about your experience today?",
+          "hint": "Please select one of the following options",
+          "list": "SNxrCf",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "vLhDGG",
+          "options": {
+            "required": true,
+            "optionalText": true
+          },
+          "type": "RadiosField",
+          "title": "Overall, how easy or difficult was it to provide your information?",
+          "hint": "Please select one of the following options",
+          "list": "jPKTbI",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "uNLTeN",
+          "options": {
+            "required": true,
+            "optionalText": false
+          },
+          "type": "CheckboxesField",
+          "title": "What can we improve?",
+          "hint": "Please select all that apply",
+          "list": "NxBFHu"
+        },
+        {
+          "name": "SMYKOI",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "Please provide some more feedback below",
+          "hint": "Do not include personal or financial information e.g. National Insurance or credit card numbers",
+          "schema": {
+            "length": "",
+            "max": "1200"
+          }
+        },
+        {
+          "name": "UDDodm",
+          "options": {},
+          "type": "Para",
+          "content": "Please press continue to submit the feedback"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "experience",
+      "name": "SNxrCf",
+      "type": "string",
+      "items": [
+        {
+          "text": "Very satisfied",
+          "value": "Very satisfied"
+        },
+        {
+          "text": "Satisfied",
+          "value": "Satisfied"
+        },
+        {
+          "text": "Neither satisfied or dissatisfied",
+          "value": "Neither satisfied or dissatisfied"
+        },
+        {
+          "text": "Dissatisfied",
+          "value": "Dissatisfied"
+        },
+        {
+          "text": "Very dissatisfied",
+          "value": "Very dissatisfied"
+        }
+      ]
+    },
+    {
+      "title": "information",
+      "name": "jPKTbI",
+      "type": "string",
+      "items": [
+        {
+          "text": "Very easy",
+          "value": "Very easy"
+        },
+        {
+          "text": "Easy",
+          "value": "Easy"
+        },
+        {
+          "text": "Neither easy or difficult",
+          "value": "Neither easy or difficult"
+        },
+        {
+          "text": "Difficult",
+          "value": "Difficult"
+        },
+        {
+          "text": "Very difficult",
+          "value": "Very difficult"
+        }
+      ]
+    },
+    {
+      "title": "improve",
+      "name": "NxBFHu",
+      "type": "string",
+      "items": [
+        {
+          "text": "Language - understanding the text on the pages",
+          "value": "Language - understanding the text on the pages"
+        },
+        {
+          "text": "Layout - the layout and design of the pages",
+          "value": "Layout - the layout and design of the pages"
+        },
+        {
+          "text": "Ease of use - was the form easy to complete?",
+          "value": "Ease of use - was the form easy to complete?"
+        },
+        {
+          "text": "Other - anything else we have missed?",
+          "value": "Other - anything else we have missed?"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "LiyTyH",
+      "title": "feedback",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://wg4vaudr29.execute-api.eu-west-2.amazonaws.com/dev/webforms-feedback-submit"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": true,
+  "declaration": "",
+  "name": "Feedback",
+  "feedback": {
+    "feedbackForm": true,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
