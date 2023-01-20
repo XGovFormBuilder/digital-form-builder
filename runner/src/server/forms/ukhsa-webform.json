@@ -1,0 +1,238 @@
+{
+  "metadata": {},
+  "startPage": "/interaction",
+  "pages": [
+    {
+      "title": "Please tell us the name of the last person you interacted with at the Gym/swimming pool",
+      "path": "/interaction",
+      "components": [
+        {
+          "name": "agLBwI",
+          "options": {},
+          "type": "Para",
+          "content": "These could be people you spend 15 minutes or more with, at a distance of less than two metres"
+        },
+        {
+          "type": "TextField",
+          "title": "First name",
+          "name": "FirstName",
+          "nameHasError": false,
+          "schema": {
+            "min": "1",
+            "max": "25"
+          }
+        },
+        {
+          "name": "LastName",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "nameHasError": false,
+          "schema": {
+            "min": "1",
+            "max": "25"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/activities"
+        }
+      ],
+      "section": "Close_contact_detail"
+    },
+    {
+      "path": "/activities",
+      "title": "When were you at the Gym/swimming pool?",
+      "components": [
+        {
+          "name": "BPXMnm",
+          "options": {},
+          "type": "Para",
+          "content": "For example, 27 3 2007"
+        },
+        {
+          "name": "ActivityDate",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "DatePartsField",
+          "title": "Date",
+          "nameHasError": false
+        }
+      ],
+      "next": [
+        {
+          "path": "/activitydetail"
+        }
+      ],
+      "section": "Activities_outside_your_home"
+    },
+    {
+      "path": "/activitydetail",
+      "title": "How many people were at the Gym/ swimming pool?",
+      "components": [
+        {
+          "name": "GinBFX",
+          "options": {},
+          "type": "Para",
+          "content": "Please select a range of people you had close contact with"
+        },
+        {
+          "name": "Number_of_People",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "Number of People",
+          "nameHasError": false,
+          "list": "oSyvBD"
+        }
+      ],
+      "next": [
+        {
+          "path": "/activities_list"
+        }
+      ],
+      "section": "Activities"
+    },
+    {
+      "path": "/activities_list",
+      "title": "Please select all the activities you have done in the last 10 days",
+      "components": [
+        {
+          "name": "ZADApp",
+          "options": {},
+          "type": "Para",
+          "content": "It is important to inform us what activities you have been doing between Monday (1 June) to Friday (5 June) and provide details."
+        },
+        {
+          "name": "KykFmw",
+          "options": {},
+          "type": "Para",
+          "content": "This will help us understand where you may have exposed to [DISEASE NAME]"
+        },
+        {
+          "name": "Activity_Location",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Activity Location",
+          "nameHasError": false,
+          "list": "dBWWHg"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "activities_number"
+    },
+    {
+      "path": "/summary",
+      "title": "Summary",
+      "components": [],
+      "next": [],
+      "section": "Review",
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Number of people",
+      "name": "oSyvBD",
+      "type": "string",
+      "items": [
+        {
+          "text": "1",
+          "value": "1"
+        },
+        {
+          "text": "2-5",
+          "value": "2-5"
+        },
+        {
+          "text": "5-9",
+          "value": "5-9"
+        },
+        {
+          "text": "10+",
+          "value": "10+"
+        },
+        {
+          "text": "None",
+          "value": "None"
+        }
+      ]
+    },
+    {
+      "title": "Activity Location",
+      "name": "dBWWHg",
+      "type": "string",
+      "items": [
+        {
+          "text": "Festival",
+          "value": "Festival"
+        },
+        {
+          "text": "Organised event",
+          "value": "Organised event"
+        },
+        {
+          "text": "Sports events",
+          "value": "Sports event"
+        },
+        {
+          "text": "Shopping",
+          "value": "Shopping"
+        },
+        {
+          "text": "Sauna",
+          "value": "Sauna"
+        },
+        {
+          "text": "Travel and communicating",
+          "value": "Travel and communicating"
+        },
+        {
+          "text": "Bar",
+          "value": "Bar"
+        },
+        {
+          "text": "Gym/ swimming pool",
+          "value": "Gym/ swimming pool"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "Close_contact_detail",
+      "title": "Close contact's personal details"
+    },
+    {
+      "name": "Activities_outside_your_home",
+      "title": "Activities outside your home"
+    },
+    {
+      "name": "Activities",
+      "title": "Activities outside your home"
+    },
+    {
+      "name": "activities_number",
+      "title": "Activities outside your home"
+    },
+    {
+      "name": "Review",
+      "title": "Review your responses"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "declaration": ""
+}
