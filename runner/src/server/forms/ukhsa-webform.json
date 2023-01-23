@@ -10,17 +10,16 @@
           "name": "agLBwI",
           "options": {},
           "type": "Para",
-          "content": "These could be people you spend 15 minutes or more with, at a distance of less than two metres"
+          "content": "These could be people you spend 15 minutes or more with, at a distance of less than two metres",
+          "schema": {}
         },
         {
           "type": "TextField",
           "title": "First name",
           "name": "FirstName",
           "nameHasError": false,
-          "schema": {
-            "min": "1",
-            "max": "25"
-          }
+          "schema": { "min": 1, "max": 25 },
+          "options": {}
         },
         {
           "name": "LastName",
@@ -28,17 +27,10 @@
           "type": "TextField",
           "title": "Last name",
           "nameHasError": false,
-          "schema": {
-            "min": "1",
-            "max": "25"
-          }
+          "schema": { "min": 1, "max": 25 }
         }
       ],
-      "next": [
-        {
-          "path": "/activities"
-        }
-      ],
+      "next": [{ "path": "/activities" }],
       "section": "Close_contact_detail"
     },
     {
@@ -49,23 +41,19 @@
           "name": "BPXMnm",
           "options": {},
           "type": "Para",
-          "content": "For example, 27 3 2007"
+          "content": "For example, 27 3 2007",
+          "schema": {}
         },
         {
           "name": "ActivityDate",
-          "options": {
-            "hideTitle": true
-          },
+          "options": { "hideTitle": true },
           "type": "DatePartsField",
           "title": "Date",
-          "nameHasError": false
+          "nameHasError": false,
+          "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/activitydetail"
-        }
-      ],
+      "next": [{ "path": "/activitydetail" }],
       "section": "Activities_outside_your_home"
     },
     {
@@ -76,24 +64,20 @@
           "name": "GinBFX",
           "options": {},
           "type": "Para",
-          "content": "Please select a range of people you had close contact with"
+          "content": "Please select a range of people you had close contact with",
+          "schema": {}
         },
         {
           "name": "Number_of_People",
-          "options": {
-            "hideTitle": true
-          },
+          "options": { "hideTitle": true },
           "type": "RadiosField",
           "title": "Number of People",
           "nameHasError": false,
-          "list": "oSyvBD"
+          "list": "oSyvBD",
+          "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/activities_list"
-        }
-      ],
+      "next": [{ "path": "/activities_list" }],
       "section": "Activities"
     },
     {
@@ -104,30 +88,27 @@
           "name": "ZADApp",
           "options": {},
           "type": "Para",
-          "content": "It is important to inform us what activities you have been doing between Monday (1 June) to Friday (5 June) and provide details."
+          "content": "It is important to inform us what activities you have been doing between Monday (1 June) to Friday (5 June) and provide details.",
+          "schema": {}
         },
         {
           "name": "KykFmw",
           "options": {},
           "type": "Para",
-          "content": "This will help us understand where you may have exposed to [DISEASE NAME]"
+          "content": "This will help us understand where you may have exposed to [DISEASE NAME]",
+          "schema": {}
         },
         {
           "name": "Activity_Location",
-          "options": {
-            "hideTitle": true
-          },
+          "options": { "hideTitle": true },
           "type": "CheckboxesField",
           "title": "Activity Location",
           "nameHasError": false,
-          "list": "dBWWHg"
+          "list": "dBWWHg",
+          "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ],
+      "next": [{ "path": "/summary" }],
       "section": "activities_number"
     },
     {
@@ -145,26 +126,11 @@
       "name": "oSyvBD",
       "type": "string",
       "items": [
-        {
-          "text": "1",
-          "value": "1"
-        },
-        {
-          "text": "2-5",
-          "value": "2-5"
-        },
-        {
-          "text": "5-9",
-          "value": "5-9"
-        },
-        {
-          "text": "10+",
-          "value": "10+"
-        },
-        {
-          "text": "None",
-          "value": "None"
-        }
+        { "text": "1", "value": 1 },
+        { "text": "2-5", "value": "2-5" },
+        { "text": "5-9", "value": "5-9" },
+        { "text": "10+", "value": "10+" },
+        { "text": "None", "value": "None" }
       ]
     },
     {
@@ -172,38 +138,17 @@
       "name": "dBWWHg",
       "type": "string",
       "items": [
-        {
-          "text": "Festival",
-          "value": "Festival"
-        },
-        {
-          "text": "Organised event",
-          "value": "Organised event"
-        },
-        {
-          "text": "Sports events",
-          "value": "Sports event"
-        },
-        {
-          "text": "Shopping",
-          "value": "Shopping"
-        },
-        {
-          "text": "Sauna",
-          "value": "Sauna"
-        },
+        { "text": "Festival", "value": "Festival" },
+        { "text": "Organised event", "value": "Organised event" },
+        { "text": "Sports events", "value": "Sports event" },
+        { "text": "Shopping", "value": "Shopping" },
+        { "text": "Sauna", "value": "Sauna" },
         {
           "text": "Travel and communicating",
           "value": "Travel and communicating"
         },
-        {
-          "text": "Bar",
-          "value": "Bar"
-        },
-        {
-          "text": "Gym/ swimming pool",
-          "value": "Gym/ swimming pool"
-        }
+        { "text": "Bar", "value": "Bar" },
+        { "text": "Gym/ swimming pool", "value": "Gym/ swimming pool" }
       ]
     }
   ],
@@ -216,22 +161,22 @@
       "name": "Activities_outside_your_home",
       "title": "Activities outside your home"
     },
-    {
-      "name": "Activities",
-      "title": "Activities outside your home"
-    },
-    {
-      "name": "activities_number",
-      "title": "Activities outside your home"
-    },
-    {
-      "name": "Review",
-      "title": "Review your responses"
-    }
+    { "name": "Activities", "title": "Activities outside your home" },
+    { "name": "activities_number", "title": "Activities outside your home" },
+    { "name": "Review", "title": "Review your responses" }
   ],
   "conditions": [],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "wbOnTy",
+      "title": "submit-data-webhook",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://wg4vaudr29.execute-api.eu-west-2.amazonaws.com/dev/submit-data"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false,
   "declaration": ""
