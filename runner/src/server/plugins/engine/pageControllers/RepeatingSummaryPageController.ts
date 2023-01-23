@@ -168,14 +168,10 @@ export class RepeatingSummaryPageController extends PageController {
             this.hideRowTitles ? "govuk-summary-list__key--hidden-titles" : ""
           }`,
         },
-        actions: {
-          items: [
-            {
-              href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}`,
-              text: "Remove",
-              visuallyHiddenText: title,
-            },
-          ],
+        action: {
+          href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}`,
+          text: "Remove",
+          visuallyHiddenText: title,
         },
       };
     });
