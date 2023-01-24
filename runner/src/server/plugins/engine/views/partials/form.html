@@ -32,8 +32,9 @@
 						<th scope="row" class="govuk-table__header">{{ row.key.text }}</th>
 						<td class="govuk-table__cell">{{ row.value.text }}</td>
 						<td class="govuk-table__cell">
-							<a href={{row.action.href}}>{{ row.action.text }}</a>
-							<span class="govuk-visually-hidden">{{ row.key.text }}</span>
+							<a href={{row.action.href}}>{{ row.action.text }}
+								<span class="govuk-visually-hidden">{{ row.key.text }}</span>
+							</a>
 						</td>
 					</tr>
 				{% endfor %}
