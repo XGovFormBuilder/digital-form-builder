@@ -2,62 +2,67 @@
 {% from "summary-list/macro.njk" import govukSummaryList -%}
 
 <form method="post" enctype="multipart/form-data" autocomplete="on">
-  <input type="hidden" name="crumb" value="{{crumb}}"/> 
+	<input type="hidden" name="crumb" value="{{crumb}}"/>
 
-  {% if page.isRepeatingFieldPageController and details %}  
-    {{ componentList(components) }}
-  {{ govukButton({
+	{% if page.isRepeatingFieldPageController and details %}
+		{{ componentList(components) }}
+		{{ govukButton({
     attributes: { id: "add-another"},
     classes: "govuk-button govuk-button--secondary",
     text: page.saveText
     })
   }}
-  {% if page.options.customText.samePageTitle %}
-  <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--m" for="event-name">
-    {{page.options.customText.samePageTitle}}
-  </label>
-  </h1>
-  {% endif %}
-  <dl class="govuk-summary-list" style="margin-bottom: 0;">      
-    <div class="govuk-summary-list__row">
-      <dt class="govuk-summary-list__key">
-       {{page.options.customText.columnOneTitle}}
-      </dt>
-      <dd class="govuk-summary-list__value">
-        <strong>{{page.options.customText.columnTwoTitle}}</strong>
-      </dd>        
-        <dd class="govuk-summary-list__actions">           
-            <strong>{{page.options.customText.columnThreeTitle}}</strong>            
-        </dd>        
-    </div>  
-  </dl>
-  {{details.length}}
-    {%if not details.rows.length %}    
-    <p class="govuk-body" style="margin-top: 30px;">
-      <strong>{{page.noCostsTitle}}</strong>      
-    </p>
-    <p class="govuk-body">
-      {{page.noCostsText}}
-    </p>
-    <hr />
-    {% else %}
-    {{ govukSummaryList(details) }}
-    {% endif %}
-  {% else %}
-  {{ componentList(components) }}
-  {% endif %}  
-
-  {% if not (components[0].type == "FlashCard") %}
-    {% if isStartPage %}
-      {{ govukButton({ attributes: { id: "submit" }, text: page.continueText}) }}
-    {% else %}
-      {% if page.isRepeatingFieldPageController and page.isSamePageDisplayMode %}
-        {% if details.rows.length %}
-          {{ govukButton({ attributes: { id: "submit" }, text: page.saveAndContinueText, name: "next", value: "continue"}) }}
-        {% endif %}
-      {% else %}
-        {{ govukButton({ attributes: { id: "submit" }, text: page.saveAndContinueText }) }}
-      {% endif %}
-    {% endif %}
-  {% endif %}
+		{% if page.options.customText.samePageTitle %}
+			<table class="govuk-table">
+				<caption class="govuk-table__caption govuk-table__caption--m">{{page.options.customText.samePageTitle}}</caption>
+				<thead class="govuk-table__head">
+					<tr class="govuk-table__row">
+						<th scope="col" class="govuk-table__header">{{page.options.customText.columnOneTitle}}</th>
+						<th scope="col" class="govuk-table__header">
+							<strong>{{page.options.customText.columnTwoTitle}}</strong>
+						</th>
+						<th scope="col" class="govuk-table__header">
+							<strong>{{page.options.customText.columnThreeTitle}}</strong>
+						</th>
+					</tr>
+				</thead>
+				{{details.length}}
+				{% for row in details.rows %}
+					<tr class="govuk-table__row">
+						<th scope="row" class="govuk-table__header">{{ row.key.text }}</th>
+						<td class="govuk-table__cell">{{ row.value.text }}</td>
+						<td class="govuk-table__cell">
+							<a href={{row.action.href}}>{{ row.action.text }}</a>
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+		</table>
+		{%if not details.rows.length %}
+			<tr class="govuk-table__row">
+				<p class="govuk-body" style="margin-top: 30px;">
+					<strong>{{page.noCostsTitle}}</strong>
+				</p>
+				<p class="govuk-body">
+					{{page.noCostsText}}
+				</p>
+				<hr/>
+			</tr>
+		{% endif %}
+	{% else %}
+		{{ componentList(components) }}
+	{% endif %}
+	{% if not (components[0].type == "FlashCard") %}
+		{% if isStartPage %}
+			{{ govukButton({ attributes: { id: "submit" }, text: page.continueText}) }}
+		{% else %}
+			{% if page.isRepeatingFieldPageController and page.isSamePageDisplayMode %}
+				{% if details.rows.length %}
+					{{ govukButton({ attributes: { id: "submit" }, text: page.saveAndContinueText, name: "next", value: "continue"}) }}
+				{% endif %}
+			{% else %}
+				{{ govukButton({ attributes: { id: "submit" }, text: page.saveAndContinueText }) }}
+			{% endif %}
+		{% endif %}
+	{% endif %}
 </form>
