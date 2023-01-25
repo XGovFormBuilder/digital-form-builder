@@ -175,7 +175,7 @@
       "title": "feedback",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://wg4vaudr29.execute-api.eu-west-2.amazonaws.com/dev/webforms-feedback-submit"
+        "url": "https://api.devwebforms.test-and-trace.nhs.uk/webforms-submit-feedback"
       }
     }
   ],
