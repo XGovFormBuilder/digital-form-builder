@@ -15,7 +15,20 @@ suite("PageControllerBase", () => {
       title: "This is a test",
       path: "/first-page",
       name: "",
-      components: [],
+      components: [
+        {
+          name: "MultiInputField",
+          options: {
+            prefix: "£",
+            textFieldTitle: "Type of Revenue Cost",
+            numberFieldTitle: "Amount",
+          },
+          type: "MultiInputField",
+          title: "MultiInputField",
+          hint: "The MultiInputField needed",
+          schema: {},
+        },
+      ],
       next: [
         {
           path: "/second-page",
@@ -38,10 +51,10 @@ suite("PageControllerBase", () => {
     );
 
     const expected = [
-      { "type-of-revenue-cost": "ABC : def", value: "£20002" },
-      { "type-of-revenue-cost": "https://www.google.com", value: "£10552" },
-      { "type-of-revenue-cost": "Town Funding", value: "£52" },
-      { "type-of-revenue-cost": "This is a, test", value: "£8481" },
+      { "type-of-revenue-cost": "ABC : def", value: "20002" },
+      { "type-of-revenue-cost": "https://www.google.com", value: "10552" },
+      { "type-of-revenue-cost": "Town Funding", value: "52" },
+      { "type-of-revenue-cost": "This is a, test", value: "8481" },
     ];
 
     const result = controller.convertMultiInputStringAnswers([
