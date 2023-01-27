@@ -10,7 +10,7 @@ const { expect } = Code;
 const { suite, test } = lab;
 
 suite("RepeatingFieldPageController", () => {
-  test("convert answers to string", () => {
+  test("convertMultiInputStringAnswers", () => {
     const def = {
       title: "This is a test",
       path: "/first-page",
