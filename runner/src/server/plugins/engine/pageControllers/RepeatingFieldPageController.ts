@@ -296,7 +296,7 @@ export class RepeatingFieldPageController extends PageController {
     }
 
     // The function uses the match method to extract the description and amount from the string using the regular expression.
-    // Everything before the : is the description and after : £ is te amount
+    // Everything before the : is the description and after : £ is the amount
     const regex = /(.+) : £(.+)$/;
     for (let i = 0; i < answers.length; i++) {
       if (typeof answers[i] === "string") {
