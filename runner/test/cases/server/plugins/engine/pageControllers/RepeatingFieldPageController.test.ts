@@ -9,8 +9,8 @@ exports.lab = lab;
 const { expect } = Code;
 const { suite, test } = lab;
 
-suite("PageControllerBase", () => {
-  test("getErrors correctly parses ISO string to readable string", () => {
+suite("RepeatingFieldPageController", () => {
+  test("convert answers to string", () => {
     const def = {
       title: "This is a test",
       path: "/first-page",
