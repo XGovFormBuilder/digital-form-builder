@@ -297,7 +297,7 @@ export class RepeatingFieldPageController extends PageController {
 
     for (let i = 0; i < answers.length; i++) {
       if (typeof answers[i] === "string") {
-        // TODO: This is a javascript right join, we need to have a re-think about how add another answers work
+        // TODO: This is a javascript right split, we need to have a re-think about how add another answers work
         const reversedAnswer = answers[i].split("").reverse().join("");
         const values = reversedAnswer.split(" : ");
         const amount = values.shift().split("").reverse().join("");
