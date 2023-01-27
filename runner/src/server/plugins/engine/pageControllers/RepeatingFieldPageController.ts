@@ -300,11 +300,11 @@ export class RepeatingFieldPageController extends PageController {
         // TODO: This is a javascript right split, we need to have a re-think about how add another answers work
         const reversedAnswer = answers[i].split("").reverse().join("");
         const values = reversedAnswer.split(" : ");
-        const amount = values.shift().split("").reverse().join("");
+        const amount = values.shift().split("£").reverse().join("");
         const description = values.join(" : ").split("").reverse().join("");
         answers[i] = {
           "type-of-revenue-cost": description.trim(),
-          value: amount.substring(1),
+          value: amount,
         };
       }
     }
