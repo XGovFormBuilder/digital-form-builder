@@ -295,13 +295,14 @@ export class RepeatingFieldPageController extends PageController {
       return answers;
     }
 
+    // The function uses the match method to extract the description and amount from the string using the regular expression.
+    // Everything before the : is the description and after : £ is te amount
+    const regex = /(.+) : £(.+)$/;
     for (let i = 0; i < answers.length; i++) {
       if (typeof answers[i] === "string") {
-        // TODO: This is a javascript right split, we need to have a re-think about how add another answers work
-        const reversedAnswer = answers[i].split("").reverse().join("");
-        const values = reversedAnswer.split(" : ");
-        const amount = values.shift().split("£").reverse().join("");
-        const description = values.join(" : ").split("").reverse().join("");
+        // TODO: We need to have a re-think about how add another answers work
+        const amount = answers[i].match(regex)[2];
+        const description = answers[i].match(regex)[1];
         answers[i] = {
           "type-of-revenue-cost": description.trim(),
           value: amount,
