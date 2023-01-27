@@ -297,12 +297,15 @@ export class RepeatingFieldPageController extends PageController {
 
     for (let i = 0; i < answers.length; i++) {
       if (typeof answers[i] === "string") {
-        const values = answers[i].split(":");
-        let multiInput = {
-          "type-of-revenue-cost": values[0].trim(),
-          value: values[1].substring(2),
+        // TODO: This is a javascript right join, we need to have a re-think about how add another answers work
+        const reversedAnswer = answers[i].split("").reverse().join("");
+        const values = reversedAnswer.split(" : ");
+        const amount = values.shift().split("").reverse().join("");
+        const description = values.join(" : ").split("").reverse().join("");
+        answers[i] = {
+          "type-of-revenue-cost": description.trim(),
+          value: amount.substring(1),
         };
-        answers[i] = multiInput;
       }
     }
     return answers;
