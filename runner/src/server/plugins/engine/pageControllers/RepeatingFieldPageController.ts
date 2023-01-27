@@ -304,7 +304,7 @@ export class RepeatingFieldPageController extends PageController {
         const amount = answers[i].match(regex)[2];
         const description = answers[i].match(regex)[1];
         answers[i] = {
-          "type-of-revenue-cost": description.trim(),
+          "type-of-revenue-cost": description,
           value: amount,
         };
       }
