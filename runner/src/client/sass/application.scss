@@ -67,11 +67,15 @@ $govuk-global-styles: true;
     &--hidden-titles {
       @extend .govuk-visually-hidden;
     }
-
   }
   &__key {
     &--hidden-titles {
       width: 100%;
     }
   }
+}
+
+.heading {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
