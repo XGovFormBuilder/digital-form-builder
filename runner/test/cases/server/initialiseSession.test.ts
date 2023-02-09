@@ -171,5 +171,40 @@ suite("InitialiseSession", () => {
       expect(getResponse.statusCode).to.equal(302);
       expect(getResponse.headers.location).to.equal("/test/summary");
     });
+
+    test("redirects the user to the correct form with application id", async () => {
+      let serverRequestOptions = {
+        method: "POST",
+        url: `/session/test`,
+        payload: { ...baseRequest, options: { ...options, redirectPath: "" } },
+      };
+      let postResponse;
+      let getResponse;
+      let token;
+
+      postResponse = await server.inject(serverRequestOptions);
+      token = JSON.parse(postResponse.payload).token;
+      console.log(token, postResponse.payload);
+
+      getResponse = await server.inject({
+        url: `/session/${token}`,
+      });
+
+      expect(getResponse.statusCode).to.equal(302);
+      expect(getResponse.headers.location).to.equal("/test");
+
+      serverRequestOptions.payload.options.redirectPath = "summary";
+      serverRequestOptions.payload.metadata.form_session_identifier = "abc=123";
+      postResponse = await server.inject(serverRequestOptions);
+      token = JSON.parse(postResponse.payload).token;
+
+      getResponse = await server.inject({
+        url: `/session/${token}`,
+      });
+      expect(getResponse.statusCode).to.equal(302);
+      expect(getResponse.headers.location).to.equal(
+        "/test/summary?form_session_identifier=abc=123"
+      );
+    });
   });
 });
