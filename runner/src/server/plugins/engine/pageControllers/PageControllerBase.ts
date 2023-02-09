@@ -685,7 +685,11 @@ export class PageControllerBase {
         savedState
       );
 
-      if (config.savePerPage) {
+      // Start page check so forms do not save when hitting the "Contine" button on the first page
+      const startPage = this.model.def.startPage;
+      const isStartPage = this.path === startPage;
+
+      if (config.savePerPage && !isStartPage) {
         // Set flag for continous saves on each question?
         const saveViewModel = new SaveViewModel(
           this.title,
