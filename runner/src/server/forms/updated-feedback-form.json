@@ -15,69 +15,50 @@
         },
         {
           "name": "WFZvEw",
-          "options": {
-            "required": true,
-            "optionalText": false
-          },
+          "options": { "required": true, "optionalText": false },
           "type": "RadiosField",
           "title": "How do you feel about your experience today?",
           "hint": "Please select one of the following options",
           "list": "SNxrCf",
-          "values": {
-            "type": "listRef"
-          },
+          "values": { "type": "listRef" },
           "schema": {}
         },
         {
           "name": "vLhDGG",
-          "options": {
-            "required": true,
-            "optionalText": true
-          },
+          "options": { "required": true, "optionalText": true },
           "type": "RadiosField",
           "title": "Overall, how easy or difficult was it to provide your information?",
           "hint": "Please select one of the following options",
           "list": "jPKTbI",
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" },
+          "schema": {}
         },
         {
           "name": "uNLTeN",
-          "options": {
-            "required": true,
-            "optionalText": false
-          },
+          "options": { "required": true, "optionalText": false },
           "type": "CheckboxesField",
           "title": "What can we improve?",
           "hint": "Please select all that apply",
-          "list": "NxBFHu"
+          "list": "NxBFHu",
+          "schema": {}
         },
         {
           "name": "SMYKOI",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "MultilineTextField",
           "title": "Please provide some more feedback below",
           "hint": "Do not include personal or financial information e.g. National Insurance or credit card numbers",
-          "schema": {
-            "length": "",
-            "max": "1200"
-          }
+          "schema": { "length": "", "max": 1200 }
         },
         {
           "name": "UDDodm",
           "options": {},
           "type": "Para",
-          "content": "Please press continue to submit the feedback"
+          "content": "Please press continue to submit the feedback",
+          "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ]
+      "next": [{ "path": "/summary" }]
     },
     {
       "title": "Summary",
@@ -93,26 +74,14 @@
       "name": "SNxrCf",
       "type": "string",
       "items": [
-        {
-          "text": "Very satisfied",
-          "value": "Very satisfied"
-        },
-        {
-          "text": "Satisfied",
-          "value": "Satisfied"
-        },
+        { "text": "Very satisfied", "value": "Very satisfied" },
+        { "text": "Satisfied", "value": "Satisfied" },
         {
           "text": "Neither satisfied or dissatisfied",
           "value": "Neither satisfied or dissatisfied"
         },
-        {
-          "text": "Dissatisfied",
-          "value": "Dissatisfied"
-        },
-        {
-          "text": "Very dissatisfied",
-          "value": "Very dissatisfied"
-        }
+        { "text": "Dissatisfied", "value": "Dissatisfied" },
+        { "text": "Very dissatisfied", "value": "Very dissatisfied" }
       ]
     },
     {
@@ -120,26 +89,14 @@
       "name": "jPKTbI",
       "type": "string",
       "items": [
-        {
-          "text": "Very easy",
-          "value": "Very easy"
-        },
-        {
-          "text": "Easy",
-          "value": "Easy"
-        },
+        { "text": "Very easy", "value": "Very easy" },
+        { "text": "Easy", "value": "Easy" },
         {
           "text": "Neither easy or difficult",
           "value": "Neither easy or difficult"
         },
-        {
-          "text": "Difficult",
-          "value": "Difficult"
-        },
-        {
-          "text": "Very difficult",
-          "value": "Very difficult"
-        }
+        { "text": "Difficult", "value": "Difficult" },
+        { "text": "Very difficult", "value": "Very difficult" }
       ]
     },
     {
@@ -183,11 +140,6 @@
   "skipSummary": true,
   "declaration": "",
   "name": "Feedback",
-  "feedback": {
-    "feedbackForm": true,
-    "url": ""
-  },
-  "phaseBanner": {
-    "phase": "beta"
-  }
+  "feedback": { "feedbackForm": true, "url": "" },
+  "phaseBanner": {}
 }
