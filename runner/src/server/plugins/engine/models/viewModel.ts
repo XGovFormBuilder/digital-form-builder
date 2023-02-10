@@ -339,8 +339,13 @@ function Item(
   sectionState,
   page,
   model: FormModel,
-  params: { num?: number; returnUrl: string } = {
+  params: {
+    num?: number;
+    returnUrl: string;
+    form_session_identifier?: string;
+  } = {
     returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
+    form_session_identifier: request.query.form_session_identifier,
   }
 ) {
   const isRepeatable = !!page.repeatField;

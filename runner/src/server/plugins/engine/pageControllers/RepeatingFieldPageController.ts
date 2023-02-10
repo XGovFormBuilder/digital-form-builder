@@ -204,6 +204,12 @@ export class RepeatingFieldPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
       const { cacheService, statusService } = request.services([]);
+      let form_session_identifier = "";
+
+      //TODO quick fix to get sessions working with add another. We should look at a beeter way of passing through the query
+      if (query.form_session_identifier) {
+        form_session_identifier = `form_session_identifier=${query.form_session_identifier}`;
+      }
 
       if (query.view === "summary") {
         return this.summary.postRouteHandler(request, h);
@@ -240,9 +246,9 @@ export class RepeatingFieldPageController extends PageController {
         }
 
         if (typeof query.returnUrl !== "undefined") {
-          return h.redirect(query.returnUrl);
+          return h.redirect(`${query.returnUrl}?${form_session_identifier}`);
         }
-        return h.redirect(this.getNext(rest));
+        return h.redirect(`${this.getNext(rest)}?${form_session_identifier}`);
       }
 
       const modifyUpdate = (update) => {
@@ -266,10 +272,15 @@ export class RepeatingFieldPageController extends PageController {
         return response;
       }
 
+      //TODO when the rework of add another is done we should look at changing this to use the redirect methods in the helpers class
       if (this.options!.summaryDisplayMode!.samePage) {
-        return h.redirect(`/${this.model.basePath}${this.path}`);
+        return h.redirect(
+          `/${this.model.basePath}${this.path}?${form_session_identifier}`
+        );
       }
-      return h.redirect(`/${this.model.basePath}${this.path}?view=summary`);
+      return h.redirect(
+        `/${this.model.basePath}${this.path}?view=summary&${form_session_identifier}`
+      );
     };
   }
 
