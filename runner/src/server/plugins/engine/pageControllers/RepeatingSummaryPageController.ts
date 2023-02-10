@@ -3,6 +3,7 @@ import {
   HapiRequest,
   HapiResponseToolkit,
   HapiLifecycleMethod,
+  HapiServer,
 } from "server/types";
 import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
 export class RepeatingSummaryPageController extends PageController {
@@ -13,6 +14,7 @@ export class RepeatingSummaryPageController extends PageController {
   options!: RepeatingFieldPageController["options"];
   removeAtIndex!: RepeatingFieldPageController["removeAtIndex"];
   hideRowTitles!: RepeatingFieldPageController["hideRowTitles"];
+  logger: HapiServer["logger"];
 
   inputComponent;
   returnUrl;
@@ -41,6 +43,10 @@ export class RepeatingSummaryPageController extends PageController {
    */
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
+      this.logger.info(
+        ["RepeatPagsummarycontroller", "add another"],
+        `add another get hit`
+      );
       const { cacheService } = request.services([]);
 
       const { removeAtIndex } = request.query;
