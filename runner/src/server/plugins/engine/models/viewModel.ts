@@ -345,10 +345,13 @@ function Item(
     form_session_identifier?: string;
   } = {
     returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
-    form_session_identifier: request.query.form_session_identifier,
   }
 ) {
   const isRepeatable = !!page.repeatField;
+
+  if (request.query.form_session_identifier) {
+    params.form_session_identifier = request.query.form_session_identifier;
+  }
 
   if (isRepeatable && Array.isArray(sectionState)) {
     return sectionState.map((state, i) => {
