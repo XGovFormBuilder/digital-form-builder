@@ -150,7 +150,7 @@ export class RepeatingSummaryPageController extends PageController {
         actions: {
           items: [
             {
-              href: `?form_session_identifier=efg-895656&removeAtIndex=${i}${
+              href: `?removeAtIndex=${i}${
                 view ? `&view=${view}` : ``
               }${form_session_identifier}`,
               text: "Remove",
