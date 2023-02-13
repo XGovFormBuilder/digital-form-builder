@@ -119,10 +119,7 @@ export class RepeatingSummaryPageController extends PageController {
     if (this.inputComponent.type === "MultiInputField") {
       return this.buildTextFieldRows(state, form_session_identifier);
     }
-    return this.getRowsFromAnswers(
-      state,
-      response.query.form_session_identifier
-    );
+    return this.getRowsFromAnswers(state, form_session_identifier);
   }
 
   getRowsFromAnswers(answers, form_session_identifier, view = false) {
