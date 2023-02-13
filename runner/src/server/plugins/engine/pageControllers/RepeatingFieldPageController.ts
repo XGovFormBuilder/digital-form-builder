@@ -179,7 +179,7 @@ export class RepeatingFieldPageController extends PageController {
   addRowsToViewContext(response, state) {
     let rows = {};
     if (this.options!.summaryDisplayMode!.samePage) {
-      rows = this.summary.buildRows(this.getPartialState(state));
+      rows = this.summary.buildRows(this.getPartialState(state), response);
       response.source.context.details = { rows };
     }
   }
@@ -191,13 +191,19 @@ export class RepeatingFieldPageController extends PageController {
     let state = await cacheService.getState(request);
     const key = this.inputComponent.name;
     const answers = state[key];
+    let form_session_identifier = "";
+
+    if (query.form_session_identifier) {
+      form_session_identifier = `&form_session_identifier=${query.form_session_identifier}`;
+    }
+
     answers?.splice(removeAtIndex, 1);
     await cacheService.mergeState(request, { [key]: answers });
     if (state[key]?.length < 1 || this.isSamePageDisplayMode) {
-      return h.redirect("?view=0");
+      return h.redirect(`?view=0${form_session_identifier}`);
     }
 
-    return h.redirect(`?view=${view ?? "summary"}`);
+    return h.redirect(`?view=${view ?? "summary"}${form_session_identifier}`);
   }
 
   makePostRouteHandler() {

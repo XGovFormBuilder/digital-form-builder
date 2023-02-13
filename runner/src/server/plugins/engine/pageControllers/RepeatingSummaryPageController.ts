@@ -110,14 +110,22 @@ export class RepeatingSummaryPageController extends PageController {
     };
   }
 
-  buildRows(state) {
-    if (this.inputComponent.type === "MultiInputField") {
-      return this.buildTextFieldRows(state);
+  buildRows(state, response) {
+    let form_session_identifier = "";
+    if (response.request.query.form_session_identifier) {
+      form_session_identifier = `&form_session_identifier=${response.request.query.form_session_identifier}`;
     }
-    return this.getRowsFromAnswers(state);
+
+    if (this.inputComponent.type === "MultiInputField") {
+      return this.buildTextFieldRows(state, form_session_identifier);
+    }
+    return this.getRowsFromAnswers(
+      state,
+      response.query.form_session_identifier
+    );
   }
 
-  getRowsFromAnswers(answers, view = false) {
+  getRowsFromAnswers(answers, form_session_identifier, view = false) {
     const { title = "" } = this.inputComponent;
     const listValueToText = this.inputComponent.list?.items?.reduce(
       (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
@@ -142,7 +150,9 @@ export class RepeatingSummaryPageController extends PageController {
         actions: {
           items: [
             {
-              href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}`,
+              href: `?form_session_identifier=efg-895656&removeAtIndex=${i}${
+                view ? `&view=${view}` : ``
+              }${form_session_identifier}`,
               text: "Remove",
               visuallyHiddenText: titleWithIteration,
             },
@@ -152,7 +162,7 @@ export class RepeatingSummaryPageController extends PageController {
     });
   }
 
-  buildTextFieldRows(answers, view = false) {
+  buildTextFieldRows(answers, form_session_identifier, view = false) {
     const { title = "" } = this.inputComponent;
     return answers?.map((value, i) => {
       return {
@@ -169,7 +179,9 @@ export class RepeatingSummaryPageController extends PageController {
           }`,
         },
         action: {
-          href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}`,
+          href: `?removeAtIndex=${i}${
+            view ? `&view=${view}` : ``
+          }${form_session_identifier}`,
           text: "Remove",
           visuallyHiddenText: title,
         },
