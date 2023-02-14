@@ -11,9 +11,14 @@ export function proceed(
   nextUrl: string
 ) {
   const returnUrl = request.query.returnUrl;
+  let form_session_identifier = "";
+
+  if (request.query.form_session_identifier) {
+    form_session_identifier = `?form_session_identifier=${request.query.form_session_identifier}`;
+  }
 
   if (typeof returnUrl === "string" && returnUrl.startsWith("/")) {
-    return h.redirect(returnUrl);
+    return h.redirect(`${returnUrl}${form_session_identifier}`);
   } else {
     return redirectTo(request, h, nextUrl);
   }
