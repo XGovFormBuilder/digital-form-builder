@@ -18,11 +18,7 @@ export function proceed(
   }
 
   if (typeof returnUrl === "string" && returnUrl.startsWith("/")) {
-    const parsedUrl = new URL(returnUrl);
-    if (request.query.form_session_identifier) {
-        parsedUrl.searchParams.append('form_session_identifier', request.query.form_session_identifier);
-    }
-    return h.redirect(parsedUrl.toString());
+    return h.redirect(`${returnUrl}${form_session_identifier}`);
   } else {
     return redirectTo(request, h, nextUrl);
   }
