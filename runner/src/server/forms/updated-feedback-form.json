@@ -139,7 +139,7 @@
   "version": 2,
   "skipSummary": true,
   "declaration": "",
-  "name": "Feedback",
+  "name": "updated-feedback-form",
   "feedback": { "feedbackForm": true, "url": "" },
   "phaseBanner": {}
 }
