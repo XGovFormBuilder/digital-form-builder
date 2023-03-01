@@ -11,7 +11,7 @@ module.exports = {
    * Initialised sessions
    * Allows a user's state to be pre-populated.
    */
-  safelist: ["webhook.site"], // Array of hostnames you want to accept when using a session callback. eg "gov.uk".
+  safelist: [], // Array of hostnames you want to accept when using a session callback. eg "gov.uk".
   initialisedSessionTimeout: minute * 60 * 24 * 28, // Defaults to 28 days. Set the TTL for the initialised session
   initialisedSessionKey: `${nanoid.random(16)}`, // This should be set if you are deploying replicas
 

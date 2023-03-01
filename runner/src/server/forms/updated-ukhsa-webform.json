@@ -2,6 +2,20 @@
   "startPage": "/start-ukhsa-webform",
   "pages": [
     {
+      "path": "/start-ukhsa-webform",
+      "title": "Welcome to the form",
+      "components": [
+        {
+          "name": "UccVyu",
+          "options": {},
+          "type": "Para",
+          "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos natus consequuntur ratione dolorum ad, saepe voluptatibus sed necessitatibus tempore distinctio voluptates laborum hic temporibus voluptatem, exercitationem pariatur nam, asperiores odit et! Exercitationem, natus recusandae quod quas ipsum cum, perferendis ex provident adipisci ad doloremque dicta aperiam molestiae aut ipsa. Voluptate."
+        }
+      ],
+      "next": [{ "path": "/interaction" }],
+      "controller": "./pages/start.js"
+    },
+    {
       "title": "Please tell us the name of the last person you interacted with at the Gym/swimming pool",
       "path": "/interaction",
       "components": [
@@ -117,20 +131,6 @@
       "next": [],
       "section": "Review",
       "controller": "./pages/summary.js"
-    },
-    {
-      "path": "/start-ukhsa-webform",
-      "title": "Welcome to the form",
-      "components": [
-        {
-          "name": "UccVyu",
-          "options": {},
-          "type": "Para",
-          "content": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos natus consequuntur ratione dolorum ad, saepe voluptatibus sed necessitatibus tempore distinctio voluptates laborum hic temporibus voluptatem, exercitationem pariatur nam, asperiores odit et! Exercitationem, natus recusandae quod quas ipsum cum, perferendis ex provident adipisci ad doloremque dicta aperiam molestiae aut ipsa. Voluptate."
-        }
-      ],
-      "next": [{ "path": "/interaction" }],
-      "controller": "./pages/start.js"
     }
   ],
   "lists": [
