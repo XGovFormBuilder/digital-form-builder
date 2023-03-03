@@ -19,6 +19,10 @@ FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
+COPY --chown=appuser:appuser model/package.json model/package.json
+COPY --chown=appuser:appuser runner/package.json runner/package.json
+COPY --chown=appuser:appuser designer/package.json designer/package.json
+COPY --chown=appuser:appuser e2e/package.json e2e/package.json
 USER 1001
 RUN --mount=type=cache,target=.yarn/cache,id=base,uid=1001,mode=0755 yarn
 
@@ -31,7 +35,7 @@ RUN --mount=type=cache,target=.yarn/cache,id=base,uid=1001,mode=0755 yarn
 # rsync is used to merge folders instead of individually copying files
 FROM dependencies AS model
 WORKDIR /usr/src/app
-COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
+COPY --chown=appuser:appuser ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
 RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
     --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
@@ -48,7 +52,6 @@ ARG LAST_COMMIT="NOT_DEFINED"
 ARG LAST_TAG="NOT_DEFINED"
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
-COPY --chown=appuser:appuser designer/package.json ./designer/
 RUN --mount=type=cache,target=.yarn/cache,id=designer,uid=1001,mode=0755 yarn workspaces focus @xgovformbuilder/designer
 COPY --chown=appuser:appuser ./designer ./designer/
 
