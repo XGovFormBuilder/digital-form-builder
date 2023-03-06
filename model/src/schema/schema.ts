@@ -245,6 +245,7 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    authCheck: joi.boolean().default(false).optional(),
   });
 
 /**

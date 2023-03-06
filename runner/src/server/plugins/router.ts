@@ -116,6 +116,28 @@ export default {
 
       server.route({
         method: "get",
+        path: "/unauthorized-access",
+        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+          if (request.yar) {
+            request.yar.reset();
+          }
+          let startPage = "/";
+          const { referer } = request.headers;
+
+          if (referer) {
+            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
+            if (match && match.length > 1) {
+              startPage = `/${match[1]}`;
+            }
+          }
+          return h.view("unauthorized-access", {
+            startPage,
+          });
+        },
+      });
+
+      server.route({
+        method: "get",
         path: "/timeout",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           if (request.yar) {

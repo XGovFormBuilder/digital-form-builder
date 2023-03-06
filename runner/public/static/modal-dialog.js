@@ -1,4 +1,4 @@
-;(function (global) {
+(function (global) {
   'use strict'
 
   var GOVUKFrontend = global.GOVUKFrontend || {}
@@ -269,6 +269,8 @@
 
             //  if (seconds > 60) {
             GOVUKFrontend.modalDialog.redirect()
+            // Delete the webform auth cookie
+            GOVUK.cookie('webformAuth', null);
           }
 
           //   // TO DO: open modal if advised so by the server, tell modal how many seconds are left
