@@ -270,7 +270,7 @@
             //  if (seconds > 60) {
             GOVUKFrontend.modalDialog.redirect()
             // Delete the webform auth cookie
-            GOVUK.cookie('webformAuth', null);
+            GOVUK.cookie('WEBFORM_AUTH', null);
           }
 
           //   // TO DO: open modal if advised so by the server, tell modal how many seconds are left

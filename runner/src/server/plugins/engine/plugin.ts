@@ -205,7 +205,7 @@ export const plugin = {
         );
         if (page) {
           // webformAuth Cookie Check
-          if (isAuthRequired && !request?.state?.webformAuth) {
+          if (isAuthRequired && !request?.state?.WEBFORM_AUTH) {
             return h.redirect(`/unauthorized-access`);
           }
           // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
