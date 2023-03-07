@@ -33,7 +33,6 @@ function getStartPageRedirect(
 ) {
   const startPage = normalisePath(model.def.startPage ?? "");
   let startPageRedirect: any;
-
   if (startPage.startsWith("http")) {
     startPageRedirect = redirectTo(request, h, startPage);
   } else {
@@ -200,10 +199,15 @@ export const plugin = {
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
         const model = forms[id];
+        const isAuthRequired = model?.def.authCheck || false;
         const page = model?.pages.find(
           (page) => normalisePath(page.path) === normalisePath(path)
         );
         if (page) {
+          // webformAuth Cookie Check
+          if (isAuthRequired && !request?.state?.WEBFORM_AUTH) {
+            return h.redirect(`/unauthorized-access`);
+          }
           // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
           if (
             page.pageDef.controller !== "./pages/start.js" &&

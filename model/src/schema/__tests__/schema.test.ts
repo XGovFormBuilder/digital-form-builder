@@ -18,6 +18,7 @@ describe("Form schema", () => {
       name: "Schema fix 3",
       feedback: { feedbackForm: false, url: "" },
       phaseBanner: {},
+      authCheck: false,
     };
 
     const { value, error } = Schema.validate(goodConfiguration, {
