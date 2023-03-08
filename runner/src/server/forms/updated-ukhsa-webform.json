@@ -186,7 +186,7 @@
       "title": "submit-data-webhook",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://api.devwebforms.test-and-trace.nhs.uk/webforms-submit-form-data"
+        "url": "https://im9ttuet6d.execute-api.eu-west-2.amazonaws.com/dev"
       }
     }
   ],
