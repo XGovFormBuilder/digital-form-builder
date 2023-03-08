@@ -132,7 +132,7 @@
       "title": "feedback",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://api.devwebforms.test-and-trace.nhs.uk/webforms-submit-feedback"
+        "url": "https://i870df90vf.execute-api.eu-west-2.amazonaws.com/dev"
       }
     }
   ],
