@@ -1,0 +1,91 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/achos-strategol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos strategol",
+      "path": "/achos-strategol-LLboxb",
+      "components": [
+        {
+          "name": "WnykzV",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut ydych chi wedi ystyried yr amgylchedd</h2>"
+        },
+        {
+          "name": "CvVZJv",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym sut rydych wedi ystyried cynaliadwyedd amgylcheddol eich prosiect",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym sut rydych wedi ystyried cynaliadwyedd amgylcheddol eich prosiect</span>Gall hyn gynnwys:\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>unrhyw ddulliau carbon isel neu ddi-garbon y byddwch yn eu defnyddio yn ystod adeiladu</li>\n<li>sut bydd yr ased yn cyd-fynd â mentrau Sero Net yn y dyfodol</li>\n<li>sut byddwch chi'n mesur ac yn lleihau effaith amgylcheddol yr ased</li>\n</ul>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/achos-strategol",
+      "title": "Achos strategol",
+      "components": [
+        {
+          "name": "KboYIX",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Cynaliadwyedd amgylcheddol</h2>"
+        },
+        {
+          "name": "OwgQMC",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:</label>\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cynaliadwyedd amgylcheddol eich prosiect</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/achos-strategol-LLboxb"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

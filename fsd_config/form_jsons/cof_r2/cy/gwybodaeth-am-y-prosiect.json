@@ -1,0 +1,247 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/yngln-ch-prosiect",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Ynglŷn â'ch prosiect",
+      "path": "/yngln-ch-prosiect",
+      "components": [
+        {
+          "name": "yEnOXB",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Gwybodaeth am y prosiect</h2>"
+        },
+        {
+          "name": "vUdzKC",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cyllid blaenorol y Gronfa Perchnogaeth Gymunedol a dderbyniwyd (os yw'n gymwys)            </li>\n<li>enw'r prosiect</li>\n<li>sut mae'r ased yn cael ei ddefnyddio</li>\n<li>pam mae'r ased mewn perygl</li>\n<li>crynodeb o'r Prosiect</li>\n<li>cyfeiriad yr ased</li>\n<li>etholaeth yr ased</li>\n<li>ardal ased y cyngor</li>\n</ul>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-PFJXvG"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/yngln-ch-prosiect-PFJXvG",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "aVhByI",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Cyllid blaenorol gan y Gronfa Perchnogaeth Gymunedol</h2>"
+        },
+        {
+          "name": "gScdbf",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A ydych chi wedi derbyn cyllid drwy'r Gronfa Perchnogaeth Gymunedol o'r blaen?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-qBrufr"
+        },
+        {
+          "path": "/yngln-ch-prosiect-uEsEyH",
+          "condition": "cPMvNl"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-uEsEyH",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "tmVEPV",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Prosiectau a ariannwyd yn flaenorol gan y Gronfa Perchnogaeth Gymunedol</h2>"
+        },
+        {
+          "name": "IrIYcA",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch eich prosiect blaenorol",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch eich prosiect blaenorol</span>Cynhwyswch:\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>enw'r prosiect</li>\n<li>trosolwg cyffredinol o'r prosiect</li>\n<li>y dyddiad y derbynioch gyllid</li>\n</ul>"
+        },
+        {
+          "name": "TFdnGq",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-!-width-one-third"
+          },
+          "type": "NumberField",
+          "title": "Swm y cyllid a dderbyniwyd"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-qBrufr"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-qBrufr",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "umDxBP",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Enw'r prosiect a chrynodeb ohono</h2>"
+        },
+        {
+          "name": "KAgrBz",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw'r prosiect",
+          "hint": "Dyma beth fydd eich prosiect yn cael ei alw o fewn eich sefydliad a chan y cyhoedd.\n<br> <br>\nDewisiwch enw sy'n disgrifio'ch prosiect. Er enghraifft, enw eich ased, neu linc i leoliad eich ased."
+        },
+        {
+          "name": "wudRxx",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym sut mae'r ased yn cael ei ddefnyddio ar hyn o bryd, neu sut mae wedi'i ddefnyddio'n flaenorol, a pham mae'n bwysig i'r gymuned"
+        },
+        {
+          "name": "TlGjXb",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Eglurwch pam mae'r ased mewn perygl o gael ei golli i'r gymuned, neu pam mae eisoes wedi'i golli"
+        },
+        {
+          "name": "GCjCse",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Rhowch grynodeb byr o'ch prosiect, gan gynnwys beth rydych chi'n gobeithio ei gyflawni"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-HqDfXH"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-HqDfXH",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "tpQVaN",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Cyfeiriad yr ased</h2>"
+        },
+        {
+          "name": "yEmHpp",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "Cyfeiriad yr ased cymunedol"
+        },
+        {
+          "name": "iTeLGU",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Ym mha etholaeth mae eich ased?"
+        },
+        {
+          "name": "MGRlEi",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Ym mha ardal cyngor lleol mae eich ased?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "kLrefe",
+      "title": "Project information"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "A ydych chi wedi derbyn cyllid drwy'r Gronfa Perchnogaeth Gymunedol o'r blaen-YES",
+      "name": "cPMvNl",
+      "value": {
+        "name": "A ydych chi wedi derbyn cyllid drwy'r Gronfa Perchnogaeth Gymunedol o'r blaen-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "gScdbf",
+              "type": "YesNoField",
+              "display": "A ydych chi wedi derbyn cyllid drwy'r Gronfa Perchnogaeth Gymunedol o'r blaen?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

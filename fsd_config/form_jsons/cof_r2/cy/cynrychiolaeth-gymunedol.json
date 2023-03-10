@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/achos-rheoli",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos rheoli",
+      "path": "/achos-rheoli-lsNgqu",
+      "components": [
+        {
+          "name": "GHjwwB",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut byddwch chi'n rhedeg yr ased</h2>"
+        },
+        {
+          "name": "JnvsPq",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Rhestrwch aelodau eich bwrdd</span>Cynhwyswch eu:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>rôl</li>\n<li>prif gyfrifoldebau</li>\n</ul>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu tystiolaeth i ategu'ch atebion.</p>\n\n",
+          "title": "Rhestrwch aelodau eich bwrdd"
+        },
+        {
+          "name": "yMCivI",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym am eich strwythurau llywodraethu ac aelodaeth"
+        },
+        {
+          "name": "NUZOvS",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Eglurwch sut byddwch chi'n ystyried barn y gymuned wrth redeg yr ased",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Eglurwch sut byddwch chi'n ystyried barn y gymuned wrth redeg yr ased</span>Cynhwyswch y modd y byddant yn cael eu cynnwys wrth wneud penderfyniadau, a sut byddwch chi'n mesur cefnogaeth gyhoeddus i'ch penderfyniadau"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/achos-rheoli",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "wFVhAN",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Cynrychiolaeth gymunedol</h2>"
+        },
+        {
+          "name": "ZhyrfW",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>aelodau eich bwrdd</li>\n<li>strwythurau llywodraethu ac aelodaeth</li>\n<li>sut byddwch chi'n ystyried barn y gymuned</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/achos-rheoli-lsNgqu"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

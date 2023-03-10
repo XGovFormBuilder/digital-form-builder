@@ -1,0 +1,107 @@
+{
+  "metadata": {},
+  "startPage": "/management-case-zmxyqW",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Management case",
+      "path": "/management-case",
+      "components": [
+        {
+          "name": "GHjwwB",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">How you’ll run the asset</h2>"
+        },
+        {
+          "name": "JnvsPq",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "hint": "<span class=\"govuk-label govuk-label--s\">List the members of your board</span>Please include their:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>role</li>\n<li>main responsibilities</li>\n</ul>\n<p>You can use your business plan to provide information that supports your answers.</p>\n\n",
+          "title": "List the members of your board"
+        },
+        {
+          "name": "yMCivI",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Tell us about your governance and membership structures"
+        },
+        {
+          "name": "NUZOvS",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Explain how you'll consider the views of the community in the running of the asset",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Explain how you'll consider the views of the community in the running of the asset</span>Include how they'll be involved in decision making, and how you'll measure public support for your decisions"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/management-case-zmxyqW",
+      "title": "Management case",
+      "components": [
+        {
+          "name": "wFVhAN",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Community representation</h2>"
+        },
+        {
+          "name": "ZhyrfW",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>members of your board</li>\n<li>governance and membership structures</li>\n<li>how you'll consider the community's views</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/management-case"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

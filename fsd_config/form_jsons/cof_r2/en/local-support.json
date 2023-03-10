@@ -1,0 +1,152 @@
+{
+  "metadata": {},
+  "startPage": "/strategic-case-RqzAFh",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Strategic case",
+      "path": "/strategic-case",
+      "components": [
+        {
+          "name": "tztfSa",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Your support for the project</h2>"
+        },
+        {
+          "name": "KqoaJL",
+          "options": {},
+          "type": "YesNoField",
+          "hint": "This support can be from: \n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>community groups</li>\n<li>local businesses</li>\n<li>public sector partners</li>\n</ul>\n\n\n",
+          "title": "Are you confident there is local support for your project?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        },
+        {
+          "path": "/strategic-case-CVieGm",
+          "condition": "xlCiWk"
+        }
+      ]
+    },
+    {
+      "path": "/strategic-case-CVieGm",
+      "title": "Strategic case",
+      "components": [
+        {
+          "name": "abqMko",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Local support details</h2>"
+        },
+        {
+          "name": "BFbzux",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Tell us more about the local support for your project",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Tell us more about the local support for your project</span>\nThis can include: \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>surveys of the community</li>\n<li>town hall meetings you have run</li>\n<li>the estimated number of volunteers you have for your project</li>\n<li>a letter from your local MP</li>\n</ul>\n"
+        },
+        {
+          "name": "EEBFao",
+          "options": {
+            "required": false
+          },
+          "type": "FileUploadField",
+          "title": "Upload supporting evidence",
+          "hint": "It should be a single file no bigger than 5MB in any of the following formats:\n\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/strategic-case-RqzAFh",
+      "title": "Strategic case",
+      "components": [
+        {
+          "name": "OtQEKQ",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Local support</h2>"
+        },
+        {
+          "name": "NdCUwM",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">In this section, we'll ask about:</h2>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>local support for your project</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/strategic-case"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Is there local support for your project-yes",
+      "name": "xlCiWk",
+      "value": {
+        "name": "Is there local support for your project-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "KqoaJL",
+              "type": "YesNoField",
+              "display": "Is there local support for your project?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

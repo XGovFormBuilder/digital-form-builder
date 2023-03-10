@@ -1,0 +1,13 @@
+{
+  "env": "production",
+  "logPrettyPrint": false,
+  "enableCsrf": true,
+  "safelist": [
+    "funding-service-design-application-store-dev.london.cloudapps.digital",
+    "funding-service-design-application-store-test.london.cloudapps.digital",
+    "funding-service-design-application-store.apps.internal"
+  ],
+  "jwtAuthCookieName": "fsd_user_token",
+  "sessionTimeout": 86400000,
+  "feedbackLink": "https://forms.office.com/Pages/ResponsePage.aspx?id=EGg0v32c3kOociSi7zmVqFJBHpeOL2tNnpiwpdL2iElUREIySU9OWTU4R0RTNjhBUDE1Q1VYVFBEMi4u"
+}

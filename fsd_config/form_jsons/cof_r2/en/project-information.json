@@ -1,0 +1,239 @@
+{
+  "metadata": {},
+  "startPage": "/about-your-project",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "About your project",
+      "path": "/about-your-project",
+      "components": [
+        {
+          "name": "yEnOXB",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Project information</h2>"
+        },
+        {
+          "name": "vUdzKC",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>previous COF funding received (if applicable)</li>\n<li>project name</li>\n<li>how the asset is being used</li>\n<li>why the asset is at risk</li>\n<li>project summary</li>\n<li>asset address</li>\n<li>constituency of asset</li>\n<li>council area of asset</li>\n</ul>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-your-project-CBHWZS"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/about-your-project-CBHWZS",
+      "title": "About your project",
+      "components": [
+        {
+          "name": "aVhByI",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Previous Community Ownership Fund funding</h2>"
+        },
+        {
+          "name": "gScdbf",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Have you been given funding through the Community Ownership Fund before?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-your-project-vVVRKd",
+          "condition": "VDbJHV"
+        },
+        {
+          "path": "/about-your-project-rgnysl"
+        }
+      ]
+    },
+    {
+      "path": "/about-your-project-vVVRKd",
+      "title": "About your project",
+      "components": [
+        {
+          "name": "tmVEPV",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Projects previously funded by the Community Ownership Fund</h2>"
+        },
+        {
+          "name": "IrIYcA",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Describe your previous project",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Describe your previous project</span>Include: \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>project name</li>\n<li>general project overview</li>\n<li>date you received funding</li>\n</ul>"
+        },
+        {
+          "name": "TFdnGq",
+          "options": { "prefix": "£", "classes": "govuk-!-width-one-third" },
+          "type": "NumberField",
+          "title": "Amount of funding received"
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-your-project-rgnysl"
+        }
+      ]
+    },
+    {
+      "path": "/about-your-project-rgnysl",
+      "title": "About your project",
+      "components": [
+        {
+          "name": "umDxBP",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Project name and summary</h2>"
+        },
+        {
+          "name": "KAgrBz",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Project name",
+          "hint": "This is what your project will be called within your organisation and by the public.\n<br> <br>\nPlease choose a name that describes your project. For example, the name of your asset, or a link to your asset's location."
+        },
+        {
+          "name": "wudRxx",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Tell us how the asset is currently being used, or how it has been used before, and why it's important to the community"
+        },
+        {
+          "name": "TlGjXb",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Explain why the asset is at risk of being lost to the community, or why it has already been lost"
+        },
+        {
+          "name": "GCjCse",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Give a brief summary of your project, including what you hope to achieve"
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-your-project-vHaMeo"
+        }
+      ]
+    },
+    {
+      "path": "/about-your-project-vHaMeo",
+      "title": "About your project",
+      "components": [
+        {
+          "name": "tpQVaN",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Address of the asset</h2>"
+        },
+        {
+          "name": "yEmHpp",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "Address of the community asset"
+        },
+        {
+          "name": "iTeLGU",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "In which constituency is your asset?"
+        },
+        {
+          "name": "MGRlEi",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "In which local council area is your asset?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "kLrefe",
+      "title": "Project information"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Have you been given funding through the Community Ownership Fund before-yes",
+      "name": "VDbJHV",
+      "value": {
+        "name": "Have you been given funding through the Community Ownership Fund before-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "gScdbf",
+              "type": "YesNoField",
+              "display": "Have you been given funding through the Community Ownership Fund before?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

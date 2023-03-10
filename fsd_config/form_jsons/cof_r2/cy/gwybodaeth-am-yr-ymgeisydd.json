@@ -1,0 +1,85 @@
+{
+  "metadata": { "isWelsh": true },
+  "startPage": "/yngln-ch-sefydliad",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Ynglŷn â'ch sefydliad",
+      "path": "/yngln-ch-sefydliad-jkKfjv",
+      "components": [
+        {
+          "name": "ZAKTgH",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Manylion y prif gyswllt</h2>"
+        },
+        {
+          "name": "ZBjDTn",
+          "options": { "classes": "govuk-!-width-full" },
+          "type": "TextField",
+          "title": "Enw'r cyswllt arweiniol",
+          "hint": "Nid oes rhaid i hwn fod yr un unigolyn â'r cyswllt arweiniol ar gyfer eich datganiad o ddiddordeb.          \n<p>Bydd yn derbyn yr holl wybodaeth am y cais hwn.</p>"
+        },
+        {
+          "name": "LZBrEj",
+          "options": { "classes": "govuk-!-width-full" },
+          "type": "EmailAddressField",
+          "title": "Cyfeiriad e-bost y cyswllt arweiniol"
+        },
+        {
+          "name": "lRfhGB",
+          "options": { "classes": "govuk-!-width-full" },
+          "type": "TelephoneNumberField",
+          "title": "Rhif ffôn y cyswllt arweiniol"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/yngln-ch-sefydliad",
+      "title": "Ynglŷn â'ch sefydliad",
+      "components": [
+        {
+          "name": "xdywoY",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Gwybodaeth am yr ymgeisydd</h2>"
+        },
+        {
+          "name": "BOWelg",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>enw'r cyswllt arweiniol</li>\n<li>cyfeiriad e-bost y cyswllt arweiniol</li>\n<li>rhif ffôn y cyswllt arweiniol</li>\n</ul>\n\n\n"
+        }
+      ],
+      "next": [{ "path": "/yngln-ch-sefydliad-jkKfjv" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [{ "name": "zjcAIa", "title": "Gwybodaeth am yr ymgeisydd" }],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

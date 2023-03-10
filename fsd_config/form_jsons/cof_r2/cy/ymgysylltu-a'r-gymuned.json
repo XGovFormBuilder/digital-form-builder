@@ -1,0 +1,137 @@
+{
+  "metadata": { "isWelsh": true },
+  "startPage": "/achos-strategol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos strategol ",
+      "path": "/achos-strategol-ujbSOg",
+      "components": [
+        {
+          "name": "Skuupp",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut ydych chi wedi ymgysylltu â'r gymuned ynghylch yr ased</h2>"
+        },
+        {
+          "name": "HJBgvw",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym sut rydych wedi ymgysylltu â'r gymuned ynglŷn â'ch bwriad i gymryd perchnogaeth o'r ased, ac eglurwch sut mae hyn wedi llywio cynlluniau eich prosiect"
+        },
+        {
+          "name": "JCACTy",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A ydych chi wedi codi unrhyw arian yn y gymuned?",
+          "values": { "type": "listRef" }
+        }
+      ],
+      "next": [
+        { "path": "/achos-strategol-kaqQtA" },
+        { "path": "/achos-strategol-DlvPjn", "condition": "gsNsBA" }
+      ]
+    },
+    {
+      "path": "/achos-strategol-kaqQtA",
+      "title": "Achos strategol ",
+      "components": [
+        {
+          "name": "mCOxVf",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Eich prosiect a'ch cynlluniau ehangach</h2>"
+        },
+        {
+          "name": "NZKHOp",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym sut mae eich prosiect yn cefnogi unrhyw gynlluniau lleol ehangach"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/achos-strategol-DlvPjn",
+      "title": "Achos strategol ",
+      "components": [
+        {
+          "name": "EjFSzg",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Eich gweithgareddau codi arian</h2>"
+        },
+        {
+          "name": "dpLyQh",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch eich gweithgareddau codi arian"
+        }
+      ],
+      "next": [{ "path": "/achos-strategol-kaqQtA" }]
+    },
+    {
+      "path": "/achos-strategol",
+      "title": "Achos strategol",
+      "components": [
+        {
+          "name": "qGPvvB",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Ymgysylltu â'r gymuned</h2>"
+        },
+        {
+          "name": "Nbtcbl",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Yn yr adran hon, byddwn yn holi ynghylch:</h2>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>pwy rydych wedi ymgysylltu â nhw yn y gymuned</li>\n<li>gweithgareddau codi arian (os yw'n gymwys)</li>\n<li>sut mae eich prosiect yn cefnogi cynlluniau ehangach</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [{ "path": "/achos-strategol-ujbSOg" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "A ydych chi wedi codi unrhyw arian yn y gymuned-YES",
+      "name": "gsNsBA",
+      "value": {
+        "name": "A ydych chi wedi codi unrhyw arian yn y gymuned-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "JCACTy",
+              "type": "YesNoField",
+              "display": "A ydych chi wedi codi unrhyw arian yn y gymuned?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": { "savePerPageUrl": "True" }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

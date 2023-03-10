@@ -1,0 +1,141 @@
+{
+  "metadata": {},
+  "startPage": "/potential-to-deliver-community-benefits-rofqAG",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Potential to deliver community benefits",
+      "path": "/potential-to-deliver-community-benefits",
+      "components": [
+        {
+          "name": "UiHVet",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">How the asset will benefit the community under your ownership</h2>"
+        },
+        {
+          "name": "QjJtbs",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "What community benefits do you expect to deliver with this project? ",
+          "hint": "Select all that apply",
+          "list": "crPmPN"
+        },
+        {
+          "name": "gDTsgG",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Tell us about these benefits in detail, and explain how you'll measure the benefits it'll bring for the community"
+        },
+        {
+          "name": "kYjJFy",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Explain how you plan to sustain, and potentially expand, these benefits over time"
+        },
+        {
+          "name": "UbjYqE",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Tell us how you'll make sure the whole community benefits from the asset",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Tell us how you'll make sure the whole community benefits from the asset</span>For example, people who have not used the asset in the past"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/potential-to-deliver-community-benefits-rofqAG",
+      "title": "Potential to deliver community benefits",
+      "components": [
+        {
+          "name": "VGdMUY",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Community benefits</h2>"
+        },
+        {
+          "name": "JHbfIz",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>community benefits project will deliver</li>\n<li>how you’ll measure benefits</li>\n<li>how benefits will be delivered and sustained</li>\n<li>how community ownership will be inclusive</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/potential-to-deliver-community-benefits"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "What community benefits do you expect to deliver with this project",
+      "name": "crPmPN",
+      "type": "string",
+      "items": [
+        {
+          "text": "Community pride and perceptions of the local area as a place to live",
+          "value": "community-pride"
+        },
+        {
+          "text": "Social trust, cohesion and a sense of belonging",
+          "value": "social-trust"
+        },
+        {
+          "text": "Participation in community life, arts and culture, or sport",
+          "value": "participation "
+        },
+        {
+          "text": "Local economic outcomes, such as employment and volunteering opportunities, and employability and skills",
+          "value": "local-economic "
+        },
+        {
+          "text": "Delivering positive impact in physical and mental health, and reducing loneliness and isolation",
+          "value": "delivering-positive"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

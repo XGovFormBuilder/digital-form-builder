@@ -1,0 +1,842 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/yngln-ch-prosiect",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Ynglŷn â'ch prosiect",
+      "path": "/yngln-ch-prosiect-RjBjaK",
+      "components": [
+        {
+          "name": "pkTHJq",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut caiff yr ased ei ddefnyddio yn y gymuned</h2>"
+        },
+        {
+          "name": "yaQoxU",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Math o ased",
+          "hint": "Dewiswch sut mae'r ased yn cael ei ddefnyddio'n bennaf. Er enghraifft,\nos yw'n theatr sydd â chaffi hefyd, dewiswch 'Theatr'",
+          "list": "AwCSoL",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-PVPCpu"
+        },
+        {
+          "path": "/yngln-ch-prosiect-lEOTVw",
+          "condition": "BYKrSZ"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-lEOTVw",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "LjSaeq",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut caiff yr ased ei ddefnyddio yn y gymuned</h2>"
+        },
+        {
+          "name": "GjzaqR",
+          "options": {},
+          "type": "TextField",
+          "title": "Math o ased (arall)"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-PVPCpu"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-PVPCpu",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "nouxzF",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut byddwch yn berchen ar yr ased neu'n prydlesu'r ased</h2>"
+        },
+        {
+          "name": "VWkLlk",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Beth ydych chi'n bwriadu ei wneud gyda'r ased?",
+          "list": "ClZhyp",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "IRfSZp",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Ydych chi'n gwybod pwy sy'n berchen ar eich ased ar hyn o bryd?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-zRheCl",
+          "condition": "jiYRKl"
+        },
+        {
+          "path": "/yngln-ch-prosiect-IzLOLm",
+          "condition": "uioqeK"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-zRheCl",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "Fmluly",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Pwy sy'n berchen ar yr ased ar hyn o bryd</h2>"
+        },
+        {
+          "name": "ymlmrX",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw perchennog presennol yr ased"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-FyQPEL"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-FyQPEL",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "bLCDBI",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Os ydych eisoes yn berchen arno</h2>"
+        },
+        {
+          "name": "gkulUE",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A ydych chi eisoes wedi cwblhau'r pryniant neu'r brydles? ",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-IvofVb",
+          "condition": "UiWPBk"
+        },
+        {
+          "path": "/yngln-ch-prosiect-tXQRck",
+          "condition": "IYvMZI"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-IzLOLm",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "fJVdgL",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Statws perchnogaeth bresennol</h2>"
+        },
+        {
+          "name": "FtDJfK",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Disgrifiwch y statws perchnogaeth presennol"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-FyQPEL"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-IvofVb",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "lusfLU",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Telerau eich perchnogaeth neu'ch prydles</h2>"
+        },
+        {
+          "name": "uBXptf",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch y broses werthu, neu delerau eich  prydles os ydych wedi rhentu'r ased",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch y broses werthu, neu delerau eich  prydles os ydych wedi rhentu'r ased</span>Er enghraifft, ocsiwn"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-FwZiQZ"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-tXQRck",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "MRrIQO",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Telerau disgwyliedig eich perchnogaeth neu'ch prydles</h2>"
+        },
+        {
+          "name": "nvMmGE",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch y broses werthu ddisgwyliedig, neu delerau arfaethedig eich prydles os ydych chi'n rhentu'r ased",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch y broses werthu ddisgwyliedig, neu delerau arfaethedig eich prydles os ydych chi'n rhentu'r ased</span>Er enghraifft, ocsiwn"
+        },
+        {
+          "name": "ghzLRv",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "Dyddiad gwerthu neu brydlesu disgwyliedig",
+          "hint": "Er enghraifft, 27 3 2007"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-FwZiQZ"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-FwZiQZ",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "gaXSIn",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Perchnogaeth gyhoeddus</h2>"
+        },
+        {
+          "name": "Wyesgy",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich ased mewn perchnogaeth gyhoeddus ar hyn o bryd?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-fopmMu"
+        },
+        {
+          "path": "/yngln-ch-prosiect-ThSwEm",
+          "condition": "KVVfcf"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-ThSwEm",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "PoZmwV",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Manylion a datganiadau perchnogaeth gyhoeddus</h2>"
+        },
+        {
+          "name": "fHvilU",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Dywedwch wrthym am yr unigolyn y siaradoch ag ef yn y corff cyhoeddus perthnasol ynglŷn â'r ased",
+          "hint": "<span class=\"govuk-body\">Enw'r cyswllt</span>"
+        },
+        {
+          "name": "scYeIU",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Teitl swydd y cyswllt",
+          "hint": "<label class=\"govuk-body\">Teitl swydd y cyswllt</label>"
+        },
+        {
+          "name": "ZHPwln",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw'r sefydliad",
+          "hint": "<label class=\"govuk-body\">Enw'r sefydliad</label>"
+        },
+        {
+          "name": "nkPfyn",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pan fyddwch chi'n prynu neu'n prydlesu ased sydd ym mherchnogaeth y cyhoedd, ni all yr awdurdod cyhoeddus drosglwyddo gwasanaethau na dyletswyddau statudol i'r grŵp cymunedol.",
+          "hint": "Mae hyn yn cynnwys pethau fel gofal cymdeithasol, casglu gwastraff a gwasanaethau cynllunio.\n<p>Nid ydym yn diffinio llyfrgelloedd unigol fel gwasanaethau statudol at y diben hwn.</p>\n",
+          "list": "YlLedV"
+        },
+        {
+          "name": "PraPAq",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Ni ellir defnyddio grantiau o'r gronfa hon i brynu'r rhydd-ddaliad neu'r premiwm ar brydles ased sydd ym mherchnogaeth y cyhoedd. Rhaid defnyddio arian ar gyfer costau adnewyddu ac ailwampio yn unig",
+          "list": "YlLedV"
+        },
+        {
+          "name": "ArVrka",
+          "options": {
+            "required": true
+          },
+          "type": "FileUploadField",
+          "hint": "<label>Lanlwythwch dystiolaeth ategol i grynhoi:</label>\n<p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>y risg y mae'r ased yn ei hwynebu</li>\n<li>na fydd unrhyw wasanaethau statudol yn cael eu trosglwyddo o'r awdurdod cyhoeddus</li>\n<li>y bydd yr ased yn gynaliadwy ar ôl iddo gael ei drosglwyddo</li>\n</ul>\n\n<label class=\"govuk-caption-m\">Er enghraifft, gall y dystiolaeth hon gynnwys cadarnhad gan y perchennog cyhoeddus neu lythyr gan yr awdurdod lleol</label>\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 5MB ar unrhyw un o'r fformatau canlynol:</p>\n\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul>\n</p>",
+          "title": "Lanlwythwch dystiolaeth ategol"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-fopmMu"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-fopmMu",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "ZyEFDq",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Asedau o Werth Cymunedol</h2>"
+        },
+        {
+          "name": "hvzzWB",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw hwn yn Ased cofrestredig o Werth Cymunedol (ACV)?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-xRRHXQ"
+        },
+        {
+          "path": "/yngln-ch-prosiect-wHJEcK",
+          "condition": "pTJdub"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-wHJEcK",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "cQpClK",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Prynu o fewn yr amserlen</h2>"
+        },
+        {
+          "name": "MLwpjP",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A fyddwch chi'n prynu'r ased o fewn y ffrâm amser priodol?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-xRRHXQ"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-xRRHXQ",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "iZzvMF",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Asedau a restrwyd i'w gwaredu</h2>"
+        },
+        {
+          "name": "VwxiGn",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw'r ased wedi'i restru ar gyfer gwaredu, neu a yw'n rhan o  Drosglwyddo Ased Cymunedol?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-clQNOH"
+        },
+        {
+          "path": "/yngln-ch-prosiect-flkVUA",
+          "condition": "BjbZzs"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-flkVUA",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "LfCMtg",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Manylion rhestru'r ased</h2>"
+        },
+        {
+          "name": "bkbGIE",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "Pa bryd y rhestrwyd yr ased?",
+          "hint": "Er enghraifft, 27 3 2007"
+        },
+        {
+          "name": "kBCjwC",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "WebsiteField",
+          "title": "Darparwch ddolen i'r rhestriad"
+        },
+        {
+          "name": "vKSMwi",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch statws presennol y Trosglwyddiad Ased Cymunedol"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-clQNOH"
+        }
+      ]
+    },
+    {
+      "path": "/yngln-ch-prosiect-clQNOH",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "ZCNFUF",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Risg cau</h2>"
+        },
+        {
+          "name": "UDTxqC",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pam mae'r ased mewn perygl o gau?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
+          "list": "bEHBZY"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/yngln-ch-prosiect",
+      "title": "Ynglŷn â'ch prosiect",
+      "components": [
+        {
+          "name": "PxYgqa",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Gwybodaeth am yr ased</h2>"
+        },
+        {
+          "name": "NDqkBg",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>y math o ased</li>\n<li>beth rydych chi'n bwriadu ei wneud gyda'r ased</li>\n<li>manylion perchnogaeth yr ased (os yw'n gymwys)</li>\n<li>statws perchnogaeth yr ased</li>\n<li>proses werthu (os yw'n berthnasol)</li>\n<li>manylion perchnogaeth gyhoeddus (os yw'n gymwys)</li>\n<li>manylion am yr Ased o Werth Cymunedol (os yw'n gymwys)</li>\n<li>manylion Trosglwyddo Ased Cymunedol (os yw'n gymwys)</li>\n<li>y rheswm pam mae'r ased mewn perygl</li>\n</ul>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/yngln-ch-prosiect-RjBjaK"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Math o ased",
+      "name": "AwCSoL",
+      "type": "string",
+      "items": [
+        {
+          "text": "Canolfan gymunedol",
+          "value": "community-centre"
+        },
+        {
+          "text": "Sinema",
+          "value": "cinema"
+        },
+        {
+          "text": "Oriel",
+          "value": "gallery"
+        },
+        {
+          "text": "Amgueddfa",
+          "value": "museum"
+        },
+        {
+          "text": "Lleoliad cerddorol",
+          "value": "music-venue"
+        },
+        {
+          "text": "Parc",
+          "value": "park"
+        },
+        {
+          "text": "Adeilad swyddfa'r post",
+          "value": "post-office"
+        },
+        {
+          "text": "Tafarn",
+          "value": "pub"
+        },
+        {
+          "text": "Siop",
+          "value": "shop"
+        },
+        {
+          "text": "Cyfleuster chwaraeon neu hamdden",
+          "value": "sporting"
+        },
+        {
+          "text": "Theatr",
+          "value": "theatre"
+        },
+        {
+          "text": "Arall",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "title": "Beth ydych chi'n bwriadu ei wneud gyda'r ased?",
+      "name": "ClZhyp",
+      "type": "string",
+      "items": [
+        {
+          "text": "Prynu'r ased",
+          "value": "buy-the-asset"
+        },
+        {
+          "text": "Prydlesu'r ased",
+          "value": "lease-the-asset"
+        },
+        {
+          "text": "Mae eisoes yn berchen i'r sefydliad",
+          "value": "already-owned-by-organisation"
+        },
+        {
+          "text": "Mae eisoes yn cael ei brydlesu gan y sefydliad",
+          "value": "already-leased-by-organisation"
+        }
+      ]
+    },
+    {
+      "title": "Rwy'n cadarnhau",
+      "name": "YlLedV",
+      "type": "string",
+      "items": [
+        {
+          "text": "Rwy'n cadarnhau",
+          "value": "confirm",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "title": "Pam mae'r ased mewn perygl o gau?",
+      "name": "bEHBZY",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ar werth neu wedi'i restru ar gyfer gwaredu",
+          "value": "for-sale-or-listed-for-disposal"
+        },
+        {
+          "text": "Defnydd yn y dyfodol heb ei sicrhau",
+          "value": "future-use-not-secured"
+        },
+        {
+          "text": "Amhroffidiol o dan y model busnes cyfredol",
+          "value": "unprofitable-under-current-business-model"
+        },
+        {
+          "text": "Perchnogaeth bresennol yn anghynaliadwy",
+          "value": "current-ownership-not-tenable"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Math o ased-OTHER",
+      "name": "BYKrSZ",
+      "value": {
+        "name": "Math o ased-OTHER",
+        "conditions": [
+          {
+            "field": {
+              "name": "yaQoxU",
+              "type": "RadiosField",
+              "display": "Math o ased"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Ydych chi'n gwybod pwy sy'n berchen ar eich ased ar hyn o bryd-YES",
+      "name": "jiYRKl",
+      "value": {
+        "name": "Ydych chi'n gwybod pwy sy'n berchen ar eich ased ar hyn o bryd-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "IRfSZp",
+              "type": "YesNoField",
+              "display": "Ydych chi'n gwybod pwy sy'n berchen ar eich ased ar hyn o bryd?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Ydych chi'n gwybod pwy sy'n berchen ar eich ased ar hyn o bryd-NO",
+      "name": "uioqeK",
+      "value": {
+        "name": "Ydych chi'n gwybod pwy sy'n berchen ar eich ased ar hyn o bryd-NO",
+        "conditions": [
+          {
+            "field": {
+              "name": "IRfSZp",
+              "type": "YesNoField",
+              "display": "Ydych chi'n gwybod pwy sy'n berchen ar eich ased ar hyn o bryd?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych chi eisoes wedi cwblhau'r pryniant neu'r brydles-YES",
+      "name": "UiWPBk",
+      "value": {
+        "name": "A ydych chi eisoes wedi cwblhau'r pryniant neu'r brydles-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "gkulUE",
+              "type": "YesNoField",
+              "display": "A ydych chi eisoes wedi cwblhau'r pryniant neu'r brydles? "
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych chi eisoes wedi cwblhau'r pryniant neu'r brydles-NO",
+      "name": "IYvMZI",
+      "value": {
+        "name": "A ydych chi eisoes wedi cwblhau'r pryniant neu'r brydles-NO",
+        "conditions": [
+          {
+            "field": {
+              "name": "gkulUE",
+              "type": "YesNoField",
+              "display": "A ydych chi eisoes wedi cwblhau'r pryniant neu'r brydles? "
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich ased mewn perchnogaeth gyhoeddus ar hyn o bryd-YES",
+      "name": "KVVfcf",
+      "value": {
+        "name": "A yw eich ased mewn perchnogaeth gyhoeddus ar hyn o bryd-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "Wyesgy",
+              "type": "YesNoField",
+              "display": "A yw eich ased mewn perchnogaeth gyhoeddus ar hyn o bryd?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw hwn yn Ased cofrestredig o Werth Cymunedol (ACV)-YES",
+      "name": "pTJdub",
+      "value": {
+        "name": "A yw hwn yn Ased cofrestredig o Werth Cymunedol (ACV)-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "hvzzWB",
+              "type": "YesNoField",
+              "display": "A yw hwn yn Ased cofrestredig o Werth Cymunedol (ACV)?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw'r ased wedi'i restru ar gyfer gwaredu, neu a yw'n rhan o  Drosglwyddo Ased Cymunedol-YES",
+      "name": "BjbZzs",
+      "value": {
+        "name": "A yw'r ased wedi'i restru ar gyfer gwaredu, neu a yw'n rhan o  Drosglwyddo Ased Cymunedol-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "VwxiGn",
+              "type": "YesNoField",
+              "display": "A yw'r ased wedi'i restru ar gyfer gwaredu, neu a yw'n rhan o  Drosglwyddo Ased Cymunedol?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "metadata": {},
+  "startPage": "/strategic-case-cpcjGC",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Strategic case",
+      "path": "/strategic-case",
+      "components": [
+        {
+          "name": "Skuupp",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">How you’ve engaged with the community about the asset</h2>"
+        },
+        {
+          "name": "HJBgvw",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Tell us how you have engaged with the community about your intention to take ownership of the asset, and explain how this has shaped your project plans"
+        },
+        {
+          "name": "JCACTy",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Have you done any fundraising in the community?"
+        }
+      ],
+      "next": [
+        { "path": "/strategic-case-hNBbMM" },
+        { "path": "/strategic-case-ouLnrn", "condition": "rJjpuB" }
+      ]
+    },
+    {
+      "path": "/strategic-case-hNBbMM",
+      "title": "Strategic case",
+      "components": [
+        {
+          "name": "mCOxVf",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Your project and wider plans</h2>"
+        },
+        {
+          "name": "NZKHOp",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Tell us how your project supports any wider local plans"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/strategic-case-ouLnrn",
+      "title": "Strategic case",
+      "components": [
+        {
+          "name": "EjFSzg",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Your fundraising activities</h2>"
+        },
+        {
+          "name": "dpLyQh",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Describe your fundraising activities"
+        }
+      ],
+      "next": [{ "path": "/strategic-case-hNBbMM" }]
+    },
+    {
+      "path": "/strategic-case-cpcjGC",
+      "title": "Strategic case",
+      "components": [
+        {
+          "name": "qGPvvB",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Community engagement</h2>"
+        },
+        {
+          "name": "Nbtcbl",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">In this section, we'll ask about:</h2>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>who you have engaged with in the community</li>\n<li>fundraising activities (if applicable)</li>\n<li>how your project supports wider plans</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [{ "path": "/strategic-case" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Have you done any fundraising in the community-yes",
+      "name": "rJjpuB",
+      "value": {
+        "name": "Have you done any fundraising in the community-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "JCACTy",
+              "type": "YesNoField",
+              "display": "Have you done any fundraising in the community?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

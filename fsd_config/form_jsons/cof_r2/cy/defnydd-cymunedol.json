@@ -1,0 +1,109 @@
+{
+  "metadata": { "isWelsh": true },
+  "startPage": "/achos-strategol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos strategol",
+      "path": "/achos-strategol-njrKKG",
+      "components": [
+        {
+          "name": "AwAAQG",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Pwy sy'n defnyddio'r ased ac yn elwa ohono</h2>"
+        },
+        {
+          "name": "CDwTrG",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pa nodau polisi y bydd eich prosiect yn cyflawni yn eu herbyn?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
+          "list": "EwtZKn"
+        },
+        {
+          "name": "kxgWTy",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Pwy yn y gymuned sy'n defnyddio'r ased, neu sydd wedi'i ddefnyddio yn y gorffennol, a phwy sy'n elwa ohono?"
+        },
+        {
+          "name": "GNhrIs",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym sut byddai colli'r ased yn effeithio ar bobl yn y gymuned, neu sut mae wedi effeithio arnynt yn barod"
+        },
+        {
+          "name": "qsZLjZ",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Pam bydd yr ased yn cael ei golli heb ymyrraeth gan y gymuned?"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/achos-strategol",
+      "title": "Achos strategol",
+      "components": [
+        {
+          "name": "cFtDbE",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Defnydd cymunedol</h2>"
+        },
+        {
+          "name": "jcjHke",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Yn yr adran hon, byddwn yn holi ynghylch:</h2>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>y nodau polisi y bydd y prosiect yn eu cyflawni</li>\n<li>pwy sy'n defnyddio'r ased ac yn elwa ohono</li>\n<li>sut byddai colli'r ased yn effeithio ar y gymuned</li>\n<li>pam bydd yr ased yn cael ei golli heb ymyrryd</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [{ "path": "/achos-strategol-njrKKG" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Pa nodau polisi y bydd eich prosiect yn cyflawni yn eu herbyn?",
+      "name": "EwtZKn",
+      "type": "string",
+      "items": [
+        {
+          "text": "Cefnogi'r gymuned leol",
+          "value": "support-local-community"
+        },
+        { "text": "Gwella sgiliau lleol", "value": "improve-local-skills" },
+        { "text": "Sero Net", "value": "net-zero" },
+        { "text": "Adfywio", "value": "regeneration" },
+        {
+          "text": "Brwydro yn erbyn newid hinsawdd",
+          "value": "fight-climate-change"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": { "savePerPageUrl": "True" }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

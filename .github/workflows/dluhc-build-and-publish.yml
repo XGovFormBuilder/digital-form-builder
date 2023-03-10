@@ -4,6 +4,12 @@ permissions:
   packages: write
 on:
   push:
+    paths-ignore:
+      [
+        "**/README.md",
+        "fsd_config/**",
+        ".github/workflows/dluhc-build-and-deploy-with-forms.yml",
+      ]
 
 env:
   VERSION: "0.1.44" # Manually increment this version when pushing to main

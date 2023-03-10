@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/achos-rheoli",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos rheoli",
+      "path": "/achos-rheoli-iaZDMj",
+      "components": [
+        {
+          "name": "XWvsQw",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut byddwch chi'n gwneud yr ased yn gynhwysol</h2>"
+        },
+        {
+          "name": "SrtVAs",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch y gweithgareddau neu wasanaethau wedi'u cynllunio a fydd yn cael eu cynnal yn yr ased"
+        },
+        {
+          "name": "YbfbSC",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch unrhyw beth a allai atal pobl rhag defnyddio'r ased neu gyfranogi yn y gwaith o redeg yr ased",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch unrhyw beth a allai atal pobl rhag defnyddio'r ased neu gyfranogi yn y gwaith o redeg yr ased</span>Er enghraifft, costau aelodaeth neu feini prawf cymhwysedd"
+        },
+        {
+          "name": "KuhSWw",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym sut byddwch chi'n gwneud eich prosiect yn hygyrch ac yn gynhwysol i bawb yn y gymuned",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym sut byddwch chi'n gwneud eich prosiect yn hygyrch ac yn gynhwysol i bawb yn y gymuned</span>Mae hyn yn cynnwys ystyried pobl â nodweddion gwarchodedig, anghenion mynediad ar gyfer pobl anabl, a gwneud y lle'n ddeniadol i bawb"
+        },
+        {
+          "name": "bkJsiO",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch sut bydd y prosiect yn dod â phobl ynghyd o bob cwr o'r gymuned"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/achos-rheoli",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "jhcFBw",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Cynhwysiant ac integreiddio</h2>"
+        },
+        {
+          "name": "dHyMmB",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>gwasanaethau neu weithgareddau wedi'u cynllunio sy'n cael eu cynnal yn yr ased</li>\n<li>beth allai atal pobl rhag defnyddio'r ased</li>\n<li>sut byddwch chi'n gwneud eich prosiect yn hygyrch i bawb</li>\n<li>sut bydd y prosiect yn dod â'r gymuned ynghyd</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/achos-rheoli-iaZDMj"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

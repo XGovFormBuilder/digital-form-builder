@@ -1,0 +1,473 @@
+{
+  "metadata": {},
+  "startPage": "/management-case-kpDpjB",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Management case ",
+      "path": "/management-case-dCnKfb",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your capital costs"
+        }
+      },
+      "components": [
+        {
+          "name": "uKmWaC",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Capital funding for your project</h2>"
+        },
+        {
+          "name": "FhOGcz",
+          "options": {},
+          "type": "Details",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full project costs </li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n<p>This fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>",
+          "title": "Help with management case"
+        },
+        {
+          "name": "dPYuee",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Capital costs</h2>\n\n<p class=\"govuk-body\">Tell us about the total capital costs of your project.</p>\n\n<p class=\"govuk-caption-m\">These are used to purchase or lease the asset and pay for refurbishment costs. Remember, you can apply for up to 50% of your capital costs, up to a maximum of £250,000 (up to £1 million for sporting assets).</p>\n<p class=\"govuk-caption-m\">You can use your business plan to provide information that supports your answers.</p>\n<p></p>"
+        },
+        {
+          "name": "NdFwgy",
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Describe the cost",
+            "numberFieldTitle": "Amount in pounds"
+          },
+          "type": "MultiInputField",
+          "title": "Capital costs",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/management-case-WyEICz" }]
+    },
+    {
+      "path": "/management-case-sajjUP",
+      "title": "Management case",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your revenue costs"
+        }
+      },
+
+      "components": [
+        {
+          "name": "eJdudr",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Revenue funding for your project</h2>"
+        },
+        {
+          "name": "PZANlN",
+          "options": {},
+          "type": "Details",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full project costs </li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n<p>This fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>",
+          "title": "Help with management case"
+        },
+        {
+          "name": "DfTiAW",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Revenue costs (optional)</h2>\n<div class=\"govuk-caption-m\">\n\n<p class=\"govuk-body\">Tell us about the total revenue costs of your project.</p>\n\n<label class=\"govuk-caption-m\">These are the running costs of the project. This might include general costs, including for:</label>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>utilities</li>\n<li>staffing</li>\n<li>appointing external consultants</li>\n</ul>\n\n<p class=\"govuk-caption-m\">Remember, you can apply for up to £50,000 of your revenue costs (no more than 20% of your capital funding).</p>\n<label class=\"govuk-!-padding-top-3\">You can use your business plan to:</label>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>tell us why you need revenue funding</li>\n<li>provide any information that supports your answers</li>\n</ul></div>"
+        },
+
+        {
+          "name": "NyudvF",
+          "options": {
+            "required": false,
+            "prefix": "£",
+            "textFieldTitle": "Describe the cost",
+            "numberFieldTitle": "Amount in pounds"
+          },
+          "type": "MultiInputField",
+          "title": "Revenue costs",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/management-case-PIdHJP" }]
+    },
+    {
+      "path": "/management-case-iRblfH",
+      "title": "Management case ",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your secured match funding",
+          "columnOneTitle": "Source"
+        }
+      },
+      "components": [
+        {
+          "name": "ZLsNnZ",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Secured match funding for your project</h2>"
+        },
+        {
+          "name": "rgGQHh",
+          "options": {},
+          "type": "Details",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full project costs </li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n<p>This fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>",
+          "title": "Help with management case"
+        },
+        {
+          "name": "FqiBUI",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-heading-s\">Secured match funding</label>\n\n\n<p class=\"govuk-caption-m\">You need to raise other sources of funding alongside investment from this fund.</p>\n<p class=\"govuk-caption-m\">Having a range of funders contributing to your project can show the quality of your project and the support it has in the community.</p>\n<label class=\"govuk-caption-m\">Match funding sources can include:</label>\n\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>public bodies</li>\n<li>devolved administrations</li>\n<li>charitable trusts</li>\n<li>national lottery funders</li>\n<li>community shares</li>\n<li>social investors</li>\n<li>other lenders</li>\n</ul>\n<p class=\"govuk-caption-m\">You can use your business plan to provide evidence to support your answers.</p>"
+        },
+        {
+          "name": "abkrwo",
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Source of secured funding",
+            "numberFieldTitle": "Amount in pounds"
+          },
+          "type": "MultiInputField",
+          "title": "Secured match funding",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/management-case-cLNmxi" }]
+    },
+    {
+      "path": "/management-case-PIdHJP",
+      "title": "Management case",
+      "components": [
+        {
+          "name": "PtVfWP",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">If you’ve secured match funding</h2>"
+        },
+        {
+          "name": "DIZZOC",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Have you secured any match funding yet?"
+        }
+      ],
+      "next": [
+        { "path": "/management-case-iRblfH" },
+        { "path": "/management-case-cLNmxi", "condition": "ssmMSX" }
+      ]
+    },
+    {
+      "path": "/management-case-lULEZG",
+      "title": "Management case ",
+      "components": [
+        {
+          "name": "smwSHp",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Valuation of the asset</h2>"
+        },
+        {
+          "name": "cGVEui",
+          "options": {},
+          "type": "Details",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full project costs </li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n<p>This fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>",
+          "title": "Help with management case"
+        },
+        {
+          "name": "fnIdkJ",
+          "options": { "prefix": "£", "classes": "govuk-!-width-one-third" },
+          "type": "NumberField",
+          "title": "Asset value",
+          "hint": "<label class=\"govuk-caption-m\">You need to have the asset valued by someone independent before you take control of it.</label>\n\n<p class=\"govuk-caption-m\">This includes the building and its contents, including fixtures and fittings, and any stock.</p>\n\n<p class=\"govuk-caption-m\">You can use your business plan to provide evidence to support your answer.</p>\n\n<p class=\"govuk-caption-m\">If you have already bought or leased the asset, use its current valuation.</p>\n\n"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/management-case-kpDpjB",
+      "title": "Management case ",
+      "components": [
+        {
+          "name": "cpeDcC",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Funding required</h2>"
+        },
+        {
+          "name": "XeNlFF",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>total funding request</li>\n<li>capital costs</li>\n<li>revenue costs (optional)</li>\n<li>match funding</li>\n<li>asset valuation</li>\n</ul>\n</div>\n"
+        }
+      ],
+      "next": [{ "path": "/management-case" }],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/management-case-WyEICz",
+      "title": "Management case ",
+      "components": [
+        {
+          "name": "sXyxUW",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">If you’re requesting revenue funding</h2>"
+        },
+        {
+          "name": "NWTKzQ",
+          "options": { "required": true },
+          "type": "YesNoField",
+          "hint": "This is used for the running costs of the project. This might include general costs, including for:\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>utilities</li>\n<li>staffing</li>\n<li>appointing external consultants</li>\n</ul>\n<p>Remember, you can apply for up to £50,000 of your revenue costs (no more than 20% of your capital funding).</p>\n\n",
+          "title": "Are you applying for revenue funding from the Community Ownership Fund? (optional)",
+          "values": { "type": "listRef" }
+        }
+      ],
+      "next": [
+        { "path": "/management-case-sajjUP" },
+        { "path": "/management-case-PIdHJP", "condition": "HlFoGW" }
+      ]
+    },
+    {
+      "path": "/management-case-cLNmxi",
+      "title": "Management case",
+      "components": [
+        {
+          "name": "NcZEsI",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">If you’ve identified further match funding</h2>"
+        },
+        {
+          "name": "RvbwSX",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you have any match funding identified but not yet secured?"
+        }
+      ],
+      "next": [
+        { "path": "/management-case-lULEZG" },
+        { "path": "/management-case-rMORdY", "condition": "IzLYPG" }
+      ]
+    },
+    {
+      "path": "/management-case-rMORdY",
+      "title": "Management case",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your unsecured match funding",
+          "columnOneTitle": "Source"
+        }
+      },
+
+      "components": [
+        {
+          "name": "oHcGUy",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Identified match funding for your project</h2>"
+        },
+        {
+          "name": "RafXFy",
+          "options": {},
+          "type": "Details",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full project costs </li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n<p>This fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>",
+          "title": "Help with management case"
+        },
+        {
+          "name": "NJBCOa",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Unsecured match funding</h2>\n\n<p class=\"govuk-caption-m\">You need to raise other sources of funding alongside investment from this fund.</p>\n<p class=\"govuk-caption-m\">Having a range of funders contributing to your project can show the quality of your project and the support it has in the community.</p>\n<label class=\"govuk-caption-m\">Match funding sources can include:</label>\n\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>public bodies</li>\n<li>devolved administrations</li>\n<li>charitable trusts</li>\n<li>national lottery funders</li>\n<li>community shares</li>\n<li>social investors</li>\n<li>other lenders</li>\n</ul>\n<label class=\"govuk-caption-m\">You can use your business plan to:</label>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>tell us how long it will likely take to secure any outstanding match funding</li>\n<li>provide any information that supports your answers</li>\n</ul>"
+        },
+        {
+          "name": "AOLYnV",
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Source of unsecured match funding",
+            "numberFieldTitle": "Amount in pounds"
+          },
+          "type": "MultiInputField",
+          "title": "Unsecured match funding",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/management-case-lULEZG" }]
+    },
+    {
+      "path": "/management-case",
+      "title": "Management case ",
+      "components": [
+        {
+          "name": "VfUORj",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Total funding request from the Community Ownership Fund</h2>"
+        },
+        {
+          "name": "XcjQVp",
+          "options": {},
+          "type": "Details",
+          "title": "Help with management case",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full project costs </li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n<p>This fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>"
+        },
+        {
+          "name": "tVziRL",
+          "options": {},
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-s\">Total funding request</h3>\n\n<p class=\"govuk-caption-m\">This is the amount you are applying for from the Community Ownership Fund.</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to 50% of your capital costs, up to a maximum of £250,000 (up to £1 million for sporting assets).</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to £50,000 of your revenue costs (no more than 20% of your capital funding).</p>"
+        },
+        {
+          "name": "JzWvhj",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-one-third",
+            "prefix": "£"
+          },
+          "type": "NumberField",
+          "title": "Capital funding",
+          "hint": "<label class=\"govuk-body\">Capital funding </label>"
+        },
+        {
+          "name": "jLIgoi",
+          "options": {
+            "required": false,
+            "hideTitle": true,
+            "prefix": "£",
+            "classes": "govuk-!-width-one-third"
+          },
+          "type": "NumberField",
+          "title": "Revenue funding (optional)",
+          "hint": "<label class=\"govuk-body\">Revenue funding (optional)</label>"
+        }
+      ],
+      "next": [{ "path": "/management-case-dCnKfb" }]
+    }
+  ],
+  "lists": [
+    {
+      "title": "one",
+      "name": "nFbaHM",
+      "type": "string",
+      "items": [
+        { "text": "one", "value": "one" },
+        { "text": "two", "value": "two" }
+      ]
+    },
+    {
+      "title": "Have you already secured this funding",
+      "name": "OaMCxF",
+      "type": "string",
+      "items": [
+        { "text": "Yes", "value": "yes" },
+        { "text": "No", "value": "no" }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Do you have any match funding identified but not yet secured-yes",
+      "name": "IzLYPG",
+      "value": {
+        "name": "Do you have any match funding identified but not yet secured-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "RvbwSX",
+              "type": "YesNoField",
+              "display": "Do you have any match funding identified but not yet secured?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you need to add revenue costs-no",
+      "name": "HlFoGW",
+      "value": {
+        "name": "Do you need to add revenue costs-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "NWTKzQ",
+              "type": "YesNoField",
+              "display": "Do you need to add revenue costs?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Have you secured any match funding yet-no",
+      "name": "ssmMSX",
+      "value": {
+        "name": "Have you secured any match funding yet-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "DIZZOC",
+              "type": "YesNoField",
+              "display": "Have you secured any match funding yet?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

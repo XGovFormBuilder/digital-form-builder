@@ -1,0 +1,51 @@
+---
+applications:
+  - name: funding-service-design-form-runner-dev
+    docker:
+      image: ghcr.io/communitiesuk/digital-form-builder/runner:latest
+    memory: 528M
+    disk_quota: 2G
+    sandbox: true
+    routes:
+      - route: forms.dev.gids.dev
+    env:
+      NODE_ENV: production
+      RSA256_PUBLIC_KEY_BASE64: ((RSA256_PUBLIC_KEY_BASE64))
+      SERVICE_START_PAGE: https://frontend.dev.gids.dev/account
+      JWT_REDIRECT_TO_AUTHENTICATION_URL: https://authenticator2.dev.gids.dev/sessions/sign-out
+      LOGOUT_URL: https://authenticator2.dev.gids.dev/sessions/sign-out
+      BASIC_AUTH_ON: true
+      CONTACT_US_URL: https://frontend.dev.gids.dev/contact_us
+      COOKIE_POLICY_URL: https://frontend.dev.gids.dev/cookie_policy
+      ACCESSIBILITY_STATEMENT_URL: https://frontend.dev.gids.dev/accessibility_statement
+      SINGLE_REDIS: true
+    services:
+      - form-uploads-dev
+      - logit-ssl-drain
+    health-check-http-endpoint: /health-check
+    health-check-type: http
+
+  - name: funding-service-design-form-runner-test
+    docker:
+      image: ghcr.io/communitiesuk/digital-form-builder/runner:latest
+    memory: 528M
+    disk_quota: 2G
+    sandbox: true
+    routes:
+      - route: forms.test.gids.dev
+    env:
+      NODE_ENV: production
+      RSA256_PUBLIC_KEY_BASE64: ((RSA256_PUBLIC_KEY_BASE64))
+      SERVICE_START_PAGE: https://frontend.test.gids.dev/account
+      JWT_REDIRECT_TO_AUTHENTICATION_URL: https://authenticator2.test.gids.dev/sessions/sign-out
+      LOGOUT_URL: https://authenticator2.test.gids.dev/sessions/sign-out
+      BASIC_AUTH_ON: true
+      CONTACT_US_URL: https://frontend.test.gids.dev/contact_us
+      COOKIE_POLICY_URL: https://frontend.test.gids.dev/cookie_policy
+      ACCESSIBILITY_STATEMENT_URL: https://frontend.test.gids.dev/accessibility_statement
+      SINGLE_REDIS: true
+    services:
+      - form-uploads-test
+      - logit-ssl-drain
+    health-check-http-endpoint: /health-check
+    health-check-type: http

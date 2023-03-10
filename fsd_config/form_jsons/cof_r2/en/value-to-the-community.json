@@ -1,0 +1,97 @@
+{
+  "metadata": {},
+  "startPage": "/added-value-to-the-community-XXYtSd",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Added value to the community",
+      "path": "/added-value-to-the-community",
+      "components": [
+        {
+          "name": "zbEFpO",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">About the wider community</h2>"
+        },
+        {
+          "name": "oOPUXI",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Tell us about your local community as a whole",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Tell us about your local community as a whole</span>This includes details of any needs it has and how your project will look to support these.\n<p>Where possible, reference any data you have on protected characteristics and equality impacts.</p>"
+        },
+        {
+          "name": "NKOmNL",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Describe any specific challenges your community faces, and how the asset will address these"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/added-value-to-the-community-XXYtSd",
+      "title": "Added value to the community",
+      "components": [
+        {
+          "name": "dryWCd",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Value to the community</h2>"
+        },
+        {
+          "name": "HNjLSt",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>overview of the local community</li>\n<li>challenges the community faces</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/added-value-to-the-community"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

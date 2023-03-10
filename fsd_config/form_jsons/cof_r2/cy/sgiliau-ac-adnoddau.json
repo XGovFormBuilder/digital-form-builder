@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/achos-rheoli",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos rheoli",
+      "path": "/achos-rheoli-ILTxEa",
+      "components": [
+        {
+          "name": "jdiAQM",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Os oes gennych brofiad o redeg asedau tebyg</h2>"
+        },
+        {
+          "name": "eenpQC",
+          "options": {},
+          "type": "Details",
+          "title": "Help gyda sgiliau ac adnoddau",
+          "content": "<p>Byddwn yn asesu sut rydych wedi ystyried gofynion rheoli eich prosiect.</p>\n<p>Mae hyn yn cynnwys y camau rydych yn eu cymryd i wneud yn siŵr bod y capasiti a'r adnoddau iawn gan eich sefydliad i gynnal yr ased yn gynaliadwy.</p>\n<p>Mae angen i chi ddangos eich bod wedi ystyried cynllunio ar gyfer olyniaeth staff ac ymddiriedolwyr eich sefydliad.</p>\n<p>Os ydych chi'n bwriadu recriwtio staff i reoli a chynnal yr ased a'i wasanaethau, darparwch drosolwg o'r cynlluniau hyn.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
+        },
+        {
+          "name": "CBIWnt",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A oes gennych brofiad o reoli ased cymunedol?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/achos-rheoli-SNMpGL"
+        },
+        {
+          "path": "/achos-rheoli-MjTHYI",
+          "condition": "gHanKv"
+        }
+      ]
+    },
+    {
+      "path": "/achos-rheoli-SNMpGL",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "KVYefk",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Cynlluniau recriwtio</h2>"
+        },
+        {
+          "name": "uMhZAI",
+          "options": {},
+          "type": "Details",
+          "content": "<p>Byddwn yn asesu sut rydych wedi ystyried gofynion rheoli eich prosiect.</p>\n<p>Mae hyn yn cynnwys y camau rydych yn eu cymryd i wneud yn siŵr bod y capasiti a'r adnoddau iawn gan eich sefydliad i gynnal yr ased yn gynaliadwy.</p>\n<p>Mae angen i chi ddangos eich bod wedi ystyried cynllunio ar gyfer olyniaeth staff ac ymddiriedolwyr eich sefydliad.</p>\n<p>Os ydych chi'n bwriadu recriwtio staff i reoli a chynnal yr ased a'i wasanaethau, darparwch drosolwg o'r cynlluniau hyn.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>",
+          "title": "Help gyda sgiliau ac adnoddau"
+        },
+        {
+          "name": "vKnMPG",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A oes cynlluniau gennych i recriwtio pobl i'ch helpu i reoli'r ased? ",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        },
+        {
+          "path": "/achos-rheoli-GjacLw",
+          "condition": "uOZOuh"
+        }
+      ]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/achos-rheoli-MjTHYI",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "SUVlQH",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Eich profiad o redeg asedau tebyg</h2>"
+        },
+        {
+          "name": "pepEsp",
+          "options": {},
+          "type": "Details",
+          "title": "Help gyda sgiliau ac adnoddau",
+          "content": "<p>Byddwn yn asesu sut rydych wedi ystyried gofynion rheoli eich prosiect.</p>\n<p>Mae hyn yn cynnwys y camau rydych yn eu cymryd i wneud yn siŵr bod y capasiti a'r adnoddau iawn gan eich sefydliad i gynnal yr ased yn gynaliadwy.</p>\n<p>Mae angen i chi ddangos eich bod wedi ystyried cynllunio ar gyfer olyniaeth staff ac ymddiriedolwyr eich sefydliad.</p>\n<p>Os ydych chi'n bwriadu recriwtio staff i reoli a chynnal yr ased a'i wasanaethau, darparwch drosolwg o'r cynlluniau hyn.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
+        },
+        {
+          "name": "QWveYc",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Disgrifiwch unrhyw brofiad sydd gennych gydag asedau cymunedol tebyg i'r un hwn"
+        }
+      ],
+      "next": [
+        {
+          "path": "/achos-rheoli-SNMpGL"
+        }
+      ]
+    },
+    {
+      "path": "/achos-rheoli-GjacLw",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "OtWwRe",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Rolau y byddwch yn recriwtio iddynt i'ch helpu i redeg yr ased</h2>"
+        },
+        {
+          "name": "mxgewf",
+          "options": {},
+          "type": "Details",
+          "content": "<p>Byddwn yn asesu sut rydych wedi ystyried gofynion rheoli eich prosiect.</p>\n<p>Mae hyn yn cynnwys y camau rydych yn eu cymryd i wneud yn siŵr bod y capasiti a'r adnoddau iawn gan eich sefydliad i gynnal yr ased yn gynaliadwy.</p>\n<p>Mae angen i chi ddangos eich bod wedi ystyried cynllunio ar gyfer olyniaeth staff ac ymddiriedolwyr eich sefydliad.</p>\n<p>Os ydych chi'n bwriadu recriwtio staff i reoli a chynnal yr ased a'i wasanaethau, darparwch drosolwg o'r cynlluniau hyn.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>",
+          "title": "Help gyda sgiliau ac adnoddau"
+        },
+        {
+          "name": "VNjRgZ",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym am y rolau y byddwch yn eu recriwtio</span><div>Dylai'r rhain fod yn swyddi a fydd yn eich helpu i reoli'r ased yn effeithiol yn ystod perchnogaeth gymunedol.</div>\n\n<div class=\"govuk-!-padding-top-3\">Cynhwyswch:</div>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>y rôl</li>\n<li>y prif gyfrifoldebau</li>\n</ul>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu tystiolaeth i ategu'ch atebion.</p>",
+          "title": "Dywedwch wrthym am y rolau y byddwch yn eu recriwtio"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/achos-rheoli",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "CFpwef",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sgiliau ac adnoddau</h2>"
+        },
+        {
+          "name": "QfmkfT",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>profiad o reoli ased cymunedol (os yw'n gymwys)</li>\n<li>rolau y byddwch yn eu recriwtio yn y dyfodol (os yw'n gymwys)</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/achos-rheoli-ILTxEa"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "A oes gennych brofiad o reoli ased cymunedol-YES",
+      "name": "gHanKv",
+      "value": {
+        "name": "A oes gennych brofiad o reoli ased cymunedol-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "CBIWnt",
+              "type": "YesNoField",
+              "display": "A oes gennych brofiad o reoli ased cymunedol?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A oes cynlluniau gennych i recriwtio pobl i'ch helpu i reoli'r ased-YES",
+      "name": "uOZOuh",
+      "value": {
+        "name": "A oes cynlluniau gennych i recriwtio pobl i'ch helpu i reoli'r ased-YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "vKnMPG",
+              "type": "YesNoField",
+              "display": "A oes cynlluniau gennych i recriwtio pobl i'ch helpu i reoli'r ased? "
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

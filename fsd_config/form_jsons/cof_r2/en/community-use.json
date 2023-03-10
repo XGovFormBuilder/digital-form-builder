@@ -1,0 +1,108 @@
+{
+  "metadata": {},
+  "startPage": "/strategic-case-aMRtTs",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Strategic case",
+      "path": "/strategic-case",
+      "components": [
+        {
+          "name": "AwAAQG",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Who uses and benefits from the asset</h2>"
+        },
+        {
+          "name": "CDwTrG",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "What policy aims will your project deliver against?",
+          "hint": "Select all that apply",
+          "list": "EwtZKn"
+        },
+        {
+          "name": "kxgWTy",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Who in the community uses the asset, or has used it in the past, and who benefits from it?"
+        },
+        {
+          "name": "GNhrIs",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Tell us how losing the asset would affect, or has already affected, people in the community"
+        },
+        {
+          "name": "qsZLjZ",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Why will the asset be lost without community intervention?"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/strategic-case-aMRtTs",
+      "title": "Strategic case",
+      "components": [
+        {
+          "name": "cFtDbE",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Community use</h2>"
+        },
+        {
+          "name": "jcjHke",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">In this section, we'll ask about:</h2>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>policy aims project will deliver</li>\n<li>who uses and benefits from the asset</li>\n<li>how losing the asset would affect the community</li>\n<li>why the asset will be lost without intervention</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [{ "path": "/strategic-case" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "What policy aims will your project deliver against",
+      "name": "EwtZKn",
+      "type": "string",
+      "items": [
+        {
+          "text": "Support local community",
+          "value": "support-local-community"
+        },
+        { "text": "Improve local skills", "value": "improve-local-skills" },
+        { "text": "Net zero", "value": "net-zero" },
+        { "text": "Regeneration", "value": "regeneration" },
+        { "text": "Fight climate change", "value": "fight-climate-change" }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

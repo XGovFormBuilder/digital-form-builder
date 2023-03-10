@@ -1,0 +1,185 @@
+{
+  "metadata": {},
+  "startPage": "/management-case-oqAeVI",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Management case",
+      "path": "/management-case",
+      "components": [
+        {
+          "name": "OdTNhg",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Cashflow to run the asset</h2>"
+        },
+        {
+          "name": "URmfYy",
+          "options": {},
+          "type": "Details",
+          "title": "Help with project costs",
+          "content": "<p>We're looking to understand your full financial forecasts for running the asset once you take ownership.</p>\n\n<p> This includes your sources of income and regular costs, as well as a summary of your expected cash flow for the next few years.</p>\n<p>We also need to make sure you're confident you will spend any money awarded by this fund within 12 months.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "WDDkVB",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Summarise your cash flow for the running of the asset"
+        },
+        {
+          "name": "oaIntA",
+          "options": {},
+          "type": "YesNoField",
+          "title": "If successful, will you use your funding in the next 12 months?"
+        }
+      ],
+      "next": [{ "path": "/management-case-kYpnwk" }]
+    },
+    {
+      "path": "/management-case-kYpnwk",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your income sources",
+          "columnOneTitle": "Source"
+        }
+      },
+      "title": "Management case",
+      "components": [
+        {
+          "name": "FHZRAe",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Income to run the asset</h2>"
+        },
+        {
+          "name": "fzAoYw",
+          "options": {},
+          "type": "Details",
+          "content": "<p>We're looking to understand your full financial forecasts for running the asset once you take ownership.</p>\n\n<p> This includes your sources of income and regular costs, as well as a summary of your expected cash flow for the next few years.</p>\n<p>We also need to make sure you're confident you will spend any money awarded by this fund within 12 months.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>",
+          "title": "Help with project costs"
+        },
+        {
+          "name": "adkAXU",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Income sources</h2>\n<p class=\"govuk-caption-m\">This is how you expect the asset to make money in future. These should be measured against your running costs.</p>\n<p class=\"govuk-caption-m\">You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "TzOokX",
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Source",
+            "numberFieldTitle": "Amount in pounds"
+          },
+          "type": "MultiInputField",
+          "title": "Sources of income",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/management-case-xRAoOi" }]
+    },
+    {
+      "path": "/management-case-xRAoOi",
+      "title": "Management case",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your running costs",
+          "columnOneTitle": "Running cost"
+        }
+      },
+      "components": [
+        {
+          "name": "MSEqcL",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Running costs of the asset</h2>"
+        },
+        {
+          "name": "lIusUr",
+          "options": {},
+          "type": "Details",
+          "content": "<p>We're looking to understand your full financial forecasts for running the asset once you take ownership.</p>\n\n<p> This includes your sources of income and regular costs, as well as a summary of your expected cash flow for the next few years.</p>\n<p>We also need to make sure you're confident you will spend any money awarded by this fund within 12 months.</p>\n<p>You can use your business plan to provide information that supports your answers.</p>",
+          "title": "Help with project costs"
+        },
+        {
+          "name": "CeCEtD",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Running costs</h2>\n\n<label class=\"govuk-caption-m\">Money used to regularly maintain the asset and keep it open to the community. This can include:</label>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>utility bills</li>\n<li>gardening costs</li>\n<li>security measures</li>\n</ul> \n<p class=\"govuk-caption-m\"> You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "fbFeEx",
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Running cost",
+            "numberFieldTitle": "Amount in pounds"
+          },
+          "type": "MultiInputField",
+          "title": "Running costs",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/management-case-oqAeVI",
+      "title": "Management case",
+      "components": [
+        {
+          "name": "mPqjks",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Project costs</h2>"
+        },
+        {
+          "name": "UplABn",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cash flow summary</li>\n<li>income sources</li>\n<li>running costs</li>\n</ul>\n"
+        }
+      ],
+      "next": [{ "path": "/management-case" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

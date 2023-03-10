@@ -1,0 +1,78 @@
+{
+  "metadata": {},
+  "startPage": "/management-case-fPzRPo",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Management case",
+      "path": "/management-case",
+      "components": [
+        {
+          "name": "nDfjRY",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Your project risk register</h2>"
+        },
+        {
+          "name": "LVXUhZ",
+          "options": {},
+          "type": "Details",
+          "title": "Help with risk",
+          "content": "<div class=\"govuk-body\">\n<p>We want to understand any risks your project may face and how you intend to mitigate them. They can be during the planning or delivery stages, or after you have taken ownership of the asset.</p>\n<p> This does not include any risks to the asset or why it may close, which we asked you about earlier in your application.</p>\n<p>Examples of risks include:</p>\n\n<div>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>planning consent for any work needed on the asset</li>\n<li>potential issues with the supply of building materials</li>\n<li>staffing departures during delivery of your project</li>\n</ul>\n</div>\n</div>"
+        },
+        {
+          "name": "ozgwXq",
+          "options": {},
+          "type": "FileUploadField",
+          "hint": "<div class=\"govuk-caption-m\">\n<p>It should be a single file no bigger than 5MB in any of the following formats:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul> \n\n<p>Upload a document detailing any risks your project may face.</p>\n<label >You should include:</label>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>a description of the risk</li>\n<li>the likelihood of it happening</li>\n<li>when it may occur</li>\n<li>how you intend to mitigate it</li>\n<li>the likelihood of it happening after mitigation</li>\n</ul>\n\n<p>Do not include any risks to the asset or why it may close, which we asked you about earlier in your application.</p>\n</div>\n\n<h2 class=\"govuk-heading-s\">Upload risk document</h2>",
+          "title": "Risks to your project (document upload)"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/management-case-fPzRPo",
+      "title": "Management case",
+      "components": [
+        {
+          "name": "pggKuZ",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Risk</h2>"
+        },
+        {
+          "name": "Fgwetg",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>risks to your project (document upload)</li>\n</ul>\n"
+        }
+      ],
+      "next": [{ "path": "/management-case" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": { "savePerPageUrl": "True" }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

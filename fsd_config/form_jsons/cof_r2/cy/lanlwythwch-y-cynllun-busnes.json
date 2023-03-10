@@ -1,0 +1,98 @@
+{
+  "metadata": { "isWelsh": true },
+  "startPage": "/achos-rheoli",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos rheoli",
+      "path": "/achos-rheoli",
+      "components": [
+        {
+          "name": "Jbsntw",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Lanlwythwch y cynllun busnes</h2>"
+        },
+        {
+          "name": "wruiyh",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Yn yr adran hon, byddwn yn holi ynghylch:</h2>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cynllun busnes (lanlwytho dogfen)</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [{ "path": "/achos-rheoli-HRweZy" }],
+      "controller": "./pages/start.js"
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/achos-rheoli-HRweZy",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "QAgOjR",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Eich cynllun busnes</h2>"
+        },
+        {
+          "name": "qZNAHj",
+          "options": {},
+          "type": "Para",
+          "content": "<h3 class=\"govuk-heading-s\">Cynllun busnes ar gyfer eich prosiect (llwytho dogfen i fyny)</h3>\n\n<div class=\"govuk-inset-text\">Darllenwch yr <a href=\"https://www.gov.uk/government/publications/community-ownership-fund-prospectus/2e0a28ae-c78e-4938-92b9-374cc33dc8c4\">adran berthnasol o brosbectws y gronfa</a> am ragor o fanylion am yr hyn i’w gynnwys yn eich cynllun busnes.</div>\n\n<div class=\"govuk-caption-m\">\n\n<p> Lanlwythwch eich cynllun busnes.</p>\n\n<p>Cynhwyswch unrhyw wybodaeth sy'n ategu'r atebion yn eich cais. Mae'n rhaid i'r holl ffigurau gyfateb i'r rheiny rydych wedi'u rhoi yn yr adran achos rheoli.</p>\n\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 5MB ar unrhyw un o'r fformatau canlynol:</p>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul>\n\n<p>Gallai eich cynllun busnes gynnwys:</p>\n\n<h4 class=\"heading govuk-caption-m govuk-!-font-weight-bold govuk-!-padding-top-1\">Manylion ariannu</h4>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>costau'r prosiect</li>\n<li>costau cyfalaf</li>\n<li>costau refeniw</li>\n<li>cyfanswm y cais am gyllid (costau cyfalaf a chostau refeniw)</li>\n<li>manylion arian cyfatebol</li>\n<li>cyllid rydych eisoes wedi'i sicrhau, gyda thystiolaeth ategol</li>\n<li>cyllid y mae angen i chi ei sicrhau o hyd</li>\n<li>pa mor hir y mae'n debygol y cymer i sicrhau arian cyfatebol heb ei dalu</li>\n<li>rhagolygon ariannol, gan gynnwys:\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>ffynonellau incwm</li>\n<li>costau gyda chyfres o ragdybiaethau â thystiolaeth</li>\n<li>pam fydd angen cyllid refeniw arnoch a sut fyddwch yn ei ddefnyddio</li>\n<li>llif arian</li>\n</ul></li>\n<li>eich cyfrifon archwiliedig mwyaf diweddar yn cwmpasu'r 3 blynedd ddiwethaf</li>\n<li>cyfrif banc yn enw eich sefydliad</li>\n</ul>\n\n\n<h5 class=\"heading govuk-caption-m govuk-!-font-weight-bold govuk-!-padding-top-1\">Manylion yr ased</h5>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>prisiad annibynnol o'r ased (os ydych yn bwriadu ei brynu), gyda thystiolaeth ategol</li>\n<li>astudiaethau dichonoldeb wedi'u cwblhau neu'u cynllunio, gyda thystiolaeth ategol</li>\n<li>gweithgareddau neu wasanaethau wedi'u cynllunio a fydd yn cael eu cynnal yn yr ased cymuned</li>\n<li>unrhyw dystiolaeth ategol y byddwch yn cyflawni'r buddion i'r gymuned a amlinelloch</li>\n<li>sgiliau neu adnoddau wedi'u cynllunio sydd eu hangen i reoli'r ased</li>\n<li>eich profiad o gyflawni prosiectau tebyg</li>\n<li>unrhyw arbenigedd perthnasol o reoli prosiect</li>\n<li>rolau yr ydych yn cynllunio i'w recriwtio er mwyn eich helpu i reoli'r ased</li>\n</ul>\n\n\n\n<h6 class=\"heading govuk-caption-m govuk-!-font-weight-bold govuk-!-padding-top-1\">Manylion y sefydliad</h6>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>strwythurau llywodraethu ac aelodaeth eich sefydliad, gyda thystiolaeth ategol</li>\n<li>aelodau eich bwrdd, gan gynnwys eu:\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>rôl</li>\n<li>prif gyfrifoldebau</li>\n</ul></li>\n<li>copïau o femorandwm ac erthyglau cymdeithasu eich sefydliad</li>\n<li>copi o gofnodion eich cyfarfod bwrdd llywodraethu mwyaf diweddar</li>\n<li>tystiolaeth ategol o'r modd y byddwch yn rheoli cyllid ac yn atal twyll. Er enghraifft, copïau o'ch dogfennau polisi</li>\n<li>tystiolaeth ategol o'r modd y byddwch yn rheoli perfformiad a risgiau. Er enghraifft, copïau o'ch dogfennau polisi </li>\n</ul>\n\n\n</div>\n"
+        },
+        {
+          "name": "rFXeZo",
+          "options": {},
+          "type": "FileUploadField",
+          "title": "Lanlwythwch y cynllun busnes",
+          "hint": ""
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Do you want to upload a business plan-yes",
+      "name": "SGPOBW",
+      "value": {
+        "name": "Do you want to upload a business plan-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "gdmhaq",
+              "type": "YesNoField",
+              "display": "Do you want to upload a business plan?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

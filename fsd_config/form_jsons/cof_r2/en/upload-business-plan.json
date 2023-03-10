@@ -1,0 +1,98 @@
+{
+  "metadata": {},
+  "startPage": "/management-case",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Management case",
+      "path": "/management-case",
+      "components": [
+        {
+          "name": "Jbsntw",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Upload business plan</h2>"
+        },
+        {
+          "name": "wruiyh",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">In this section, we'll ask about:</h2>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>business plan (document upload)</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [{ "path": "/management-case-HFDUpa" }],
+      "controller": "./pages/start.js"
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/management-case-HFDUpa",
+      "title": "Management case",
+      "components": [
+        {
+          "name": "QAgOjR",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Your business plan</h2>"
+        },
+        {
+          "name": "qZNAHj",
+          "options": {},
+          "type": "Para",
+          "content": "<h3 class=\"govuk-heading-s\">Business plan for your project (document upload)</h3>\n\n<div class=\"govuk-inset-text\">Read the <a href=\"https://www.gov.uk/government/publications/community-ownership-fund-prospectus/community-ownership-fund-prospectus--2#applying-to-the-fund\">relevant section of the fund prospectus</a> for more detail of what to include in your business plan.</div>\n\n<div class=\"govuk-caption-m\">\n\n<p>Upload your business plan.</p>\n\n<p>Include any information that supports the answers in your application. All figures must match those you've given in the management case section.</p>\n\n<p>It should be a single file no bigger than 5MB in any of the following formats:</p>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul>\n\n<p>Your business plan could include:</p>\n\n<h4 class=\"heading govuk-caption-m govuk-!-font-weight-bold govuk-!-padding-top-1\">Funding details</h4>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>project costs</li>\n<li>capital costs</li>\n<li>revenue costs</li>\n<li>total request for funding (capital costs plus revenue costs)</li>\n<li>match funding details</li>\n<li>funding you have already secured, with supporting evidence</li>\n<li>funding you still need to secure</li>\n<li>how long it will likely take to secure outstanding match funding</li>\n<li>financial forecasts, including:</li>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>income sources</li>\n<li>costs with an evidenced set of assumptions</li>\n<li>why you’ll need revenue funding and how you’ll use it</li>\n<li>cashflow</li>\n</ul>\n<li>your most recent audited accounts covering the last 3 years</li>\n<li> a bank account in your organisation’s name</li>\n</ul>\n\n\n<h5 class=\"heading govuk-caption-m govuk-!-font-weight-bold govuk-!-padding-top-1\">Asset details</h5>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>independent valuation of the asset (if you intend to buy it), with supporting evidence</li>\n<li>completed or planned feasibility studies, with supporting evidence</li>\n<li>planned activities or services that will take place in the community asset</li>\n<li>any supporting evidence that you will deliver the benefits to the community you have outlined</li>\n<li>planned skills or resources needed to manage the asset</li>\n<li>your experience of delivering similar projects</li>\n<li>any relevant project management expertise</li>\n<li>roles you plan to recruit to help you manage the asset</li>\n</ul>\n\n\n\n<h6 class=\"heading govuk-caption-m govuk-!-font-weight-bold govuk-!-padding-top-1\">Organisation details</h6>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>your organisation’s governance and membership structures, with supporting evidence</li>\n<li>members of your board, including their:</li>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>role</li>\n<li>main responsibilities</li>\n</ul>\n<li>copies of your organisation’s memorandum and articles of association</li>\n<li>a copy of your most recent governance board meeting minutes</li>\n<li>supporting evidence of how you will manage finances and prevent fraud. For example, copies of your policy documents</li>\n<li>supporting evidence of how you will manage performance and risks. For example, copies of your policy documents</li>\n</ul>\n\n\n</div>\n"
+        },
+        {
+          "name": "rFXeZo",
+          "options": {},
+          "type": "FileUploadField",
+          "title": "Upload business plan",
+          "hint": ""
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Do you want to upload a business plan-yes",
+      "name": "SGPOBW",
+      "value": {
+        "name": "Do you want to upload a business plan-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "gdmhaq",
+              "type": "YesNoField",
+              "display": "Do you want to upload a business plan?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

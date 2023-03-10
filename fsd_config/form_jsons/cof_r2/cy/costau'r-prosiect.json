@@ -1,0 +1,190 @@
+{
+  "metadata": { "isWelsh": true },
+  "startPage": "/achos-rheoli",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Achos rheoli",
+      "path": "/achos-rheoli-SDfpBs",
+      "components": [
+        {
+          "name": "OdTNhg",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Llif arian i redeg yr ased</h2>"
+        },
+        {
+          "name": "URmfYy",
+          "options": {},
+          "type": "Details",
+          "title": "Help gyda chostau'r prosiect",
+          "content": "<p>Rydym am ddeall eich rhagolygon ariannol llawn ar gyfer cynnal yr ased pan fyddwch wedi ymgymryd â pherchnogaeth.</p>\n\n<p> Mae hyn yn cynnwys eich ffynonellau incwm a chostau rheolaidd, yn ogystal â chrynodeb o'ch llif arian disgwyliedig ar gyfer yr ychydig flynyddoedd nesaf.</p>\n<p>Mae angen i ni wneud yn siŵr hefyd eich bod yn hyderus y byddwch yn gwario unrhyw arian a ddyfernir gan y gronfa hon cyn pen 12 mis.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
+        },
+        {
+          "name": "WDDkVB",
+          "options": { "maxWords": "500" },
+          "type": "MultilineTextField",
+          "title": "Crynhowch eich llif arian ar gyfer rhedeg yr ased"
+        },
+        {
+          "name": "oaIntA",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Os byddwch yn llwyddiannus, a fyddwch chi'n defnyddio'ch cyllid yn y 12 mis nesaf?",
+          "values": { "type": "listRef" }
+        }
+      ],
+      "next": [{ "path": "/achos-rheoli-jhyKPD" }]
+    },
+    {
+      "path": "/achos-rheoli-jhyKPD",
+      "title": "Achos rheoli",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Eich ffynonellau incwm",
+          "columnOneTitle": "Ffynhonnell",
+          "columnTwoTitle": "Swm",
+          "columnThreeTitle": "Gweithredu"
+        }
+      },
+      "components": [
+        {
+          "name": "FHZRAe",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Incwm i redeg yr ased</h2>"
+        },
+        {
+          "name": "fzAoYw",
+          "options": {},
+          "type": "Details",
+          "content": "<p>Rydym am ddeall eich rhagolygon ariannol llawn ar gyfer cynnal yr ased pan fyddwch wedi ymgymryd â pherchnogaeth.</p>\n\n<p> Mae hyn yn cynnwys eich ffynonellau incwm a chostau rheolaidd, yn ogystal â chrynodeb o'ch llif arian disgwyliedig ar gyfer yr ychydig flynyddoedd nesaf.</p>\n<p>Mae angen i ni wneud yn siŵr hefyd eich bod yn hyderus y byddwch yn gwario unrhyw arian a ddyfernir gan y gronfa hon cyn pen 12 mis.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>",
+          "title": "Help gyda chostau'r prosiect"
+        },
+        {
+          "name": "adkAXU",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Ffynonellau incwm</h2>\n<p class=\"govuk-caption-m\">Dyma sut rydych chi'n disgwyl i'r ased wneud arian yn y dyfodol. Dylid mesur y rhain yn erbyn eich costau rhedeg.</p>\n<p class=\"govuk-caption-m\">Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>\n"
+        },
+        {
+          "name": "MultiInputField",
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Ffynhonnell",
+            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+          },
+          "type": "MultiInputField",
+          "title": "Ffynonellau incwm",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/achos-rheoli-yJhENL" }]
+    },
+    {
+      "path": "/achos-rheoli-yJhENL",
+      "title": "Achos rheoli",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Eich costau rhedeg",
+          "columnOneTitle": "Cost redeg",
+          "columnTwoTitle": "Swm",
+          "columnThreeTitle": "Gweithredu"
+        }
+      },
+      "components": [
+        {
+          "name": "MSEqcL",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Costau rhedeg yr ased</h2>"
+        },
+        {
+          "name": "lIusUr",
+          "options": {},
+          "type": "Details",
+          "content": "<p>Rydym am ddeall eich rhagolygon ariannol llawn ar gyfer cynnal yr ased pan fyddwch wedi ymgymryd â pherchnogaeth.</p>\n\n<p> Mae hyn yn cynnwys eich ffynonellau incwm a chostau rheolaidd, yn ogystal â chrynodeb o'ch llif arian disgwyliedig ar gyfer yr ychydig flynyddoedd nesaf.</p>\n<p>Mae angen i ni wneud yn siŵr hefyd eich bod yn hyderus y byddwch yn gwario unrhyw arian a ddyfernir gan y gronfa hon cyn pen 12 mis.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>",
+          "title": "Help gyda chostau'r prosiect"
+        },
+        {
+          "name": "CeCEtD",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Costau rhedeg</h2>\n\n<label class=\"govuk-caption-m\">Arian a ddefnyddir i gynnal a chadw'r ased yn rheolaidd a'i gadw ar agor i'r gymuned. Gall hyn gynnwys:</label>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>biliau cyfleustodau</li>\n<li> costau garddio</li>\n<li>mesurau diogelwch</li>\n</ul> \n<p class=\"govuk-caption-m\"> Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>\n\n"
+        },
+        {
+          "name": "MultiInputField-2",
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Cost redeg",
+            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+          },
+          "type": "MultiInputField",
+          "title": "Costau rhedeg",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/achos-rheoli",
+      "title": "Achos rheoli",
+      "components": [
+        {
+          "name": "mPqjks",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Costau'r prosiect</h2>"
+        },
+        {
+          "name": "UplABn",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>crynodeb o'r llif arian</li>\n<li>ffynonellau incwm</li>\n<li>costau rhedeg</li>\n</ul>\n"
+        }
+      ],
+      "next": [{ "path": "/achos-rheoli-SDfpBs" }],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

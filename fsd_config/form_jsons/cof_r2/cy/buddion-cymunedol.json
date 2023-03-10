@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/potensial-i-gyflawni-buddion-cymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Potensial i gyflawni buddion cymunedol",
+      "path": "/potensial-i-gyflawni-buddion-cymunedol-KGyXQE",
+      "components": [
+        {
+          "name": "UiHVet",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Sut bydd yr ased o fudd i'r gymuned o dan eich perchnogaeth chi</h2>"
+        },
+        {
+          "name": "QjJtbs",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pa fuddion cymunedol ydych chi'n disgwyl eu cyflawni gyda'r prosiect hwn?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
+          "list": "crPmPN"
+        },
+        {
+          "name": "gDTsgG",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym am y buddion hyn yn fanwl, ac eglurwch sut byddwch chi'n  mesur y buddion y bydd yn eu creu i'r gymuned"
+        },
+        {
+          "name": "kYjJFy",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Eglurwch sut ydych yn bwriadu cynnal y buddion hyn dros gyfnod, a'u hehangu  o bosibl."
+        },
+        {
+          "name": "UbjYqE",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "MultilineTextField",
+          "title": "Dywedwch wrthym sut byddwch chi'n gwneud yn siŵr bod y gymuned gyfan yn  elwa o'r ased",
+          "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym sut byddwch chi'n gwneud yn siŵr bod y gymuned gyfan yn  elwa o'r ased</span>Er enghraifft, pobl nad ydynt wedi defnyddio'r ased yn y gorffennol"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/potensial-i-gyflawni-buddion-cymunedol",
+      "title": "Potensial i gyflawni buddion cymunedol",
+      "components": [
+        {
+          "name": "VGdMUY",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Buddion cymunedol</h2>"
+        },
+        {
+          "name": "JHbfIz",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>buddion cymunedol y bydd y prosiect yn eu cyflawni</li>\n<li>sut byddwch chi'n mesur buddion</li>\n<li>sut bydd buddion yn cael eu cyflawni a'u cynnal</li>\n<li>sut bydd perchnogaeth gymunedol yn gynhwysol</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/potensial-i-gyflawni-buddion-cymunedol-KGyXQE"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Pa fuddion cymunedol ydych chi'n disgwyl eu cyflawni gyda'r prosiect hwn",
+      "name": "crPmPN",
+      "type": "string",
+      "items": [
+        {
+          "text": "Balchder cymunedol a chanfyddiadau o'r ardal leol fel lle i fyw ynddo",
+          "value": "community-pride"
+        },
+        {
+          "text": "Ymddiriedaeth gymdeithasol, cydlyniant ac ymdeimlad o berthyn",
+          "value": "social-trust"
+        },
+        {
+          "text": "Cyfranogi mewn bywyd cymunedol, y celfyddydau a diwylliant, neu chwaraeon",
+          "value": "participation "
+        },
+        {
+          "text": "Canlyniadau economaidd lleol, fel cyflogaeth a chyfleoedd i wirfoddoli, a  chyflogadwyedd a sgiliau",
+          "value": "local-economic "
+        },
+        {
+          "text": "Cael effaith gadarnhaol ar iechyd corfforol ac iechyd meddwl, a lleihau unigrwydd ac ynysigrwydd",
+          "value": "delivering-positive"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
