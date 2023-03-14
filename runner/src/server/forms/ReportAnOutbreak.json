@@ -1489,8 +1489,7 @@
           },
           "type": "MultilineTextField",
           "title": "S10Q8. If you wish to, please give any other feedback on this form",
-          "nameHasError": false,
-          "schema": {}
+          "nameHasError": false
         }
       ],
       "next": [
@@ -4469,11 +4468,11 @@
       }
     },
     {
-      "name": "jtCNls",
-      "title": "PreProd",
+      "name": "QA",
+      "title": "QA",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://dhsccovid19--preprod.sandbox.my.salesforce-sites.com/assessment/services/apexrest/riskassessment"
+        "url": "https://dhsccovid19--delqa.sandbox.my.salesforce-sites.com/assessment/services/apexrest/riskassessment"
       }
     }
   ],
@@ -4487,6 +4486,5 @@
   },
   "phaseBanner": {
     "phase": "alpha"
-  },
-  "authCheck": false
+  }
 }
