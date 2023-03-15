@@ -63,8 +63,8 @@ COPY --chown=appuser:appuser ./runner/public ./runner/public/
 RUN touch runner/.env && \
     echo "LAST_TAG_GH=$LAST_TAG" >> runner/.env && \
     echo "LAST_COMMIT=$LAST_COMMIT" >> runner/.env
-
 RUN yarn runner build
+COPY --chown=appuser:appuser runner/boot-script.mjs runner/
 USER 1001
 EXPOSE 3009
-CMD [ "yarn", "runner", "start" ]
+CMD [ "bash", "-c", "node runner/boot-script.mjs 'yarn runner start'" ]
