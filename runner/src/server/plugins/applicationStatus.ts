@@ -33,6 +33,10 @@ const applicationStatus = {
             const form = server.app.forms[params.id];
             const state = await cacheService.getState(request);
 
+            const {
+              reference: newReference,
+            } = await statusService.outputRequests(request);
+
             if (
               !!request.pre.confirmationViewModel?.confirmation &&
               !state.callback?.returnUrl
@@ -60,10 +64,6 @@ const applicationStatus = {
               );
               return h.redirect(`/${params.id}/summary`);
             }
-
-            const {
-              reference: newReference,
-            } = await statusService.outputRequests(request);
 
             const viewModel = statusService.getViewModel(
               state,
