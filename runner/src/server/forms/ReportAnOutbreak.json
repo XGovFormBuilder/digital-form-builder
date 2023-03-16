@@ -14,11 +14,7 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/uon-and-cqc"
-        }
-      ],
+      "next": [{ "path": "/uon-and-cqc" }],
       "controller": "./pages/start.js"
     },
     {
@@ -38,30 +34,13 @@
           "type": "NumberField",
           "title": "Unique Organisation Number (UON)",
           "nameHasError": false,
-          "schema": {
-            "max": 99999999,
-            "min": 11111111
-          }
+          "schema": { "max": 99999999, "min": 10000000 }
         },
         {
           "name": "S0Q2",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
+          "options": { "required": false },
+          "type": "TextField",
           "title": "CQC Location ID",
-          "nameHasError": false,
-          "schema": {
-            "min": 11111111
-          }
-        },
-        {
-          "name": "S0Q4",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "title": "HP Zone Reference number (If available)",
           "nameHasError": false,
           "schema": {}
         },
@@ -74,17 +53,13 @@
         },
         {
           "name": "S0Q3",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "SelectField",
           "title": "Please enter your local HPT here",
           "list": "sjgMDe",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "cstZQG",
@@ -94,11 +69,7 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/Section-1-Details-of-your-setting"
-        }
-      ]
+      "next": [{ "path": "/Section-1-Details-of-your-setting" }]
     },
     {
       "title": "Check Your Answers",
@@ -134,9 +105,7 @@
           "type": "TextField",
           "title": "S1Q4. Name of Care Home",
           "nameHasError": false,
-          "schema": {
-            "regex": ""
-          },
+          "schema": { "regex": "" },
           "hint": "Please provide name of specific setting affected (i.e. not the overarching management company if applicable)."
         },
         {
@@ -152,9 +121,7 @@
         },
         {
           "name": "S1Q6",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "TextField",
           "title": "S1Q6. Name of Key Contact Person",
           "nameHasError": false,
@@ -185,14 +152,11 @@
           "type": "EmailAddressField",
           "title": "S1Q9. Email of key contact person",
           "nameHasError": false,
-          "schema": {}
+          "schema": {},
+          "hint": "Please use an address that will be regularly and frequently monitored."
         }
       ],
-      "next": [
-        {
-          "path": "/Section-2-What-are-your-reporting"
-        }
-      ]
+      "next": [{ "path": "/Section-2-What-are-your-reporting" }]
     },
     {
       "path": "/Section-3-Details-about-the-people-reveiving-and-giving-care-in-your-setting",
@@ -207,17 +171,13 @@
         },
         {
           "name": "S3Q1",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S3Q1. How many Residents/Clients and/or Staff have a letter saying that they are eligible for COVID-19 specialist treatment drugs (because they are particularly vulnerable and not because they are part of a clinical study)?",
           "nameHasError": false,
           "list": "pxxiab",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S3Q2",
@@ -226,7 +186,8 @@
           "title": "S3Q2. Thinking about the people you care for, please tick what best describes the MAJORITY of your clientele.",
           "nameHasError": false,
           "list": "REslMD",
-          "schema": {}
+          "schema": {},
+          "hint": "You can select more than option."
         },
         {
           "name": "S3Q3",
@@ -234,10 +195,7 @@
           "type": "NumberField",
           "title": "S3Q3. Total number of residents/clients who live in the home/use the service",
           "nameHasError": false,
-          "schema": {
-            "min": 1,
-            "max": 1000
-          }
+          "schema": { "min": 1, "max": 1000 }
         },
         {
           "name": "S3Q4",
@@ -245,29 +203,20 @@
           "type": "NumberField",
           "title": "S3Q4. Total number of staff who work in your setting/service",
           "nameHasError": false,
-          "schema": {
-            "min": 1,
-            "max": 1000
-          }
+          "schema": { "min": 1, "max": 1000 }
         },
         {
           "name": "S3Q5",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "NumberField",
           "title": "S3Q5. Total number of empty beds",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
+          "schema": { "min": 0, "max": 200 },
+          "hint": "If not a residential setting or you don't know, please select zero."
         }
       ],
       "next": [
-        {
-          "path": "/Section-4-Details-about-current-COVID-19-in-your-setting"
-        }
+        { "path": "/Section-4-Details-about-current-COVID-19-in-your-setting" }
       ]
     },
     {
@@ -288,9 +237,7 @@
           "title": "S4Q1. Have you had two or more case(s) of COVID-19 in the last 14 days (confirmed by LFD or PCR)?",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -314,10 +261,7 @@
           "type": "NumberField",
           "title": "S4Q2. What is the total number of resident/client cases of COVID-19 in your setting since the current outbreak began?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 100
-          }
+          "schema": { "min": 0, "max": 100 }
         },
         {
           "name": "S4Q3",
@@ -325,10 +269,7 @@
           "type": "NumberField",
           "title": "S4Q3. What is the total number of staff cases of COVID-19 in your setting since the current outbreak began?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 100
-          }
+          "schema": { "min": 0, "max": 100 }
         },
         {
           "name": "S4Q4",
@@ -337,16 +278,11 @@
           "title": "S4Q4. How many of your cases have/have had symptoms?",
           "nameHasError": false,
           "list": "IiMNZH",
-          "schema": {
-            "min": 0,
-            "max": 100
-          }
+          "schema": { "min": 0, "max": 100 }
         },
         {
           "name": "S4Q5",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "DatePartsField",
           "title": "S4Q5. Symptom onset date of first case",
           "nameHasError": false,
@@ -354,9 +290,7 @@
         },
         {
           "name": "S4Q6",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "DatePartsField",
           "title": "S4Q6. Symptom onset date of second case",
           "nameHasError": false,
@@ -364,9 +298,7 @@
         },
         {
           "name": "S4Q7",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "DatePartsField",
           "title": "S4Q7. Symptom onset date of most recent case",
           "nameHasError": false,
@@ -380,9 +312,7 @@
           "nameHasError": false,
           "list": "PJCwIx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S4Q9",
@@ -392,9 +322,7 @@
           "nameHasError": false,
           "list": "PJCwIx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S4Q10",
@@ -404,34 +332,26 @@
           "nameHasError": false,
           "list": "PJCwIx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S4Q11",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "YesNoField",
           "title": "S4Q11. Are you aware of any media interest in this outbreak?",
           "nameHasError": false,
-          "values": {
-            "type": "listRef"
-          },
+          "values": { "type": "listRef" },
           "schema": {}
         },
         {
           "name": "S4Q12",
           "options": {},
           "type": "YesNoField",
-          "title": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?",
+          "title": "S4Q12. Do you have a total of 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?",
           "nameHasError": false,
           "schema": {},
           "hint": "You should include people who are currently located in your setting, or at home or in hospital.  The answer to this question will determine whether we ask you some further \"cluster\" questions",
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -462,9 +382,7 @@
           "title": "S5Q1. Are you reporting at least one case of confirmed Flu (Influenza)?",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -488,10 +406,8 @@
           "type": "NumberField",
           "title": "S5Q2. Among residents, how many SWAB CONFIRMED Flu (Influenza) do you have currently? ",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 },
+          "hint": "Please count all cases either currently in your setting or in hospital"
         },
         {
           "name": "S5Q3",
@@ -499,10 +415,8 @@
           "type": "NumberField",
           "title": "S5Q3. Among staff, How many SWAB CONFIRMED Flu (Influenza) do you have currently?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 },
+          "hint": "\"Please count all cases either currently in your setting or in hospital\""
         },
         {
           "name": "S5Q4",
@@ -510,10 +424,8 @@
           "type": "NumberField",
           "title": "S5Q4. Among residents, how many cases do you have of suspected (not confirmed) Flu?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 },
+          "hint": "Suspected cases among elderly people may include people who have a sudden onset of acute respiratory symptoms OR Fever without other known cause OR sudden mental/physical deterioration without any other known cause. Please count all cases either currently in your setting or in hospital."
         },
         {
           "name": "S5Q5",
@@ -521,10 +433,8 @@
           "type": "NumberField",
           "title": "S5Q5. Among staff, how many cases do you have of suspected (not confirmed) Flu?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 },
+          "hint": "Suspected staff cases usually include people who have a sudden onset of acute respiratory symptoms and AND Fever.  Please count all cases either currently in your setting or in hospital."
         },
         {
           "name": "S5Q6",
@@ -532,10 +442,8 @@
           "type": "NumberField",
           "title": "S5Q6. Among residents, EXCLUDING cases you have counted already in this section, how many have recently been diagnosed with a chest infection by a GP?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 },
+          "hint": "Please count all cases either currently in your setting or in hospital."
         },
         {
           "name": "S5Q7",
@@ -543,10 +451,8 @@
           "type": "NumberField",
           "title": "S5Q7. Among staff, EXCLUDING cases you have counted already in this section, how many have recently been diagnosed with a chest infection by a GP?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 },
+          "hint": "Please count all cases either currently in your setting or in hospital."
         },
         {
           "name": "S5Q8",
@@ -555,10 +461,9 @@
           "title": "S5Q8. How many of these cases (confirmed flu, suspected flu or chest infections) have been tested for COVID-19?",
           "nameHasError": false,
           "list": "pqTQca",
-          "values": {
-            "type": "listRef"
-          },
-          "schema": {}
+          "values": { "type": "listRef" },
+          "schema": {},
+          "hint": "If you haven't already, you should test all your symptomatic residents/clients and staff as soon as you can by COVID-19 LFD test."
         },
         {
           "name": "S5Q9",
@@ -570,9 +475,7 @@
         },
         {
           "name": "S5Q10",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "DatePartsField",
           "title": "S5Q10. Symptom onset date of first case (confirmed flu, suspected flu OR chest infections)",
           "nameHasError": false,
@@ -580,9 +483,7 @@
         },
         {
           "name": "S5Q11",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "DatePartsField",
           "title": "S5Q11. Symptom onset date of second case (confirmed flu, suspected flu OR chest infections)",
           "nameHasError": false,
@@ -590,9 +491,7 @@
         },
         {
           "name": "S5Q12",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "DatePartsField",
           "title": "S5Q12. Symptom onset date of most recent case (confirmed flu, suspected flu OR chest infections)",
           "nameHasError": false,
@@ -606,9 +505,7 @@
           "nameHasError": false,
           "list": "PJCwIx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S5Q14",
@@ -618,23 +515,17 @@
           "nameHasError": false,
           "list": "PJCwIx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S5Q15",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S5Q15. During this outbreak, how many cases have died due to Flu (confirmed or suspected) or chest infection?",
           "nameHasError": false,
           "list": "PJCwIx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S5Q16",
@@ -644,9 +535,7 @@
           "nameHasError": false,
           "list": "DcWntj",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -673,9 +562,7 @@
           "title": "S6Q1. Do you have two or more cases of acute respiratory infection (ARI) but do not know the bug/microorganism causing this?",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -699,10 +586,7 @@
           "type": "NumberField",
           "title": "S6Q2. What is the total number of Residents/Clients with this unidentified acute respiratory infection (ARI) in your setting?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 }
         },
         {
           "name": "S6Q3",
@@ -710,16 +594,11 @@
           "type": "NumberField",
           "title": "S6Q3. What is the total number of staff with this unidentified acute respiratory infection (ARI) in your setting?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 }
         },
         {
           "name": "S6Q4",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "DatePartsField",
           "title": "S6Q4. Symptom onset date of first case",
           "nameHasError": false,
@@ -727,9 +606,7 @@
         },
         {
           "name": "S6Q5",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "DatePartsField",
           "title": "S6Q5. Symptom onset date of second case",
           "nameHasError": false,
@@ -737,9 +614,7 @@
         },
         {
           "name": "S6Q6",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "DatePartsField",
           "title": "S6Q6. Symptom onset date of most recent case",
           "nameHasError": false,
@@ -752,16 +627,13 @@
           "nameHasError": false,
           "title": "S6Q7. How many of these cases have been tested for COVID-19?",
           "list": "pqTQca",
-          "values": {
-            "type": "listRef"
-          },
-          "schema": {}
+          "values": { "type": "listRef" },
+          "schema": {},
+          "hint": "If you haven't already, you should test all your symptomatic residents/clients and staff as soon as you can by COVID-19 LFD test."
         },
         {
           "name": "S6Q8",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "TextField",
           "title": "S6Q8. What were the results of the COVID-19 testing?",
           "hint": "Please leave blank if no cases tested for COVID-19.",
@@ -770,23 +642,17 @@
         },
         {
           "name": "S6Q9",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S6Q9. How many of these cases have been tested for Flu?",
           "nameHasError": false,
           "list": "pqTQca",
-          "values": {
-            "type": "listRef"
-          },
+          "values": { "type": "listRef" },
           "schema": {}
         },
         {
           "name": "S6Q10",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "TextField",
           "title": "S6Q10. What were the results of the flu testing?",
           "nameHasError": false,
@@ -800,23 +666,16 @@
           "title": "S6Q11. For how many of your cases with this ARI have you had to call the GP to review because of the severity of their illness?",
           "nameHasError": false,
           "list": "PJCwIx",
-          "values": {
-            "type": "listRef"
-          },
+          "values": { "type": "listRef" },
           "schema": {}
         },
         {
           "name": "S6Q12",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "NumberField",
           "title": "S6Q12. How many of  all cases have been started on antibiotics for their respiratory symptoms?",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 50
-          }
+          "schema": { "min": 0, "max": 50 }
         },
         {
           "name": "S6Q13",
@@ -835,9 +694,7 @@
           "nameHasError": false,
           "list": "PJCwIx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -859,55 +716,35 @@
         },
         {
           "name": "S7Q1",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "NumberField",
           "title": "S7Q1. Number of Staff who are up to date with the current COVID-19 vaccination schedule",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 300
-          }
+          "schema": { "min": 0, "max": 300 }
         },
         {
           "name": "S7Q2",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "NumberField",
           "title": "S7Q2. Number of Residents/Clients who are up to date with the current COVID-19 vaccination schedule",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 300
-          }
+          "schema": { "min": 0, "max": 300 }
         },
         {
           "name": "S7Q3",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "NumberField",
           "title": "S7Q3. Number of Staff who have received a Flu vaccine for the 2022-23 winter season",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 300
-          }
+          "schema": { "min": 0, "max": 300 }
         },
         {
           "name": "S7Q4",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "NumberField",
           "title": "S7Q4. Number of Residents/Clients who have received a Flu vaccine for the 2022-23 winter season",
           "nameHasError": false,
-          "schema": {
-            "min": 0,
-            "max": 300
-          }
+          "schema": { "min": 0, "max": 300 }
         }
       ],
       "next": [
@@ -922,23 +759,17 @@
       "components": [
         {
           "name": "S8Q1",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S8Q1. How often are you monitoring staff Infection Prevention and Control practices e.g. hand hygiene and PPE compliance, environmental cleanliness?",
           "nameHasError": false,
           "list": "qIZKqB",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S8Q2",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "CheckboxesField",
           "title": "S8Q2. What issues are you currently experiencing and require support on?",
           "hint": "Please select all those that apply - if none please leave blank.",
@@ -948,24 +779,17 @@
         },
         {
           "name": "S8Q3",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "YesNoField",
           "title": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?",
           "hint": "E.g. tracheotomy/ostomy insertion or removal, non-invasive ventilation (NIV), bi-level positive Airway Pressure Ventilation (BiBPAP), Continuous Positive Airway Pressure Ventilation (CPAP), Induction of sputum using nebulised saline, respiratory tract suctioning (mouth suctioning is not an AGP)?",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
-        {
-          "path": "/Section-9-Staffing",
-          "condition": "ILbbEK"
-        },
+        { "path": "/Section-9-Staffing", "condition": "ILbbEK" },
         {
           "path": "/Section-8-Infection-Prevention-and-control-(IPC)-Measures-&-Outbreak-Management-Continuation-1",
           "condition": "FaCoiF"
@@ -985,23 +809,16 @@
         },
         {
           "name": "S9Q1",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "YesNoField",
           "title": "S9Q1 Do you use agency staff or share staff with other care settings?",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
-        {
-          "path": "/Section-9-Staffing-Continuation-1",
-          "condition": "GvhtMF"
-        },
+        { "path": "/Section-9-Staffing-Continuation-1", "condition": "GvhtMF" },
         {
           "path": "/Section-10-Final-questions-about-how-you-feel-managing-this-situation",
           "condition": "eOIjVX"
@@ -1014,16 +831,12 @@
       "components": [
         {
           "name": "S10Q1",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "YesNoField",
           "title": "S10Q1. Have you had an outbreak of COVID-19 in your setting within the last 12 months?",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S10Q2",
@@ -1036,16 +849,12 @@
         },
         {
           "name": "S10Q3",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "YesNoField",
           "title": "S10Q3. Do you need advice on how to manage this outbreak?",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -1077,7 +886,8 @@
           "title": "S9Q2. By how many have you had to increase your agency staff and/or how many more staff have you had to share across other care settings? ",
           "nameHasError": false,
           "list": "LiqmvS",
-          "schema": {}
+          "schema": {},
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -1106,9 +916,7 @@
           "nameHasError": false,
           "list": "MpSRIP",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -1181,16 +989,12 @@
           "options": {},
           "type": "EmailAddressField",
           "title": "S1Q9. Email of key contact person",
-          "hint": "Please use an address that will be regularly and frequently monitored.\n",
+          "hint": "Please use an address that will be regularly and frequently monitored.",
           "nameHasError": false,
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/Section-2-What-are-your-reporting"
-        }
-      ]
+      "next": [{ "path": "/Section-2-What-are-your-reporting" }]
     },
     {
       "path": "/Section-1-Details-of-your-setting-Continuation-3",
@@ -1200,7 +1004,7 @@
           "name": "sIFkPc",
           "options": {},
           "type": "Para",
-          "content": "You selected \"Other\"",
+          "content": "If other, please state what sort of setting you are.",
           "schema": {}
         },
         {
@@ -1212,11 +1016,7 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/Section-2-What-are-your-reporting"
-        }
-      ]
+      "next": [{ "path": "/Section-2-What-are-your-reporting" }]
     },
     {
       "path": "/Section-2-What-are-your-reporting",
@@ -1236,9 +1036,7 @@
           "title": "S2Q1. Are you reporting two or more cases of acute respiratory infection (Flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days and that are POTENTIALLY LINKED to transmission within your setting?",
           "hint": "If you are unsure whether the cases may have been due to transmission in your setting, please tick yes",
           "nameHasError": false,
-          "values": {
-            "type": "listRef"
-          },
+          "values": { "type": "listRef" },
           "schema": {}
         }
       ],
@@ -1274,9 +1072,7 @@
           "hint": "Note: you do not need to report single cases of COVID-19.",
           "nameHasError": false,
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S2Q4",
@@ -1296,10 +1092,7 @@
         }
       ],
       "next": [
-        {
-          "path": "/summary",
-          "condition": "xxFtDU"
-        },
+        { "path": "/summary", "condition": "xxFtDU" },
         {
           "path": "/Section-3-Details-about-the-people-reveiving-and-giving-care-in-your-setting"
         }
@@ -1311,48 +1104,36 @@
       "components": [
         {
           "name": "S4Q13",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "RadiosField",
           "title": "S4Q13. As far as you are aware, of your resident/client cases: how many could have picked up their COVID infection outside the setting because:",
           "hint": "a) they have been on a visit outside the setting when they had close contact with someone displaying symptoms or known to have COVID-19 OR <br><br>\nb) they had a visitor into the setting who has since reported having suspected or confirmed Covid-19 infection OR<br><br>\nc) they were in a hospital COVID-19 outbreak ward in the last 14 days<br><br>\nNote: a person is infectious from the 2 days before their onset of symptoms [or positive test if no symptoms] until 10 days later.",
           "nameHasError": false,
           "list": "XGdfrJ",
-          "values": {
-            "type": "listRef"
-          },
+          "values": { "type": "listRef" },
           "schema": {}
         },
         {
           "name": "S4Q14",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "RadiosField",
           "title": "S4Q14. As far as you are aware, of your staff cases: in the last 14 days how many worked with at least 1 other infectious case:",
           "hint": "a) In the same area/s of the setting OR <br><br>\nb) On the same shift OR <br><br>\nc) With the same residents (even if the resident/s has not been identified as a case themselves)<br><br>\nNote: a person is infectious from the 2 days before their onset of symptoms [or positive test if no symptoms] until 10 days later.",
           "nameHasError": false,
           "list": "HgnBRj",
-          "values": {
-            "type": "listRef"
-          },
+          "values": { "type": "listRef" },
           "schema": {}
         },
         {
           "name": "S4Q15",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "RadiosField",
           "title": "S4Q15. As far as you are aware, of your staff cases: in the last 14 days how many have been a close contact of someone who was infectious with COVID-19 outside the setting?",
           "hint": "Note: a person is infectious from the 2 days before their onset of symptoms [or positive test if no symptoms] until 10 days later.",
           "nameHasError": false,
           "list": "uGvTrx",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
       "next": [
@@ -1380,16 +1161,10 @@
           "list": "AZmWjB",
           "schema": {},
           "nameHasError": false,
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         }
       ],
-      "next": [
-        {
-          "path": "/Section-9-Staffing"
-        }
-      ]
+      "next": [{ "path": "/Section-9-Staffing" }]
     },
     {
       "path": "/Section-10-Final-questions-about-how-you-feel-managing-this-situation-Continuation-1",
@@ -1397,9 +1172,7 @@
       "components": [
         {
           "name": "S10Q4",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "MultilineTextField",
           "title": "S10Q4. Which specific issues are you currently in need of advice on?",
           "nameHasError": false,
@@ -1407,23 +1180,17 @@
         },
         {
           "name": "S10Q5",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S10Q5. How urgently do you need advice on managing your outbreak?",
           "nameHasError": false,
           "list": "YFnxMY",
           "schema": {},
-          "values": {
-            "type": "listRef"
-          }
+          "values": { "type": "listRef" }
         },
         {
           "name": "S10Q6",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "MultilineTextField",
           "title": "S10Q6. Is there anything else you feel we should know about this outbreak?",
           "nameHasError": false,
@@ -1431,31 +1198,24 @@
         },
         {
           "name": "S10Q7",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "CheckboxesField",
           "title": "S10Q7. How would you describe this risk assessment tool?",
           "nameHasError": false,
           "list": "icNyDJ",
-          "schema": {}
+          "schema": {},
+          "hint": "Please note that you can select more than option."
         },
         {
           "name": "S10Q8",
-          "options": {
-            "required": false
-          },
-          "type": "TextField",
-          "nameHasError": false,
+          "options": { "required": false },
+          "type": "MultilineTextField",
           "title": "S10Q8. If you wish to, please give any other feedback on this form",
+          "nameHasError": false,
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ]
+      "next": [{ "path": "/summary" }]
     },
     {
       "path": "/Section-10-Final-questions-about-how-you-feel-managing-this-situation-Continuation-2",
@@ -1463,9 +1223,7 @@
       "components": [
         {
           "name": "S10Q6",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "MultilineTextField",
           "title": "S10Q6. Is there anything else you feel we should know about this outbreak?",
           "nameHasError": false,
@@ -1473,30 +1231,24 @@
         },
         {
           "name": "S10Q7",
-          "options": {
-            "required": true
-          },
+          "options": { "required": true },
           "type": "CheckboxesField",
           "title": "S10Q7. How would you describe this risk assessment tool?",
           "list": "icNyDJ",
           "nameHasError": false,
-          "schema": {}
+          "schema": {},
+          "hint": "Please note that you can select more than option."
         },
         {
           "name": "S10Q8",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "MultilineTextField",
           "title": "S10Q8. If you wish to, please give any other feedback on this form",
-          "nameHasError": false
+          "nameHasError": false,
+          "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ]
+      "next": [{ "path": "/summary" }]
     }
   ],
   "lists": [
@@ -1517,18 +1269,12 @@
           "text": "Supported Living or Extra Care (not high risk)",
           "value": "Supported Living or Extra Care (not high risk)"
         },
-        {
-          "text": "Day Centre",
-          "value": "Day Centre"
-        },
+        { "text": "Day Centre", "value": "Day Centre" },
         {
           "text": "Domiciliary or Home Care",
           "value": "Domiciliary or Home Care"
         },
-        {
-          "text": "Other",
-          "value": "Other"
-        }
+        { "text": "Other", "value": "Other" }
       ]
     },
     {
@@ -1536,26 +1282,11 @@
       "name": "pxxiab",
       "type": "string",
       "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "1",
-          "value": 1
-        },
-        {
-          "text": "2 to 4",
-          "value": "2 to 4"
-        },
-        {
-          "text": "5 or more",
-          "value": "5 or more"
-        },
-        {
-          "text": "Not sure",
-          "value": "Not sure"
-        }
+        { "text": "None", "value": "None" },
+        { "text": "1", "value": 1 },
+        { "text": "2 to 4", "value": "2 to 4" },
+        { "text": "5 or more", "value": "5 or more" },
+        { "text": "Not sure", "value": "Not sure" }
       ]
     },
     {
@@ -1563,14 +1294,8 @@
       "name": "REslMD",
       "type": "string",
       "items": [
-        {
-          "text": "Under 65 years",
-          "value": "Under 65 years"
-        },
-        {
-          "text": "65 years or over",
-          "value": "65 years or over"
-        },
+        { "text": "Under 65 years", "value": "Under 65 years" },
+        { "text": "65 years or over", "value": "65 years or over" },
         {
           "text": "People living with dementia",
           "value": "People living with dementia"
@@ -1590,18 +1315,9 @@
       "name": "rLdCDZ",
       "type": "string",
       "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
+        { "text": "None", "value": "None" },
+        { "text": "Some", "value": "Some" },
+        { "text": "All", "value": "All" },
         {
           "text": "Not applicable (there are no resident/client cases)",
           "value": "Not applicable (there are no resident/client cases)"
@@ -1621,10 +1337,7 @@
           "text": "Cases are across more than one area",
           "value": "Cases are across more than one area"
         },
-        {
-          "text": "Not sure",
-          "value": "Not sure"
-        },
+        { "text": "Not sure", "value": "Not sure" },
         {
           "text": "Not applicable to my setting (e.g. domiciliary/home care)",
           "value": "Not applicable to my setting (e.g. domiciliary/home care)"
@@ -1636,18 +1349,9 @@
       "name": "pqTQca",
       "type": "string",
       "items": [
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "None",
-          "value": "None"
-        }
+        { "text": "All", "value": "All" },
+        { "text": "Some", "value": "Some" },
+        { "text": "None", "value": "None" }
       ]
     },
     {
@@ -1655,22 +1359,10 @@
       "name": "qIZKqB",
       "type": "string",
       "items": [
-        {
-          "text": "We don't do IPC audits",
-          "value": "We don't do IPC audits"
-        },
-        {
-          "text": "Within the last month",
-          "value": "Within the last month"
-        },
-        {
-          "text": "Between 1-6 months ago",
-          "value": "Between 1-6 months ago"
-        },
-        {
-          "text": "7-12 months ago",
-          "value": "7-12 months ago"
-        },
+        { "text": "We don't do IPC audits", "value": "We don't do IPC audits" },
+        { "text": "Within the last month", "value": "Within the last month" },
+        { "text": "Between 1-6 months ago", "value": "Between 1-6 months ago" },
+        { "text": "7-12 months ago", "value": "7-12 months ago" },
         {
           "text": "more than 12 months ago",
           "value": "more than 12 months ago"
@@ -1682,54 +1374,21 @@
       "name": "ceOrZl",
       "type": "string",
       "items": [
-        {
-          "text": "Isolation",
-          "value": "Isolation"
-        },
-        {
-          "text": "Contact tracing",
-          "value": "Contact tracing"
-        },
-        {
-          "text": "PPE supply",
-          "value": "PPE supply"
-        },
-        {
-          "text": "Use of PPE",
-          "value": "Use of PPE"
-        },
-        {
-          "text": "Test Supply",
-          "value": "Test Supply"
-        },
+        { "text": "Isolation", "value": "Isolation" },
+        { "text": "Contact tracing", "value": "Contact tracing" },
+        { "text": "PPE supply", "value": "PPE supply" },
+        { "text": "Use of PPE", "value": "Use of PPE" },
+        { "text": "Test Supply", "value": "Test Supply" },
         {
           "text": "Testing Regimes Results",
           "value": "Testing Regimes Results"
         },
-        {
-          "text": "Visits",
-          "value": "Visits"
-        },
-        {
-          "text": "Waste Cleaning Laundry",
-          "value": "Waste Cleaning Laundry"
-        },
-        {
-          "text": "Hand Hygiene",
-          "value": "Hand Hygiene"
-        },
-        {
-          "text": "New Admin Transfers",
-          "value": "New Admin Transfers"
-        },
-        {
-          "text": "Staffing",
-          "value": "Staffing"
-        },
-        {
-          "text": "Other",
-          "value": "Other"
-        }
+        { "text": "Visits", "value": "Visits" },
+        { "text": "Waste Cleaning Laundry", "value": "Waste Cleaning Laundry" },
+        { "text": "Hand Hygiene", "value": "Hand Hygiene" },
+        { "text": "New Admin Transfers", "value": "New Admin Transfers" },
+        { "text": "Staffing", "value": "Staffing" },
+        { "text": "Other", "value": "Other" }
       ]
     },
     {
@@ -1737,22 +1396,10 @@
       "name": "AZmWjB",
       "type": "string",
       "items": [
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Don't know",
-          "value": "Don't know"
-        }
+        { "text": "All", "value": "All" },
+        { "text": "Some", "value": "Some" },
+        { "text": "None", "value": "None" },
+        { "text": "Don't know", "value": "Don't know" }
       ]
     },
     {
@@ -1760,18 +1407,9 @@
       "name": "tgnngq",
       "type": "string",
       "items": [
-        {
-          "text": "Completely confident",
-          "value": "Completely confident"
-        },
-        {
-          "text": "Quite confident",
-          "value": "Quite confident"
-        },
-        {
-          "text": "Not at all confident",
-          "value": "Not at all confident"
-        }
+        { "text": "Completely confident", "value": "Completely confident" },
+        { "text": "Quite confident", "value": "Quite confident" },
+        { "text": "Not at all confident", "value": "Not at all confident" }
       ]
     },
     {
@@ -1779,18 +1417,9 @@
       "name": "YFnxMY",
       "type": "string",
       "items": [
-        {
-          "text": "Very urgently",
-          "value": "Very urgently"
-        },
-        {
-          "text": "Soon",
-          "value": "Soon"
-        },
-        {
-          "text": "No hurry",
-          "value": "No hurry"
-        }
+        { "text": "Very urgently", "value": "Very urgently" },
+        { "text": "Soon", "value": "Soon" },
+        { "text": "No hurry", "value": "No hurry" }
       ]
     },
     {
@@ -1798,30 +1427,13 @@
       "name": "icNyDJ",
       "type": "string",
       "items": [
-        {
-          "text": "Easy to complete",
-          "value": "Easy to complete"
-        },
-        {
-          "text": "Useful resource",
-          "value": "Useful resource"
-        },
-        {
-          "text": "Not detailed enough",
-          "value": "Not detailed enough"
-        },
-        {
-          "text": "Quite to complete",
-          "value": "Quite to complete"
-        },
-        {
-          "text": "Too time-consuming",
-          "value": "Too time-consuming"
-        },
-        {
-          "text": "Easy to understand",
-          "value": "Easy to understand"
-        },
+        { "text": "Easy to complete", "value": "Easy to complete" },
+        { "text": "Useful resource", "value": "Useful resource" },
+        { "text": "Not detailed enough", "value": "Not detailed enough" },
+        { "text": "Too detailed", "value": "Too detailed" },
+        { "text": "Quick to complete", "value": "Quite to complete" },
+        { "text": "Too time consuming", "value": "Too time consuming" },
+        { "text": "Easy to understand", "value": "Easy to understand" },
         {
           "text": "Some questions were unclear",
           "value": "Some questions were unclear"
@@ -1833,30 +1445,12 @@
       "name": "PJCwIx",
       "type": "string",
       "items": [
-        {
-          "text": "0",
-          "value": 0
-        },
-        {
-          "text": "1",
-          "value": 1
-        },
-        {
-          "text": "2 to 3",
-          "value": "2 to 3"
-        },
-        {
-          "text": "4 to 5",
-          "value": "4 to 5"
-        },
-        {
-          "text": "Greater than 5",
-          "value": "Greater than 5"
-        },
-        {
-          "text": "Don't know",
-          "value": "Don't know"
-        }
+        { "text": "0", "value": 0 },
+        { "text": "1", "value": 1 },
+        { "text": "2 to 3", "value": "2 to 3" },
+        { "text": "4 to 5", "value": "4 to 5" },
+        { "text": "Greater than 5", "value": "Greater than 5" },
+        { "text": "Don't know", "value": "Don't know" }
       ]
     },
     {
@@ -1864,18 +1458,9 @@
       "name": "exEWIK",
       "type": "string",
       "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
+        { "text": "None", "value": "None" },
+        { "text": "Some", "value": "Some" },
+        { "text": "All", "value": "All" },
         {
           "text": "Not applicable (there are no staff cases)",
           "value": "Not applicable (there are no staff cases)"
@@ -1887,62 +1472,29 @@
       "name": "sjgMDe",
       "type": "string",
       "items": [
-        {
-          "text": "East of England HPT",
-          "value": "East of England HPT"
-        },
-        {
-          "text": "East Midlands HPT",
-          "value": "East Midlands HPT"
-        },
-        {
-          "text": "NE & NC London HPT",
-          "value": "NE & NC London HPT"
-        },
-        {
-          "text": "North West London HPT",
-          "value": "North West London HPT"
-        },
-        {
-          "text": "South London HPT",
-          "value": "South London HPT"
-        },
-        {
-          "text": "North East HPT",
-          "value": "North East HPT"
-        },
+        { "text": "East of England HPT", "value": "East of England HPT" },
+        { "text": "East Midlands HPT", "value": "East Midlands HPT" },
+        { "text": "NE & NC London HPT", "value": "NE & NC London HPT" },
+        { "text": "North West London HPT", "value": "North West London HPT" },
+        { "text": "South London HPT", "value": "South London HPT" },
+        { "text": "North East HPT", "value": "North East HPT" },
         {
           "text": "Cheshire & Merseyside HPT",
-          "value": "Cheshire and Merseyside HPT"
+          "value": "Cheshire & Merseyside HPT"
         },
-        {
-          "text": "Greater Manchester HPT",
-          "value": "Greater Manchester HPT"
-        },
+        { "text": "Greater Manchester HPT", "value": "Greater Manchester HPT" },
         {
           "text": "Cumbria & Lancashire HPT",
-          "value": "Cumbria and Lancashire HPT"
+          "value": "Cumbria & Lancashire HPT"
         },
-        {
-          "text": "South East HPT",
-          "value": "South East HPT"
-        },
-        {
-          "text": "South West HPT",
-          "value": "South West HPT"
-        },
-        {
-          "text": "West Midlands HPT",
-          "value": "West Midlands HPT"
-        },
+        { "text": "South East HPT", "value": "South East HPT" },
+        { "text": "South West HPT", "value": "South West HPT" },
+        { "text": "West Midlands HPT", "value": "West Midlands HPT" },
         {
           "text": "Yorkshire & the Humber HPT",
-          "value": "Yorkshire and the Humber HPT"
+          "value": "Yorkshire & the Humber HPT"
         },
-        {
-          "text": "Not England",
-          "value": "Not England"
-        }
+        { "text": "Not England", "value": "Not England" }
       ]
     },
     {
@@ -1950,22 +1502,10 @@
       "name": "IiMNZH",
       "type": "string",
       "items": [
-        {
-          "text": "< 5",
-          "value": "< 5"
-        },
-        {
-          "text": "5 - 10",
-          "value": "5 - 10"
-        },
-        {
-          "text": "11 - 20 ",
-          "value": "11 - 20"
-        },
-        {
-          "text": "More than 20",
-          "value": "More than 20"
-        }
+        { "text": "< 5", "value": "< 5" },
+        { "text": "5 - 10", "value": "5 - 10" },
+        { "text": "11 - 20 ", "value": "11 - 20" },
+        { "text": "More than 20", "value": "More than 20" }
       ]
     },
     {
@@ -1973,18 +1513,9 @@
       "name": "uGvTrx",
       "type": "string",
       "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
+        { "text": "None", "value": "None" },
+        { "text": "Some", "value": "Some" },
+        { "text": "All", "value": "All" },
         {
           "text": "Not applicable (there are no staff cases)",
           "value": "Not applicable (there are no staff cases)"
@@ -1996,18 +1527,9 @@
       "name": "yUeLAZ",
       "type": "string",
       "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
+        { "text": "None", "value": "None" },
+        { "text": "Some", "value": "Some" },
+        { "text": "All", "value": "All" },
         {
           "text": "Not applicable (there are no staff cases)",
           "value": "Not applicable (there are no staff cases)"
@@ -2018,63 +1540,34 @@
       "title": "S4Q14 b)",
       "name": "akLMsZ",
       "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        }
-      ]
+      "items": [{ "text": "None", "value": "None" }]
     },
     {
       "title": "S4Q14 b)",
       "name": "gYZUTi",
       "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        }
-      ]
+      "items": [{ "text": "None", "value": "None" }]
     },
     {
       "title": "S4Q14 b) On the same shift",
       "name": "iosTNw",
       "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        }
-      ]
+      "items": [{ "text": "None", "value": "None" }]
     },
     {
       "title": "S4Q14 b) On the same shift",
       "name": "mqatEz",
       "type": "string",
-      "items": [
-        {
-          "text": "ss",
-          "value": "ss"
-        }
-      ]
+      "items": [{ "text": "ss", "value": "ss" }]
     },
     {
       "title": "None / Some / All / N/A",
       "name": "HgnBRj",
       "type": "string",
       "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
+        { "text": "None", "value": "None" },
+        { "text": "Some", "value": "Some" },
+        { "text": "All", "value": "All" },
         {
           "text": "Not applicable (there are no staff cases)",
           "value": "Not applicable (there are no staff cases)"
@@ -2086,18 +1579,9 @@
       "name": "XGdfrJ",
       "type": "string",
       "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
+        { "text": "None", "value": "None" },
+        { "text": "Some", "value": "Some" },
+        { "text": "All", "value": "All" },
         {
           "text": "Not applicable (there are no resident/client cases)",
           "value": "Not applicable (there are no resident/client cases)"
@@ -2109,14 +1593,8 @@
       "name": "LiqmvS",
       "type": "string",
       "items": [
-        {
-          "text": "5 or more",
-          "value": "5 or more"
-        },
-        {
-          "text": "Less than 5",
-          "value": "Less than 5"
-        }
+        { "text": "Less than 5", "value": "Less than 5" },
+        { "text": "5 or more", "value": "5 or more" }
       ]
     }
   ],
@@ -2157,11 +1635,7 @@
               "display": "S1Q1. What type of adult social care provider are you?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "Other",
-              "display": "Other"
-            }
+            "value": { "type": "Value", "value": "Other", "display": "Other" }
           }
         ]
       }
@@ -2193,11 +1667,7 @@
               "display": "S1Q1. What type of adult social care provider are you?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "Other",
-              "display": "Other"
-            }
+            "value": { "type": "Value", "value": "Other", "display": "Other" }
           }
         ]
       }
@@ -2215,11 +1685,7 @@
               "display": "S2Q1. Are you reporting two or more cases of acute respiratory infection (Flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days and that are POTENTIALLY LINKED to transmission within your setting?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2237,11 +1703,7 @@
               "display": "S2Q1. Are you reporting two or more cases of acute respiratory infection (Flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days and that are POTENTIALLY LINKED to transmission within your setting?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2259,11 +1721,7 @@
               "display": "S2Q4. Are you reporting a single case of confirmed influenza (flu) in a staff member?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "and",
@@ -2273,11 +1731,7 @@
               "display": "S2Q5. Are you reporting a single case of confirmed influenza (flu) in a resident/client?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2295,11 +1749,7 @@
               "display": "S2Q5. Are you reporting a single case of confirmed influenza (flu) in a resident/client?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2317,11 +1767,7 @@
               "display": "S4Q1. Have you had two or more case(s) of COVID-19 in the last 14 days (confirmed by LFD or PCR)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2339,11 +1785,7 @@
               "display": "S4Q1. Have you had two or more case(s) of COVID-19 in the last 14 days (confirmed by LFD or PCR)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2361,11 +1803,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2383,11 +1821,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2405,11 +1839,7 @@
               "display": "S6Q1. Do you have two or more cases of acute respiratory infection (ARI) but do not know the organism/bug causing this?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2427,11 +1857,7 @@
               "display": "S6Q1. Do you have two or more cases of acute respiratory infection (ARI) but do not know the organism/bug causing this?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2449,11 +1875,7 @@
               "display": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2471,11 +1893,7 @@
               "display": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2493,11 +1911,7 @@
               "display": "S9Q1 Do you use agency staff or share staff with other care settings?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2515,11 +1929,7 @@
               "display": "S9Q1 Do you use agency staff or share staff with other care settings?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2537,11 +1947,7 @@
               "display": "S2Q4. Are you reporting a single case of confirmed influenza (flu) in a staff member?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2559,11 +1965,7 @@
               "display": "S2Q4. Are you reporting a single case of confirmed influenza (flu) in a staff member?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           },
           {
             "coordinator": "and",
@@ -2573,11 +1975,7 @@
               "display": "S2Q5. Are you reporting a single case of confirmed influenza (flu) in a resident/client?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           },
           {
             "coordinator": "or",
@@ -2587,11 +1985,7 @@
               "display": "S2Q4. Are you reporting a single case of confirmed influenza (flu) in a staff member?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "and",
@@ -2601,11 +1995,7 @@
               "display": "S2Q5. Are you reporting a single case of confirmed influenza (flu) in a resident/client?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -2623,11 +2013,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "or",
@@ -2637,11 +2023,7 @@
               "display": "S4Q4. How many of your cases have/have had symptoms?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": ">20",
-              "display": ">20"
-            }
+            "value": { "type": "Value", "value": ">20", "display": ">20" }
           },
           {
             "coordinator": "or",
@@ -2651,11 +2033,7 @@
               "display": "S4Q8. For how many of your COVID-19 cases have you had to call the GP to review because of the severity of their illness?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": ">5",
-              "display": ">5"
-            }
+            "value": { "type": "Value", "value": ">5", "display": ">5" }
           },
           {
             "coordinator": "or",
@@ -2665,11 +2043,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": ">3",
-              "display": ">3"
-            }
+            "value": { "type": "Value", "value": ">3", "display": ">3" }
           },
           {
             "coordinator": "or",
@@ -2679,11 +2053,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": ">1",
-              "display": ">1"
-            }
+            "value": { "type": "Value", "value": ">1", "display": ">1" }
           },
           {
             "coordinator": "or",
@@ -2693,11 +2063,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2781,11 +2147,7 @@
               "display": "S4Q4. How many of your cases have/have had symptoms?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "< 5",
-              "display": "< 5"
-            }
+            "value": { "type": "Value", "value": "< 5", "display": "< 5" }
           }
         ]
       }
@@ -2803,11 +2165,7 @@
               "display": "S4Q4. How many of your cases have/have had symptoms?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "1",
-              "display": "1"
-            }
+            "value": { "type": "Value", "value": "1", "display": "1" }
           }
         ]
       }
@@ -2825,11 +2183,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "or",
@@ -2867,11 +2221,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -2895,11 +2245,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -2909,11 +2255,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -2937,11 +2279,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -2959,11 +2297,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "or",
@@ -3001,11 +2335,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3029,11 +2359,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -3043,11 +2369,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3071,11 +2393,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3107,11 +2425,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "or",
@@ -3149,11 +2463,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3177,11 +2487,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -3191,11 +2497,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3219,11 +2521,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3255,11 +2553,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "or",
@@ -3297,11 +2591,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "and",
@@ -3325,11 +2615,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "and",
@@ -3339,11 +2625,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "and",
@@ -3367,11 +2649,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3425,11 +2703,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           },
           {
             "coordinator": "or",
@@ -3467,11 +2741,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3495,11 +2765,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -3509,11 +2775,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3537,11 +2799,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3573,11 +2831,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           },
           {
             "coordinator": "or",
@@ -3615,11 +2869,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3643,11 +2893,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -3657,11 +2903,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3685,11 +2927,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3707,11 +2945,7 @@
               "display": "S5Q1. Are you reporting at least one case of confirmed Flu (Influenza)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -3729,11 +2963,7 @@
               "display": "S5Q1. Are you reporting at least one case of confirmed Flu (Influenza)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3751,11 +2981,7 @@
               "display": "S10Q3. Do you have any specific issues?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3773,11 +2999,7 @@
               "display": "S10Q3. Do you have any specific issues?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -3795,11 +3017,7 @@
               "display": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -3817,11 +3035,7 @@
               "display": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -3853,11 +3067,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           },
           {
             "coordinator": "or",
@@ -3895,11 +3105,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3923,11 +3129,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -3937,11 +3139,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -3965,11 +3163,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -4043,11 +3237,7 @@
               "display": "S1Q1. What type of adult social care provider are you?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "Other",
-              "display": "Other"
-            }
+            "value": { "type": "Value", "value": "Other", "display": "Other" }
           },
           {
             "coordinator": "or",
@@ -4057,11 +3247,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           },
           {
             "coordinator": "or",
@@ -4099,11 +3285,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -4127,11 +3309,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -4141,11 +3319,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -4169,11 +3343,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -4205,11 +3375,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
+            "value": { "type": "Value", "value": "false", "display": "false" }
           }
         ]
       }
@@ -4255,11 +3421,7 @@
               "display": "S4Q9. During this outbreak, how many residents/clients or staff have been hospitalised due to COVID-19?"
             },
             "operator": "is not",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -4351,11 +3513,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "2 to 3",
-              "display": "2 to 3"
-            }
+            "value": { "type": "Value", "value": "2 to 3", "display": "2 to 3" }
           },
           {
             "coordinator": "or",
@@ -4365,11 +3523,7 @@
               "display": "S4Q10. During this outbreak, how many residents/clients or staff have died due to COVID-19?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "4 to 5",
-              "display": "4 to 5"
-            }
+            "value": { "type": "Value", "value": "4 to 5", "display": "4 to 5" }
           },
           {
             "coordinator": "or",
@@ -4393,11 +3547,7 @@
               "display": "S4Q11. Are you aware of any media interest in this outbreak?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -4447,11 +3597,7 @@
               "display": "S4Q12. Do you have 4 or fewer cases of COVID-19 with symptom onset date (or positive test date if asymptomatic) in the last 14 days (total number in residents and staff - LFD or PCR positive)?"
             },
             "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -4460,16 +3606,8 @@
   "fees": [],
   "outputs": [
     {
-      "name": "dev-endpoint",
-      "title": "DevEndpoint",
-      "type": "webhook",
-      "outputConfiguration": {
-        "url": "https://webhook.site/5bb341f1-7d5e-436b-ab61-1fe4e6daad10"
-      }
-    },
-    {
-      "name": "QA",
-      "title": "QA",
+      "name": "DELQA",
+      "title": "DELQA",
       "type": "webhook",
       "outputConfiguration": {
         "url": "https://dhsccovid19--delqa.sandbox.my.salesforce-sites.com/assessment/services/apexrest/riskassessment"
@@ -4478,13 +3616,8 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "declaration": "<p class=\"govuk-prose-scope\">In this section you can review and change your answers. The Submit button at the bottom of this page will result in your responses being submitted.<br>\nPlease be aware that your responses in this form may be shared with the Local Authority and CCG for the purposes of assisting you with the management of your situation.\n<br><br>\nPlease ensure you have not included any person identifiable information in your responses (e.g. names or dates of birth).\n<br><br>\nIf you wish to save your answers please use the in built Print function from your browser e.g. Click on the right top corner and select \"Print\" to save it as a PDF file.\n<br><br>\n<a href=\"https://request-testing.test-for-coronavirus.service.gov.uk/\" target=\"_blank\" id=\"order-test-kits\">Please click this link to place an order for C-19 test kits</a>\n<br><br>\nPlease tick to confirm understanding.</p>",
+  "declaration": "<p class=\"govuk-prose-scope\">In this section you can review and change your answers. The Submit button at the bottom of this page will result in your responses being submitted.<br>\nPlease be aware that your responses in this form may be shared with the Local Authority and CCG for the purposes of assisting you with the management of your situation.\n<br><br>\nPlease ensure you have not included any person identifiable information in your responses (e.g. names or dates of birth).\n<br><br>\nIf you wish to save your answers please use the in built Print function from your browser e.g. Click on the right top corner and select \"Print\" to save it as a PDF file.\n<br><br>\nPlease tick to confirm understanding.</p>",
   "name": "Care Outbreak Risk Assessment (OBRA) Tool",
-  "feedback": {
-    "feedbackForm": true,
-    "url": ""
-  },
-  "phaseBanner": {
-    "phase": "alpha"
-  }
+  "feedback": { "feedbackForm": true, "url": "" },
+  "phaseBanner": { "phase": "alpha" }
 }
