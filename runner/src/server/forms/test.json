@@ -1,5 +1,6 @@
 {
   "startPage": "/start",
+  "name": "Apply for funding to save an asset in your community",
   "pages": [
     {
       "title": "Start",
@@ -474,6 +475,14 @@
       "type": "email",
       "outputConfiguration": {
         "emailAddress": "jennifermyanh.duong@digital.homeoffice.gov.uk"
+      }
+    },
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "https://webhook.site/ba83e49b-cdd1-46e9-9c04-c89cfa651752"
       }
     }
   ],
