@@ -1,10 +1,10 @@
 {
   "metadata": {},
-  "startPage": "/give-feedback-on-this-page",
+  "startPage": "/give-feedback-on-this-application",
   "pages": [
     {
-      "title": "Give feedback on this page",
-      "path": "/give-feedback-on-this-page",
+      "title": "Give feedback on this application",
+      "path": "/give-feedback-on-this-application",
       "components": [
         {
           "name": "EUMdQp",
@@ -49,13 +49,6 @@
           "title": "Please provide some more feedback below",
           "hint": "Do not include personal or financial information e.g. National Insurance or credit card numbers",
           "schema": { "length": "", "max": 1200 }
-        },
-        {
-          "name": "UDDodm",
-          "options": {},
-          "type": "Para",
-          "content": "Please press continue to submit the feedback",
-          "schema": {}
         }
       ],
       "next": [{ "path": "/summary" }]
