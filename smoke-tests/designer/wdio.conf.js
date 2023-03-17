@@ -1,6 +1,6 @@
 const { hooks } = require("./support/hooks");
 const drivers = {
-  chrome: { version: "109.0.5414.74" }, // https://chromedriver.chromium.org/
+  chrome: { version: "111.0.5563.64" }, // https://chromedriver.chromium.org/
   firefox: { version: "0.29.1" }, // https://github.com/mozilla/geckodriver/releases
 };
 
