@@ -74,6 +74,12 @@ export type ComponentCollectionViewModel = {
   model: ViewModel;
 }[];
 
+export type FreeTextFieldViewModel = {
+  maxlength?: number;
+  isCharacterOrWordCount: boolean;
+  maxwords?: number;
+} & ViewModel;
+
 export type DataType =
   | "list"
   | "text"

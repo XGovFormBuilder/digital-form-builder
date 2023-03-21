@@ -1,0 +1,9 @@
+{% macro FreeTextField(component) %}
+  <script src="/assets/tinymce.min.js"></script>
+  <script src="/assets/tinymce-config.js"></script>
+  <div class="govuk-form-group">
+    <label class="govuk-label govuk-label--s" for={{component.model.id}}>{{component.model.label.text}}</label>
+    <div id="hint-{{component.model.id}}" class="govuk-hint">{{component.model.hint.html}}</div>
+    <input id={{component.model.id}} name={{component.model.id}} class="govuk-input govuk-input--width-20 free-text">{{component.model.label.hint}}</input>
+  </div>
+{% endmacro %}

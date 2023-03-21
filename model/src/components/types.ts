@@ -335,7 +335,8 @@ export type ComponentDef =
   | UkAddressFieldComponent
   | YesNoFieldComponent
   | WebsiteFieldComponent
-  | MultiInputFieldComponent;
+  | MultiInputFieldComponent
+  | FreeTextFieldComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -353,7 +354,8 @@ export type InputFieldsComponentsDef =
   | TimeFieldComponent
   | UkAddressFieldComponent
   | WebsiteFieldComponent
-  | MultiInputFieldComponent;
+  | MultiInputFieldComponent
+  | FreeTextFieldComponent;
 
 // Components that render content.
 export type ContentComponentsDef =
