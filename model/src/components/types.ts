@@ -24,6 +24,7 @@ export enum ComponentTypeEnum {
   FlashCard = "FlashCard",
   List = "List",
   MultiInputField = "MultiInputField",
+  FreeTextField = "FreeTextField",
 }
 
 export type ComponentType =
@@ -52,7 +53,8 @@ export type ComponentType =
   | "FlashCard"
   | "List"
   | "WebsiteField"
-  | "MultiInputField";
+  | "MultiInputField"
+  | "FreeTextField";
 
 export type ComponentSubType = "field" | "content";
 
@@ -192,6 +194,19 @@ export interface YesNoFieldComponent extends TextFieldBase {
 
 export interface MultilineTextFieldComponent extends TextFieldBase {
   type: "MultilineTextField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+    rows?: number;
+    maxWords?: number;
+  };
+  schema: {
+    max?: number;
+    min?: number;
+  };
+}
+
+export interface FreeTextFieldComponent extends TextFieldBase {
+  type: "FreeTextField";
   options: TextFieldBase["options"] & {
     customValidationMessage?: string;
     rows?: number;

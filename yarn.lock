@@ -7027,6 +7027,7 @@ __metadata:
     sass: ^1.49.9
     schmervice: ^1.6.0
     sinon: ^13.0.1
+    tinymce: ^6.3.2
     tmp: ^0.2.1
     typescript: ^4.0.3
     url-parse: ^1.5.10
@@ -25477,6 +25478,13 @@ resolve@^2.0.0-next.3:
   version: 1.0.3
   resolution: "tiny-warning@npm:1.0.3"
   checksum: 6cf9f66cb765b893976b8cd1c1310338861f30fb04d02ef2c8e0a748cbc2ed5acd8bb1954b78c15f640ad4116def67134d7d705f2a0c9bf27e6e2eb3e92bff29
+  languageName: node
+  linkType: hard
+
+"tinymce@npm:^6.3.2":
+  version: 6.4.0
+  resolution: "tinymce@npm:6.4.0"
+  checksum: 8cf74288cade6d3f4f517aa4bb0d6f93be16a16c7239781520b7867358f3931c359ff0e10e6cf72f2af2c266210b2e8ab8d7e59c3a88523baf5e7833ae0539cf
   languageName: node
   linkType: hard
 

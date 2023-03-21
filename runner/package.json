@@ -79,6 +79,7 @@
     "pdfmake": "0.1.65",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
+    "tinymce": "^6.3.2",
     "tmp": "^0.2.1",
     "url-parse": "^1.5.10",
     "uuid": "^8.3.2",
