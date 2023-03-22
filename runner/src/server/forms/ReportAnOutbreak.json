@@ -4,13 +4,13 @@
   "pages": [
     {
       "path": "/care-outbreak-risk-assessment-obra-tool",
-      "title": "Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown bug",
+      "title": "Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown bug in Adult Social Care settings",
       "components": [
         {
           "name": "nMOTrx",
           "options": {},
           "type": "Para",
-          "content": "This is an online Outbreak Risk Assessment Tool for all Adult Social Care Providers reporting a single case of Influenza (Flu) or a suspected or confirmed outbreak of acute respiratory infections, defined as:\n</br></br></br>\n\n<i>Two or more cases of Acute Respiratory Infections (COVID-19, Flu or unknown bug) within 14 days and potentially linked to the same care setting.</i>\n</br></br></br>\n \n\nIts purpose is to gather information that our Health Protection Practitioners need to assess the situation within your setting to help you manage the outbreak.  As soon as you have submitted your data in the tool, you will receive an automatic email stating whether your outbreak is classified as Low Risk, Medium Risk or High Priority and advice on what to do next. We will review your data, make our risk assessment and may provide further advice and support by calling or emailing you.\n</br></br></br>\n \n\nThe form should take around 10-15 minutes to complete.\n</br></br></br>\n\nPlease be aware the cookies session will save your answers for about 20 minutes. If you don't have any activity in 20m your answers will be reset and you will have to start the questionnaire again.\n</br></br></br>\n \n\nThis form is for the reporting of <b>NEW outbreaks</b> and can also be used to report <b>single cases of confirmed Influenza</b>\n</br></br>\n\nIt is <b>NOT</b> suitable for\n</br></br>\n\n-       updating on existing outbreaks/clusters that you have already notified to us</br>\n-       single cases of COVID-19 (you no longer need to report these)\n </br></br></br>\n\nTo complete this form you will need:\n</br></br>\n \n\n  -  Your Unique Organisation Number UON* and/or CQC Location ID</br>\n  -  Total number of Residents/Clients and Staff in your setting</br>\n  -  Number of symptomatic Residents/Clients and Staff</br>\n  -  Dates of symptom onset for cases (date of positive test if asymptomatic)</br>\n  -  Number of residents/clients and staff vaccinated or not for both COVID-19 and Influenza (Flu)</br>\n </br></br>\n\n*UON is the same number that you use to order new COVID-19 test kits or register test results\n\n </br></br></br>\n\n<b>Please DO NOT include any person identifiable information about people receiving care in this form (e.g. names and date of births)</b>\n</br></br></br>\n \n\n<b>After submission of your data, if you receive an email that assesses your situation as “High Priority” over <span style=\"color:#d4351c\">weekends and bank holidays, please also call the Health Protection Team (HPT) out of hours service</span></b>. Otherwise, your outbreak will be picked up by our team the next working day.\n</br></br></br>\n \n\nContact details for your local HPT (in and out of hours) can be found by clicking on this link <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.gov.uk/health-protection-team\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a>. If you are calling regarding a High Priority Outbreak, you should tell the call handler that you have been directed to call this number by your local HPT. \n</br></br></br>\n \n\nIf for any reason you have been unable to complete this form, or your enquiry is not suitable for entry onto this form (then please contact your local HPT the next working day if non-urgent, or in an emergency, call our out of hours service (click on the link above to find details of your local HPT).\n</br></br></br>\n\n \n\nData sharing\n</br></br>\nThe data you provide may be shared with other stakeholders such as your local authority and NHS colleagues in Integrated Care Boards (ICBs) in order to ensure you receive the most appropriate support from the most relevant organization. The UKHSA data sharing policy can be found on:\n</br></br>\n<a target=\"_blank\" id=\"ukhsa-privacy-notice\" href=\"https://www.gov.uk/government/publications/ukhsa-privacy-notice\">https://www.gov.uk/government/publications/ukhsa-privacy-notice</a>\n\n</br></br>\n\n<b style=\"color:#1d70b8\">Continue for completion of the Care OBRA Tool</b>",
+          "content": "This is an online Outbreak Risk Assessment (OBRA) Tool for all Adult Social Care providers reporting a single case of Influenza (Flu) or a suspected or confirmed outbreak of acute respiratory infections, defined as: \n</br></br></br>\n\n<i>Two or more cases of Acute Respiratory Infections (COVID-19, Flu or unknown bug) within 14 days and potentially linked to the same care setting i.e cases are linked to each other and transmission in the care setting is likely.</i>\n</br></br></br>\n \n\nThe purpose of the Care OBRA Tool is to gather information that  the UK Health Security Agency (UKHSA) Health Protection Team (HPT) or Community Infection Control (CIC) Team need to assess the situation within your setting in order to help you manage the outbreak.</br></br>\n\nAs soon as you have “submitted” your data into the CareOBRA Tool, you will receive:</br>\n\n1) An automatic <b>acknowledgement email</b> stating whether your outbreak is classified as Low Risk, Medium Risk or High Priority; and providing you with a copy of the data that you have input into the tool</br>\n\n2) A further automatic <b>advice email</b> which gives you information and advice on how to manage the situation that you have reported\n\n</br></br>\n\nThe HPT or CIC Team will also review your data to decide whether any further action is required and may then provide further advice and support by calling or emailing you.\n\n</br></br></br>\n \n\nThis form should take around 10 minutes to complete.\n</br></br></br>\n\n \n\nThis form is for the reporting of <b>NEW outbreaks</b> of Acute Respiratory Infection (ARI) and can also be used to report <b>single cases of confirmed Influenza</b>\n</br></br>\n\nIt is <b>NOT</b> suitable for\n</br></br>\n\n- updating on existing outbreaks/clusters that you have already notified to the HPT or CIC Team</br>\n\n- single cases of COVID-19 (you no longer need to report these)\n\n</br></br>\n\n<b><span style=\"color:#d4351c\">Please be aware that if you leave the CareOBRA risk assessment tool part-way through, after 20 minutes of no activity, your answers will be reset and you will have to start again.</span></b>\n</br></br>\n\nTherefore, we suggest you seek out the following information before you start to complete this form:\n</br></br>\n\n- The postcode of your setting</br>\n- The Unique Organisation Number UON* and/or CQC Location ID of your setting</br>\n- Total number of Residents/Clients and Staff in your setting</br>\n- Number of Residents/Clients and/or Staff with symptoms</br>\n- Dates of symptom onset for cases (date of positive test if asymptomatic)</br>\n- Number of residents/clients and staff vaccinated, or not, for both COVID-19 and Influenza (Flu)\n\n</br></br></br>\n\n*UON is the same number that you use to order new COVID-19 test kits or register test results. Please see the bottom of this page for guidance on how to find your UON.\n\n </br></br></br>\n\n<b>Please DO NOT include any person identifiable information about people receiving care in this form (e.g. names and date of births)</b>\n</br></br></br>\n \n\n<u><b>After submission of your data, if you receive an email that assesses your situation as “High Priority” over <span style=\"color:#d4351c\">a weekend or a bank holiday, please </span>also <span style=\"color:#d4351c\">call the Health Protection Team (HPT) out of hours service</span></b>. Otherwise, your outbreak will only be picked up by our team the next working day.\n</br></br></br></u>\n \n\nContact details for your local HPT (in and out of hours) can be found by clicking on this link <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.gov.uk/health-protection-team\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a>. If you are calling regarding a High Priority Outbreak, you should tell the call handler that you have been directed to call this number by your local HPT and you should have your Care OBRA reference number to hand.\n</br></br></br>\n \n\nIf for any reason you have been unable to complete this form, or your enquiry is not suitable for entry onto this form (then please contact your local HPT the next working day if non-urgent, or in an emergency, call your HPTs out of hours service (click on the link above to find details of your local HPT).\n</br></br></br>\n\n \n\n<b>Unique Organization Number (UON)</b> </br>\nIf you can't find your <b>UON</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://organisation-number-lookup.test-for-coronavirus.service.gov.uk/\">Organization number lookup - GOV.UK (test-for-coronavirus.service.gov.uk)</a> (you will need your CQC Location ID). \n </br></br>\nIf you don’t know your <b>CQC Location ID</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about half-way down the page to <b>CQC care directory - csv</b>. You will find your CQC Location ID in this look up table. \n\n</br></br>\n\nIf you still can’t find your UON number, then telephone 119.\n\n</br></br>\n\nIf all the above fail, then please call your local Health Protection or Community Infection Control Team (as per your usual arrangements).\n\n</br></br>\n\nData sharing\n</br></br>\nThe data you provide may be shared with other stakeholders such as your Local Authority, Community Infection Control Team and NHS in order to ensure you receive the most appropriate support from the most relevant organization. The UKHSA data sharing policy can be found on:\n</br></br>\n<a target=\"_blank\" id=\"ukhsa-privacy-notice\" href=\"https://www.gov.uk/government/publications/ukhsa-privacy-notice\">https://www.gov.uk/government/publications/ukhsa-privacy-notice</a>\n\n</br></br>\n\n<b style=\"color:#1d70b8\">Continue for completion of the Care OBRA Tool</b>",
           "schema": {}
         }
       ],
@@ -19,7 +19,7 @@
     },
     {
       "path": "/uon-and-cqc",
-      "title": "Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown bug",
+      "title": "Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown bug in Adult Social Care settings",
       "components": [
         {
           "name": "RoEgQT",
@@ -32,9 +32,10 @@
           "name": "S0Q1",
           "options": {},
           "type": "NumberField",
-          "title": "Unique Organisation Number (UON)",
+          "title": "Unique Organization Number (UON)",
           "nameHasError": false,
-          "schema": { "max": 99999999, "min": 10000000 }
+          "schema": { "max": 99999999, "min": 10000000 },
+          "hint": "UON is an 8 digit number"
         },
         {
           "name": "S0Q2",
@@ -97,7 +98,7 @@
           "title": "S1Q3. Name of Care Provider/Company/Setting",
           "nameHasError": false,
           "schema": {},
-          "hint": "If you are reporting an outbreak within a specific setting - please name that setting. Otherwise please state the name of the company providing the care e.g. the Domiciliary/Hope Care agency."
+          "hint": "If you are reporting an outbreak within a specific setting - please name that setting. Otherwise please state the name of the company providing the care e.g. the Domiciliary/Home Care agency."
         },
         {
           "name": "S1Q4",
@@ -166,7 +167,7 @@
           "name": "KxkZJj",
           "options": {},
           "type": "Para",
-          "content": "These questions ask for general information about the people you care for. Questions about cases with acute respiratory infections will be asked in subsequent sections.",
+          "content": "These questions ask for general information about the people you care for. Questions about staff and residents with symptoms of acute respiratory infection will be asked in later sections.",
           "schema": {}
         },
         {
@@ -187,7 +188,7 @@
           "nameHasError": false,
           "list": "REslMD",
           "schema": {},
-          "hint": "You can select more than option."
+          "hint": "You can select more than one option."
         },
         {
           "name": "S3Q3",
@@ -212,7 +213,7 @@
           "title": "S3Q5. Total number of empty beds",
           "nameHasError": false,
           "schema": { "min": 0, "max": 200 },
-          "hint": "If not a residential setting or you don't know, please select zero."
+          "hint": "If your adult social care setting is not residential or you don't know, please leave blank."
         }
       ],
       "next": [
@@ -282,7 +283,7 @@
         },
         {
           "name": "S4Q5",
-          "options": { "required": true },
+          "options": { "required": true, "maxDaysInFuture": "0" },
           "type": "DatePartsField",
           "title": "S4Q5. Symptom onset date of first case",
           "nameHasError": false,
@@ -290,7 +291,7 @@
         },
         {
           "name": "S4Q6",
-          "options": { "required": false },
+          "options": { "required": false, "maxDaysInFuture": "0" },
           "type": "DatePartsField",
           "title": "S4Q6. Symptom onset date of second case",
           "nameHasError": false,
@@ -298,7 +299,7 @@
         },
         {
           "name": "S4Q7",
-          "options": { "required": true },
+          "options": { "required": true, "maxDaysInFuture": "0" },
           "type": "DatePartsField",
           "title": "S4Q7. Symptom onset date of most recent case",
           "nameHasError": false,
@@ -387,7 +388,7 @@
       ],
       "next": [
         {
-          "path": "/Section-5-Details-about-current-Flu-(Influenza)-cases-in-your-setting-Continuation-1",
+          "path": "/section-5---details-about-current-flu-influenza-cases-in-your-setting-continuation-1",
           "condition": "naYVkg"
         },
         {
@@ -397,8 +398,8 @@
       ]
     },
     {
-      "path": "/Section-5-Details-about-current-Flu-(Influenza)-cases-in-your-setting-Continuation-1",
-      "title": "Section 5 - Details about current Flu (Influenza) cases in your setting Continuation 1",
+      "path": "/section-5---details-about-current-flu-influenza-cases-in-your-setting-continuation-1",
+      "title": "Section 5 - Details about current Flu (Influenza) cases in your setting (Continuation 1)",
       "components": [
         {
           "name": "S5Q2",
@@ -407,7 +408,7 @@
           "title": "S5Q2. Among residents, how many SWAB CONFIRMED Flu (Influenza) do you have currently? ",
           "nameHasError": false,
           "schema": { "min": 0, "max": 50 },
-          "hint": "Please count all cases either currently in your setting or in hospital"
+          "hint": "Please count all cases either currently in your setting or in hospital. Please include those tested in the laboratory or by LFD or by other type of Point of Care Testing."
         },
         {
           "name": "S5Q3",
@@ -416,7 +417,7 @@
           "title": "S5Q3. Among staff, How many SWAB CONFIRMED Flu (Influenza) do you have currently?",
           "nameHasError": false,
           "schema": { "min": 0, "max": 50 },
-          "hint": "\"Please count all cases either currently in your setting or in hospital\""
+          "hint": "Please count all cases either currently in your setting or in hospital. Please include those tested in the laboratory or by LFD or by other type of Point of Care Testing."
         },
         {
           "name": "S5Q4",
@@ -452,7 +453,7 @@
           "title": "S5Q7. Among staff, EXCLUDING cases you have counted already in this section, how many have recently been diagnosed with a chest infection by a GP?",
           "nameHasError": false,
           "schema": { "min": 0, "max": 50 },
-          "hint": "Please count all cases either currently in your setting or in hospital."
+          "hint": "Please count all cases either currently at home or in hospital."
         },
         {
           "name": "S5Q8",
@@ -552,7 +553,7 @@
           "name": "rkWfvT",
           "options": {},
           "type": "Para",
-          "content": "This section is about cases of acute respiratory infection (ARI) where the causative organism/bug is not known. You will automatically move to the next section if you answer No",
+          "content": "This section is about symptomatic cases of acute respiratory infection (ARI) where the causative organism/bug is not known. You will automatically move to the next section if you answer No.",
           "schema": {}
         },
         {
@@ -772,7 +773,7 @@
           "options": { "required": true },
           "type": "CheckboxesField",
           "title": "S8Q2. What issues are you currently experiencing and require support on?",
-          "hint": "Please select all those that apply - if none please leave blank.",
+          "hint": "Please select all those that apply.",
           "nameHasError": false,
           "list": "ceOrZl",
           "schema": {}
@@ -1004,12 +1005,12 @@
           "name": "sIFkPc",
           "options": {},
           "type": "Para",
-          "content": "If other, please state what sort of setting you are.",
+          "content": "Please state what sort of setting you are.",
           "schema": {}
         },
         {
           "type": "TextField",
-          "title": "S1Q2. Please state what sort of setting you are:",
+          "title": "S1Q2. If other, please state what sort of setting you are.",
           "name": "S1Q2",
           "nameHasError": false,
           "options": {},
@@ -1060,9 +1061,10 @@
           "options": {},
           "type": "YesNoField",
           "title": "S2Q2. Are you reporting two or more cases of acute respiratory infection (flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days but that are DEFINITELY NOT LINKED to transmission within your setting?   ",
-          "hint": "If your cases are definitely not linked to transmission within your setting then you should manage these as single cases",
+          "hint": "If your cases are definitely not linked to transmission within your setting then you should manage these as single cases. Please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement/covid-19-supplement-to-the-infection-prevention-and-control-resource-for-adult-social-care\" target=\"_blank\" id=\"publications\">https://www.gov.uk/government/publications</a>: Outbreak Management section for guidance on whether cases can be considered as unlinked to transmission within the setting.",
           "nameHasError": false,
-          "schema": {}
+          "schema": {},
+          "values": { "type": "listRef" }
         },
         {
           "name": "S2Q3",
@@ -1104,7 +1106,7 @@
       "components": [
         {
           "name": "S4Q13",
-          "options": { "required": false },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S4Q13. As far as you are aware, of your resident/client cases: how many could have picked up their COVID infection outside the setting because:",
           "hint": "a) they have been on a visit outside the setting when they had close contact with someone displaying symptoms or known to have COVID-19 OR <br><br>\nb) they had a visitor into the setting who has since reported having suspected or confirmed Covid-19 infection OR<br><br>\nc) they were in a hospital COVID-19 outbreak ward in the last 14 days<br><br>\nNote: a person is infectious from the 2 days before their onset of symptoms [or positive test if no symptoms] until 10 days later.",
@@ -1115,7 +1117,7 @@
         },
         {
           "name": "S4Q14",
-          "options": { "required": false },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S4Q14. As far as you are aware, of your staff cases: in the last 14 days how many worked with at least 1 other infectious case:",
           "hint": "a) In the same area/s of the setting OR <br><br>\nb) On the same shift OR <br><br>\nc) With the same residents (even if the resident/s has not been identified as a case themselves)<br><br>\nNote: a person is infectious from the 2 days before their onset of symptoms [or positive test if no symptoms] until 10 days later.",
@@ -1126,7 +1128,7 @@
         },
         {
           "name": "S4Q15",
-          "options": { "required": false },
+          "options": { "required": true },
           "type": "RadiosField",
           "title": "S4Q15. As far as you are aware, of your staff cases: in the last 14 days how many have been a close contact of someone who was infectious with COVID-19 outside the setting?",
           "hint": "Note: a person is infectious from the 2 days before their onset of symptoms [or positive test if no symptoms] until 10 days later.",
@@ -1204,7 +1206,7 @@
           "nameHasError": false,
           "list": "icNyDJ",
           "schema": {},
-          "hint": "Please note that you can select more than option."
+          "hint": "Please note that you can select more than one option."
         },
         {
           "name": "S10Q8",
@@ -1237,7 +1239,7 @@
           "list": "icNyDJ",
           "nameHasError": false,
           "schema": {},
-          "hint": "Please note that you can select more than option."
+          "hint": "Please note that you can select more than one option."
         },
         {
           "name": "S10Q8",
@@ -3606,17 +3608,17 @@
   "fees": [],
   "outputs": [
     {
-      "name": "DELQA",
-      "title": "DELQA",
+      "name": "DELPREPROD",
+      "title": "DELPREPROD",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://dhsccovid19--delqa.sandbox.my.salesforce-sites.com/assessment/services/apexrest/riskassessment"
+        "url": "https://dhsccovid19--preprod.sandbox.my.salesforce-sites.com/assessment/services/apexrest/riskassessment"
       }
     }
   ],
   "version": 2,
   "skipSummary": false,
-  "declaration": "<p class=\"govuk-prose-scope\">In this section you can review and change your answers. The Submit button at the bottom of this page will result in your responses being submitted.<br>\nPlease be aware that your responses in this form may be shared with the Local Authority and CCG for the purposes of assisting you with the management of your situation.\n<br><br>\nPlease ensure you have not included any person identifiable information in your responses (e.g. names or dates of birth).\n<br><br>\nIf you wish to save your answers please use the in built Print function from your browser e.g. Click on the right top corner and select \"Print\" to save it as a PDF file.\n<br><br>\nPlease tick to confirm understanding.</p>",
+  "declaration": "<p class=\"govuk-prose-scope\">In this section you can review and change your answers. The Submit button at the bottom of this page will result in your responses being submitted.</br>\nPlease be aware that your responses in this form may be shared with the Local Authority, Community Infection Control Team, Health Protection Team and/or NHS for the purposes of assisting you with the management of your situation.\n</br></br>\nPlease ensure you have not included any person identifiable information in your responses (e.g. names or dates of birth).\n\n</br></br>\nPlease tick to confirm understanding.</p>",
   "name": "Care Outbreak Risk Assessment (OBRA) Tool",
   "feedback": { "feedbackForm": true, "url": "" },
   "phaseBanner": { "phase": "alpha" }
