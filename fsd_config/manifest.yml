@@ -24,6 +24,7 @@ applications:
       - logit-ssl-drain
     health-check-http-endpoint: /health-check
     health-check-type: http
+    health-check-invocation-timeout: 10
 
   - name: funding-service-design-form-runner-test
     docker:
@@ -49,3 +50,4 @@ applications:
       - logit-ssl-drain
     health-check-http-endpoint: /health-check
     health-check-type: http
+    health-check-invocation-timeout: 10
