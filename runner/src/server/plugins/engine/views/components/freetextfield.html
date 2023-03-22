@@ -1,16 +1,34 @@
 {% macro FreeTextField(component) %}
   <script src="/assets/tinymce.min.js"></script>
-  <script src="/assets/tinymce-config.js"></script>
   <script>
     
-    var editor = tinymce.get('input.free-text');
+  tinymce.init({
+    setup: function (editor) {
+      editor.on('init', function () {
+        this.getBody().innerHTML = component.model.value;          
+      });
+    },
+    selector: `#{{ component.model.id }}`,  // change this value according to your HTML
+    skin: 'tinymce-5',
+    branding: false,
+    elementpath: false,
+    content_css: 'default',
+    height: 150,
+    menubar: false,
+    plugins: [
+      'advlist','autolink',
+      'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+      'fullscreen','insertdatetime','media','table','help','wordcount'
 
-    // Set the content of the text box
-    editor.setContent('Hello, world!');
-  </script>
+    ],
+    toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
+      'alignleft aligncenter alignright alignjustify | ' +
+      'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+  });
+    </script>  
   <div class="govuk-form-group">
     <label class="govuk-label govuk-label--s" for={{component.model.id}}>{{component.model.label.text}}</label>
     <div id="hint-{{component.model.id}}" class="govuk-hint">{{component.model.hint.html}}</div>
-    <input id={{component.model.id}} name={{component.model.id}} class="govuk-input govuk-input--width-20 free-text">{{component.model.label.hint}}</input>
+    <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" class="govuk-textarea free-text">{{ component.model.value }}</textarea>
   </div>
 {% endmacro %}
