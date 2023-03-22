@@ -32,6 +32,15 @@
           "options": {
             "maxWords": "15"
           }
+        },
+        {
+          "type": "FreeTextField",
+          "name": "freeTextField1",
+          "title": "Free text field",
+          "hint": "Help text",
+          "options": {
+            "maxWords": "15"
+          }
         }
       ],
       "section": "checkBeforeYouStart",
