@@ -58,8 +58,6 @@ RUN touch ./designer/.env && \
     echo "LAST_TAG_GH=$LAST_TAG" >> ./designer/.env  && \
     echo "LAST_COMMIT=$LAST_COMMIT" >> ./designer/.env
 RUN yarn designer build
-USER 0
-RUN rm -r .yarn/cache
 USER 1001
 RUN yarn workspaces focus @xgovformbuilder/designer --production
 
