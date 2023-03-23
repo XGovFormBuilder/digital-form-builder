@@ -17,10 +17,12 @@
     content_css: 'default',
     height: 150,
     menubar: false,
+    block_unsupported_drop: true,
+    automatic_uploads: false,
     plugins: [
       'advlist','autolink',
-      'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
-      'fullscreen','insertdatetime','media','table','help','wordcount'
+      'lists','link','charmap','preview','anchor','searchreplace',
+      'fullscreen','insertdatetime','table','help','wordcount'
 
     ],
     toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
@@ -29,9 +31,14 @@
   });
     </script>
 </head>  
-  <div class="govuk-form-group">
+<div class="govuk-form-group {{ 'govuk-form-group--error' if component.model.errorMessage }}">
     <label class="govuk-label govuk-label--s" for={{component.model.id}}>{{component.model.label.text}}</label>
     <div id="hint-{{component.model.id}}" class="govuk-hint">{{component.model.hint.html}}</div>
+    {% if component.model.errorMessage %}
+    <span id="nationality-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{component.model.errorMessage.text}}
+    </span>
+{% endif %}
     <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" class="myeditablediv">{{ component.model.value }}</textarea>
   </div>
 {% endmacro %}

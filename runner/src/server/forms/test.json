@@ -27,7 +27,7 @@
         {
           "type": "FreeTextField",
           "name": "freeTextField",
-          "title": "Free text field",
+          "title": "Test FreeTextField",
           "hint": "Help text",
           "options": {
             "maxWords": "15"
