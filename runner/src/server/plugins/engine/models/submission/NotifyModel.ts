@@ -27,7 +27,7 @@ export function NotifyModel(
     apiKey,
     emailField,
     personalisation: personalisationConfiguration,
-    possiblePersonalisationFields = {},
+    personalisationFieldCustomisation = {},
     emailReplyToIdConfiguration,
     templateId,
   } = outputConfiguration;
@@ -39,7 +39,7 @@ export function NotifyModel(
 
       const possibleFields = [
         curr,
-        ...(possiblePersonalisationFields?.[curr] ?? []),
+        ...(personalisationFieldCustomisation?.[curr] ?? []),
       ];
       //iterate through each field to find the value to use
       possibleFields.forEach((field) => {

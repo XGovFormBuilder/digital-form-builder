@@ -82,7 +82,7 @@ export type NotifyOutputConfiguration = {
   templateId: string;
   emailField: string;
   personalisation: string[];
-  possiblePersonalisationFields?: {
+  personalisationFieldCustomisation?: {
     [personalisationName: string]: string[];
   };
   addReferencesToPersonalisation?: boolean;
