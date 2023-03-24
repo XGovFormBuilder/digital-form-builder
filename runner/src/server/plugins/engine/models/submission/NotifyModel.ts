@@ -27,6 +27,7 @@ export function NotifyModel(
     apiKey,
     emailField,
     personalisation: personalisationConfiguration,
+    personalisationFieldCustomisation = {},
     emailReplyToIdConfiguration,
     templateId,
   } = outputConfiguration;
@@ -34,10 +35,21 @@ export function NotifyModel(
   // @ts-ignore - eslint does not report this as an error, only tsc
   const personalisation: NotifyModel["personalisation"] = personalisationConfiguration.reduce(
     (acc, curr) => {
-      const condition = model.conditions[curr];
+      let value, condition;
+
+      const possibleFields = [
+        curr,
+        ...(personalisationFieldCustomisation?.[curr] ?? []),
+      ];
+      //iterate through each field to find the value to use
+      possibleFields.forEach((field) => {
+        value ??= reach(state, field);
+        condition ??= model.conditions[curr];
+      });
+
       return {
         ...acc,
-        [curr]: condition ? condition.fn(state) : reach(state, curr),
+        [curr]: condition ? condition.fn(state) : value,
       };
     },
     {}

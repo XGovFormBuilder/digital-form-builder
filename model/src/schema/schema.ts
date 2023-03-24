@@ -183,6 +183,10 @@ const notifySchema = joi.object().keys({
   templateId: joi.string(),
   emailField: joi.string(),
   personalisation: joi.array().items(joi.string()),
+  personalisationFieldCustomisation: joi
+    .object()
+    .pattern(/./, joi.array().items(joi.string()))
+    .optional(),
   addReferencesToPersonalisation: joi.boolean().optional(),
   emailReplyToIdConfiguration: joi.array().items(replyToConfigurationSchema),
 });

@@ -121,7 +121,7 @@ export class StatusService {
           "PUT"
         );
       } catch (e) {
-        throw Boom.badRequest();
+        throw Boom.badRequest(e);
       }
     }
 

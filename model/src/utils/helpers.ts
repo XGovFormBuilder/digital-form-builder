@@ -19,7 +19,7 @@ export const clone = <T>(obj: T & { clone?: () => T }): T => {
   return obj;
 };
 
-export function filter<T>(
+export function filter<T extends { [key: string]: unknown }>(
   obj: T,
   predicate: (value: any) => boolean
 ): Partial<T> {
