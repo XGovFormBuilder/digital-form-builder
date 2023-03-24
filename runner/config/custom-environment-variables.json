@@ -41,5 +41,8 @@
   "authClientTokenUrl": "AUTH_CLIENT_TOKEN_URL",
   "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
   "previewMode": "PREVIEW_MODE",
-  "enforceCsrf": "ENFORCE_CSRF"
+  "enforceCsrf": "ENFORCE_CSRF",
+  "safelist": "SAFELIST",
+  "initialisedSessionTimeout": "INITIALISED_SESSION_TIMEOUT",
+  "initialisedSessionKey": "INITIALISED_SESSION_KEY",
 }
