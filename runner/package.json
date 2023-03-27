@@ -116,7 +116,7 @@
     "code": "5.2.4",
     "date-fns": "^2.24.0",
     "eslint": "^8.11.0",
-    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-tsdoc": "^0.2.14",
     "flat": "5.0.2",
     "form-data": "^4.0.0",

@@ -52,7 +52,7 @@
     "cross-env": "^7.0.3",
     "depth-first": "^4.0.0",
     "eslint": "^8.10.0",
-    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-tsdoc": "^0.2.14",
     "expr-eval": "2.0.2",
     "hmpo-components": "5.2.1",
