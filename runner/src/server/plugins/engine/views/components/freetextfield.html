@@ -5,17 +5,11 @@
     
   tinymce.init({
     setup: function (editor) {
-      editor.on('init', function () {
-        if (typeof component !== 'undefined') {      
-        this.getBody().innerHTML = component.model.value;
-        }
+      editor.on('init', function () {               
+        setWordCount(editor);
       });
       editor.on('input', function(e) {
-        var maxWords = '{{component.model.maxwords}}';
-        var wordCount = countWords(editor);
-        var wordsRemaing = Number(maxWords) - wordCount;
-        var label = document.getElementById('word-count-label');
-        label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
+        setWordCount(editor);
     });
     },
     selector: '.myeditablediv',  // change this value according to your HTML
@@ -28,23 +22,20 @@
     block_unsupported_drop: true,
     automatic_uploads: false,
     browser_spellcheck: true,
-    max_words: 500,
-    onchange_callback : function (editor) {
-     
-    },
+    max_words: Number('{{ component.model.maxwords }}'),
+    iframe_aria_text: '{{ component.model.name }}',   
     plugins: [
       'advlist','autolink',
       'lists','link','charmap','preview','anchor','searchreplace',
       'fullscreen','insertdatetime','table','help'
 
     ],
-    toolbar: 'bold' +
-      ' | ' +
-      'bullist numlist'
+    toolbar: 'bold | bullist numlist'
   });
 
 
   function countWords(editor) {
+    debugger;
     var content = editor.getContent({ format: 'text' });
     var wordCount = 0;
     if (content) {
@@ -52,6 +43,15 @@
       wordCount = matches ? matches.length : 0;
     }
     return wordCount;
+  }
+
+  function setWordCount(editor) {
+    debugger;
+    var maxWords = editor.getParam('max_words', 500);;
+        var wordCount = countWords(editor);
+        var wordsRemaing = Number(maxWords) - wordCount;
+        var label = document.getElementById('word-count-label-' + editor.id );
+        label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
   }
     </script>
 </head>  
@@ -63,8 +63,8 @@
         <span class="govuk-visually-hidden">Error:</span> {{component.model.errorMessage.text}}
     </span>
 {% endif %}
-    <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" class="myeditablediv">{{ component.model.value }}</textarea>
-    <div id="word-count-label" class="govuk-hint govuk-character-count__message">You have {{ component.model.maxwords }} words remaining</div>
+    <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" class="myeditablediv govuk-textarea">{{ component.model.value }}</textarea>
+    <div id="word-count-label-{{ component.model.id }}" class="govuk-hint govuk-character-count__message">You have {{ component.model.maxwords }} words remaining</div>
   </div>
   
 {% endmacro %}
