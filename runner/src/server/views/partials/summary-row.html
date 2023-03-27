@@ -16,6 +16,9 @@
                 <script>
                     document.getElementById('{{item.name}}').innerHTML = '{{item.value|safe}}';
                 </script>
+                <noscript>
+                    {{item.value}}
+                </noscript>
                 
             {% else %}
                 {{item.value}}
