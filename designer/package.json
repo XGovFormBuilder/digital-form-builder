@@ -100,7 +100,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.3",
     "babel-plugin-module-name-mapper": "^1.2.0",
-    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-transform-import-ignore": "^1.1.0",
     "cheerio": "^1.0.0-rc.10",
     "clean-webpack-plugin": "^4.0.0",
