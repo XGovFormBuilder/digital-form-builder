@@ -68,7 +68,7 @@
     "hapi-require-https": "5.0.0",
     "hmpo-components": "^5.2.1",
     "ioredis": "4.16.1",
-    "joi": "17.2.1",
+    "joi": "17.9.1",
     "nanoid": "^3.3.4",
     "nodemailer": "~6.6.0",
     "notifications-node-client": "^5.2.0",
