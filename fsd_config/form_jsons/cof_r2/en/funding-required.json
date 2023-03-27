@@ -359,7 +359,7 @@
           },
           "type": "NumberField",
           "title": "Capital funding",
-          "hint": "<label class=\"govuk-body\">Capital funding </label>"
+          "hint": "<label class=\"govuk-body\" for=\"JzWvhj\">Capital funding </label>"
         },
         {
           "name": "jLIgoi",
@@ -371,7 +371,7 @@
           },
           "type": "NumberField",
           "title": "Revenue funding (optional)",
-          "hint": "<label class=\"govuk-body\">Revenue funding (optional)</label>"
+          "hint": "<label class=\"govuk-body\" for=\"jLIgoi\">Revenue funding (optional)</label>"
         }
       ],
       "next": [{ "path": "/management-case-dCnKfb" }]

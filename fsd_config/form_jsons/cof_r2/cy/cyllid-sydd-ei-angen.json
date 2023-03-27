@@ -368,7 +368,7 @@
           },
           "type": "NumberField",
           "title": "Arian Cyfalaf",
-          "hint": "<label class=\"govuk-body\">Arian Cyfalaf</label>"
+          "hint": "<label class=\"govuk-body\" for=\"JzWvhj\">Arian Cyfalaf</label>"
         },
         {
           "name": "jLIgoi",
@@ -380,7 +380,7 @@
           },
           "type": "NumberField",
           "title": "Arian Refeniw (dewisol)",
-          "hint": "<label class=\"govuk-body\">Arian Refeniw (dewisol)</label>"
+          "hint": "<label class=\"govuk-body\" for=\"jLIgoi\">Arian Refeniw (dewisol)</label>"
         }
       ],
       "next": [{ "path": "/achos-rheoli-WeKyYU" }]
