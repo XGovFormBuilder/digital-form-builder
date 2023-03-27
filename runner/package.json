@@ -38,7 +38,7 @@
     "@hapi/bell": "^12.3.0",
     "@hapi/boom": "^9.1.4",
     "@hapi/catbox": "11.1.0",
-    "@hapi/catbox-memory": "^5.0.1",
+    "@hapi/catbox-memory": "^6.0.1",
     "@hapi/catbox-redis": "^6.0.2",
     "@hapi/cookie": "^11.0.2",
     "@hapi/crumb": "^8.0.1",
