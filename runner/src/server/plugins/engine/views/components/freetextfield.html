@@ -5,10 +5,18 @@
     
   tinymce.init({
     setup: function (editor) {
-      editor.on('init', function () {        
+      editor.on('init', function () {
+        if (typeof component !== 'undefined') {      
         this.getBody().innerHTML = component.model.value;
-        
+        }
       });
+      editor.on('input', function(e) {
+        var maxWords = '{{component.model.maxwords}}';
+        var wordCount = countWords(editor);
+        var wordsRemaing = Number(maxWords) - wordCount;
+        var label = document.getElementById('word-count-label');
+        label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
+    });
     },
     selector: '.myeditablediv',  // change this value according to your HTML
     skin: 'tinymce-5',
@@ -19,16 +27,32 @@
     menubar: false,
     block_unsupported_drop: true,
     automatic_uploads: false,
+    browser_spellcheck: true,
+    max_words: 500,
+    onchange_callback : function (editor) {
+     
+    },
     plugins: [
       'advlist','autolink',
       'lists','link','charmap','preview','anchor','searchreplace',
-      'fullscreen','insertdatetime','table','help','wordcount'
+      'fullscreen','insertdatetime','table','help'
 
     ],
-    toolbar: 'undo redo | casechange blocks | bold italic backcolor | ' +
-      'alignleft aligncenter alignright alignjustify | ' +
-      'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+    toolbar: 'bold' +
+      ' | ' +
+      'bullist numlist'
   });
+
+
+  function countWords(editor) {
+    var content = editor.getContent({ format: 'text' });
+    var wordCount = 0;
+    if (content) {
+      var matches = content.match(/\b\w+\b/g);
+      wordCount = matches ? matches.length : 0;
+    }
+    return wordCount;
+  }
     </script>
 </head>  
 <div class="govuk-form-group {{ 'govuk-form-group--error' if component.model.errorMessage }}">
@@ -40,5 +64,7 @@
     </span>
 {% endif %}
     <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" class="myeditablediv">{{ component.model.value }}</textarea>
+    <div id="word-count-label" class="govuk-hint govuk-character-count__message">You have {{ component.model.maxwords }} words remaining</div>
   </div>
+  
 {% endmacro %}

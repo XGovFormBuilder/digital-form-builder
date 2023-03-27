@@ -11,6 +11,12 @@
                 {% endfor %}
                 {% elif item.type == 'NumberField' %}
                 {{item.prefix}}{{item.value}}
+                {% elif item.type == 'FreeTextField' %}
+                <div id={{item.name}}></div>
+                <script>
+                    document.getElementById('{{item.name}}').innerHTML = '{{item.value|safe}}';
+                </script>
+                
             {% else %}
                 {{item.value}}
             {% endif %}
