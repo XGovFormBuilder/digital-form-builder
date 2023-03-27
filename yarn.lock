@@ -2682,7 +2682,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/address@npm:2.x.x, @hapi/address@npm:^2.1.2":
+"@hapi/address@npm:^2.1.2":
   version: 2.1.4
   resolution: "@hapi/address@npm:2.1.4"
   checksum: 10341c3b650746c79ac2c57118efb05d45d850b33aef82a6f2ba89419fdbf1b6d337c8b085cc9bc1af7a5fb18379c07edaf3be7584426f40bd370ed6de29e965
@@ -2784,13 +2784,6 @@ __metadata:
     "@hapi/boom": 9.x.x
     "@hapi/hoek": 9.x.x
   checksum: 36cb6bacc508ba6bfa1426345316d6e6b8ffade79c347ccbd3ba4d8f9657342c12ac1e28f35380dec22242305b84ccaf385ce80255bcb084bfb9aa83bced513f
-  languageName: node
-  linkType: hard
-
-"@hapi/bourne@npm:1.x.x":
-  version: 1.3.2
-  resolution: "@hapi/bourne@npm:1.3.2"
-  checksum: 8403a2e8297fbb49a0e4fca30e874590d96ecaf7165740804037ff30625f3fdea6353d9f7f4422607eb069a3f471900a3037df34285a95135d15c6a8b10094b0
   languageName: node
   linkType: hard
 
@@ -3066,18 +3059,6 @@ __metadata:
     "@hapi/cryptiles": 5.x.x
     "@hapi/hoek": 9.x.x
   checksum: ef07abc8a55eb8b60ab0c09d797bb13b39d283260ecdabedc1568c64c47d8c15fe517beed4f76a2b69dac57e6c26cd30ac7612169c41adb8f4c77ea3f58d973d
-  languageName: node
-  linkType: hard
-
-"@hapi/joi@npm:15.x.x":
-  version: 15.1.1
-  resolution: "@hapi/joi@npm:15.1.1"
-  dependencies:
-    "@hapi/address": 2.x.x
-    "@hapi/bourne": 1.x.x
-    "@hapi/hoek": 8.x.x
-    "@hapi/topo": 3.x.x
-  checksum: 5bc3df9d43d4a53c41fd172d2958a4a846dbacbe2a2abe16830059109c436776d7be98144f14af9d328ebd107dbebafe55e00a9032a905aef45aadff988b54bf
   languageName: node
   linkType: hard
 
@@ -3366,7 +3347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/topo@npm:3.x.x, @hapi/topo@npm:^3.1.3":
+"@hapi/topo@npm:^3.1.3":
   version: 3.1.6
   resolution: "@hapi/topo@npm:3.1.6"
   dependencies:
@@ -5688,7 +5669,7 @@ __metadata:
     babel-eslint: ^10.1.0
     babel-plugin-module-name-mapper: ^1.2.0
     blankie: 5.0.0
-    blipp: 4.0.1
+    blipp: 4.0.2
     boom: 7.3.0
     btoa: ^1.2.1
     cheerio: ^1.0.0-rc.10
@@ -7002,15 +6983,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"blipp@npm:4.0.1":
-  version: 4.0.1
-  resolution: "blipp@npm:4.0.1"
+"blipp@npm:4.0.2":
+  version: 4.0.2
+  resolution: "blipp@npm:4.0.2"
   dependencies:
-    "@hapi/hoek": 8.x.x
-    "@hapi/joi": 15.x.x
-    chalk: 2.x.x
+    "@hapi/hoek": 9.x.x
+    chalk: 4.x.x
     easy-table: 1.x.x
-  checksum: a1443902b794c16231e280bb238e88f85e3fea0f817594f0f7b5302c9c1849892638eb3433b12353b439793c32c4e9cb494be77e3d0cd9672b0cdc59dd8cd9ca
+    joi: 17.x.x
+  checksum: 80329f8eb111b454ade4c9deb53f7dfa1f011aaee1286e7af63fd8f82855e96985dd93bdc03b81cee9347aa453bee9f27bc6243b5847c5e1e7ca658016a1cb2a
   languageName: node
   linkType: hard
 
@@ -7634,7 +7615,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:2.4.2, chalk@npm:2.x.x, chalk@npm:^2.0.0, chalk@npm:^2.4.2":
+"chalk@npm:2.4.2, chalk@npm:^2.0.0, chalk@npm:^2.4.2":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -7655,6 +7636,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chalk@npm:4.x.x, chalk@npm:^4.0.2, chalk@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "chalk@npm:4.1.2"
+  dependencies:
+    ansi-styles: ^4.1.0
+    supports-color: ^7.1.0
+  checksum: fe75c9d5c76a7a98d45495b91b2172fa3b7a09e0cc9370e5c8feb1c567b85c4288e2b3fded7cfdd7359ac28d6b3844feb8b82b8686842e93d23c827c417e83fc
+  languageName: node
+  linkType: hard
+
 "chalk@npm:^3.0.0":
   version: 3.0.0
   resolution: "chalk@npm:3.0.0"
@@ -7672,16 +7663,6 @@ __metadata:
     ansi-styles: ^4.1.0
     supports-color: ^7.1.0
   checksum: 5561c7b4c063badee3e16d04bce50bd033e1be1bf4c6948639275683ffa7a1993c44639b43c22b1c505f0f813a24b1889037eb182546b48946f9fe7cdd0e7d13
-  languageName: node
-  linkType: hard
-
-"chalk@npm:^4.0.2, chalk@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "chalk@npm:4.1.2"
-  dependencies:
-    ansi-styles: ^4.1.0
-    supports-color: ^7.1.0
-  checksum: fe75c9d5c76a7a98d45495b91b2172fa3b7a09e0cc9370e5c8feb1c567b85c4288e2b3fded7cfdd7359ac28d6b3844feb8b82b8686842e93d23c827c417e83fc
   languageName: node
   linkType: hard
 
