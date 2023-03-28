@@ -4,6 +4,7 @@ import Joi, { Schema, StringSchema } from "joi";
 import { FreeTextFieldComponent } from "@xgovformbuilder/model";
 import { FormModel } from "server/plugins/engine/models";
 import { FreeTextFieldViewModel } from "server/plugins/engine/components/types";
+import { DataType } from "./types";
 
 function inputIsOverWordCount(input, maxWords) {
   /**
@@ -21,6 +22,7 @@ export class FreeTextField extends FormComponent {
   schema: FreeTextFieldComponent["schema"];
   customValidationMessage?: string;
   isCharacterOrWordCount: boolean = false;
+  dataType = "freeText" as DataType;
 
   constructor(def: FreeTextFieldComponent, model: FormModel) {
     super(def, model);
