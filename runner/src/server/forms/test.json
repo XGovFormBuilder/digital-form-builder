@@ -30,7 +30,7 @@
           "title": "Test FreeTextField",
           "hint": "Help text",
           "options": {
-            "maxWords": "15"
+            "maxWords": "500"
           }
         },
         {
@@ -39,7 +39,7 @@
           "title": "Free text field",
           "hint": "Help text",
           "options": {
-            "maxWords": "15"
+            "maxWords": "500"
           }
         }
       ],
