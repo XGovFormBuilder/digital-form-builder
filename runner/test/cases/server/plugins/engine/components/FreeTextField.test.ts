@@ -1,9 +1,9 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-import { FreeTextField } from "@xgovformbuilder/runner/src/server/plugins/engine/components/FreeTextField";
+import { FreeTextField } from "server/plugins/engine/components/FreeTextField";
 import { componentSchema } from "@xgovformbuilder/model";
-import { messages } from "@xgovformbuilder/runner/src/server/plugins/engine/pageControllers/validationOptions";
+import { messages } from "src/server/plugins/engine/pageControllers/validationOptions";
 
 const lab = Lab.script();
 exports.lab = lab;
@@ -34,5 +34,26 @@ suite("FreeTextField", () => {
         "required"
       );
     });
+    it("is not required when explicitly configured", () => {
+      const component = FreeTextComponent({ options: { required: false } });
+
+      expect(component.formSchema.describe().flags.presence).to.not.equal(
+        "required"
+      );
+    });
+
+    it("validates correctly", () => {
+      expect(component.formSchema.validate({}).error).to.exist();
+    });
+
+    function FreeTextComponent(properties) {
+      return new FreeTextField(
+        {
+          ...def,
+          ...properties,
+        },
+        formModel
+      );
+    }
   });
 });
