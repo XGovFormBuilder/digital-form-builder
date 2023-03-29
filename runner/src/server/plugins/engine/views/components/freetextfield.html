@@ -8,9 +8,16 @@
     tinymce.init({
       setup: function (editor) {
         editor.on('init', function () {
+          debugger;
           setWordCount(editor);
         });
         editor.on('input', function (e) {
+          debugger;
+          setWordCount(editor);
+        });
+        editor.on('setcontent', function(e) {
+          alert("OnpostPaste");
+          debugger;
           setWordCount(editor);
         });
       },
@@ -23,17 +30,13 @@
       menubar: false,      
       browser_spellcheck: true,
       max_words: Number('{{ component.model.maxwords }}'),
-      iframe_aria_text: '{{ component.model.name }}',      
-      paste_preprocess: function(plugin, args) {
-        // Remove and font font-family styles from pasted content
-        args.content = args.content.replace(/font(-family)?\s*:\s*[^;]+;/gi, '');
-      },
-      paste_data_images: false, // disable pasting images
+      iframe_aria_text: '{{ component.model.name }}',
+      paste_data_images: false,
       dragover_callback: function (e) {
-        e.preventDefault(); // prevent dragover event from doing anything
+        e.preventDefault(); // prevent dragover event from doing anything, images could be snuck in this way
       },
       drop_callback: function (e) {
-        e.preventDefault(); // prevent drop event from doing anything
+        e.preventDefault(); // prevent drop event from doing anything, images could be snuck in this way
       },
       plugins: [
         'advlist', 'autolink',
@@ -44,17 +47,20 @@
       contextmenu: 'paste'
     });
 
-    function countWords(editor) {      
+    function countWords(editor) {
+      debugger;
       var content = editor.getContent({ format: 'text' });
+      var noLineBreaksContent = content.replace(/(\r\n|\n|\r)/gm, " ");
       var wordCount = 0;
       if (content) {
-        var matches = content.match(/\b\w+\b/g);
+        var matches = noLineBreaksContent.match(/\b\w+\b/g);
         wordCount = matches ? matches.length : 0;
       }
       return wordCount;
     }
 
-    function setWordCount(editor) {      
+    function setWordCount(editor) {
+      debugger;      
       var maxWords = editor.getParam('max_words', 500);;
       var wordCount = countWords(editor);
       var wordsRemaing = Number(maxWords) - wordCount;
