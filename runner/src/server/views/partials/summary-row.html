@@ -14,7 +14,15 @@
                 {% elif item.type == 'FreeTextField' %}
                 <div id={{item.name}}></div>
                 <script>
-                    document.getElementById('{{item.name}}').innerHTML = '{{item.value|safe}}';
+                    // Nunjucks automatically converts any html to escaped html to prevent cross-site scripting
+                    // This method bellow safely unescapes it so it can be rendered correctly.
+                    document.getElementById('{{item.name}}').innerHTML = unescapeHtml('{{item.value}}');
+
+                    function unescapeHtml(html) {
+                        var div = document.createElement('div');
+                        div.innerHTML = html;
+                        return div.textContent;
+                      }
                 </script>
                 <noscript>
                     {{item.value}}

@@ -23,6 +23,24 @@
             "required": true
           },
           "schema": {}
+        },
+        {
+          "type": "FreeTextField",
+          "name": "freeTextField",
+          "title": "Test FreeTextField",
+          "hint": "Help text",
+          "options": {
+            "maxWords": "500"
+          }
+        },
+        {
+          "type": "FreeTextField",
+          "name": "freeTextField1",
+          "title": "Free text field",
+          "hint": "Help text",
+          "options": {
+            "maxWords": "500"
+          }
         }
       ],
       "section": "checkBeforeYouStart",

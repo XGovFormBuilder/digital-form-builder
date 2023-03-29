@@ -103,6 +103,7 @@ export class SummaryPageController extends PageController {
           }
           if (item.type === "FreeTextField") {
             item.value = item.value.replace(/\r\n/g, "<br>");
+            item.value = item.value.replace(/\\/g, "\\\\");
           }
         }
       });
