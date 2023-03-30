@@ -4,7 +4,7 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
-import { BackLink } from "..";
+import { BackLink } from "./..";
 
 const { expect } = Code;
 const lab = Lab.script();
