@@ -7,17 +7,13 @@
 
     tinymce.init({
       setup: function (editor) {
-        editor.on('init', function () {
-          debugger;
+        editor.on('init', function () {          
           setWordCount(editor);
         });
-        editor.on('input', function (e) {
-          debugger;
+        editor.on('input', function (e) {          
           setWordCount(editor);
         });
-        editor.on('setcontent', function(e) {
-          alert("OnpostPaste");
-          debugger;
+        editor.on('setcontent', function(e) {         
           setWordCount(editor);
         });
       },
@@ -47,8 +43,7 @@
       contextmenu: 'paste'
     });
 
-    function countWords(editor) {
-      debugger;
+    function countWords(editor) {      
       var content = editor.getContent({ format: 'text' });
       var noLineBreaksContent = content.replace(/(\r\n|\n|\r)/gm, " ");
       var wordCount = 0;
@@ -59,13 +54,22 @@
       return wordCount;
     }
 
-    function setWordCount(editor) {
-      debugger;      
-      var maxWords = editor.getParam('max_words', 500);;
+    function setWordCount(editor) {            
+      var maxWords = editor.getParam('max_words', 500);
       var wordCount = countWords(editor);
       var wordsRemaing = Number(maxWords) - wordCount;
       var label = document.getElementById('word-count-label-' + editor.id);
       label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
+      label.style.color = '#505a5f';      
+      if (wordsRemaing < 0) {
+        var wordsOver = wordCount - Number(maxWords);
+        label.innerHTML = 'You have ' + wordsOver + ' words too many';
+        label.style.color = '#d4351c';
+        editor.dom.addClass(editor.getContainer(), 'red-border');
+      }
+      else{
+        editor.dom.removeClass(editor.getContainer(), 'red-border');
+      }
     }
   </script>
 </head>
@@ -78,8 +82,7 @@
     <span class="govuk-visually-hidden">Error:</span> {{component.model.errorMessage.text}}
   </span>
   {% endif %}
-  <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" class="myeditablediv govuk-textarea"
-    contenteditable="false">{{ component.model.value }}</textarea>
+  <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" rows="5" class="govuk-textarea myeditablediv">{{ component.model.value }}</textarea>
   <div id="word-count-label-{{ component.model.id }}" class="govuk-hint govuk-js-character-count">You can enter up to {{
     component.model.maxwords }} words</div>
 </div>

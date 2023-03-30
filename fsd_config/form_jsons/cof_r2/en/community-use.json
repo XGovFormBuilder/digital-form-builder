@@ -24,7 +24,7 @@
         {
           "name": "kxgWTy",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Who in the community uses the asset, or has used it in the past, and who benefits from it?"
         },
         {

@@ -79,3 +79,7 @@ $govuk-global-styles: true;
   margin-top: 0;
   margin-bottom: 10px;
 }
+
+.red-border {
+  border: 1px solid red !important;
+}
