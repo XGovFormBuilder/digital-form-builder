@@ -1,4 +1,3 @@
-{% from "character-count/macro.njk" import govukCharacterCount %}
 {% macro FreeTextField(component) %}
 
 <head>
@@ -13,11 +12,12 @@
         editor.on('input', function (e) {          
           setWordCount(editor);
         });
-        editor.on('setcontent', function(e) {         
+        editor.on('setcontent', function(e) {
+          // When pasting into the field, update the word count         
           setWordCount(editor);
         });
       },
-      selector: '.myeditablediv',  // change this value according to your HTML
+      selector: '.myeditablediv', 
       skin: 'tinymce-5',
       branding: false,
       elementpath: false,
@@ -29,10 +29,12 @@
       iframe_aria_text: '{{ component.model.name }}',
       paste_data_images: false,
       dragover_callback: function (e) {
-        e.preventDefault(); // prevent dragover event from doing anything, images could be snuck in this way
+        // prevent dragover event from doing anything, images could be snuck in this way
+        e.preventDefault();
       },
       drop_callback: function (e) {
-        e.preventDefault(); // prevent drop event from doing anything, images could be snuck in this way
+        // prevent drop event from doing anything, images could be snuck in this way
+        e.preventDefault();
       },
       plugins: [
         'advlist', 'autolink',
@@ -45,9 +47,12 @@
 
     function countWords(editor) {      
       var content = editor.getContent({ format: 'text' });
+      // removing line breaks ast they were sometimes counting as words
       var noLineBreaksContent = content.replace(/(\r\n|\n|\r)/gm, " ");
       var wordCount = 0;
+
       if (content) {
+        // Regex for checking white space border and not counting special characters
         var matches = noLineBreaksContent.match(/\b\w+\b/g);
         wordCount = matches ? matches.length : 0;
       }
@@ -60,7 +65,8 @@
       var wordsRemaing = Number(maxWords) - wordCount;
       var label = document.getElementById('word-count-label-' + editor.id);
       label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
-      label.style.color = '#505a5f';      
+      label.style.color = '#505a5f';
+
       if (wordsRemaing < 0) {
         var wordsOver = wordCount - Number(maxWords);
         label.innerHTML = 'You have ' + wordsOver + ' words too many';

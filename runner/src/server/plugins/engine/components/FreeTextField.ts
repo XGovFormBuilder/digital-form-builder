@@ -23,7 +23,6 @@ export class FreeTextField extends FormComponent {
   options: FreeTextFieldComponent["options"];
   schema: FreeTextFieldComponent["schema"];
   customValidationMessage?: string;
-  isCharacterOrWordCount: boolean = false;
   dataType = "freeText" as DataType;
 
   constructor(def: FreeTextFieldComponent, model: FormModel) {
@@ -87,7 +86,6 @@ export class FreeTextField extends FormComponent {
       formData,
       errors
     ) as FreeTextFieldViewModel;
-    viewModel.isCharacterOrWordCount = this.isCharacterOrWordCount;
 
     if (schema.max ?? false) {
       viewModel.maxlength = schema.max;
