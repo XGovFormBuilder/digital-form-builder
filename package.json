@@ -34,8 +34,8 @@
     "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
     "@babel/eslint-parser": "^7.11.3",
     "@babel/eslint-plugin": "^7.11.3",
     "@babel/preset-env": "^7.11.0",
