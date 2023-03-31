@@ -63,7 +63,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
-    "govuk-frontend": "^3.13.0"
+    "govuk-frontend": "^3.13.0",
+    "immutable": "^4.3.0"
   },
   "resolutions": {
     "braces": "2.3.1",

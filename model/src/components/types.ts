@@ -24,6 +24,7 @@ export enum ComponentTypeEnum {
   FlashCard = "FlashCard",
   List = "List",
   MultiInputField = "MultiInputField",
+  FreeTextField = "FreeTextField",
 }
 
 export type ComponentType =
@@ -52,7 +53,8 @@ export type ComponentType =
   | "FlashCard"
   | "List"
   | "WebsiteField"
-  | "MultiInputField";
+  | "MultiInputField"
+  | "FreeTextField";
 
 export type ComponentSubType = "field" | "content";
 
@@ -203,6 +205,19 @@ export interface MultilineTextFieldComponent extends TextFieldBase {
   };
 }
 
+export interface FreeTextFieldComponent extends TextFieldBase {
+  type: "FreeTextField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+    rows?: number;
+    maxWords?: number;
+  };
+  schema: {
+    max?: number;
+    min?: number;
+  };
+}
+
 export interface FileUploadFieldComponent {
   subType?: "field";
   type: "FileUploadField";
@@ -320,7 +335,8 @@ export type ComponentDef =
   | UkAddressFieldComponent
   | YesNoFieldComponent
   | WebsiteFieldComponent
-  | MultiInputFieldComponent;
+  | MultiInputFieldComponent
+  | FreeTextFieldComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -338,7 +354,8 @@ export type InputFieldsComponentsDef =
   | TimeFieldComponent
   | UkAddressFieldComponent
   | WebsiteFieldComponent
-  | MultiInputFieldComponent;
+  | MultiInputFieldComponent
+  | FreeTextFieldComponent;
 
 // Components that render content.
 export type ContentComponentsDef =

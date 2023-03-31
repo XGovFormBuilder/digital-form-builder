@@ -34,3 +34,4 @@ export { WebsiteField } from "./WebsiteField";
 export { YesNoField } from "./YesNoField";
 export { MonthYearField } from "./MonthYearField";
 export { MultiInputField } from "./MultiInputField";
+export { FreeTextField } from "./FreeTextField";

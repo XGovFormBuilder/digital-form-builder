@@ -101,6 +101,10 @@ export class SummaryPageController extends PageController {
           if (item.type === "UkAddressField") {
             item.value = item.value.replace(/, null/g, "");
           }
+          // New lines wont render on the summary page
+          if (item.type === "FreeTextField") {
+            item.value = item.value.replace(/\r\n/g, "");
+          }
         }
       });
 

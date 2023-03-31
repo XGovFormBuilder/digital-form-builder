@@ -135,6 +135,14 @@
           "content": "Content",
           "options": {},
           "schema": {}
+        },
+        {
+          "type": "FreeTextField",
+          "name": "freeTextField",
+          "title": "Free text field",
+          "hint": "Help text",
+          "options": {},
+          "schema": {}
         }
       ]
     },
@@ -279,6 +287,14 @@
           "name": "checkboxesField",
           "title": "Checkboxes field",
           "hint": "Please help",
+          "schema": {}
+        },
+        {
+          "type": "FreeTextField",
+          "name": "freeTextField",
+          "title": "Free text field",
+          "hint": "Help text",
+          "options": { "required": false },
           "schema": {}
         }
       ]

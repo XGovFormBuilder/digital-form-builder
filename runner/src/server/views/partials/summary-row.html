@@ -11,6 +11,23 @@
                 {% endfor %}
                 {% elif item.type == 'NumberField' %}
                 {{item.prefix}}{{item.value}}
+                {% elif item.type == 'FreeTextField' %}
+                <div id={{item.name}}></div>
+                <script>
+                    // Nunjucks automatically converts any html to escaped html to prevent cross-site scripting
+                    // This method bellow safely unescapes it so it can be rendered correctly.
+                    document.getElementById('{{item.name}}').innerHTML = unescapeHtml('{{item.value}}');
+
+                    function unescapeHtml(html) {
+                        var div = document.createElement('div');
+                        div.innerHTML = html;
+                        return div.textContent;
+                      }
+                </script>
+                <noscript>
+                    {{item.value}}
+                </noscript>
+                
             {% else %}
                 {{item.value}}
             {% endif %}

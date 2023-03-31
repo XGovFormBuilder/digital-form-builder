@@ -7027,6 +7027,7 @@ __metadata:
     sass: ^1.49.9
     schmervice: ^1.6.0
     sinon: ^13.0.1
+    tinymce: ^6.3.2
     tmp: ^0.2.1
     typescript: ^4.0.3
     url-parse: ^1.5.10
@@ -11296,6 +11297,7 @@ __metadata:
     eslint-plugin-tsdoc: ^0.2.14
     govuk-frontend: ^3.13.0
     husky: ^4.3.0
+    immutable: ^4.3.0
     lint-staged: ^10.4.2
     magic-string: ^0.25.7
     prettier: 2.1.2
@@ -15781,6 +15783,13 @@ fsevents@^1.2.7:
   version: 4.0.0
   resolution: "immutable@npm:4.0.0"
   checksum: b213379f1a5e764c9c301c5aee26342ca1486e50b8e1bf7cdcb5586ddcedcab4f75cffc8cd50b7a44133e4ecce71cbd066af016b11024b86c18ee6d6cf3209d0
+  languageName: node
+  linkType: hard
+
+"immutable@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "immutable@npm:4.3.0"
+  checksum: a459ead57932f03b64f2b5bfaa009910bcaf4bc0e98771e8616269a38e4189578d887e192432eead0b0e123118e2a970fbd985a6460bb614302424075a3bf3d7
   languageName: node
   linkType: hard
 
@@ -25477,6 +25486,13 @@ resolve@^2.0.0-next.3:
   version: 1.0.3
   resolution: "tiny-warning@npm:1.0.3"
   checksum: 6cf9f66cb765b893976b8cd1c1310338861f30fb04d02ef2c8e0a748cbc2ed5acd8bb1954b78c15f640ad4116def67134d7d705f2a0c9bf27e6e2eb3e92bff29
+  languageName: node
+  linkType: hard
+
+"tinymce@npm:^6.3.2":
+  version: 6.4.0
+  resolution: "tinymce@npm:6.4.0"
+  checksum: 8cf74288cade6d3f4f517aa4bb0d6f93be16a16c7239781520b7867358f3931c359ff0e10e6cf72f2af2c266210b2e8ab8d7e59c3a88523baf5e7833ae0539cf
   languageName: node
   linkType: hard
 
