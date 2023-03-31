@@ -6,16 +6,10 @@
 
     tinymce.init({
       setup: function (editor) {
-        editor.on('init', function () {
+        editor.on('init input setcontent change', function () {
+          debugger;
           setWordCount(editor);
-        });
-        editor.on('input', function (e) {
-          setWordCount(editor);
-        });
-        editor.on('setcontent', function (e) {
-          // When pasting into the field, update the word count         
-          setWordCount(editor);
-        });
+        });       
       },
       selector: '.myeditablediv',
       skin: 'tinymce-5',
