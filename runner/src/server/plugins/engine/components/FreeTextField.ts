@@ -24,6 +24,7 @@ export class FreeTextField extends FormComponent {
   schema: FreeTextFieldComponent["schema"];
   customValidationMessage?: string;
   dataType = "freeText" as DataType;
+  isCharacterOrWordCount: boolean = false;
 
   constructor(def: FreeTextFieldComponent, model: FormModel) {
     super(def, model);
@@ -86,6 +87,7 @@ export class FreeTextField extends FormComponent {
       formData,
       errors
     ) as FreeTextFieldViewModel;
+    viewModel.isCharacterOrWordCount = this.isCharacterOrWordCount;
 
     if (schema.max ?? false) {
       viewModel.maxlength = schema.max;
@@ -100,7 +102,6 @@ export class FreeTextField extends FormComponent {
     }
     if (options.hideTitle) {
       viewModel.label = { text: "", html: viewModel.hint?.html!, classes: "" };
-      viewModel.hint = undefined;
     }
     return viewModel;
   }

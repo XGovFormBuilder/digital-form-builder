@@ -6,24 +6,24 @@
 
     tinymce.init({
       setup: function (editor) {
-        editor.on('init', function () {          
+        editor.on('init', function () {
           setWordCount(editor);
         });
-        editor.on('input', function (e) {          
+        editor.on('input', function (e) {
           setWordCount(editor);
         });
-        editor.on('setcontent', function(e) {
+        editor.on('setcontent', function (e) {
           // When pasting into the field, update the word count         
           setWordCount(editor);
         });
       },
-      selector: '.myeditablediv', 
+      selector: '.myeditablediv',
       skin: 'tinymce-5',
       branding: false,
       elementpath: false,
       content_css: 'default',
       height: 150,
-      menubar: false,      
+      menubar: false,
       browser_spellcheck: true,
       max_words: Number('{{ component.model.maxwords }}'),
       iframe_aria_text: '{{ component.model.name }}',
@@ -45,7 +45,7 @@
       contextmenu: 'paste'
     });
 
-    function countWords(editor) {      
+    function countWords(editor) {
       var content = editor.getContent({ format: 'text' });
       // removing line breaks ast they were sometimes counting as words
       var noLineBreaksContent = content.replace(/(\r\n|\n|\r)/gm, " ");
@@ -59,22 +59,25 @@
       return wordCount;
     }
 
-    function setWordCount(editor) {            
+    function setWordCount(editor) {
       var maxWords = editor.getParam('max_words', 500);
       var wordCount = countWords(editor);
       var wordsRemaing = Number(maxWords) - wordCount;
       var label = document.getElementById('word-count-label-' + editor.id);
-      label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
-      label.style.color = '#505a5f';
 
-      if (wordsRemaing < 0) {
-        var wordsOver = wordCount - Number(maxWords);
-        label.innerHTML = 'You have ' + wordsOver + ' words too many';
-        label.style.color = '#d4351c';
-        editor.dom.addClass(editor.getContainer(), 'red-border');
-      }
-      else{
-        editor.dom.removeClass(editor.getContainer(), 'red-border');
+      if (label != null) {
+        label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
+        label.style.color = '#505a5f';
+
+        if (wordsRemaing < 0) {
+          var wordsOver = wordCount - Number(maxWords);
+          label.innerHTML = 'You have ' + wordsOver + ' words too many';
+          label.style.color = '#d4351c';
+          editor.dom.addClass(editor.getContainer(), 'red-border');
+        }
+        else {
+          editor.dom.removeClass(editor.getContainer(), 'red-border');
+        }
       }
     }
   </script>
@@ -82,15 +85,18 @@
 <div class="govuk-form-group govuk-character-count {{ 'govuk-form-group--error' if component.model.errorMessage }}"
   data-module="govuk-character-count" data-maxwords="150">
   <label class="govuk-label govuk-label--s" for={{component.model.id}}>{{component.model.label.text}}</label>
-  <div id="hint-{{component.model.id}}" class="govuk-hint">{{component.model.hint.html}}</div>
+  <div id="hint-{{component.model.id}}" class="govuk-hint">{{component.model.hint.html|safe}}</div>
   {% if component.model.errorMessage %}
   <span id="nationality-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{component.model.errorMessage.text}}
   </span>
   {% endif %}
-  <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" rows="5" class="govuk-textarea myeditablediv">{{ component.model.value }}</textarea>
+  <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" rows="5"
+    class="govuk-textarea myeditablediv">{{ component.model.value }}</textarea>
+  {% if component.model.isCharacterOrWordCount == true %}
   <div id="word-count-label-{{ component.model.id }}" class="govuk-hint govuk-js-character-count">You can enter up to {{
     component.model.maxwords }} words</div>
+  {% endif %}
 </div>
 
 {% endmacro %}
