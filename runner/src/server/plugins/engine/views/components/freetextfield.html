@@ -60,12 +60,12 @@
       var label = document.getElementById('word-count-label-' + editor.id);
 
       if (label != null) {
-        label.innerHTML = 'You have ' + wordsRemaing + ' words remaining';
+        label.textContent = 'You have ' + wordsRemaing + ' words remaining';
         label.style.color = '#505a5f';
 
         if (wordsRemaing < 0) {
           var wordsOver = wordCount - Number(maxWords);
-          label.innerHTML = 'You have ' + wordsOver + ' words too many';
+          label.textContent = 'You have ' + wordsOver + ' words too many';
           label.style.color = '#d4351c';
           editor.dom.addClass(editor.getContainer(), 'red-border');
         }
