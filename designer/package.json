@@ -127,7 +127,7 @@
     "jsdom": "^19.0.0",
     "lcov-result-merger": "^3.1.0",
     "mini-css-extract-plugin": "^0.11.2",
-    "msw": "^0.47.4",
+    "msw": "^1.2.1",
     "nodemon": "^2.0.20",
     "nunjucks": "3.2.1",
     "postcss": "^8.2.4",
