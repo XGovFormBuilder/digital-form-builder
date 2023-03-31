@@ -6,8 +6,7 @@
 
     tinymce.init({
       setup: function (editor) {
-        editor.on('init input setcontent change', function () {
-          debugger;
+        editor.on('init input setcontent change', function () {          
           setWordCount(editor);
         });       
       },
