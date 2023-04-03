@@ -83,7 +83,8 @@
     "minimist": "~1.2.6",
     "json-schema": "0.4.0",
     "glob-parent": "5.1.2",
-    "follow-redirects": "~1.14.1"
+    "follow-redirects": "~1.14.1",
+    "@xmldom/xmldom": "0.8.6"
   },
   "husky": {
     "hooks": {
