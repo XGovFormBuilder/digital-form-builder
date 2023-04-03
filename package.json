@@ -34,12 +34,12 @@
     "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
-    "@babel/eslint-parser": "^7.11.3",
-    "@babel/eslint-plugin": "^7.11.3",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.12.7",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/eslint-parser": "^7.21.3",
+    "@babel/eslint-plugin": "^7.19.1",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-typescript": "^7.21.4",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "babel-eslint": "^11.0.0-beta.2",
@@ -61,7 +61,7 @@
     "typescript": "4.9.5"
   },
   "dependencies": {
-    "@babel/runtime": "^7.11.2",
+    "@babel/runtime": "^7.21.0",
     "govuk-frontend": "^4.3.1",
     "hmpo-components": "^5.2.1"
   },
@@ -83,7 +83,8 @@
     "minimist": "~1.2.6",
     "json-schema": "0.4.0",
     "glob-parent": "5.1.2",
-    "follow-redirects": "~1.14.1"
+    "follow-redirects": "~1.14.1",
+    "@xmldom/xmldom": "0.8.6"
   },
   "husky": {
     "hooks": {
