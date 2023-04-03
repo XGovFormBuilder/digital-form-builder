@@ -1,5 +1,6 @@
 import Blankie from "blankie";
 import { ServerRegisterPluginObject } from "@hapi/hapi";
+import config from "./config";
 
 import { isUrlSecure } from "src/server/utils/url";
 

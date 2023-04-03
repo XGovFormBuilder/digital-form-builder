@@ -137,7 +137,7 @@ const specialPagesSchema = joi.object().keys({
 
 const listItemSchema = joi.object().keys({
   text: localisedString,
-  value: joi.alternatives().try(joi.number(), joi.string()),
+  value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()),
   description: localisedString.optional(),
   conditional: joi
     .object()
@@ -156,7 +156,7 @@ const listItemSchema = joi.object().keys({
 const listSchema = joi.object().keys({
   name: joi.string().required(),
   title: localisedString,
-  type: joi.string().required().valid("string", "number"),
+  type: joi.string().default("string").valid("string", "number", "boolean"),
   items: joi.array().items(listItemSchema),
 });
 

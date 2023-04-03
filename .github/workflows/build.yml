@@ -73,7 +73,7 @@ jobs:
           HASH_TARGET: "${{inputs.app}}/Dockerfile"
         run: |
           echo "::set-output name=hash::${{hashFiles(env.HASH_TARGET, 'yarn.lock')}}"
-          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles(env.HASH_TARGET)}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles(env.HASH_TARGET, 'model/src')}}"
 
       - name: Build ${{inputs.app}}
         if: ${{inputs.publish != true }}

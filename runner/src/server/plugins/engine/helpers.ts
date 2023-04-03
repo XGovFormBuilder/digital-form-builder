@@ -5,6 +5,9 @@ export const feedbackReturnInfoKey = "f_t";
 
 const paramsToCopy = [feedbackReturnInfoKey];
 
+/**
+ * TODO: needs refactor. excessively complex code when following `PageControllerBase.proceed`
+ */
 export function proceed(
   request: HapiRequest,
   h: HapiResponseToolkit,
@@ -14,13 +17,23 @@ export function proceed(
 
   if (typeof returnUrl === "string" && returnUrl.startsWith("/")) {
     return h.redirect(returnUrl);
-  } else {
-    return redirectTo(request, h, nextUrl);
   }
+
+  const { id } = request.params;
+  if (!nextUrl.includes(id)) {
+    const segments = nextUrl.split("/");
+    const fixedPath = `/${id}/${segments[segments.length - 1]}`;
+    return redirectTo(request, h, fixedPath);
+  }
+
+  return redirectTo(request, h, nextUrl);
 }
 
 type Params = { num?: number; returnUrl: string } | {};
 
+/**
+ * TODO: refactor to use URLSearchParams. Object.entries(..) and copying is excessively complex.
+ */
 export function nonRelativeRedirectUrl(
   request: HapiRequest,
   targetUrl: string,
@@ -42,6 +55,9 @@ export function nonRelativeRedirectUrl(
   return url.toString();
 }
 
+/**
+ * TODO: needs refactor. excessively complex code when following `PageControllerBase.proceed`
+ */
 export function redirectUrl(
   request: HapiRequest,
   targetUrl: string,
@@ -62,6 +78,9 @@ export function redirectUrl(
   return relativeUrl.toString();
 }
 
+/**
+ * TODO: needs refactor. excessively complex code when following `PageControllerBase.proceed`
+ */
 export function redirectTo(
   request: HapiRequest,
   h: HapiResponseToolkit,

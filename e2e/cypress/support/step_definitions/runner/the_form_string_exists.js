@@ -8,7 +8,6 @@ Given("the form {string} exists", (formName) => {
       id: formName,
       configuration: json,
     };
-    console.log(requestBody);
     cy.request("POST", url, requestBody);
   });
 

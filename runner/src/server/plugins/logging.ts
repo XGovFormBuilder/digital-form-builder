@@ -11,7 +11,7 @@ export default {
         return { level: label };
       },
     },
-    logRequestComplete: config.isDev,
+    logRequestComplete: false,
     ignoreFunc: (_options, request) =>
       request.path.startsWith("/assets") || request.url.contains("assets"),
     redact: {

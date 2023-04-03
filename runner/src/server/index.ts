@@ -1,5 +1,5 @@
 import fs from "fs";
-import hapi, { ServerOptions } from "@hapi/hapi";
+import hapi from "@hapi/hapi";
 
 import Scooter from "@hapi/scooter";
 import inert from "@hapi/inert";
@@ -7,21 +7,18 @@ import Schmervice from "schmervice";
 import blipp from "blipp";
 import config from "./config";
 
-import { configureEnginePlugin } from "./plugins/engine";
-import { configureRateLimitPlugin } from "./plugins/rateLimit";
+import { rateLimitPlugin } from "./plugins/rateLimit";
 import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
-import { configureInitialiseSessionPlugin } from "server/plugins/initialiseSession/configurePlugin";
 
 import pluginLocale from "./plugins/locale";
-import pluginSession from "./plugins/session";
-import pluginAuth from "./plugins/auth";
-import pluginViews from "./plugins/views";
-import pluginApplicationStatus from "./plugins/applicationStatus";
-import pluginRouter from "./plugins/router";
-import pluginErrorPages from "./plugins/errorPages";
-import pluginLogging from "./plugins/logging";
-import pluginPulse from "./plugins/pulse";
+import session from "./plugins/session";
+import auth from "./plugins/auth";
+import views from "./plugins/views";
+import router from "./plugins/router";
+import errorPages from "./plugins/errorPages";
+import logging from "./plugins/logging";
+
 import {
   AddressService,
   CacheService,
@@ -33,75 +30,93 @@ import {
   UploadService,
   WebhookService,
 } from "./services";
-import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
-import getRequestInfo from "./utils/getRequestInfo";
+import { RouteConfig } from "./types";
 
-const serverOptions = (): ServerOptions => {
-  const hasCertificate = config.sslKey && config.sslCert;
+import { initialiseSession } from "./plugins/engine/router/initialiseSession";
+import { applicationStatus } from "./plugins/engine/router/applicationStatus";
+import { handleFontCache } from "./ext/handleFontCache";
+import { plugin } from "./plugins/engine/plugin";
+const hasCertificate = config.sslKey && config.sslCert;
 
-  const serverOptions: ServerOptions = {
-    debug: { request: [`${config.isDev}`] },
-    port: config.port,
-    router: {
-      stripTrailingSlash: true,
-    },
-    routes: {
-      validate: {
-        options: {
-          abortEarly: false,
-        },
-      },
-      security: {
-        hsts: {
-          maxAge: 31536000,
-          includeSubDomains: true,
-          preload: false,
-        },
-        xss: true,
-        noSniff: true,
-        xframe: true,
+const serverOptions = {
+  debug: { request: [`${config.isDev}`] },
+  port: config.port,
+  router: {
+    stripTrailingSlash: true,
+  },
+  routes: {
+    validate: {
+      options: {
+        abortEarly: false,
       },
     },
-    cache: [{ provider: catboxProvider() }],
-  };
-
-  const httpsOptions = hasCertificate
+    security: {
+      hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: false,
+      },
+      xss: true,
+      noSniff: true,
+      xframe: true,
+    },
+  },
+  cache: [{ provider: catboxProvider() }],
+  ...(hasCertificate
     ? {
         tls: {
           key: fs.readFileSync(config.sslKey),
           cert: fs.readFileSync(config.sslCert),
         },
       }
-    : {};
-
-  return {
-    ...serverOptions,
-    ...httpsOptions,
-  };
+    : {}),
 };
 
+/**
+ * Creates the runner hapi server.
+ * Plugins are similar to express "middleware". They extend functionality of the server.
+ */
 async function createServer(routeConfig: RouteConfig) {
-  const server = hapi.server(serverOptions());
-  const { formFileName, formFilePath, options } = routeConfig;
+  const server = hapi.server(serverOptions);
 
   if (config.rateLimit) {
-    await server.register(configureRateLimitPlugin(routeConfig));
+    await server.register(rateLimitPlugin);
   }
-  await server.register(pluginLogging);
-  await server.register(pluginSession);
-  await server.register(pluginPulse);
-  await server.register(inert);
-  await server.register(Scooter);
-  await server.register(
-    configureInitialiseSessionPlugin({
-      safelist: config.safelist,
-    })
-  );
-  await server.register(configureBlankiePlugin(config));
-  await server.register(configureCrumbPlugin(config, routeConfig));
-  await server.register(Schmervice);
-  await server.register(pluginAuth);
 
+  await server.register(logging);
+
+  /**
+   * adds `yar` to request. use `yar.id` to identify a user (we use `yar.id` as their session token).
+   */
+  await server.register(session);
+
+  await server.register(inert);
+
+  /**
+   * user agent information, required for blankie
+   */
+  await server.register(Scooter);
+
+  /**
+   * content security policy
+   */
+  await server.register(configureBlankiePlugin(config));
+
+  /**
+   * CSRF
+   */
+  await server.register(configureCrumbPlugin(config, routeConfig));
+
+  /**
+   * Authentication strategy
+   */
+  await server.register(auth);
+
+  /**
+   * allows you to register services that will be accessible via `request.services`
+   * see {@link https://github.com/hapipal/schmervice} for more documentation
+   */
+  await server.register(Schmervice);
   server.registerService([
     CacheService,
     NotifyService,
@@ -113,50 +128,40 @@ async function createServer(routeConfig: RouteConfig) {
     AddressService,
   ]);
 
-  server.ext(
-    "onPreResponse",
-    (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { response } = request;
+  server.ext("onPreResponse", handleFontCache);
 
-      if ("isBoom" in response && response.isBoom) {
-        return h.continue;
-      }
+  /**
+   * how forms and pages are rendered
+   */
+  await server.register(plugin);
 
-      if ("header" in response && response.header) {
-        response.header("X-Robots-Tag", "noindex, nofollow");
-
-        const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
-        if (!WEBFONT_EXTENSIONS.test(request.url.toString())) {
-          response.header(
-            "cache-control",
-            "private, no-cache, no-store, must-revalidate, max-age=0"
-          );
-          response.header("pragma", "no-cache");
-          response.header("expires", "0");
-        } else {
-          response.header("cache-control", "public, max-age=604800, immutable");
-        }
-      }
-      return h.continue;
-    }
-  );
-
-  server.ext("onRequest", (request: HapiRequest, h: HapiResponseToolkit) => {
-    const { pathname } = getRequestInfo(request);
-
-    request.app.location = pathname;
-
-    return h.continue;
-  });
+  /**
+   * Allows a user's session to be rehydrated
+   */
+  await server.register(initialiseSession);
 
   await server.register(pluginLocale);
-  await server.register(pluginViews);
-  await server.register(
-    configureEnginePlugin(formFileName, formFilePath, options)
-  );
-  await server.register(pluginApplicationStatus);
-  await server.register(pluginRouter);
-  await server.register(pluginErrorPages);
+  await server.register(views);
+
+  /**
+   * serves /{id}/status
+   */
+  await server.register(applicationStatus);
+
+  /**
+   * misc routes
+   * TODO: maybe needs renaming?
+   */
+  await server.register(router);
+
+  /**
+   * catches and renders errors
+   */
+  await server.register(errorPages);
+
+  /**
+   * On startup prints out the registered routes
+   */
   await server.register(blipp);
 
   server.state("cookies_policy", {
