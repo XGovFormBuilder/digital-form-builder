@@ -41,8 +41,24 @@
   }
 }
 
+.sidebar {
+  position: relative;
+  max-width: 100px;
+  line-break: anywhere;
+  top: -15px;
+
+  &.left {
+    left: calc(190px);
+  }
+
+  &.right {
+    right: calc(400px);
+  }
+}
+
 .icon--check {
   position: relative;
+
   &:before {
     content: "";
     position: absolute;

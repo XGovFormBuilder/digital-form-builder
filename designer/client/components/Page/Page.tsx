@@ -118,7 +118,9 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       </div>
       {isEditingPage && (
         <Flyout title="Edit Page" onHide={setIsEditingPage}>
-          <PageEdit page={page} onEdit={onEditEnd} />
+          <ComponentContextProvider>
+            <PageEdit page={page} closeFlyout={onEditEnd} />
+          </ComponentContextProvider>
         </Flyout>
       )}
 

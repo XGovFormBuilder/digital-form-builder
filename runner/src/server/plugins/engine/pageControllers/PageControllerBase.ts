@@ -50,6 +50,7 @@ export class PageControllerBase {
   condition: any; // TODO
   repeatField: any; // TODO
   section: any; // TODO
+  sidebarContent: any;
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
@@ -68,11 +69,12 @@ export class PageControllerBase {
     this.title = pageDef.title;
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
-
     // Resolve section
     this.section = model.sections?.find(
       (section) => section.name === pageDef.section
     );
+
+    this.sidebarContent = pageDef.sidebarContent;
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
@@ -101,6 +103,7 @@ export class PageControllerBase {
     name: string;
     pageTitle: string;
     sectionTitle: string;
+    sidebarContent: string;
     showTitle: boolean;
     components: ComponentCollectionViewModel;
     errors: FormSubmissionErrors;
@@ -112,6 +115,7 @@ export class PageControllerBase {
     let showTitle = true;
     let pageTitle = this.title;
     let sectionTitle = this.section?.title;
+    let sidebarContent = this.sidebarContent;
     if (sectionTitle && iteration !== undefined) {
       sectionTitle = `${sectionTitle} ${iteration}`;
     }
@@ -143,6 +147,7 @@ export class PageControllerBase {
       name: this.name,
       pageTitle,
       sectionTitle,
+      sidebarContent,
       showTitle,
       components,
       errors,
