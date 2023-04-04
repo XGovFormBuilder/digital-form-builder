@@ -5495,7 +5495,7 @@ __metadata:
     lodash: ^4.17.21
     mini-css-extract-plugin: ^0.11.2
     msw: ^1.2.1
-    nanoid: ^3.3.4
+    nanoid: ^4.0.2
     nodemon: ^2.0.20
     nunjucks: ^3.2.3
     postcss: ^8.2.4
@@ -5580,7 +5580,7 @@ __metadata:
     hmpo-components: 5.2.1
     jest: ^29.2.0
     joi: 17.2.1
-    nanoid: ^3.3.4
+    nanoid: ^4.0.2
     nunjucks: ^3.2.3
     path: 0.12.7
     ts-jest: ^26.4.4
@@ -5667,7 +5667,7 @@ __metadata:
     ioredis: 4.16.1
     joi: 17.2.1
     lodash-es: ^4.17.21
-    nanoid: ^3.3.4
+    nanoid: ^4.0.2
     nodemailer: ~6.6.0
     nodemon: ^2.0.20
     notifications-node-client: ^5.2.0
@@ -9587,7 +9587,7 @@ __metadata:
     cypress: ^10.9.0
     cypress-file-upload: ^5.0.7
     eslint-plugin-json: ^3.1.0
-    nanoid: ^3.1.23
+    nanoid: ^4.0.2
     prettier: 2.3.0
   languageName: unknown
   linkType: soft
@@ -16943,21 +16943,21 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.1.23, nanoid@npm:^3.3.4":
-  version: 3.3.4
-  resolution: "nanoid@npm:3.3.4"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: 2fddd6dee994b7676f008d3ffa4ab16035a754f4bb586c61df5a22cf8c8c94017aadd360368f47d653829e0569a92b129979152ff97af23a558331e47e37cd9c
-  languageName: node
-  linkType: hard
-
 "nanoid@npm:^3.3.1":
   version: 3.3.1
   resolution: "nanoid@npm:3.3.1"
   bin:
     nanoid: bin/nanoid.cjs
   checksum: 4ef0969e1bbe866fc223eb32276cbccb0961900bfe79104fa5abe34361979dead8d0e061410a5c03bc3d47455685adf32c09d6f27790f4a6898fb51f7df7ec86
+  languageName: node
+  linkType: hard
+
+"nanoid@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "nanoid@npm:4.0.2"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 747c399cea4664dd0be1d0ec498ffd1ef8f1f5221676fc8b577e3f46f66d9afcddb9595d63d19a2e78d0bc6cc33984f65e66bf1682c850b9e26288883d96b53f
   languageName: node
   linkType: hard
 
