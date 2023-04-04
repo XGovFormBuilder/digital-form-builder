@@ -3442,6 +3442,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ioredis/commands@npm:^1.1.1":
+  version: 1.2.0
+  resolution: "@ioredis/commands@npm:1.2.0"
+  checksum: 9b20225ba36ef3e5caf69b3c0720597c3016cc9b1e157f519ea388f621dd9037177f84cfe7e25c4c32dad7dd90c70ff9123cd411f747e053cf292193c9c461e2
+  languageName: node
+  linkType: hard
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.1.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.1.0"
@@ -5664,7 +5671,7 @@ __metadata:
     hapi-rate-limit: 4.1.0
     hapi-require-https: 5.0.0
     hmpo-components: ^5.2.1
-    ioredis: 4.16.1
+    ioredis: 5.3.1
     joi: 17.2.1
     lodash-es: ^4.17.21
     nanoid: ^3.3.4
@@ -9165,6 +9172,13 @@ __metadata:
   version: 1.5.0
   resolution: "denque@npm:1.5.0"
   checksum: 9c0d07a3a6789bccc24f7023a54c83b8850b36c8fbc3aff4bf43b01b76a93ae11c88139502913534fe913bac1b0418dbc30e487ce3d176cbbc001a7a18627c56
+  languageName: node
+  linkType: hard
+
+"denque@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "denque@npm:2.1.0"
+  checksum: 1d4ae1d05e59ac3a3481e7b478293f4b4c813819342273f3d5b826c7ffa9753c520919ba264f377e09108d24ec6cf0ec0ac729a5686cbb8f32d797126c5dae74
   languageName: node
   linkType: hard
 
@@ -13459,23 +13473,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"ioredis@npm:4.16.1":
-  version: 4.16.1
-  resolution: "ioredis@npm:4.16.1"
-  dependencies:
-    cluster-key-slot: ^1.1.0
-    debug: ^4.1.1
-    denque: ^1.1.0
-    lodash.defaults: ^4.2.0
-    lodash.flatten: ^4.4.0
-    redis-commands: 1.5.0
-    redis-errors: ^1.2.0
-    redis-parser: ^3.0.0
-    standard-as-callback: ^2.0.1
-  checksum: 9d52de4b5f58ed13b4e71e1e4690815fc289d6dcc499d6c191be799936a46dbb2cace2228a0c0fc1bcbc73fa48aab8ab1cf311d20a70164da405674ecd10a3da
-  languageName: node
-  linkType: hard
-
 "ioredis@npm:4.x.x":
   version: 4.19.4
   resolution: "ioredis@npm:4.19.4"
@@ -13491,6 +13488,23 @@ fsevents@~2.3.1:
     redis-parser: ^3.0.0
     standard-as-callback: ^2.0.1
   checksum: 1fb4b1d7e47d3074f2fdae3afd478c0de37b160fd16db433dda7d91e3c90888024e6071eeff5cc2ab8c21b7e0f05de0c09dd64a99da487ffaba65496c38198ae
+  languageName: node
+  linkType: hard
+
+"ioredis@npm:5.3.1":
+  version: 5.3.1
+  resolution: "ioredis@npm:5.3.1"
+  dependencies:
+    "@ioredis/commands": ^1.1.1
+    cluster-key-slot: ^1.1.0
+    debug: ^4.3.4
+    denque: ^2.1.0
+    lodash.defaults: ^4.2.0
+    lodash.isarguments: ^3.1.0
+    redis-errors: ^1.2.0
+    redis-parser: ^3.0.0
+    standard-as-callback: ^2.1.0
+  checksum: 6c98cb8f8772ad4bb2b6b7a0a224e4a63f4759f9a28e84205f18788552f08221d51f391c10892dca01a1b10b2804d0a7e6082b0b7decd65538a5fb6b0f4f1f82
   languageName: node
   linkType: hard
 
@@ -16138,6 +16152,13 @@ fsevents@~2.3.1:
   version: 4.3.0
   resolution: "lodash.includes@npm:4.3.0"
   checksum: 71092c130515a67ab3bd928f57f6018434797c94def7f46aafa417771e455ce3a4834889f4267b17887d7f75297dfabd96231bf704fd2b8c5096dc4a913568b6
+  languageName: node
+  linkType: hard
+
+"lodash.isarguments@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "lodash.isarguments@npm:3.1.0"
+  checksum: ae1526f3eb5c61c77944b101b1f655f846ecbedcb9e6b073526eba6890dc0f13f09f72e11ffbf6540b602caee319af9ac363d6cdd6be41f4ee453436f04f13b5
   languageName: node
   linkType: hard
 
@@ -19342,13 +19363,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"redis-commands@npm:1.5.0":
-  version: 1.5.0
-  resolution: "redis-commands@npm:1.5.0"
-  checksum: a0718ab8bf927894248b01fe7e58152bf063a30a2c808c356f7387bbd2f281f20d3a9ffe59ff8683aac82dec657e57f1ea230c2699873a14f4da47a74dd1e3fb
-  languageName: node
-  linkType: hard
-
 "redis-commands@npm:1.6.0":
   version: 1.6.0
   resolution: "redis-commands@npm:1.6.0"
@@ -21070,6 +21084,13 @@ resolve@^2.0.0-next.3:
   version: 2.0.1
   resolution: "standard-as-callback@npm:2.0.1"
   checksum: b377fa9a50f0b98c129a56d0f1d37b693d5c3b8f368bf88ec0a9ff1d33ae7ff32ee3b8a8159e43a5f6855f1c7efeb35fce3f67e84d98271dd36bd821c28e4de9
+  languageName: node
+  linkType: hard
+
+"standard-as-callback@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "standard-as-callback@npm:2.1.0"
+  checksum: 88bec83ee220687c72d94fd86a98d5272c91d37ec64b66d830dbc0d79b62bfa6e47f53b71646011835fc9ce7fae62739545d13124262b53be4fbb3e2ebad551c
   languageName: node
   linkType: hard
 
