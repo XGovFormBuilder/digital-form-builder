@@ -2626,6 +2626,54 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@foliojs-fork/fontkit@npm:^1.9.1":
+  version: 1.9.1
+  resolution: "@foliojs-fork/fontkit@npm:1.9.1"
+  dependencies:
+    "@foliojs-fork/restructure": ^2.0.2
+    brfs: ^2.0.0
+    brotli: ^1.2.0
+    browserify-optional: ^1.0.1
+    clone: ^1.0.4
+    deep-equal: ^1.0.0
+    dfa: ^1.2.0
+    tiny-inflate: ^1.0.2
+    unicode-properties: ^1.2.2
+    unicode-trie: ^2.0.0
+  checksum: 5d37eca2c5514926c9f313eefef13fe9ca08a19ca09cf71377d2395fa77c537b044a4063fc8062394b068e53fff8ea7b74befaebb6abe5d59f5a6e1a124d0f71
+  languageName: node
+  linkType: hard
+
+"@foliojs-fork/linebreak@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@foliojs-fork/linebreak@npm:1.1.1"
+  dependencies:
+    base64-js: 1.3.1
+    brfs: ^2.0.2
+    unicode-trie: ^2.0.0
+  checksum: eb9326ae3f9a276d7d983c3e33a060bb2b9336239d6687af065084a05816876b998d45c341f216b16d2b16d77abf3a73728316d8da388ce3d79850f6fb8ec949
+  languageName: node
+  linkType: hard
+
+"@foliojs-fork/pdfkit@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "@foliojs-fork/pdfkit@npm:0.13.0"
+  dependencies:
+    "@foliojs-fork/fontkit": ^1.9.1
+    "@foliojs-fork/linebreak": ^1.1.1
+    crypto-js: ^4.0.0
+    png-js: ^1.0.0
+  checksum: 84c49edd056835aeff10579a98a1ae8d35821855f4175eb3f6ea4b01f0ca4a2f314670e7a9adedaa75a2745ba452ad7911440c1e2bce13325188cce14c5c3940
+  languageName: node
+  linkType: hard
+
+"@foliojs-fork/restructure@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@foliojs-fork/restructure@npm:2.0.2"
+  checksum: f18877a81ff51acb518ea63da0d4269e85c65db94012d11bc713f8537a7864ac4437d6ea965c1191781ff9df79118aa5c9d4a7d8f389130ee076baf2b487f300
+  languageName: node
+  linkType: hard
+
 "@hapi/accept@npm:^5.0.1":
   version: 5.0.1
   resolution: "@hapi/accept@npm:5.0.1"
@@ -5672,7 +5720,7 @@ __metadata:
     nodemon: ^2.0.20
     notifications-node-client: ^5.2.0
     nunjucks: ^3.2.3
-    pdfmake: 0.1.65
+    pdfmake: 0.2.7
     resolve: ^1.19.0
     sass: ^1.49.9
     schmervice: ^1.6.0
@@ -6834,16 +6882,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-runtime@npm:^6.26.0":
-  version: 6.26.0
-  resolution: "babel-runtime@npm:6.26.0"
-  dependencies:
-    core-js: ^2.4.0
-    regenerator-runtime: ^0.11.0
-  checksum: 8aeade94665e67a73c1ccc10f6fd42ba0c689b980032b70929de7a6d9a12eb87ef51902733f8fefede35afea7a5c3ef7e916a64d503446c1eedc9e3284bd3d50
-  languageName: node
-  linkType: hard
-
 "balanced-match@npm:^1.0.0":
   version: 1.0.0
   resolution: "balanced-match@npm:1.0.0"
@@ -6851,10 +6889,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64-js@npm:0.0.8":
-  version: 0.0.8
-  resolution: "base64-js@npm:0.0.8"
-  checksum: e95d2fa4b9000789fedd1e1ebac7830a70f5b1c06c72b2cf7862a48335af5d42229c0deda5085b2c8e403e479b612a55cd682bd4438838980d07cfc21c91e750
+"base64-js@npm:1.3.1":
+  version: 1.3.1
+  resolution: "base64-js@npm:1.3.1"
+  checksum: 957b9ced0ea1b39588a117193f801b045a5fb2d6f1b9943dd304bcad46e5681bf837fe092105692b11653658e8443764139d6b11d3c4037093b96e8db4e1dbb2
   languageName: node
   linkType: hard
 
@@ -7202,7 +7240,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserify-optional@npm:^1.0.0, browserify-optional@npm:^1.0.1":
+"browserify-optional@npm:^1.0.1":
   version: 1.0.1
   resolution: "browserify-optional@npm:1.0.1"
   dependencies:
@@ -8477,13 +8515,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^2.4.0":
-  version: 2.6.12
-  resolution: "core-js@npm:2.6.12"
-  checksum: 44fa9934a85f8c78d61e0c8b7b22436330471ffe59ec5076fe7f324d6e8cf7f824b14b1c81ca73608b13bdb0fef035bd820989bf059767ad6fa13123bb8bd016
-  languageName: node
-  linkType: hard
-
 "core-js@npm:^3.21.1":
   version: 3.21.1
   resolution: "core-js@npm:3.21.1"
@@ -8648,10 +8679,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-js@npm:^3.1.9-1":
-  version: 3.3.0
-  resolution: "crypto-js@npm:3.3.0"
-  checksum: 193923143a4784b2f974366068d96fe8280168fd3fef2bfea9551a5c3e32096f5a8fa49ff4eeb5bd0b9716d325618d38cfbe6125e359a4ef488fbca93e600824
+"crypto-js@npm:^4.0.0":
+  version: 4.1.1
+  resolution: "crypto-js@npm:4.1.1"
+  checksum: b3747c12ee3a7632fab3b3e171ea50f78b182545f0714f6d3e7e2858385f0f4101a15f2517e033802ce9d12ba50a391575ff4638c9de3dd9b2c4bc47768d5425
   languageName: node
   linkType: hard
 
@@ -11832,25 +11863,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fontkit@npm:^1.8.0":
-  version: 1.8.1
-  resolution: "fontkit@npm:1.8.1"
-  dependencies:
-    babel-runtime: ^6.26.0
-    brfs: ^2.0.0
-    brotli: ^1.2.0
-    browserify-optional: ^1.0.1
-    clone: ^1.0.4
-    deep-equal: ^1.0.0
-    dfa: ^1.2.0
-    restructure: ^0.5.3
-    tiny-inflate: ^1.0.2
-    unicode-properties: ^1.2.2
-    unicode-trie: ^0.3.0
-  checksum: f22ccd404847e6e6173b91dbd3204bf3025ee2ef1ddaebdaf2e1d562e841cf8e96ff889eae1a13b0673d2128f49e924a9582fb184e1a3fd6c62545c3c559b122
-  languageName: node
-  linkType: hard
-
 "for-each@npm:^0.3.3":
   version: 0.3.3
   resolution: "for-each@npm:0.3.3"
@@ -13203,21 +13215,12 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:0.6.3":
+"iconv-lite@npm:0.6.3, iconv-lite@npm:^0.6.3":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
   dependencies:
     safer-buffer: ">= 2.1.2 < 3.0.0"
   checksum: 3f60d47a5c8fc3313317edfd29a00a692cc87a19cac0159e2ce711d0ebc9019064108323b5e493625e25594f11c6236647d8e256fbe7a58f4a3b33b89e6d30bf
-  languageName: node
-  linkType: hard
-
-"iconv-lite@npm:^0.5.1":
-  version: 0.5.2
-  resolution: "iconv-lite@npm:0.5.2"
-  dependencies:
-    safer-buffer: ">= 2.1.2 < 3"
-  checksum: aa184914b74db7a23feb98cad3e4ed22058f2aa27c5613a127327423b3230a0b934665c2aecf5dc657a58a59891c92fd1e721ed160d1b2f3c682bc26e3fe3f14
   languageName: node
   linkType: hard
 
@@ -15899,17 +15902,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"linebreak@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "linebreak@npm:1.0.2"
-  dependencies:
-    base64-js: 0.0.8
-    brfs: ^2.0.2
-    unicode-trie: ^1.0.0
-  checksum: 8cd469ac16781c29e77dcb2bdf8d28670e2e97bffe72a8d9be978676f37c9e4421af01dce7b2dd85d8466db58b06a68d22a0dea03b4bb77f8995bc8afe6b038a
-  languageName: node
-  linkType: hard
-
 "lines-and-columns@npm:^1.1.6":
   version: 1.1.6
   resolution: "lines-and-columns@npm:1.1.6"
@@ -18159,27 +18151,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"pdfkit@npm:>=0.8.1, pdfkit@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "pdfkit@npm:0.11.0"
+"pdfmake@npm:0.2.7":
+  version: 0.2.7
+  resolution: "pdfmake@npm:0.2.7"
   dependencies:
-    crypto-js: ^3.1.9-1
-    fontkit: ^1.8.0
-    linebreak: ^1.0.2
-    png-js: ^1.0.0
-  checksum: 32e956edf778ef79ab17025fc3dfcd1abc1febc74fe0424b12663973abd70a437035cf91f198f0982e70909289777d14279469ddbc7148f99fcbea24ace86b29
-  languageName: node
-  linkType: hard
-
-"pdfmake@npm:0.1.65":
-  version: 0.1.65
-  resolution: "pdfmake@npm:0.1.65"
-  dependencies:
-    iconv-lite: ^0.5.1
-    linebreak: ^1.0.2
-    pdfkit: ^0.11.0
-    svg-to-pdfkit: ^0.1.8
-  checksum: a4b0e6be1a3b23c57119920347bb1fc3a2715ea66f2e1fe2fd2c8782dc3fd996439f8fc0c1647315efa237b2a61da34f855e2d6f42c6b3c1edd1e3450adb158e
+    "@foliojs-fork/linebreak": ^1.1.1
+    "@foliojs-fork/pdfkit": ^0.13.0
+    iconv-lite: ^0.6.3
+    xmldoc: ^1.1.2
+  checksum: cf85c53edb8b54a07839c5f09a2ff11d04bdbf0345d388f99cb2496b57921f22c48684050cd570c8b1cceff0ecfbf81a5b718034f94ef6a6e9a235cc3add6fe5
   languageName: node
   linkType: hard
 
@@ -19411,13 +19391,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.11.0":
-  version: 0.11.1
-  resolution: "regenerator-runtime@npm:0.11.1"
-  checksum: 3c97bd2c7b2b3247e6f8e2147a002eb78c995323732dad5dc70fac8d8d0b758d0295e7015b90d3d444446ae77cbd24b9f9123ec3a77018e81d8999818301b4f4
-  languageName: node
-  linkType: hard
-
 "regenerator-runtime@npm:^0.13.11":
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
@@ -19936,15 +19909,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"restructure@npm:^0.5.3":
-  version: 0.5.4
-  resolution: "restructure@npm:0.5.4"
-  dependencies:
-    browserify-optional: ^1.0.0
-  checksum: 84c10ab0ad0515478bc0d887842d3af8adc67d62170e98d9dc7202d5fc242e842a3f51b51db6933951eaeea8e02738818167260f6d278f91c5f337f822ccc84c
-  languageName: node
-  linkType: hard
-
 "ret@npm:~0.1.10":
   version: 0.1.15
   resolution: "ret@npm:0.1.15"
@@ -20202,7 +20166,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sax@npm:>=0.6.0":
+"sax@npm:>=0.6.0, sax@npm:^1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
   checksum: d3df7d32b897a2c2f28e941f732c71ba90e27c24f62ee918bd4d9a8cfb3553f2f81e5493c7f0be94a11c1911b643a9108f231dd6f60df3fa9586b5d2e3e9e1fe
@@ -21574,15 +21538,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"svg-to-pdfkit@npm:^0.1.8":
-  version: 0.1.8
-  resolution: "svg-to-pdfkit@npm:0.1.8"
-  dependencies:
-    pdfkit: ">=0.8.1"
-  checksum: 1786b3116b7ec12eca531c9e328b5acbcb6c37865f8d168ea6b0dda8450fafa900ecf876be7121e9f134ba3c4866697499241a0eaffe207b84be0a69e90275a2
-  languageName: node
-  linkType: hard
-
 "symbol-tree@npm:^3.2.4":
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
@@ -22455,26 +22410,6 @@ typescript@^3.6.4:
   version: 2.0.0
   resolution: "unicode-property-aliases-ecmascript@npm:2.0.0"
   checksum: dda4d39128cbbede2ac60fbb85493d979ec65913b8a486bf7cb7a375a2346fa48cbf9dc6f1ae23376e7e8e684c2b411434891e151e865a661b40a85407db51d0
-  languageName: node
-  linkType: hard
-
-"unicode-trie@npm:^0.3.0":
-  version: 0.3.1
-  resolution: "unicode-trie@npm:0.3.1"
-  dependencies:
-    pako: ^0.2.5
-    tiny-inflate: ^1.0.0
-  checksum: 3399a75171cbd142b3c3083d5decd3c713359e8929b89aa128bf408f9824a98a4cb910598f2b3f00eec80b8ab3761951aeda0b535879afb970b2edc944d43d98
-  languageName: node
-  linkType: hard
-
-"unicode-trie@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "unicode-trie@npm:1.0.0"
-  dependencies:
-    pako: ^0.2.5
-    tiny-inflate: ^1.0.0
-  checksum: 4d8bc130ccb7eb5b0bed9c600f06ad7534e832e9f5ddcf3e18fef1c328ff1e3ff7022d3d4ea6885ce4c4222b18304cfe2fc8d46f80798b66f850fd82db3fe8fb
   languageName: node
   linkType: hard
 
@@ -23672,6 +23607,15 @@ typescript@^3.6.4:
   version: 2.2.0
   resolution: "xmlchars@npm:2.2.0"
   checksum: 8c70ac94070ccca03f47a81fcce3b271bd1f37a591bf5424e787ae313fcb9c212f5f6786e1fa82076a2c632c0141552babcd85698c437506dfa6ae2d58723062
+  languageName: node
+  linkType: hard
+
+"xmldoc@npm:^1.1.2":
+  version: 1.3.0
+  resolution: "xmldoc@npm:1.3.0"
+  dependencies:
+    sax: ^1.2.4
+  checksum: 06354246b6912cf63978e78acd5dee5f8d3069547b89a210a4111747d226c82a475c2062a73f1cdb34191a8b2a8fb57a11948f45ffd5c1effa8bbcf34691b2d2
   languageName: node
   linkType: hard
 
