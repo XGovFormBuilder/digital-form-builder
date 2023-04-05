@@ -102,7 +102,7 @@ export class SummaryPageController extends PageController {
             item.value = item.value.replace(/, null/g, "");
           }
           // New lines wont render on the summary page
-          if (item.type === "FreeTextField") {
+          if (item.type === "FreeTextField" && item.value) {
             item.value = item.value.replace(/\r\n/g, "");
           }
         }
