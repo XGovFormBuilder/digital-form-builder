@@ -6,6 +6,8 @@ import { FormModel } from "server/plugins/engine/models";
 import { FreeTextFieldViewModel } from "server/plugins/engine/components/types";
 import { DataType } from "./types";
 
+// this must match the front-end, or we'll have discrepancies
+// runner\src\server\plugins\engine\views\components\freetextfield.html
 function inputIsOverWordCount(input, maxWords) {
   /**
    * This validation is copied from the govuk-frontend library to match their client side behaviour
@@ -13,8 +15,8 @@ function inputIsOverWordCount(input, maxWords) {
    */
   // This peice of regex will remove all the html elements and entitys to get a accurate word count
   input = input.replace(/<[^>]*>/g, "").replace(/&[^;]+;/g, "");
-  var maxWordCount = parseInt(maxWords);
-  const wordCount = input.match(/\S+/g).length || 0;
+  const maxWordCount = parseInt(maxWords);
+  const wordCount = (input.match(/\S+/g) || []).length;
   return wordCount > maxWordCount;
 }
 
@@ -54,7 +56,7 @@ export class FreeTextField extends FormComponent {
     if (maxWords ?? false) {
       this.formSchema = this.formSchema.custom((value, helpers) => {
         if (inputIsOverWordCount(value, maxWords)) {
-          return helpers.error("string.maxWords");
+          return helpers.error("string.maxWords", { limit: maxWords });
         }
         return value;
       }, "max words validation");
@@ -98,7 +100,7 @@ export class FreeTextField extends FormComponent {
     }
 
     if (options.maxWords ?? false) {
-      viewModel.maxwords = options.maxWords;
+      viewModel.maxWords = options.maxWords;
     }
     if (options.hideTitle) {
       viewModel.label = { text: "", html: viewModel.hint?.html!, classes: "" };

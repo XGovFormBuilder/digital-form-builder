@@ -1,16 +1,14 @@
 {% macro FreeTextField(component) %}
 
 <head>
-  <script src="/assets/tinymce.min.js"></script>
   <script type="text/javascript">
-
     tinymce.init({
       setup: function (editor) {
         editor.on('init input setcontent change', function () {          
           setWordCount(editor);
         });       
       },
-      selector: '.myeditablediv',
+      selector: '#{{ component.model.id }}',
       skin: 'tinymce-5',
       branding: false,
       elementpath: false,
@@ -18,7 +16,7 @@
       height: 150,
       menubar: false,
       browser_spellcheck: true,
-      max_words: Number('{{ component.model.maxwords }}'),
+      max_words: Number('{{ component.model.maxWords }}'),
       iframe_aria_text: '{{ component.model.name }}',
       paste_data_images: false,
       dragover_callback: function (e) {
@@ -38,17 +36,12 @@
       contextmenu: 'paste'
     });
 
+    // this must match the back-end, or we'll have discrepancies
+    // runner\src\server\plugins\engine\components\FreeTextField.ts
     function countWords(editor) {
-      var content = editor.getContent({ format: 'text' });
-      // removing line breaks ast they were sometimes counting as words
-      var noLineBreaksContent = content.replace(/(\r\n|\n|\r)/gm, " ");
-      var wordCount = 0;
-
-      if (content) {
-        // Regex for checking white space border and not counting special characters
-        var matches = noLineBreaksContent.match(/\b\w+\b/g);
-        wordCount = matches ? matches.length : 0;
-      }
+      let content = editor.getContent()
+      content = content.replace(/<[^>]*>/g, "").replace(/&[^;]+;/g, "");
+      const wordCount = (content.match(/\S+/g) || []).length;
       return wordCount;
     }
 
@@ -85,10 +78,10 @@
   </span>
   {% endif %}
   <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" rows="5"
-    class="govuk-textarea myeditablediv">{{ component.model.value }}</textarea>
+    class="govuk-textarea">{{ component.model.value }}</textarea>
   {% if component.model.isCharacterOrWordCount == true %}
   <div id="word-count-label-{{ component.model.id }}" class="govuk-hint govuk-js-character-count">You can enter up to {{
-    component.model.maxwords }} words</div>
+    component.model.maxWords }} words</div>
   {% endif %}
 </div>
 
