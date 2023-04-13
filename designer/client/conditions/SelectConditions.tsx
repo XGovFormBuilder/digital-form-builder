@@ -85,6 +85,7 @@ class SelectConditions extends React.Component<Props, State> {
     const stringConditions = conditions.filter(
       (condition) => typeof condition.value === "string"
     );
+    // nested conditions have their own data structure, so need to be considered separately
     const nestedConditions = conditions.filter((condition) =>
       condition.value.conditions
         .map((innerCondition) => innerCondition.hasOwnProperty("conditionName"))
@@ -97,8 +98,6 @@ class SelectConditions extends React.Component<Props, State> {
           (nestedCondition) => nestedCondition.name === condition.name
         )
     );
-
-    console.log("fields: ", fields);
 
     fields.forEach((field) => {
       this.handleStringConditions(
@@ -167,7 +166,7 @@ class SelectConditions extends React.Component<Props, State> {
     );
     var a = "";
   }
-
+  // loops through nested conditions, checking the referenced condition against the current field
   handleNestedConditions(
     nestedConditions: ConditionData[],
     fieldName: string,
