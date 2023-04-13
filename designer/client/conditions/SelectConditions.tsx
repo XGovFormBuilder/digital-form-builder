@@ -166,7 +166,6 @@ class SelectConditions extends React.Component<Props, State> {
         conditionsForPath
       )
     );
-    var a = "";
   }
   // loops through nested conditions, checking the referenced condition against the current field
   handleNestedConditions(

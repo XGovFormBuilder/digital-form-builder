@@ -148,8 +148,6 @@ export class InlineConditions extends React.Component<Props, State> {
       return;
     }
 
-    const copy = { ...data };
-
     if (condition) {
       const updatedData = updateCondition(data, condition.name, conditions);
       await save(updatedData);
@@ -173,7 +171,7 @@ export class InlineConditions extends React.Component<Props, State> {
   onClickDelete = async (event: MouseEvent<HTMLAnchorElement>) => {
     event?.preventDefault();
     const { data, save } = this.context;
-    const { cancelCallback, conditionsChange, condition } = this.props;
+    const { cancelCallback, condition } = this.props;
 
     const updatedData = removeCondition(data, condition.name);
     await save(updatedData);
@@ -225,8 +223,12 @@ export class InlineConditions extends React.Component<Props, State> {
   };
 
   render() {
-    const { conditions, editView, conditionString, validationErrors } =
-      this.state;
+    const {
+      conditions,
+      editView,
+      conditionString,
+      validationErrors,
+    } = this.state;
     const hasConditions = conditions.hasConditions;
 
     const nameError = validationErrors.filter(
