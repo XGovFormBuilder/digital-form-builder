@@ -86,10 +86,14 @@ class SelectConditions extends React.Component<Props, State> {
       (condition) => typeof condition.value === "string"
     );
     // nested conditions have their own data structure, so need to be considered separately
-    const nestedConditions = conditions.filter((condition) =>
-      condition.value.conditions
-        .map((innerCondition) => innerCondition.hasOwnProperty("conditionName"))
-        .includes(true)
+    const nestedConditions = conditions.filter(
+      (condition) =>
+        typeof condition.value === "string" &&
+        condition.value.conditions
+          .map((innerCondition) =>
+            innerCondition.hasOwnProperty("conditionName")
+          )
+          .includes(true)
     );
     const objectConditions = conditions.filter(
       (condition) =>
