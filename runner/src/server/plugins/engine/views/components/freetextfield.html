@@ -19,6 +19,7 @@
       max_words: Number('{{ component.model.maxWords }}'),
       iframe_aria_text: '{{ component.model.name }}',
       paste_data_images: false,
+      content_style: "body { font-family: \"GDS Transport\",arial,sans-serif; font-size: 1.1875rem; }",
       dragover_callback: function (e) {
         // prevent dragover event from doing anything, images could be snuck in this way
         e.preventDefault();

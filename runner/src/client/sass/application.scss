@@ -83,3 +83,8 @@ $govuk-global-styles: true;
 .red-border {
   border: 1px solid red !important;
 }
+
+.govuk-list {
+  list-style-type: revert;
+  padding-left: revert;
+}
