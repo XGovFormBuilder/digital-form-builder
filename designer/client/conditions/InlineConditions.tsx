@@ -13,6 +13,7 @@ import {
   allInputs,
   findList,
   inputsAccessibleAt,
+  removeCondition,
   updateCondition,
 } from "../data";
 import randomId from "../randomId";
@@ -169,6 +170,18 @@ export class InlineConditions extends React.Component<Props, State> {
     }
   };
 
+  onClickDelete = async (event: MouseEvent<HTMLAnchorElement>) => {
+    event?.preventDefault();
+    const { data, save } = this.context;
+    const { cancelCallback, conditionsChange, condition } = this.props;
+
+    const updatedData = removeCondition(data, condition.name);
+    await save(updatedData);
+    if (cancelCallback) {
+      cancelCallback(event);
+    }
+  };
+
   saveCondition = (condition) => {
     this.setState({
       conditions: this.state.conditions.add(condition),
@@ -212,12 +225,8 @@ export class InlineConditions extends React.Component<Props, State> {
   };
 
   render() {
-    const {
-      conditions,
-      editView,
-      conditionString,
-      validationErrors,
-    } = this.state;
+    const { conditions, editView, conditionString, validationErrors } =
+      this.state;
     const hasConditions = conditions.hasConditions;
 
     const nameError = validationErrors.filter(
@@ -316,14 +325,26 @@ export class InlineConditions extends React.Component<Props, State> {
             />
             <div className="govuk-form-group">
               {hasConditions && (
-                <a
-                  href="#"
-                  id="save-inline-conditions"
-                  className="govuk-button"
-                  onClick={this.onClickSave}
-                >
-                  {i18n("save")}
-                </a>
+                <>
+                  <a
+                    href="#"
+                    id="save-inline-conditions"
+                    className="govuk-button"
+                    onClick={this.onClickSave}
+                  >
+                    {i18n("save")}
+                  </a>
+                  {this.props.condition && (
+                    <a
+                      href="#"
+                      id="delete-inline-conditions"
+                      className="govuk-button"
+                      onClick={this.onClickDelete}
+                    >
+                      {i18n("delete")}
+                    </a>
+                  )}
+                </>
               )}
               <a
                 href="#"
