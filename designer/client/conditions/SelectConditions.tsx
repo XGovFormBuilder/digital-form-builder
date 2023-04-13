@@ -81,14 +81,24 @@ class SelectConditions extends React.Component<Props, State> {
     const { data } = this.context;
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
-    var conditionsForPath: any[] = [];
-
+    let conditionsForPath: any[] = [];
     const stringConditions = conditions.filter(
       (condition) => typeof condition.value === "string"
     );
-    const objectConditions = conditions.filter(
-      (condition) => typeof condition.value !== "string"
+    const nestedConditions = conditions.filter((condition) =>
+      condition.value.conditions
+        .map((innerCondition) => innerCondition.hasOwnProperty("conditionName"))
+        .includes(true)
     );
+    const objectConditions = conditions.filter(
+      (condition) =>
+        typeof condition.value !== "string" &&
+        !nestedConditions.find(
+          (nestedCondition) => nestedCondition.name === condition.name
+        )
+    );
+
+    console.log("fields: ", fields);
 
     fields.forEach((field) => {
       this.handleStringConditions(
@@ -97,6 +107,11 @@ class SelectConditions extends React.Component<Props, State> {
         conditionsForPath
       );
       this.handleConditions(objectConditions, field.name, conditionsForPath);
+      this.handleNestedConditions(
+        nestedConditions,
+        field.name,
+        conditionsForPath
+      );
     });
 
     return conditionsForPath;
@@ -151,6 +166,33 @@ class SelectConditions extends React.Component<Props, State> {
       )
     );
     var a = "";
+  }
+
+  handleNestedConditions(
+    nestedConditions: ConditionData[],
+    fieldName: string,
+    conditionsForPath: any[]
+  ) {
+    nestedConditions.forEach((condition) => {
+      condition.value.conditions.forEach((innerCondition) => {
+        if (innerCondition.hasOwnProperty("conditionName")) {
+          let nestedCondition = conditionsForPath.find(
+            (conditionForPath) =>
+              conditionForPath.name === innerCondition.conditionName
+          );
+          if (nestedCondition) {
+            conditionsForPath.push(condition);
+          }
+        } else {
+          this.checkAndAddCondition(
+            condition,
+            fieldName,
+            innerCondition.field.name,
+            conditionsForPath
+          );
+        }
+      });
+    });
   }
 
   checkAndAddCondition(
