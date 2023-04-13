@@ -126,7 +126,9 @@ class SelectConditions extends React.Component<Props, State> {
         this.checkAndAddCondition(
           condition,
           fieldName,
-          innerCondition.field.name,
+          innerCondition.field.name.substring(
+            innerCondition.field.name.indexOf(".") + 1
+          ),
           conditionsForPath
         );
       });
@@ -186,7 +188,9 @@ class SelectConditions extends React.Component<Props, State> {
           this.checkAndAddCondition(
             condition,
             fieldName,
-            innerCondition.field.name,
+            innerCondition.field.name.substring(
+              innerCondition.field.name.indexOf(".") + 1
+            ),
             conditionsForPath
           );
         }
