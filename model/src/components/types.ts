@@ -25,6 +25,7 @@ export enum ComponentTypeEnum {
   List = "List",
   MultiInputField = "MultiInputField",
   FreeTextField = "FreeTextField",
+  ClientSideFileUploadField = "ClientSideFileUploadField",
 }
 
 export type ComponentType =
@@ -54,7 +55,8 @@ export type ComponentType =
   | "List"
   | "WebsiteField"
   | "MultiInputField"
-  | "FreeTextField";
+  | "FreeTextField"
+  | "ClientSideFileUploadField";
 
 export type ComponentSubType = "field" | "content";
 
@@ -232,6 +234,19 @@ export interface FileUploadFieldComponent {
   };
   schema: {};
 }
+export interface ClientSideFileUploadFieldComponent {
+  subType?: "field";
+  type: "ClientSideFileUploadField";
+  name: string;
+  title: string;
+  hint: string;
+  options: {
+    dropzoneConfig: object;
+    showNoScriptWarning: boolean;
+    minimumRequiredFiles: number;
+  };
+  schema: {};
+}
 
 export interface UkAddressFieldComponent extends TextFieldBase {
   type: "UkAddressField";
@@ -336,7 +351,8 @@ export type ComponentDef =
   | YesNoFieldComponent
   | WebsiteFieldComponent
   | MultiInputFieldComponent
-  | FreeTextFieldComponent;
+  | FreeTextFieldComponent
+  | ClientSideFileUploadFieldComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -355,7 +371,8 @@ export type InputFieldsComponentsDef =
   | UkAddressFieldComponent
   | WebsiteFieldComponent
   | MultiInputFieldComponent
-  | FreeTextFieldComponent;
+  | FreeTextFieldComponent
+  | ClientSideFileUploadFieldComponent;
 
 // Components that render content.
 export type ContentComponentsDef =

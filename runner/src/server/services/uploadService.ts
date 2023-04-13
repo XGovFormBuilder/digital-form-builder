@@ -7,8 +7,8 @@ const S3 = require("aws-sdk/clients/s3");
 
 type Payload = HapiRequest["payload"];
 
-let bucketName = config.awsBucketName;
-const region = config.awsRegion;
+export let bucketName = config.awsBucketName;
+export const region = config.awsRegion;
 
 if (process.env.VCAP_SERVICES) {
   const vcap = process.env.VCAP_SERVICES;
@@ -31,6 +31,11 @@ const parsedError = (key: string, error?: string) => {
     text: error,
   };
 };
+
+export interface S3Object {
+  Key: string;
+  Size: number;
+}
 
 export class UploadService {
   /**
@@ -88,21 +93,19 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(locations: any[], applicationId: string, metadata) {
+  async uploadDocuments(locations: any[], prefix: string, metadata) {
     let error: string | undefined;
     let location: string | undefined;
 
-    await this.uploadFilesS3(locations, applicationId, metadata).then(
-      (result) => {
-        result.forEach((doc) => {
-          if (typeof doc.error !== "undefined") {
-            error = "Failed to upload file to server: " + doc.error;
-          } else {
-            location = `${applicationId}/${locations[0].hapi.filename}`;
-          }
-        });
-      }
-    );
+    await this.uploadFilesS3(locations, prefix, metadata).then((result) => {
+      result.forEach((doc) => {
+        if (typeof doc.error !== "undefined") {
+          error = "Failed to upload file to server: " + doc.error;
+        } else {
+          location = `${prefix}/${locations[0].hapi.filename}`;
+        }
+      });
+    });
     return { location, error };
   }
 
@@ -147,7 +150,10 @@ export class UploadService {
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
 
-    const applicationId = state.metadata?.application_id ?? "";
+    const form_session_identifier =
+      state.metadata?.form_session_identifier ?? "";
+    const applicationId = state.metadata?.applicationId ?? "";
+
     const { path } = request.params;
     const page = form?.pages.find(
       (page) => this.normalisePath(page.path) === this.normalisePath(path)
@@ -157,6 +163,28 @@ export class UploadService {
 
     if (request.payload !== null) {
       files = this.fileStreamsFromPayload(request.payload);
+    }
+
+    const clientSideUploadComponent = page.components.items.find(
+      (c) => c.type === "ClientSideFileUploadField"
+    );
+    if (
+      clientSideUploadComponent &&
+      form_session_identifier &&
+      request.payload
+    ) {
+      const { id, path } = request.params;
+      const delPath = `${form_session_identifier}/${id}/${path}/${clientSideUploadComponent.name}`;
+      const filesToDelete =
+        request.payload[`${clientSideUploadComponent.name}__delete[]`] || [];
+
+      if (Array.isArray(filesToDelete)) {
+        for (const fileKeyToDelete of filesToDelete) {
+          await this.deleteFileS3(`${delPath}/${fileKeyToDelete}`);
+        }
+      } else {
+        await this.deleteFileS3(`${delPath}/${filesToDelete}`);
+      }
     }
 
     /**
@@ -239,10 +267,16 @@ export class UploadService {
       };
 
       if (validFiles.length === values.length) {
+        let prefix = applicationId;
+        if (clientSideUploadComponent) {
+          const { id, path } = request.params;
+          prefix = `${form_session_identifier}/${id}/${path}/${clientSideUploadComponent.name}`;
+        }
+
         try {
           const { error, location } = await this.uploadDocuments(
             validFiles,
-            applicationId,
+            prefix,
             metaData
           );
           if (location) {
@@ -330,5 +364,62 @@ export class UploadService {
 
   normalisePath(path: string) {
     return path.replace(/^\//, "").replace(/\/$/, "");
+  }
+
+  async listFilesInBucketFolder(folderPath: string): Promise<S3Object[]> {
+    const params = {
+      Bucket: bucketName,
+      Prefix: `${folderPath}/`,
+    };
+
+    const response = await s3.listObjectsV2(params).promise();
+
+    if (!response.Contents || response.Contents.length === 0) {
+      return [];
+    }
+
+    const files = response.Contents.filter((obj) => !obj.Key.endsWith("/")).map(
+      (obj) => ({
+        Key: obj.Key!.replace(`${folderPath}/`, ""),
+        Size: obj.Size!,
+      })
+    );
+
+    return files;
+  }
+
+  async getFileDownloadUrlS3(key: string) {
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+    };
+    const url = s3.getSignedUrl("getObject", params);
+    return url;
+  }
+
+  async getPreSignedUrlS3(key: string) {
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+      Expires: 60 * 60,
+    };
+
+    return await s3.getSignedUrlPromise("putObject", params);
+  }
+
+  async deleteFileS3(key: string) {
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+    };
+
+    try {
+      await s3.deleteObject(params).promise();
+      return true;
+    } catch (err) {
+      console.error(`Issue when deleting file with key: ${key}`);
+      console.error(err);
+      return false;
+    }
   }
 }

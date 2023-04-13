@@ -62,6 +62,7 @@
     "concurrently": "^5.3.0",
     "config": "^3.3.7",
     "dotenv": "8.2.0",
+    "dropzone": "5.9.3",
     "expr-eval": "^2.0.2",
     "govuk-frontend": "^3.13.0",
     "hapi-auth-jwt2": "10.2.0",

@@ -143,9 +143,16 @@
         {
           "name": "koE_ae",
           "options": {
-            "required": false
+            "dropzoneConfig": {
+              "maxFiles": 5,
+              "parallelUploads": 2,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": true,
+            "minimumRequiredFiles": 2
           },
-          "type": "FileUploadField",
+          "type": "ClientSideFileUploadField",
           "title": "Evidence File Upload",
           "hint": "Please upload your evidence here",
           "schema": {}

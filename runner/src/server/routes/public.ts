@@ -16,6 +16,7 @@ export default [
             path.join(rootNodeModules, "govuk-frontend", "govuk"),
             path.join(rootNodeModules, "govuk-frontend", "govuk", "assets"),
             path.join(rootNodeModules, "tinymce"),
+            path.join(rootNodeModules, "dropzone", "dist", "min"),
             path.join(
               runnerFolder,
               "node_modules",

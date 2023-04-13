@@ -1,0 +1,382 @@
+{% from "label/macro.njk" import govukLabel %}
+{% from "hint/macro.njk" import govukHint %}
+
+{% macro formatBytes(bytes) %}
+  {% if bytes < 1048576 %}
+    <span><strong>{{ (bytes / 1024)|round(2) }}</strong> KB</span>
+  {% elif bytes < 1073741824 %}
+    <span><strong>{{ (bytes / 1048576)|round(2) }}</strong> MB</span>
+  {% else %}
+    <span><strong>{{ (bytes / 1073741824)|round(2) }}</strong> GB</span>
+  {% endif %}
+{% endmacro %}
+
+
+{% macro ClientSideFileUploadField(component) %}
+
+<head>
+    <script src="/assets/dropzone.min.js"></script>
+    <script type="text/javascript"></script>
+</head>
+
+<style>
+    .dz-template.govuk-table__row {
+        display: table-row;
+    }
+
+    .dz-template.govuk-table__row > .govuk-table__header,
+    .dz-template.govuk-table__row > .govuk-table__cell {
+        display: table-cell;
+        white-space: nowrap;
+    }
+
+    .dz-table__cell.govuk-table__cell:first-child {
+        max-width: 25ch;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+
+    .dz-table__cell.govuk-table__cell:not(:first-child) {
+        flex-grow: 1;
+    }
+
+    .dz-progress-bar {
+        display: flex;
+        align-items: center;
+        height: 10px;
+        margin-top: 5px;
+        background-color: #B1B4B6;
+    }
+
+    .dz-progress-bar__value {
+        display: block;
+        height: 100%;
+        background-color: #003078;
+        transition: width 0.2s ease-out;
+        width: 0;
+    }
+
+    .dz-remove {
+        margin-bottom: 0;
+    }
+</style>
+
+<noscript>
+    <style>
+        .requires-js {
+            display: none;
+        }
+    </style>
+</noscript>
+
+{% set is_single_file_upload = component.model.dropzoneConfig.maxFiles === 1 %}
+
+<div id="{{component.model.id}}" class="govuk-form-group {% if component.model.errorMessage %}govuk-form-group--error{% endif %}">
+    {{ govukLabel(component.model.label) }}
+
+    <p class="govuk-error-message">
+      <span class="{% if not component.model.errorMessage %}govuk-visually-hidden{% endif %}">
+          {{ component.model.errorMessage.text | safe }}
+      </span>
+    </p>
+
+    {% if component.model.showNoScriptWarning %}
+    <noscript>
+        <div class="govuk-warning-text" style="margin-bottom: 0;">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                You need to have JavaScript enabled to see your selected files
+            </strong>
+            <br/>
+            <details class="govuk-details govuk-!-margin-bottom-0" data-module="govuk-details"><summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    Why is JavaScript required?
+                </span>
+            </summary><div class="govuk-details__text">
+                <p>
+                    Without JavaScript, you will be able to select files to upload, but you won't be able to see them on this page.
+                </p>
+                <p>
+                    Your files will still be uploaded when you hit "Save and continue". If you revisit this page, you will be able to see your previously uploaded files.
+                </p>
+            </div>
+            </details>
+        </div>
+    </noscript>
+    {% endif %}
+
+    <div class="requires-js govuk-drop-zone" id="dropzoneWrapper">
+        <div class="govuk-table__wrapper">
+            <div class="govuk-table"
+                 id="dropzonePreviews">
+                <div type="button"
+                     id="dropzoneAddFile"
+                     class="govuk-button govuk-button--secondary">
+                    {% if is_single_file_upload %}
+                    Choose file
+                    {% else %}
+                    Choose files
+                    {% endif %}
+                </div>
+                <div class="dz-template govuk-table__row">
+                    <div class="govuk-table__header">File name</div>
+                    <div class="govuk-table__header">File size</div>
+                    <div class="govuk-table__header">Progress</div>
+                    <div class="govuk-table__header">Action</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <noscript>
+        <div class="govuk-drop-zone">
+            <div class="govuk-table__wrapper">
+                <div class="govuk-table">
+                    <input type="file"
+                           name="{{component.model.id}}"
+                           id="fileInput"
+                           class="govuk-file-upload"
+                           {% if not is_single_file_upload %}multiple{% endif %}
+                           max="{{component.model.dropzoneConfig.maxFiles}}"
+                    >
+                    {% if component.model.existingFiles.length > 0 %}
+                    <div class="dz-template govuk-table__row">
+                        <div class="govuk-table__header">File name</div>
+                        <div class="govuk-table__header">File size</div>
+                        <div class="govuk-table__header">Progress</div>
+                        <div class="govuk-table__header">Action</div>
+                    </div>
+                    {% endif %}
+                    {% for file in component.model.existingFiles %}
+                    <div class="dz-template govuk-table__row dz-success">
+                        <div class="govuk-table__cell dz-table__cell">
+                            <a class="govuk-link govuk-link--no-underline"
+                               href="/s3/report-a-terrorist/yes-i-have-evidence/koE_ae/download-file?filename={{file.Key}}">
+                                {{ file.Key }}
+                            </a>
+                        </div>
+                        <div class="govuk-table__cell dz-table__cell">
+                            {{ formatBytes(file.Size) }}
+                        </div>
+                        <div class="govuk-table__cell dz-table__cell">
+                            <div><span>Complete</span></div>
+                        </div>
+                        <div class="govuk-table__cell dz-table__cell">
+                            <input id="{{component.model.id}}__delete__{{loop.index}}"
+                                   type="checkbox"
+                                   name="{{component.model.id}}__delete[]"
+                                   value="{{file.Key}}">
+                            <label for="{{component.model.id}}__delete__{{loop.index}}">
+                              Delete
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </noscript>
+
+</div>
+
+<script>
+
+    const previewTemplate = `
+    <div id="dropzoneTemplate" class="dz-template govuk-table__row">
+        <div class="govuk-table__cell dz-table__cell">
+            <a class="govuk-link govuk-link--no-underline"
+               data-dz-name></a>
+        </div>
+        <div class="govuk-table__cell dz-table__cell">
+            <span data-dz-size></span>
+        </div>
+        <div class="govuk-table__cell dz-table__cell">
+            <div class="dz-progress-bar">
+                <span class="dz-progress-bar__value"
+                      data-progress="0"
+                      data-dz-uploadprogress></span>
+            </div>
+        </div>
+        <div class="govuk-table__cell dz-table__cell">
+            <div class="govuk-button govuk-button--warning dz-remove"
+                 data-dz-remove>Delete</div>
+        </div>
+    </div>`;
+
+    const [formKey, pageKey] = window.location.pathname.split('/').filter(x => x)
+    const componentKey = "{{ component.model.id }}"
+    const uniquePath = `${formKey}/${pageKey}/${componentKey}`;
+
+    const dropzoneBackendConfig = {{ component.model.dropzoneConfig | dump | safe }};
+    const dropzoneConfig = {
+        ...dropzoneBackendConfig,
+        url: "/",  // this is re-assigned dynamically to a pre-signed url.
+        method: "put",
+        clickable: "#dropzoneAddFile",
+        previewsContainer: "#dropzonePreviews",
+        previewTemplate: previewTemplate,
+        init: () => {
+            {% if is_single_file_upload %}
+            document.querySelector('.dz-hidden-input').removeAttribute('multiple');
+            {% endif %}
+        },
+        accept: async function(file, done) {
+            {% if not is_single_file_upload %}
+            const existingFiles = getAllFiles();
+            if (existingFiles.length > this.options.maxFiles) {
+                myDropzone.removeFile(file);
+                handleError(`You can only upload ${myDropzone.options.maxFiles} files`)
+                return;
+            }
+            {% endif %}
+
+            const url = await getPreSignedUrl(file);
+            this.options.url = url;
+            done();
+        },
+        // https://github.com/dropzone/dropzone/issues/590
+        // patch to avoid uploading unnecessary form data
+        sending: function(file, xhr) {
+            const _send = xhr.send;
+            xhr.send = function() {
+              _send.call(xhr, file);
+            };
+        }
+    };
+
+    const handleError = (errorMessage) => {
+        const formContainer = document.querySelector("#{{component.model.id}}");
+        formContainer.classList.add('govuk-form-group--error');
+        const errorSpan = formContainer.querySelector('.govuk-error-message > span');
+        errorSpan.removeAttribute('class');
+        errorSpan.textContent = errorMessage;
+    };
+
+    // unused at the moment.  not sure if we will use, we're mixing client and server side errors.
+    // perhaps we can use this later.
+    const _clearError = () => {
+        const formContainer = document.querySelector("#{{component.model.id}}");
+        formContainer.classList.remove('govuk-form-group--error');
+        const errorSpan = formContainer.querySelector('.govuk-error-message > span');
+        errorSpan.class = 'govuk-visually-hidden';
+    }
+
+    const myDropzone = new Dropzone('#dropzoneWrapper', dropzoneConfig);
+
+    myDropzone.on('addedfile', function (file) {
+        const fileSizeLimit = dropzoneBackendConfig.maxFilesize * 1024 * 1024;
+        if (file.size > fileSizeLimit) {
+            handleError(`File must be under ${dropzoneBackendConfig.maxFilesize}MB`);
+            myDropzone.removeFile(file);
+            return false;
+        }
+
+        {% if not is_single_file_upload %}
+        const existingFile = getAllFiles().find(f => {
+            const nameMatches = f.name === file.name;
+            const hasMismatchingUuid = f.upload && f.upload.uuid !== file.upload.uuid;
+            return nameMatches && (f.processed || hasMismatchingUuid);
+        });
+
+        const totalSizeLimit = fileSizeLimit * dropzoneBackendConfig.maxFiles;
+        let totalSize = getAllFiles().reduce((acc, cur) => acc + cur.size, 0)
+        if (existingFile) {
+            totalSize -= existingFile.size;
+        }
+
+        if (totalSize > totalSizeLimit) {
+            handleError(`Combined filesize must be under ${totalSizeLimit}MB`);
+            myDropzone.removeFile(file);
+            return false;
+        }
+
+        let existingFileCount = getAllFiles().length;
+        if (existingFile) {
+            myDropzone.removeFile(existingFile);
+            existingFileCount -= 1;
+        }
+
+        if (existingFileCount > myDropzone.options.maxFiles) {
+            handleError(`You can only upload ${myDropzone.options.maxFiles} files`)
+            myDropzone.removeFile(file);
+            return false;
+        }
+
+        {% else %}
+        if (myDropzone.files) {
+            getAllFiles().filter(f => f !== file).forEach(f => {
+                myDropzone.removeFile(f);
+            });
+        }
+        {% endif %}
+
+        file.processed = true;
+    });
+
+    const deleteFileBackend = (file) => {
+        let fetchUrl = `/s3/${uniquePath}/delete-file-by-key${window.location.search}`;
+        fetch(fetchUrl, {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({filename: file.name}),
+        })
+    }
+
+    myDropzone.on('removedfile', function (file) {
+        if (file.processed) {
+            preExistingFiles = preExistingFiles.filter(f => f.name !== file.name);
+        }
+
+        const removeBackend = !getAllFiles().find(f => f.name === file.name);
+        if (removeBackend) deleteFileBackend(file);
+    });
+
+    const updateProgressBarContent = (file, text) => {
+        const progressBarContainer = file.previewElement.querySelector('.dz-progress-bar');
+        const progressBarSpan = progressBarContainer.querySelector('span');
+        [progressBarSpan, progressBarContainer].forEach(el => el.removeAttribute('class'));
+        progressBarSpan.textContent = text;
+    }
+
+    myDropzone.on('error', function (file, error) {
+        if (error === "You can't upload files of this type.") {
+            handleError(error);
+            this.removeFile(file);
+        } else {
+            updateProgressBarContent(file, 'Failed');
+        }
+    });
+
+    myDropzone.on('success', function (file, _response) {
+        updateProgressBarContent(file, 'Complete');
+        const hrefContainer = file.previewElement.querySelector('a');
+        const encodedFilename = encodeURIComponent(file.name);
+        hrefContainer.href = `/s3/${uniquePath}/download-file?filename=${encodedFilename}`;
+    });
+
+    let preExistingFiles = [];
+    const getAllFiles = () => {
+        return [...myDropzone.files, ...preExistingFiles];
+    }
+
+    const existingFiles = {{ component.model.existingFiles | dump | safe }};
+    existingFiles.forEach(file => {
+        const mockFile = {name: file.Key, size: file.Size, processed: false};
+        preExistingFiles.push(mockFile);
+        myDropzone.emit('addedfile', mockFile);
+        myDropzone.emit('success', mockFile, "");
+    });
+
+    const getPreSignedUrl = async (file) => {
+        let fetchUrl = `/s3/${uniquePath}/create-pre-signed-url${window.location.search}`;
+        const response = await fetch(fetchUrl, {
+            method: 'POST',
+            body: JSON.stringify({filename: file.name}),
+            headers: {'Content-Type': 'application/json'}
+        });
+        return response.ok && (await response.json()).url
+    }
+
+</script>
+
+{% endmacro %}

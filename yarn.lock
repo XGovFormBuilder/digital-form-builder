@@ -6998,6 +6998,7 @@ __metadata:
     config: ^3.3.7
     date-fns: ^2.24.0
     dotenv: 8.2.0
+    dropzone: 5.9.3
     eslint: ^8.11.0
     eslint-plugin-import: ^2.25.4
     eslint-plugin-tsdoc: ^0.2.14
@@ -11568,6 +11569,13 @@ __metadata:
   version: 8.2.0
   resolution: "dotenv@npm:8.2.0"
   checksum: 16cb89cbd7b98b053899b8aba8c5044c8fb61a2db8a81fe70360b75035fce5fed53bd7a34d772be717d0880c0321122a4c09423f518025e1b52d96791521b1a7
+  languageName: node
+  linkType: hard
+
+"dropzone@npm:5.9.3":
+  version: 5.9.3
+  resolution: "dropzone@npm:5.9.3"
+  checksum: d21daa688831e362f8fb4ccc7b1a1a5a614c2afcad44cc760daf77961d263219dcd234ac7a352b69b7b5da0a26db014bb76aaedce48321d11766aad17c585da1
   languageName: node
   linkType: hard
 

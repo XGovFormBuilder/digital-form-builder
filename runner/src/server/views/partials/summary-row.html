@@ -4,14 +4,22 @@
         {{item.label}}
     </dt>
     <dd class="govuk-summary-list__value">
-        {% if item.value %}            
+        {% if item.value %}
             {%if item.type == 'MultiInputField' %}
                 {% for itemValue in item.value%}
                     {{itemValue}}<br>
                 {% endfor %}
-                {% elif item.type == 'NumberField' %}
+            {% elif item.type == 'NumberField' %}
                 {{item.prefix}}{{item.value}}
-                {% elif item.type == 'FreeTextField' %}
+            {% elif item.type == 'ClientSideFileUploadField' %}
+                {% for file in item.value.files %}
+                    <div>
+                        <a class="govuk-link" href="/s3{{item.value.folderPath}}/download-file?filename={{file.Key}}">
+                            {{ file.Key }}
+                        </a>
+                    </div>
+                {% endfor %}
+            {% elif item.type == 'FreeTextField' %}
                 <div id={{item.name}}></div>
                 <script>
                     // Nunjucks automatically converts any html to escaped html to prevent cross-site scripting
@@ -27,7 +35,6 @@
                 <noscript>
                     {{item.value}}
                 </noscript>
-                
             {% else %}
                 {{item.value}}
             {% endif %}

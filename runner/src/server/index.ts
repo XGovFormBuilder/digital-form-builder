@@ -37,6 +37,8 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
+import { bucketName, region } from "server/services/uploadService";
+import clientSideUpload from "server/plugins/clientSideUpload";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -103,6 +105,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(Schmervice);
   await server.register(pluginAuth);
+  await server.register(clientSideUpload);
 
   server.registerService([
     CacheService,
@@ -126,6 +129,16 @@ async function createServer(routeConfig: RouteConfig) {
 
       if ("header" in response && response.header) {
         response.header("X-Robots-Tag", "noindex, nofollow");
+
+        const existingHeaders = response.headers;
+        const existingCsp = existingHeaders["content-security-policy"] || "";
+        if (typeof existingCsp === "string") {
+          const newCsp = existingCsp?.replace(
+            /connect-src[^;]*/,
+            `connect-src 'self' https://${bucketName}.s3.${region}.amazonaws.com/`
+          );
+          response.header("Content-Security-Policy", newCsp);
+        }
 
         const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
         if (!WEBFONT_EXTENSIONS.test(request.url.toString())) {

@@ -1,3 +1,5 @@
+import { S3Object } from "server/services/uploadService";
+
 export type Label = {
   text: string;
   classes: string;
@@ -78,6 +80,12 @@ export type FreeTextFieldViewModel = {
   maxlength?: number;
   isCharacterOrWordCount: boolean;
   maxWords?: number;
+} & ViewModel;
+
+export type ClientSideFileUploadFieldViewModel = {
+  dropzoneConfig: object;
+  existingFiles: S3Object[];
+  showNoScriptWarning?: boolean;
 } & ViewModel;
 
 export type DataType =

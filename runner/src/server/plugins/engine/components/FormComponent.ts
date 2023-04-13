@@ -138,6 +138,10 @@ export class FormComponent extends ComponentBase {
     return { [this.name]: joi.any() };
   }
 
+  getAdditionalValidationFunctions(): Function[] {
+    return [];
+  }
+
   getDisplayStringFromState(state) {
     return state[this.name];
   }
