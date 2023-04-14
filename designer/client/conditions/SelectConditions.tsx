@@ -12,6 +12,12 @@ import {
   inputsAccessibleAt,
   hasConditions as dataHasConditions,
 } from "../data";
+import {
+  hasNestedCondition,
+  isObjectCondition,
+  isDuplicateCondition,
+  hasConditionName, getFieldNameSubstring
+} from "./select-condition-helpers";
 interface Props {
   path: string;
   data: Data;
@@ -82,25 +88,22 @@ class SelectConditions extends React.Component<Props, State> {
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     let conditionsForPath: any[] = [];
-    const stringConditions = conditions.filter(
-      (condition) => typeof condition.value === "string"
-    );
-    // nested conditions have their own data structure, so need to be considered separately
-    const nestedConditions = conditions.filter(
-      (condition) =>
-        typeof condition.value !== "string" &&
-        condition.value.conditions
-          .map((innerCondition) =>
-            innerCondition.hasOwnProperty("conditionName")
-          )
-          .includes(true)
-    );
-    const objectConditions = conditions.filter(
-      (condition) =>
-        typeof condition.value !== "string" &&
-        !nestedConditions.find(
-          (nestedCondition) => nestedCondition.name === condition.name
-        )
+    const [
+      stringConditions,
+      nestedConditions,
+      objectConditions,
+    ] = conditions.reduce(
+      (res, condition) => {
+        if (condition.value === "string") {
+          res[0].push(condition);
+        } else if (!!hasNestedCondition(condition)) {
+          res[1].push(condition);
+        } else if (isObjectCondition(condition)) {
+          res[2].push(condition);
+        }
+        return res;
+      },
+      [[], [], []]
     );
 
     fields.forEach((field) => {
@@ -130,9 +133,7 @@ class SelectConditions extends React.Component<Props, State> {
         this.checkAndAddCondition(
           condition,
           fieldName,
-          innerCondition.field.name.substring(
-            innerCondition.field.name.indexOf(".") + 1
-          ),
+          getFieldNameSubstring(innerCondition.field.name),
           conditionsForPath
         );
       });
@@ -179,24 +180,25 @@ class SelectConditions extends React.Component<Props, State> {
   ) {
     nestedConditions.forEach((condition) => {
       condition.value.conditions.forEach((innerCondition) => {
-        if (innerCondition.hasOwnProperty("conditionName")) {
-          let nestedCondition = conditionsForPath.find(
-            (conditionForPath) =>
-              conditionForPath.name === innerCondition.conditionName
-          );
-          if (nestedCondition) {
-            conditionsForPath.push(condition);
-          }
-        } else {
+        // if the condition is already in the conditions array, skip the for each loop iteration
+        if (isDuplicateCondition(conditionsForPath, condition.name)) return;
+        // if the inner condition isn't a nested condition, handle it in the standard way
+        if (!hasConditionName(innerCondition)) {
           this.checkAndAddCondition(
             condition,
             fieldName,
-            innerCondition.field.name.substring(
-              innerCondition.field.name.indexOf(".") + 1
-            ),
+            getFieldNameSubstring(innerCondition.field.name),
             conditionsForPath
           );
+          return;
         }
+        //if the inner condition is a nested condition,
+        //check if that nested condition is already in the conditions array,
+        //and if so, add this condition to the array
+        if (
+          isDuplicateCondition(conditionsForPath, innerCondition.conditionName)
+        )
+          conditionsForPath.push(condition);
       });
     });
   }
@@ -207,10 +209,7 @@ class SelectConditions extends React.Component<Props, State> {
     conditionFieldName: string,
     conditions: any[]
   ) {
-    const isDuplicateCondition = conditions.includes(
-      (condition) => condition.name === conditionToAdd.name
-    );
-    if (isDuplicateCondition) return;
+    if (isDuplicateCondition(conditions, conditionToAdd.name)) return;
     if (fieldName === conditionFieldName) conditions.push(conditionToAdd);
   }
 
