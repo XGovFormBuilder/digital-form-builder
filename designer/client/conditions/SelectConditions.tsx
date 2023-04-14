@@ -17,7 +17,7 @@ import {
   isObjectCondition,
   isDuplicateCondition,
   hasConditionName,
-  getFieldNameSubstring
+  getFieldNameSubstring,
 } from "./select-condition-helpers";
 interface Props {
   path: string;
