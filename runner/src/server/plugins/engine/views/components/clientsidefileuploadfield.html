@@ -315,7 +315,7 @@
 
     const deleteFileBackend = (file) => {
         let fetchUrl = `/s3/${uniquePath}/delete-file-by-key${window.location.search}`;
-        fetch(fetchUrl, {
+        fetch(window.location.origin + fetchUrl, {
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({filename: file.name}),
@@ -369,7 +369,7 @@
 
     const getPreSignedUrl = async (file) => {
         let fetchUrl = `/s3/${uniquePath}/create-pre-signed-url${window.location.search}`;
-        const response = await fetch(fetchUrl, {
+        const response = await fetch(window.location.origin + fetchUrl, {
             method: 'POST',
             body: JSON.stringify({filename: file.name}),
             headers: {'Content-Type': 'application/json'}
