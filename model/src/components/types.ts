@@ -322,6 +322,10 @@ export interface SelectFieldComponent extends ListFieldBase {
 
 export interface MultiInputFieldComponent extends TextFieldBase {
   type: "MultiInputField";
+  options: TextFieldBase["options"] & {
+    textFieldTitle?: string;
+    numberFieldTitle?: string;
+  };
 }
 
 export type ComponentDef =

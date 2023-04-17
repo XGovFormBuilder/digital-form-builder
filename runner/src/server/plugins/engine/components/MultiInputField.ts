@@ -10,26 +10,29 @@ import {
 } from "../types";
 import { FormModel } from "../models";
 import { Schema } from "joi";
+import { DataType } from "./types";
 
 export class MultiInputField extends FormComponent {
   children: ComponentCollection;
+  dataType = "multiInput" as DataType;
 
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
+    const options: any = this.options;
 
     this.children = new ComponentCollection(
       [
         {
           type: "TextField",
           name: "type-of-revenue-cost",
-          title: this.options.textFieldTitle,
+          title: options.textFieldTitle,
           schema: {},
           options: {},
         },
         {
           type: "NumberField",
           name: "value",
-          title: this.options.numberFieldTitle,
+          title: options.numberFieldTitle,
           schema: {},
           options: {
             prefix: "£",

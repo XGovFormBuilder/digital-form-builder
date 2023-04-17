@@ -307,6 +307,7 @@ export class RepeatingFieldPageController extends PageController {
     return partial.length;
   }
 
+  // This will remain in for a a round for backward compatibility. The string awnsers will convert on a submit
   convertMultiInputStringAnswers(answers) {
     if (typeof answers === "undefined") {
       return answers;
