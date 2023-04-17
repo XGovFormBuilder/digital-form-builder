@@ -12,7 +12,7 @@ export const hasConditionName = (condition: any) => {
 
 // return whether the current condition has a nested condition as a value
 export const hasNestedCondition = (condition: ConditionData) => {
-  return condition.value.conditions?.find?.(hasConditionName);
+  return condition.value.conditions?.find?.(hasConditionName) ?? false;
 };
 
 // return whether the current condition is already in the supplied condition array

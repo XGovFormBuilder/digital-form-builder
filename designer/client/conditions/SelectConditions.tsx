@@ -89,33 +89,37 @@ class SelectConditions extends React.Component<Props, State> {
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     let conditionsForPath: any[] = [];
-    const [
-      stringConditions,
-      nestedConditions,
-      objectConditions,
-    ] = conditions.reduce(
-      (res, condition) => {
-        if (condition.value === "string") {
-          res[0].push(condition);
-        } else if (!!hasNestedCondition(condition)) {
-          res[1].push(condition);
-        } else if (isObjectCondition(condition)) {
-          res[2].push(condition);
+    const conditionsByTypeMap = conditions.reduce(
+      (conditionsByType, currentValue) => {
+        if (typeof currentValue.value === "string") {
+          conditionsByType.string.push(currentValue);
+        } else if (!!hasNestedCondition(currentValue)) {
+          conditionsByType.nested.push(currentValue);
+        } else if (isObjectCondition(currentValue)) {
+          conditionsByType.object.push(currentValue);
         }
-        return res;
+        return conditionsByType;
       },
-      [[], [], []]
+      {
+        string: [],
+        nested: [],
+        object: [],
+      }
     );
 
     fields.forEach((field) => {
       this.handleStringConditions(
-        stringConditions,
+        conditionsByTypeMap.string,
         field.name,
         conditionsForPath
       );
-      this.handleConditions(objectConditions, field.name, conditionsForPath);
+      this.handleConditions(
+        conditionsByTypeMap.object,
+        field.name,
+        conditionsForPath
+      );
       this.handleNestedConditions(
-        nestedConditions,
+        conditionsByTypeMap.nested,
         field.name,
         conditionsForPath
       );
