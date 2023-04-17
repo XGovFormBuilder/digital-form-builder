@@ -53,7 +53,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Eglurwch sut y credwch y gellir darparu grant o'r gronfa hon gan gydymffurfio â'r Ddeddf Rheoli Cymorthdaliadau (2022)",
           "hint": "<span class=\"govuk-label govuk-label--s\">Eglurwch sut y credwch y gellir darparu grant o'r gronfa hon gan gydymffurfio â'r Ddeddf Rheoli Cymorthdaliadau (2022)</span>Caiff hyn ei fesur gan y 7 egwyddor gyffredin a bennwyd yn Atodlen 1"
         },
@@ -101,7 +101,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Eglurwch sut bydd eich prosiect yn cydymffurfio â rheolau cymorth gwladwriaethol",
           "hint": "<span class=\"govuk-label govuk-label--s\">Eglurwch sut bydd eich prosiect yn cydymffurfio â rheolau cymorth gwladwriaethol</span>Gallwch gael mwy o wybodaeth ynglŷn â phryd y mae rheolau cymorth gwladwriaethol yn gymwys yng Ngogledd Iwerddon yng <a class=\"govuk-link\" href=\"https://www.gov.uk/government/publications/complying-with-the-uks-international-obligations-on-subsidy-control-guidance-for-public-authorities\">nghanllawiau'r llywodraeth</a>.\n\n"
         }

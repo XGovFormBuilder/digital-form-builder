@@ -28,7 +28,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym am yr astudiaethau dichonoldeb rydych wedi'u cynnal ar gyfer eich prosiect</span>",
           "title": "Dywedwch wrthym am yr astudiaethau dichonoldeb rydych wedi'u cynnal ar gyfer eich prosiect"
         },

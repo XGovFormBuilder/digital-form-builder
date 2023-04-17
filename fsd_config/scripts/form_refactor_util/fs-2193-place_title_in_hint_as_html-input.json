@@ -147,7 +147,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "What is your organisation's main purpose?",
           "schema": {}
         },
@@ -156,7 +156,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your organisation's main activities",
           "hint": "<span class=\"govuk-body\">Activity 1</span>",
           "schema": {}
@@ -169,7 +169,7 @@
             "optionalText": false,
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your organisation's main activities - Activity 2 ",
           "hint": "Activity 2 (optional)",
           "schema": {}
@@ -181,7 +181,7 @@
             "maxWords": "500",
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your organisation's main activities - Activity 3 ",
           "hint": "Activity 3 (optional)",
           "schema": {}
@@ -221,7 +221,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe your previous projects ô",
           "hint": "<span class=\"govuk-body\">Project 1</span>",
           "schema": {}
@@ -233,7 +233,7 @@
             "hideTitle": true,
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe your previous projects - Project 2 ",
           "hint": "Project 2 (optional)",
           "schema": {}
@@ -245,7 +245,7 @@
             "hideTitle": true,
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe your previous projects - Project 3 ",
           "hint": "Project 3 (optional)",
           "schema": {}
@@ -610,7 +610,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your partnership and how you plan to work together",
           "schema": {},
           "hint": "If you are working in partnership with more than one organisation, include their details here"

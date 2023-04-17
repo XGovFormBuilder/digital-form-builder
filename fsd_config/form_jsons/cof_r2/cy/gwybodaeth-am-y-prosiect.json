@@ -75,7 +75,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch eich prosiect blaenorol",
           "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch eich prosiect blaenorol</span>Cynhwyswch:\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>enw'r prosiect</li>\n<li>trosolwg cyffredinol o'r prosiect</li>\n<li>y dyddiad y derbynioch gyllid</li>\n</ul>"
         },
@@ -119,7 +119,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym sut mae'r ased yn cael ei ddefnyddio ar hyn o bryd, neu sut mae wedi'i ddefnyddio'n flaenorol, a pham mae'n bwysig i'r gymuned"
         },
         {
@@ -127,7 +127,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Eglurwch pam mae'r ased mewn perygl o gael ei golli i'r gymuned, neu pam mae eisoes wedi'i golli"
         },
         {
@@ -135,7 +135,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Rhowch grynodeb byr o'ch prosiect, gan gynnwys beth rydych chi'n gobeithio ei gyflawni"
         }
       ],

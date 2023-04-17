@@ -26,7 +26,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about these benefits in detail, and explain how you'll measure the benefits it'll bring for the community"
         },
         {
@@ -34,7 +34,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Explain how you plan to sustain, and potentially expand, these benefits over time"
         },
         {
@@ -43,7 +43,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us how you'll make sure the whole community benefits from the asset",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us how you'll make sure the whole community benefits from the asset</span>For example, people who have not used the asset in the past"
         }

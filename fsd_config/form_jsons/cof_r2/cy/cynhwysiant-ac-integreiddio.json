@@ -20,7 +20,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch y gweithgareddau neu wasanaethau wedi'u cynllunio a fydd yn cael eu cynnal yn yr ased"
         },
         {
@@ -29,7 +29,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch unrhyw beth a allai atal pobl rhag defnyddio'r ased neu gyfranogi yn y gwaith o redeg yr ased",
           "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch unrhyw beth a allai atal pobl rhag defnyddio'r ased neu gyfranogi yn y gwaith o redeg yr ased</span>Er enghraifft, costau aelodaeth neu feini prawf cymhwysedd"
         },
@@ -39,7 +39,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym sut byddwch chi'n gwneud eich prosiect yn hygyrch ac yn gynhwysol i bawb yn y gymuned",
           "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym sut byddwch chi'n gwneud eich prosiect yn hygyrch ac yn gynhwysol i bawb yn y gymuned</span>Mae hyn yn cynnwys ystyried pobl â nodweddion gwarchodedig, anghenion mynediad ar gyfer pobl anabl, a gwneud y lle'n ddeniadol i bawb"
         },
@@ -48,7 +48,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch sut bydd y prosiect yn dod â phobl ynghyd o bob cwr o'r gymuned"
         }
       ],

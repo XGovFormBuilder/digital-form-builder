@@ -100,7 +100,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe any experience you have with community assets similar to this"
         }
       ],
@@ -133,7 +133,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tells us about the roles you'll recruit</span><div>These should be positions which will help you effectively manage the asset during community ownership.</div>\n\n<div class=\"govuk-!-padding-top-3\">Please include the:</div>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>role</li>\n<li>main responsibilities</li>\n</ul>\n\n<p>You can use your business plan to provide information that supports your answers.</p>",
           "title": "Tells us about the roles you'll recruit"
         }

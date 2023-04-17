@@ -19,7 +19,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "hint": "<span class=\"govuk-label govuk-label--s\">List the members of your board</span>Please include their:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>role</li>\n<li>main responsibilities</li>\n</ul>\n<p>You can use your business plan to provide information that supports your answers.</p>\n\n",
           "title": "List the members of your board"
         },
@@ -28,7 +28,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your governance and membership structures"
         },
         {
@@ -37,7 +37,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Explain how you'll consider the views of the community in the running of the asset",
           "hint": "<span class=\"govuk-label govuk-label--s\">Explain how you'll consider the views of the community in the running of the asset</span>Include how they'll be involved in decision making, and how you'll measure public support for your decisions"
         }

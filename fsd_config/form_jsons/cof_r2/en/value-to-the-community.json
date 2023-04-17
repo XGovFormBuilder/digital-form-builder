@@ -19,7 +19,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your local community as a whole",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us about your local community as a whole</span>This includes details of any needs it has and how your project will look to support these.\n<p>Where possible, reference any data you have on protected characteristics and equality impacts.</p>"
         },
@@ -28,7 +28,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe any specific challenges your community faces, and how the asset will address these"
         }
       ],

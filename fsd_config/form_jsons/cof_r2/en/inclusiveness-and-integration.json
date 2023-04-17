@@ -18,7 +18,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe the planned activities or services that will take place at the asset"
         },
         {
@@ -27,7 +27,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe anything that might prevent people from using the asset or participating in its running",
           "hint": "<span class=\"govuk-label govuk-label--s\">Describe anything that might prevent people from using the asset or participating in its running</span>For example, membership costs or eligibility criteria"
         },
@@ -37,7 +37,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us how you'll make your project accessible and inclusive to everyone in the community",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us how you'll make your project accessible and inclusive to everyone in the community</span>This includes considering people with protected characteristics, disability access needs, and making the space attractive to everyone"
         },
@@ -46,7 +46,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe how the project will bring people together from all over the community"
         }
       ],

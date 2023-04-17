@@ -51,7 +51,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Explain how you think a grant from this fund can provided in compliance with the Subsidy Control Act (2022)",
           "hint": "<span class=\"govuk-label govuk-label--s\">Explain how you think a grant from this fund can provided in compliance with the Subsidy Control Act (2022)</span>This is measured by the 7 common principles laid out in Schedule 1"
         },
@@ -96,7 +96,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Explain how your project will comply with state aid rules",
           "hint": "<span class=\"govuk-label govuk-label--s\">Explain how your project will comply with state aid rules</span>You can find more information about when state aid rules apply in Northern Ireland in the <a class=\"govuk-link\" href=\"https://www.gov.uk/government/publications/complying-with-the-uks-international-obligations-on-subsidy-control-guidance-for-public-authorities\">government guidance</a>."
         }

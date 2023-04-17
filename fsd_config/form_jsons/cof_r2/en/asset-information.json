@@ -186,7 +186,7 @@
           "options": {
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe the sale process, or the terms of your lease if you have rented the asset",
           "hint": "<span class=\"govuk-label govuk-label--s\">Describe the sale process, or the terms of your lease if you have rented the asset</span>For example, an auction"
         }
@@ -212,7 +212,7 @@
           "options": {
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe the expected sale process, or the proposed terms of your lease if you are renting the asset",
           "hint": "<span class=\"govuk-label govuk-label--s\">Describe the expected sale process, or the proposed terms of your lease if you are renting the asset</span>For example, an auction"
         },
@@ -440,7 +440,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe the current status of the Community Asset Transfer"
         }
       ],

@@ -19,7 +19,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us how you have considered the environmental sustainability of your project",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us how you have considered the environmental sustainability of your project</span>This could include:\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>any low or zero carbon approaches you will adopt during construction</li>\n<li>how the asset will align with Net Zero initiatives in future</li>\n<li>how you will measure and reduce the asset's environmental impact</li>\n</ul>\n"
         }

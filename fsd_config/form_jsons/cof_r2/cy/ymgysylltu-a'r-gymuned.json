@@ -16,7 +16,7 @@
         {
           "name": "HJBgvw",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym sut rydych wedi ymgysylltu â'r gymuned ynglŷn â'ch bwriad i gymryd perchnogaeth o'r ased, ac eglurwch sut mae hyn wedi llywio cynlluniau eich prosiect"
         },
         {
@@ -45,7 +45,7 @@
         {
           "name": "NZKHOp",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym sut mae eich prosiect yn cefnogi unrhyw gynlluniau lleol ehangach"
         }
       ],
@@ -71,7 +71,7 @@
         {
           "name": "dpLyQh",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch eich gweithgareddau codi arian"
         }
       ],

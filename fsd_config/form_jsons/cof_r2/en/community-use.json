@@ -24,19 +24,19 @@
         {
           "name": "kxgWTy",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Who in the community uses the asset, or has used it in the past, and who benefits from it?"
         },
         {
           "name": "GNhrIs",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us how losing the asset would affect, or has already affected, people in the community"
         },
         {
           "name": "qsZLjZ",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Why will the asset be lost without community intervention?"
         }
       ],

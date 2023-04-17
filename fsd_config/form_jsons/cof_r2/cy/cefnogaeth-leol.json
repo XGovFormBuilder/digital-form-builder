@@ -52,7 +52,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch fwy wrthym am y gefnogaeth leol i'ch prosiect",
           "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch fwy wrthym am y gefnogaeth leol i'ch prosiect</span>Gall hyn gynnwys:\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>arolygon o'r gymuned</li>\n<li>cyfarfodydd neuadd tref rydych wedi'u cynnal</li>\n<li>nifer y gwirfoddolwyr amcangyfrifedig sydd gennych ar gyfer eich prosiect</li>\n<li>llythyr gan eich AS lleol</li>\n</ul>\n"
         },

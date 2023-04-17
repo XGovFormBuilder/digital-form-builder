@@ -23,7 +23,7 @@
         {
           "name": "WDDkVB",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Summarise your cash flow for the running of the asset"
         },
         {

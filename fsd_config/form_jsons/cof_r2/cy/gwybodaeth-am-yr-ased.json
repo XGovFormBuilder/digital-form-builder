@@ -197,7 +197,7 @@
           "options": {
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch y broses werthu, neu delerau eich  prydles os ydych wedi rhentu'r ased",
           "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch y broses werthu, neu delerau eich  prydles os ydych wedi rhentu'r ased</span>Er enghraifft, ocsiwn"
         }
@@ -223,7 +223,7 @@
           "options": {
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch y broses werthu ddisgwyliedig, neu delerau arfaethedig eich prydles os ydych chi'n rhentu'r ased",
           "hint": "<span class=\"govuk-label govuk-label--s\">Disgrifiwch y broses werthu ddisgwyliedig, neu delerau arfaethedig eich prydles os ydych chi'n rhentu'r ased</span>Er enghraifft, ocsiwn"
         },
@@ -457,7 +457,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch statws presennol y Trosglwyddiad Ased Cymunedol"
         }
       ],

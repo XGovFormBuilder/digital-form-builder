@@ -167,7 +167,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Beth yw prif ddiben eich sefydliad?",
           "schema": {}
         },
@@ -184,7 +184,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym am brif weithgareddau eich sefydliad",
           "hint": "<label for=\"btTtIb\" class=\"govuk-body\">Gweithgarwch 1</label>",
           "schema": {}
@@ -197,7 +197,7 @@
             "optionalText": false,
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym am brif weithgareddau eich sefydliad - Gweithgarwch 2",
           "hint": "<label for=\"SkocDi\" class=\"govuk-body\">Gweithgarwch 2 (dewisol)</label>",
           "schema": {}
@@ -209,7 +209,7 @@
             "maxWords": "500",
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym am brif weithgareddau eich sefydliad - Gweithgarwch 3",
           "hint": "<label for=\"CNeeiC\" class=\"govuk-body\">Gweithgarwch 3 (dewisol)</label>",
           "schema": {}
@@ -267,7 +267,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch eich prosiectau blaenorol",
           "hint": "<label for=\"wxCszQ\" class=\"govuk-body\">Prosiect 1</label>",
           "schema": {}
@@ -279,7 +279,7 @@
             "hideTitle": true,
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch eich prosiectau blaenorol - Prosiect 2",
           "hint": "<label for=\"QJFQgi\" class=\"govuk-body\">Prosiect 2 (dewisol)</label>",
           "schema": {}
@@ -291,7 +291,7 @@
             "hideTitle": true,
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch eich prosiectau blaenorol - Prosiect 3",
           "hint": "<label for=\"DGNWqE\" class=\"govuk-body\">Prosiect 3 (dewisol)</label>",
           "schema": {}
@@ -685,7 +685,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym am eich partneriaeth a sut rydych chi'n bwriadu gweithio gyda'ch gilydd",
           "schema": {},
           "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym am eich partneriaeth a sut rydych chi'n bwriadu gweithio gyda'ch gilydd</span>Os ydych chi'n gweithio mewn partneriaeth â mwy nag un sefydliad, rhowch eu manylion yma"

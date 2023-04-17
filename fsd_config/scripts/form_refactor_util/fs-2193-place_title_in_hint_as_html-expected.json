@@ -147,7 +147,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "What is your organisation's main purpose?",
           "schema": {}
         },
@@ -157,7 +157,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your organisation's main activities",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us about your organisation's main activities</span><span class=\"govuk-body\">Activity 1</span>",
           "schema": {}
@@ -170,7 +170,7 @@
             "optionalText": false,
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your organisation's main activities - Activity 2 ",
           "hint": "Activity 2 (optional)",
           "schema": {}
@@ -182,7 +182,7 @@
             "maxWords": "500",
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your organisation's main activities - Activity 3 ",
           "hint": "Activity 3 (optional)",
           "schema": {}
@@ -223,7 +223,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe your previous projects ô",
           "hint": "<span class=\"govuk-label govuk-label--s\">Describe your previous projects ô</span><span class=\"govuk-body\">Project 1</span>",
           "schema": {}
@@ -235,7 +235,7 @@
             "hideTitle": true,
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe your previous projects - Project 2 ",
           "hint": "Project 2 (optional)",
           "schema": {}
@@ -247,7 +247,7 @@
             "hideTitle": true,
             "required": false
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe your previous projects - Project 3 ",
           "hint": "Project 3 (optional)",
           "schema": {}
@@ -613,7 +613,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us about your partnership and how you plan to work together",
           "schema": {},
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us about your partnership and how you plan to work together</span>If you are working in partnership with more than one organisation, include their details here"

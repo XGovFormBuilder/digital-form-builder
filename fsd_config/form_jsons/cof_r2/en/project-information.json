@@ -70,7 +70,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe your previous project",
           "hint": "<span class=\"govuk-label govuk-label--s\">Describe your previous project</span>Include: \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>project name</li>\n<li>general project overview</li>\n<li>date you received funding</li>\n</ul>"
         },
@@ -111,7 +111,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us how the asset is currently being used, or how it has been used before, and why it's important to the community"
         },
         {
@@ -119,7 +119,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Explain why the asset is at risk of being lost to the community, or why it has already been lost"
         },
         {
@@ -127,7 +127,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Give a brief summary of your project, including what you hope to achieve"
         }
       ],

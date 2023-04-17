@@ -23,7 +23,7 @@
         {
           "name": "WDDkVB",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Crynhowch eich llif arian ar gyfer rhedeg yr ased"
         },
         {

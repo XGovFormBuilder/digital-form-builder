@@ -26,7 +26,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us about the feasibility studies you have carried out for your project</span>",
           "title": "Tell us about the feasibility studies you have carried out for your project"
         },

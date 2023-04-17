@@ -50,7 +50,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Tell us more about the local support for your project",
           "hint": "<span class=\"govuk-label govuk-label--s\">Tell us more about the local support for your project</span>\nThis can include: \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>surveys of the community</li>\n<li>town hall meetings you have run</li>\n<li>the estimated number of volunteers you have for your project</li>\n<li>a letter from your local MP</li>\n</ul>\n"
         },

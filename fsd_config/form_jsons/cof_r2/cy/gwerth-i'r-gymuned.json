@@ -21,7 +21,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym am eich cymuned leol yn gyffredinol",
           "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym am eich cymuned leol yn gyffredinol</span>Mae hyn yn cynnwys manylion unrhyw anghenion sydd ganddi, a sut \nbydd eich prosiect yn mynd ati i gefnogi'r rhain.\n<p>Lle bo modd, cyfeiriwch at unrhyw ddata sydd gennych ar nodweddion \ngwarchodedig ac effeithiau ar gydraddoldeb.</p>"
         },
@@ -30,7 +30,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Disgrifiwch unrhyw heriau penodol mae eich cymuned yn eu hwynebu,  a sut bydd yr ased yn mynd i'r afael â'r rhain"
         }
       ],

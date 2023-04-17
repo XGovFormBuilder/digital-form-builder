@@ -21,7 +21,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "hint": "<span class=\"govuk-label govuk-label--s\">Rhestrwch aelodau eich bwrdd</span>Cynhwyswch eu:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>rôl</li>\n<li>prif gyfrifoldebau</li>\n</ul>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu tystiolaeth i ategu'ch atebion.</p>\n\n",
           "title": "Rhestrwch aelodau eich bwrdd"
         },
@@ -30,7 +30,7 @@
           "options": {
             "maxWords": "500"
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym am eich strwythurau llywodraethu ac aelodaeth"
         },
         {
@@ -39,7 +39,7 @@
             "maxWords": "500",
             "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Eglurwch sut byddwch chi'n ystyried barn y gymuned wrth redeg yr ased",
           "hint": "<span class=\"govuk-label govuk-label--s\">Eglurwch sut byddwch chi'n ystyried barn y gymuned wrth redeg yr ased</span>Cynhwyswch y modd y byddant yn cael eu cynnwys wrth wneud penderfyniadau, a sut byddwch chi'n mesur cefnogaeth gyhoeddus i'ch penderfyniadau"
         }

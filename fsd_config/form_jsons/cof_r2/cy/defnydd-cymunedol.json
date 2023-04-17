@@ -24,19 +24,19 @@
         {
           "name": "kxgWTy",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Pwy yn y gymuned sy'n defnyddio'r ased, neu sydd wedi'i ddefnyddio yn y gorffennol, a phwy sy'n elwa ohono?"
         },
         {
           "name": "GNhrIs",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Dywedwch wrthym sut byddai colli'r ased yn effeithio ar bobl yn y gymuned, neu sut mae wedi effeithio arnynt yn barod"
         },
         {
           "name": "qsZLjZ",
           "options": { "maxWords": "500" },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Pam bydd yr ased yn cael ei golli heb ymyrraeth gan y gymuned?"
         }
       ],
