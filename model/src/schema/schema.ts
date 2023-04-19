@@ -230,6 +230,11 @@ const phaseBannerSchema = joi.object().keys({
   phase: joi.string().valid("alpha", "beta"),
 });
 
+const footerSchema = joi.object().keys({
+  href: joi.string(),
+  text: joi.string(),
+});
+
 export const Schema = joi
   .object()
   .required()
@@ -252,6 +257,7 @@ export const Schema = joi
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
     backLinkText: joi.string().allow("").optional(),
+    footer: joi.array().items(footerSchema).optional(),
   });
 
 /**

@@ -13,6 +13,10 @@ class FormRunnerPage extends Page {
     return browser.$("h1");
   }
 
+  get govFooter() {
+    return browser.$("footer");
+  }
+
   /**
    * Locates the index of a checkbox by label name
    * @param labelText

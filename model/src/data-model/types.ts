@@ -143,6 +143,11 @@ export type Fee = {
   prefix?: string;
 };
 
+export type Footer = {
+  href: string;
+  text: string;
+};
+
 /**
  * `FormDefinition` is a typescript representation of `Schema`
  */
@@ -164,4 +169,5 @@ export type FormDefinition = {
   specialPages?: SpecialPages;
   paymentReferenceFormat?: string;
   backLinkText?: string;
+  footer?: Footer;
 };

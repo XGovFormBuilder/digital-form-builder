@@ -82,3 +82,11 @@ Then(/^the Summary page is displayed with my answers$/, function () {
     "testing@example.com"
   );
 });
+
+Then("I can see the footer at the bottom of the page", function () {
+  let footer = formRunner.govFooter;
+  expect(footer).toHaveTextContaining("Privacy test");
+  expect(footer).toHaveTextContaining("Cookies test");
+  expect(footer).toHaveTextContaining("Accessibility Statement test");
+  expect(footer).toHaveTextContaining("Contact Us test");
+});

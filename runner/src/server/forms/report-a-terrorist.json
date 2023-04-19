@@ -285,5 +285,23 @@
         ]
       }
     }
+  ],
+  "footer": [
+    {
+      "href": "https://www.gov.uk/government/publications/community-ownership-fund-privacy-notice/community-ownership-fund-privacy-notice",
+      "text": "Privacy test"
+    },
+    {
+      "href": "https://www.google.com",
+      "text": "Cookies test"
+    },
+    {
+      "href": "https://www.gov.uk/government/publications/community-ownership-fund-privacy-notice/community-ownership-fund-privacy-notice",
+      "text": "Accessibility Statement test"
+    },
+    {
+      "href": "https://www.gov.uk/government/publications/community-ownership-fund-privacy-notice/community-ownership-fund-privacy-notice",
+      "text": "Contact Us test"
+    }
   ]
 }
