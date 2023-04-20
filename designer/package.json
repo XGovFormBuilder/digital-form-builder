@@ -129,7 +129,7 @@
     "mini-css-extract-plugin": "^0.11.2",
     "msw": "^1.2.1",
     "nodemon": "^2.0.20",
-    "nunjucks": "^3.2.3",
+    "nunjucks": "^3.2.4",
     "postcss": "^8.2.4",
     "postcss-loader": "^4.1.0",
     "prismjs": "1.27.0",

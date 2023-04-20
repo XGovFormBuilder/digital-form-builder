@@ -5497,7 +5497,7 @@ __metadata:
     msw: ^1.2.1
     nanoid: ^3.3.4
     nodemon: ^2.0.20
-    nunjucks: ^3.2.3
+    nunjucks: ^3.2.4
     postcss: ^8.2.4
     postcss-loader: ^4.1.0
     prismjs: 1.27.0
@@ -5581,7 +5581,7 @@ __metadata:
     jest: ^29.2.0
     joi: 17.2.1
     nanoid: ^3.3.4
-    nunjucks: ^3.2.3
+    nunjucks: ^3.2.4
     path: 0.12.7
     ts-jest: ^26.4.4
     typescript: 4.9.5
@@ -5671,7 +5671,7 @@ __metadata:
     nodemailer: ~6.6.0
     nodemon: ^2.0.20
     notifications-node-client: ^5.2.0
-    nunjucks: ^3.2.3
+    nunjucks: ^3.2.4
     pdfmake: 0.1.65
     resolve: ^1.19.0
     sass: ^1.49.9
@@ -17361,9 +17361,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"nunjucks@npm:^3.2.3":
-  version: 3.2.3
-  resolution: "nunjucks@npm:3.2.3"
+"nunjucks@npm:^3.2.4":
+  version: 3.2.4
+  resolution: "nunjucks@npm:3.2.4"
   dependencies:
     a-sync-waterfall: ^1.0.0
     asap: ^2.0.3
@@ -17375,7 +17375,7 @@ fsevents@~2.3.1:
       optional: true
   bin:
     nunjucks-precompile: bin/precompile
-  checksum: 9d0125acf917166675af2d9b5d525b6d3edaba68ec6f8c92edee8ad05140cfa8aef12feb46f4c3da52ed2836cadfb9d26fbf1fa9d9be6bef4660d03ce1e89dbe
+  checksum: 8b902a9deb9ff0f5c9ebbd2c7f96dfe5800bf42bdfc91d8f829fc0440ec1f87901593e20479f5ba1bddcc9f2472b16a5e932be5863dcdec0899a27c01a03df32
   languageName: node
   linkType: hard
 
