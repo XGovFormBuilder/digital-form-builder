@@ -112,7 +112,7 @@ export class FeeItems extends React.Component {
         description: "",
         amount: 0,
         condition: "",
-        multiplier: "0",
+        multiplier: "1",
       }),
     });
   };
@@ -147,9 +147,42 @@ export class FeeItems extends React.Component {
       });
   };
 
+  itemHasStaticQuantity = (item) => {
+    console.log("item multiplier: ", item.multiplier);
+    return !!parseInt(item.multiplier);
+  };
+
+  changeToFieldSelect = (event, item, index) => {
+    event.preventDefault();
+    const { fields } = this.props;
+    if (Object.values(fields).length === 0) return;
+    let itemCopy = { ...item };
+    itemCopy.multiplier = Object.keys(fields)[0];
+    let itemsCopy = [...this.state.items];
+    itemsCopy[index] = itemCopy;
+    this.setState({
+      items: itemsCopy,
+    });
+    return;
+  };
+
+  changeToStaticInput = (event, item, index) => {
+    event.preventDefault();
+    let itemsCopy = [...this.state.items];
+    let itemCopy = { ...item };
+    itemCopy.multiplier = "1";
+    itemsCopy[index] = itemCopy;
+    this.setState({
+      items: itemsCopy,
+    });
+    return;
+  };
+
   render() {
     const { items, errors } = this.state;
-    const { conditions } = this.props;
+    const { conditions, fields } = this.props;
+
+    console.log("fields: ", fields);
 
     let hasValidationErrors = Object.keys(errors).length > 0;
 
@@ -241,17 +274,57 @@ export class FeeItems extends React.Component {
                   </select>
                 </td>
                 <td className={"govuk-table__cell"}>
-                  <input
-                    className={classNames({
-                      "govuk-input": true,
-                      "govuk-input--error":
-                        errors?.[INVALID_MULTIPLIER]?.[index],
-                    })}
-                    name="multiplier"
-                    type="number"
-                    defaultValue={item.multiplier ?? 0}
-                    step="any"
-                  />
+                  {this.itemHasStaticQuantity(item) ? (
+                    <>
+                      <input
+                        className={classNames({
+                          "govuk-input": true,
+                          "govuk-input--error":
+                            errors?.[INVALID_MULTIPLIER]?.[index],
+                        })}
+                        name="multiplier"
+                        type="number"
+                        defaultValue={item.multiplier ?? 0}
+                        step="any"
+                      />
+                      {fields.length > 0 && (
+                        <a
+                          href={"#"}
+                          onClick={(e) =>
+                            this.changeToFieldSelect(e, item, index)
+                          }
+                        >
+                          Or choose a field
+                        </a>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <select
+                        className="govuk-select"
+                        id="multiplier"
+                        name="multiplier"
+                        defaultValue={item.multiplier}
+                      >
+                        {fields.map((field) => (
+                          <option
+                            key={`item-${index}-field-${field.name}`}
+                            value={field.name}
+                          >
+                            {field.label}
+                          </option>
+                        ))}
+                      </select>
+                      <a
+                        href={"#"}
+                        onClick={(e) =>
+                          this.changeToStaticInput(e, item, index)
+                        }
+                      >
+                        Or choose a number
+                      </a>
+                    </>
+                  )}
                 </td>
                 <td className="govuk-table__cell" width="20px">
                   <a

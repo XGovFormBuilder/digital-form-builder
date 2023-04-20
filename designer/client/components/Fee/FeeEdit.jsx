@@ -6,6 +6,8 @@ import { Input } from "@govuk-jsx/input";
 import ErrorSummary from "./../../error-summary";
 import { DataContext } from "../../context";
 import logger from "../../plugins/logger";
+import { allInputs, inputsAccessibleAt } from "../../data";
+
 export class FeeEdit extends React.Component {
   static contextType = DataContext;
 
@@ -15,6 +17,32 @@ export class FeeEdit extends React.Component {
     this.state = {
       errors: {},
     };
+  }
+
+  trimSectionName(fieldName) {
+    if (fieldName.includes(".")) {
+      return fieldName.substring(fieldName.indexOf(".") + 1);
+    }
+    return fieldName;
+  }
+
+  getFields() {
+    const { data } = this.context;
+    const inputs = allInputs(data) ?? [];
+    return inputs
+      .map((input) => ({
+        label: input.title,
+        name: this.trimSectionName(input.propertyPath),
+        type: input.type,
+      }))
+      .reduce((arr, item) => {
+        if (
+          item.type === "NumberField" &&
+          !arr.find((field) => field.name === item.name)
+        )
+          arr.push(item);
+        return arr;
+      }, []);
   }
 
   onSubmit = (e) => {
@@ -143,6 +171,7 @@ export class FeeEdit extends React.Component {
             items={fees}
             conditions={conditions}
             ref={this.feeItemsRef}
+            fields={this.getFields()}
           />
 
           <button className="govuk-button" type="submit">
