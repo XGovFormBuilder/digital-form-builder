@@ -46,6 +46,7 @@ export class PageControllerBase {
     phaseBanner?: {
       phase?: string;
     };
+    footer: any;
   };
   name: string;
   model: FormModel;
@@ -127,6 +128,7 @@ export class PageControllerBase {
     backLink?: string;
     backLinkText?: string;
     phaseTag?: string | undefined;
+    footer?: any;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -166,6 +168,7 @@ export class PageControllerBase {
       components,
       errors,
       isStartPage: false,
+      footer: this.def.footer,
     };
   }
 

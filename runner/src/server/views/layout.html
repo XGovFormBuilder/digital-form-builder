@@ -170,8 +170,8 @@
 
 {% block footer %}
   {% set footerItems = [] %}
-  {% if page.def.footer %}
-    {% for footerItem in page.def.footer %}
+  {% if footer %}
+    {% for footerItem in footer %}
       {% set _ = footerItems.push({
         href: footerItem.href,
         text: footerItem.text

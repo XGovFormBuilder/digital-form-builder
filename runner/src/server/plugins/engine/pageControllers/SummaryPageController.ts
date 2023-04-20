@@ -31,6 +31,8 @@ export class SummaryPageController extends PageController {
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
 
+      viewModel.footer = this.def.footer;
+
       const form_session_identifier =
         state.metadata?.form_session_identifier ?? "";
       if (form_session_identifier) {

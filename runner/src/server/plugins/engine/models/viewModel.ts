@@ -49,6 +49,7 @@ export class ViewModel {
   containsFileType?: boolean;
   saveAndContinueText: string;
   continueText: string;
+  footer?: any;
 
   constructor(
     pageTitle: string,
