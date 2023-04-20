@@ -13,6 +13,7 @@ function isDuplicated(arr) {
 
 const MISSING_DESC = "missingDescription";
 const INVALID_AMOUNT = "invalidAmount";
+const INVALID_MULTIPLIER = "invalidMultiplier";
 const MISSING_COND = "missingCondition";
 const DUP_CONDITIONS = "dupConditions";
 
@@ -34,6 +35,8 @@ export class FeeItems extends React.Component {
     let missingDescriptions = {};
     let amountInvalid = false;
     let amountsInvalid = {};
+    let multiplierInvalid = false;
+    let multipliersInvalid = {};
     let missingCondition = false;
     let missingConditions = {};
     formData.getAll("description").forEach((d, i) => {
@@ -72,6 +75,18 @@ export class FeeItems extends React.Component {
       errors[INVALID_AMOUNT] = amountsInvalid;
     }
 
+    formData.getAll("multiplier").forEach((d, i) => {
+      if (d < 0) {
+        multipliersInvalid[i] = true;
+        multiplierInvalid = true;
+        errors[INVALID_MULTIPLIER] = multipliersInvalid;
+      }
+    });
+    if (multiplierInvalid) {
+      multipliersInvalid.href = "#items-table";
+      multipliersInvalid.children = "Enter a valid quantity";
+    }
+
     const descriptions = formData.getAll("description").map((t) => t.trim());
     const conditions = formData.getAll("condition").map((t) => t.trim());
 
@@ -97,6 +112,7 @@ export class FeeItems extends React.Component {
         description: "",
         amount: 0,
         condition: "",
+        multiplier: "0",
       }),
     });
   };
@@ -163,6 +179,9 @@ export class FeeItems extends React.Component {
               <th className="govuk-table__header" scope="col">
                 Condition
               </th>
+              <th className={"govuk-table__header"} scope={"col"}>
+                Quantity
+              </th>
               <th className="govuk-table__header" scope="col">
                 <a
                   className="pull-right"
@@ -220,6 +239,19 @@ export class FeeItems extends React.Component {
                       </option>
                     ))}
                   </select>
+                </td>
+                <td className={"govuk-table__cell"}>
+                  <input
+                    className={classNames({
+                      "govuk-input": true,
+                      "govuk-input--error":
+                        errors?.[INVALID_MULTIPLIER]?.[index],
+                    })}
+                    name="multiplier"
+                    type="number"
+                    defaultValue={item.multiplier ?? 0}
+                    step="any"
+                  />
                 </td>
                 <td className="govuk-table__cell" width="20px">
                   <a

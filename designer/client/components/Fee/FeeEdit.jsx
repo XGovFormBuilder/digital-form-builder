@@ -29,6 +29,9 @@ export class FeeEdit extends React.Component {
     const descriptions = formData.getAll("description").map((t) => t.trim());
     const amount = formData.getAll("amount").map((t) => t.trim());
     const conditions = formData.getAll("condition").map((t) => t.trim());
+    const multipliers = formData
+      .getAll("multiplier")
+      .map((t) => t.trim() ?? "0");
 
     let hasValidationErrors = this.validate(testPayApiKey, form);
     if (hasValidationErrors) return;
@@ -42,6 +45,7 @@ export class FeeEdit extends React.Component {
       description,
       amount: amount[i],
       condition: conditions[i],
+      multiplier: multipliers[i],
     }));
 
     save(copy)
