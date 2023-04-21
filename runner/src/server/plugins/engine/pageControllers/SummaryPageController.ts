@@ -43,7 +43,8 @@ export class SummaryPageController extends PageController {
           if (comp) {
             const folderPath = `${comp.pageId}/${comp.name}`;
             const files = await uploadService.listFilesInBucketFolder(
-              `${form_session_identifier}${folderPath}`
+              `${form_session_identifier}${folderPath}`,
+              form_session_identifier
             );
             comp.value = {
               folderPath,
@@ -162,7 +163,8 @@ export class SummaryPageController extends PageController {
           if (comp) {
             const folderPath = `${comp.pageId}/${comp.name}`;
             const files = await uploadService.listFilesInBucketFolder(
-              `${form_session_identifier}${folderPath}`
+              `${form_session_identifier}${folderPath}`,
+              form_session_identifier
             );
             comp.value = {
               folderPath,

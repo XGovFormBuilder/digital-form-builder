@@ -22,8 +22,17 @@
         },
         {
           "name": "ozgwXq",
-          "options": {},
-          "type": "FileUploadField",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
           "hint": "<div class=\"govuk-caption-m\">\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 5MB ar unrhyw un o'r fformatau canlynol:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul> \n\n<p>Lanlwythwch ddogfen sy'n nodi manylion unrhyw risgiau y gallai eich prosiect eu hwynebu.</p>\n<label >Dylech gynnwys:</label>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-3\">\n<li>disgrifiad o'r risg</li>\n<li>y tebygolrwydd y bydd yn digwydd</li>\n<li>pa bryd y gallai ddigwydd</li>\n<li>sut y bwriadwch liniaru'r risg</li>\n<li>y tebygolrwydd y bydd yn digwydd ar ôl lliniaru</li>\n</ul>\n\n<p>Peidiwch â chynnwys unrhyw risgiau i'r ased na pham y gallai gau; gwnaethom eich holi ynglŷn â hyn yn gynharach yn eich cais.</p>\n</div>\n\n<h2 class=\"govuk-heading-s\">Lanlwythwch y ddogfen risg</h2>",
           "title": "Risgiau i'ch prosiect (lanlwytho dogfen)"
         }

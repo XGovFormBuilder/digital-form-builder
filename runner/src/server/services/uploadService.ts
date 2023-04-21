@@ -366,7 +366,10 @@ export class UploadService {
     return path.replace(/^\//, "").replace(/\/$/, "");
   }
 
-  async listFilesInBucketFolder(folderPath: string): Promise<S3Object[]> {
+  async listFilesInBucketFolder(
+    folderPath: string,
+    formSessionId: string
+  ): Promise<S3Object[]> {
     const params = {
       Bucket: bucketName,
       Prefix: `${folderPath}/`,
@@ -380,6 +383,7 @@ export class UploadService {
 
     const files = response.Contents.filter((obj) => !obj.Key.endsWith("/")).map(
       (obj) => ({
+        FormSessionId: formSessionId,
         Key: obj.Key!.replace(`${folderPath}/`, ""),
         Size: obj.Size!,
       })

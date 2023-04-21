@@ -328,9 +328,16 @@
         {
           "name": "ArVrka",
           "options": {
-            "required": true
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
           },
-          "type": "FileUploadField",
+          "type": "ClientSideFileUploadField",
           "hint": "<label>Lanlwythwch dystiolaeth ategol i grynhoi:</label>\n<p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>y risg y mae'r ased yn ei hwynebu</li>\n<li>na fydd unrhyw wasanaethau statudol yn cael eu trosglwyddo o'r awdurdod cyhoeddus</li>\n<li>y bydd yr ased yn gynaliadwy ar ôl iddo gael ei drosglwyddo</li>\n</ul>\n\n<label class=\"govuk-caption-m\">Er enghraifft, gall y dystiolaeth hon gynnwys cadarnhad gan y perchennog cyhoeddus neu lythyr gan yr awdurdod lleol</label>\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 5MB ar unrhyw un o'r fformatau canlynol:</p>\n\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul>\n</p>",
           "title": "Lanlwythwch dystiolaeth ategol"
         }

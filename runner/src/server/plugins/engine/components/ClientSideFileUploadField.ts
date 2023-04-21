@@ -38,7 +38,10 @@ export class ClientSideFileUploadField extends FormComponent {
         // we wait an arbitrary amount of 1 second here, because of race conditions.
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const files = await uploadService.listFilesInBucketFolder(key);
+        const files = await uploadService.listFilesInBucketFolder(
+          key,
+          form_session_identifier
+        );
 
         const maxFiles = this.options.dropzoneConfig.maxFiles;
         if (files.length > maxFiles) {

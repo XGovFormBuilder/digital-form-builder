@@ -14,7 +14,7 @@
             {% elif item.type == 'ClientSideFileUploadField' %}
                 {% for file in item.value.files %}
                     <div>
-                        <a class="govuk-link" href="/s3{{item.value.folderPath}}/download-file?filename={{file.Key}}">
+                        <a class="govuk-link" href="/s3{{item.value.folderPath}}/download-file?filename={{file.Key}}&form_session_identifier={{file.FormSessionId}}">
                             {{ file.Key }}
                         </a>
                     </div>

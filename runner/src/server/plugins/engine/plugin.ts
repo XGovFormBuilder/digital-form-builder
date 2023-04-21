@@ -59,6 +59,7 @@ type PluginOptions = {
   previewMode: boolean;
 };
 
+export let authStrategy;
 export const plugin = {
   name: "@xgovformbuilder/runner/engine",
   dependencies: "@hapi/vision",
@@ -97,6 +98,12 @@ export const plugin = {
         jwtStrategyOptions(config.jwtAuthCookieName)
       );
     }
+
+    authStrategy = config.basicAuthOn
+      ? basicAuthStrategyName
+      : jwtAuthStrategyIsActive
+      ? jwtAuthStrategyName
+      : options.auth;
 
     /**
      * The following publish endpoints (/publish, /published/{id}, /published)
@@ -227,11 +234,7 @@ export const plugin = {
       method: "get",
       path: "/{id}/{path*}",
       options: {
-        auth: config.basicAuthOn
-          ? basicAuthStrategyName
-          : jwtAuthStrategyIsActive
-          ? jwtAuthStrategyName
-          : options.auth,
+        auth: authStrategy,
       },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
@@ -293,11 +296,7 @@ export const plugin = {
             userPathLimit: 10,
           },
         },
-        auth: config.basicAuthOn
-          ? basicAuthStrategyName
-          : jwtAuthStrategyIsActive
-          ? jwtAuthStrategyName
-          : options.auth,
+        auth: authStrategy,
         payload: {
           output: "stream",
           parse: true,

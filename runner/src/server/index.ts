@@ -105,7 +105,6 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(Schmervice);
   await server.register(pluginAuth);
-  await server.register(clientSideUpload);
 
   server.registerService([
     CacheService,
@@ -168,9 +167,15 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginViews);
   await server.register(HapiBasicAuth);
   await server.register(HapiJwtAuth2);
+
   await server.register(
     configureEnginePlugin(formFileName, formFilePath, options)
   );
+  // clientSideUpload uses authStrategy, which is dynamically assigned,
+  // we need to register clientSideUpload afterwards, order matters.
+  // runner/src/server/plugins/engine/plugin.ts:102
+  await server.register(clientSideUpload);
+
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);

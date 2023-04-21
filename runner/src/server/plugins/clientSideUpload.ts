@@ -1,4 +1,5 @@
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import { authStrategy } from "server/plugins/engine/plugin";
 
 export default {
   plugin: {
@@ -7,11 +8,17 @@ export default {
       server.route({
         method: "POST",
         path: "/s3/{id}/{pageKey}/{componentKey}/create-pre-signed-url",
-        handler: async (request: HapiRequest) => {
+        options: {
+          auth: authStrategy,
+        },
+        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const { uploadService, cacheService } = request.services([]);
           const state = await cacheService.getState(request);
           const form_session_identifier =
             state.metadata?.form_session_identifier ?? "";
+          if (!form_session_identifier) {
+            return h.response({ ok: false }).code(401);
+          }
           const { id, pageKey, componentKey } = request.params as any;
           const { filename } = request.payload;
 
@@ -37,11 +44,17 @@ export default {
       server.route({
         method: "GET",
         path: "/s3/{id}/{pageKey}/{componentKey}/download-file",
+        options: {
+          auth: authStrategy,
+        },
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const { uploadService, cacheService } = request.services([]);
           const state = await cacheService.getState(request);
           const form_session_identifier =
             state.metadata?.form_session_identifier ?? "";
+          if (!form_session_identifier) {
+            return h.response({ ok: false }).code(401);
+          }
           const { id, pageKey, componentKey } = request.params as any;
           const { filename } = request.query;
 
@@ -54,11 +67,17 @@ export default {
       server.route({
         method: "DELETE",
         path: "/s3/{id}/{pageKey}/{componentKey}/delete-file-by-key",
+        options: {
+          auth: authStrategy,
+        },
         handler: async (request, h) => {
           const { uploadService, cacheService } = request.services([]);
           const state = await cacheService.getState(request);
           const form_session_identifier =
             state.metadata?.form_session_identifier ?? "";
+          if (!form_session_identifier) {
+            return h.response({ ok: false }).code(401);
+          }
           const { id, pageKey, componentKey } = request.params as any;
           const { filename } = request.payload;
 

@@ -151,7 +151,7 @@
                     <div class="dz-template govuk-table__row dz-success">
                         <div class="govuk-table__cell dz-table__cell">
                             <a class="govuk-link govuk-link--no-underline"
-                               href="/s3/report-a-terrorist/yes-i-have-evidence/koE_ae/download-file?filename={{file.Key}}">
+                               href="/s3/report-a-terrorist/yes-i-have-evidence/koE_ae/download-file?filename={{file.Key}}&form_session_identifier={{file.FormSessionId}}">
                                 {{ file.Key }}
                             </a>
                         </div>
@@ -318,7 +318,11 @@
         fetch(window.location.origin + fetchUrl, {
             method: "DELETE",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({filename: file.name}),
+            credentials: "include",
+            body: JSON.stringify({
+                filename: file.name,
+                crumb: document.querySelector('form > input[name="crumb"]').value
+            }),
         })
     }
 
@@ -351,7 +355,7 @@
         updateProgressBarContent(file, 'Complete');
         const hrefContainer = file.previewElement.querySelector('a');
         const encodedFilename = encodeURIComponent(file.name);
-        hrefContainer.href = `/s3/${uniquePath}/download-file?filename=${encodedFilename}`;
+        hrefContainer.href = `/s3/${uniquePath}/download-file${window.location.search}&filename=${encodedFilename}`;
     });
 
     let preExistingFiles = [];
@@ -371,8 +375,12 @@
         let fetchUrl = `/s3/${uniquePath}/create-pre-signed-url${window.location.search}`;
         const response = await fetch(window.location.origin + fetchUrl, {
             method: 'POST',
-            body: JSON.stringify({filename: file.name}),
-            headers: {'Content-Type': 'application/json'}
+            credentials: "include",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                filename: file.name,
+                crumb: document.querySelector('form > input[name="crumb"]').value
+            }),
         });
         return response.ok && (await response.json()).url
     }

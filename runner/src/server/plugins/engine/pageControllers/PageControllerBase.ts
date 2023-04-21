@@ -467,7 +467,10 @@ export class PageControllerBase {
             ? currentPath.split("?")[0]
             : currentPath;
           const folderPath = `${form_session_identifier}${pageAndForm}/${comp.model.id}`;
-          const files = await uploadService.listFilesInBucketFolder(folderPath);
+          const files = await uploadService.listFilesInBucketFolder(
+            folderPath,
+            form_session_identifier
+          );
           comp.model.existingFiles.push(...files);
         }
       }
@@ -926,7 +929,10 @@ export class PageControllerBase {
           ? currentPath.split("?")[0]
           : currentPath;
         const folderPath = `${form_session_identifier}${pageAndForm}/${comp.model.id}`;
-        const files = await uploadService.listFilesInBucketFolder(folderPath);
+        const files = await uploadService.listFilesInBucketFolder(
+          folderPath,
+          form_session_identifier
+        );
         comp.model.existingFiles.push(...files);
       }
     }

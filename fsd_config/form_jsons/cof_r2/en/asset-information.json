@@ -314,9 +314,16 @@
         {
           "name": "ArVrka",
           "options": {
-            "required": true
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
           },
-          "type": "FileUploadField",
+          "type": "ClientSideFileUploadField",
           "hint": "<label>Upload supporting evidence to summarise:</label>\n<p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>the risk the asset is facing</li>\n<li>that any statutory services will not be transferred from the public authority</li>\n<li>that the asset will be sustainable after it has been transferred</li>\n</ul>\n\n<label class=\"govuk-caption-m\">For example, this evidence can include confirmation from the public owner or a letter from the local authority.</label>\n<p>It should be a single file no bigger than 5MB in any of the following formats:</p>\n\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>jpg</li>\n<li>jpeg</li>\n<li>png</li>\n<li>pdf</li>\n<li>txt</li>\n<li>doc</li>\n<li>docx</li>\n<li>odt</li>\n<li>csv</li>\n<li>xls</li>\n<li>xlsx</li>\n<li>ods</li>\n</ul>\n</p>",
           "title": "Upload supporting evidence"
         }
