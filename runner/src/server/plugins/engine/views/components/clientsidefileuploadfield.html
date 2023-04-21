@@ -74,6 +74,10 @@
 <div id="{{component.model.id}}" class="govuk-form-group {% if component.model.errorMessage %}govuk-form-group--error{% endif %}">
     {{ govukLabel(component.model.label) }}
 
+    {% if component.model.hint %}
+      {{ govukHint(component.model.hint) }}
+    {% endif %}
+
     <p class="govuk-error-message">
       <span class="{% if not component.model.errorMessage %}govuk-visually-hidden{% endif %}">
           {{ component.model.errorMessage.text | safe }}
