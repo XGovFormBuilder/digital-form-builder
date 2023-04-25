@@ -86,6 +86,7 @@ export type ClientSideFileUploadFieldViewModel = {
   dropzoneConfig: object;
   existingFiles: S3Object[];
   showNoScriptWarning?: boolean;
+  totalOverallFilesize?: number;
 } & ViewModel;
 
 export type DataType =

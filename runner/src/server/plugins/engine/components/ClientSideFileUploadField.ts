@@ -30,9 +30,10 @@ export class ClientSideFileUploadField extends FormComponent {
         const form_session_identifier =
           state.metadata?.form_session_identifier ?? "";
         const { id, path } = request.params as any;
-        const componentKey = viewModel.components.find(
+        const clientSideUploadComponent = viewModel.components.find(
           (c) => c.type === "ClientSideFileUploadField"
-        ).model.id;
+        );
+        const componentKey = clientSideUploadComponent.model.id;
         const key = `${form_session_identifier}/${id}/${path}/${componentKey}`;
 
         // we wait an arbitrary amount of 1 second here, because of race conditions.
@@ -72,7 +73,12 @@ export class ClientSideFileUploadField extends FormComponent {
 
         if (this.options.minimumRequiredFiles === 1) {
           return [
-            { ...error, ...{ text: `${viewModel.pageTitle} is required` } },
+            {
+              ...error,
+              ...{
+                text: `${clientSideUploadComponent.model.label.text} is required`,
+              },
+            },
           ];
         }
 
@@ -80,7 +86,7 @@ export class ClientSideFileUploadField extends FormComponent {
           {
             ...error,
             ...{
-              text: `${viewModel.pageTitle} requires ${this.options.minimumRequiredFiles} files`,
+              text: `${clientSideUploadComponent.model.label.text} requires ${this.options.minimumRequiredFiles} files`,
             },
           },
         ];
@@ -92,11 +98,13 @@ export class ClientSideFileUploadField extends FormComponent {
     formData: FormData,
     errors: FormSubmissionErrors
   ): ClientSideFileUploadFieldViewModel {
+    this.options.required = this.options.minimumRequiredFiles > 0;
     const viewModel = {
       ...super.getViewModel(formData, errors),
       dropzoneConfig: this.options.dropzoneConfig,
       existingFiles: [], // this is populated afterwards.
       showNoScriptWarning: this.options.showNoScriptWarning || false,
+      totalOverallFilesize: this.options.totalOverallFilesize,
     } as ClientSideFileUploadFieldViewModel;
     return viewModel;
   }

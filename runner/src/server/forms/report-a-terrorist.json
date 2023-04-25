@@ -141,6 +141,13 @@
       "title": "Yes I have evidence",
       "components": [
         {
+          "name": "koE_ae_pre",
+          "options": {},
+          "type": "Para",
+          "content": "File upload component!",
+          "schema": {}
+        },
+        {
           "name": "koE_ae",
           "options": {
             "dropzoneConfig": {
@@ -150,7 +157,7 @@
               "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
             },
             "showNoScriptWarning": true,
-            "minimumRequiredFiles": 2
+            "minimumRequiredFiles": 0
           },
           "type": "ClientSideFileUploadField",
           "title": "Evidence File Upload",

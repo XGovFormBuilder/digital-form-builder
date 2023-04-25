@@ -16,7 +16,6 @@
 
 <head>
     <script src="/assets/dropzone.min.js"></script>
-    <script type="text/javascript"></script>
 </head>
 
 <style>
@@ -70,6 +69,7 @@
 </noscript>
 
 {% set is_single_file_upload = component.model.dropzoneConfig.maxFiles === 1 %}
+{% set total_overall_filesize = component.model.totalOverallFilesize %}
 
 <div id="{{component.model.id}}" class="govuk-form-group {% if component.model.errorMessage %}govuk-form-group--error{% endif %}">
     {{ govukLabel(component.model.label) }}
@@ -185,6 +185,7 @@
 
 <script>
 
+    const _FILE_SIZE_BASE = 1024;
     const previewTemplate = `
     <div id="dropzoneTemplate" class="dz-template govuk-table__row">
         <div class="govuk-table__cell dz-table__cell">
@@ -219,6 +220,7 @@
         clickable: "#dropzoneAddFile",
         previewsContainer: "#dropzonePreviews",
         previewTemplate: previewTemplate,
+        filesizeBase: _FILE_SIZE_BASE,
         init: () => {
             {% if is_single_file_upload %}
             document.querySelector('.dz-hidden-input').removeAttribute('multiple');
@@ -256,19 +258,10 @@
         errorSpan.textContent = errorMessage;
     };
 
-    // unused at the moment.  not sure if we will use, we're mixing client and server side errors.
-    // perhaps we can use this later.
-    const _clearError = () => {
-        const formContainer = document.querySelector("#{{component.model.id}}");
-        formContainer.classList.remove('govuk-form-group--error');
-        const errorSpan = formContainer.querySelector('.govuk-error-message > span');
-        errorSpan.class = 'govuk-visually-hidden';
-    }
-
     const myDropzone = new Dropzone('#dropzoneWrapper', dropzoneConfig);
 
     myDropzone.on('addedfile', function (file) {
-        const fileSizeLimit = dropzoneBackendConfig.maxFilesize * 1024 * 1024;
+        const fileSizeLimit = dropzoneBackendConfig.maxFilesize * _FILE_SIZE_BASE * _FILE_SIZE_BASE;
         if (file.size > fileSizeLimit) {
             handleError(`File must be under ${dropzoneBackendConfig.maxFilesize}MB`);
             myDropzone.removeFile(file);
@@ -282,17 +275,20 @@
             return nameMatches && (f.processed || hasMismatchingUuid);
         });
 
-        const totalSizeLimit = fileSizeLimit * dropzoneBackendConfig.maxFiles;
+        {% if total_overall_filesize %}
+        const totalOverallFilesize = {{ total_overall_filesize }};
+        const totalSizeLimit = totalOverallFilesize * _FILE_SIZE_BASE * _FILE_SIZE_BASE;
         let totalSize = getAllFiles().reduce((acc, cur) => acc + cur.size, 0)
         if (existingFile) {
             totalSize -= existingFile.size;
         }
 
         if (totalSize > totalSizeLimit) {
-            handleError(`Combined filesize must be under ${totalSizeLimit}MB`);
+            handleError(`Combined filesize must be under ${totalOverallFilesize}MB`);
             myDropzone.removeFile(file);
             return false;
         }
+        {% endif %}
 
         let existingFileCount = getAllFiles().length;
         if (existingFile) {

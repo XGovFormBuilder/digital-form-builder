@@ -244,6 +244,7 @@ export interface ClientSideFileUploadFieldComponent {
     dropzoneConfig: object;
     showNoScriptWarning: boolean;
     minimumRequiredFiles: number;
+    totalOverallFilesize: number;
   };
   schema: {};
 }
