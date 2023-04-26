@@ -325,7 +325,7 @@ export class InlineConditions extends React.Component<Props, State> {
               fields={this.state.fields}
               saveCallback={this.saveCondition}
             />
-            <div className="govuk-form-group">
+            <div className="govuk-button-group">
               {hasConditions && (
                 <>
                   <a
@@ -340,7 +340,7 @@ export class InlineConditions extends React.Component<Props, State> {
                     <a
                       href="#"
                       id="delete-inline-conditions"
-                      className="govuk-button"
+                      className="govuk-button govuk-button--warning"
                       onClick={this.onClickDelete}
                     >
                       {i18n("delete")}
