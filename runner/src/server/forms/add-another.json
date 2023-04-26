@@ -23,14 +23,29 @@
         {
           "name": "MultiInputField",
           "options": {
-            "prefix": "£",
             "textFieldTitle": "Type of Revenue Cost",
             "numberFieldTitle": "Amount"
           },
           "type": "MultiInputField",
           "title": "MultiInputField",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "type": "MultilineTextField",
+              "name": "type-of-revenue-cost",
+              "title": "Test",
+              "schema": {},
+              "options": {}
+            },
+            {
+              "type": "DatePartsField",
+              "name": "value",
+              "title": "Test",
+              "schema": {},
+              "options": {}
+            }
+          ]
         }
       ],
       "next": [
@@ -43,12 +58,55 @@
     {
       "path": "/second-page",
       "title": "Second page",
-      "components": [],
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "You have selected these languages",
+          "samePageTitle": "Revenue Costs",
+          "columnOneTitle": "Title",
+          "columnTwoTitle": "Cost",
+          "columnThreeTitle": "Link"
+        }
+      },
+      "components": [
+        {
+          "name": "MultiInputField-test",
+          "options": {
+            "textFieldTitle": "Type of Revenue Cost",
+            "numberFieldTitle": "Amount"
+          },
+          "type": "MultiInputField",
+          "title": "MultiInputField 2",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "type": "MultilineTextField",
+              "name": "type-of-revenue-cost-test",
+              "title": "Test",
+              "schema": {},
+              "options": {}
+            },
+            {
+              "type": "MultilineTextField",
+              "name": "value-test",
+              "title": "Test",
+              "schema": {},
+              "options": {}
+            }
+          ]
+        }
+      ],
       "next": [
         {
           "path": "/summary"
         }
-      ]
+      ],
+      "controller": "RepeatingFieldPageController"
     },
     {
       "title": "Summary",

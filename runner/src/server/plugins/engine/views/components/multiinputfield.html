@@ -1,9 +1,19 @@
 {% from "input/macro.njk" import govukInput %}
+{% from "date-input/macro.njk" import govukDateInput %}
+{% from "textarea/macro.njk" import govukTextarea %}
+{% from "character-count/macro.njk" import govukCharacterCount %}
+
 {% macro MultiInputField(component) %}
     {% for item in component.model.items %}
     <label class="govuk-label" for={{item.id}}>
-        {{item.label}}    
+        {{item.label}}
+        {% if item.type == "TextField"%}    
         {{ govukInput(item) }}
+        {% elif item.type == "MultilineTextField"%}
+        {{ govukTextarea(item) }}
+        {% else %}
+        {{ govukDateInput(item) }}
+        {%endif%}
     </label>
     {% endfor %}
 {% endmacro %}

@@ -159,22 +159,33 @@ export class RepeatingSummaryPageController extends PageController {
     });
   }
 
+  isValidDate(dateString) {
+    const date = new Date(dateString);
+    return !isNaN(date.getTime());
+  }
+
+  buildRowValues(answers) {}
+
   buildTextFieldRows(answers, form_session_identifier, view = false) {
     const { title = "" } = this.inputComponent;
     return answers?.map((value, i) => {
-      return {
-        key: {
-          text: value["type-of-revenue-cost"],
-          classes: `${
-            this.hideRowTitles ? "govuk-summary-list__row--hidden-titles" : ""
-          }`,
-        },
-        value: {
-          text: `${this.inputComponent.options.prefix}${value["value"]}`,
-          classes: `${
-            this.hideRowTitles ? "govuk-summary-list__key--hidden-titles" : ""
-          }`,
-        },
+      const valueValues: string[] = [];
+      for (const key in value) {
+        if (this.isValidDate(value[key])) {
+          const dateOptions = {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          };
+          valueValues.push(
+            new Date(value[key]).toLocaleDateString("en-GB", dateOptions)
+          );
+        } else {
+          valueValues.push(value[key]);
+        }
+      }
+
+      const row = {
         action: {
           href: `?removeAtIndex=${i}${
             view ? `&view=${view}` : ``
@@ -182,7 +193,24 @@ export class RepeatingSummaryPageController extends PageController {
           text: "Remove",
           visuallyHiddenText: title,
         },
+        key: {},
+        value: {},
       };
+
+      row.key = {
+        text: valueValues[0],
+        classes: `${
+          this.hideRowTitles ? "govuk-summary-list__row--hidden-titles" : ""
+        }`,
+      };
+      row.value = {
+        text: `${this.inputComponent.options.prefix ?? ""}${valueValues[1]}`,
+        classes: `${
+          this.hideRowTitles ? "govuk-summary-list__key--hidden-titles" : ""
+        }`,
+      };
+
+      return row;
     });
   }
 
