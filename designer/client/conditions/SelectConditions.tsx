@@ -18,6 +18,7 @@ import {
   isDuplicateCondition,
   hasConditionName,
   getFieldNameSubstring,
+  conditionsByType,
 } from "./select-condition-helpers";
 interface Props {
   path: string;
@@ -33,13 +34,15 @@ interface State {
   fields: any;
 }
 
+type ConditionObject = {
+  name: string;
+  conditions: Condition[];
+};
+
 export type ConditionData = {
   name: string;
   displayName: string;
-  value: {
-    name: string;
-    conditions: Condition[];
-  };
+  value: string | ConditionObject;
 };
 
 class SelectConditions extends React.Component<Props, State> {
@@ -89,23 +92,7 @@ class SelectConditions extends React.Component<Props, State> {
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     let conditionsForPath: any[] = [];
-    const conditionsByTypeMap = conditions.reduce(
-      (conditionsByType, currentValue) => {
-        if (typeof currentValue.value === "string") {
-          conditionsByType.string.push(currentValue);
-        } else if (!!hasNestedCondition(currentValue)) {
-          conditionsByType.nested.push(currentValue);
-        } else if (isObjectCondition(currentValue)) {
-          conditionsByType.object.push(currentValue);
-        }
-        return conditionsByType;
-      },
-      {
-        string: [],
-        nested: [],
-        object: [],
-      }
-    );
+    const conditionsByTypeMap = conditionsByType(conditions);
 
     fields.forEach((field) => {
       this.handleStringConditions(
@@ -134,7 +121,7 @@ class SelectConditions extends React.Component<Props, State> {
     conditionsForPath: any[]
   ) {
     objectConditions.forEach((condition) => {
-      condition.value.conditions.forEach((innerCondition) => {
+      condition.value.conditions?.forEach((innerCondition) => {
         this.checkAndAddCondition(
           condition,
           fieldName,
