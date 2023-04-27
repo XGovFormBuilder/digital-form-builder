@@ -4544,7 +4544,7 @@
             "title": "CareOBRA SalesForce",
             "type": "webhook",
             "outputConfiguration": {
-                "url": "Webhook.URL"
+                "url": "${Webhook.URL}"
             }
         }
     ],
