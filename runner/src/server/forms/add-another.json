@@ -7,8 +7,8 @@
       "path": "/first-page",
       "options": {
         "summaryDisplayMode": {
-          "samePage": true,
-          "separatePage": false,
+          "samePage": false,
+          "separatePage": true,
           "hideRowTitles": false
         },
         "customText": {
@@ -32,18 +32,34 @@
           "schema": {},
           "children": [
             {
-              "type": "MultilineTextField",
-              "name": "type-of-revenue-cost",
-              "title": "Test",
-              "schema": {},
-              "options": {}
+              "name": "CaKTWN",
+              "options": {},
+              "type": "TextField",
+              "title": "Type of Capital"
             },
             {
-              "type": "DatePartsField",
-              "name": "value",
-              "title": "Test",
-              "schema": {},
-              "options": {}
+              "name": "iLxCxn",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "hint": "",
+              "schema": {}
+            },
+            {
+              "name": "sUDJbo",
+              "options": {},
+              "type": "RadiosField",
+              "title": "Financial Year",
+              "list": "TestList"
+            },
+            {
+              "name": "CmOaAX",
+              "options": {},
+              "type": "TextField",
+              "title": "How has the cost been calculated?",
+              "hint": ""
             }
           ]
         }
@@ -60,8 +76,8 @@
       "title": "Second page",
       "options": {
         "summaryDisplayMode": {
-          "samePage": true,
-          "separatePage": false,
+          "samePage": false,
+          "separatePage": true,
           "hideRowTitles": false
         },
         "customText": {
@@ -115,7 +131,23 @@
       "components": []
     }
   ],
-  "lists": [],
+  "lists": [
+    {
+      "title": "Years",
+      "name": "TestList",
+      "type": "string",
+      "items": [
+        {
+          "text": "2023/24",
+          "value": "2023/24"
+        },
+        {
+          "text": "2024/25",
+          "value": "2024/25"
+        }
+      ]
+    }
+  ],
   "sections": [],
   "conditions": [],
   "fees": [],

@@ -2,6 +2,9 @@
 {% from "date-input/macro.njk" import govukDateInput %}
 {% from "textarea/macro.njk" import govukTextarea %}
 {% from "character-count/macro.njk" import govukCharacterCount %}
+{% from "./textfield.html" import TextField %}
+{% from "radios/macro.njk" import govukRadios %}
+
 
 {% macro MultiInputField(component) %}
     {% for item in component.model.items %}
@@ -11,8 +14,12 @@
         {{ govukInput(item) }}
         {% elif item.type == "MultilineTextField"%}
         {{ govukTextarea(item) }}
-        {% else %}
+        {% elif item.type == "DatePartsField" %}
         {{ govukDateInput(item) }}
+        {% elif item.type == "NumberField" %}
+        {{ TextField(item) }}
+        {% elif item.type == "RadiosField" %}
+        {{ govukRadios(item) }}
         {%endif%}
     </label>
     {% endfor %}

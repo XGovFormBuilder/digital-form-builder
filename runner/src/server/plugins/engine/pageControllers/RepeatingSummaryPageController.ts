@@ -193,23 +193,15 @@ export class RepeatingSummaryPageController extends PageController {
           text: "Remove",
           visuallyHiddenText: title,
         },
-        key: {},
-        value: {},
+        values: [],
       };
 
-      row.key = {
-        text: valueValues[0],
-        classes: `${
-          this.hideRowTitles ? "govuk-summary-list__row--hidden-titles" : ""
-        }`,
-      };
-      row.value = {
-        text: `${this.inputComponent.options.prefix ?? ""}${valueValues[1]}`,
-        classes: `${
-          this.hideRowTitles ? "govuk-summary-list__key--hidden-titles" : ""
-        }`,
-      };
-
+      for (let i = 0; i < valueValues.length; i++) {
+        row.values.push({
+          text: valueValues[i],
+          class: i == 0 ? "govuk-table__header" : "govuk-table__cell",
+        });
+      }
       return row;
     });
   }
