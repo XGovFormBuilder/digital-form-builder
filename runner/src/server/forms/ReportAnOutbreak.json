@@ -4584,8 +4584,8 @@
     "fees": [],
     "outputs": [
         {
-            "name": "DELPREPROD",
-            "title": "DELPREPROD",
+            "name": "WEBHOOOK",
+            "title": "CareOBRA SalesForce",
             "type": "webhook",
             "outputConfiguration": {
                 "url": "${Webhook.URL}"
