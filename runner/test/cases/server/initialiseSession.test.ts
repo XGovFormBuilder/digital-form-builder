@@ -10,6 +10,7 @@ const {
   suite,
   it,
   test,
+  beforeEach,
 } = (exports.lab = Lab.script());
 
 let server;
