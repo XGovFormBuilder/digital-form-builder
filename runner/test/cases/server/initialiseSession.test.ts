@@ -172,4 +172,36 @@ suite("InitialiseSession", () => {
       expect(getResponse.headers.location).to.equal("/test/summary");
     });
   });
+
+  describe("token verification", function () {
+    test("When token is valid", async () => {
+      const serverRequestOptions = {
+        method: "POST",
+        url: `/session/test`,
+        payload: {
+          ...baseRequest,
+          options: { ...options, callbackUrl: "https://webho.ok" },
+        },
+      };
+
+      const response = await server.inject(serverRequestOptions);
+      const payload = JSON.parse(response.payload);
+      const token = payload.token;
+      const getResponse = await server.inject({
+        method: "GET",
+        url: `/session/${token}`,
+      });
+
+      expect(getResponse.statusCode).to.equal(302);
+    });
+
+    test("When token is invalid", async () => {
+      const getResponse = await server.inject({
+        method: "GET",
+        url: `/session/abdef.not.realToken`,
+      });
+
+      expect(getResponse.statusCode).to.not.equal(302);
+    });
+  });
 });

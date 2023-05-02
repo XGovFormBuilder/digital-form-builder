@@ -12,8 +12,9 @@ module.exports = {
    * Allows a user's state to be pre-populated.
    */
   safelist: [], // Array of hostnames you want to accept when using a session callback. eg "gov.uk".
-  initialisedSessionTimeout: minute * 60 * 24 * 28, // Defaults to 28 days. Set the TTL for the initialised session
-  initialisedSessionKey: `${nanoid.random(16)}`, // This should be set if you are deploying replicas
+  initialisedSessionTimeout: minute * 60 * 24 * 28, // Defaults to 28 days. Set the TTL for the initialised session in ms.
+  initialisedSessionKey: `${nanoid.random(16)}`, // This should be set if you are deploying replicas, otherwise the key will be different per replica
+  initialisedSessionAlgorithm: "HS512", // allowed algorithms: "RS256", "RS384", "RS512","PS256", "PS384", "PS512", "ES256", "ES384", "ES512", "EdDSA", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "HS256", "HS384", "HS512"
 
   /**
    * Server
