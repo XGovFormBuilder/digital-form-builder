@@ -1,7 +1,8 @@
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import createServer from "src/server";
-
+import sinon from "sinon";
+import config from "src/server/config";
 const {
   before,
   after,
@@ -102,6 +103,7 @@ suite("InitialiseSession", () => {
 
   after(async () => {
     await server.stop();
+    sinon.restore();
   });
   describe("POST /session/{id}", () => {
     test(" responds with token if file exists", async () => {
@@ -152,7 +154,6 @@ suite("InitialiseSession", () => {
 
       postResponse = await server.inject(serverRequestOptions);
       token = JSON.parse(postResponse.payload).token;
-      console.log(token, postResponse.payload);
 
       getResponse = await server.inject({
         url: `/session/${token}`,
@@ -174,8 +175,10 @@ suite("InitialiseSession", () => {
   });
 
   describe("token verification", function () {
-    test("When token is valid", async () => {
-      const serverRequestOptions = {
+    let serverRequestOptions;
+
+    beforeEach(() => {
+      serverRequestOptions = {
         method: "POST",
         url: `/session/test`,
         payload: {
@@ -183,7 +186,8 @@ suite("InitialiseSession", () => {
           options: { ...options, callbackUrl: "https://webho.ok" },
         },
       };
-
+    });
+    test("When token is valid", async () => {
       const response = await server.inject(serverRequestOptions);
       const payload = JSON.parse(response.payload);
       const token = payload.token;
@@ -196,12 +200,18 @@ suite("InitialiseSession", () => {
     });
 
     test("When token is invalid", async () => {
+      const response = await server.inject(serverRequestOptions);
+      const payload = JSON.parse(response.payload);
+      const token = payload.token;
+
+      sinon.stub(config, "initialisedSessionKey").value("incorrect key");
+
       const getResponse = await server.inject({
         method: "GET",
-        url: `/session/abdef.not.realToken`,
+        url: `/session/${token}`,
       });
 
-      expect(getResponse.statusCode).to.not.equal(302);
+      expect(getResponse.statusCode).to.equal(400);
     });
   });
 });
