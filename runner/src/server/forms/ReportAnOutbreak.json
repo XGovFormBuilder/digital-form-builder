@@ -10,7 +10,8 @@
                     "name": "fIMmCL",
                     "options": {},
                     "type": "Para",
-                    "content": "<h2 class=\"govuk-heading-m\">Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown infection</h2>"
+                    "content": "<h2 class=\"govuk-heading-m\">Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown infection</h2>",
+                    "schema": {}
                 },
                 {
                     "name": "nMOTrx",
@@ -135,7 +136,8 @@
                     "type": "NumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "nameHasError": false,
-                    "hint": "Please consider using a non-personal number."
+                    "hint": "Please consider using a non-personal number.",
+                    "schema": {}
                 },
                 {
                     "name": "S1Q8",
@@ -327,7 +329,8 @@
                     "type": "RadiosField",
                     "title": "S3Q4. How many Residents-clients and/or Staff have a letter saying that they are eligible for COVID-19 specialist treatment drugs (because they are particularly vulnerable and not because they are part of a clinical study)?",
                     "nameHasError": false,
-                    "list": "pxxiab"
+                    "list": "pxxiab",
+                    "schema": {}
                 },
                 {
                     "name": "S3Q5",
@@ -341,7 +344,7 @@
                         "min": 0,
                         "max": 200
                     },
-                    "hint": "If not a residential setting or you don't know, please select zero."
+                    "hint": "If not a residential setting or you don't know, please select 0, otherwise please enter a number between 0 to 200."
                 }
             ],
             "next": [
@@ -394,7 +397,11 @@
                     "type": "NumberField",
                     "title": "S4Q2. What is the total number of resident-client COVID-19 cases in the outbreak you are reporting (LFD confirmed only)?",
                     "nameHasError": false,
-                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0"
+                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0",
+                    "schema": {
+                        "min": 0,
+                        "max": 100
+                    }
                 },
                 {
                     "name": "S4Q3",
@@ -414,7 +421,11 @@
                     "type": "NumberField",
                     "title": "S4Q4. What is the total number of residents-clients with COVID-19 symptoms who have not been tested?",
                     "nameHasError": false,
-                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0"
+                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0",
+                    "schema": {
+                        "min": 0,
+                        "max": 100
+                    }
                 },
                 {
                     "name": "S4Q5",
@@ -422,7 +433,11 @@
                     "type": "NumberField",
                     "title": "S4Q5. What is the total number of staff with COVID-19 symptoms who have not been tested? ",
                     "nameHasError": false,
-                    "hint": "Please note that you are not required to test symptomatic staff for COVID-19\n</br>\nPlease include those who are currently hospitalised with COVID-19\n</br>\nIf zero then please enter 0"
+                    "hint": "Please note that you are not required to test symptomatic staff for COVID-19\n</br>\nPlease include those who are currently hospitalised with COVID-19\n</br>\nIf zero then please enter 0",
+                    "schema": {
+                        "min": 0,
+                        "max": 100
+                    }
                 },
                 {
                     "name": "S4Q6",
@@ -439,12 +454,14 @@
                 {
                     "name": "S4Q7",
                     "options": {
-                        "required": false
+                        "required": false,
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S4Q7. Symptom onset date of second case",
                     "hint": "(DD/MM/YYYY)",
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "schema": {}
                 },
                 {
                     "name": "S4Q8",
@@ -568,7 +585,7 @@
                     "name": "S5Q3",
                     "options": {},
                     "type": "NumberField",
-                    "title": "S5Q3. Among staff, How many SWAB CONFIRMED Flu (Influenza) do you have currently ?",
+                    "title": "S5Q3. Among staff, how many SWAB CONFIRMED Flu (Influenza) do you have currently ?",
                     "nameHasError": false,
                     "schema": {
                         "min": 0,
@@ -600,7 +617,7 @@
                         "min": 0,
                         "max": 50
                     },
-                    "hint": "Suspected staff cases usually include people who have a sudden onset of acute respiratory symptoms AND Fever.  Please count all cases either currently in your setting or in hospital."
+                    "hint": "Suspected staff cases usually include people who have a sudden onset of acute respiratory symptoms AND Fever.  Please count all cases either currently in your setting or in hospital.<br>\nPlease enter a number between 0 to 50."
                 },
                 {
                     "name": "S5Q6",
@@ -614,7 +631,7 @@
                         "min": 0,
                         "max": 50
                     },
-                    "hint": "Please count all cases either currently in your setting or in hospital."
+                    "hint": "Please count all cases either currently in your setting or in hospital.<br>\nPlease enter a number between 0 to 50."
                 },
                 {
                     "name": "S5Q7",
@@ -629,7 +646,7 @@
                         "min": 0,
                         "max": 50
                     },
-                    "hint": "Please count all cases either currently at home or in hospital."
+                    "hint": "Please count all cases either currently at home or in hospital.<br>\nPlease enter a number between 0 to 50."
                 },
                 {
                     "name": "S5Q8",
@@ -641,7 +658,8 @@
                     "schema": {
                         "min": 0,
                         "max": 50
-                    }
+                    },
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S5Q9",
@@ -654,7 +672,8 @@
                     "schema": {
                         "min": 0,
                         "max": 50
-                    }
+                    },
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S5Q10",
@@ -664,7 +683,11 @@
                     "type": "NumberField",
                     "title": "S5Q10. Of the residents-client tested for Covid-19, how many had a positive result?",
                     "nameHasError": false,
-                    "schema": {}
+                    "schema": {
+                        "min": 0,
+                        "max": 50
+                    },
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S5Q11",
@@ -677,12 +700,14 @@
                     "schema": {
                         "min": 0,
                         "max": 50
-                    }
+                    },
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S5Q12",
                     "options": {
-                        "required": true
+                        "required": true,
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S5Q12. Symptom onset date of first case (confirmed flu, suspected flu OR chest infections)",
@@ -693,7 +718,8 @@
                 {
                     "name": "S5Q13",
                     "options": {
-                        "required": false
+                        "required": false,
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S5Q13. Symptom onset date of second case (confirmed flu, suspected flu OR chest infections)",
@@ -704,7 +730,8 @@
                 {
                     "name": "S5Q14",
                     "options": {
-                        "required": true
+                        "required": true,
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S5Q14. Symptom onset date of most recent case (confirmed flu, suspected flu OR chest infections)",
@@ -835,7 +862,8 @@
                 {
                     "name": "S6Q4",
                     "options": {
-                        "required": true
+                        "required": true,
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S6Q4. Symptom onset date of first case",
@@ -846,7 +874,8 @@
                 {
                     "name": "S6Q5",
                     "options": {
-                        "required": false
+                        "required": false,
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S6Q5. Symptom onset date of second case",
@@ -857,7 +886,8 @@
                 {
                     "name": "S6Q6",
                     "options": {
-                        "required": true
+                        "required": true,
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S6Q6. Symptom onset date of most recent case",
@@ -873,10 +903,11 @@
                     "type": "NumberField",
                     "title": "S6Q7. How many of these resident-client cases have been tested for COVID-19?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q8",
@@ -886,10 +917,11 @@
                     "type": "NumberField",
                     "title": "S6Q8. How many of these staff cases have been tested for COVID-19?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q9",
@@ -899,10 +931,11 @@
                     "type": "NumberField",
                     "title": "S6Q9. Of the residents-clients tested for Covid-19, how many had a positive result?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q10",
@@ -912,10 +945,11 @@
                     "type": "NumberField",
                     "title": "S6Q10. Of the staff tested for Covid-19, how many had a positive result?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q11",
@@ -925,10 +959,11 @@
                     "type": "NumberField",
                     "title": "S6Q11. How many of these resident-clients cases have been tested for Flu?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q12",
@@ -938,10 +973,11 @@
                     "type": "NumberField",
                     "title": "S6Q12. How many of these staff cases have been tested for Flu?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q13",
@@ -951,10 +987,11 @@
                     "type": "NumberField",
                     "title": "S6Q13. Of the residents-clients tested for Flu, how many had a positive result?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q14",
@@ -964,10 +1001,11 @@
                     "type": "NumberField",
                     "title": "S6Q14. Of the staff tested for Flu, how many had a positive result?",
                     "schema": {
-                        "min": "0",
-                        "max": "50"
+                        "min": 0,
+                        "max": 50
                     },
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q15",
@@ -990,9 +1028,10 @@
                     "title": "S6Q16. How many of all cases have been started on antibiotics for their respiratory symptoms?",
                     "nameHasError": false,
                     "schema": {
-                        "min": "0",
-                        "max": "50"
-                    }
+                        "min": 0,
+                        "max": 50
+                    },
+                    "hint": "Please enter a number between 0 to 50."
                 },
                 {
                     "name": "S6Q17",
@@ -1047,7 +1086,8 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    }
+                    },
+                    "hint": "Please enter a number between 0 to 300."
                 },
                 {
                     "name": "S7Q2",
@@ -1060,7 +1100,8 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    }
+                    },
+                    "hint": "Please enter a number between 0 to 300."
                 },
                 {
                     "name": "S7Q3",
@@ -1073,7 +1114,8 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    }
+                    },
+                    "hint": "Please enter a number between 0 to 300."
                 },
                 {
                     "name": "S7Q4",
@@ -1086,7 +1128,8 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    }
+                    },
+                    "hint": "Please enter a number between 0 to 300."
                 }
             ],
             "next": [
@@ -1133,7 +1176,8 @@
                     "type": "MultilineTextField",
                     "title": "S8Q3. Please state what other issues you are experiencing and would like assistance with?",
                     "nameHasError": false,
-                    "hint": "Please note that for staffing issues, you should contact the commissioner of your service e.g. LA or ICS; for other issues - please see links in the advice email that you will receive on submission of this form; if you still cannot find an answer, then call the HPT or CIC Team."
+                    "hint": "Please note that for staffing issues, you should contact the commissioner of your service e.g. LA or ICS; for other issues - please see links in the advice email that you will receive on submission of this form; if you still cannot find an answer, then call the HPT or CIC Team.",
+                    "schema": {}
                 },
                 {
                     "name": "S8Q4",
@@ -4540,8 +4584,8 @@
     "fees": [],
     "outputs": [
         {
-            "name": "WEBHOOOK",
-            "title": "CareOBRA SalesForce",
+            "name": "DELPREPROD",
+            "title": "DELPREPROD",
             "type": "webhook",
             "outputConfiguration": {
                 "url": "${Webhook.URL}"
