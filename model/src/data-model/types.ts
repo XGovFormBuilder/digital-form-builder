@@ -33,6 +33,7 @@ export interface RepeatingFieldPage extends Page {
       columnTwoTitle?: string;
       columnThreeTitle?: string;
     };
+    columnTitles?: [];
   };
 }
 

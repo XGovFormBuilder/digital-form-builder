@@ -127,7 +127,7 @@ export class RepeatingFieldPageController extends PageController {
         return this.removeAtIndex(request, h);
       }
 
-      if ((view === "summary" || returnUrl) && !this.isSamePageDisplayMode) {
+      if (view === "summary" && !this.isSamePageDisplayMode) {
         return this.summary.getRouteHandler(request, h);
       }
 
@@ -217,6 +217,11 @@ export class RepeatingFieldPageController extends PageController {
         form_session_identifier = `form_session_identifier=${query.form_session_identifier}`;
       }
 
+      let returnUrl = "";
+      if (query.returnUrl) {
+        returnUrl = `&returnUrl=${query.returnUrl}`;
+      }
+
       if (query.view === "summary") {
         return this.summary.postRouteHandler(request, h);
       }
@@ -285,7 +290,7 @@ export class RepeatingFieldPageController extends PageController {
         );
       }
       return h.redirect(
-        `/${this.model.basePath}${this.path}?view=summary&${form_session_identifier}`
+        `/${this.model.basePath}${this.path}?view=summary&${form_session_identifier}${returnUrl}`
       );
     };
   }

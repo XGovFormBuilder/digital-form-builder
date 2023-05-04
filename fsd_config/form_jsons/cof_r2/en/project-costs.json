@@ -45,8 +45,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Your income sources",
-          "columnOneTitle": "Source"
+          "samePageTitle": "Your income sources"
         }
       },
       "title": "Management case",
@@ -74,13 +73,30 @@
           "name": "TzOokX",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Source",
-            "numberFieldTitle": "Amount in pounds"
+            "columnTitles": ["Source", "Amount", "Action"]
           },
           "type": "MultiInputField",
           "title": "Sources of income",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "SPGORz",
+              "options": {},
+              "type": "TextField",
+              "title": "Source"
+            },
+            {
+              "name": "FwPOFx",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount in pounds",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/management-case-xRAoOi" }]
@@ -96,8 +112,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Your running costs",
-          "columnOneTitle": "Running cost"
+          "samePageTitle": "Your running costs"
         }
       },
       "components": [
@@ -124,13 +139,30 @@
           "name": "fbFeEx",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Running cost",
-            "numberFieldTitle": "Amount in pounds"
+            "columnTitles": ["Running cost", "Amount", "Action"]
           },
           "type": "MultiInputField",
           "title": "Running costs",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "SPGORz",
+              "options": {},
+              "type": "TextField",
+              "title": "Running cost"
+            },
+            {
+              "name": "FwPOFx",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount in pounds",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/summary" }]

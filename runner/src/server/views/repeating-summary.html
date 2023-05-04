@@ -7,11 +7,32 @@
 
 {% block content %}
   <div class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">{{customText.separatePageTitle or pageTitle }}</h1>
-        {{ govukSummaryList(details) }}
+    <div class="govuk-grid-row">      
         <form action="?view=summary"  method="post" enctype="multipart/form-data">
+          <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">{{page.options.customText.samePageTitle}}</caption>
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                {% for heading in details.headings %}
+                <th scope="col" class="govuk-table__header">{{heading}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            {{details.length}}
+            {% for row in details.rows %}
+              <tr class="govuk-table__row">
+                {% for value in row.values %}
+                <td class={{value.class}}>{{ value.text }}</td>            
+                {% endfor %}        
+
+                <td class="govuk-table__cell">
+                  <a href={{row.action.href}}>{{ row.action.text }}
+                    <span class="govuk-visually-hidden">{{ row.key.text }}</span>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+        </table>
           <div class="govuk-button-group">
             <button name="next" value="continue" class="govuk-button">Continue</button>
             <button name="next" value="increment" class="govuk-button govuk-button--secondary">
@@ -19,7 +40,6 @@
             </button>
           </div>
         </form>
-      </div>
     </div>
   </div>
 {% endblock %}

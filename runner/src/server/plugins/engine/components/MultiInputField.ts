@@ -20,29 +20,7 @@ export class MultiInputField extends FormComponent {
     super(def, model);
     const options: any = this.options;
 
-    this.children = new ComponentCollection(
-      [
-        {
-          type: "TextField",
-          name: "type-of-revenue-cost",
-          title: options.textFieldTitle,
-          schema: {},
-          options: {},
-        },
-        {
-          type: "NumberField",
-          name: "value",
-          title: options.numberFieldTitle,
-          schema: {},
-          options: {
-            prefix: "£",
-            required: true,
-            classes: "govuk-!-width-one-half",
-          },
-        },
-      ] as any,
-      model
-    );
+    this.children = new ComponentCollection(def.children as any, model);
   }
 
   getFormSchemaKeys() {
@@ -63,21 +41,35 @@ export class MultiInputField extends FormComponent {
     return this.children.getStateFromValidForm(payload);
   }
 
+  getPrefix(key: string) {
+    const item = this.children.formItems.find((item) => item.name === key);
+    return item && item.options.prefix ? item.options.prefix : "";
+  }
+
+  getComponentType(name) {
+    const children = this.children.formItems;
+    const foundItem = children.find((item) => item.name === name);
+    return foundItem ? foundItem.type : undefined;
+  }
+
   getDisplayStringFromState(state: FormSubmissionState) {
     const values = state[this.name];
     const stringValue = new Array();
     if (values) {
       for (var value of values) {
+        let outputString = "";
+        for (const key in value) {
+          outputString += `${this.getPrefix(key)}${value[key]} : `;
+        }
+        // This will remove the : and a blank space at the end of the string. Helps with displaying on summary page.
+        outputString = outputString.slice(0, -2);
         if (typeof value === "string") {
           stringValue.push(value);
         } else {
-          stringValue.push(
-            `${value["type-of-revenue-cost"]} : ${this.options.prefix}${value["value"]}`
-          );
+          stringValue.push(outputString);
         }
       }
     }
-
     return stringValue;
   }
 
@@ -88,7 +80,10 @@ export class MultiInputField extends FormComponent {
     // Use the component collection to generate the subitems
     const componentViewModels = this.children
       .getViewModel(formData, errors)
-      .map((vm) => vm.model);
+      .map((vm) => {
+        vm.model.componentType = vm.type;
+        return vm.model;
+      });
 
     componentViewModels.forEach((componentViewModel) => {
       // Nunjucks macro expects label to be a string for this component

@@ -41,13 +41,30 @@
           "name": "NdFwgy",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Describe the cost",
-            "numberFieldTitle": "Amount in pounds"
+            "columnTitles": ["Description", "Amount", "Action"]
           },
           "type": "MultiInputField",
           "title": "Capital costs",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "kSZqfv",
+              "options": {},
+              "type": "TextField",
+              "title": "Describe the cost"
+            },
+            {
+              "name": "zJAnwc",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount in pounds",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/management-case-WyEICz" }]
@@ -93,13 +110,30 @@
           "options": {
             "required": false,
             "prefix": "£",
-            "textFieldTitle": "Describe the cost",
-            "numberFieldTitle": "Amount in pounds"
+            "columnTitles": ["Description", "Amount", "Action"]
           },
           "type": "MultiInputField",
           "title": "Revenue costs",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "TkDxmD",
+              "options": {},
+              "type": "TextField",
+              "title": "Describe the cost"
+            },
+            {
+              "name": "zbqnvm",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount in pounds",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/management-case-PIdHJP" }]
@@ -115,8 +149,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Your secured match funding",
-          "columnOneTitle": "Source"
+          "samePageTitle": "Your secured match funding"
         }
       },
       "components": [
@@ -143,13 +176,30 @@
           "name": "abkrwo",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Source of secured funding",
-            "numberFieldTitle": "Amount in pounds"
+            "columnTitles": ["Source", "Amount", "Action"]
           },
           "type": "MultiInputField",
           "title": "Secured match funding",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "lwrCQz",
+              "options": {},
+              "type": "TextField",
+              "title": "Source of secured funding"
+            },
+            {
+              "name": "kietnW",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount in pounds",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/management-case-cLNmxi" }]
@@ -316,13 +366,30 @@
           "name": "AOLYnV",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Source of unsecured match funding",
-            "numberFieldTitle": "Amount in pounds"
+            "columnTitles": ["Source", "Amount", "Action"]
           },
           "type": "MultiInputField",
           "title": "Unsecured match funding",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "SPGORz",
+              "options": {},
+              "type": "TextField",
+              "title": "Source of unsecured match funding"
+            },
+            {
+              "name": "FwPOFx",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount in pounds",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/management-case-lULEZG" }]

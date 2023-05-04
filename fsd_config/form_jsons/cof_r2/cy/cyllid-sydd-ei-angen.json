@@ -14,10 +14,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich costau cyfalaf",
-          "columnOneTitle": "Disgrifiad ",
-          "columnTwoTitle": "Swm",
-          "columnThreeTitle": "Gweithredu"
+          "samePageTitle": "Eich costau cyfalaf"
         }
       },
       "components": [
@@ -44,13 +41,30 @@
           "name": "NdFwgy",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Disgrifiwch y gost",
-            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+            "columnTitles": ["Disgrifiad", "Swm", "Gweithredu"]
           },
           "type": "MultiInputField",
           "title": "Costau cyfalaf",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "uVWIJF",
+              "options": {},
+              "type": "TextField",
+              "title": "Disgrifiwch y gost"
+            },
+            {
+              "name": "XEBfyN",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Cyfanswm mewn punnoedd",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/achos-rheoli-eZIqAf" }]
@@ -66,10 +80,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich costau refeniw",
-          "columnOneTitle": "Disgrifiad ",
-          "columnTwoTitle": "Swm",
-          "columnThreeTitle": "Gweithredu"
+          "samePageTitle": "Eich costau refeniw"
         }
       },
       "components": [
@@ -97,13 +108,30 @@
           "options": {
             "required": false,
             "prefix": "£",
-            "textFieldTitle": "Disgrifiwch y gost",
-            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+            "columnTitles": ["Disgrifiad", "Swm", "Gweithredu"]
           },
           "type": "MultiInputField",
           "title": "Costau refeniw",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "IOObAC",
+              "options": {},
+              "type": "TextField",
+              "title": "Disgrifiwch y gost"
+            },
+            {
+              "name": "ZRZlBH",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Cyfanswm mewn punnoedd",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/achos-rheoli-cqeJLs" }]
@@ -149,13 +177,30 @@
           "name": "abkrwo",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Ffynhonnell cyllid wedi'i sicrhau",
-            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"]
           },
           "type": "MultiInputField",
           "title": "Wedi sicrhau arian cyfatebol",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "owXPBs",
+              "options": {},
+              "type": "TextField",
+              "title": "Ffynhonnell cyllid wedi'i sicrhau"
+            },
+            {
+              "name": "SQopKX",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Cyfanswm mewn punnoedd",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/achos-rheoli-tQuiWE" }]
@@ -295,10 +340,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich arian cyfatebol heb ei sicrhau",
-          "columnOneTitle": "Ffynhonnell",
-          "columnTwoTitle": "Swm",
-          "columnThreeTitle": "Gweithredu"
+          "samePageTitle": "Eich arian cyfatebol heb ei sicrhau"
         }
       },
       "components": [
@@ -325,13 +367,30 @@
           "name": "AOLYnV",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Ffynhonnell cyllid heb ei sicrhau",
-            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"]
           },
           "type": "MultiInputField",
           "title": "Arian cyfatebol heb ei sicrhau",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "auUher",
+              "options": {},
+              "type": "TextField",
+              "title": "Ffynhonnell cyllid wedi'i sicrhau"
+            },
+            {
+              "name": "LiUczl",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Cyfanswm mewn punnoedd",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/achos-rheoli-RrfCoS" }]

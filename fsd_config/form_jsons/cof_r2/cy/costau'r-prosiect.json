@@ -47,10 +47,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich ffynonellau incwm",
-          "columnOneTitle": "Ffynhonnell",
-          "columnTwoTitle": "Swm",
-          "columnThreeTitle": "Gweithredu"
+          "samePageTitle": "Eich ffynonellau incwm"
         }
       },
       "components": [
@@ -77,13 +74,30 @@
           "name": "MultiInputField",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Ffynhonnell",
-            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"]
           },
           "type": "MultiInputField",
           "title": "Ffynonellau incwm",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "CaKTWN",
+              "options": {},
+              "type": "TextField",
+              "title": "Ffynhonnell"
+            },
+            {
+              "name": "iLxCxn",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Cyfanswm mewn punnoedd",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/achos-rheoli-yJhENL" }]
@@ -129,13 +143,30 @@
           "name": "MultiInputField-2",
           "options": {
             "prefix": "£",
-            "textFieldTitle": "Cost redeg",
-            "numberFieldTitle": "Cyfanswm mewn punnoedd"
+            "columnTitles": ["Cost redeg", "Swm", "Gweithredu"]
           },
           "type": "MultiInputField",
           "title": "Costau rhedeg",
           "hint": "The MultiInputField needed",
-          "schema": {}
+          "schema": {},
+          "children": [
+            {
+              "name": "QVTPvw",
+              "options": {},
+              "type": "TextField",
+              "title": "Cost redeg"
+            },
+            {
+              "name": "IgYvWe",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Cyfanswm mewn punnoedd",
+              "hint": "",
+              "schema": {}
+            }
+          ]
         }
       ],
       "next": [{ "path": "/summary" }]
