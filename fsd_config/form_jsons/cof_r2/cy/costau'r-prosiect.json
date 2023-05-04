@@ -113,10 +113,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich costau rhedeg",
-          "columnOneTitle": "Cost redeg",
-          "columnTwoTitle": "Swm",
-          "columnThreeTitle": "Gweithredu"
+          "samePageTitle": "Eich costau rhedeg"
         }
       },
       "components": [

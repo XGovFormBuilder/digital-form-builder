@@ -180,7 +180,10 @@ export class RepeatingFieldPageController extends PageController {
     let rows = {};
     if (this.options!.summaryDisplayMode!.samePage) {
       rows = this.summary.buildRows(this.getPartialState(state), response);
-      response.source.context.details = { rows };
+      response.source.context.details = {
+        headings: this.inputComponent.options.columnTitles,
+        rows,
+      };
     }
   }
 
