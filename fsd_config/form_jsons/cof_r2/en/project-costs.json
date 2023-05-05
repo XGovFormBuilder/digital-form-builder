@@ -81,15 +81,16 @@
           "schema": {},
           "children": [
             {
-              "name": "RRzTlc",
+              "name": "GpLJDu",
               "options": {},
               "type": "TextField",
               "title": "Source"
             },
             {
-              "name": "GpLJDu",
+              "name": "RRzTlc",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Amount in pounds",
@@ -147,15 +148,16 @@
           "schema": {},
           "children": [
             {
-              "name": "XbgRGb",
+              "name": "BZIEKw",
               "options": {},
               "type": "TextField",
               "title": "Running cost"
             },
             {
-              "name": "BZIEKw",
+              "name": "XbgRGb",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Amount in pounds",

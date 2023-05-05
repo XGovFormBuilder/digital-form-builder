@@ -57,7 +57,8 @@
             {
               "name": "XEBfyN",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Cyfanswm mewn punnoedd",
@@ -124,7 +125,8 @@
             {
               "name": "ZRZlBH",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Cyfanswm mewn punnoedd",
@@ -193,7 +195,8 @@
             {
               "name": "SQopKX",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Cyfanswm mewn punnoedd",
@@ -383,7 +386,8 @@
             {
               "name": "LiUczl",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Cyfanswm mewn punnoedd",

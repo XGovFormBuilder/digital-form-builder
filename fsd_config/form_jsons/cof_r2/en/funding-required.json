@@ -57,7 +57,8 @@
             {
               "name": "zJAnwc",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Amount in pounds",
@@ -126,7 +127,8 @@
             {
               "name": "zbqnvm",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Amount in pounds",
@@ -184,15 +186,16 @@
           "schema": {},
           "children": [
             {
-              "name": "lwrCQz",
+              "name": "kietnW",
               "options": {},
               "type": "TextField",
               "title": "Source of secured funding"
             },
             {
-              "name": "kietnW",
+              "name": "lwrCQz",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Amount in pounds",
@@ -374,15 +377,16 @@
           "schema": {},
           "children": [
             {
-              "name": "SPGORz",
+              "name": "FwPOFx",
               "options": {},
               "type": "TextField",
               "title": "Source of unsecured match funding"
             },
             {
-              "name": "FwPOFx",
+              "name": "SPGORz",
               "options": {
-                "prefix": "£"
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
               "title": "Amount in pounds",
