@@ -173,7 +173,7 @@ export class RepeatingSummaryPageController extends PageController {
       const valueValues: string[] = [];
       for (const key in value) {
         if (this.inputComponent.getComponentType(key) == "DatePartsField") {
-          valueValues.push(format(parseISO(value[key]), "d MMMM yyyy"));
+          valueValues.push(format(parseISO(value[key]), "d/MM/yyyy"));
         } else {
           valueValues.push(
             `${this.inputComponent.getPrefix(key)}${value[key]}`

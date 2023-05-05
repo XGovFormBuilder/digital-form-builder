@@ -11,6 +11,7 @@ import {
 import { FormModel } from "../models";
 import { Schema } from "joi";
 import { DataType } from "./types";
+import { parseISO, format } from "date-fns";
 
 export class MultiInputField extends FormComponent {
   children: ComponentCollection;
@@ -59,7 +60,13 @@ export class MultiInputField extends FormComponent {
       for (var value of values) {
         let outputString = "";
         for (const key in value) {
-          outputString += `${this.getPrefix(key)}${value[key]} : `;
+          // TODO: Currently there are only a certain amount of fields for add another that will work. (see MultiInputField.html)
+          // lets come up with a better way of covereting each date type to a viewable string
+          if (this.getComponentType(key) == "DatePartsField") {
+            outputString += `${format(parseISO(value[key]), "d/MM/yyyy")} : `;
+          } else {
+            outputString += `${this.getPrefix(key)}${value[key]} : `;
+          }
         }
         // This will remove the : and a blank space at the end of the string. Helps with displaying on summary page.
         outputString = outputString.slice(0, -2);
