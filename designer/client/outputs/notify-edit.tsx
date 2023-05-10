@@ -52,7 +52,7 @@ class NotifyEdit extends Component<Props, State> {
       })),
       ...lists.map((list) => ({
         name: list.name,
-        display: list.title,
+        display: `${list.title} (List)`,
       })),
       ...this.usableKeys,
     ];

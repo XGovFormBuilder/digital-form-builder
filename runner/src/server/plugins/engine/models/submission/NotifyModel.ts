@@ -2,6 +2,7 @@ import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { reach } from "hoek";
 import { NotifyOutputConfiguration, List } from "@xgovformbuilder/model";
+import { ExecutableCondition } from "server/plugins/engine/models/types";
 
 export type NotifyModel = Omit<
   NotifyOutputConfiguration,
@@ -29,7 +30,7 @@ const checkItemIsValid = (
   model: FormModel,
   state: FormSubmissionState,
   conditionName = ""
-) => conditionName === "" || !!model.conditions[conditionName]?.fn(state);
+) => conditionName === "" || model.conditions[conditionName]?.fn?.(state);
 
 /**
  * returns an object used for sending GOV.UK notify requests Used by {@link SummaryViewModel} {@link NotifyService}
@@ -49,6 +50,19 @@ export function NotifyModel(
     templateId,
   } = outputConfiguration;
 
+  const getPersonalisationValue = (
+    condition?: ExecutableCondition,
+    listValue?: List,
+    value?: string
+  ) => {
+    if (condition) {
+      return condition.fn?.(state);
+    } else if (listValue) {
+      return parseListAsNotifyTemplate(listValue, model, state);
+    }
+    return value;
+  };
+
   // @ts-ignore - eslint does not report this as an error, only tsc
   const personalisation: NotifyModel["personalisation"] = personalisationConfiguration.reduce(
     (acc, curr) => {
@@ -67,11 +81,7 @@ export function NotifyModel(
 
       return {
         ...acc,
-        [curr]: condition
-          ? condition.fn(state)
-          : listValue
-          ? parseListAsNotifyTemplate(listValue, model, state)
-          : value,
+        [curr]: getPersonalisationValue(condition, listValue, value),
       };
     },
     {}
