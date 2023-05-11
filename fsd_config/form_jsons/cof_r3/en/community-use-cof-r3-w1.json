@@ -1,0 +1,109 @@
+{
+  "metadata": {},
+  "startPage": "/community-use",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Community use",
+      "path": "/community-use",
+      "components": [
+        {
+          "name": "xFVQZF",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>who uses and benefits from the asset</li>\n<li>how losing the asset would affect the community</li>\n<li>why the asset will be lost without intervention</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-uses-the-asset"
+        }
+      ]
+    },
+    {
+      "path": "/who-uses-the-asset",
+      "title": "Who uses the asset",
+      "components": [
+        {
+          "name": "zTcrYo",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Who in the community currently uses the asset, or has used it in the past?",
+          "hint": "Include any specific uses and how many people take part in these activities.\n\n<p>Reference any statistics you have to reinforce this. For example, data on footfall.</p>"
+        },
+        {
+          "name": "whlRYS",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how losing the asset would affect, or has already affected, people in the community",
+          "hint": "Where possible give examples of these effects, such as important services ending or having to travel a significant distance to use a similar asset."
+        },
+        {
+          "name": "NGSXHE",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Why will the asset be lost without community intervention?",
+          "hint": "Include any evidence you have that it's use by the community will be threatened.\n\n<p>For example, by the owner's intention or an imminent sale</p>"
+        },
+        {
+          "name": "Ieudgn",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Explain how the community will be better served with the asset under community ownership",
+          "hint": "Include why this is preferable to any other type of ownership."
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "GMkooI"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/check-your-answers",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "GMkooI"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "GMkooI",
+      "title": "Community use"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

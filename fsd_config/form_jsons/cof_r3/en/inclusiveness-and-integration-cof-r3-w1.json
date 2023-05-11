@@ -1,0 +1,91 @@
+{
+  "metadata": {},
+  "startPage": "/inclusiveness-and-integration",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Inclusiveness and integration",
+      "path": "/inclusiveness-and-integration",
+      "components": [
+        {
+          "name": "GDsdXV",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how the asset will be accountable to local people</li>\n<li>what might prevent people from using the asset</li>\n<li>how you'll make your project accessible to everyone</li>\n<li>how the project will bring the community together</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-youll-make-the-asset-inclusive"
+        }
+      ]
+    },
+    {
+      "path": "/how-youll-make-the-asset-inclusive",
+      "title": "How you’ll make the asset inclusive",
+      "components": [
+        {
+          "name": "mgIesb",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how the asset will be accountable to local people, and involve them in its running",
+          "hint": "This means how you'll involve everyone in key decisions, such as how the asset is used."
+        },
+        {
+          "name": "lQEkep",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Describe anything that might prevent people from using the asset or participating in its running",
+          "hint": "For example, high membership costs or exclusive eligibility criteria which prevent people from participating."
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "eCZBSV"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/check-your-answers",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "eCZBSV"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "eCZBSV",
+      "title": "Inclusiveness and integration"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

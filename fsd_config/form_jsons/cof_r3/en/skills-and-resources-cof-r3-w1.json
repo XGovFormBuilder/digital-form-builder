@@ -1,0 +1,191 @@
+{
+  "metadata": {},
+  "startPage": "/skills-and-resources",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Skills and resources",
+      "path": "/skills-and-resources",
+      "components": [
+        {
+          "name": "cNwNrt",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>community asset management experience</li>\n<li>roles you’ll recruit in future</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-experience-running-similar-assets"
+        }
+      ]
+    },
+    {
+      "path": "/your-experience-running-similar-assets",
+      "title": "Your experience running similar assets",
+      "components": [
+        {
+          "name": "AfWrEq",
+          "options": {},
+          "type": "Details",
+          "title": "Help with skills and resources",
+          "content": "<p>We'll be assessing how you have considered the management requirements of your project.</p>\n\n<p>This includes the steps you're taking to make sure your organisation has the right capacity and resource to run the asset sustainably.</p>\n\n<p>You need to demonstrate you have considered succession planning for your organisation’s staff and trustees.</p>\n\n<p>If you're planning to recruit staff or volunteers to manage and run the asset and its services, provide an overview of these plans.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "XXGyzn",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Describe any relevant experience you have delivering similar projects or running an asset"
+        }
+      ],
+      "next": [
+        {
+          "path": "/recruitment-plans"
+        }
+      ],
+      "section": "eLpYFr"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/check-your-answers",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "eLpYFr"
+    },
+    {
+      "path": "/recruitment-plans",
+      "title": "Recruitment plans",
+      "components": [
+        {
+          "name": "hRxMbZ",
+          "options": {},
+          "type": "Details",
+          "content": "<p>We'll be assessing how you have considered the management requirements of your project.</p>\n\n<p>This includes the steps you're taking to make sure your organisation has the right capacity and resource to run the asset sustainably.</p>\n\n<p>You need to demonstrate you have considered succession planning for your organisation’s staff and trustees.</p>\n\n<p>If you're planning to recruit staff or volunteers to manage and run the asset and its services, provide an overview of these plans.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>",
+          "title": "Help with skills and resources"
+        },
+        {
+          "name": "Uaeyae",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you have plans to recruit people to help you run the asset?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/roles-youll-recruit-to-help-you-run-the-asset",
+          "condition": "PHzDof"
+        },
+        {
+          "path": "/check-your-answers",
+          "condition": "bppZmZ"
+        }
+      ],
+      "section": "eLpYFr"
+    },
+    {
+      "path": "/roles-youll-recruit-to-help-you-run-the-asset",
+      "title": "Roles you’ll recruit to help you run the asset",
+      "components": [
+        {
+          "name": "DatnIF",
+          "options": {},
+          "type": "Details",
+          "content": "<p>We'll be assessing how you have considered the management requirements of your project.</p>\n\n<p>This includes the steps you're taking to make sure your organisation has the right capacity and resource to run the asset sustainably.</p>\n\n<p>You need to demonstrate you have considered succession planning for your organisation’s staff and trustees.</p>\n\n<p>If you're planning to recruit staff or volunteers to manage and run the asset and its services, provide an overview of these plans.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>",
+          "title": "Help with skills and resources"
+        },
+        {
+          "name": "yHXVSA",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tells us about the roles you'll recruit",
+          "hint": "These should be positions which will help you effectively run the asset during community ownership.\n\n<p>Include the:\n<li>role</li>\n<li>main responsibilities</li>\n</p>\n<p>You can use your business plan to provide evidence to support your answers.</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "eLpYFr"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "eLpYFr",
+      "title": "Skills and resources"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Do you have plans to recruit people to help you run the asset?",
+      "name": "PHzDof",
+      "value": {
+        "name": "Do you have plans to recruit people to help you run the asset?",
+        "conditions": [
+          {
+            "field": {
+              "name": "Uaeyae",
+              "type": "YesNoField",
+              "display": "Do you have plans to recruit people to help you run the asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you have plans to recruit people to help you run the asset-no",
+      "name": "bppZmZ",
+      "value": {
+        "name": "Do you have plans to recruit people to help you run the asset-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "Uaeyae",
+              "type": "YesNoField",
+              "display": "Do you have plans to recruit people to help you run the asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

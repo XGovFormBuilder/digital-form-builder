@@ -1,0 +1,227 @@
+{
+  "metadata": {},
+  "startPage": "/operational-costs",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Operational costs",
+      "path": "/operational-costs",
+      "components": [
+        {
+          "name": "KGaupX",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cash flow summary</li>\n<li>income sources</li>\n<li>running costs</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/cashflow-to-run-the-asset"
+        }
+      ]
+    },
+    {
+      "path": "/cashflow-to-run-the-asset",
+      "title": "Cashflow to run the asset",
+      "components": [
+        {
+          "name": "gaWgrE",
+          "options": {},
+          "type": "Details",
+          "title": "Help with operational costs",
+          "content": "<p>We're looking to understand your full operational costs for running the asset once you take ownership.</p>\n\n<p>This includes your sources of income and regular costs, as well as a summary of your expected cash flow for the next few years.</p>\n\n<p>We also need to make sure you're confident you'll spend any money awarded by this fund within 12 months.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "qXNkfr",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Describe your cash flow for the running of the asset",
+          "hint": "Include how you see it working over the next three years. You can use your business plan to provide a forecast of figures."
+        },
+        {
+          "name": "qQSVEn",
+          "options": {},
+          "type": "YesNoField",
+          "title": "If successful, will you use your funding in the next 12 months?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/income-to-run-the-asset"
+        }
+      ],
+      "section": "oSfXFZ"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/check-your-answers",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "oSfXFZ"
+    },
+    {
+      "path": "/income-to-run-the-asset",
+      "title": "Income to run the asset",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your income sources"
+        }
+      },
+      "components": [
+        {
+          "name": "yWqvFe",
+          "options": {},
+          "type": "Details",
+          "content": "<p>We're looking to understand your full operational costs for running the asset once you take ownership.</p>\n\n<p>This includes your sources of income and regular costs, as well as a summary of your expected cash flow for the next few years.</p>\n\n<p>We also need to make sure you're confident you'll spend any money awarded by this fund within 12 months.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>",
+          "title": "Help with operational costs"
+        },
+        {
+          "name": "sGtdkY",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Income sources</h2>\n\n<p class=\"govuk-hint\">This is how you expect the asset to make money in future. These should be measured against your running costs.</p>\n\n<p class=\"govuk-hint\">You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "MSNJQD",
+          "options": {
+            "prefix": "£",
+            "columnTitles": ["Source", "Amount", "Action"]
+          },
+          "type": "MultiInputField",
+          "title": "Your income sources",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "AJEWXD",
+              "options": {},
+              "type": "TextField",
+              "title": "Source"
+            },
+            {
+              "name": "cHFrIp",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "hint": "",
+              "schema": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/running-costs-of-the-asset"
+        }
+      ],
+      "section": "oSfXFZ"
+    },
+    {
+      "path": "/running-costs-of-the-asset",
+      "title": "Running costs of the asset",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Your running costs"
+        }
+      },
+      "components": [
+        {
+          "name": "mkuLqp",
+          "options": {},
+          "type": "Details",
+          "content": "<p>We're looking to understand your full operational costs for running the asset once you take ownership.</p>\n\n<p>This includes your sources of income and regular costs, as well as a summary of your expected cash flow for the next few years.</p>\n\n<p>We also need to make sure you're confident you'll spend any money awarded by this fund within 12 months.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>",
+          "title": "Help with operational costs"
+        },
+        {
+          "name": "EUtDkE",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Running costs</h2>\n\n<p class=\"govuk-hint\">Money used to regularly maintain the asset and keep it open to the community. This can include:\n<ul class=\"govuk-hint\">\n<li>utility bills</li>\n<li>gardening costs</li>\n<li>security measures</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">If you've requested revenue funding, include the costs this funding will help cover.</p>\n<p class=\"govuk-hint\">You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "NPgwcH",
+          "options": {
+            "prefix": "£",
+            "columnTitles": ["Running cost", "Amount", "Action"]
+          },
+          "type": "MultiInputField",
+          "title": "Running costs",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "IIdfRj",
+              "options": {},
+              "type": "TextField",
+              "title": "Running cost"
+            },
+            {
+              "name": "wlGQua",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "hint": "",
+              "schema": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "oSfXFZ"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "oSfXFZ",
+      "title": "Operational costs"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
