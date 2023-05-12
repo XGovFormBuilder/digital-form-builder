@@ -151,7 +151,12 @@ export function ListEdit() {
           {i18n("list.item.add")}
         </a>
         <>
-          <button className="govuk-button" type="submit" onClick={handleSubmit}>
+          <button
+            data-testid="save-list"
+            className="govuk-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
             {i18n("save")}
           </button>
           <a

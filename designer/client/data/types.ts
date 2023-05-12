@@ -16,6 +16,8 @@ export const isNotContentType = (
     "Details",
     "Html",
     "InsetText",
+    "List",
+    "FlashCard",
   ];
   return !contentTypes.find((type) => `${type}` === `${obj.type}`);
 };

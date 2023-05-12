@@ -33,7 +33,7 @@ class NotifyEdit extends Component<Props, State> {
 
   render() {
     const { data, output, onEdit, errors } = this.props;
-    const { conditions } = data;
+    const { conditions, lists } = data;
     const outputConfiguration = (typeof output.outputConfiguration === "object"
       ? output.outputConfiguration
       : {
@@ -49,6 +49,10 @@ class NotifyEdit extends Component<Props, State> {
       ...conditions.map((condition) => ({
         name: condition.name,
         display: condition.displayName,
+      })),
+      ...lists.map((list) => ({
+        name: list.name,
+        display: `${list.title} (List)`,
       })),
       ...this.usableKeys,
     ];
