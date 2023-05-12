@@ -170,14 +170,21 @@ export class RepeatingSummaryPageController extends PageController {
   buildTextFieldRows(answers, form_session_identifier, view = false) {
     const { title = "" } = this.inputComponent;
     return answers?.map((value, i) => {
-      const valueValues: string[] = [];
+      const rowValues: string[] = [];
       for (const key in value) {
-        if (this.inputComponent.getComponentType(key) == "DatePartsField") {
-          valueValues.push(format(parseISO(value[key]), "d/MM/yyyy"));
-        } else {
-          valueValues.push(
-            `${this.inputComponent.getPrefix(key)}${value[key]}`
+        const componentType = this.inputComponent.getComponentType(key);
+        //TODO would a switch statement be better here
+        if (componentType == "DatePartsField") {
+          rowValues.push(format(parseISO(value[key]), "d/MM/yyyy"));
+        } else if (componentType == "MonthYearField") {
+          const monthYearValue = value[key];
+          rowValues.push(
+            monthYearValue[`${key}__month`] +
+              "/" +
+              monthYearValue[`${key}__year`]
           );
+        } else {
+          rowValues.push(`${this.inputComponent.getPrefix(key)}${value[key]}`);
         }
       }
 
@@ -192,9 +199,9 @@ export class RepeatingSummaryPageController extends PageController {
         values: [],
       };
 
-      for (let i = 0; i < valueValues.length; i++) {
+      for (let i = 0; i < rowValues.length; i++) {
         row.values.push({
-          text: valueValues[i],
+          text: rowValues[i],
           class: i == 0 ? "govuk-table__header" : "govuk-table__cell",
         } as never);
       }

@@ -20,6 +20,8 @@
         {{ govukInput(item) }}
         {% elif item.componentType == "RadiosField" %}
         {{ govukRadios(item) }}
+        {% elif item.componentType == "MonthYearField" %}
+        {{ govukDateInput(item) }}
         {%endif%}
     </label>
     {% endfor %}

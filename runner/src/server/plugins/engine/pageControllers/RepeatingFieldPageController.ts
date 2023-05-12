@@ -193,15 +193,28 @@ export class RepeatingFieldPageController extends PageController {
     const { cacheService } = request.services([]);
     let state = await cacheService.getState(request);
     const key = this.inputComponent.name;
-    const answers = state[key];
+    let answers = state[key];
+
+    const sectionName =
+      this.pageDef.section === undefined ? "" : this.pageDef.section;
+
     let form_session_identifier = "";
 
     if (query.form_session_identifier) {
       form_session_identifier = `&form_session_identifier=${query.form_session_identifier}`;
     }
 
-    answers?.splice(removeAtIndex, 1);
-    await cacheService.mergeState(request, { [key]: answers });
+    if (sectionName) {
+      // Gets the answers from the correct section
+      answers = state[sectionName][key];
+      answers?.splice(removeAtIndex, 1);
+      answers = { [key]: answers };
+      await cacheService.mergeState(request, { [sectionName]: answers });
+    } else {
+      answers?.splice(removeAtIndex, 1);
+      await cacheService.mergeState(request, { [key]: answers });
+    }
+
     if (state[key]?.length < 1 || this.isSamePageDisplayMode) {
       return h.redirect(`?view=0${form_session_identifier}`);
     }
@@ -267,8 +280,16 @@ export class RepeatingFieldPageController extends PageController {
 
       const modifyUpdate = (update) => {
         const key = this.inputComponent.name;
-        const value = update[key];
-        const wrappedValue = !Array.isArray(value) ? [value] : value;
+        let value = update[key];
+        let wrappedValue = !Array.isArray(value) ? [value] : value;
+
+        if (this.section) {
+          wrappedValue = update[this.section.name];
+          return {
+            [this.section.name]: wrappedValue,
+          };
+        }
+
         return {
           [key]: [...new Set(wrappedValue)],
         };
@@ -300,7 +321,8 @@ export class RepeatingFieldPageController extends PageController {
 
   getPartialState(state, atIndex?: number) {
     const keyName = this.inputComponent.name;
-    const sectionName = this.pageDef.sectionName ?? "";
+    const sectionName =
+      this.pageDef.section === undefined ? "" : this.pageDef.section;
     const path = [sectionName, keyName].filter(Boolean).join(".");
     const partial = reach(state, path);
     if (atIndex ?? false) {
