@@ -14,7 +14,7 @@ When("I choose Add output", () => {
   cy.findByTestId("add-output").click();
 });
 
-When("I use the GOVnotify output type", () => {
+When("I use the GOVUK notify output type", () => {
   cy.findByLabelText("Output type").select("Email via GOVUK Notify");
 });
 
