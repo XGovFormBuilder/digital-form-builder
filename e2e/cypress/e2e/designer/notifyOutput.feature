@@ -11,6 +11,6 @@ Feature: Notify output allows lists
   Scenario: Create GOVNotify output
     When I open Outputs
     * I choose Add output
-    * I use the GOVnotify output type
+    * I use the GOVUK notify output type
     * I add a personalisation
     Then "New list (List)" should appear in the Description dropdown
