@@ -1,20 +1,8 @@
 import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-When("I open the lists menu", () => {
+Then("The list {string} should exist", (listName) => {
   cy.findByTestId("menu-lists").click();
-});
-
-When("Add a new list with 3 list items", (table) => {
-  cy.findByTestId("add-list").click();
-  cy.findByLabelText("List title").type("New list");
-  const items = table.hashes();
-  items.forEach((item) => {
-    cy.findByTestId("add-list-item").click();
-    cy.findByLabelText("Item text").type(item.itemText);
-    cy.findByLabelText("Value").type(item.itemValue);
-    cy.findByTestId("save-list-item").click();
-  });
-  cy.findByTestId("save-list").click();
+  cy.findAllByTestId("edit-list").findByText(listName);
   cy.findByText("Close").click();
 });
 

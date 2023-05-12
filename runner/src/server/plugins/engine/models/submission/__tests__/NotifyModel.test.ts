@@ -21,7 +21,7 @@ const testFormSubmission = (state: FormSubmissionState) => {
   return NotifyModel(form, notifyOutputConfiguration, state);
 };
 
-suite.only("NotifyModel", () => {
+suite("NotifyModel", () => {
   test("returns correct personalisation when a list is passed in and both conditions are satisfied", () => {
     const state: FormSubmissionState = {
       SWJtVi: true,
