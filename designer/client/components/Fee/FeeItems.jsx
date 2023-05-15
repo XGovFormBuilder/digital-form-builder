@@ -152,30 +152,20 @@ export class FeeItems extends React.Component {
     return !!parseInt(item.multiplier);
   };
 
-  changeToFieldSelect = (event, item, index) => {
+  changeQuantityType = (event, item, index) => {
     event.preventDefault();
     const { fields } = this.props;
-    if (Object.values(fields).length === 0) return;
-    let itemCopy = { ...item };
-    itemCopy.multiplier = Object.keys(fields)[0];
     let itemsCopy = [...this.state.items];
+    let itemCopy = { ...item };
+    if (this.itemHasStaticQuantity(item)) {
+      itemCopy.multiplier = Object.keys(fields)[0] ?? "1";
+    } else {
+      itemCopy.multiplier = "1";
+    }
     itemsCopy[index] = itemCopy;
     this.setState({
       items: itemsCopy,
     });
-    return;
-  };
-
-  changeToStaticInput = (event, item, index) => {
-    event.preventDefault();
-    let itemsCopy = [...this.state.items];
-    let itemCopy = { ...item };
-    itemCopy.multiplier = "1";
-    itemsCopy[index] = itemCopy;
-    this.setState({
-      items: itemsCopy,
-    });
-    return;
   };
 
   render() {
@@ -212,13 +202,14 @@ export class FeeItems extends React.Component {
               <th className="govuk-table__header" scope="col">
                 Condition
               </th>
-              <th className={"govuk-table__header"} scope={"col"}>
+              <th className="govuk-table__header" scope="col">
                 Quantity
               </th>
               <th className="govuk-table__header" scope="col">
                 <a
                   className="pull-right"
                   href="#"
+                  role="button"
                   onClick={this.onClickAddItem}
                 >
                   Add
@@ -283,25 +274,29 @@ export class FeeItems extends React.Component {
                             errors?.[INVALID_MULTIPLIER]?.[index],
                         })}
                         name="multiplier"
+                        id="multiplier"
                         type="number"
                         defaultValue={item.multiplier ?? 0}
                         step="any"
                       />
                       {fields.length > 0 && (
-                        <a
-                          href={"#"}
-                          onClick={(e) =>
-                            this.changeToFieldSelect(e, item, index)
-                          }
-                        >
-                          Or choose a field
-                        </a>
+                        <p className={"govuk-body govuk-!-margin-top-1"}>
+                          <a
+                            href={"#"}
+                            role="button"
+                            onClick={(e) =>
+                              this.changeQuantityType(e, item, index)
+                            }
+                          >
+                            Or choose a field
+                          </a>
+                        </p>
                       )}
                     </>
                   ) : (
                     <>
                       <select
-                        className="govuk-select"
+                        className="govuk-select govuk-!-width-full"
                         id="multiplier"
                         name="multiplier"
                         defaultValue={item.multiplier}
@@ -315,14 +310,17 @@ export class FeeItems extends React.Component {
                           </option>
                         ))}
                       </select>
-                      <a
-                        href={"#"}
-                        onClick={(e) =>
-                          this.changeToStaticInput(e, item, index)
-                        }
-                      >
-                        Or choose a number
-                      </a>
+                      <p className={"govuk-body govuk-!-margin-top-1"}>
+                        <a
+                          href={"#"}
+                          role="button"
+                          onClick={(e) =>
+                            this.changeQuantityType(e, item, index)
+                          }
+                        >
+                          Or choose a number
+                        </a>
+                      </p>
                     </>
                   )}
                 </td>
