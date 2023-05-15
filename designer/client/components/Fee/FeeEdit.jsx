@@ -6,7 +6,7 @@ import { Input } from "@govuk-jsx/input";
 import ErrorSummary from "./../../error-summary";
 import { DataContext } from "../../context";
 import logger from "../../plugins/logger";
-import { allInputs, inputsAccessibleAt } from "../../data";
+import { allInputs } from "../../data";
 
 export class FeeEdit extends React.Component {
   static contextType = DataContext;
@@ -28,21 +28,13 @@ export class FeeEdit extends React.Component {
 
   getFields() {
     const { data } = this.context;
-    const inputs = allInputs(data) ?? [];
-    return inputs
+    return allInputs(data)
+      .filter((input) => input.type === "NumberField")
       .map((input) => ({
         label: input.title,
         name: this.trimSectionName(input.propertyPath),
         type: input.type,
-      }))
-      .reduce((arr, item) => {
-        if (
-          item.type === "NumberField" &&
-          !arr.find((field) => field.name === item.name)
-        )
-          arr.push(item);
-        return arr;
-      }, []);
+      }));
   }
 
   onSubmit = (e) => {
