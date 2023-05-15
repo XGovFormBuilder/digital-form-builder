@@ -1,0 +1,76 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "oczkLN",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Should a fee be applied?"
+        },
+        {
+          "name": "wMICGX",
+          "options": {},
+          "type": "TextField",
+          "title": "Text field"
+        },
+        {
+          "name": "IMBYqE",
+          "options": {},
+          "type": "NumberField",
+          "title": "Quantity of item"
+        }
+      ],
+      "next": [{ "path": "/second-page" }]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "new list",
+      "name": "kOlzqS",
+      "type": "string",
+      "items": [{ "text": "item 1", "value": "item 1" }]
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "fee should be applied",
+      "name": "JTnIae",
+      "value": {
+        "name": "fee should be applied",
+        "conditions": [
+          {
+            "field": {
+              "name": "oczkLN",
+              "type": "YesNoField",
+              "display": "Should a fee be applied?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false
+}
