@@ -38,7 +38,7 @@
           "condition": "VDaoWq"
         },
         {
-          "path": "/check-your-answers",
+          "path": "/summary",
           "condition": "LiixOJ"
         }
       ],
@@ -46,7 +46,7 @@
     },
     {
       "title": "Check your answers",
-      "path": "/check-your-answers",
+      "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
       "next": []
@@ -77,7 +77,7 @@
           "condition": "VCUXku"
         },
         {
-          "path": "/check-your-answers",
+          "path": "/summary",
           "condition": "yHuWgO"
         }
       ],
@@ -99,7 +99,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "WsFJts"

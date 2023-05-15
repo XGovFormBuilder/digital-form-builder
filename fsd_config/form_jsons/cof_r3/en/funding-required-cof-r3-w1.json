@@ -70,7 +70,7 @@
     },
     {
       "title": "Check your answers",
-      "path": "/check-your-answers",
+      "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
       "next": [],
@@ -341,7 +341,7 @@
           "condition": "iegbPT"
         },
         {
-          "path": "/check-your-answers",
+          "path": "/summary",
           "condition": "zVdAqG"
         }
       ],
@@ -363,7 +363,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "bgUGuD"

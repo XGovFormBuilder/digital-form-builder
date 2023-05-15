@@ -49,7 +49,7 @@
     },
     {
       "title": "Check your answers",
-      "path": "/check-your-answers",
+      "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
       "next": [],
@@ -79,7 +79,7 @@
           "condition": "PHzDof"
         },
         {
-          "path": "/check-your-answers",
+          "path": "/summary",
           "condition": "bppZmZ"
         }
       ],
@@ -108,7 +108,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "eLpYFr"
