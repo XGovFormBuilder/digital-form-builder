@@ -53,10 +53,23 @@ class FormRunnerPage extends Page {
    * @param fieldValue
    */
   inputField(labelText, fieldValue) {
-    let fieldIndex = browser
-      .$$(".govuk-input")
-      .findIndex((el) => el.parentElement().getText().includes(labelText));
-    return browser.$$(".govuk-input")[fieldIndex].setValue(fieldValue);
+    const inputElement = this.getInputFieldByLabelText(labelText);
+    inputElement.waitForDisplayed(); // Wait until the input field is displayed
+    inputElement.setValue(fieldValue);
+  }
+
+  getInputFieldByLabelText(labelText) {
+    const inputFields = browser.$$(".govuk-input");
+
+    const fieldIndex = inputFields.findIndex((el) =>
+      el.parentElement().getText().includes(labelText)
+    );
+
+    if (fieldIndex === -1) {
+      throw new Error(`Input field with label '${labelText}' not found.`);
+    }
+
+    return inputFields[fieldIndex];
   }
 
   /**
