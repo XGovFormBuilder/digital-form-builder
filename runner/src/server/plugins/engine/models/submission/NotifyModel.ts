@@ -103,7 +103,7 @@ export function NotifyModel(
   return {
     templateId: templateId,
     personalisation,
-    emailAddress: reach(state, emailField) as string,
+    emailAddress: (reach(state, emailField) as string) ?? emailField,
     apiKey: apiKey,
     addReferencesToPersonalisation,
     ...(emailReplyToId && { emailReplyToId }),
