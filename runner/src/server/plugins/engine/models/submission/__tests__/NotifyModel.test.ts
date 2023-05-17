@@ -9,11 +9,14 @@ import json from "./NotifyModel.test.json";
 import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 
-const testFormSubmission = (state: FormSubmissionState) => {
+const testFormSubmission = (
+  state: FormSubmissionState,
+  emailField = "TZOHRn"
+) => {
   const notifyOutputConfiguration = {
     apiKey: "test",
     templateId: "test",
-    emailField: "TZOHRn",
+    emailField: emailField,
     personalisation: ["wVUZJW"],
   };
 
@@ -21,7 +24,7 @@ const testFormSubmission = (state: FormSubmissionState) => {
   return NotifyModel(form, notifyOutputConfiguration, state);
 };
 
-suite("NotifyModel", () => {
+suite.only("NotifyModel", () => {
   test("returns correct personalisation when a list is passed in and both conditions are satisfied", () => {
     const state: FormSubmissionState = {
       SWJtVi: true,
@@ -54,5 +57,27 @@ suite("NotifyModel", () => {
     const model = testFormSubmission(state);
 
     expect(model.personalisation["wVUZJW"]).to.equal(`* Item 3\n`);
+  });
+  test("returns correct email address when a dynamic value is used", () => {
+    const state: FormSubmissionState = {
+      SWJtVi: false,
+      dxWjPr: false,
+      TZOHRn: "test@test.com",
+    };
+
+    const model = testFormSubmission(state);
+
+    expect(model.emailAddress).to.equal("test@test.com");
+  });
+  test("returns correct email address when a static value is used", () => {
+    const state: FormSubmissionState = {
+      SWJtVi: false,
+      dxWjPr: false,
+      TZOHRn: "test@test.com",
+    };
+
+    const model = testFormSubmission(state, "test2@test2.com");
+
+    expect(model.emailAddress).to.equal("test2@test2.com");
   });
 });
