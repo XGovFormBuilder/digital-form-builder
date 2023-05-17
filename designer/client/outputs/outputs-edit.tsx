@@ -61,7 +61,11 @@ class OutputsEdit extends React.Component<Props, State> {
               <ul className="govuk-list">
                 {(outputs || []).map((output) => (
                   <li key={output.name}>
-                    <a href="#" onClick={(e) => this.onClickOutput(e, output)}>
+                    <a
+                      role={"button"}
+                      href="#"
+                      onClick={(e) => this.onClickOutput(e, output)}
+                    >
                       {output.title || output.name}
                     </a>
                   </li>

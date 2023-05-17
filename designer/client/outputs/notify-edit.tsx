@@ -9,7 +9,9 @@ import classNames from "classnames";
 import { i18n } from "../i18n";
 import { allInputs } from "../data/component/inputs";
 
-type State = {};
+type State = {
+  emailFieldValue: string;
+};
 
 type Props = {
   data: any; // TODO: type
@@ -25,11 +27,38 @@ class NotifyEdit extends Component<Props, State> {
     super(props);
     const { data } = this.props;
 
-    this.usableKeys = allInputs(data).map((input) => ({
-      name: input.propertyPath || "",
-      display: input.title || "",
-    }));
+    this.usableKeys = allInputs(data)
+      .filter((input) => input.type === "EmailAddressField")
+      .map((input) => ({
+        name: input.propertyPath || "",
+        display: input.title || "",
+      }));
+    console.log(this.props.output.outputConfiguration);
+    this.state = {
+      emailFieldValue: this.props.output.outputConfiguration?.emailField ?? "",
+    };
   }
+
+  isEmailFieldStatic = () => {
+    if (
+      this.usableKeys.find((field) => this.state.emailFieldValue === field.name)
+    ) {
+      return false;
+    }
+    return true;
+  };
+  changeEmailFieldType = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (this.isEmailFieldStatic()) {
+      this.setState({
+        emailFieldValue: this.usableKeys[0]?.name ?? "",
+      });
+    } else {
+      this.setState({
+        emailFieldValue: "",
+      });
+    }
+  };
 
   render() {
     const { data, output, onEdit, errors } = this.props;
@@ -93,27 +122,64 @@ class NotifyEdit extends Component<Props, State> {
             "govuk-form-group--error": errors?.email,
           })}
         >
-          <label className="govuk-label" htmlFor="email-field">
+          <label className="govuk-label govuk-label--s" htmlFor="email-field">
             Email field
           </label>
           {errors?.email && (
             <ErrorMessage>{errors?.email.children}</ErrorMessage>
           )}
-          <select
-            className={classNames({
-              "govuk-select": true,
-              "govuk-input--error": errors?.email,
-            })}
-            id="email-field"
-            name="email-field"
-            defaultValue={emailField}
-          >
-            {this.usableKeys.map((value, i) => (
-              <option key={`${value.name}-${i}`} value={value.name}>
-                {value.display ?? value.name}
-              </option>
-            ))}
-          </select>
+          {!this.isEmailFieldStatic() ? (
+            <>
+              <select
+                className={classNames({
+                  "govuk-select": true,
+                  "govuk-!-width-three-quarters": true,
+                  "govuk-input--error": errors?.email,
+                  "govuk-!-margin-right-2": true,
+                })}
+                id="email-field"
+                name="email-field"
+                defaultValue={emailField}
+              >
+                {this.usableKeys.map((value, i) => (
+                  <option key={`${value.name}-${i}`} value={value.name}>
+                    {value.display ?? value.name}
+                  </option>
+                ))}
+              </select>
+              <a
+                role={"button"}
+                href={"#"}
+                onClick={(e) => this.changeEmailFieldType(e)}
+              >
+                Or enter an email address
+              </a>
+            </>
+          ) : (
+            <>
+              <input
+                className={classNames({
+                  "govuk-input": true,
+                  "govuk-!-width-three-quarters": this.usableKeys.length > 0,
+                  "govuk-input--error": errors?.email,
+                  "govuk-!-margin-right-2": true,
+                })}
+                id={"email-field"}
+                name={"email-field"}
+                type={"email"}
+                defaultValue={emailField}
+              />
+              {this.usableKeys.length > 0 && (
+                <a
+                  role={"button"}
+                  href={"#"}
+                  onClick={(e) => this.changeEmailFieldType(e)}
+                >
+                  Or choose a field
+                </a>
+              )}
+            </>
+          )}
         </div>
         <NotifyEditItems
           items={personalisation}
