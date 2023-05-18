@@ -18,7 +18,8 @@
         {
           "path": "/your-support-for-the-project"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/your-support-for-the-project",
@@ -43,10 +44,10 @@
               "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
             },
             "showNoScriptWarning": false,
-            "minimumRequiredFiles": 1
+            "minimumRequiredFiles": 0
           },
           "type": "ClientSideFileUploadField",
-          "title": "Upload supporting evidence (optional)",
+          "title": "Upload supporting evidence",
           "hint": "Upload evidence to show the support you have from the community.\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
         }
       ],

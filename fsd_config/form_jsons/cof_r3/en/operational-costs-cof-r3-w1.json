@@ -18,7 +18,8 @@
         {
           "path": "/cashflow-to-run-the-asset"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/cashflow-to-run-the-asset",
@@ -97,7 +98,7 @@
             "columnTitles": ["Source", "Amount", "Action"]
           },
           "type": "MultiInputField",
-          "title": "Your income sources",
+          "title": "Sources of income",
           "hint": "The MultiInputField needed",
           "schema": {},
           "children": [

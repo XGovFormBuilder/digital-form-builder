@@ -18,7 +18,8 @@
         {
           "path": "/if-your-project-meets-the-definition"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/if-your-project-meets-the-definition",

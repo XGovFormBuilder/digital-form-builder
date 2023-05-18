@@ -18,7 +18,8 @@
         {
           "path": "/your-project-risk-register"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/your-project-risk-register",

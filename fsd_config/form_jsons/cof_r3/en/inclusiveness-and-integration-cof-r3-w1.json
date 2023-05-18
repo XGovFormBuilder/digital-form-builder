@@ -18,7 +18,8 @@
         {
           "path": "/how-youll-make-the-asset-inclusive"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/how-youll-make-the-asset-inclusive",

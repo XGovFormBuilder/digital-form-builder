@@ -53,6 +53,7 @@ class FormRunnerPage extends Page {
    * @param fieldValue
    */
   inputField(labelText, fieldValue) {
+    this.waitForPageLoad();
     const inputElement = this.getInputFieldByLabelText(labelText);
     inputElement.waitForDisplayed(); // Wait until the input field is displayed
     inputElement.setValue(fieldValue);
@@ -70,6 +71,23 @@ class FormRunnerPage extends Page {
     }
 
     return inputFields[fieldIndex];
+  }
+
+  waitForPageLoad() {
+    const timeout = 5000; // Set a timeout value (in milliseconds)
+
+    browser.waitUntil(
+      () => {
+        const allElementsDisplayed = browser
+          .$$(".govuk-input")
+          .every((element) => element.isDisplayed());
+        return allElementsDisplayed;
+      },
+      {
+        timeout,
+        timeoutMsg: "Page elements not displayed within the specified timeout.",
+      }
+    );
   }
 
   /**

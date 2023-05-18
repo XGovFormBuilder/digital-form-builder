@@ -18,7 +18,8 @@
         {
           "path": "/who-uses-the-asset"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/who-uses-the-asset",

@@ -18,7 +18,8 @@
         {
           "path": "/how-youve-engaged-with-the-community"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/how-youve-engaged-with-the-community",

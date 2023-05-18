@@ -18,7 +18,8 @@
         {
           "path": "/agree-to-the-final-confirmations"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/agree-to-the-final-confirmations",

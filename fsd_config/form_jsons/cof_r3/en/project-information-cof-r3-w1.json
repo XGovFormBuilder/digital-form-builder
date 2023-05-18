@@ -18,7 +18,8 @@
         {
           "path": "/previous-community-ownership-fund-applications"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/previous-community-ownership-fund-applications",

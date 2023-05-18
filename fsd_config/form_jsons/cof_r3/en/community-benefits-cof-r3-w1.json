@@ -18,7 +18,8 @@
         {
           "path": "/benefits-youll-deliver"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/benefits-youll-deliver",

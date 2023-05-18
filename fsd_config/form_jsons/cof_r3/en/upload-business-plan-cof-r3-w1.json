@@ -18,7 +18,8 @@
         {
           "path": "/your-business-plan"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/your-business-plan",

@@ -18,7 +18,8 @@
         {
           "path": "/how-the-asset-is-used-in-the-community"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/how-the-asset-is-used-in-the-community",
@@ -299,8 +300,17 @@
         },
         {
           "name": "RFTloT",
-          "options": {},
-          "type": "FileUploadField",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
           "title": "Upload public ownership evidence",
           "hint": "Upload a document to summarise:\n<p>\n<ul class=\"govuk-hint\">\n<li>the risk the asset is facing</li>\n<li>that any statutory services will not be transferred from the public authority</li>\n<li>that the asset will be sustainable after it has been transferred</li>\n</ul>\n</p>\n\n\n\n<p>For example, this evidence can include confirmation from the public owner or a letter from the local authority.</p>\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
         }

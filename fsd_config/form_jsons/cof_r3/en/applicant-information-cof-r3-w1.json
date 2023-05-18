@@ -18,7 +18,8 @@
         {
           "path": "/lead-contact-details"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/lead-contact-details",

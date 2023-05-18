@@ -18,7 +18,8 @@
         {
           "path": "/feasiblity-studies-youve-carried-out"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/feasiblity-studies-youve-carried-out",

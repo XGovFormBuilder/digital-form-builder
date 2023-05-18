@@ -18,7 +18,8 @@
         {
           "path": "/your-experience-running-similar-assets"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/your-experience-running-similar-assets",

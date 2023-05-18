@@ -18,7 +18,8 @@
         {
           "path": "/total-funding-request-from-the-community-ownership-fund"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/total-funding-request-from-the-community-ownership-fund",

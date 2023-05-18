@@ -18,7 +18,8 @@
         {
           "path": "/how-youll-run-the-asset"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/how-youll-run-the-asset",
