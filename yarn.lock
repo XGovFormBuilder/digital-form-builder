@@ -5577,7 +5577,7 @@ __metadata:
     eslint-plugin-tsdoc: ^0.2.14
     expr-eval: 2.0.2
     govuk-frontend: ^4.0.1
-    hmpo-components: 5.2.1
+    hmpo-components: 6.1.0
     jest: ^29.2.0
     joi: 17.2.1
     nanoid: ^3.3.4
@@ -5663,7 +5663,7 @@ __metadata:
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
     hapi-require-https: 5.0.0
-    hmpo-components: ^5.2.1
+    hmpo-components: ^6.1.0
     ioredis: 4.16.1
     joi: 17.2.1
     lodash-es: ^4.17.21
@@ -7403,7 +7403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bytes@npm:3.1.2":
+"bytes@npm:3.1.2, bytes@npm:^3.1.2":
   version: 3.1.2
   resolution: "bytes@npm:3.1.2"
   checksum: e4bcd3948d289c5127591fbedf10c0b639ccbf00243504e4e127374a15c3bc8eed0d28d4aaab08ff6f1cf2abc0cce6ba3085ed32f4f90e82a5683ce0014e1b6e
@@ -9031,10 +9031,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-clone-merge@npm:^1.5.4":
-  version: 1.5.4
-  resolution: "deep-clone-merge@npm:1.5.4"
-  checksum: 9a42c0661d07d9699821a1c7d09ea719fd9ecd32ca4ca9251128ac381bc6993cc98d4dab2aaa9109047fc21a58d7c0d4dc5d907cbb79b6f5c20fb49efab5577d
+"deep-clone-merge@npm:^1.5.5":
+  version: 1.5.5
+  resolution: "deep-clone-merge@npm:1.5.5"
+  checksum: 8e8918c35bf308febd8e582ae2152e91120884ed1a085678cc32b18eb3f9c3db376d3a2ae94ea0809b6830a1034f564a405641ad60f96df25000e237b6e4729b
   languageName: node
   linkType: hard
 
@@ -9305,7 +9305,7 @@ __metadata:
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-tsdoc: ^0.2.14
     govuk-frontend: ^4.3.1
-    hmpo-components: ^5.2.1
+    hmpo-components: ^6.1.0
     husky: ^4.3.0
     lint-staged: ^10.4.2
     magic-string: ^0.25.7
@@ -12817,17 +12817,22 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"hmpo-components@npm:5.2.1, hmpo-components@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "hmpo-components@npm:5.2.1"
+"hmpo-components@npm:6.1.0, hmpo-components@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "hmpo-components@npm:6.1.0"
   dependencies:
-    deep-clone-merge: ^1.5.4
-    moment: ^2.29.1
-    underscore: ^1.13.2
+    bytes: ^3.1.2
+    deep-clone-merge: ^1.5.5
+    fsevents: ~2.3.2
+    moment: ^2.29.4
+    underscore: ^1.13.6
   peerDependencies:
     govuk-frontend: ^4
-    nunjucks: ">=3"
-  checksum: 6d352cee3db4cd3a529e530d3bee86468cdf2e1336dc957f277cf8571f11107880f4cfa6457126e886dfef22832ee4b9874074477c32913d212e902abfe74503
+    nunjucks: ^3.2.4
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  checksum: 33cdb89fc949f6328709da4cf0bade6a4ad5e838a1b19a28dbf30ce8e96925bf0c56d814e6622a6872a051527098497fd46b2991b8d237cf01d277b03712d612
   languageName: node
   linkType: hard
 
