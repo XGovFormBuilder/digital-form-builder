@@ -66,7 +66,7 @@ export class UkAddressField extends FormComponent {
         name: "county",
         title: county,
         schema: { max: 100 },
-        options: { required: false, classes: "govuk-!-width-one-half" },
+        options: { required: false, classes: "govuk-!-width-two-thirds" },
       },
       {
         type: "TextField",

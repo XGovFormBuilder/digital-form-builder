@@ -106,7 +106,7 @@
         {
           "name": "aJGyCR",
           "options": {
-            "classes": "govuk-!-width-full"
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "title": "Type of asset (other)"

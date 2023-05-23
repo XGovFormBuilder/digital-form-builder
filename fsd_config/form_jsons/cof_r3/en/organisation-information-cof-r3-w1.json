@@ -323,7 +323,7 @@
         {
           "name": "plmwJv",
           "options": {
-            "classes": "govuk-!-width-full"
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "title": "Type of organisation (other)",
@@ -646,7 +646,7 @@
         {
           "name": "zsbmRx",
           "options": {
-            "classes": "govuk-!-width-full"
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "title": "Which regulatory body is your company registered with? (Other)",
