@@ -36,7 +36,7 @@
           "name": "iPBHAo",
           "options": {},
           "type": "Html",
-          "content": "<h3 class=\"govuk-heading-s\">Total funding request</h3>\n\n<p class=\"govuk-caption-m\">This is the amount you are applying for from the Community Ownership Fund.</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to 50% of your capital costs, up to a maximum of £1 million.</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to fifty thousand pounds (£50,000) of your revenue costs (no more than 20% of your capital funding).</p>"
+          "content": "<h3 class=\"govuk-heading-s\">Total funding request</h3>\n\n<p class=\"govuk-caption-m\">This is the amount you are applying for from the Community Ownership Fund.</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to 80% of your capital costs, up to a maximum of £1 million.</p>\n\n<p class=\"govuk-caption-m\">In certain circumstances you can apply for up to 90% of your capital costs. If you are eligible to do this, the development support provider will have already confirmed with you.</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to fifty thousand pounds (£50,000) of your revenue costs (no more than 20% of your capital funding).</p>"
         },
         {
           "name": "ABROnB",
@@ -103,7 +103,7 @@
           "name": "EaxCoo",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Capital costs</h2>\n\n<p class=\"govuk-hint\">Tell us about the total capital costs of your project.</p>\n\n<p class=\"govuk-hint\">This should be for the whole project, not just what you're requesting from the fund.</p>\n\n<p class=\"govuk-hint\">Capital costs can be used to:\n<ul class=\"govuk-hint\">\n<li>purchase or lease the asset</li>\n<li>pay for refurbishment costs</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Remember, you can apply for up to 50% of your capital costs, up to a maximum of £1 million.</p>\n<p class=\"govuk-hint\">You can use your business plan to provide information that supports your answers.</p>\n"
+          "content": "<h2 class=\"govuk-heading-s\">Capital costs</h2>\n\n<p class=\"govuk-hint\">Tell us about the total capital costs of your project.</p>\n\n<p class=\"govuk-hint\">This should be for the whole project, not just what you're requesting from the fund.</p>\n\n<p class=\"govuk-hint\">Capital costs can be used to:\n<ul class=\"govuk-hint\">\n<li>purchase or lease the asset</li>\n<li>pay for refurbishment costs</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Remember, you can apply for up to 80% (or 90% if the development support provider has confirmed you're eligible to do this) of your capital costs, up to a maximum of £1 million.</p>\n<p class=\"govuk-hint\">You can use your business plan to provide information that supports your answers.</p>\n"
         },
         {
           "name": "qQLyXL",

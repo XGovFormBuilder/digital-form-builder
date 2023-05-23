@@ -50,7 +50,7 @@
           },
           "type": "FreeTextField",
           "title": "Why will the asset be lost without community intervention?",
-          "hint": "Include any evidence you have that it's use by the community will be threatened.\n\n<p>For example, by the owner's intention or an imminent sale</p>"
+          "hint": "Include any evidence you have that its use by the community will be threatened.\n\n<p>For example, by the owner's intention or an imminent sale</p>"
         },
         {
           "name": "Ieudgn",

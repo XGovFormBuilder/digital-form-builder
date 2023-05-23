@@ -208,7 +208,7 @@
         {
           "name": "XPcbJx",
           "options": {},
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe the expected sale process, or the proposed terms of your lease if you are renting the asset",
           "hint": "For example, an auction"
         },
