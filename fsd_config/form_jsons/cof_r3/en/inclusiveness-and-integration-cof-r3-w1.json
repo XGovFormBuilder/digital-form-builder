@@ -11,7 +11,7 @@
           "name": "GDsdXV",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how the asset will be accountable to local people</li>\n<li>what might prevent people from using the asset</li>\n<li>how you'll make your project accessible to everyone</li>\n<li>how the project will bring the community together</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how the asset will be accountable to local people</li>\n<li>what might prevent people from using the asset</li>\n</ul>"
         }
       ],
       "next": [
