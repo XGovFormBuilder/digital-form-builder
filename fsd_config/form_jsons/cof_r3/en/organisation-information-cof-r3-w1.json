@@ -152,7 +152,7 @@
           "name": "tgnZof",
           "options": {},
           "type": "Html",
-          "content": "<fieldset class=\"govuk-fieldset\" id=\"tgnZof\"><legend class=\"govuk-label govuk-label--s\">Tell us about your organisation's main activities</legend>\n\n<p class=\"govuk-hint\">Include any activities you undertake in order to achieve the organisation's purpose.</p>\n\n<p class=\"govuk-hint\">You must list at least one, and can include up to three.</p>",
+          "content": "<fieldset class=\"govuk-fieldset\" id=\"tgnZof\"><legend class=\"govuk-label govuk-label--s\">Tell us about your organisation's main activities</legend>\n\n<div class=\"govuk-hint\">Include any activities you undertake in order to achieve the organisation's purpose.</div>\n\n<p class=\"govuk-hint\">You must list at least one, and can include up to three.</p>",
           "schema": {}
         },
         {
@@ -318,7 +318,7 @@
     },
     {
       "path": "/how-your-organisation-is-classified-other",
-      "title": "How your organisation is classified (other)",
+      "title": "How your organisation is classified",
       "components": [
         {
           "name": "plmwJv",
@@ -461,7 +461,7 @@
           "name": "zyWOmY",
           "options": {},
           "type": "Html",
-          "content": "<fieldset class=\"govuk-fieldset\" id=\"zyWOmY\"><legend class=\"govuk-label govuk-label--s\">Website and social media<span class=\"govuk-body\"></br>For example, your company's Facebook, Instagram or Twitter accounts (if applicable)</span></legend></br>",
+          "content": "<fieldset class=\"govuk-fieldset\" id=\"zyWOmY\"><legend class=\"govuk-label govuk-label--s\">Website and social media<span class=\"govuk-body\"></br><div class=\"govuk-hint\">For example, your company's Facebook, Instagram or Twitter accounts (if applicable)</div></span></legend></br>",
           "schema": {}
         },
         {
@@ -657,7 +657,8 @@
         {
           "path": "/trading-subsidiaries"
         }
-      ]
+      ],
+      "section": "JBqDtK"
     }
   ],
   "lists": [
