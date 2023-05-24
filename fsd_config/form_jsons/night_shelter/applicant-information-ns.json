@@ -1,0 +1,195 @@
+{
+  "metadata": {},
+  "startPage": "/13-applicant-information",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "1.3 Applicant information",
+      "path": "/13-applicant-information",
+      "components": [
+        {
+          "name": "UYkwEN",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>lead contact name</li>\n<li>lead contact job title</li>\n<li>lead contact email address</li>\n<li>lead contact telephone number</li>\n<li>authorised signatory name</li>\n<li>authorised signatory job title</li>\n<li>authorised signatory email address</li>\n<li>authorised signatory telephone number</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/lead-contact-details"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/lead-contact-details",
+      "title": "Lead contact details",
+      "components": [
+        {
+          "name": "JmRlfr",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">They will receive all the information about this application.</p>"
+        },
+        {
+          "name": "fUMWcd",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Name of lead contact"
+        },
+        {
+          "name": "lZVkeg",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Lead contact job title"
+        },
+        {
+          "name": "CDEwxp",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "EmailAddressField",
+          "title": "Lead contact email address"
+        },
+        {
+          "name": "DvBqCJ",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TelephoneNumberField",
+          "title": "Lead contact telephone number"
+        },
+        {
+          "name": "ayzqnK",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Is the lead contact the same person as the authorised signatory?",
+          "hint": "An authorised signatory:\n<ul class=\"govuk-hint\">\n<li>is allowed to act on behalf of the organisation</li>\n<li>will sign the grant funding agreement if your application is successful</li>\n</ul>",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/authorised-signatory-details",
+          "condition": "pcOxys"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "ZbxIUV"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "ZbxIUV"
+    },
+    {
+      "path": "/authorised-signatory-details",
+      "title": "Authorised signatory details",
+      "components": [
+        {
+          "name": "gKImMR",
+          "options": {},
+          "type": "Para",
+          "content": "An authorised signatory:\n\n<ul class=\"govuk-hint\">\n<li>is allowed to act on behalf of the organisation</li>\n<li>will sign the grant funding agreement if your application is successful</li>\n</ul>\n"
+        },
+        {
+          "name": "tfgPej",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Authorised signatory full name"
+        },
+        {
+          "name": "RDsTKl",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Authorised signatory job title"
+        },
+        {
+          "name": "OnijFx",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "EmailAddressField",
+          "title": "Authorised signatory email address"
+        },
+        {
+          "name": "gJlzFS",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TelephoneNumberField",
+          "title": "Authorised signatory telephone number"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "ZbxIUV"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "ZbxIUV",
+      "title": "1.3 Applicant information"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Is the lead contact the same person as the authorised signatory-no",
+      "name": "pcOxys",
+      "value": {
+        "name": "Is the lead contact the same person as the authorised signatory-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "ayzqnK",
+              "type": "YesNoField",
+              "display": "Is the lead contact the same person as the authorised signatory?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

@@ -115,7 +115,10 @@ export class StatusService {
         `savePerPageWebhook request detected for ${request.yar.id}`
       );
       try {
-        if (callback && savePerPageWebhook?.outputData.url == "True") {
+        if (
+          callback?.callbackUrl &&
+          savePerPageWebhook?.outputData.url == "True"
+        ) {
           this.logger.info(
             ["StatusService", "outputRequests"],
             `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`

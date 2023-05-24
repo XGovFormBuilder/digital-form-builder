@@ -1,0 +1,1150 @@
+{
+  "metadata": {},
+  "startPage": "/62-building-works",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "6.2 Building works",
+      "path": "/62-building-works",
+      "components": [
+        {
+          "name": "vOpXVi",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>number of new single room units</li>\n<li>appointing contractors</li>\n<li>planning approval</li>\n<li>planning application number</li>\n<li>pre-application planning advice</li>\n<li>construction contract</li>\n<li>details of professional advisors</li>\n</ul>\n\n<label class=\"govuk-body govuk-!-font-weight-bold\">We’ll ask you to upload:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<p>\n<li>a cost estimate (if applicable)</li>\n<li>a condition survey (if applicable)</li>\n<li>a buildings and contents insurance certificate (if applicable)</li>\n<li>a copy of the land registry title showing your ownership of the premises (if applicable)</li>\n<li>the land owner's consent (if applicable)</li>\n<li>correspondence from your landlord to confirm lease renewal discussions have started (if applicable)</li>\n<li>a copy of the lease agreement (if applicable)</li>\n<li>heads of terms outlining new lease agreement (if applicable)</li>\n<li>listed building consent (if applicable)</li>\n</ul>\n</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-use-the-funding-to-conduct-building-works"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/will-you-use-the-funding-to-conduct-building-works",
+      "title": "Will you use the funding to conduct building works?",
+      "components": [
+        {
+          "name": "lifPop",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Will you use the funding to conduct building works?",
+          "hint": "You can only conduct building works if you’re applying for capital funding."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary",
+          "condition": "VGFkKy"
+        },
+        {
+          "path": "/number-of-new-single-room-units-optional"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/number-of-new-single-room-units-optional",
+      "title": "Number of new single room units (optional)",
+      "components": [
+        {
+          "name": "fmcTtE",
+          "options": {
+            "hideTitle": true,
+            "required": false,
+            "classes": "govuk-input--width-5"
+          },
+          "type": "NumberField",
+          "title": "Number of new single room units (optional)"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-need-planning-approval-for-your-proposal"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/do-you-need-planning-approval-for-your-proposal",
+      "title": "Do you need planning approval for your proposal?",
+      "components": [
+        {
+          "name": "xGnWEW",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "Do you need planning approval for your proposal?",
+          "list": "ONwBPG",
+          "hint": "Select one option"
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-made-an-application-for-planning-permission",
+          "condition": "RMtbzx"
+        },
+        {
+          "path": "/will-you-procure-a-construction-contract-for-the-building-works"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/have-you-made-an-application-for-planning-permission",
+      "title": "Have you made an application for planning permission?",
+      "components": [
+        {
+          "name": "KhISvR",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Have you made an application for planning permission?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/whats-your-planning-application-number",
+          "condition": "BtQjSN"
+        },
+        {
+          "path": "/have-you-received-any-pre-application-planning-advice"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/whats-your-planning-application-number",
+      "title": "What's your planning application number?",
+      "components": [
+        {
+          "name": "lkwQrI",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-input--width-10"
+          },
+          "type": "TextField",
+          "title": "What's your planning application number?",
+          "hint": "You can find this on communications from your local planning department about your application."
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-procure-a-construction-contract-for-the-building-works"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/will-you-procure-a-construction-contract-for-the-building-works",
+      "title": "Will you procure a construction contract for the building works?",
+      "components": [
+        {
+          "name": "AYDIPX",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Will you procure a construction contract for the building works?",
+          "hint": "You’re expected to enter into a legally binding agreement when procuring any building works.\n\n<p class=\"govuk-hint\">Where appropriate, you should use a recognised standard form of contract.</p>\n\n<p class=\"govuk-hint\">For example, a JCT Minor Works Building Contract.</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-use-any-professional-advisors-for-the-proposal"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/have-you-received-any-pre-application-planning-advice",
+      "title": "Have you received any pre-application planning advice?",
+      "components": [
+        {
+          "name": "YFPgTB",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Have you received any pre-application planning advice?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/give-a-brief-summary-of-the-advice-you-received",
+          "condition": "XZtaAq"
+        },
+        {
+          "path": "/will-you-procure-a-construction-contract-for-the-building-works"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/give-a-brief-summary-of-the-advice-you-received",
+      "title": "Give a brief summary of the advice you received",
+      "components": [
+        {
+          "name": "mADkNz",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "MultilineTextField",
+          "title": "Give a brief summary of the advice you received",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-procure-a-construction-contract-for-the-building-works"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/will-you-use-any-professional-advisors-for-the-proposal",
+      "title": "Will you use any professional advisors for the proposal?",
+      "components": [
+        {
+          "name": "nyusrL",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Will you use any professional advisors for the proposal?",
+          "hint": "For example, architects, quantity surveyors, project managers."
+        }
+      ],
+      "next": [
+        {
+          "path": "/details-of-professional-advisors",
+          "condition": "LIRoqF"
+        },
+        {
+          "path": "/will-you-be-hiring-contractors-to-complete-the-building-works"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/details-of-professional-advisors",
+      "title": "Details of professional advisors",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Details of professional advisors"
+        }
+      },
+      "components": [
+        {
+          "name": "IhboGe",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-hint\">You can add more advisors on the next step.<p>"
+        },
+        {
+          "name": "SQEpBt",
+          "options": {
+            "columnTitles": ["Job role", "Organisation name", "Action"]
+          },
+          "type": "MultiInputField",
+          "title": "Details of professional advisors",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "cbYcqS",
+              "options": {
+                "classes": "govuk-input--width-20"
+              },
+              "type": "TextField",
+              "title": "What is their job role?",
+              "hint": ""
+            },
+            {
+              "name": "muRwiL",
+              "options": {
+                "classes": "govuk-input--width-20"
+              },
+              "type": "TextField",
+              "title": "Organisation name",
+              "hint": ""
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-be-hiring-contractors-to-complete-the-building-works"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "EDNaie"
+    },
+    {
+      "path": "/will-you-be-hiring-contractors-to-complete-the-building-works",
+      "title": "Will you be hiring contractors to complete the building works?",
+      "components": [
+        {
+          "name": "rYAgMN",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Will you be hiring contractors to complete the building works?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-know-which-contractors-will-be-conducting-the-work",
+          "condition": "pmDjHT"
+        },
+        {
+          "path": "/do-you-have-a-cost-estimate-for-the-building-works"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/do-you-know-which-contractors-will-be-conducting-the-work",
+      "title": "Do you know which contractors will be conducting the work?",
+      "components": [
+        {
+          "name": "TtBDIZ",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you know which contractors will be conducting the work?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-contractors-will-you-use-to-carry-out-this-work",
+          "condition": "UTfEeG"
+        },
+        {
+          "path": "/do-you-have-a-cost-estimate-for-the-building-works"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/which-contractors-will-you-use-to-carry-out-this-work",
+      "title": "Which contractors will you use to carry out this work?",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your contractors"
+        }
+      },
+      "components": [
+        {
+          "name": "EXgmCg",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">You can add more items on the next step.</p>"
+        },
+        {
+          "name": "UDhjLS",
+          "options": {
+            "columnTitles": ["Contractor", "Action"]
+          },
+          "type": "MultiInputField",
+          "title": "Your contractors",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "CZZYvE",
+              "options": {
+                "classes": "govuk-input--width-20",
+                "hideTitle": true
+              },
+              "type": "TextField",
+              "title": "Which contractors will you use to carry out this work?",
+              "hint": ""
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-have-a-cost-estimate-for-the-building-works"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "EDNaie"
+    },
+    {
+      "path": "/do-you-have-a-cost-estimate-for-the-building-works",
+      "title": "Do you have a cost estimate for the building works?",
+      "components": [
+        {
+          "name": "wUFaUF",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you have a cost estimate for the building works?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-cost-estimate",
+          "condition": "tGbYuj"
+        },
+        {
+          "path": "/do-you-have-a-condition-survey"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-cost-estimate",
+      "title": "Upload cost estimate",
+      "components": [
+        {
+          "name": "NOMwBb",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload cost estimate",
+          "hint": "This can be from:\n<p>\n<ul class=\"govuk-hint\">\n<li>a qualified quantity surveyor</li>\n<li>a contract administrator</li>\n<li>a reputable building contractor</li>\n</ul>\n</p>\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-have-a-condition-survey"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/do-you-have-a-condition-survey",
+      "title": "Do you have a condition survey?",
+      "components": [
+        {
+          "name": "ZmYhgR",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you have a condition survey?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-a-condition-survey",
+          "condition": "RibSJN"
+        },
+        {
+          "path": "/do-you-have-a-buildings-and-contents-insurance-certificate"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-a-condition-survey",
+      "title": "Upload a condition survey",
+      "components": [
+        {
+          "name": "aTxAPP",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "hint": "This must include:\n<p>\n<ul class=\"govuk-hint\">\n<li>asbestos installations</li>\n<li>electrical installations</li>\n<li>gas installations</li>\n</ul>\n</p>\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>",
+          "title": "Upload a condition survey"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-have-a-buildings-and-contents-insurance-certificate"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/do-you-have-a-buildings-and-contents-insurance-certificate",
+      "title": "Do you have a buildings and contents insurance certificate?",
+      "components": [
+        {
+          "name": "SdwIUb",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you have a buildings and contents insurance certificate?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-buildings-and-contents-insurance-certificate",
+          "condition": "hxmmEV"
+        },
+        {
+          "path": "/do-you-own-the-premises"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-buildings-and-contents-insurance-certificate",
+      "title": "Upload buildings and contents insurance certificate",
+      "components": [
+        {
+          "name": "NlDVCg",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload buildings and contents insurance certificate",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, rtf, csv, xls, xlsx, ods)."
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-own-the-premises"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/do-you-own-the-premises",
+      "title": "Do you own the premises?",
+      "components": [
+        {
+          "name": "RXIYZY",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you own the premises?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-a-copy-of-the-land-registry-title",
+          "condition": "GDChUC"
+        },
+        {
+          "path": "/upload-the-land-owners-consent"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-a-copy-of-the-land-registry-title",
+      "title": "Upload a copy of the land registry title",
+      "components": [
+        {
+          "name": "dOyKiO",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload a copy of the land registry title",
+          "hint": "This must show your ownership of the premises.\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-the-building-listed"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-the-land-owners-consent",
+      "title": "Upload the land owner's consent",
+      "components": [
+        {
+          "name": "rMvZDG",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "hint": "This must show the consent for the proposed changes of your services.\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>",
+          "title": "Upload the land owner's consent"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-long-is-left-on-the-lease-agreement"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/is-the-building-listed",
+      "title": "Is the building listed?",
+      "components": [
+        {
+          "name": "skBfqS",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Is the building listed?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-listed-building-consent",
+          "condition": "VtemTk"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-listed-building-consent",
+      "title": "Upload listed building consent",
+      "components": [
+        {
+          "name": "abdbzq",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload listed building consent",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods)."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/how-long-is-left-on-the-lease-agreement",
+      "title": "How long is left on the lease agreement?",
+      "components": [
+        {
+          "name": "muhnok",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "How long is left on the lease agreement?",
+          "hint": "Select one option",
+          "list": "hjXkpb"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-a-copy-of-the-lease-agreement",
+          "condition": "bjuofF"
+        },
+        {
+          "path": "/upload-correspondence-from-your-landlord-to-show-that-lease-renewal-discussions-have-started"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-a-copy-of-the-lease-agreement",
+      "title": "Upload a copy of the lease agreement",
+      "components": [
+        {
+          "name": "wQqPSZ",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload a copy of the lease agreement",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods)."
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-the-building-listed"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-correspondence-from-your-landlord-to-show-that-lease-renewal-discussions-have-started",
+      "title": "Upload correspondence from your landlord to show that lease renewal discussions have started",
+      "components": [
+        {
+          "name": "GLOpmu",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload correspondence from your landlord to show that lease renewal discussions have started",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods)."
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-heads-of-terms-outlining-new-lease-agreement"
+        }
+      ],
+      "section": "EDNaie"
+    },
+    {
+      "path": "/upload-heads-of-terms-outlining-new-lease-agreement",
+      "title": "Upload heads of terms outlining new lease agreement",
+      "components": [
+        {
+          "name": "kQJIbS",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload heads of terms outlining new lease agreement",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods)."
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-the-building-listed"
+        }
+      ],
+      "section": "EDNaie"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Do you need planning approval for your proposal",
+      "name": "ONwBPG",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes"
+        },
+        {
+          "text": "No",
+          "value": "no"
+        },
+        {
+          "text": "I don't know",
+          "value": "i-dont-know"
+        }
+      ]
+    },
+    {
+      "title": "How long is left on the lease agreement?",
+      "name": "hjXkpb",
+      "type": "string",
+      "items": [
+        {
+          "text": "More than 4 years",
+          "value": "more-than-4-years"
+        },
+        {
+          "text": "Less than 4 years",
+          "value": "less-than-4-years"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "EDNaie",
+      "title": "6.2 Building works"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Will you use the funding to conduct building works-no",
+      "name": "VGFkKy",
+      "value": {
+        "name": "Will you use the funding to conduct building works-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "lifPop",
+              "type": "YesNoField",
+              "display": "Will you use the funding to conduct building works?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you need planning approval for your proposal?",
+      "name": "RMtbzx",
+      "value": {
+        "name": "Do you need planning approval for your proposal?",
+        "conditions": [
+          {
+            "field": {
+              "name": "xGnWEW",
+              "type": "RadiosField",
+              "display": "Do you need planning approval for your proposal?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "yes",
+              "display": "yes"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Have you made an application for planning permission-yes",
+      "name": "BtQjSN",
+      "value": {
+        "name": "Have you made an application for planning permission-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "KhISvR",
+              "type": "YesNoField",
+              "display": "Have you made an application for planning permission?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Have you received any pre-application planning advice-yes",
+      "name": "XZtaAq",
+      "value": {
+        "name": "Have you received any pre-application planning advice-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "YFPgTB",
+              "type": "YesNoField",
+              "display": "Have you received any pre-application planning advice?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Will you use any professional advisors for the proposal-yes",
+      "name": "LIRoqF",
+      "value": {
+        "name": "Will you use any professional advisors for the proposal-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "nyusrL",
+              "type": "YesNoField",
+              "display": "Will you use any professional advisors for the proposal?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Will you be hiring contractors to complete the building works-yes",
+      "name": "pmDjHT",
+      "value": {
+        "name": "Will you be hiring contractors to complete the building works-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "rYAgMN",
+              "type": "YesNoField",
+              "display": "Will you be hiring contractors to complete the building works?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you know which contractors will be conducting the work-yes",
+      "name": "UTfEeG",
+      "value": {
+        "name": "Do you know which contractors will be conducting the work-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "TtBDIZ",
+              "type": "YesNoField",
+              "display": "Do you know which contractors will be conducting the work?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you have a cost estimate for the building works-yes",
+      "name": "tGbYuj",
+      "value": {
+        "name": "Do you have a cost estimate for the building works-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "wUFaUF",
+              "type": "YesNoField",
+              "display": "Do you have a cost estimate for the building works?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you have a condition survey-yes",
+      "name": "RibSJN",
+      "value": {
+        "name": "Do you have a condition survey-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "ZmYhgR",
+              "type": "YesNoField",
+              "display": "Do you have a condition survey?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you have a buildings and contents insurance certificate-yes",
+      "name": "hxmmEV",
+      "value": {
+        "name": "Do you have a buildings and contents insurance certificate-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "SdwIUb",
+              "type": "YesNoField",
+              "display": "Do you have a buildings and contents insurance certificate?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you own the premises-yes",
+      "name": "GDChUC",
+      "value": {
+        "name": "Do you own the premises-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "RXIYZY",
+              "type": "YesNoField",
+              "display": "Do you own the premises?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Is the building listed-yes",
+      "name": "VtemTk",
+      "value": {
+        "name": "Is the building listed-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "skBfqS",
+              "type": "YesNoField",
+              "display": "Is the building listed?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "How long is left on the lease agreement-more than 3",
+      "name": "bjuofF",
+      "value": {
+        "name": "How long is left on the lease agreement-more than 3",
+        "conditions": [
+          {
+            "field": {
+              "name": "muhnok",
+              "type": "RadiosField",
+              "display": "How long is left on the lease agreement?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "more-than-4-years",
+              "display": "more-than-4-years"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

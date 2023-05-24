@@ -8,9 +8,9 @@
 {% block content %}
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">      
-        <form action="?view=summary"  method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
           <table class="govuk-table">
-            <caption class="govuk-table__caption govuk-table__caption--m">{{page.options.customText.samePageTitle}}</caption>
+            <caption class="govuk-table__caption govuk-table__caption--m">{{page.options.customText.separatePageTitle}}</caption>
             <thead class="govuk-table__head">
               <tr class="govuk-table__row">
                 {% for heading in details.headings %}
@@ -34,7 +34,7 @@
             {% endfor %}
         </table>
           <div class="govuk-button-group">
-            <button name="next" value="continue" class="govuk-button">Continue</button>
+            <button name="next" value="continue" class="govuk-button">Save and Continue</button>
             <button name="next" value="increment" class="govuk-button govuk-button--secondary">
               Add another
             </button>

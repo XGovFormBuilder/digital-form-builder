@@ -1,0 +1,676 @@
+{
+  "metadata": {},
+  "startPage": "/22-current-services",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "2.2 Current services",
+      "path": "/22-current-services",
+      "components": [
+        {
+          "name": "wfYkDn",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>current night shelter or emergency accommodation provisions </li>\n<li>how long you’ve provided night shelter or emergency accommodation\n</li>\n<li>the set up of the night shelter or emergency accommodation</li>\n<li>day provision services</li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-provided-a-night-shelter-or-emergency-accommodation-on-or-after-1-april-2019"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/have-you-provided-a-night-shelter-or-emergency-accommodation-on-or-after-1-april-2019",
+      "title": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019?",
+      "components": [
+        {
+          "name": "QOlbCV",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "hint": "Night shelter or emergency accommodation is a service with rapid access and a low barrier to entry for people experiencing rough sleeping or at imminent risk of rough sleeping.",
+          "title": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/night-shelter-or-emergency-accommodation",
+          "condition": "bCyitj"
+        },
+        {
+          "path": "/do-you-currently-provide-day-provision",
+          "condition": "GmgxCp"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/night-shelter-or-emergency-accommodation",
+      "title": "Night shelter or emergency accommodation",
+      "components": [
+        {
+          "name": "affVbH",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Is the night shelter or emergency accommodation communal?",
+          "schema": {}
+        },
+        {
+          "name": "ttEOXi",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Is the night shelter or emergency accommodation single room accommodation?",
+          "hint": "A single room is separate living accommodation. It has a lockable door, four walls and a ceiling, secure window and appropriate ventilation. \nIt also has access to cooking facilities and full bathroom facilities (single-use or shared). Cooking facilities are required unless this is explicitly indicated as unnecessary, for example in fully catered provision.",
+          "schema": {}
+        },
+        {
+          "name": "dSdeYa",
+          "options": {
+            "classes": "govuk-input--width-5"
+          },
+          "type": "NumberField",
+          "title": "How many bed spaces did the night shelter or emergency accommodation provide from 1 April 2022 to 31 March 2023?",
+          "schema": {}
+        },
+        {
+          "name": "gXvnZA",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Is the night shelter or emergency accommodation used for SWEP (severe weather emergency protocol)?",
+          "schema": {}
+        },
+        {
+          "name": "vStFMu",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you accept referrals from the local authority or other agencies for available bed spaces?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-many-nights-did-the-night-shelter-or-emergency-accommodation-open-from-1-april-2022-to-31-march-2023"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/how-many-nights-did-the-night-shelter-or-emergency-accommodation-open-from-1-april-2022-to-31-march-2023",
+      "title": "How many nights did the night shelter or emergency accommodation open from 1 April 2022 to 31 March 2023?",
+      "components": [
+        {
+          "name": "YyMRdP",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-input--width-5"
+          },
+          "type": "NumberField",
+          "title": "How many nights did the night shelter or emergency accommodation open from 1 April 2022 to 31 March 2023?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-currently-provide-day-provision"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/do-you-currently-provide-day-provision",
+      "title": "Do you currently provide day provision?",
+      "components": [
+        {
+          "name": "STfdvD",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you currently provide day provision?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/when-did-you-start-providing-day-provision",
+          "condition": "TTEdYY"
+        },
+        {
+          "path": "/do-you-currently-provide-any-other-services",
+          "condition": "rbZVqW"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/when-did-you-start-providing-day-provision",
+      "title": "When did you start providing day provision?",
+      "components": [
+        {
+          "name": "bCXNtj",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "MonthYearField",
+          "title": "When did you start providing day provision?",
+          "hint": "For example, 3 2007",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-day-provision-services-are-you-currently-providing"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/which-day-provision-services-are-you-currently-providing",
+      "title": "Which day provision services are you currently providing?",
+      "components": [
+        {
+          "name": "ULPcAU",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Which day provision services are you currently providing?",
+          "hint": "Select all that apply.",
+          "list": "eKAzHJ",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-other-day-provision-do-you-currently-provide",
+          "condition": "kONmAR"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/which-other-day-provision-do-you-currently-provide",
+      "title": "Which other day provision do you currently provide?",
+      "components": [
+        {
+          "name": "zwQHCl",
+          "options": {
+            "hideTitle": true,
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Which other day provision do you currently provide?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-currently-provide-any-other-services"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/do-you-currently-provide-any-other-services",
+      "title": "Do you currently provide any other services?",
+      "components": [
+        {
+          "name": "GBfYfn",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you currently provide any other services?",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-other-services-are-you-currently-providing",
+          "condition": "Hntahf"
+        },
+        {
+          "path": "/do-you-currently-provide-specialist-support",
+          "condition": "rvtRCx"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/what-other-services-are-you-currently-providing",
+      "title": "What other services are you currently providing?",
+      "components": [
+        {
+          "name": "wViAiU",
+          "options": {
+            "hideTitle": true,
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "What other services are you currently providing?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-currently-provide-specialist-support"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/do-you-currently-provide-specialist-support",
+      "title": "Do you currently provide specialist support?",
+      "components": [
+        {
+          "name": "umAyqH",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you currently provide specialist support?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-do-you-currently-provide-targeted-specialist-support-to",
+          "condition": "polbhe"
+        },
+        {
+          "path": "/summary",
+          "condition": "cztQfu"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/who-do-you-currently-provide-targeted-specialist-support-to",
+      "title": "Who do you currently provide targeted specialist support to?",
+      "components": [
+        {
+          "name": "JCUQcR",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Who do you currently provide targeted specialist support to?",
+          "hint": "Select all that apply.",
+          "list": "MSNQoL"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-other-groups-of-people-do-you-provide-targeted-specialist-support-to",
+          "condition": "hDaDud"
+        }
+      ],
+      "section": "xigWzk"
+    },
+    {
+      "path": "/which-other-groups-of-people-do-you-provide-targeted-specialist-support-to",
+      "title": "Which other groups of people do you provide targeted specialist support to?",
+      "components": [
+        {
+          "name": "bTSizq",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Which other groups of people do you provide targeted specialist support to?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "xigWzk"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Which day provision services are you currently providing",
+      "name": "eKAzHJ",
+      "type": "string",
+      "items": [
+        {
+          "text": "Outreach",
+          "value": "outreach"
+        },
+        {
+          "text": "Health interventions",
+          "value": "health-interventions"
+        },
+        {
+          "text": "Employment support",
+          "value": "employment-support"
+        },
+        {
+          "text": "Financial advice",
+          "value": "financial-advice"
+        },
+        {
+          "text": "Onsite inreach services from other organisations",
+          "value": "Onsite-inreach-services-from-other-organisations"
+        },
+        {
+          "text": "Housing advice",
+          "value": "housing-advice"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "title": "Who do you currently provide targeted specialist support to?",
+      "name": "MSNQoL",
+      "type": "string",
+      "items": [
+        {
+          "text": "Women",
+          "value": "women"
+        },
+        {
+          "text": "Survivors of domestic abuse",
+          "value": "Survivors-of-domestic-abuse"
+        },
+        {
+          "text": "Ethnic minorities",
+          "value": "ethnic-minorities"
+        },
+        {
+          "text": "People who identify as LGBTQIA+ (lesbian, gay, bisexual, transgender, queer, intersex, asexual, and agender)",
+          "value": "people-who-identify-as-LGBTQIA"
+        },
+        {
+          "text": "Non-UK nationals with restricted eligibility to public funds",
+          "value": "Non-UK-nationals-with-restricted-eligibility-to-public-funds"
+        },
+        {
+          "text": "People with mental health problems",
+          "value": "People-with-mental-health-problems"
+        },
+        {
+          "text": "People with social care needs",
+          "value": "people-with-social-care-needs"
+        },
+        {
+          "text": "People experiencing substance misuse",
+          "value": "people-experiencing-substance-misuse"
+        },
+        {
+          "text": "Disabled people",
+          "value": "disabled-people"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "xigWzk",
+      "title": "2.2 Current services"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019-yes",
+      "name": "bCyitj",
+      "value": {
+        "name": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "QOlbCV",
+              "type": "YesNoField",
+              "display": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019-no",
+      "name": "GmgxCp",
+      "value": {
+        "name": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "QOlbCV",
+              "type": "YesNoField",
+              "display": "Have you provided a night shelter or emergency accommodation on or after 1 April 2019?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you currently provide day provision-yes",
+      "name": "TTEdYY",
+      "value": {
+        "name": "Do you currently provide day provision-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "STfdvD",
+              "type": "YesNoField",
+              "display": "Do you currently provide day provision?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Which day provision services are you currently providing-other",
+      "name": "kONmAR",
+      "value": {
+        "name": "Which day provision services are you currently providing-other",
+        "conditions": [
+          {
+            "field": {
+              "name": "ULPcAU",
+              "type": "CheckboxesField",
+              "display": "Which day provision services are you currently providing?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you currently provide day provision?",
+      "name": "rbZVqW",
+      "value": {
+        "name": "Do you currently provide day provision?",
+        "conditions": [
+          {
+            "field": {
+              "name": "STfdvD",
+              "type": "YesNoField",
+              "display": "Do you currently provide day provision?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you currently provide any other services-yes",
+      "name": "Hntahf",
+      "value": {
+        "name": "Do you currently provide any other services-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "GBfYfn",
+              "type": "YesNoField",
+              "display": "Do you currently provide any other services?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you currently provide any other services-no",
+      "name": "rvtRCx",
+      "value": {
+        "name": "Do you currently provide any other services-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "GBfYfn",
+              "type": "YesNoField",
+              "display": "Do you currently provide any other services?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you currently provide specialist support-yes",
+      "name": "polbhe",
+      "value": {
+        "name": "Do you currently provide specialist support-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "umAyqH",
+              "type": "YesNoField",
+              "display": "Do you currently provide specialist support?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Who do you currently provide targeted specialist support to-other",
+      "name": "hDaDud",
+      "value": {
+        "name": "Who do you currently provide targeted specialist support to-other",
+        "conditions": [
+          {
+            "field": {
+              "name": "JCUQcR",
+              "type": "CheckboxesField",
+              "display": "Who do you currently provide targeted specialist support to?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you currently provide specialist support?-no",
+      "name": "cztQfu",
+      "value": {
+        "name": "Do you currently provide specialist support?-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "umAyqH",
+              "type": "YesNoField",
+              "display": "Do you currently provide specialist support?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

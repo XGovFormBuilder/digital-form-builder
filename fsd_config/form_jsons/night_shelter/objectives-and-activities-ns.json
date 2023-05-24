@@ -1,0 +1,135 @@
+{
+  "metadata": {},
+  "startPage": "/31-objectives-and-activities",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "3.1 Objectives and activities",
+      "path": "/31-objectives-and-activities",
+      "components": [
+        {
+          "name": "nGyEel",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>project summary</li>\n<li>planned objectives and activities</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/give-a-brief-summary-of-your-project-including-what-you-hope-to-achieve"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/give-a-brief-summary-of-your-project-including-what-you-hope-to-achieve",
+      "title": "Project summary",
+      "components": [
+        {
+          "name": "pWFwci",
+          "options": {
+            "hideTitle": true,
+            "maxWords": "200"
+          },
+          "type": "FreeTextField",
+          "title": "Give a brief summary of your project, including what you hope to achieve"
+        }
+      ],
+      "next": [
+        {
+          "path": "/objectives-and-activities"
+        }
+      ],
+      "section": "VCtwUB"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "VCtwUB"
+    },
+    {
+      "path": "/objectives-and-activities",
+      "title": "Objectives and activities",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your objectives and activities"
+        }
+      },
+      "components": [
+        {
+          "name": "HVEUvp",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-hint\">Tell us about your project's objectives and how you plan to achieve these objectives.<p>\n\n<p class=\"govuk-hint\">You must include one objective about how your project will address local rough sleeping.</p>\n\n<p class=\"govuk-hint\">You can add more objectives and activities on the next screen.</p>"
+        },
+        {
+          "name": "kRxOHF",
+          "options": {
+            "columnTitles": ["Objective", "Activities", "Action"]
+          },
+          "type": "MultiInputField",
+          "title": "Proposal milestones",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "FbWEBY",
+              "options": {},
+              "type": "TextField",
+              "title": "Objective",
+              "hint": "For example, transition of existing communal accommodation space into five single occupancy accommodation units, available throughout the year"
+            },
+            {
+              "type": "MultilineTextField",
+              "name": "RXrpzV",
+              "title": "Activities that will help you achieve the objective",
+              "hint": "For example, renovation of existing accommodation to provide single occupancy accommodation, including bathroom and kitchen facilities",
+              "schema": {},
+              "options": { "maxWords": "200" }
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "VCtwUB"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "VCtwUB",
+      "title": "3.1 Objectives and activities"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

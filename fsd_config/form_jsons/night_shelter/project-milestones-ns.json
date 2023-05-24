@@ -1,0 +1,114 @@
+{
+  "metadata": {},
+  "startPage": "/32-milestones",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "3.2 Milestones",
+      "path": "/32-milestones",
+      "components": [
+        {
+          "name": "yufsGb",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>milestones you hope to achieve</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/proposal-milestones"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/proposal-milestones",
+      "title": "Proposal milestones",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Proposal milestones"
+        }
+      },
+      "components": [
+        {
+          "name": "udcUvc",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">Tell us your proposal's milestones up to, and including 2025.</p>\n<p class=\"govuk-hint\">You can add more milestones on the next step.</p>"
+        },
+        {
+          "name": "sXlkAm",
+          "options": {
+            "columnTitles": ["Milestone", "Date", "Action"]
+          },
+          "type": "MultiInputField",
+          "title": "Milestones",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "type": "MultilineTextField",
+              "name": "fFIuPP",
+              "title": "Milestone",
+              "hint": "For example, recruit member of staff",
+              "schema": {},
+              "options": { "maxWords": "200" }
+            },
+            {
+              "name": "PrulfI",
+              "options": { "isMultiInput": true },
+              "type": "MonthYearField",
+              "title": "When will you reach this milestone?",
+              "hint": "For example, 3 2007"
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "KdUbsr"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "KdUbsr"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "KdUbsr",
+      "title": "3.2 Milestones"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

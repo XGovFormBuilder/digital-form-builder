@@ -1,0 +1,121 @@
+{
+  "metadata": {},
+  "startPage": "/33-local-need-and-support",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "3.3 Local need and support",
+      "path": "/33-local-need-and-support",
+      "components": [
+        {
+          "name": "RVvtnb",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>why your proposal is needed in your area</li>\n<li>local authority support</li>\n</ul>\n\n<label class=\"govuk-body govuk-!-font-weight-bold\">We'll ask you to upload:\n</label>\n\n<p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>a letter of endorsement from your local authority</li>\n</ul>\n</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/tell-us-why-your-proposal-is-needed-in-your-area"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/tell-us-why-your-proposal-is-needed-in-your-area",
+      "title": "Tell us why your proposal is needed in your area",
+      "components": [
+        {
+          "name": "nMfGTS",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Tell us why your proposal is needed in your area"
+        }
+      ],
+      "next": [
+        {
+          "path": "/local-authority-support"
+        }
+      ],
+      "section": "vzkeMY"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "vzkeMY"
+    },
+    {
+      "path": "/local-authority-support",
+      "title": "Local authority support",
+      "components": [
+        {
+          "name": "nURkuc",
+          "options": {
+            "classes": "govuk-!-width-ful"
+          },
+          "type": "TextField",
+          "title": "What is the local authority of where your proposal will be based?"
+        },
+        {
+          "name": "lFTgWk",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you have the local authority's support and endorsement for your proposal?"
+        },
+        {
+          "name": "mIGfuL",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 0
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload letter of endorsement from your local authority",
+          "hint": "Upload the letter now if you have it.\n\n<p>If you do not have it at the moment, we might contact you by email when we assess your application.</p>\n\n<p>The letter should be written by a rough sleeping lead and must not be written by a local councillor.</p>\n\n<p>Your application will not be considered if you cannot provide the letter of endorsement.</p>\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods.)</p>\n\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "vzkeMY"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "vzkeMY",
+      "title": "3.3 Local need and support"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

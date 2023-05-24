@@ -1,0 +1,122 @@
+{
+  "metadata": {},
+  "startPage": "/41-outputs-and-outcomes",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "4.1 Outputs and outcomes",
+      "path": "/41-outputs-and-outcomes",
+      "components": [
+        {
+          "name": "vqEdii",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>who your proposal will support</li>\n<li>referring people to the local authority housing department</li>\n<li>referring people from street outreach services</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-your-proposal-will-support"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/who-your-proposal-will-support",
+      "title": "Who your proposal will support",
+      "components": [
+        {
+          "name": "UEyAEE",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-m\">How many people will the proposal support with the funding?</h2>\n"
+        },
+        {
+          "name": "cYEiGS",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "How many people will the proposal support with the funding in 2023 to 2024?",
+          "hint": "<label class=\"govuk-body\" for=\"cYEiGS\">1 April 2023 to 31 March 2024</label>"
+        },
+        {
+          "name": "ZZisap",
+          "options": {
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "hint": "<label class=\"govuk-body\" for=\"ZZisap\">1 April 2024 to 31 March 2025</label>",
+          "title": "How many people will the proposal support with the funding in 2024 to 2025?"
+        },
+        {
+          "name": "vUJIXx",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-m\">How many people with restricted eligibility will the proposal support?</h2>\n"
+        },
+        {
+          "name": "ZJCVjE",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "hint": "<label class=\"govuk-body\" for=\"ZJCVjE\">1 April 2023 to 31 March 2024</label>",
+          "title": "How many people with restricted eligibility will the proposal support in 2023 to 2024?"
+        },
+        {
+          "name": "dboegN",
+          "options": {
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "How many people with restricted eligibility will the proposal support in 2024 to 2025?",
+          "hint": "<label class=\"govuk-body\" for=\"dboegN\">1 April 2024 to 31 March 2025</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "VeHFTz"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "VeHFTz"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "VeHFTz",
+      "title": "4.1 Outputs and outcomes"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

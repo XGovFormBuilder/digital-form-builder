@@ -1,0 +1,223 @@
+{
+  "metadata": {},
+  "startPage": "/63-match-funding",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "6.3 Match funding",
+      "path": "/63-match-funding",
+      "components": [
+        {
+          "name": "IRCxfO",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>match funding</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-use-match-funding-for-this-proposal"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/will-you-use-match-funding-for-this-proposal",
+      "title": "Will you use match funding for this proposal?",
+      "components": [
+        {
+          "name": "nxpXlE",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Will you use match funding for this proposal?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/match-funding",
+          "condition": "MeqsZE"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "qXObyw"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "qXObyw"
+    },
+    {
+      "path": "/match-funding",
+      "title": "Match funding",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your match funding"
+        }
+      },
+      "components": [
+        {
+          "name": "ENBNvi",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">You can add more funding sources on the next step</p>"
+        },
+        {
+          "name": "uuyBff",
+          "options": {
+            "columnTitles": [
+              "Source",
+              "Amount",
+              "Financial year",
+              "Capital or revenue",
+              "Secured",
+              "Action"
+            ]
+          },
+          "type": "MultiInputField",
+          "title": "Match funding",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "AfAKxk",
+              "options": {
+                "classes": "govuk-!-width-full"
+              },
+              "type": "TextField",
+              "title": "Funding source",
+              "hint": "For example, reserves, trusts and foundations"
+            },
+            {
+              "name": "CrcLtW",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-input--width-10"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "schema": {}
+            },
+            {
+              "name": "ndySbC",
+              "options": { "isMultiInput": true },
+              "type": "RadiosField",
+              "title": "Financial year",
+              "list": "yLdfgD"
+            },
+            {
+              "name": "pATWyM",
+              "options": { "isMultiInput": true },
+              "type": "RadiosField",
+              "title": "Which type of funding is it?",
+              "list": "bJAxlV"
+            },
+            {
+              "name": "sIFBGc",
+              "options": { "isMultiInput": true },
+              "type": "YesNoField",
+              "title": "Is the funding secured?"
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "qXObyw"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Financial year",
+      "name": "yLdfgD",
+      "type": "string",
+      "items": [
+        {
+          "text": "1 April 2023 to 31 March 2024",
+          "value": "1 April 2023 to 31 March 2024"
+        },
+        {
+          "text": "1 April 2024 to 31 March 2025",
+          "value": "1 April 2024 to 31 March 2025"
+        }
+      ]
+    },
+    {
+      "title": "Which type of funding is it?",
+      "name": "bJAxlV",
+      "type": "string",
+      "items": [
+        {
+          "text": "Capital",
+          "value": "Capital"
+        },
+        {
+          "text": "Revenue",
+          "value": "Revenue"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "qXObyw",
+      "title": "6.3 Match funding"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Will you use match funding for this proposal-yes",
+      "name": "MeqsZE",
+      "value": {
+        "name": "Will you use match funding for this proposal-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "nxpXlE",
+              "type": "YesNoField",
+              "display": "Will you use match funding for this proposal?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

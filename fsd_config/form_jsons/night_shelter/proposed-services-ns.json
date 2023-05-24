@@ -1,0 +1,528 @@
+{
+  "metadata": {},
+  "startPage": "/34-proposed-services",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "3.4 Proposed services",
+      "path": "/34-proposed-services",
+      "components": [
+        {
+          "name": "UjWnlf",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how your proposal will transform existing services</li>\n<li>if you plan on making changes to existing services</li>\n<li>which groups your proposal will support</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/tell-us-how-your-proposal-will-transform-your-existing-services"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/tell-us-how-your-proposal-will-transform-your-existing-services",
+      "title": "Tell us how your proposal will transform your existing services",
+      "components": [
+        {
+          "name": "lOliDH",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how your proposal will transform your existing services"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-plan-to-use-this-funding-to-make-any-changes-to-the-existing-night-shelter-or-emergency-accommodation"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/do-you-plan-to-use-this-funding-to-make-any-changes-to-the-existing-night-shelter-or-emergency-accommodation",
+      "title": "Do you plan to use this funding to make any changes to the existing night shelter or emergency accommodation?",
+      "components": [
+        {
+          "name": "dWxxdq",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you plan to use this funding to make any changes to the existing night shelter or emergency accommodation?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-many-single-rooms-will-you-provide-with-the-funding",
+          "condition": "XYEAYX"
+        },
+        {
+          "path": "/do-you-plan-to-use-this-funding-to-make-any-changes-to-the-existing-day-provision"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/how-many-single-rooms-will-you-provide-with-the-funding",
+      "title": "How many single rooms will you provide with the funding?",
+      "components": [
+        {
+          "name": "UEndmh",
+          "options": {
+            "classes": "govuk-input--width-5",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "How many single rooms will you provide with the funding?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-plan-to-use-this-funding-to-make-any-changes-to-the-existing-day-provision"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/do-you-plan-to-use-this-funding-to-make-any-changes-to-the-existing-day-provision",
+      "title": "Do you plan to use this funding to make any changes to the existing day provision?",
+      "components": [
+        {
+          "name": "jzzBDS",
+          "options": { "hideTitle": true },
+          "type": "YesNoField",
+          "title": "Do you plan to use this funding to make any changes to the existing day provision?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-additional-day-provision-will-your-proposal-provide",
+          "condition": "DEKICZ"
+        },
+        {
+          "path": "/will-you-provide-any-other-additional-services"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/which-additional-day-provision-will-your-proposal-provide",
+      "title": "Which additional day provision will your proposal provide?",
+      "components": [
+        {
+          "name": "bGCkPI",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Which additional day provision will your proposal provide?",
+          "hint": "Select all that apply.",
+          "list": "rLgqDC"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-other-additional-day-provision-will-your-proposal-provide",
+          "condition": "fbXgPR"
+        },
+        {
+          "path": "/will-you-provide-any-other-additional-services"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/which-other-additional-day-provision-will-your-proposal-provide",
+      "title": "Which other additional day provision will your proposal provide?",
+      "components": [
+        {
+          "name": "brLcqY",
+          "options": {
+            "hideTitle": true,
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Which other additional day provision will your proposal provide?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-provide-any-other-additional-services"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/will-you-provide-any-other-additional-services",
+      "title": "Will you provide any other additional services?",
+      "components": [
+        {
+          "name": "bCQWFN",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Will you provide any other additional services?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-other-services-will-you-use-the-funding-to-provide",
+          "condition": "uXNzPI"
+        },
+        {
+          "path": "/will-your-proposal-provide-additional-specialist-support"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/which-other-services-will-you-use-the-funding-to-provide",
+      "title": "Which other services will you use the funding to provide?",
+      "components": [
+        {
+          "name": "kPvpzG",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Which other services will you use the funding to provide?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-your-proposal-provide-additional-specialist-support"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/will-your-proposal-provide-additional-specialist-support",
+      "title": "Will your proposal provide additional specialist support?",
+      "components": [
+        {
+          "name": "xYNpHc",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Will your proposal provide additional specialist support?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-will-your-proposal-provide-targeted-specialist-support-to",
+          "condition": "zrgSvA"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/who-will-your-proposal-provide-targeted-specialist-support-to",
+      "title": "Who will your proposal provide targeted specialist support to?",
+      "components": [
+        {
+          "name": "RKPpEV",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Who will your proposal provide targeted specialist support to?",
+          "hint": "Select all that apply.",
+          "list": "ZqdXFg"
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-will-your-proposal-provide-specialist-support-to",
+          "condition": "NQAZeB"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "gIqXgO"
+    },
+    {
+      "path": "/who-will-your-proposal-provide-specialist-support-to",
+      "title": "Who will your proposal provide specialist support to?",
+      "components": [
+        {
+          "name": "HTGgzg",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Who will your proposal provide specialist support to?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "gIqXgO"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Which additional day provision will your proposal provide",
+      "name": "rLgqDC",
+      "type": "string",
+      "items": [
+        {
+          "text": "Outreach",
+          "value": "outreach"
+        },
+        {
+          "text": "Health interventions",
+          "value": "health-interventions"
+        },
+        {
+          "text": "Employment support",
+          "value": "employment-support"
+        },
+        {
+          "text": "Financial advice",
+          "value": "financial-advice"
+        },
+        {
+          "text": "Onsite inreach services from other organisations",
+          "value": "onsite-inreach-services-from-other-organisations"
+        },
+        {
+          "text": "Housing advice",
+          "value": "housing-advice"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "title": "Who will your proposal provide targeted specialist support to",
+      "name": "ZqdXFg",
+      "type": "string",
+      "items": [
+        {
+          "text": "Women",
+          "value": "women"
+        },
+        {
+          "text": "Survivors of domestic abuse",
+          "value": "survivors-of-domestic-abuse"
+        },
+        {
+          "text": "Ethnic minorities",
+          "value": "ethnic-minorities"
+        },
+        {
+          "text": "People who identify as LGBTQIA+ (lesbian, gay, bisexual, transgender, queer, intersex, asexual, and agender)",
+          "value": "people-who-identify-as-LGBTQIA+"
+        },
+        {
+          "text": "Non-UK nationals with restricted eligibility to public funds",
+          "value": "non-UK-nationals-with-restricted-eligibility-to-public-funds"
+        },
+        {
+          "text": "People with mental health problems",
+          "value": "people-with-mental-health-problems"
+        },
+        {
+          "text": "People with social care needs",
+          "value": "people-with-social-care-needs"
+        },
+        {
+          "text": "People experiencing substance misuse",
+          "value": "people-experiencing-substance-misuse"
+        },
+        {
+          "text": "Disabled people",
+          "value": "disabled-people"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "gIqXgO",
+      "title": "3.4 Proposed services"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Do you plan to use this funding to make any changes to the existing night shelter or emergency accommodation-yes",
+      "name": "XYEAYX",
+      "value": {
+        "name": "Do you plan to use this funding to make any changes to the existing night shelter or emergency accommodation-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "dWxxdq",
+              "type": "YesNoField",
+              "display": "Do you plan to use this funding to make any changes to the existing night shelter or emergency accommodation?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you plan to use this funding to make any changes to the existing day provision-yes",
+      "name": "DEKICZ",
+      "value": {
+        "name": "Do you plan to use this funding to make any changes to the existing day provision-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "jzzBDS",
+              "type": "YesNoField",
+              "display": "Do you plan to use this funding to make any changes to the existing day provision?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Which additional day provision will your proposal provide-other",
+      "name": "fbXgPR",
+      "value": {
+        "name": "Which additional day provision will your proposal provide-other",
+        "conditions": [
+          {
+            "field": {
+              "name": "bGCkPI",
+              "type": "CheckboxesField",
+              "display": "Which additional day provision will your proposal provide?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Will you provide any other additional services-yes",
+      "name": "uXNzPI",
+      "value": {
+        "name": "Will you provide any other additional services-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "bCQWFN",
+              "type": "YesNoField",
+              "display": "Will you provide any other additional services?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Will your proposal provide additional specialist support-yes",
+      "name": "zrgSvA",
+      "value": {
+        "name": "Will your proposal provide additional specialist support-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "xYNpHc",
+              "type": "YesNoField",
+              "display": "Will your proposal provide additional specialist support?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Who will your proposal provide targeted specialist support to-other",
+      "name": "NQAZeB",
+      "value": {
+        "name": "Who will your proposal provide targeted specialist support to-other",
+        "conditions": [
+          {
+            "field": {
+              "name": "RKPpEV",
+              "type": "CheckboxesField",
+              "display": "Who will your proposal provide targeted specialist support to?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
