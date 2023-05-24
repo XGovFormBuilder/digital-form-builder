@@ -19,13 +19,10 @@ const parseListAsNotifyTemplate = (
   model: FormModel,
   state: FormSubmissionState
 ) => {
-  return (
-    "" +
-    list.items
-      .filter((item) => checkItemIsValid(model, state, item.condition))
-      .map((item) => `* ${item.value}\n`)
-      .join("")
-  );
+  return `${list.items
+    .filter((item) => checkItemIsValid(model, state, item.condition))
+    .map((item) => `* ${item.value}\n`)
+    .join("")}`;
 };
 
 const checkItemIsValid = (
