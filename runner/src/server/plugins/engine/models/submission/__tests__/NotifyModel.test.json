@@ -41,8 +41,7 @@
       "type": "string",
       "items": [
         { "text": "Item 1", "value": "Item 1", "condition": "KAOicj" },
-        { "text": "Item 2", "value": "Item 2", "condition": "vzzqjG" },
-        { "text": "Item 3", "value": "Item 3" }
+        { "text": "Item 2", "value": "Item 2", "condition": "vzzqjG" }
       ]
     }
   ],
