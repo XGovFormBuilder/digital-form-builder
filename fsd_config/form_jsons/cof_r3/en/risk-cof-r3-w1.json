@@ -38,7 +38,7 @@
             "dropzoneConfig": {
               "maxFiles": 1,
               "parallelUploads": 1,
-              "maxFilesize": 5,
+              "maxFilesize": 10,
               "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
             },
             "showNoScriptWarning": false,
