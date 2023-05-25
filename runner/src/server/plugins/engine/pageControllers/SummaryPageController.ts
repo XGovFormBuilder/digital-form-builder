@@ -183,10 +183,17 @@ export class SummaryPageController extends PageController {
         return redirectTo(request, h, `/${request.params.id}/status`);
       }
 
+      const payReturnUrl =
+        this.model.feeOptions?.payReturnUrl ?? config.payReturnUrl;
+
+      request.logger.info(
+        `payReturnUrl has been configured to ${payReturnUrl}`
+      );
+
       // user must pay for service
       const description = payService.descriptionFromFees(summaryViewModel.fees);
       const url = new URL(
-        `${config.payReturnUrl}/${request.params.id}/status`
+        `${payReturnUrl}/${request.params.id}/status`
       ).toString();
       const res = await payService.payRequest(
         summaryViewModel.fees,
@@ -201,7 +208,7 @@ export class SummaryPageController extends PageController {
           reference: res.reference,
           self: res._links.self.href,
           returnUrl: new URL(
-            `${config.payReturnUrl}/${request.params.id}/status`
+            `${payReturnUrl}/${request.params.id}/status`
           ).toString(),
           meta: {
             amount: summaryViewModel.fees.total,

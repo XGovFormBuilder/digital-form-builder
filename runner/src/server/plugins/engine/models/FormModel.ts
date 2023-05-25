@@ -50,6 +50,11 @@ export class FormModel {
   pages: any;
   startPage: any;
 
+  feeOptions?: {
+    paymentReferenceFormat?: string;
+    payReturnUrl?: string;
+  };
+
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
 
@@ -102,6 +107,8 @@ export class FormModel {
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
+
+    this.feeOptions = def.feeOptions;
   }
 
   /**
