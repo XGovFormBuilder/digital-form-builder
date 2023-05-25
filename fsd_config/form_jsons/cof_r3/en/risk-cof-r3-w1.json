@@ -46,7 +46,7 @@
           },
           "type": "ClientSideFileUploadField",
           "title": "Risks to your project (document upload)",
-          "hint": "<div class=\"govuk-caption-m\">\n<p>Upload a document detailing any risks your project may face.</p>\n<p>You should include:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>a description of the risk</li>\n<li>the likelihood of it happening</li>\n<li>when it may occur</li>\n<li>how you intend to mitigate it</li>\n<li>the likelihood of it happening after mitigation</li>\n</ul> \n\n<p>Do not include any risks to the asset or why it may close, which we asked you about earlier in your application.</p>\n\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</div>\n\n<h2 class=\"govuk-heading-s\">Upload risk document</h2>"
+          "hint": "<div class=\"govuk-caption-m\">\n<p>Upload a document detailing any risks your project may face.</p>\n<p>You should include:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>a description of the risk</li>\n<li>the likelihood of it happening</li>\n<li>when it may occur</li>\n<li>how you intend to mitigate it</li>\n<li>the likelihood of it happening after mitigation</li>\n</ul> \n\n<p>Do not include any risks to the asset or why it may close, which we asked you about earlier in your application.</p>\n\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</div>\n\n<h2 class=\"govuk-heading-s\">Upload risk document</h2>"
         }
       ],
       "next": [
