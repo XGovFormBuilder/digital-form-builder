@@ -116,6 +116,12 @@ export class RepeatingFieldPageController extends PageController {
       const { query } = request;
       const { removeAtIndex, view, returnUrl } = query;
       const { cacheService } = request.services([]);
+      let form_session_identifier = "";
+
+      if (query.form_session_identifier) {
+        form_session_identifier = `form_session_identifier=${query.form_session_identifier}`;
+      }
+
       let state = await cacheService.getState(request);
       const partialState = this.getPartialState(state, view);
       state[this.inputComponent.name] = this.convertMultiInputStringAnswers(
@@ -169,7 +175,9 @@ export class RepeatingFieldPageController extends PageController {
       }
 
       if (typeof partialState !== "undefined") {
-        return this.summary.getRouteHandler(request, h);
+        return h.redirect(
+          `?view=${view ?? "summary&"}${form_session_identifier}`
+        );
       }
 
       return super.makeGetRouteHandler()(request, h);

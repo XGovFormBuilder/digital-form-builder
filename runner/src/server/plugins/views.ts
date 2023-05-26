@@ -82,7 +82,10 @@ export default {
       accessibilityStatementUrl: config.accessibilityStatementUrl,
       phaseTag: config.phaseTag,
       navigation: request?.auth.isAuthenticated
-        ? [{ text: "View all applications", href: config.multifundDashboard }, { text: "Sign out", href: config.logoutUrl }]
+        ? [
+            { text: "View all applications", href: config.multifundDashboard },
+            { text: "Sign out", href: config.logoutUrl },
+          ]
         : null,
     }),
   },
