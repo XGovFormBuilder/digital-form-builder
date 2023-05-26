@@ -245,6 +245,8 @@ export interface ClientSideFileUploadFieldComponent {
     showNoScriptWarning: boolean;
     minimumRequiredFiles: number;
     totalOverallFilesize: number;
+    required: boolean; // these values are set dynamically based on
+    optionalText: boolean; // minimumRequiredFiles being > 0
   };
   schema: {};
 }
