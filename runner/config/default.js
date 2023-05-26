@@ -60,7 +60,7 @@ module.exports = {
   privacyPolicyUrl: "",
   feedbackLink: "#", // Used in your phase banner. Can be a URL or more commonly mailto mailto:feedback@department.gov.uk
   phaseTag: "beta", // Accepts "alpha" |"beta" | ""
-
+  multifundDashboard: "http://localhost:3008/account", //This is used to to redirect to the multifund dashboard
   /**
    * Session storage
    * Redis integration is optional, but recommended for production environments.
