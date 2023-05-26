@@ -70,7 +70,8 @@ export class MultiInputField extends FormComponent {
             outputString +=
               monthYearValue[`${key}__month`] +
               "/" +
-              monthYearValue[`${key}__year : `];
+              monthYearValue[`${key}__year`] +
+              " : ";
           } else {
             outputString += `${this.getPrefix(key)}${value[key]} : `;
           }

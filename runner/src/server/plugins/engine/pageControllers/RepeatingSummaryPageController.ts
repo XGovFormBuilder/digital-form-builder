@@ -97,7 +97,10 @@ export class RepeatingSummaryPageController extends PageController {
     let rows;
     const answers = this.getPartialState(formData);
     if (this.inputComponent.type === "MultiInputField") {
-      rows = this.buildTextFieldRows(answers, this.inputComponent);
+      rows = this.buildTextFieldRows(
+        answers,
+        formData.metadata.form_session_identifier
+      );
       return {
         ...baseViewModel,
         customText: this.options.customText,
@@ -169,6 +172,11 @@ export class RepeatingSummaryPageController extends PageController {
 
   buildTextFieldRows(answers, form_session_identifier, view = false) {
     const { title = "" } = this.inputComponent;
+
+    form_session_identifier
+      ? `&form_session_identifier=${form_session_identifier}`
+      : "";
+
     return answers?.map((value, i) => {
       const rowValues: string[] = [];
       for (const key in value) {
@@ -217,13 +225,19 @@ export class RepeatingSummaryPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService, statusService } = request.services([]);
       const state = await cacheService.getState(request);
+      const query = request.query;
+      let form_session_identifier = "";
+
+      if (query.form_session_identifier) {
+        form_session_identifier = `form_session_identifier=${query.form_session_identifier}`;
+      }
 
       if (request.payload?.next === "increment") {
         const nextIndex = this.nextIndex(state);
         let returnUrl =
           this.returnUrl !== undefined ? `&returnUrl=${this.returnUrl}` : "";
         return h.redirect(
-          `/${this.model.basePath}${this.path}?view=${nextIndex}${returnUrl}`
+          `/${this.model.basePath}${this.path}?view=${nextIndex}${returnUrl}&${form_session_identifier}`
         );
       }
 
@@ -255,7 +269,7 @@ export class RepeatingSummaryPageController extends PageController {
         return h.redirect(this.returnUrl);
       }
 
-      return h.redirect(this.getNext(request.payload));
+      return h.redirect(this.getNext(state) + `?${form_session_identifier}`);
     };
   }
 }

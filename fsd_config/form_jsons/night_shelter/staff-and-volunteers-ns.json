@@ -1,0 +1,102 @@
+{
+  "metadata": {},
+  "startPage": "/21-staff-and-volunteers",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "2.1 Staff and volunteers",
+      "path": "/21-staff-and-volunteers",
+      "components": [
+        {
+          "name": "HbtBmC",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>number of people working full time</li>\n<li>number of people working part time</li>\n<li>number of volunteers</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/employed-staff-and-volunteers-at-your-organisation"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/employed-staff-and-volunteers-at-your-organisation",
+      "title": "Employed staff and volunteers at your organisation",
+      "components": [
+        {
+          "name": "bcJWbJ",
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "How many staff members are currently employed in your organisation?"
+        },
+        {
+          "name": "pwPYdF",
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "How many volunteers are actively involved in your organisation?"
+        },
+        {
+          "name": "VXKVmM",
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
+          "type": "TextField",
+          "title": "What percentage of your employed staff work part-time?"
+        },
+        {
+          "name": "wOUNbF",
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "For part-time employees, what is their average full-time equivalency (FTE)?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "ibsaRz"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "ibsaRz"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "ibsaRz",
+      "title": "2.1 Staff and volunteers"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

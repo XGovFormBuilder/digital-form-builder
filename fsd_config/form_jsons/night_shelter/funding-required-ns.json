@@ -1,0 +1,485 @@
+{
+  "metadata": {},
+  "startPage": "/61-funding-required",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "6.1 Funding required",
+      "path": "/61-funding-required",
+      "components": [
+        {
+          "name": "iMcDuZ",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>total funding request</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-funding-are-you-applying-for"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/what-funding-are-you-applying-for",
+      "title": "What funding are you applying for?",
+      "components": [
+        {
+          "name": "NxVqXd",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "What funding are you applying for?",
+          "list": "zbGNZm"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-much-revenue-are-you-applying-for",
+          "condition": "ckqXtV"
+        },
+        {
+          "path": "/how-much-capital-are-you-applying-for",
+          "condition": "cQScgX"
+        },
+        {
+          "path": "/how-much-funding-are-you-applying-for",
+          "condition": "CjEikm"
+        }
+      ],
+      "section": "LABTna"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "LABTna"
+    },
+    {
+      "path": "/how-much-revenue-are-you-applying-for",
+      "title": "How much revenue are you applying for?",
+      "components": [
+        {
+          "name": "pVBwci",
+          "options": {
+            "hideTitle": true,
+            "prefix": "£",
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "Revenue for 1 April 2023 to 31 March 2024",
+          "hint": "<label class=\"govuk-body\" for=\"pVBwci\">1 April 2023 to 31 March 2024</label>"
+        },
+        {
+          "name": "WDouQc",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "Revenue for 1 April 2024 to 31 March 2025",
+          "hint": "<label class=\"govuk-body\" for=\"WDouQc\">1 April 2024 to 31 March 2025</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/revenue-funding"
+        }
+      ],
+      "section": "LABTna"
+    },
+    {
+      "path": "/how-much-capital-are-you-applying-for",
+      "title": "How much capital are you applying for?",
+      "components": [
+        {
+          "name": "SGjmSM",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "Capital for 1 April 2023 to 31 March 2024",
+          "hint": "<label class=\"govuk-body\" for=\"SGjmSM\">1 April 2023 to 31 March 2024</label>"
+        },
+        {
+          "name": "wTdyhk",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "Capital for 1 April 2024 to 31 March 2025",
+          "hint": "<label class=\"govuk-body\" for=\"wTdyhk\">1 April 2024 to 31 March 2025</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/capital-funding"
+        }
+      ],
+      "section": "LABTna"
+    },
+    {
+      "path": "/how-much-funding-are-you-applying-for",
+      "title": "How much funding are you applying for?",
+      "components": [
+        {
+          "name": "GRWtfV",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "Both revenue and capital",
+          "hint": "<label class=\"govuk-body\" for=\"GRWtfV\">Revenue funding 1 April 2023 to 31 March 2024</label>"
+        },
+        {
+          "name": "zvPzXN",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "hint": "<label class=\"govuk-body\" for=\"zvPzXN\">Revenue funding 1 April 2024 to 31 March 2025</label>",
+          "title": "Revenue for 1 April 2024 to 31 March 2025"
+        },
+        {
+          "name": "QUCvFy",
+          "options": {
+            "suffix": "",
+            "prefix": "£",
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "Capital for 1 April 2023 to 31 March 2024",
+          "hint": "<label class=\"govuk-body\" for=\"QUCvFy\">Capital funding 1 April 2023 to 31 March 2024</label>"
+        },
+        {
+          "name": "pppiYl",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "hint": "Capital funding 1 April 2024 to 31 March 2025",
+          "title": "Capital for 1 April 2024 to 31 March 2025"
+        }
+      ],
+      "next": [
+        {
+          "path": "/revenue-funding"
+        }
+      ],
+      "section": "LABTna"
+    },
+    {
+      "path": "/revenue-funding",
+      "title": "Revenue funding",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your revenue costs"
+        }
+      },
+      "components": [
+        {
+          "name": "HlpzLk",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-hint\">You can add more items on the next step.</p>"
+        },
+        {
+          "name": "mCbbyN",
+          "options": {
+            "columnTitles": [
+              "Item of expenditure",
+              "Amount",
+              "Financial year",
+              "How it's been calculated",
+              "Action"
+            ]
+          },
+          "type": "MultiInputField",
+          "title": "Revenue costs",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "dpDFgB",
+              "options": {
+                "classes": "govuk-input--width-20"
+              },
+              "type": "TextField",
+              "title": "Item of expenditure",
+              "hint": "For example, staff, IT, travel, marketing or advertising."
+            },
+            {
+              "name": "iZdZrr",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-input--width-10"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "schema": {}
+            },
+            {
+              "name": "leIxEX",
+              "options": { "isMultiInput": true },
+              "type": "RadiosField",
+              "title": "Financial year",
+              "list": "diKlGa"
+            },
+            {
+              "name": "TrTaZQ",
+              "options": {
+                "required": false,
+                "classes": "govuk-!-width-full"
+              },
+              "type": "TextField",
+              "title": "How the expenditure is calculated (optional)",
+              "hint": "For example, pro rata staff salary."
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/capital-funding",
+          "condition": "CjEikm"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "LABTna"
+    },
+    {
+      "path": "/capital-funding",
+      "title": "Capital funding",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your capital costs"
+        }
+      },
+      "components": [
+        {
+          "name": "fZxwWr",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">You can add more items on the next step.</p>"
+        },
+        {
+          "name": "XsAoTv",
+          "options": {
+            "columnTitles": [
+              "Item of expenditure",
+              "Amount",
+              "Financial year",
+              "How it's been calculated",
+              "Action"
+            ]
+          },
+          "type": "MultiInputField",
+          "title": "Capital costs",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "cpFthG",
+              "options": {
+                "classes": "govuk-input--width-20"
+              },
+              "type": "TextField",
+              "title": "Item of expenditure",
+              "hint": "For example, staff, IT, travel, marketing or advertising."
+            },
+            {
+              "name": "JtBjFp",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-input--width-10"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "schema": {}
+            },
+            {
+              "name": "mmwzGc",
+              "options": { "isMultiInput": true },
+              "type": "RadiosField",
+              "title": "Financial year",
+              "list": "diKlGa"
+            },
+            {
+              "name": "pMffVz",
+              "options": {
+                "required": false,
+                "classes": "govuk-!-width-full"
+              },
+              "type": "TextField",
+              "title": "How the expenditure is calculated (optional)",
+              "hint": "For example, pro rata staff salary."
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "LABTna"
+    }
+  ],
+  "lists": [
+    {
+      "title": "What funding are you applying for",
+      "name": "zbGNZm",
+      "type": "string",
+      "items": [
+        {
+          "text": "Revenue",
+          "value": "revenue"
+        },
+        {
+          "text": "Capital",
+          "value": "capital"
+        },
+        {
+          "text": "Both revenue and capital",
+          "value": "both-revenue-and-capital"
+        }
+      ]
+    },
+    {
+      "title": "Financial year",
+      "name": "diKlGa",
+      "type": "string",
+      "items": [
+        {
+          "text": "1 April 2023 to 31 March 2024",
+          "value": "1 April 2023 to 31 March 2024"
+        },
+        {
+          "text": "1 April 2024 to 31 March 2025",
+          "value": "1 April 2024 to 31 March 2025"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "LABTna",
+      "title": "6.1 Funding required"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "What funding are you applying for-revenue",
+      "name": "ckqXtV",
+      "value": {
+        "name": "What funding are you applying for-revenue",
+        "conditions": [
+          {
+            "field": {
+              "name": "NxVqXd",
+              "type": "RadiosField",
+              "display": "What funding are you applying for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "revenue",
+              "display": "revenue"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "What funding are you applying for-capital",
+      "name": "cQScgX",
+      "value": {
+        "name": "What funding are you applying for-capital",
+        "conditions": [
+          {
+            "field": {
+              "name": "NxVqXd",
+              "type": "RadiosField",
+              "display": "What funding are you applying for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "capital",
+              "display": "capital"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "What funding are you applying for-both revenue and capital",
+      "name": "CjEikm",
+      "value": {
+        "name": "What funding are you applying for-both revenue and capital",
+        "conditions": [
+          {
+            "field": {
+              "name": "NxVqXd",
+              "type": "RadiosField",
+              "display": "What funding are you applying for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "both-revenue-and-capital",
+              "display": "both-revenue-and-capital"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

@@ -13,12 +13,16 @@
         {% if item.componentType == "TextField"%}    
         {{ govukInput(item) }}
         {% elif item.componentType == "MultilineTextField"%}
-        {{ govukTextarea(item) }}
+            {% if item.isCharacterOrWordCount %}
+                {{ govukCharacterCount(item) }}
+            {% else %}
+                {{ govukTextarea(item) }}
+            {% endif %}        
         {% elif item.componentType == "DatePartsField" %}
         {{ govukDateInput(item) }}
         {% elif item.componentType == "NumberField" %}
         {{ govukInput(item) }}
-        {% elif item.componentType == "RadiosField" %}
+        {% elif item.componentType == "RadiosField" or item.componentType == "YesNoField"%}
         {{ govukRadios(item) }}
         {% elif item.componentType == "MonthYearField" %}
         {{ govukDateInput(item) }}

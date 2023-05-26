@@ -1,0 +1,487 @@
+{
+  "metadata": {},
+  "startPage": "/12-organisation-type",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "1.2 Organisation type",
+      "path": "/12-organisation-type",
+      "components": [
+        {
+          "name": "XkKtNg",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>organisation type</li>\n<li>charity registration number (if applicable)</li>\n<li>company registration number (if applicable)</li>\n<li>names of trustees or committee members (if applicable)</li>\n<li>organisation operating time (if applicable)</li>\n</ul>\n<p class=\"govuk-body\"><label class=\"govuk-!-font-weight-bold\">We might ask you to upload:\n</label>\n</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>your organisation’s annual accounts from the last 3 years (if applicable)</li>\n<li>your organisation’s annual accounts that are available (if applicable)</li>\n<li>a current bank statement from your organisation, less than 2 years old (if applicable)</li>\n<li>names of trustees or committee members (if applicable)</li>\n<li>your organisation’s annual budget (if applicable)</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-is-your-organisation-classified"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/how-is-your-organisation-classified",
+      "title": "How is your organisation classified?",
+      "components": [
+        {
+          "name": "ChXWIQ",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "How is your organisation classified?",
+          "list": "lSGckg",
+          "hint": "Select all that apply."
+        }
+      ],
+      "next": [
+        {
+          "path": "/company-registration-number-optional"
+        },
+        {
+          "path": "/how-is-your-organisation-classified-XWCaKu",
+          "condition": "hkHDJg"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/check-your-answers",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/company-registration-number-optional",
+      "title": "Company registration number (optional)",
+      "components": [
+        {
+          "name": "vtOZNq",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-input--width-20",
+            "required": false,
+            "optionalText": true
+          },
+          "type": "NumberField",
+          "title": "Company registration number",
+          "hint": "For example, 10527177."
+        }
+      ],
+      "next": [
+        {
+          "path": "/charity-number-optional"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/charity-number-optional",
+      "title": "Charity number (optional)",
+      "components": [
+        {
+          "name": "GnjTGi",
+          "options": {
+            "classes": "govuk-input--width-20",
+            "required": false,
+            "optionalText": false
+          },
+          "type": "NumberField",
+          "title": "Charity number"
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/how-is-your-organisation-classified-XWCaKu",
+      "title": "How is your organisation classified?",
+      "components": [
+        {
+          "name": "ETJaFn",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "title": "How is your organisation classified?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/names-of-trustees-or-committee-members"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/names-of-trustees-or-committee-members",
+      "title": "Names of trustees or committee members",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your trustees or committee members"
+        }
+      },
+      "components": [
+        {
+          "name": "SLrVRM",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">You can add more names on the next step.</p>"
+        },
+        {
+          "name": "ILVEOG",
+          "options": {
+            "columnTitles": ["Full name", "Action"]
+          },
+          "type": "MultiInputField",
+          "title": "MultiInputField",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "mrCotx",
+              "options": {},
+              "type": "TextField",
+              "title": "Full name",
+              "hint": ""
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-long-has-your-organisation-been-operating"
+        }
+      ],
+      "controller": "RepeatingFieldPageController",
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/how-long-has-your-organisation-been-operating",
+      "title": "How long has your organisation been operating?",
+      "components": [
+        {
+          "name": "TgBzyM",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "How long has your organisation been operating?",
+          "hint": "Select one option",
+          "list": "PFKeTS"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-your-organisations-annual-accounts-from-the-last-3-years",
+          "condition": "QseltH"
+        },
+        {
+          "path": "/upload-your-organisations-annual-accounts-that-you-have-available",
+          "condition": "dLYbqk"
+        },
+        {
+          "path": "/upload-a-current-bank-statement-which-is-less-than-2-months-old",
+          "condition": "OBitex"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/upload-your-organisations-annual-accounts-from-the-last-3-years",
+      "title": "Upload your organisation's annual accounts from the last 3 years",
+      "components": [
+        {
+          "name": "ZMgdzY",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).",
+          "title": "Upload your organisation's annual accounts from the last 3 years"
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/upload-your-organisations-annual-accounts-that-you-have-available",
+      "title": "Upload your organisation's annual accounts that you have available",
+      "components": [
+        {
+          "name": "sVlFcN",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).",
+          "title": "Upload your organisation's annual accounts that you have available"
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/upload-a-current-bank-statement-which-is-less-than-2-months-old",
+      "title": "Upload a current bank statement which is less than 2 months old",
+      "components": [
+        {
+          "name": "OrWSBk",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload a current bank statement which is less than 2 months old",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods)."
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-an-annual-budget-for-your-organisation"
+        }
+      ],
+      "section": "qaFvvN"
+    },
+    {
+      "path": "/upload-an-annual-budget-for-your-organisation",
+      "title": "Upload an annual budget for your organisation",
+      "components": [
+        {
+          "name": "bgHVXX",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload an annual budget for your organisation",
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods)."
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-answers"
+        }
+      ],
+      "section": "qaFvvN"
+    }
+  ],
+  "lists": [
+    {
+      "title": "How is your organisation classified?",
+      "name": "lSGckg",
+      "type": "string",
+      "items": [
+        {
+          "text": "Charity",
+          "value": "charity"
+        },
+        {
+          "text": "Company limited by guarantee",
+          "value": "company-limited-by-guarantee"
+        },
+        {
+          "text": "Charitable incorporated organisation",
+          "value": "charitable-incorporated-organisation"
+        },
+        {
+          "text": "Community interest company",
+          "value": "community-interest-company"
+        },
+        {
+          "text": "Community benefits society",
+          "value": "community-benefits-society"
+        },
+        {
+          "text": "None of these",
+          "value": "none",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "title": "How long has your organisation been operating?",
+      "name": "PFKeTS",
+      "type": "string",
+      "items": [
+        {
+          "text": "More than 3 years",
+          "value": "more-than-3-years"
+        },
+        {
+          "text": "More than 2 years, but less than 3",
+          "value": "more-than-2-years-but-less-than-3"
+        },
+        {
+          "text": "Less than 2 years",
+          "value": "less-than-2-years"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "qaFvvN",
+      "title": "1.2 Organisation type"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "How is your organisation classified-none",
+      "name": "hkHDJg",
+      "value": {
+        "name": "How is your organisation classified-none",
+        "conditions": [
+          {
+            "field": {
+              "name": "ChXWIQ",
+              "type": "CheckboxesField",
+              "display": "How is your organisation classified?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "none",
+              "display": "none"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "How long has your organisation been operating-more than 3",
+      "name": "QseltH",
+      "value": {
+        "name": "How long has your organisation been operating-more than 3",
+        "conditions": [
+          {
+            "field": {
+              "name": "TgBzyM",
+              "type": "RadiosField",
+              "display": "How long has your organisation been operating?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "more-than-3-years",
+              "display": "more-than-3-years"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "How long has your organisation been operating-more than 2 years, but less than 3",
+      "name": "dLYbqk",
+      "value": {
+        "name": "How long has your organisation been operating-more than 2 years, but less than 3",
+        "conditions": [
+          {
+            "field": {
+              "name": "TgBzyM",
+              "type": "RadiosField",
+              "display": "How long has your organisation been operating?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "more-than-2-years-but-less-than-3",
+              "display": "more-than-2-years-but-less-than-3"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "How long has your organisation been operating-less than 2 years",
+      "name": "OBitex",
+      "value": {
+        "name": "How long has your organisation been operating-less than 2 years",
+        "conditions": [
+          {
+            "field": {
+              "name": "TgBzyM",
+              "type": "RadiosField",
+              "display": "How long has your organisation been operating?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "less-than-2-years",
+              "display": "less-than-2-years"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

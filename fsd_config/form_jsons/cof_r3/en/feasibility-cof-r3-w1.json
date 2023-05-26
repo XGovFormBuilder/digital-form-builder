@@ -85,7 +85,7 @@
           },
           "type": "FreeTextField",
           "title": "Describe the feasibility work you still need to complete",
-          "hint": "Include details of your plans and when you expect to complete them"
+          "hint": "Include details of your plans and when you expect to complete them."
         }
       ],
       "next": [
