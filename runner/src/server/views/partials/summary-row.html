@@ -12,7 +12,7 @@
             {% elif item.type == 'NumberField' %}
                 {{item.prefix}}{{item.value}}
             {% elif item.type == 'ClientSideFileUploadField' %}
-                {% if not item.value.files %}
+                {% if item.value.files|length == 0 %}
                     {{ notSuppliedText }}
                 {% else %}
                     {% for file in item.value.files %}
