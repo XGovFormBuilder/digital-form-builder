@@ -25,7 +25,6 @@ export const configSchema = Joi.object({
   ordnanceSurveyKey: Joi.string().optional(),
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string(),
-  multifundDashboard: Joi.string(),
   phaseTag: Joi.string().optional().valid("", "alpha", "beta"),
   gtmId1: Joi.string().optional(),
   gtmId2: Joi.string().optional(),
@@ -90,6 +89,7 @@ export const configSchema = Joi.object({
   jwtRedirectToAuthenticationUrl: Joi.string().optional(),
   rsa256PublicKeyBase64: Joi.string().optional(),
   logoutUrl: Joi.string().optional(),
+  multifundDashboard: Joi.string(),
   basicAuthOn: Joi.boolean().optional(),
   overwriteInitialisedSession: Joi.boolean().optional(),
 });
