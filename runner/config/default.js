@@ -118,6 +118,7 @@ module.exports = {
   // authClientTokenUrl: "", // oAuth client token endpoint
   // authClientProfileUrl: "" // oAuth client user profile endpoint
   logoutUrl: "/logout",
+  multifundDashboard: "/account", //This is used to to redirect to the multifund dashboard
   basicAuthOn: false,
   overwriteInitialisedSession: true,
 

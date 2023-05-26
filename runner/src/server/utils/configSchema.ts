@@ -89,6 +89,7 @@ export const configSchema = Joi.object({
   jwtRedirectToAuthenticationUrl: Joi.string().optional(),
   rsa256PublicKeyBase64: Joi.string().optional(),
   logoutUrl: Joi.string().optional(),
+  multifundDashboard: Joi.string(),
   basicAuthOn: Joi.boolean().optional(),
   overwriteInitialisedSession: Joi.boolean().optional(),
 });
