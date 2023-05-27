@@ -1,7 +1,7 @@
 {
   "metadata": {},
   "startPage": "/cynrychiolaeth-gymunedol",
-  "backLinkText": "Go back to application overview",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
     {
       "title": "Cynrychiolaeth gymunedol",
@@ -11,19 +11,19 @@
           "name": "gwrwki",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>members of your board</li>\n<li>governance and membership structures</li>\n<li>how you'll consider the community's views</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>aelodau eich bwrdd</li>\n<li>strwythurau llywodraethu ac aelodaeth</li>\n<li>sut byddwch chi'n ystyried barn y gymuned</li>\n</ul>"
         }
       ],
       "next": [
         {
-          "path": "/how-youll-run-the-asset"
+          "path": "/sut-byddwch-chin-rhedeg-yr-ased"
         }
       ],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/how-youll-run-the-asset",
-      "title": "How you’ll run the asset",
+      "path": "/sut-byddwch-chin-rhedeg-yr-ased",
+      "title": "Sut byddwch chi'n rhedeg yr ased",
       "components": [
         {
           "name": "ReomFo",
@@ -31,8 +31,8 @@
             "maxWords": "500"
           },
           "type": "FreeTextField",
-          "title": "List the members of your board",
-          "hint": "Please include their:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>role</li>\n<li>main responsibilities</li>\n</ul>\n<p>You can use your business plan to provide information that supports your answers.</p>"
+          "title": "Rhestrwch aelodau eich bwrdd",
+          "hint": "Cynhwyswch:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>eu rôl</li>\n<lieu prif gyfrifoldebau</li>\n</ul>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
         },
         {
           "name": "fjVmOt",
@@ -40,7 +40,7 @@
             "maxWords": "500"
           },
           "type": "FreeTextField",
-          "title": "Tell us about your governance and membership structures"
+          "title": "Dywedwch wrthym am eich strwythurau llywodraethu ac aelodaeth"
         },
         {
           "name": "GETNxN",
@@ -48,8 +48,8 @@
             "maxWords": "500"
           },
           "type": "FreeTextField",
-          "title": "Explain how you'll consider the views of the community in the running of the asset",
-          "hint": "Include how they'll be involved in decision making, and how you'll measure public support for your decisions"
+          "title": "Eglurwch sut byddwch chi'n ystyried barn y gymuned wrth redeg yr ased",
+          "hint": "Cynhwyswch y modd y byddant yn cael eu cynnwys wrth wneud penderfyniadau, a sut byddwch chi'n mesur cefnogaeth gyhoeddus i'ch penderfyniadau"
         }
       ],
       "next": [
@@ -60,7 +60,7 @@
       "section": "KbnmOO"
     },
     {
-      "title": "Check your answers",
+      "title": "Gwiriwch eich atebion",
       "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
@@ -80,7 +80,7 @@
   "outputs": [
     {
       "name": "update-form",
-      "title": "Update form in application store",
+      "title": "Diweddaru'r ffurflen yn y cais",
       "type": "savePerPage",
       "outputConfiguration": {
         "savePerPageUrl": "True"
@@ -89,7 +89,7 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "name": "Apply for funding to save an asset in your community",
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
   "feedback": {
     "feedbackForm": false,
     "url": ""
