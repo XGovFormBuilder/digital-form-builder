@@ -1,0 +1,133 @@
+{
+  "metadata": {},
+  "startPage": "/community-engagement",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Community engagement",
+      "path": "/community-engagement",
+      "components": [
+        {
+          "name": "ImjRDZ",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>who you have engaged with in the community</li>\n<li>fundraising activities</li>\n<li>how your project supports wider plans</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-youve-engaged-with-the-community"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/how-youve-engaged-with-the-community",
+      "title": "How you've engaged with the community",
+      "components": [
+        {
+          "name": "azCutK",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how you have engaged with the community about your intention to take ownership of the asset",
+          "hint": "Give examples of the different ways you've engaged with people, and how this has shaped your project plans."
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-fundraising-activities"
+        }
+      ],
+      "section": "lmdhVN"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "lmdhVN"
+    },
+    {
+      "path": "/your-fundraising-activities",
+      "title": "Your fundraising activities",
+      "components": [
+        {
+          "name": "jAhuWN",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Describe your fundraising activities"
+        }
+      ],
+      "next": [
+        {
+          "path": "/partnerships-and-local-plans"
+        }
+      ],
+      "section": "lmdhVN"
+    },
+    {
+      "path": "/partnerships-and-local-plans",
+      "title": "Partnerships and local plans",
+      "components": [
+        {
+          "name": "HYsezC",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us about any partnerships you've formed, and how they'll help the project be successful",
+          "hint": "For example, any agreements you've reached with other local businesses or community organisations."
+        },
+        {
+          "name": "GGBgBY",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how your project supports any wider local plans",
+          "hint": "These could include plans led by the council, local businesses or the community."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "lmdhVN"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "lmdhVN",
+      "title": "Community engagement"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
