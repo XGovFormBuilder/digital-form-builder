@@ -1,29 +1,29 @@
 {
-  "metadata": {},
-  "startPage": "/applicant-information",
-  "backLinkText": "Go back to application overview",
+  "metadata": { "isWelsh": true },
+  "startPage": "/gwybodaeth-am-yr-ymgeisydd",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
     {
-      "title": "Applicant information",
-      "path": "/applicant-information",
+      "title": "Gwybodaeth am yr ymgeisydd",
+      "path": "/gwybodaeth-am-yr-ymgeisydd",
       "components": [
         {
           "name": "UtVqvP",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>lead contact name</li>\n<li>lead contact job title</li>\n<li>lead contact email address</li>\n<li>lead contact telephone number</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>enw'r cyswllt arweiniol</li>\n<li>teitl swydd cyswllt arweiniol</li>\n<li>cyfeiriad e-bost y cyswllt arweiniol</li>\n<li>rhif ffôn y cyswllt arweiniol</li>\n</ul>"
         }
       ],
       "next": [
         {
-          "path": "/lead-contact-details"
+          "path": "/manylion-y-prif-gyswllt"
         }
       ],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/lead-contact-details",
-      "title": "Lead contact details",
+      "path": "/manylion-y-prif-gyswllt",
+      "title": "Manylion y prif gyswllt",
       "components": [
         {
           "name": "SnLGJE",
@@ -31,8 +31,8 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
-          "title": "Name of lead contact",
-          "hint": "They will receive all the information about this application."
+          "title": "Enw'r cyswllt arweiniol",
+          "hint": "Bydd yn derbyn yr holl wybodaeth am y cais hwn.."
         },
         {
           "name": "qRDTUc",
@@ -40,7 +40,7 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
-          "title": "Lead contact job title"
+          "title": "Teitl swydd cyswllt arweiniol"
         },
         {
           "name": "NlHSBg",
@@ -48,7 +48,7 @@
             "classes": "govuk-!-width-full"
           },
           "type": "EmailAddressField",
-          "title": "Lead contact email address"
+          "title": "Cyfeiriad e-bost y cyswllt arweiniol"
         },
         {
           "name": "FhBkJQ",
@@ -56,7 +56,7 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TelephoneNumberField",
-          "title": "Lead contact telephone number"
+          "title": "Rhif ffôn y cyswllt arweiniol"
         }
       ],
       "next": [
@@ -67,7 +67,7 @@
       "section": "ZuHuGk"
     },
     {
-      "title": "Check your answers",
+      "title": "Gwiriwch eich atebion",
       "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
@@ -79,7 +79,7 @@
   "sections": [
     {
       "name": "ZuHuGk",
-      "title": "Applicant information"
+      "title": "Gwybodaeth am yr ymgeisydd"
     }
   ],
   "conditions": [],
@@ -96,5 +96,5 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "name": "Apply for funding to save an asset in your community"
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned"
 }
