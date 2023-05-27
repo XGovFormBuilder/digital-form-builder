@@ -1,0 +1,100 @@
+{
+  "metadata": {},
+  "startPage": "/applicant-information",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Applicant information",
+      "path": "/applicant-information",
+      "components": [
+        {
+          "name": "UtVqvP",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>lead contact name</li>\n<li>lead contact job title</li>\n<li>lead contact email address</li>\n<li>lead contact telephone number</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/lead-contact-details"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/lead-contact-details",
+      "title": "Lead contact details",
+      "components": [
+        {
+          "name": "SnLGJE",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Name of lead contact",
+          "hint": "They will receive all the information about this application."
+        },
+        {
+          "name": "qRDTUc",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Lead contact job title"
+        },
+        {
+          "name": "NlHSBg",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "EmailAddressField",
+          "title": "Lead contact email address"
+        },
+        {
+          "name": "FhBkJQ",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TelephoneNumberField",
+          "title": "Lead contact telephone number"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "ZuHuGk"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "ZuHuGk"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "ZuHuGk",
+      "title": "Applicant information"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community"
+}
