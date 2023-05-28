@@ -48,18 +48,19 @@ def convert_json_to_welsh(translations_excel_file, original_json_filepath, trans
     def traverse(obj):
         if isinstance(obj, dict):
             if ('path' in obj) and ('title' in obj):
-                if (obj['path'] != "/summary"):
+                if (obj['path'] != "/summary"): # path keys are translated later
                     translation_dict[obj['path']] = replace_welsh_special_characters('/' + translation_dict[obj['title']].lower().replace("'","-").replace(" ","-"))
             for key, value in obj.items():
                 if isinstance(value, str):
                     if value in translation_dict:
                         obj[key] = translation_dict[value]
                     else:
-                        new_value = value
-                        for k,v in translation_dict.items():
-                            if k in value:
-                                new_value = new_value.replace(k,v)
-                        obj[key] = new_value
+                        if (key == 'content') or (key == 'hint'): # path keys are translated later
+                            new_value = value
+                            for k,v in translation_dict.items():
+                                if k in value:
+                                    new_value = new_value.replace(k,v)
+                            obj[key] = new_value
                 else:
                     traverse(value)
         elif isinstance(obj, list):
@@ -106,18 +107,18 @@ def init_argparse() -> argparse.ArgumentParser:
 
 
 if __name__ == "__main__":
-    parser = init_argparse()
-    args = parser.parse_args()
+    # parser = init_argparse()
+    # args = parser.parse_args()
 
-    excel_filepath = args.excel_filepath
-    original_json_filepath = args.original_json_filepath
-    translated_json_filepath = args.translated_json_filepath
+    # excel_filepath = args.excel_filepath
+    # original_json_filepath = args.original_json_filepath
+    # translated_json_filepath = args.translated_json_filepath
 
-    convert_json_to_welsh(excel_filepath, original_json_filepath, translated_json_filepath)
+    # convert_json_to_welsh(excel_filepath, original_json_filepath, translated_json_filepath)
 
-    # # Uncomment this for local testing
-    # # example usage 1
+    # Uncomment this for local testing
+    # example usage 1
     # convert_json_to_welsh('translations/feasibilty.xlsx', 'feasibility-cof-r3-w1.json', 'welsh-feasibility-cof-r3-w1.json')
 
-    # # example usage 2
-    # convert_json_to_welsh('translations/feasibilty.xlsx', 'feasibility-cof-r3-w1.json')
+    # example usage 2
+    convert_json_to_welsh('translations/upload_business_plan.xlsx', 'fsd_config/form_jsons/cof_r3/cy/upload-business-plan-cof-r3-w1.json')
