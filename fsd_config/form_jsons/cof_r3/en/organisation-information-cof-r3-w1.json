@@ -132,13 +132,6 @@
       "title": "Purpose and activities",
       "components": [
         {
-          "name": "KYKyud",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class=\"govuk-heading-m\">Purpose and activities</h2>",
-          "schema": {}
-        },
-        {
           "name": "emVGxS",
           "options": {
             "maxWords": "500"
