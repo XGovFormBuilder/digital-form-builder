@@ -6,7 +6,10 @@ import json
 
 def convert_json_to_welsh(translations_excel_file, original_json_filepath, translated_json_filepath=None):
     """Convert english json file `original_json_filepath` to welsh json `translated_json_filepath`
-    using the translations from excel `translations_excel_file`."""
+    using the translations from excel `translations_excel_file`.
+
+    Note: Due to the quality of the translations provided (case-sensitive, missing characters(., ?, ', ’ )
+    in translation), coverstion to welsh is not 100% accurate. Please manually review the converted welsh json."""
 
     def replace_welsh_special_characters(welsh_str):
         welsh_chars = "âêîôûŵŷäëïöüẅÿáéíóúýàèìòùỳ"
@@ -14,9 +17,6 @@ def convert_json_to_welsh(translations_excel_file, original_json_filepath, trans
 
         # create translation table
         trans_table = str.maketrans(welsh_chars, english_replacements)
-
-        # example string to check and replace
-        example_str = "Dwi'n hoffi coffi â siocled"
 
         # check for welsh characters using set intersection
         if set(welsh_str).intersection(set(welsh_chars)):
@@ -49,7 +49,8 @@ def convert_json_to_welsh(translations_excel_file, original_json_filepath, trans
         if isinstance(obj, dict):
             if ('path' in obj) and ('title' in obj):
                 if (obj['path'] != "/summary"): # path keys are translated later
-                    translation_dict[obj['path']] = replace_welsh_special_characters('/' + translation_dict[obj['title']].lower().replace("'","-").replace(" ","-"))
+                    translation_dict[obj['path']] = replace_welsh_special_characters(
+                        '/' + translation_dict[obj['title']].lower().replace("'", "-").replace(" ", "-"))
             for key, value in obj.items():
                 if isinstance(value, str):
                     if value in translation_dict:
@@ -88,6 +89,7 @@ def convert_json_to_welsh(translations_excel_file, original_json_filepath, trans
     if "startPage" in data:
         data["startPage"] = data["pages"][0]["path"]
 
+    # Output filename if not provided
     if translated_json_filepath is None:
         translated_json_filepath = data["startPage"][1:] + "-cof-r3-w1.json"
 
@@ -95,7 +97,8 @@ def convert_json_to_welsh(translations_excel_file, original_json_filepath, trans
     with open(translated_json_filepath, 'w', encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False)
 
-    print(f"Successfully converted to welsh json file:'{translated_json_filepath}'")
+    print("Warning: Coverstion to welsh json is not 100% accuarte. Please manually review the converted welsh json file.")
+    print(f"Successfully converted & created welsh json file:'{translated_json_filepath}'")
 
 
 def init_argparse() -> argparse.ArgumentParser:
@@ -107,18 +110,18 @@ def init_argparse() -> argparse.ArgumentParser:
 
 
 if __name__ == "__main__":
-    # parser = init_argparse()
-    # args = parser.parse_args()
+    parser = init_argparse()
+    args = parser.parse_args()
 
-    # excel_filepath = args.excel_filepath
-    # original_json_filepath = args.original_json_filepath
-    # translated_json_filepath = args.translated_json_filepath
+    excel_filepath = args.excel_filepath
+    original_json_filepath = args.original_json_filepath
+    translated_json_filepath = args.translated_json_filepath
 
-    # convert_json_to_welsh(excel_filepath, original_json_filepath, translated_json_filepath)
+    convert_json_to_welsh(excel_filepath, original_json_filepath, translated_json_filepath)
 
-    # Uncomment this for local testing
-    # example usage 1
-    # convert_json_to_welsh('translations/feasibilty.xlsx', 'feasibility-cof-r3-w1.json', 'welsh-feasibility-cof-r3-w1.json')
+    # # Uncomment this for local testing
+    # # example usage 1
+    # convert_json_to_welsh('translations/community_use.xlsx', 'fsd_config/form_jsons/cof_r3/en/community-use-cof-r3-w1.json', 'welsh-community_use-cof-r3-w1.json')
 
-    # example usage 2
-    convert_json_to_welsh('translations/upload_business_plan.xlsx', 'fsd_config/form_jsons/cof_r3/cy/upload-business-plan-cof-r3-w1.json')
+    # # example usage 2
+    # convert_json_to_welsh('translations/community_use.xlsx', 'fsd_config/form_jsons/cof_r3/en/community-use-cof-r3-w1.json')
