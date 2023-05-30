@@ -30,7 +30,7 @@
           "options": {},
           "type": "Details",
           "title": "Help gydag achos rheoli",
-          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>costau llawn eich prosiect </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>"
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>"
         },
         {
           "name": "iPBHAo",
@@ -96,7 +96,7 @@
           "name": "GaAAPb",
           "options": {},
           "type": "Details",
-          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>costau llawn eich prosiect </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
           "title": "Help gydag achos rheoli"
         },
         {
@@ -109,7 +109,7 @@
           "name": "qQLyXL",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Description", "Amount", "Action"]
+            "columnTitles": ["Disgrifiad", "Swm", "Gweithredu "]
           },
           "type": "MultiInputField",
           "title": "Costau cyfalaf",
@@ -185,7 +185,7 @@
           "name": "CtrlQH",
           "options": {},
           "type": "Details",
-          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>costau llawn eich prosiect </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
           "title": "Help gydag achos rheoli"
         },
         {
@@ -274,7 +274,7 @@
           "name": "xsaziw",
           "options": {},
           "type": "Details",
-          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>costau llawn eich prosiect </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
           "title": "Help gydag achos rheoli"
         },
         {
@@ -287,7 +287,7 @@
           "name": "vEOdBS",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Source", "Amount", "Action"]
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"]
           },
           "type": "MultiInputField",
           "title": "Arian cyfatebol heb ei sicrhau",
