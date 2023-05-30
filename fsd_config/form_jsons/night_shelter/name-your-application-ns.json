@@ -1,0 +1,51 @@
+{
+  "metadata": {},
+  "startPage": "/name-your-application",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "path": "/name-your-application",
+      "title": "Name your application",
+      "components": [
+        {
+          "name": "YVsPtE",
+          "options": { "hideTitle": true },
+          "type": "TextField",
+          "title": "Application name",
+          "hint": "<p class=\"govuk-hint\">This is what your application will be called and will help you find it when you save and return.</p>\n<p class=\"govuk-hint\">Choose a memorable name that describes your application.</p>",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/summary" }],
+      "section": "pCEnjo"
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "pCEnjo"
+    }
+  ],
+  "lists": [],
+  "sections": [{ "name": "pCEnjo", "title": "Before you start" }],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to transform your night shelter services in England",
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
