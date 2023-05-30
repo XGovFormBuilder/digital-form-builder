@@ -61,6 +61,7 @@ export class RepeatingSummaryPageController extends PageController {
       await cacheService.mergeState(request, { progress });
 
       const viewModel = this.getViewModel(state);
+      viewModel.crumb = request.plugins.crumb;
 
       return h.view("repeating-summary", viewModel);
     };
@@ -117,10 +118,8 @@ export class RepeatingSummaryPageController extends PageController {
   }
 
   buildRows(state, response) {
-    let form_session_identifier = "";
-    if (response.request.query.form_session_identifier) {
-      form_session_identifier = `&form_session_identifier=${response.request.query.form_session_identifier}`;
-    }
+    let form_session_identifier =
+      response.request.query.form_session_identifier ?? "";
 
     if (this.inputComponent.type === "MultiInputField") {
       return this.buildTextFieldRows(state, form_session_identifier);
@@ -173,9 +172,9 @@ export class RepeatingSummaryPageController extends PageController {
   buildTextFieldRows(answers, form_session_identifier, view = false) {
     const { title = "" } = this.inputComponent;
 
-    form_session_identifier
-      ? `&form_session_identifier=${form_session_identifier}`
-      : "";
+    if (form_session_identifier) {
+      form_session_identifier = `&form_session_identifier=${form_session_identifier}`;
+    }
 
     return answers?.map((value, i) => {
       const rowValues: string[] = [];
