@@ -118,10 +118,8 @@ export class RepeatingSummaryPageController extends PageController {
   }
 
   buildRows(state, response) {
-    let form_session_identifier = "";
-    if (response.request.query.form_session_identifier) {
-      form_session_identifier = `&form_session_identifier=${response.request.query.form_session_identifier}`;
-    }
+    let form_session_identifier =
+      response.request.query.form_session_identifier ?? "";
 
     if (this.inputComponent.type === "MultiInputField") {
       return this.buildTextFieldRows(state, form_session_identifier);
