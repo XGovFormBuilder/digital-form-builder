@@ -32,7 +32,7 @@
           },
           "type": "FreeTextField",
           "title": "Rhestrwch aelodau eich bwrdd",
-          "hint": "Cynhwyswch:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>eu rôl</li>\n<lieu prif gyfrifoldebau</li>\n</ul>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
+          "hint": "Cynhwyswch:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>eu rôl</li>\n<li>eu prif gyfrifoldebau</li>\n</ul>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
         },
         {
           "name": "fjVmOt",
