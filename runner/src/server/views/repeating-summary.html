@@ -22,7 +22,11 @@
             {% for row in details.rows %}
               <tr class="govuk-table__row">
                 {% for value in row.values %}
-                <td class={{value.class}}>{{ value.text }}</td>            
+                  {% if not (value.text == "null") %}
+                    <td class={{value.class}}>{{ value.text }}</td>
+                  {% else %}
+                  <td class={{value.class}}>Not Supplied</td>
+                  {% endif %}  
                 {% endfor %}        
 
                 <td class="govuk-table__cell">
