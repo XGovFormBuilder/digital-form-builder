@@ -28,7 +28,8 @@
         {
           "name": "ChXWIQ",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "divider": "or"
           },
           "type": "CheckboxesField",
           "title": "How is your organisation classified?",

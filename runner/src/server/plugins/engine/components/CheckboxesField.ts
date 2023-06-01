@@ -45,6 +45,11 @@ export class CheckboxesField extends SelectionControlField {
       checked: !!formDataItems.find((i) => `${item.value}` === i),
     }));
 
+    if (this.options.divider) {
+      let divider = { divider: this.options.divider };
+      viewModel.items.splice(viewModel.items.length - 1, 0, divider);
+    }
+
     return viewModel;
   }
 }
