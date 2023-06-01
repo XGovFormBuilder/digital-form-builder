@@ -125,6 +125,7 @@ interface ListFieldBase {
     optionalText?: boolean;
     classes?: string;
     bold?: boolean;
+    divider?: string;
   };
   list: string;
   schema: {};
