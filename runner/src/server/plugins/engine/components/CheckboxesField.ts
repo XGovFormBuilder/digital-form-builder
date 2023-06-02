@@ -53,7 +53,7 @@ export class CheckboxesField extends SelectionControlField {
         }
 
         if (
-          values.some((value) => value === this.options.behaviourItemValue) &&
+          values.includes(this.options.behaviourItemValue) &&
           values.length > 1
         ) {
           return [
