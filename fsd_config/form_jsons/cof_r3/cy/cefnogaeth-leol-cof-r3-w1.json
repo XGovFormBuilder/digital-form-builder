@@ -45,12 +45,11 @@
               "maxFilesize": 10,
               "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
             },
-            "optionalText": false,
             "showNoScriptWarning": false,
             "minimumRequiredFiles": 0
           },
           "type": "ClientSideFileUploadField",
-          "title": "Lanlwythwch dystiolaeth ategol (dewisol)",
+          "title": "Lanlwythwch dystiolaeth ategol",
           "hint": "Uwchlwythwch dystiolaeth i ddangos y gefnogaeth sydd gennych gan y gymuned.\n\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 10MB ar unrhyw un o'r fformatau canlynol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
         }
       ],
