@@ -1,5 +1,7 @@
 {
-  "metadata": {},
+  "metadata": {
+    "isWelsh": true
+  },
   "startPage": "/gwybodaeth-am-yr-ased",
   "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
@@ -78,7 +80,7 @@
           },
           "type": "ClientSideFileUploadField",
           "title": "Llwythwch i fyny prisiad ased neu gytundeb prydles",
-          "hint": "<label class=\"gov-uk-hint\">\nUwchlwythwch dystiolaeth i gefnogi'r hyn rydych chi'n bwriadu ei wneud â'r ased.\n\n<p>Prynu'r ased / ased eisoes yn eiddo i'r sefydliad: dogfen swyddogol yn dangos gwerth yr ased gan syrfëwr annibynnol neu weithiwr proffesiynol tebyg.</p>\n\n<p>Already owned by the organisation: evidence that you already own your asset.</p>\n\n<p>Prydlesu’r ased / Mae eisoes yn cael ei brydlesu gan y sefydliad: copi o’ch cytundeb tenantiaeth, neu benawdau telerau cytunedig, yn dangos o leiaf 15 mlynedd o denantiaeth gyda chymalau torri rhesymol.</p>\n\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 5MB ar unrhyw un o'r fformatau canlynol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+          "hint": "<label class=\"gov-uk-hint\">\nUwchlwythwch dystiolaeth i gefnogi'r hyn rydych chi'n bwriadu ei wneud â'r ased.\n\n<p>Prynu'r ased / ased eisoes yn eiddo i'r sefydliad: dogfen swyddogol yn dangos gwerth yr ased gan syrfëwr annibynnol neu weithiwr proffesiynol tebyg.</p>\n\n<p>Already owned by the organisation: evidence that you already own your asset.</p>\n\n<p>Prydlesu’r ased / Mae eisoes yn cael ei brydlesu gan y sefydliad: copi o’ch cytundeb tenantiaeth, neu benawdau telerau cytunedig, yn dangos o leiaf 15 mlynedd o denantiaeth gyda chymalau torri rhesymol.</p>\n\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 10MB ar unrhyw un o'r fformatau canlynol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
         },
         {
           "name": "hdmYjg",
@@ -312,7 +314,7 @@
           },
           "type": "ClientSideFileUploadField",
           "title": "Uwchlwythwch dystiolaeth o  berchnogaeth gyhoeddus",
-          "hint": "Uwchlwythwch ddogfen i grynhoi:\n<p>\n<ul class=\"govuk-hint\">\n<li>y risg y mae'r ased yn ei wynebu</li>\n<li>na fydd unrhyw wasanaethau statudol yn cael eu trosglwyddo o'r awdurdod cyhoeddus</li>\n<li>y bydd yr ased yn gynaliadwy ar ôl iddo gael ei drosglwyddo</li>\n</ul>\n</p>\n\n\n\n<p>Er enghraifft, gall y dystiolaeth hon gynnwys cadarnhad gan y perchennog cyhoeddus neu lythyr gan yr awdurdod lleol.</p>\n\n<p>Dylai fod yn ffeil sengl heb fod yn fwy na 5MB mewn fformat a dderbynnir (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+          "hint": "Uwchlwythwch ddogfen i grynhoi:\n<p>\n<ul class=\"govuk-hint\">\n<li>y risg y mae'r ased yn ei wynebu</li>\n<li>na fydd unrhyw wasanaethau statudol yn cael eu trosglwyddo o'r awdurdod cyhoeddus</li>\n<li>y bydd yr ased yn gynaliadwy ar ôl iddo gael ei drosglwyddo</li>\n</ul>\n</p>\n\n\n\n<p>Er enghraifft, gall y dystiolaeth hon gynnwys cadarnhad gan y perchennog cyhoeddus neu lythyr gan yr awdurdod lleol.</p>\n\n<p>Dylai fod yn ffeil sengl heb fod yn fwy na 10MB mewn fformat a dderbynnir (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
         }
       ],
       "next": [

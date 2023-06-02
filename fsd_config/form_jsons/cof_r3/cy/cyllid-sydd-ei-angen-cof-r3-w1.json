@@ -1,5 +1,7 @@
 {
-  "metadata": {},
+  "metadata": {
+    "isWelsh": true
+  },
   "startPage": "/cyllid-sydd-ei-angen",
   "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [

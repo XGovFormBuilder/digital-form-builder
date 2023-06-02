@@ -1,5 +1,7 @@
 {
-  "metadata": {},
+  "metadata": {
+    "isWelsh": true
+  },
   "startPage": "/cynaliadwyedd-amgylcheddol",
   "backLinkText": "Go back to application overview",
   "pages": [

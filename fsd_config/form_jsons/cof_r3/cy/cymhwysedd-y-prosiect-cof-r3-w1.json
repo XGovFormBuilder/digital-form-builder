@@ -1,5 +1,7 @@
 {
-  "metadata": {},
+  "metadata": {
+    "isWelsh": true
+  },
   "startPage": "/cymhwysedd-y-prosiect",
   "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
@@ -29,8 +31,8 @@
           "name": "ZEKMQd",
           "options": {},
           "type": "YesNoField",
-          "title": "Does your project meet the definition of a subsidy?",
-          "hint": "For projects in England, Northern Ireland, Scotland and Wales, this definition is laid out in Paragraph 2 of the <a href=\"https://www.gov.uk/government/publications/complying-with-the-uks-international-obligations-on-subsidy-control-guidance-for-public-authorities/technical-guidance-on-the-uks-international-subsidy-control-commitments\">Subsidy Control Act (2022)</a>"
+          "title": "A yw eich prosiect yn bodloni diffiniad cymhorthdal?",
+          "hint": "Ar gyfer prosiectau yn Lloegr, Gogledd Iwerddon, yr Alban a Chymru, amlinellir y diffiniad hwn ym Mharagraff 2 o'r <a href=\"https://www.gov.uk/government/publications/complying-with-the-uks-international-obligations-on-subsidy-control-guidance-for-public-authorities/technical-guidance-on-the-uks-international-subsidy-control-commitments\">Ddeddf Rheoli Cymorthdaliadau (2022)</a>"
         }
       ],
       "next": [
