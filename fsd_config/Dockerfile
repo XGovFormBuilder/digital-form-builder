@@ -6,6 +6,7 @@ RUN rm -r runner/dist/server/forms && rm -r runner/src && rm -r runner/test
 COPY ./fsd_config/form_jsons/cof_r2/en/* runner/dist/server/forms/
 COPY ./fsd_config/form_jsons/cof_r2/cy/* runner/dist/server/forms/
 COPY ./fsd_config/form_jsons/cof_r3/en/* runner/dist/server/forms/
+COPY ./fsd_config/form_jsons/cof_r3/cy/* runner/dist/server/forms/
 COPY ./fsd_config/form_jsons/night_shelter/* runner/dist/server/forms/
 COPY ./fsd_config/config/* runner/config/
 CMD [ "yarn", "runner", "build"]
