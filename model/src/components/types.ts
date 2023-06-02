@@ -125,7 +125,6 @@ interface ListFieldBase {
     optionalText?: boolean;
     classes?: string;
     bold?: boolean;
-    divider?: string;
   };
   list: string;
   schema: {};
@@ -309,6 +308,11 @@ export interface AutocompleteFieldComponent extends ListFieldBase {
 
 export interface CheckboxesFieldComponent extends ListFieldBase {
   type: "CheckboxesField";
+  options: ListFieldBase["options"] & {
+    divider?: string;
+    behaviour?: string;
+    behaviourItemValue?: string;
+  };
 }
 
 export interface FlashCardComponent extends ListFieldBase {
