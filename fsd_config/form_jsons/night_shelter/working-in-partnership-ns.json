@@ -11,7 +11,7 @@
           "name": "IMAUgI",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>if you’ll work with any local partners, services or organisations to deliver the proposal</li>\n<li>names of local partners, services or organisations (if applicable)</li>\n<li>level of involvement from local partners, services or organisations (if applicable)</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>your local partners and how they will support your proposal</li>\n</ul>"
         }
       ],
       "next": [
