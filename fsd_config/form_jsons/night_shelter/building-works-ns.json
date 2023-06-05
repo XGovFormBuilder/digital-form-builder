@@ -138,7 +138,7 @@
           },
           "type": "TextField",
           "title": "What's your planning application number?",
-          "hint": "You can find this on communications from your local planning department about your application."
+          "hint": "<label for=\"lkwQrI\" class=\"govuk-hint\">You can find this on communications from your local planning department about your application.</label>"
         }
       ],
       "next": [
