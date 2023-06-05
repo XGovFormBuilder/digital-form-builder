@@ -52,7 +52,7 @@
     },
     {
       "title": "Check your answers",
-      "path": "/check-your-answers",
+      "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
       "next": [],
@@ -99,7 +99,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "qaFvvN"
@@ -228,7 +228,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "qaFvvN"
@@ -257,7 +257,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "qaFvvN"
@@ -315,7 +315,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "qaFvvN"
