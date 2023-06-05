@@ -173,7 +173,7 @@
             "hideTitle": true
           },
           "type": "NumberField",
-          "hint": "Capital funding 1 April 2024 to 31 March 2025",
+          "hint": "<label class=\"govuk-body\" for=\"pppiYl\">Capital funding 1 April 2024 to 31 March 2025</label>",
           "title": "Capital for 1 April 2024 to 31 March 2025"
         }
       ],
