@@ -151,7 +151,7 @@
             "columnTitles": ["Full name", "Action"]
           },
           "type": "MultiInputField",
-          "title": "MultiInputField",
+          "title": "Your trustees or committee members",
           "hint": "The MultiInputField needed",
           "schema": {},
           "children": [
