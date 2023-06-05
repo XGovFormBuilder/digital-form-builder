@@ -38,6 +38,7 @@
           "name": "bDWjTN",
           "options": {
             "dropzoneConfig": {
+              "optionalText": true,
               "maxFiles": 1,
               "parallelUploads": 1,
               "maxFilesize": 10,
