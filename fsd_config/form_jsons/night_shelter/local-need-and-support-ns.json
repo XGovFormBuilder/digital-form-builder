@@ -78,10 +78,11 @@
               "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
             },
             "showNoScriptWarning": false,
-            "minimumRequiredFiles": 0
+            "minimumRequiredFiles": 0,
+            "optionalText": false
           },
           "type": "ClientSideFileUploadField",
-          "title": "Upload letter of endorsement from your local authority",
+          "title": "Upload letter of endorsement from your local authority (optional)",
           "hint": "Upload the letter now if you have it.\n\n<p>If you do not have it at the moment, we might contact you by email when we assess your application.</p>\n\n<p>The letter should be written by a rough sleeping lead and must not be written by a local councillor.</p>\n\n<p>Your application will not be considered if you cannot provide the letter of endorsement.</p>\n\n<p>It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods.)</p>\n\n"
         }
       ],
