@@ -98,9 +98,13 @@ export class RepeatingSummaryPageController extends PageController {
     let rows;
     const answers = this.getPartialState(formData);
     if (this.inputComponent.type === "MultiInputField") {
+      const orderedNames = this.inputComponent.children.items.map(
+        (x) => x.name
+      );
       rows = this.buildTextFieldRows(
         answers,
-        formData.metadata.form_session_identifier
+        formData.metadata.form_session_identifier,
+        orderedNames
       );
       return {
         ...baseViewModel,
@@ -122,7 +126,14 @@ export class RepeatingSummaryPageController extends PageController {
       response.request.query.form_session_identifier ?? "";
 
     if (this.inputComponent.type === "MultiInputField") {
-      return this.buildTextFieldRows(state, form_session_identifier);
+      const orderedNames = this.inputComponent.children.items.map(
+        (x) => x.name
+      );
+      return this.buildTextFieldRows(
+        state,
+        form_session_identifier,
+        orderedNames
+      );
     }
     return this.getRowsFromAnswers(state, form_session_identifier);
   }
@@ -169,37 +180,37 @@ export class RepeatingSummaryPageController extends PageController {
     return !isNaN(date.getTime());
   }
 
-  buildTextFieldRows(answers, form_session_identifier, view = false) {
+  _renderComponentByType(key, value) {
+    const componentType = this.inputComponent.getComponentType(key);
+
+    if (componentType == "DatePartsField") {
+      return format(parseISO(value), "d/MM/yyyy");
+    } else if (componentType == "MonthYearField") {
+      return value[`${key}__month`] + "/" + value[`${key}__year`];
+    } else if (componentType == "YesNoField") {
+      return value ? "Yes" : "No";
+    }
+
+    return `${this.inputComponent.getPrefix(key)}${value}`;
+  }
+
+  buildTextFieldRows(
+    answers,
+    form_session_identifier,
+    orderedNames,
+    view = false
+  ) {
     const { title = "" } = this.inputComponent;
 
     if (form_session_identifier) {
       form_session_identifier = `&form_session_identifier=${form_session_identifier}`;
     }
 
-    return answers?.map((value, i) => {
-      const rowValues: string[] = [];
-      for (const key in value) {
-        const componentType = this.inputComponent.getComponentType(key);
-        //TODO would a switch statement be better here
-        if (componentType == "DatePartsField") {
-          rowValues.push(format(parseISO(value[key]), "d/MM/yyyy"));
-        } else if (componentType == "MonthYearField") {
-          const monthYearValue = value[key];
-          rowValues.push(
-            monthYearValue[`${key}__month`] +
-              "/" +
-              monthYearValue[`${key}__year`]
-          );
-        } else if (componentType == "YesNoField") {
-          const yesNoValue = value[key];
-          if (yesNoValue == true) {
-            rowValues.push("Yes");
-          } else {
-            rowValues.push("No");
-          }
-        } else {
-          rowValues.push(`${this.inputComponent.getPrefix(key)}${value[key]}`);
-        }
+    return answers?.map((answer, i) => {
+      const keyToRenderedValue = {};
+      for (const [key, value] of Object.entries(answer)) {
+        const renderedValue = this._renderComponentByType(key, value);
+        keyToRenderedValue[key] = renderedValue;
       }
 
       const row = {
@@ -213,12 +224,13 @@ export class RepeatingSummaryPageController extends PageController {
         values: [],
       };
 
-      for (let i = 0; i < rowValues.length; i++) {
+      for (const [i, name] of orderedNames.entries()) {
         row.values.push({
-          text: rowValues[i],
+          text: keyToRenderedValue[name],
           class: i == 0 ? "govuk-table__header" : "govuk-table__cell",
         } as never);
       }
+
       return row;
     });
   }
