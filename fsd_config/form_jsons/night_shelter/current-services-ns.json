@@ -197,6 +197,9 @@
         {
           "path": "/which-other-day-provision-do-you-currently-provide",
           "condition": "kONmAR"
+        },
+        {
+          "path": "/do-you-currently-provide-any-other-services"
         }
       ],
       "section": "xigWzk"
@@ -318,6 +321,9 @@
         {
           "path": "/which-other-groups-of-people-do-you-provide-targeted-specialist-support-to",
           "condition": "hDaDud"
+        },
+        {
+          "path": "/summary"
         }
       ],
       "section": "xigWzk"
