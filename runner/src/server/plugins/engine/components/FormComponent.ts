@@ -1,7 +1,8 @@
 import joi, { Schema } from "joi";
 
 import { ComponentBase } from "./ComponentBase";
-import { optionalText } from "./constants";
+import { optionalTextEnglish } from "./constants";
+import { optionalTextCymraeg } from "./constants";
 
 import {
   FormSubmissionState,
@@ -85,6 +86,9 @@ export class FormComponent extends ComponentBase {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const options: any = this.options;
     const isOptional = options.required === false;
+    const optionalText = this.model?.def?.metadata?.isWelsh
+      ? optionalTextCymraeg
+      : optionalTextEnglish;
     const optionalPostfix =
       isOptional && options.optionalText !== false ? optionalText : "";
     this.lang = formData.lang;

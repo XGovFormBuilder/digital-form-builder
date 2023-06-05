@@ -1,1 +1,2 @@
-export const optionalText = " (optional)";
+export const optionalTextEnglish = " (optional)";
+export const optionalTextCymraeg = " (dewisol)";

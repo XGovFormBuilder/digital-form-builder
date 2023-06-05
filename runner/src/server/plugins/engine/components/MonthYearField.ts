@@ -1,5 +1,6 @@
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
-import { optionalText } from "./constants";
+import { optionalTextEnglish } from "./constants";
+import { optionalTextCymraeg } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import {
@@ -84,6 +85,9 @@ export class MonthYearField extends FormComponent {
   // @ts-ignore - eslint does not report this as an error, only tsc
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
+    const optionalText = this.model?.def?.metadata?.isWelsh
+      ? optionalTextCymraeg
+      : optionalTextEnglish;
 
     // Use the component collection to generate the subitems
     const componentViewModels = this.children
