@@ -653,6 +653,10 @@
         {
           "path": "/upload-listed-building-consent",
           "condition": "VtemTk"
+        },
+        {
+          "path": "/summary",
+          "condition": "MWifmR"
         }
       ],
       "section": "EDNaie"
@@ -1102,6 +1106,28 @@
               "type": "Value",
               "value": "true",
               "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Is the building listed-no",
+      "name": "MWifmR",
+      "value": {
+        "name": "Is the building listed-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "skBfqS",
+              "type": "YesNoField",
+              "display": "Is the building listed?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
             }
           }
         ]
