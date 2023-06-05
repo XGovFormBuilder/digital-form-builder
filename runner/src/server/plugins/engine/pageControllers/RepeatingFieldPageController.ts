@@ -104,6 +104,11 @@ export class RepeatingFieldPageController extends PageController {
       if (schema.type !== "array") {
         return joi.array().items(schema).single().empty(null).default([]);
       }
+
+      if (this.inputComponent.options.required) {
+        schema = schema.required();
+      }
+
       return schema;
     });
 
