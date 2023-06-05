@@ -137,7 +137,7 @@
           },
           "type": "FreeTextField",
           "title": "Disgrifiwch y prosiect y cawsoch arian ar ei gyfer",
-          "hint": "Include:\n<p>\n<ul  class=\"govuk-hint\">\n<li>enw'r prosiect</li>\n<li>trosolwg cyffredinol o'r prosiect</li>\n<li>y dyddiad y derbynioch gyllid</li>\n</ul>\n</p>"
+          "hint": "Cynhwyswch:\n<p>\n<ul  class=\"govuk-hint\">\n<li>enw'r prosiect</li>\n<li>trosolwg cyffredinol o'r prosiect</li>\n<li>y dyddiad y derbynioch gyllid</li>\n</ul>\n</p>"
         },
         {
           "name": "yuvajR",
