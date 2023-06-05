@@ -190,6 +190,13 @@ export class RepeatingSummaryPageController extends PageController {
               "/" +
               monthYearValue[`${key}__year`]
           );
+        } else if (componentType == "YesNoField") {
+          const yesNoValue = value[key];
+          if (yesNoValue == true) {
+            rowValues.push("Yes");
+          } else {
+            rowValues.push("No");
+          }
         } else {
           rowValues.push(`${this.inputComponent.getPrefix(key)}${value[key]}`);
         }

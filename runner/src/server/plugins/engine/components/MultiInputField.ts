@@ -62,18 +62,25 @@ export class MultiInputField extends FormComponent {
         for (const key in value) {
           // TODO: Currently there are only a certain amount of fields for add another that will work. (see MultiInputField.html)
           // lets come up with a better way of covereting each date type to a viewable string
-          const componentTyoe = this.getComponentType(key);
+          const componentType = this.getComponentType(key);
           if (value[key] == null) {
             outputString += "Not supplied : ";
-          } else if (componentTyoe == "DatePartsField") {
+          } else if (componentType == "DatePartsField") {
             outputString += `${format(parseISO(value[key]), "d/MM/yyyy")} : `;
-          } else if (componentTyoe == "MonthYearField") {
+          } else if (componentType == "MonthYearField") {
             const monthYearValue = value[key];
             outputString +=
               monthYearValue[`${key}__month`] +
               "/" +
               monthYearValue[`${key}__year`] +
               " : ";
+          } else if (componentType == "YesNoField") {
+            const yesNoValue = value[key];
+            if (yesNoValue == true) {
+              outputString += "Yes : ";
+            } else {
+              outputString += "No : ";
+            }
           } else {
             outputString += `${this.getPrefix(key)}${value[key]} : `;
           }
