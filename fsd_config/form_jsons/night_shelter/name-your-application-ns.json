@@ -9,7 +9,10 @@
       "components": [
         {
           "name": "YVsPtE",
-          "options": { "hideTitle": true },
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
+          },
           "type": "TextField",
           "title": "Application name",
           "hint": "<p class=\"govuk-hint\">This is what your application will be called and will help you find it when you save and return.</p>\n<p class=\"govuk-hint\">Choose a memorable name that describes your application.</p>",
