@@ -60,7 +60,7 @@
             "classes": "govuk-!-width-ful"
           },
           "type": "TextField",
-          "title": "What is the local authority of where your proposal will be based?"
+          "title": "What is the name of the local authority where your proposal will be based?"
         },
         {
           "name": "lFTgWk",
