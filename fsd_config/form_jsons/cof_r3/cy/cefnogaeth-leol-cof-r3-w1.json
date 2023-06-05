@@ -34,18 +34,18 @@
           },
           "type": "FreeTextField",
           "title": "Dywedwch wrthym am y gefnogaeth leol i'ch prosiect",
-          "hint": "Gall hyn gynnwys:\n<p>\n<ul class=\"govuk-hint\">\n<li>arolygon o'r gymuned</li>\n<li>minutes of cyfarfodydd neuadd tref rydych wedi'u cynnal</li>\n<li>nifer y gwirfoddolwyr amcangyfrifedig sydd gennych ar gyfer eich prosiect</li>\n<li>llythyr gan eich AS lleol</li>\n</ul>\n</p>\n\nOs ydych yn bwriadu lanlwytho unrhyw dystiolaeth ategol isod, cyfeiriwch ati yma."
+          "hint": "Gall hyn gynnwys:\n<p>\n<ul class=\"govuk-hint\">\n<li>arolygon o'r gymuned</li>\n<li>cyfarfodydd neuadd tref rydych wedi'u cynnal</li>\n<li>nifer y gwirfoddolwyr amcangyfrifedig sydd gennych ar gyfer eich prosiect</li>\n<li>llythyr gan eich AS lleol</li>\n</ul>\n</p>\n\nOs ydych yn bwriadu lanlwytho unrhyw dystiolaeth ategol isod, cyfeiriwch ati yma."
         },
         {
           "name": "bDWjTN",
           "options": {
             "dropzoneConfig": {
-              "optionalText": true,
               "maxFiles": 1,
               "parallelUploads": 1,
               "maxFilesize": 10,
               "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
             },
+            "optionalText": true,
             "showNoScriptWarning": false,
             "minimumRequiredFiles": 0
           },
