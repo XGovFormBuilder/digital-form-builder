@@ -59,6 +59,17 @@
     {
       "path": "/partner-organisation-details",
       "title": "Partner organisation details",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your partner organisations",
+          "removeText": "Delete"
+        }
+      },
       "components": [
         {
           "name": "oxMLrb",
