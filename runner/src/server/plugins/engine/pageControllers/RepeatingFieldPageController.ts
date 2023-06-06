@@ -223,12 +223,26 @@ export class RepeatingFieldPageController extends PageController {
       answers?.splice(removeAtIndex, 1);
       answers = { [key]: answers };
       await cacheService.mergeState(request, { [sectionName]: answers });
+
+      //TODO: Quick fix but lets see if we can make the returing happen in one place
+      if (
+        state[sectionName][key] === undefined ||
+        state[sectionName][key]?.length < 1 ||
+        this.isSamePageDisplayMode
+      ) {
+        return h.redirect(`?view=0${form_session_identifier}`);
+      }
+      return h.redirect(`?view=${view ?? "summary"}${form_session_identifier}`);
     } else {
       answers?.splice(removeAtIndex, 1);
       await cacheService.mergeState(request, { [key]: answers });
     }
 
-    if (state[key]?.length < 1 || this.isSamePageDisplayMode) {
+    if (
+      state[key] === undefined ||
+      state[key]?.length < 1 ||
+      this.isSamePageDisplayMode
+    ) {
       return h.redirect(`?view=0${form_session_identifier}`);
     }
 
