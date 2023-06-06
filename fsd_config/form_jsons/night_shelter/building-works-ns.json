@@ -544,7 +544,7 @@
           },
           "type": "ClientSideFileUploadField",
           "title": "Upload buildings and contents insurance certificate",
-          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, rtf, csv, xls, xlsx, ods)."
+          "hint": "It should be a single file no bigger than 5MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods)."
         }
       ],
       "next": [
