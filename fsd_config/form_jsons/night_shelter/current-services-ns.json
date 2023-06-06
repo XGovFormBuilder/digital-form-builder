@@ -162,7 +162,8 @@
         {
           "name": "bCXNtj",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "required": true
           },
           "type": "MonthYearField",
           "title": "When did you start providing day provision?",

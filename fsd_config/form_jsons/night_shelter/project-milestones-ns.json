@@ -63,7 +63,10 @@
             },
             {
               "name": "PrulfI",
-              "options": { "isMultiInput": true },
+              "options": {
+                "isMultiInput": true,
+                "required": true
+              },
               "type": "MonthYearField",
               "title": "When will you reach this milestone?",
               "hint": "For example, 3 2007"
