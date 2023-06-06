@@ -37,10 +37,10 @@ export class SummaryPageController extends PageController {
         state.metadata?.form_session_identifier ?? "";
       if (form_session_identifier) {
         for (const detail of viewModel.details) {
-          const comp = detail.items.find(
+          const comps = detail.items.filter(
             (c) => c.type === "ClientSideFileUploadField"
           );
-          if (comp) {
+          for (const comp of comps) {
             const folderPath = `${comp.pageId}/${comp.name}`;
             const files = await uploadService.listFilesInBucketFolder(
               `${form_session_identifier}${folderPath}`,
@@ -157,10 +157,10 @@ export class SummaryPageController extends PageController {
         state.metadata?.form_session_identifier ?? "";
       if (form_session_identifier) {
         for (const detail of summaryViewModel.details) {
-          const comp = detail.items.find(
+          const comps = detail.items.filter(
             (c) => c.type === "ClientSideFileUploadField"
           );
-          if (comp) {
+          for (const comp of comps) {
             const folderPath = `${comp.pageId}/${comp.name}`;
             const files = await uploadService.listFilesInBucketFolder(
               `${form_session_identifier}${folderPath}`,
