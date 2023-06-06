@@ -55,46 +55,42 @@ export class MultiInputField extends FormComponent {
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
-    const values = state[this.name];
+    const answers = state[this.name];
     const stringValue = new Array();
-    if (values) {
-      for (var value of values) {
-        let outputString = "";
-        for (const key in value) {
-          // TODO: Currently there are only a certain amount of fields for add another that will work. (see MultiInputField.html)
-          // lets come up with a better way of covereting each date type to a viewable string
+
+    if (answers) {
+      for (const answer of answers) {
+        if (typeof answer === "string") {
+          stringValue.push(answer);
+          continue;
+        }
+
+        const keyToRenderedValue = {};
+        for (const [key, value] of Object.entries(answer)) {
           const componentType = this.getComponentType(key);
-          if (value[key] == null) {
-            outputString += "Not supplied : ";
+          if (value == null) {
+            keyToRenderedValue[key] = "Not supplied";
           } else if (componentType == "DatePartsField") {
-            outputString += `${format(parseISO(value[key]), "d/MM/yyyy")} : `;
+            keyToRenderedValue[key] = `${format(parseISO(value), "d/MM/yyyy")}`;
           } else if (componentType == "MonthYearField") {
-            const monthYearValue = value[key];
-            outputString +=
-              monthYearValue[`${key}__month`] +
-              "/" +
-              monthYearValue[`${key}__year`] +
-              " : ";
+            keyToRenderedValue[key] = `${value[`${key}__month`]}/${
+              value[`${key}__year`]
+            }`;
           } else if (componentType == "YesNoField") {
-            const yesNoValue = value[key];
-            if (yesNoValue == true) {
-              outputString += "Yes : ";
-            } else {
-              outputString += "No : ";
-            }
+            keyToRenderedValue[key] = value ? "Yes" : "No";
           } else {
-            outputString += `${this.getPrefix(key)}${value[key]} : `;
+            keyToRenderedValue[key] = `${this.getPrefix(key)}${value}`;
           }
         }
-        // This will remove the : and a blank space at the end of the string. Helps with displaying on summary page.
-        outputString = outputString.slice(0, -2);
-        if (typeof value === "string") {
-          stringValue.push(value);
-        } else {
-          stringValue.push(outputString);
-        }
+
+        const sortedNames = this.children.items.map((x) => x.name);
+        const outputString = sortedNames
+          .map((name) => keyToRenderedValue[name])
+          .join(" : ");
+        stringValue.push(outputString);
       }
     }
+
     return stringValue;
   }
 
