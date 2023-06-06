@@ -32,7 +32,7 @@ export class SummaryViewModel extends ViewModel {
   ) {
     super(pageTitle, model, state, request);
 
-    const { relevantPages } = this.getRelevantPages(model, state);
+    const { relevantPages } = SummaryViewModel.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
 
     const schema = model.makeFilteredSchema(state, relevantPages);

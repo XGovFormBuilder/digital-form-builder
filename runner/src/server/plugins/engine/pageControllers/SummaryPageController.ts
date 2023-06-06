@@ -31,6 +31,36 @@ export class SummaryPageController extends PageController {
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
 
+      const { relevantPages } = SummaryViewModel.getRelevantPages(model, state);
+      const clientSideUploadComponents = relevantPages
+        .filter(
+          (page) => page.components.additionalValidationFunctions.length > 0
+        )
+        .flatMap((page) =>
+          page.components.items
+            .filter((item) => item.type == "ClientSideFileUploadField")
+            .flatMap((x) => x)
+        );
+
+      const errorPromises = clientSideUploadComponents.map((component) => {
+        const funcs = component.getAdditionalValidationFunctions();
+        return Promise.all(
+          funcs.map((func) => func(request, { components: [component] }))
+        );
+      });
+      const nestedErrors = await Promise.all(errorPromises);
+      const errors = nestedErrors.flat(Infinity);
+      if (errors.length > 0) {
+        const restructuredErrors = errors.map(({ name, path, text }) => {
+          return {
+            path: path,
+            name: name,
+            message: text,
+          };
+        });
+        viewModel.errors = [...(viewModel.errors || []), ...restructuredErrors];
+      }
+
       viewModel.footer = this.def.footer;
 
       const form_session_identifier =
@@ -146,12 +176,46 @@ export class SummaryPageController extends PageController {
       const state = await cacheService.getState(request);
       state.metadata.isSummaryPageSubmit = true;
       await cacheService.mergeState(request, { ...state });
+
       const summaryViewModel = new SummaryViewModel(
         this.title,
         model,
         state,
         request
       );
+
+      const { relevantPages } = SummaryViewModel.getRelevantPages(model, state);
+      const clientSideUploadComponents = relevantPages
+        .filter(
+          (page) => page.components.additionalValidationFunctions.length > 0
+        )
+        .flatMap((page) =>
+          page.components.items
+            .filter((item) => item.type == "ClientSideFileUploadField")
+            .flatMap((x) => x)
+        );
+
+      const errorPromises = clientSideUploadComponents.map((component) => {
+        const funcs = component.getAdditionalValidationFunctions();
+        return Promise.all(
+          funcs.map((func) => func(request, { components: [component] }))
+        );
+      });
+      const nestedErrors = await Promise.all(errorPromises);
+      const errors = nestedErrors.flat(Infinity);
+      if (errors.length > 0) {
+        const restructuredErrors = errors.map(({ name, path, text }) => {
+          return {
+            path: path,
+            name: name,
+            message: text,
+          };
+        });
+        summaryViewModel.errors = [
+          ...(summaryViewModel.errors || []),
+          ...restructuredErrors,
+        ];
+      }
 
       const form_session_identifier =
         state.metadata?.form_session_identifier ?? "";

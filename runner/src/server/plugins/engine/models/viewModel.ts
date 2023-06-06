@@ -58,7 +58,7 @@ export class ViewModel {
     request: HapiRequest
   ) {
     this.pageTitle = pageTitle;
-    const { relevantPages, endPage } = this.getRelevantPages(model, state);
+    const { relevantPages, endPage } = ViewModel.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
     const { def } = model;
     // @ts-ignore
@@ -213,7 +213,7 @@ export class ViewModel {
     return details;
   }
 
-  protected getRelevantPages(model: FormModel, state: FormSubmissionState) {
+  static getRelevantPages(model: FormModel, state: FormSubmissionState) {
     let nextPage = model.startPage;
     const relevantPages: any[] = [];
     let endPage = null;

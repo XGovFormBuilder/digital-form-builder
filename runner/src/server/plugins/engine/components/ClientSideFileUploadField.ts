@@ -29,11 +29,25 @@ export class ClientSideFileUploadField extends FormComponent {
         const state = await cacheService.getState(request);
         const form_session_identifier =
           state.metadata?.form_session_identifier ?? "";
-        const { id, path } = request.params as any;
         const clientSideUploadComponent = viewModel.components.find(
           (c) => c.type === "ClientSideFileUploadField"
         );
-        const componentKey = clientSideUploadComponent.model.id;
+
+        let { id, path } = request.params as any;
+
+        let currentPage;
+        if (path === "summary") {
+          currentPage = clientSideUploadComponent.model.pages.find((page) =>
+            page.components.items.includes(clientSideUploadComponent)
+          );
+          path = currentPage.path.replace("/", "");
+        }
+
+        let componentKey = clientSideUploadComponent.model.id;
+        if (!componentKey) {
+          componentKey = clientSideUploadComponent.name;
+        }
+
         const key = `${form_session_identifier}/${id}/${path}/${componentKey}`;
 
         // we wait an arbitrary amount of 1 second here, because of race conditions.
@@ -48,7 +62,9 @@ export class ClientSideFileUploadField extends FormComponent {
         if (files.length > maxFiles) {
           return [
             {
-              path: componentKey,
+              path: currentPage
+                ? `${currentPage?.section?.name}.${componentKey}`
+                : componentKey,
               name: componentKey,
               href: `#${componentKey}`,
               text:
@@ -66,27 +82,33 @@ export class ClientSideFileUploadField extends FormComponent {
         }
 
         const error = {
-          path: componentKey,
+          path: currentPage
+            ? `${currentPage?.section?.name}.${componentKey}`
+            : componentKey,
           name: componentKey,
           href: `#${componentKey}`,
         };
 
         if (this.options.minimumRequiredFiles === 1) {
+          const labelText = clientSideUploadComponent.model?.label?.text || "";
+          const fullErrorText = `${labelText} is required`;
           return [
             {
               ...error,
               ...{
-                text: `${clientSideUploadComponent.model.label.text} is required`,
+                text: fullErrorText,
               },
             },
           ];
         }
 
+        const labelText = clientSideUploadComponent.model?.label?.text || "";
+        const fullErrorText = `${labelText} requires ${this.options.minimumRequiredFiles} files`;
         return [
           {
             ...error,
             ...{
-              text: `${clientSideUploadComponent.model.label.text} requires ${this.options.minimumRequiredFiles} files`,
+              text: fullErrorText,
             },
           },
         ];

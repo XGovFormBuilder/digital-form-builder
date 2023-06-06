@@ -21,7 +21,7 @@ export class SaveViewModel extends ViewModel {
   ) {
     super(pageTitle, model, state, request);
 
-    const { relevantPages } = this.getRelevantPages(model, state);
+    const { relevantPages } = SaveViewModel.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
 
     this.fees = FeesModel(model, state);

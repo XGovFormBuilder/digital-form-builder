@@ -10,7 +10,7 @@ import {
   FormSubmissionState,
 } from "../types";
 import { FormModel } from "../models";
-import { Schema } from "joi";
+import joi, { Schema } from "joi";
 import { DataType } from "./types";
 
 export class MonthYearField extends FormComponent {
@@ -54,8 +54,12 @@ export class MonthYearField extends FormComponent {
   }
 
   getStateSchemaKeys() {
+    let schema = joi.object(this.children.getStateSchemaKeys()) as Schema;
+    if (this.options?.required) {
+      schema = schema.required();
+    }
     return {
-      [this.name]: this.children.getStateSchemaKeys() as Schema,
+      [this.name]: schema,
     };
   }
 

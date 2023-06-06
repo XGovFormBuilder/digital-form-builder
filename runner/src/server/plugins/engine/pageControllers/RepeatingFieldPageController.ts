@@ -102,7 +102,7 @@ export class RepeatingFieldPageController extends PageController {
     const name = this.inputComponent.name;
     const parentSchema = super.stateSchema.fork([name], (schema) => {
       if (schema.type !== "array") {
-        return joi.array().items(schema).single().empty(null).default([]);
+        schema = joi.array().items(schema).single().empty(null).default([]);
       }
 
       if (this.inputComponent.options.required) {
