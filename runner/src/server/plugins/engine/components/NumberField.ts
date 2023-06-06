@@ -16,6 +16,11 @@ export class NumberField extends FormComponent {
 
     schema = schema.label(def.title);
 
+    const isOptional = def.options.required === false;
+    if (!isOptional) {
+      schema = schema.required();
+    }
+
     if (def.schema?.min && def.schema?.max) {
       schema = schema.$;
     }
@@ -31,7 +36,7 @@ export class NumberField extends FormComponent {
       schema = schema.rule({ message: def.options.customValidationMessage });
     }
 
-    if (def.options.required === false) {
+    if (isOptional) {
       const optionalSchema = joi
         .alternatives()
         .try(joi.string().allow(null).allow("").default("").optional(), schema);
