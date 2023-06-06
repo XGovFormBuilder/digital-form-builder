@@ -10,7 +10,10 @@
     <div class="govuk-grid-row">      
         <form method="post" enctype="multipart/form-data">
           <table class="govuk-table">
-            <caption class="govuk-table__caption govuk-table__caption--m">{{page.options.customText.separatePageTitle}}</caption>
+            <h2 class="govuk-caption-l govuk-!-margin-top-0" id="section-title">{{sectionTitle}}</h2>
+            <h1 class="govuk-heading-l">
+              {{page.options.customText.separatePageTitle}}
+            </h1>
             <thead class="govuk-table__head">
               <tr class="govuk-table__row">
                 {% for heading in details.headings %}

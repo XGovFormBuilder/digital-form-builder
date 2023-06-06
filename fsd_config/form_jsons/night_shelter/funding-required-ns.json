@@ -194,7 +194,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Your revenue costs"
+          "separatePageTitle": "Your revenue costs",
+          "removeText": "Delete"
         }
       },
       "components": [
@@ -282,7 +283,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Your capital costs"
+          "separatePageTitle": "Your capital costs",
+          "removeText": "Delete"
         }
       },
       "components": [

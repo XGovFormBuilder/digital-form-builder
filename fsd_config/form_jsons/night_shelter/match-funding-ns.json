@@ -63,7 +63,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Your match funding"
+          "separatePageTitle": "Your match funding",
+          "removeText": "Delete"
         }
       },
       "components": [

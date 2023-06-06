@@ -31,7 +31,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Proposal milestones"
+          "separatePageTitle": "Proposal milestones",
+          "removeText": "Delete"
         }
       },
       "components": [

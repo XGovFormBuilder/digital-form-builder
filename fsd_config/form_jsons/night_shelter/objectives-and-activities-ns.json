@@ -60,7 +60,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Your objectives and activities"
+          "separatePageTitle": "Your objectives and activities",
+          "removeText": "Delete"
         }
       },
       "components": [

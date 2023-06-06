@@ -31,7 +31,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Your proposal risks"
+          "separatePageTitle": "Your proposal risks",
+          "removeText": "Delete"
         }
       },
       "components": [

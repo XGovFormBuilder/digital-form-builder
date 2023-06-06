@@ -247,7 +247,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Details of professional advisors"
+          "separatePageTitle": "Details of professional advisors",
+          "removeText": "Delete"
         }
       },
       "components": [
@@ -354,7 +355,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Your contractors"
+          "separatePageTitle": "Your contractors",
+          "removeText": "Delete"
         }
       },
       "components": [

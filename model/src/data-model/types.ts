@@ -32,6 +32,7 @@ export interface RepeatingFieldPage extends Page {
       columnOneTitle?: string;
       columnTwoTitle?: string;
       columnThreeTitle?: string;
+      removeText?: string;
     };
     required: boolean;
     columnTitles?: [];

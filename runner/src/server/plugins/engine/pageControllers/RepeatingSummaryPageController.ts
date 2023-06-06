@@ -166,7 +166,7 @@ export class RepeatingSummaryPageController extends PageController {
               href: `?removeAtIndex=${i}${
                 view ? `&view=${view}` : ``
               }${form_session_identifier}`,
-              text: "Remove",
+              text: this.pageDef.options.customText.removeText ?? "Remove",
               visuallyHiddenText: titleWithIteration,
             },
           ],
@@ -218,7 +218,7 @@ export class RepeatingSummaryPageController extends PageController {
           href: `?removeAtIndex=${i}${
             view ? `&view=${view}` : ``
           }${form_session_identifier}`,
-          text: "Remove",
+          text: this.pageDef.options.customText.removeText ?? "Remove",
           visuallyHiddenText: title,
         },
         values: [],

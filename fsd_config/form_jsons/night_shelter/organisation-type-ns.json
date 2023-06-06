@@ -135,7 +135,8 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "Your trustees or committee members"
+          "separatePageTitle": "Your trustees or committee members",
+          "removeText": "Delete"
         }
       },
       "components": [
