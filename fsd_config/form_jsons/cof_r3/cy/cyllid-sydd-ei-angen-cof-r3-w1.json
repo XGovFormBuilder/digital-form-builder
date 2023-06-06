@@ -111,7 +111,8 @@
           "name": "qQLyXL",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Disgrifiad", "Swm", "Gweithredu "]
+            "columnTitles": ["Disgrifiad", "Swm", "Gweithredu "],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Costau cyfalaf",
@@ -200,7 +201,8 @@
           "name": "MopCmv",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"]
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Wedi sicrhau arian cyfatebol",
@@ -289,7 +291,8 @@
           "name": "vEOdBS",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"]
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Arian cyfatebol heb ei sicrhau",

@@ -45,7 +45,8 @@
         {
           "name": "sXlkAm",
           "options": {
-            "columnTitles": ["Milestone", "Date", "Action"]
+            "columnTitles": ["Milestone", "Date", "Action"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Milestones",

@@ -149,7 +149,8 @@
         {
           "name": "ILVEOG",
           "options": {
-            "columnTitles": ["Full name", "Action"]
+            "columnTitles": ["Full name", "Action"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Your trustees or committee members",

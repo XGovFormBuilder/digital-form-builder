@@ -67,7 +67,8 @@
               "Organisation",
               "How you'll work together",
               "Action"
-            ]
+            ],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Your partner organisations",

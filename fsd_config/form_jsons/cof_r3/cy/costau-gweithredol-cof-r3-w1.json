@@ -97,7 +97,8 @@
           "name": "MSNJQD",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"]
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Sources of income",
@@ -163,7 +164,8 @@
           "name": "NPgwcH",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Costau rhedeg", "Swm", "Gweithredu"]
+            "columnTitles": ["Costau rhedeg", "Swm", "Gweithredu"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Costau rhedeg",

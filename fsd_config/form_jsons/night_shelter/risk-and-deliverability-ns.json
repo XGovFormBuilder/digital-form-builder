@@ -50,7 +50,8 @@
               "Likelihood",
               "Proposed mitigation",
               "Action"
-            ]
+            ],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Risk",

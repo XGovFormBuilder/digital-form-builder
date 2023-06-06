@@ -261,7 +261,8 @@
         {
           "name": "SQEpBt",
           "options": {
-            "columnTitles": ["Job role", "Organisation name", "Action"]
+            "columnTitles": ["Job role", "Organisation name", "Action"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Details of professional advisors",
@@ -369,7 +370,8 @@
         {
           "name": "UDhjLS",
           "options": {
-            "columnTitles": ["Contractor", "Action"]
+            "columnTitles": ["Contractor", "Action"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Your contractors",

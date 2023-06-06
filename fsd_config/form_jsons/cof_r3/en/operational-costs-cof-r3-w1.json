@@ -95,7 +95,8 @@
           "name": "MSNJQD",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Source", "Amount", "Action"]
+            "columnTitles": ["Source", "Amount", "Action"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Sources of income",
@@ -161,7 +162,8 @@
           "name": "NPgwcH",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Running cost", "Amount", "Action"]
+            "columnTitles": ["Running cost", "Amount", "Action"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Running costs",

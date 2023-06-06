@@ -74,7 +74,8 @@
         {
           "name": "kRxOHF",
           "options": {
-            "columnTitles": ["Objective", "Activities", "Action"]
+            "columnTitles": ["Objective", "Activities", "Action"],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Proposal milestones",
