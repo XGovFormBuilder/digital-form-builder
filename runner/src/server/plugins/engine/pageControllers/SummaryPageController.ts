@@ -293,6 +293,22 @@ export class SummaryPageController extends PageController {
 
     // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
+    if (!viewModel.feedbackLink) {
+      let feedbackLink: string;
+      if (request.query.form_session_identifier) {
+        feedbackLink =
+          this.getConfiguredFeedbackLink() +
+          "?application_id=" +
+          request.query.form_session_identifier;
+      } else {
+        feedbackLink = this.getConfiguredFeedbackLink();
+      }
+      viewModel.feedbackLink = feedbackLink;
+    }
+  }
+
+  getConfiguredFeedbackLink() {
+    return config.feedbackLink;
   }
 
   getFeedbackContextInfo(request: HapiRequest) {
