@@ -58,7 +58,31 @@ export class SummaryPageController extends PageController {
             message: text,
           };
         });
-        viewModel.errors = [...(viewModel.errors || []), ...restructuredErrors];
+        const allErrorsUnsorted = [
+          ...(viewModel.errors || []),
+          ...restructuredErrors,
+        ];
+
+        const sortedPathNames = model.pages
+          .filter(
+            (page) => page.section?.name && page.components.items.length > 0
+          )
+          .map((page) => [
+            page.section?.name,
+            page.components.items.map((item) => item.name),
+          ])
+          .flatMap(([prefix, suffixes]) =>
+            suffixes.map((suffix) => `${prefix}.${suffix}`)
+          );
+
+        const sortedErrors = [...allErrorsUnsorted].sort((a, b) => {
+          const indexA = sortedPathNames.indexOf(a.path);
+          const indexB = sortedPathNames.indexOf(b.path);
+
+          return indexA - indexB;
+        });
+
+        viewModel.errors = sortedErrors;
       }
 
       viewModel.footer = this.def.footer;
@@ -211,10 +235,31 @@ export class SummaryPageController extends PageController {
             message: text,
           };
         });
-        summaryViewModel.errors = [
+        const allErrorsUnsorted = [
           ...(summaryViewModel.errors || []),
           ...restructuredErrors,
         ];
+
+        const sortedPathNames = model.pages
+          .filter(
+            (page) => page.section?.name && page.components.items.length > 0
+          )
+          .map((page) => [
+            page.section?.name,
+            page.components.items.map((item) => item.name),
+          ])
+          .flatMap(([prefix, suffixes]) =>
+            suffixes.map((suffix) => `${prefix}.${suffix}`)
+          );
+
+        const sortedErrors = [...allErrorsUnsorted].sort((a, b) => {
+          const indexA = sortedPathNames.indexOf(a.path);
+          const indexB = sortedPathNames.indexOf(b.path);
+
+          return indexA - indexB;
+        });
+
+        summaryViewModel.errors = sortedErrors;
       }
 
       const form_session_identifier =
