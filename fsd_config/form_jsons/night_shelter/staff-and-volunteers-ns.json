@@ -55,7 +55,8 @@
             "classes": "govuk-input--width-10"
           },
           "type": "NumberField",
-          "title": "For part-time employees, what is their average full-time equivalency (FTE)?"
+          "title": "For part-time employees, what is their average full-time equivalency (FTE)?",
+          "schema": { "precision": "2" }
         }
       ],
       "next": [
