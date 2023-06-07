@@ -17,6 +17,7 @@ applications:
       MULTIFUND_URL: https://frontend.dev.gids.dev/account
       BASIC_AUTH_ON: true
       CONTACT_US_URL: https://frontend.dev.gids.dev/contact_us
+      FEEDBACK_LINK: https://frontend.dev.gids.dev/feedback
       COOKIE_POLICY_URL: https://frontend.dev.gids.dev/cookie_policy
       ACCESSIBILITY_STATEMENT_URL: https://frontend.dev.gids.dev/accessibility_statement
       SINGLE_REDIS: true
@@ -44,6 +45,7 @@ applications:
       MULTIFUND_URL: https://frontend.test.gids.dev/account
       BASIC_AUTH_ON: true
       CONTACT_US_URL: https://frontend.test.gids.dev/contact_us
+      FEEDBACK_LINK: https://frontend.test.gids.dev/feedback
       COOKIE_POLICY_URL: https://frontend.test.gids.dev/cookie_policy
       ACCESSIBILITY_STATEMENT_URL: https://frontend.test.gids.dev/accessibility_statement
       SINGLE_REDIS: true

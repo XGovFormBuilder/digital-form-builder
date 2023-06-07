@@ -492,6 +492,7 @@ export class PageControllerBase {
 
       this.setPhaseTag(viewModel);
       this.setFeedbackDetails(viewModel, request);
+      this.setContactUsDetails(viewModel, request);
       /**
        * Content components can be hidden based on a condition. If the condition evaluates to true, it is safe to be kept, otherwise discard it
        */
@@ -761,6 +762,23 @@ export class PageControllerBase {
     };
   }
 
+  setContactUsDetails(viewModel, request) {
+    let contactUsUrl: string;
+    if (request.query.form_session_identifier) {
+      contactUsUrl =
+        this.getConfiguredContactUsLink() +
+        "?application_id=" +
+        request.query.form_session_identifier;
+    } else {
+      contactUsUrl = this.getConfiguredContactUsLink();
+    }
+    viewModel.contactUsUrl = contactUsUrl;
+  }
+
+  getConfiguredContactUsLink() {
+    return config.contactUsUrl;
+  }
+
   setFeedbackDetails(viewModel, request) {
     const feedbackContextInfo = this.getFeedbackContextInfo(request);
     if (feedbackContextInfo) {
@@ -959,6 +977,7 @@ export class PageControllerBase {
       this.model.def?.backLinkText ?? "Go back to application overview";
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
+    this.setContactUsDetails(viewModel, request);
 
     return h.view(this.viewName, viewModel);
   }

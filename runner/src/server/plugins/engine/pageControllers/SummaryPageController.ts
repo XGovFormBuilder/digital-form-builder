@@ -284,6 +284,7 @@ export class SummaryPageController extends PageController {
       }
 
       this.setFeedbackDetails(summaryViewModel, request);
+      this.setContactUsDetails(summaryViewModel, request);
 
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
@@ -390,6 +391,23 @@ export class SummaryPageController extends PageController {
 
       return redirectTo(request, h, res._links.next_url.href);
     };
+  }
+
+  setContactUsDetails(viewModel: SummaryViewModel, request: HapiRequest) {
+    let contactUsUrl: string;
+    if (request.query.form_session_identifier) {
+      contactUsUrl =
+        this.getConfiguredContactUsLink() +
+        "?application_id=" +
+        request.query.form_session_identifier;
+    } else {
+      contactUsUrl = this.getConfiguredContactUsLink();
+    }
+    viewModel.contactUsUrl = contactUsUrl;
+  }
+
+  getConfiguredContactUsLink() {
+    return config.contactUsUrl;
   }
 
   setFeedbackDetails(viewModel: SummaryViewModel, request: HapiRequest) {
