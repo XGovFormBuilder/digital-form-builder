@@ -348,6 +348,10 @@ function Item(
     returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
   }
 ) {
+  if (component?.options?.noReturnUrlOnSummaryPage === true) {
+    delete params.returnUrl;
+  }
+
   const isRepeatable = !!page.repeatField;
 
   if (request.query.form_session_identifier) {

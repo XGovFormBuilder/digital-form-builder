@@ -86,6 +86,7 @@ interface TextFieldBase {
     classes?: string;
     allow?: string;
     autocomplete?: string;
+    noReturnUrlOnSummaryPage?: boolean;
   };
   schema: {
     max?: number;

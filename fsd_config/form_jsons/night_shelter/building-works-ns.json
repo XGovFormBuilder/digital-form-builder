@@ -28,7 +28,8 @@
         {
           "name": "lifPop",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "noReturnUrlOnSummaryPage": true
           },
           "type": "YesNoField",
           "title": "Will you use the funding to conduct building works?",
