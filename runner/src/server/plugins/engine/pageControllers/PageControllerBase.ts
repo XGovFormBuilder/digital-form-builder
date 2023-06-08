@@ -133,7 +133,7 @@ export class PageControllerBase {
     let showTitle = true;
     let pageTitle = this.title;
     let sectionTitle = this.section?.title;
-    if (sectionTitle && iteration !== undefined) {
+    if (sectionTitle && iteration !== undefined && iteration !== "null") {
       sectionTitle = `${sectionTitle} ${iteration}`;
     }
     const components = this.components.getViewModel(formData, errors);
