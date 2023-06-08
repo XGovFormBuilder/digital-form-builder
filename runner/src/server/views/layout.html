@@ -93,7 +93,7 @@
 
 {% endblock %}
 
-{% block bodyStart %}  
+{% block bodyStart %}
 
   {% if gtmId1 %}
     <noscript>
@@ -176,10 +176,10 @@
         href: footerItem.href,
         text: footerItem.text
       }) %}
-    {% endfor %}  
+    {% endfor %}
   {% else %}
   {% set footerItems = [{
-        href: 'https://www.gov.uk/government/publications/community-ownership-fund-privacy-notice/community-ownership-fund-privacy-notice',
+        href: privacyPolicyUrl,
         text: 'Privacy'
     }, {
         href: cookiePolicyUrl,
