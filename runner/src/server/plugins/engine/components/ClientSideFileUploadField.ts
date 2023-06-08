@@ -130,7 +130,12 @@ export class ClientSideFileUploadField extends FormComponent {
       existingFiles: [], // this is populated afterwards.
       showNoScriptWarning: this.options.showNoScriptWarning || false,
       totalOverallFilesize: this.options.totalOverallFilesize,
+      hideTitle: this.options.hideTitle || false,
     } as ClientSideFileUploadFieldViewModel;
+    viewModel.label = {
+      text: this.title,
+      classes: "govuk-label--s",
+    };
     return viewModel;
   }
 }

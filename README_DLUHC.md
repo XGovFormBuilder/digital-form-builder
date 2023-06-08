@@ -6,9 +6,32 @@ The DLUHC workflow to build and push images uses a manual versioning approach. W
 
 # Using a new version of the DLUHC fork
 
+## Github build
+
 Any push to any branch will build a docker image of the runner and tag it with the commit ID. See [.github/workflows/dluhc-build-and-publish.yml](#.github/workflows/dluhc-build-and-publish.yml). On main, it will also tag with latest.
 
-So to consume a docker image produced by this workflow, update the `Dockerfile` you are using to pull the tag produced by this workflow.
+So to consume a docker image produced by this workflow, update the `Dockerfile` you are using (probably [this one](./fsd_config/Dockerfile) ) to pull the tag produced by this workflow.
+
+## Local build
+
+To skip the roundtrip of pushing up to github, you can build the docker image for the runner locally and consume in the docker-runner:
+
+    cd digital-form-builder
+    docker build -f runner/Dockerfile . -t local-form-runner
+
+Then update the [Dockerfile](./fsd_config/Dockerfile) used by the docker-runner to point to this tag:
+
+    ARG BASE_IMAGE_TAG="latest"
+    # FROM ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:$BASE_IMAGE_TAG as base
+    FROM local-form-runner:latest as base
+    ARG FORMS_DIR="forms-v3"
+
+Then build and run the form-runner through docker compose
+
+    docker compose build form-runner
+    docker compose up form-runner
+
+If just updating the forms (no files within the runner itself) you can just do a fresh `docker compose build form-runner`, you don't need to update the Dockerfile or do a `docker build...`
 
 # Workflow Files
 
