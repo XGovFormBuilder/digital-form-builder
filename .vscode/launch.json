@@ -1,0 +1,17 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Docker Runner forms",
+      "type": "node",
+      "request": "attach",
+      "address": "0.0.0.0",
+      "port": 9228,
+      "localRoot": "${workspaceFolder:digital-form-builder}",
+      "remoteRoot": "/usr/src/app"
+    }
+  ]
+}
