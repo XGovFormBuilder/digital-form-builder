@@ -70,8 +70,8 @@ export class MonthYearField extends FormComponent {
         const [year, month] = result.split("-");
         return {
           [`${this.name}__month`]: month,
-          [`${this.name}__year`]: year,
-        };
+          [`${this.name}__year`]: year
+        }
       }
 
       return this.children.getFormDataFromState(state[this.name]);
