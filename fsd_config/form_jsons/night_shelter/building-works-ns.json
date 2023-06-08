@@ -221,7 +221,7 @@
       "components": [
         {
           "name": "nyusrL",
-          "options": {},
+          "options": { "hideTitle": true },
           "type": "YesNoField",
           "title": "Will you use any professional advisors for the proposal?",
           "hint": "For example, architects, quantity surveyors, project managers."
