@@ -65,6 +65,15 @@ export class MonthYearField extends FormComponent {
 
   getFormDataFromState(state: FormSubmissionState) {
     if (state && state[this.name]) {
+      const result = state[this.name];
+      if (typeof result === "string") {
+        const [year, month] = result.split("-");
+        return {
+          [`${this.name}__month`]: month,
+          [`${this.name}__year`]: year
+        }
+      }
+
       return this.children.getFormDataFromState(state[this.name]);
     }
 
