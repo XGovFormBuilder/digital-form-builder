@@ -64,7 +64,11 @@ export class MonthYearField extends FormComponent {
   }
 
   getFormDataFromState(state: FormSubmissionState) {
-    return this.children.getFormDataFromState(state);
+    if (state && state[this.name]) {
+      return this.children.getFormDataFromState(state[this.name]);
+    }
+
+    return {};
   }
 
   getStateValueFromValidForm(payload: FormPayload) {
