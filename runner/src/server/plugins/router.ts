@@ -29,16 +29,6 @@ export default {
       server.route([
         {
           method: "get",
-          path: "/help/privacy",
-          handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-            if (config.privacyPolicyUrl) {
-              return h.redirect(config.privacyPolicyUrl);
-            }
-            return h.view("help/privacy");
-          },
-        },
-        {
-          method: "get",
           path: "/help/cookies",
           handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
             return h.view("help/cookies");
