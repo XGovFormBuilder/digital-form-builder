@@ -88,6 +88,7 @@ export type ClientSideFileUploadFieldViewModel = {
   existingFiles: S3Object[];
   showNoScriptWarning?: boolean;
   totalOverallFilesize?: number;
+  hideTitle?: boolean;
 } & ViewModel;
 
 export type DataType =
