@@ -18,6 +18,7 @@ applications:
       BASIC_AUTH_ON: true
       CONTACT_US_URL: https://frontend.dev.gids.dev/contact_us
       FEEDBACK_LINK: https://frontend.dev.gids.dev/feedback
+      PRIVACY_POLICY_URL: https://frontend.dev.gids.dev/privacy
       COOKIE_POLICY_URL: https://frontend.dev.gids.dev/cookie_policy
       ACCESSIBILITY_STATEMENT_URL: https://frontend.dev.gids.dev/accessibility_statement
       SINGLE_REDIS: true
@@ -46,6 +47,7 @@ applications:
       BASIC_AUTH_ON: true
       CONTACT_US_URL: https://frontend.test.gids.dev/contact_us
       FEEDBACK_LINK: https://frontend.test.gids.dev/feedback
+      PRIVACY_POLICY_URL: https://frontend.test.gids.dev/privacy
       COOKIE_POLICY_URL: https://frontend.test.gids.dev/cookie_policy
       ACCESSIBILITY_STATEMENT_URL: https://frontend.test.gids.dev/accessibility_statement
       SINGLE_REDIS: true

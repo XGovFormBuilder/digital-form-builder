@@ -32,6 +32,7 @@ export class ViewModel {
   name: string | undefined;
   feedbackLink: string | undefined;
   contactUsUrl: string | undefined;
+  privacyPolicyUrl: string | undefined;
   phaseTag: string | undefined;
   declarationError: any; // TODO
   errors:
@@ -73,6 +74,7 @@ export class ViewModel {
       ((def.feedback?.emailAddress && `mailto:${def.feedback?.emailAddress}`) ||
         config.feedbackLink);
     this.contactUsUrl = config.contactUsUrl;
+    this.privacyPolicyUrl = config.privacyPolicyUrl;
 
     this.saveAndContinueText = "Save and continue";
 

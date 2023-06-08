@@ -493,6 +493,7 @@ export class PageControllerBase {
       this.setPhaseTag(viewModel);
       this.setFeedbackDetails(viewModel, request);
       this.setContactUsDetails(viewModel, request);
+      this.setPrivacyDetails(viewModel, request);
       /**
        * Content components can be hidden based on a condition. If the condition evaluates to true, it is safe to be kept, otherwise discard it
        */
@@ -762,6 +763,23 @@ export class PageControllerBase {
     };
   }
 
+  setPrivacyDetails(viewModel, request) {
+    let privacyPolicyUrl: string;
+    if (request.query.form_session_identifier) {
+      privacyPolicyUrl =
+        this.getConfiguredPrivacyLink() +
+        "?application_id=" +
+        request.query.form_session_identifier;
+    } else {
+      privacyPolicyUrl = this.getConfiguredPrivacyLink();
+    }
+    viewModel.privacyPolicyUrl = privacyPolicyUrl;
+  }
+
+  getConfiguredPrivacyLink() {
+    return config.privacyPolicyUrl;
+  }
+
   setContactUsDetails(viewModel, request) {
     let contactUsUrl: string;
     if (request.query.form_session_identifier) {
@@ -978,6 +996,7 @@ export class PageControllerBase {
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
     this.setContactUsDetails(viewModel, request);
+    this.setPrivacyDetails(viewModel, request);
 
     return h.view(this.viewName, viewModel);
   }
