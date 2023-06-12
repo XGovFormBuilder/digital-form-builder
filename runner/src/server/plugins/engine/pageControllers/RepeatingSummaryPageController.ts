@@ -63,6 +63,11 @@ export class RepeatingSummaryPageController extends PageController {
       const viewModel = this.getViewModel(state);
       viewModel.crumb = request.plugins.crumb;
 
+      viewModel.backLink =
+        state.callback?.returnUrl ?? progress[progress.length - 2];
+      viewModel.backLinkText =
+        this.model.def?.backLinkText ?? "Go back to application overview";
+
       return h.view("repeating-summary", viewModel);
     };
   }
