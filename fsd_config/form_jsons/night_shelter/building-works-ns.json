@@ -201,9 +201,10 @@
         {
           "name": "mADkNz",
           "options": {
-            "maxWords": "500"
+            "maxWords": "500",
+            "hideTitle": true
           },
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Give a brief summary of the advice you received",
           "schema": {}
         }
