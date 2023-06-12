@@ -14,6 +14,7 @@ function answerFromDetailItem(item) {
       return date;
     case "monthYear":
       if (typeof item.rawValue === "undefined") return "undefined";
+      if (typeof item.rawValue === "string") return item.rawValue;
       const [month, year] = Object.values(item.rawValue);
       return format(new Date(`${year}-${month}-1`), "yyyy-MM");
     case "multiInput":
