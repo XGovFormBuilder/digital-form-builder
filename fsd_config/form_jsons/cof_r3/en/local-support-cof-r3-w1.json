@@ -48,7 +48,7 @@
             "minimumRequiredFiles": 0
           },
           "type": "ClientSideFileUploadField",
-          "title": "Upload supporting evidence",
+          "title": "Upload supporting evidence (optional)",
           "hint": "Upload evidence to show the support you have from the community.\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
         }
       ],
