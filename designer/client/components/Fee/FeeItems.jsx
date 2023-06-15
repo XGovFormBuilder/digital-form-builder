@@ -13,6 +13,7 @@ function isDuplicated(arr) {
 
 const MISSING_DESC = "missingDescription";
 const INVALID_AMOUNT = "invalidAmount";
+const INVALID_MULTIPLIER = "invalidMultiplier";
 const MISSING_COND = "missingCondition";
 const DUP_CONDITIONS = "dupConditions";
 
@@ -34,6 +35,8 @@ export class FeeItems extends React.Component {
     let missingDescriptions = {};
     let amountInvalid = false;
     let amountsInvalid = {};
+    let multiplierInvalid = false;
+    let multipliersInvalid = {};
     let missingCondition = false;
     let missingConditions = {};
     formData.getAll("description").forEach((d, i) => {
@@ -72,6 +75,18 @@ export class FeeItems extends React.Component {
       errors[INVALID_AMOUNT] = amountsInvalid;
     }
 
+    formData.getAll("multiplier").forEach((d, i) => {
+      if (d < 0) {
+        multipliersInvalid[i] = true;
+        multiplierInvalid = true;
+        errors[INVALID_MULTIPLIER] = multipliersInvalid;
+      }
+    });
+    if (multiplierInvalid) {
+      multipliersInvalid.href = "#items-table";
+      multipliersInvalid.children = "Enter a valid quantity";
+    }
+
     const descriptions = formData.getAll("description").map((t) => t.trim());
     const conditions = formData.getAll("condition").map((t) => t.trim());
 
@@ -97,6 +112,7 @@ export class FeeItems extends React.Component {
         description: "",
         amount: 0,
         condition: "",
+        multiplier: "1",
       }),
     });
   };
@@ -131,9 +147,32 @@ export class FeeItems extends React.Component {
       });
   };
 
+  itemHasStaticQuantity = (item) => {
+    console.log("item multiplier: ", item.multiplier);
+    return !!parseInt(item.multiplier);
+  };
+
+  changeQuantityType = (event, item, index) => {
+    event.preventDefault();
+    const { fields } = this.props;
+    let itemsCopy = [...this.state.items];
+    let itemCopy = { ...item };
+    if (this.itemHasStaticQuantity(item)) {
+      itemCopy.multiplier = Object.keys(fields)[0] ?? "1";
+    } else {
+      itemCopy.multiplier = "1";
+    }
+    itemsCopy[index] = itemCopy;
+    this.setState({
+      items: itemsCopy,
+    });
+  };
+
   render() {
     const { items, errors } = this.state;
-    const { conditions } = this.props;
+    const { conditions, fields } = this.props;
+
+    console.log("fields: ", fields);
 
     let hasValidationErrors = Object.keys(errors).length > 0;
 
@@ -164,9 +203,13 @@ export class FeeItems extends React.Component {
                 Condition
               </th>
               <th className="govuk-table__header" scope="col">
+                Quantity
+              </th>
+              <th className="govuk-table__header" scope="col">
                 <a
                   className="pull-right"
                   href="#"
+                  role="button"
                   onClick={this.onClickAddItem}
                 >
                   Add
@@ -220,6 +263,66 @@ export class FeeItems extends React.Component {
                       </option>
                     ))}
                   </select>
+                </td>
+                <td className={"govuk-table__cell"}>
+                  {this.itemHasStaticQuantity(item) ? (
+                    <>
+                      <input
+                        className={classNames({
+                          "govuk-input": true,
+                          "govuk-input--error":
+                            errors?.[INVALID_MULTIPLIER]?.[index],
+                        })}
+                        name="multiplier"
+                        id="multiplier"
+                        type="number"
+                        defaultValue={item.multiplier ?? 0}
+                        step="any"
+                      />
+                      {fields.length > 0 && (
+                        <p className={"govuk-body govuk-!-margin-top-1"}>
+                          <a
+                            href={"#"}
+                            role="button"
+                            onClick={(e) =>
+                              this.changeQuantityType(e, item, index)
+                            }
+                          >
+                            Or choose a field
+                          </a>
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <select
+                        className="govuk-select govuk-!-width-full"
+                        id="multiplier"
+                        name="multiplier"
+                        defaultValue={item.multiplier}
+                      >
+                        {fields.map((field) => (
+                          <option
+                            key={`item-${index}-field-${field.name}`}
+                            value={field.name}
+                          >
+                            {field.label}
+                          </option>
+                        ))}
+                      </select>
+                      <p className={"govuk-body govuk-!-margin-top-1"}>
+                        <a
+                          href={"#"}
+                          role="button"
+                          onClick={(e) =>
+                            this.changeQuantityType(e, item, index)
+                          }
+                        >
+                          Or choose a number
+                        </a>
+                      </p>
+                    </>
+                  )}
                 </td>
                 <td className="govuk-table__cell" width="20px">
                   <a

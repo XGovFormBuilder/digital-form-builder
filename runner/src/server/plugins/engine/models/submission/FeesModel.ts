@@ -20,7 +20,7 @@ function feesAsFeeDetails(
     let multiplyBy;
 
     if (multiplier) {
-      multiplyBy = Number(reach(state, multiplier));
+      multiplyBy = Number(reach(state, multiplier) ?? multiplier);
     }
 
     return {

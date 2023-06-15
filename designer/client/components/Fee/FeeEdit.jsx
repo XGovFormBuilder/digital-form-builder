@@ -6,6 +6,8 @@ import { Input } from "@govuk-jsx/input";
 import ErrorSummary from "./../../error-summary";
 import { DataContext } from "../../context";
 import logger from "../../plugins/logger";
+import { allInputs } from "../../data";
+
 export class FeeEdit extends React.Component {
   static contextType = DataContext;
 
@@ -15,6 +17,24 @@ export class FeeEdit extends React.Component {
     this.state = {
       errors: {},
     };
+  }
+
+  trimSectionName(fieldName) {
+    if (fieldName.includes(".")) {
+      return fieldName.substring(fieldName.indexOf(".") + 1);
+    }
+    return fieldName;
+  }
+
+  getFields() {
+    const { data } = this.context;
+    return allInputs(data)
+      .filter((input) => input.type === "NumberField")
+      .map((input) => ({
+        label: input.title,
+        name: this.trimSectionName(input.propertyPath),
+        type: input.type,
+      }));
   }
 
   onSubmit = (e) => {
@@ -29,6 +49,9 @@ export class FeeEdit extends React.Component {
     const descriptions = formData.getAll("description").map((t) => t.trim());
     const amount = formData.getAll("amount").map((t) => t.trim());
     const conditions = formData.getAll("condition").map((t) => t.trim());
+    const multipliers = formData
+      .getAll("multiplier")
+      .map((t) => t.trim() ?? "0");
 
     let hasValidationErrors = this.validate(testPayApiKey, form);
     if (hasValidationErrors) return;
@@ -42,6 +65,7 @@ export class FeeEdit extends React.Component {
       description,
       amount: amount[i],
       condition: conditions[i],
+      multiplier: multipliers[i],
     }));
 
     save(copy)
@@ -139,6 +163,7 @@ export class FeeEdit extends React.Component {
             items={fees}
             conditions={conditions}
             ref={this.feeItemsRef}
+            fields={this.getFields()}
           />
 
           <button className="govuk-button" type="submit">

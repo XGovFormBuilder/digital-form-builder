@@ -15,6 +15,15 @@
           "list": "zone",
           "title": "caz zone",
           "schema": {}
+        },
+        {
+          "name": "numberOfCars",
+          "type": "NumberField",
+          "options": {
+            "required": true
+          },
+          "title": "How many cars do you have?",
+          "schema": {}
         }
       ],
       "next": [
@@ -101,11 +110,13 @@
     {
       "description": "Bristol tax",
       "amount": "5000",
-      "condition": "dFQTyf"
+      "condition": "dFQTyf",
+      "multiplier": "numberOfCars"
     },
     {
       "description": "car tax",
-      "amount": "5000"
+      "amount": "5000",
+      "multiplier": "2"
     }
   ],
   "outputs": [
