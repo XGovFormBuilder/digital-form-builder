@@ -10,14 +10,13 @@
                     "name": "fIMmCL",
                     "options": {},
                     "type": "Para",
-                    "content": "<h2 class=\"govuk-heading-m\">Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown infection</h2>",
-                    "schema": {}
+                    "content": "<h2 class=\"govuk-heading-m\">Acute Respiratory Infections (ARI) - COVID-19, Flu or unknown infection</h2>"
                 },
                 {
                     "name": "nMOTrx",
                     "options": {},
                     "type": "Para",
-                    "content": "This is an online Care Outbreak Risk Assessment (Care OBRA) Tool for all Adult Social Care providers reporting a single case of Influenza (Flu) or a suspected or confirmed outbreak of acute respiratory infections, defined as:\n</br></br></br>\n\n<i>Two or more cases of Acute Respiratory Infection (COVID-19, Flu or unknown infection) within 14 days and potentially linked to the same care setting i.e.cases are probably linked to each other and transmission in the care setting is likely.</i>\n</br></br></br>\n \n\nThe purpose of the Care OBRA Tool is to gather information that  the UK Health Security Agency (UKHSA) Health Protection Team (HPT) or Community Infection Control (CIC) Team need to assess the situation within your setting in order to help you manage the outbreak.</br></br>\n\nAs soon as you have “submitted” your data into the Care OBRA Tool, you will receive:</br>\n\n1) An automatic <b>acknowledgement email</b> providing you with a copy of the data that you have input into the tool</br>\n\n2) A further automatic <b>advice email</b> which gives you information and advice on how to manage the situation that you have reported\n\n</br></br>\n\nThe HPT or CIC Team will also review your data to decide whether any further action is required and may then provide further advice and support by calling or emailing you.\n\n</br></br></br>\n \n\nThis form should take around 10 minutes to complete.\n</br></br></br>\n\n \n\nThis form is for the reporting of <b>NEW outbreaks</b> of Acute Respiratory Infection (ARI) and can also be used to report <b>single cases of confirmed Influenza</b>\n</br></br>\n\nIt is <b>NOT</b> suitable for\n</br></br>\n\n- updating on existing outbreaks/clusters that you have already notified to the HPT or CIC Team</br>\n\n- single cases of COVID-19 (you no longer need to report these)\n\n</br></br>\n\n<b><span style=\"color:#d4351c\">Please be aware that if you leave the Care OBRA risk assessment tool part-way through, after 20 minutes of no activity, your answers will be reset and you will have to start again.</span></b>\n</br></br>\n\nTherefore, we suggest you seek out the following information before you start to complete this form:\n</br></br>\n- The postcode of your setting</br>\n- The Unique Organisation Number UON* and/or CQC Location ID of your setting</br>\n- Total number of Residents/Clients and Staff in your setting</br>\n- Number of residents/clients who have had a letter saying that they are especially vulnerable to COVID-19 and are, therefore, eligible for COVID-19 treatments</br>\n- Number of Residents/Clients and/or Staff with symptoms</br>\n- Dates of symptom onset for cases (date of positive test if asymptomatic)</br>\n- Number of residents/clients and staff vaccinated, or not, for both COVID-19 and Influenza (Flu)</br>\n\n</br></br></br>\n\n*UON is the same number that you use to order new COVID-19 test kits or register test results. Please see the bottom of this page for guidance on how to find your UON.\n\n </br></br></br>\n\n<b>Please DO NOT include any person identifiable information about people receiving care in this form (e.g. names and date of births)</b>\n</br></br></br>\n \n\n<u><b>After submission of your data, if you receive an email that assesses your situation as “High Priority” over <span style=\"color:#d4351c\">a weekend or a bank holiday</span>, please also <span style=\"color:#d4351c\">call the Health Protection Team (HPT) out of hours service</span></b>. Otherwise, your outbreak will only be picked up by our team the next working day.\n</br></br></br></u>\n \n\nContact details for your local HPT (in and out of hours) can be found by clicking on this link <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.gov.uk/health-protection-team\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a>. If you are calling regarding a High Priority Outbreak, you should tell the call handler that you have been directed to call this number by your local HPT and you should have your Care OBRA reference number to hand.\n</br></br></br>\n \n\nIf for any reason you have been unable to complete this form, or your enquiry is not suitable for entry onto this form (then please contact your local HPT the next working day if non-urgent, or in an emergency, call your HPTs out of hours service (click on the link above to find details of your local HPT).\n</br></br></br>\n\n \n\n<b>Unique Organization Number (UON)</b> </br>\nIf you can't find your <b>UON</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://organisation-number-lookup.test-for-coronavirus.service.gov.uk/\">Organization number lookup - GOV.UK (test-for-coronavirus.service.gov.uk).</a> You will need your CQC Location ID. \n </br></br>\nIf you don’t know your <b>CQC Location ID</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about half-way down the page to <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">CQC care directory - csv</a>. You will find your <b>CQC Location ID</b> in this look up table. \n\n</br></br>\n\nIf you still can’t find your UON number, then telephone 119.\n\n</br></br>\n\nIf all the above fail, then please call your local Health Protection or Community Infection Control Team (as per your usual arrangements).\n\n</br></br>\n\n<b>Data sharing</b>\n</br></br>\nThe data you provide may be shared with other stakeholders such as your Local Authority, Community Infection Control Team and NHS in order to ensure you receive the most appropriate support from the most relevant organization. The UKHSA data sharing policy can be found on:\n</br></br>\n<a target=\"_blank\" id=\"ukhsa-privacy-notice\" href=\"https://www.gov.uk/government/publications/ukhsa-privacy-notice\">https://www.gov.uk/government/publications/ukhsa-privacy-notice</a>\n\n</br></br>\n\n<b style=\"color:#1d70b8\">Continue for completion of the Care OBRA Tool</b>",
+                    "content": "This is an online Care Outbreak Risk Assessment (Care OBRA) Tool for all Adult Social Care providers reporting a single case of Influenza (Flu) or a suspected or confirmed outbreak of acute respiratory infections, defined as:\n</br></br></br>\n\n<i>Two or more cases of Acute Respiratory Infection (COVID-19, Flu or unknown infection) within 14 days and potentially linked to the same care setting i.e.cases are probably linked to each other and transmission in the care setting is likely.</i>\n</br></br></br>\n \n\nThe purpose of the Care OBRA Tool is to gather information that  the UK Health Security Agency (UKHSA) Health Protection Team (HPT) or Community Infection Control (CIC) Team need to assess the situation within your setting in order to help you manage the outbreak.</br></br>\n\nAs soon as you have “submitted” your data into the Care OBRA Tool, you will receive:</br>\n\n1) An automatic <b>acknowledgement email</b> providing you with a copy of the data that you have input into the tool</br>\n\n2) A further automatic <b>advice email</b> which gives you information and advice on how to manage the situation that you have reported\n\n</br></br>\n\nThe HPT or CIC Team will also review your data to decide whether any further action is required and may then provide further advice and support by calling or emailing you.\n\n</br></br></br>\n \n\nThis form should take around 10 minutes to complete.\n</br></br></br>\n\n \n\nThis form is for the reporting of <b>NEW outbreaks</b> of Acute Respiratory Infection (ARI) and can also be used to report <b>single cases of confirmed Influenza</b>\n</br></br>\n\nIt is <b>NOT</b> suitable for\n</br></br>\n\n- updating on existing outbreaks/clusters that you have already notified to the HPT or CIC Team</br>\n\n- single cases of COVID-19 (you no longer need to report these)\n\n</br></br>\n\n<b><span style=\"color:#d4351c\">Please be aware that if you leave the Care OBRA risk assessment tool part-way through, after 20 minutes of no activity, your answers will be reset and you will have to start again.</span></b>\n</br></br>\n\nTherefore, we suggest you seek out the following information before you start to complete this form:\n</br></br>\n- The postcode of your setting</br>\n- The Unique Organisation Number UON* and/or CQC Location ID of your setting</br>\n- Total number of Residents/Clients and Staff in your setting</br>\n- Number of residents/clients who have had a letter saying that they are especially vulnerable to COVID-19 and are, therefore, eligible for COVID-19 treatments</br>\n- Number of Residents/Clients and/or Staff with symptoms</br>\n- Dates of symptom onset for cases (date of positive test if asymptomatic)</br>\n- Number of residents/clients and staff vaccinated, or not, for both COVID-19 and Influenza (Flu)</br>\n\n</br></br></br>\n\n*UON is the same number that you use to order new COVID-19 test kits or register test results. Please see the bottom of this page for guidance on how to find your UON.\n\n </br></br></br>\n\n<b>Please DO NOT include any person identifiable information about people receiving care in this form (e.g. names and date of births)</b>\n</br></br></br>\n \n\n<u><b>After submission of your data, if you receive an email that assesses your situation as “High Priority” over <span style=\"color:#d4351c\">a weekend or a bank holiday, please </span>also <span style=\"color:#d4351c\">call the Health Protection Team (HPT) out of hours service</span></b>. Otherwise, your outbreak will only be picked up by our team the next working day.\n</br></br></br></u>\n \n\nContact details for your local HPT (in and out of hours) can be found by clicking on this link <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.gov.uk/health-protection-team\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a>. If you are calling regarding a High Priority Outbreak, you should tell the call handler that you have been directed to call this number by your local HPT and you should have your Care OBRA reference number to hand.\n</br></br></br>\n \n\nIf for any reason you have been unable to complete this form, or your enquiry is not suitable for entry onto this form (then please contact your local HPT the next working day if non-urgent, or in an emergency, call your HPTs out of hours service (click on the link above to find details of your local HPT).\n</br></br></br>\n\n \n\n<b>Unique Organization Number (UON)</b> </br>\nIf you can't find your <b>UON</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://organisation-number-lookup.test-for-coronavirus.service.gov.uk/\">Organization number lookup - GOV.UK (test-for-coronavirus.service.gov.uk).</a> You will need your CQC Location ID. \n </br></br>\nIf you don’t know your <b>CQC Location ID</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about half-way down the page to <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">CQC care directory - csv</a>. You will find your <b>CQC Location ID</b> in this look up table. \n\n</br></br>\n\nIf you still can’t find your UON number, then telephone 119.\n\n</br></br>\n\nIf all the above fail, then please call your local Health Protection or Community Infection Control Team (as per your usual arrangements).\n\n</br></br>\n\n<b>Data sharing</b>\n</br></br>\nThe data you provide may be shared with other stakeholders such as your Local Authority, Community Infection Control Team and NHS in order to ensure you receive the most appropriate support from the most relevant organization. The UKHSA data sharing policy can be found on:\n</br></br>\n<a target=\"_blank\" id=\"ukhsa-privacy-notice\" href=\"https://www.gov.uk/government/publications/ukhsa-privacy-notice\">https://www.gov.uk/government/publications/ukhsa-privacy-notice</a>\n\n</br></br>\n\n<b style=\"color:#1d70b8\">Continue for completion of the Care OBRA Tool</b>",
                     "schema": {}
                 }
             ],
@@ -136,8 +135,7 @@
                     "type": "NumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "nameHasError": false,
-                    "hint": "Please consider using a non-personal number.",
-                    "schema": {}
+                    "hint": "Please consider using a non-personal number."
                 },
                 {
                     "name": "S1Q8",
@@ -329,8 +327,7 @@
                     "type": "RadiosField",
                     "title": "S3Q4. How many Residents-clients and/or Staff have a letter saying that they are eligible for COVID-19 specialist treatment drugs (because they are particularly vulnerable and not because they are part of a clinical study)?",
                     "nameHasError": false,
-                    "list": "pxxiab",
-                    "schema": {}
+                    "list": "pxxiab"
                 },
                 {
                     "name": "S3Q5",
@@ -344,7 +341,7 @@
                         "min": 0,
                         "max": 200
                     },
-                    "hint": "If not a residential setting or you don't know, please select 0, otherwise please enter a number between 0 to 200."
+                    "hint": "If not a residential setting or you don't know, please select zero."
                 }
             ],
             "next": [
@@ -397,11 +394,7 @@
                     "type": "NumberField",
                     "title": "S4Q2. What is the total number of resident-client COVID-19 cases in the outbreak you are reporting (LFD confirmed only)?",
                     "nameHasError": false,
-                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0",
-                    "schema": {
-                        "min": 0,
-                        "max": 100
-                    }
+                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0"
                 },
                 {
                     "name": "S4Q3",
@@ -421,11 +414,7 @@
                     "type": "NumberField",
                     "title": "S4Q4. What is the total number of residents-clients with COVID-19 symptoms who have not been tested?",
                     "nameHasError": false,
-                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0",
-                    "schema": {
-                        "min": 0,
-                        "max": 100
-                    }
+                    "hint": "Please include those with COVID-19 who are currently hospitalised or on visits out\n</br>\nIf zero then please enter 0"
                 },
                 {
                     "name": "S4Q5",
@@ -433,11 +422,7 @@
                     "type": "NumberField",
                     "title": "S4Q5. What is the total number of staff with COVID-19 symptoms who have not been tested? ",
                     "nameHasError": false,
-                    "hint": "Please note that you are not required to test symptomatic staff for COVID-19\n</br>\nPlease include those who are currently hospitalised with COVID-19\n</br>\nIf zero then please enter 0",
-                    "schema": {
-                        "min": 0,
-                        "max": 100
-                    }
+                    "hint": "Please note that you are not required to test symptomatic staff for COVID-19\n</br>\nPlease include those who are currently hospitalised with COVID-19\n</br>\nIf zero then please enter 0"
                 },
                 {
                     "name": "S4Q6",
@@ -454,14 +439,12 @@
                 {
                     "name": "S4Q7",
                     "options": {
-                        "required": false,
-                        "maxDaysInFuture": "0"
+                        "required": false
                     },
                     "type": "DatePartsField",
                     "title": "S4Q7. Symptom onset date of second case",
                     "hint": "(DD/MM/YYYY)",
-                    "nameHasError": false,
-                    "schema": {}
+                    "nameHasError": false
                 },
                 {
                     "name": "S4Q8",
@@ -585,7 +568,7 @@
                     "name": "S5Q3",
                     "options": {},
                     "type": "NumberField",
-                    "title": "S5Q3. Among staff, how many SWAB CONFIRMED Flu (Influenza) do you have currently ?",
+                    "title": "S5Q3. Among staff, How many SWAB CONFIRMED Flu (Influenza) do you have currently ?",
                     "nameHasError": false,
                     "schema": {
                         "min": 0,
@@ -617,7 +600,7 @@
                         "min": 0,
                         "max": 50
                     },
-                    "hint": "Suspected staff cases usually include people who have a sudden onset of acute respiratory symptoms AND Fever.  Please count all cases either currently in your setting or in hospital.<br>\nPlease enter a number between 0 to 50."
+                    "hint": "Suspected staff cases usually include people who have a sudden onset of acute respiratory symptoms AND Fever.  Please count all cases either currently in your setting or in hospital."
                 },
                 {
                     "name": "S5Q6",
@@ -631,7 +614,7 @@
                         "min": 0,
                         "max": 50
                     },
-                    "hint": "Please count all cases either currently in your setting or in hospital.<br>\nPlease enter a number between 0 to 50."
+                    "hint": "Please count all cases either currently in your setting or in hospital."
                 },
                 {
                     "name": "S5Q7",
@@ -646,7 +629,7 @@
                         "min": 0,
                         "max": 50
                     },
-                    "hint": "Please count all cases either currently at home or in hospital.<br>\nPlease enter a number between 0 to 50."
+                    "hint": "Please count all cases either currently at home or in hospital."
                 },
                 {
                     "name": "S5Q8",
@@ -658,8 +641,7 @@
                     "schema": {
                         "min": 0,
                         "max": 50
-                    },
-                    "hint": "Please enter a number between 0 to 50."
+                    }
                 },
                 {
                     "name": "S5Q9",
@@ -672,8 +654,7 @@
                     "schema": {
                         "min": 0,
                         "max": 50
-                    },
-                    "hint": "Please enter a number between 0 to 50."
+                    }
                 },
                 {
                     "name": "S5Q10",
@@ -683,11 +664,7 @@
                     "type": "NumberField",
                     "title": "S5Q10. Of the residents-client tested for Covid-19, how many had a positive result?",
                     "nameHasError": false,
-                    "schema": {
-                        "min": 0,
-                        "max": 50
-                    },
-                    "hint": "Please enter a number between 0 to 50."
+                    "schema": {}
                 },
                 {
                     "name": "S5Q11",
@@ -700,14 +677,12 @@
                     "schema": {
                         "min": 0,
                         "max": 50
-                    },
-                    "hint": "Please enter a number between 0 to 50."
+                    }
                 },
                 {
                     "name": "S5Q12",
                     "options": {
-                        "required": true,
-                        "maxDaysInFuture": "0"
+                        "required": true
                     },
                     "type": "DatePartsField",
                     "title": "S5Q12. Symptom onset date of first case (confirmed flu, suspected flu OR chest infections)",
@@ -718,8 +693,7 @@
                 {
                     "name": "S5Q13",
                     "options": {
-                        "required": false,
-                        "maxDaysInFuture": "0"
+                        "required": false
                     },
                     "type": "DatePartsField",
                     "title": "S5Q13. Symptom onset date of second case (confirmed flu, suspected flu OR chest infections)",
@@ -730,8 +704,7 @@
                 {
                     "name": "S5Q14",
                     "options": {
-                        "required": true,
-                        "maxDaysInFuture": "0"
+                        "required": true
                     },
                     "type": "DatePartsField",
                     "title": "S5Q14. Symptom onset date of most recent case (confirmed flu, suspected flu OR chest infections)",
@@ -862,8 +835,7 @@
                 {
                     "name": "S6Q4",
                     "options": {
-                        "required": true,
-                        "maxDaysInFuture": "0"
+                        "required": true
                     },
                     "type": "DatePartsField",
                     "title": "S6Q4. Symptom onset date of first case",
@@ -874,8 +846,7 @@
                 {
                     "name": "S6Q5",
                     "options": {
-                        "required": false,
-                        "maxDaysInFuture": "0"
+                        "required": false
                     },
                     "type": "DatePartsField",
                     "title": "S6Q5. Symptom onset date of second case",
@@ -886,8 +857,7 @@
                 {
                     "name": "S6Q6",
                     "options": {
-                        "required": true,
-                        "maxDaysInFuture": "0"
+                        "required": true
                     },
                     "type": "DatePartsField",
                     "title": "S6Q6. Symptom onset date of most recent case",
@@ -903,11 +873,10 @@
                     "type": "NumberField",
                     "title": "S6Q7. How many of these resident-client cases have been tested for COVID-19?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q8",
@@ -917,11 +886,10 @@
                     "type": "NumberField",
                     "title": "S6Q8. How many of these staff cases have been tested for COVID-19?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q9",
@@ -931,11 +899,10 @@
                     "type": "NumberField",
                     "title": "S6Q9. Of the residents-clients tested for Covid-19, how many had a positive result?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q10",
@@ -945,11 +912,10 @@
                     "type": "NumberField",
                     "title": "S6Q10. Of the staff tested for Covid-19, how many had a positive result?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q11",
@@ -959,11 +925,10 @@
                     "type": "NumberField",
                     "title": "S6Q11. How many of these resident-clients cases have been tested for Flu?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q12",
@@ -973,11 +938,10 @@
                     "type": "NumberField",
                     "title": "S6Q12. How many of these staff cases have been tested for Flu?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q13",
@@ -987,11 +951,10 @@
                     "type": "NumberField",
                     "title": "S6Q13. Of the residents-clients tested for Flu, how many had a positive result?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q14",
@@ -1001,11 +964,10 @@
                     "type": "NumberField",
                     "title": "S6Q14. Of the staff tested for Flu, how many had a positive result?",
                     "schema": {
-                        "min": 0,
-                        "max": 50
+                        "min": "0",
+                        "max": "50"
                     },
-                    "nameHasError": false,
-                    "hint": "Please enter a number between 0 to 50."
+                    "nameHasError": false
                 },
                 {
                     "name": "S6Q15",
@@ -1028,10 +990,9 @@
                     "title": "S6Q16. How many of all cases have been started on antibiotics for their respiratory symptoms?",
                     "nameHasError": false,
                     "schema": {
-                        "min": 0,
-                        "max": 50
-                    },
-                    "hint": "Please enter a number between 0 to 50."
+                        "min": "0",
+                        "max": "50"
+                    }
                 },
                 {
                     "name": "S6Q17",
@@ -1086,8 +1047,7 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    },
-                    "hint": "Please enter a number between 0 to 300."
+                    }
                 },
                 {
                     "name": "S7Q2",
@@ -1100,8 +1060,7 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    },
-                    "hint": "Please enter a number between 0 to 300."
+                    }
                 },
                 {
                     "name": "S7Q3",
@@ -1114,8 +1073,7 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    },
-                    "hint": "Please enter a number between 0 to 300."
+                    }
                 },
                 {
                     "name": "S7Q4",
@@ -1128,8 +1086,7 @@
                     "schema": {
                         "min": 0,
                         "max": 300
-                    },
-                    "hint": "Please enter a number between 0 to 300."
+                    }
                 }
             ],
             "next": [
@@ -1176,8 +1133,7 @@
                     "type": "MultilineTextField",
                     "title": "S8Q3. Please state what other issues you are experiencing and would like assistance with?",
                     "nameHasError": false,
-                    "hint": "Please note that for staffing issues, you should contact the commissioner of your service e.g. LA or ICS; for other issues - please see links in the advice email that you will receive on submission of this form; if you still cannot find an answer, then call the HPT or CIC Team.",
-                    "schema": {}
+                    "hint": "Please note that for staffing issues, you should contact the commissioner of your service e.g. LA or ICS; for other issues - please see links in the advice email that you will receive on submission of this form; if you still cannot find an answer, then call the HPT or CIC Team."
                 },
                 {
                     "name": "S8Q4",
