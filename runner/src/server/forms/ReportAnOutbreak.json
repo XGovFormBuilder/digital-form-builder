@@ -4584,11 +4584,11 @@
     "fees": [],
     "outputs": [
         {
-            "name": "DELPROD",
-            "title": "DELPROD",
+            "name": "WEBHOOOK",
+            "title": "CareOBRA SalesForce",
             "type": "webhook",
             "outputConfiguration": {
-                "url": "https://dhsccovid19.my.salesforce-sites.com/assessment/services/apexrest/riskassessment"
+                "url": "${Webhook.URL}"
             }
         }
     ],
