@@ -19,8 +19,10 @@ const baseConfiguration = {
 test("allows feedback URL to be an empty string when feedbackForm is false", () => {
   const goodConfiguration = {
     ...baseConfiguration,
-    feedbackForm: false,
-    url: "",
+    feedback: {
+      feedbackForm: false,
+      url: "",
+    },
     name: "Schema fix 3",
   };
 
