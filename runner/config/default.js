@@ -71,7 +71,7 @@ module.exports = {
   //sessionCookiePassword: "",
   redisHost: "master.redis-dev-uks-replication-group.pk2rwg.euw2.cache.amazonaws.com",
   redisPort: 6379,
-  //redisPassword: nanoid.random(16), // This should be set if you are deploying replicas
+  redisPassword: "TestingRedis12345+", // This should be set if you are deploying replicas
   redisTls: true, //run in TLS mode
 
   /**
