@@ -72,7 +72,7 @@ module.exports = {
   redisHost: "redis-dev-uks-replication-group-001.redis-dev-uks-replication-group.pk2rwg.euw2.cache.amazonaws.com",
   redisPort: 6379,
   //redisPassword: nanoid.random(16), // This should be set if you are deploying replicas
-  //redisTls: true, //run in TLS mode
+  redisTls: true, //run in TLS mode
 
   /**
    * SSL
