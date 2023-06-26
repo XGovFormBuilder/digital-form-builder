@@ -69,7 +69,7 @@ module.exports = {
   confirmationSessionTimeout: 20 * minute,
   paymentSessionTimeout: 90 * minute, // GOV.UK Pay sessions are 90 minutes. It is possible a user takes longer than 20 minutes to complete a payment.
   //sessionCookiePassword: "",
-  redisHost: "http://localhost",
+  redisHost: "redis-dev-uks-replication-group-001.redis-dev-uks-replication-group.pk2rwg.euw2.cache.amazonaws.com",
   redisPort: 6379,
   //redisPassword: nanoid.random(16), // This should be set if you are deploying replicas
   redisTls: true, //run in TLS mode
