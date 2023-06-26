@@ -72,7 +72,7 @@ module.exports = {
   redisHost: "http://localhost",
   redisPort: 6379,
   //redisPassword: nanoid.random(16), // This should be set if you are deploying replicas
-  //redisTls: true, //run in TLS mode
+  redisTls: true, //run in TLS mode
 
   /**
    * SSL
