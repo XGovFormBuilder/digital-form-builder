@@ -2,8 +2,5 @@
   "isTest": true,
   "previewMode": true,
   "enforceCsrf": false,
-  "env": "development",
-  "redisHost": "https://test-redis.pk2rwg.clustercfg.euw2.cache.amazonaws.com",
-  "redisPort": 6379,
-  "redisTls": true
+  "env": "development"
 }
