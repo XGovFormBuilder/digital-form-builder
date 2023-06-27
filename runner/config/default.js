@@ -71,7 +71,7 @@ module.exports = {
   //sessionCookiePassword: "",
   redisHost: "clustercfg.test-redis.pk2rwg.euw2.cache.amazonaws.com",
   redisPort: 6379,
-  redisPassword: "TestingRedis12345+", // This should be set if you are deploying replicas
+  redisPassword: "", // This should be set if you are deploying replicas - SET AS SECRET
   redisTls: true, //run in TLS mode
 
   /**
