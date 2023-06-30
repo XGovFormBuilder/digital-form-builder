@@ -1,0 +1,104 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "SWJtVi",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Should item 1 be shown?"
+        },
+        {
+          "name": "dxWjPr",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Should item 2 be shown?"
+        },
+        {
+          "name": "TZOHRn",
+          "options": {},
+          "type": "EmailAddressField",
+          "title": "Email address"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "New list",
+      "name": "wVUZJW",
+      "type": "string",
+      "items": [
+        { "text": "Item 1", "value": "Item 1", "condition": "KAOicj" },
+        { "text": "Item 2", "value": "Item 2", "condition": "vzzqjG" }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Item 1 should be shown",
+      "name": "KAOicj",
+      "value": {
+        "name": "Item 1 should be shown",
+        "conditions": [
+          {
+            "field": {
+              "name": "SWJtVi",
+              "type": "YesNoField",
+              "display": "Should item 1 be shown?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Item 2 should be shown",
+      "name": "vzzqjG",
+      "value": {
+        "name": "Item 2 should be shown",
+        "conditions": [
+          {
+            "field": {
+              "name": "dxWjPr",
+              "type": "YesNoField",
+              "display": "Should item 2 be shown?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "iykabp",
+      "title": "test",
+      "type": "notify",
+      "outputConfiguration": {
+        "personalisation": ["wVUZJW"],
+        "templateId": "test",
+        "apiKey": "test",
+        "emailField": "TZOHRn",
+        "addReferencesToPersonalisation": false
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false
+}
