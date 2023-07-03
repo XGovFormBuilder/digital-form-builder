@@ -4743,10 +4743,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^17.0.21":
-  version: 17.0.21
-  resolution: "@types/node@npm:17.0.21"
-  checksum: 89dcd2fe82f21d3634266f8384e9c865cf8af49685639fbdbd799bdd1040480fb1e8eeda2d3b9fce41edbe704d2a4be9f427118c4ae872e8d9bb7cbeb3c41a94
+"@types/node@npm:^20.3.3":
+  version: 20.3.3
+  resolution: "@types/node@npm:20.3.3"
+  checksum: 7a0d00800451ca8cd8df63a8cc218c697edadb3143bf46cd6afeb974542a6a1665c3679459be0016c29216ccfed6616b7e55851747527dfa71c5608d9157528c
   languageName: node
   linkType: hard
 
@@ -5439,7 +5439,7 @@ __metadata:
     "@testing-library/user-event": ^13.5.0
     "@types/dagre": ^0.7.47
     "@types/hapi": ^18.0.7
-    "@types/node": ^17.0.21
+    "@types/node": ^20.3.3
     "@types/pino": ^7.0.5
     "@types/react": ^17.0.39
     "@types/react-dom": ^17.0.11
