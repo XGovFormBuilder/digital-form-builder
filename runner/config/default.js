@@ -72,7 +72,7 @@ module.exports = {
   redisHost: "${Redis.Host}",
   redisPort: 6379,
   redisPassword: "${Redis.Password}", // This should be set if you are deploying replicas - SET AS SECRET
-  redisTls: false, //run in TLS mode
+  redisTls: true, //run in TLS mode
 
   /**
    * SSL
