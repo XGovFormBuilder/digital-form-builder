@@ -71,10 +71,10 @@ module.exports = {
   //sessionCookiePassword: "",
   // // - COMMENT OUT TO TEST WITHOUT REDIS -
   // // -----------------------------------------------------
-  // redisHost: "${Redis.Host}",
-  // redisPort: 6379,
-  // redisPassword: "${Redis.Password}", // This should be set if you are deploying replicas - SET AS SECRET
-  // redisTls: true, //run in TLS mode
+  redisHost: "${Redis.Host}",
+  redisPort: 6379,
+  redisPassword: "${Redis.Password}", // This should be set if you are deploying replicas - SET AS SECRET
+  redisTls: true, //run in TLS mode
   // // ------------------------------------------------------
   /**
    * SSL
