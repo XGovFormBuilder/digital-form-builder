@@ -178,6 +178,7 @@ export const catboxProvider = () => {
             },
           ],
           {
+            slotsRefreshTimeout: 10000,
             dnsLookup: (address, callback) => callback(null, address, 4),
             redisOptions,
           }
