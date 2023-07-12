@@ -80,6 +80,14 @@ export class WebhookService {
     }
   }
 
+  /**
+   * Send a failed webhook's data to a queue for retrying
+   * @param data
+   * @param url
+   * @param error
+   * @private
+   * @returns the id of the newly added row to the DB, or undefined if there was an error
+   */
   private async sendToFailureQueue(data: object, url: string, error: any) {
     if (!this.dbConnection) {
       this.logger.error(
