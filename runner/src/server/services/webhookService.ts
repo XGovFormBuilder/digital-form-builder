@@ -1,5 +1,8 @@
 import { post, put } from "./httpService";
 import { HapiServer } from "../types";
+import config from "../config";
+import mysql from "mysql";
+import { promisifyMysql } from "server/utils/promisifyMysql";
 
 const DEFAULT_OPTIONS = {
   headers: {
@@ -11,8 +14,17 @@ const DEFAULT_OPTIONS = {
 
 export class WebhookService {
   logger: any;
+  dbConnection: mysql.Connection | undefined;
   constructor(server: HapiServer) {
     this.logger = server.logger;
+    if (config.enableQueueService) {
+      this.dbConnection = mysql.createConnection({
+        host: config.queueDatabaseUrl,
+        user: "root",
+        password: config.queueDatabasePassword,
+        database: "webhook_failures",
+      });
+    }
   }
 
   /**
@@ -55,7 +67,53 @@ export class WebhookService {
       return reference;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
+      if (config.enableQueueService) {
+        const res = this.sendToFailureQueue(data, url, error);
+        if (!res) {
+          this.logger.error(
+            ["WebhookService", "postRequest"],
+            "There was an issue sending the failure to the failure queue"
+          );
+        }
+      }
       return "UNKNOWN";
+    }
+  }
+
+  private async sendToFailureQueue(data: object, url: string, error: any) {
+    if (!this.dbConnection) {
+      this.logger.error(
+        ["WebhookService", "sendToFailureQueue"],
+        "Could not add failure to failure queue: No DB connection found"
+      );
+      return undefined;
+    }
+    const row = {
+      data: JSON.stringify(data),
+      time: new Date().getTime(),
+      webhookUrl: url,
+      error: JSON.stringify(error),
+      retry: 0,
+    };
+
+    this.dbConnection.connect();
+
+    const connection = promisifyMysql(this.dbConnection);
+
+    try {
+      // language=SQL format=false
+      const res: any = await connection.query(
+        `INSERT INTO failures (data, time, webhook_url, error, retry)
+               VALUES (:data, :time, :webhookUrl, :error, :retry)`,
+        row
+      );
+      this.logger.info(
+        ["webhookService", "sendToFailureQueue"],
+        `Webhook failure sent to queue successfully. Failure id: ${res[0].id}`
+      );
+      return res[0].id;
+    } catch (err) {
+      this.logger.error(["webhookService", "sendToFailureQueue", err]);
     }
   }
 }
