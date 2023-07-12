@@ -16,6 +16,13 @@ export class QueueService {
     this.logger = logger;
   }
 
+  /**
+   * Send data from output to failure queue
+   * @param data
+   * @param url
+   * @param error
+   * @returns The ID of the newly added row, or undefined in the event of an error
+   */
   async sendToQueue(data: object, url: string, error: any) {
     const row = {
       data: JSON.stringify(data),
