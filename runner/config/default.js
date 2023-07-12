@@ -133,5 +133,6 @@ module.exports = {
    */
   enableQueueService: false,
   queueDatabaseUrl: "",
+  queueDatabaseUsername: "",
   queueDatabasePassword: "",
 };
