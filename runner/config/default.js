@@ -137,4 +137,10 @@ module.exports = {
   queueDatabasePassword: "",
 
   safelist: ["61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
+  /**
+   * Failure queue
+   */
+  enableQueueService: false,
+  queueDatabaseUrl: "",
+  queueDatabasePassword: "",
 };
