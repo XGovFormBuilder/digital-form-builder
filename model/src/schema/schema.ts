@@ -228,6 +228,20 @@ const phaseBannerSchema = joi.object().keys({
   phase: joi.string().valid("alpha", "beta"),
 });
 
+const feeOptionSchema = joi
+  .object()
+  .keys({
+    payApiKey: [joi.string().allow("").optional(), multiApiKeySchema],
+    paymentReferenceFormat: [joi.string().optional()],
+    payReturnUrl: joi.string().optional(),
+  })
+  .default(({ payApiKey, paymentReferenceFormat }) => {
+    return {
+      ...(payApiKey && { payApiKey }),
+      ...(paymentReferenceFormat && { paymentReferenceFormat }),
+    };
+  });
+
 export const Schema = joi
   .object()
   .required()
@@ -249,6 +263,7 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    feeOptions: feeOptionSchema,
   });
 
 /**
@@ -258,4 +273,7 @@ export const Schema = joi
  *      options as 'values' rather than referencing a data list
  *  2 - Reverse v1. Values populating radio, checkboxes, select, autocomplete are defined in Lists only.
  *  TODO:- merge fees and paymentReferenceFormat
+ *  2 - 2023-05-04 `feeOptions` has been introduced. paymentReferenceFormat and payApiKey can be configured in top level or feeOptions. feeOptions will take precedent.
+ *      if feeOptions are empty, it will pull values from the top level keys.
+ *      WARN: Fee/GOV.UK pay configurations (apart from fees) should no longer be stored in the top level, always within feeOptions.
  **/
