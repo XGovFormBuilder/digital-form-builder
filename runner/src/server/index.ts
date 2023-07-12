@@ -35,6 +35,9 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
+import { pluginQueue } from "server/plugins/queue";
+import { QueueStatusService } from "server/services/queueStatusService";
+import { QueueService } from "server/services/queueService";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -109,9 +112,17 @@ async function createServer(routeConfig: RouteConfig) {
     UploadService,
     EmailService,
     WebhookService,
-    StatusService,
     AddressService,
   ]);
+
+  if (config.enableQueueService) {
+    server.registerService([
+      QueueService,
+      Schmervice.withName("statusService", QueueStatusService),
+    ]);
+  } else {
+    server.registerService(StatusService);
+  }
 
   server.ext(
     "onPreResponse",
@@ -162,6 +173,8 @@ async function createServer(routeConfig: RouteConfig) {
   server.state("cookies_policy", {
     encoding: "base64json",
   });
+
+  await server.register(pluginQueue);
 
   return server;
 }

@@ -112,6 +112,7 @@ const pageSchema = joi.object().keys({
   next: joi.array().items(nextSchema),
   repeatField: joi.string().optional(),
   options: joi.object().optional(),
+  backLinkFallback: joi.string().optional(),
 });
 
 const toggleableString = joi.alternatives().try(joi.boolean(), joi.string());
@@ -197,6 +198,7 @@ const emailSchema = joi.object().keys({
 
 const webhookSchema = joi.object().keys({
   url: joi.string(),
+  allowRetry: joi.boolean().default(true),
 });
 
 const outputSchema = joi.object().keys({

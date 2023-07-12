@@ -88,6 +88,7 @@ class OutputEdit extends Component<Props, State> {
       case OutputType.Webhook:
         outputConfiguration = {
           url: formData.get("webhook-url") as string,
+          allowRetry: true,
         };
         break;
     }

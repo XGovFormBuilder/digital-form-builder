@@ -12,7 +12,7 @@ export class CheckboxesField extends SelectionControlField {
       .array()
       .items(joi[this.listType]().allow(...this.values))
       .single()
-      .label(def.title);
+      .label(def.title.toLowerCase());
 
     if (def.options.required !== false) {
       schema = schema.required();

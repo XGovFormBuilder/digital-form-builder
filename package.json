@@ -13,12 +13,14 @@
     "model",
     "runner",
     "designer",
-    "e2e"
+    "e2e",
+    "queue-model",
+    "submitter"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
     "build": "yarn workspaces foreach run build",
-    "build:dependencies": "yarn model build",
+    "build:dependencies": "yarn model build && yarn queue-model build",
     "lint": "yarn workspaces foreach run lint",
     "test": "yarn workspaces foreach run test",
     "fix-lint": "yarn workspaces foreach run fix-lint",
@@ -27,6 +29,8 @@
     "designer": "yarn workspace @xgovformbuilder/designer",
     "model": "yarn workspace @xgovformbuilder/model",
     "e2e": "yarn workspace e2e",
+    "queue-model": "yarn workspace @xgovformbuilder/queue-model",
+    "submitter": "yarn workspace @xgovformbuilder/submitter",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
@@ -38,6 +42,7 @@
     "@babel/core": "^7.21.4",
     "@babel/eslint-parser": "^7.21.3",
     "@babel/eslint-plugin": "^7.19.1",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.20.7",
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-typescript": "^7.21.4",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
@@ -57,6 +62,7 @@
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "prettier": "2.1.2",
+    "prisma": "^5.1.1",
     "typedoc": "~0.23.17",
     "typescript": "4.9.5"
   },
@@ -84,7 +90,9 @@
     "json-schema": "0.4.0",
     "glob-parent": "5.1.2",
     "follow-redirects": "~1.14.1",
-    "@xmldom/xmldom": "0.8.6"
+    "@xmldom/xmldom": "0.8.6",
+    "@cypress/request": "3.x.x",
+    "@adobe/css-tools": "4.3.1"
   },
   "husky": {
     "hooks": {

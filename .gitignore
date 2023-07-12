@@ -30,3 +30,7 @@ tsconfig.tsbuildinfo
 docs/**/typedoc
 
 /e2e/cypress/screenshots/
+.env_mysql
+/queue-model/dist
+/queue-model/module
+/queue-model/src/prisma/generated

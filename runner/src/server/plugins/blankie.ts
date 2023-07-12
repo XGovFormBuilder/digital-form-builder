@@ -45,20 +45,27 @@ export const configureBlankiePlugin = (
   }
 
   if (gtmId1 || gtmId2) {
-    google.connectSrc.push("www.google-analytics.com");
+    google.connectSrc.push(
+      "www.google-analytics.com",
+      "region1.google-analytics.com"
+    );
     google.fontSrc.push("fonts.gstatic.com");
     google.frameSrc.push("www.googletagmanager.com");
     google.imgSrc.push(
       "www.gstatic.com",
       "ssl.gstatic.com",
       "www.googletagmanager.com",
-      "www.google-analytics.com"
+      "region1.googletagmanager.com",
+      "www.google-analytics.com",
+      "region1.google-analytics.com"
     );
     google.scriptSrc.push(
       "www.google-analytics.com",
       "ssl.google-analytics.com",
+      "region1.google-analytics.com",
       "stats.g.doubleclick.net",
       "www.googletagmanager.com",
+      "region1.googletagmanager.com",
       "tagmanager.google.com",
       "www.gstatic.com",
       "ssl.gstatic.com"

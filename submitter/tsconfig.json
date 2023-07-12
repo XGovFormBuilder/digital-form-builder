@@ -1,0 +1,25 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "lib": [
+      "dom",
+      "ES2020.Promise",
+      "ES2019.Object",
+      "ES2019.Array"
+    ],
+    "skipLibCheck": true
+  },
+  "include": [
+    "src",
+    "package.json"
+  ]
+}

@@ -27,7 +27,9 @@ export function buildFormSchema(schemaType, component, isRequired = true) {
 
   if (component.title) {
     schema = schema.label(
-      typeof component.title === "string" ? component.title : component.title.en
+      typeof component.title === "string"
+        ? component.title.toLowerCase()
+        : component.title.en.toLowerCase()
     );
   }
 
@@ -47,7 +49,9 @@ export function buildStateSchema(schemaType, component) {
 
   if (component.title) {
     schema = schema.label(
-      typeof component.title === "string" ? component.title : component.title.en
+      typeof component.title === "string"
+        ? component.title.toLowerCase()
+        : component.title.en.toLowerCase()
     );
   }
 

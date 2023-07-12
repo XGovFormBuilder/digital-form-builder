@@ -69,6 +69,7 @@
     "hmpo-components": "^5.2.1",
     "ioredis": "4.16.1",
     "joi": "17.2.1",
+    "lodash": "^4.17.21",
     "nanoid": "^3.3.4",
     "nodemailer": "~6.6.0",
     "notifications-node-client": "^5.2.0",
@@ -102,12 +103,13 @@
     "@types/hapi": "^18.0.7",
     "@types/hapi__yar": "^10.1.1",
     "@types/hoek": "^4.1.4",
+    "@types/mysql": "^2.15.21",
     "@types/nodemailer": "^6.4.4",
-    "@types/pino": "^7.0.5",
     "@types/url-parse": "^1.4.8",
     "@types/wreck": "^14.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "@xgovformbuilder/model": "workspace:model",
+    "@xgovformbuilder/queue-model": "workspace:queue-model",
     "acorn": "^8.7.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-module-name-mapper": "^1.2.0",
@@ -122,6 +124,8 @@
     "form-data": "^4.0.0",
     "lodash-es": "^4.17.21",
     "nodemon": "^2.0.20",
+    "pino": "8.15.1",
+    "prisma": "^5.1.1",
     "sass": "^1.49.9",
     "sinon": "^13.0.1",
     "typescript": "4.9.5"
@@ -129,5 +133,10 @@
   "installConfig": {
     "hoistingLimits": "dependencies",
     "selfReferences": false
+  },
+  "pkg": {
+    "assets": [
+      "../node_modules/.prisma/client/*.node"
+    ]
   }
 }

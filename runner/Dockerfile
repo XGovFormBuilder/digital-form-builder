@@ -3,12 +3,14 @@
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
 FROM node:16-alpine AS base
-RUN mkdir -p /usr/src/app && \
+RUN npm install -g npm@^9.x.x && \
+    mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser && \
     chown -R appuser:appuser /usr/src/app && \
     chmod -R +x  /usr/src/app && \
     apk update && \
+    apk upgrade && \
     apk add --no-cache bash git
 
 # ----------------------------
@@ -39,11 +41,26 @@ RUN yarn model build
 
 # ----------------------------
 # Stage 4
+# Base with queue model stage
+# In this layer we build the queue-model workspace.
+# It will re-run only if anything inside /queue-model changes, otherwise this stage is cached.
+# rsync is used to merge folders instead of individually copying files
+FROM model AS queue-model
+WORKDIR /usr/src/app
+COPY --chown=appuser:appuser ./queue-model/package.json ./queue-model/tsconfig.json ./queue-model/babel.config.json ./queue-model/schema.prisma ./queue-model/
+COPY --chown=appuser:appuser ./queue-model/src ./queue-model/src/
+COPY --chown=appuser:appuser ./queue-model/migrations ./queue-model/migrations/
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model \
+    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model yarn workspaces focus @xgovformbuilder/queue-model
+RUN yarn queue-model build
+
+# ----------------------------
+# Stage 5
 # Build stage
 # In this layer we build the runner workspace
 # It will re-run only if anything inside ./runner changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM model AS build-runner
+FROM queue-model AS build-runner
 WORKDIR /usr/src/app
 ARG LAST_COMMIT=""
 ARG LAST_TAG=""

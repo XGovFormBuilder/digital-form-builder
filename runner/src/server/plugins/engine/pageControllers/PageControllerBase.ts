@@ -53,6 +53,7 @@ export class PageControllerBase {
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
+  backLinkFallback?: string;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -68,6 +69,7 @@ export class PageControllerBase {
     this.title = pageDef.title;
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
+    this.backLinkFallback = pageDef.backLinkFallback;
 
     // Resolve section
     this.section = model.sections?.find(
@@ -485,7 +487,8 @@ export class PageControllerBase {
 
       await cacheService.mergeState(request, { progress });
 
-      viewModel.backLink = progress[progress.length - 2];
+      viewModel.backLink =
+        progress[progress.length - 2] ?? this.backLinkFallback;
       return h.view(this.viewName, viewModel);
     };
   }
@@ -784,7 +787,7 @@ export class PageControllerBase {
   private renderWithErrors(request, h, payload, num, progress, errors) {
     const viewModel = this.getViewModel(payload, num, errors);
 
-    viewModel.backLink = progress[progress.length - 2];
+    viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
 
