@@ -14,17 +14,8 @@ const DEFAULT_OPTIONS = {
 
 export class WebhookService {
   logger: any;
-  dbConnection: mysql.Connection | undefined;
   constructor(server: HapiServer) {
     this.logger = server.logger;
-    if (config.enableQueueService) {
-      this.dbConnection = mysql.createConnection({
-        host: config.queueDatabaseUrl,
-        user: "root",
-        password: config.queueDatabasePassword,
-        database: "webhook_failures",
-      });
-    }
   }
 
   /**
@@ -89,13 +80,12 @@ export class WebhookService {
    * @returns the id of the newly added row to the DB, or undefined if there was an error
    */
   private async sendToFailureQueue(data: object, url: string, error: any) {
-    if (!this.dbConnection) {
-      this.logger.error(
-        ["WebhookService", "sendToFailureQueue"],
-        "Could not add failure to failure queue: No DB connection found"
-      );
-      return undefined;
-    }
+    const dbConnection = mysql.createConnection({
+      host: config.queueDatabaseUrl,
+      user: "root",
+      password: config.queueDatabasePassword,
+      database: "webhook_failures",
+    });
     const row = {
       data: JSON.stringify(data),
       time: new Date().getTime(),
@@ -104,9 +94,9 @@ export class WebhookService {
       retry: 0,
     };
 
-    this.dbConnection.connect();
+    dbConnection.connect();
 
-    const connection = promisifyMysql(this.dbConnection);
+    const connection = promisifyMysql(dbConnection);
 
     try {
       // language=SQL format=false
@@ -119,6 +109,7 @@ export class WebhookService {
         ["webhookService", "sendToFailureQueue"],
         `Webhook failure sent to queue successfully. Failure id: ${res[0].id}`
       );
+      await connection.close();
       return res[0].id;
     } catch (err) {
       this.logger.error(["webhookService", "sendToFailureQueue", err]);
