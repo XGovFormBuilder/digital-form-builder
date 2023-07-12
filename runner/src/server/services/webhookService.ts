@@ -1,8 +1,7 @@
 import { post, put } from "./httpService";
 import { HapiServer } from "../types";
 import config from "../config";
-import mysql from "mysql";
-import { promisifyMysql } from "server/utils/promisifyMysql";
+import { QueueService } from "server/services/queueService";
 
 const DEFAULT_OPTIONS = {
   headers: {
@@ -14,8 +13,12 @@ const DEFAULT_OPTIONS = {
 
 export class WebhookService {
   logger: any;
+  QueueService: QueueService | undefined;
   constructor(server: HapiServer) {
     this.logger = server.logger;
+    if (config.enableQueueService) {
+      this.QueueService = new QueueService(this.logger);
+    }
   }
 
   /**
@@ -58,8 +61,8 @@ export class WebhookService {
       return reference;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
-      if (config.enableQueueService) {
-        const res = this.sendToFailureQueue(data, url, error);
+      if (this.QueueService) {
+        const res = this.QueueService.sendToQueue(data, url, error);
         if (!res) {
           this.logger.error(
             ["WebhookService", "postRequest"],
@@ -68,51 +71,6 @@ export class WebhookService {
         }
       }
       return "UNKNOWN";
-    }
-  }
-
-  /**
-   * Send a failed webhook's data to a queue for retrying
-   * @param data
-   * @param url
-   * @param error
-   * @private
-   * @returns the id of the newly added row to the DB, or undefined if there was an error
-   */
-  private async sendToFailureQueue(data: object, url: string, error: any) {
-    const dbConnection = mysql.createConnection({
-      host: config.queueDatabaseUrl,
-      user: "root",
-      password: config.queueDatabasePassword,
-      database: "webhook_failures",
-    });
-    const row = {
-      data: JSON.stringify(data),
-      time: new Date().getTime(),
-      webhookUrl: url,
-      error: JSON.stringify(error),
-      retry: 0,
-    };
-
-    dbConnection.connect();
-
-    const connection = promisifyMysql(dbConnection);
-
-    try {
-      // language=SQL format=false
-      const res: any = await connection.query(
-        `INSERT INTO failures (data, time, webhook_url, error, retry)
-               VALUES (:data, :time, :webhookUrl, :error, :retry)`,
-        row
-      );
-      this.logger.info(
-        ["webhookService", "sendToFailureQueue"],
-        `Webhook failure sent to queue successfully. Failure id: ${res[0].id}`
-      );
-      await connection.close();
-      return res[0].id;
-    } catch (err) {
-      this.logger.error(["webhookService", "sendToFailureQueue", err]);
     }
   }
 }
