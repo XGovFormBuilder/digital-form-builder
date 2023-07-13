@@ -28,6 +28,7 @@
     "designer": "yarn workspace @xgovformbuilder/designer",
     "model": "yarn workspace @xgovformbuilder/model",
     "e2e": "yarn workspace e2e",
+    "queueModel": "yarn workspace @xgovformbuilder/queueModel",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
