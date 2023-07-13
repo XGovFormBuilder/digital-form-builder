@@ -1,0 +1,16 @@
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output = "./generated"
+}
+
+model submissions {
+  id Int @id @default(autoincrement())
+  webhook_url String
+  data String
+  return_reference String?
+}

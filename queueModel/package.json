@@ -10,7 +10,8 @@
   "scripts": {
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",
-    "build": "yarn run build:types && yarn run build:node",
+    "build": "yarn run build:prisma && yarn run build:types && yarn run build:node",
+    "build:prisma": "prisma generate --schema=./src/prisma/schema.prisma",
     "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module",
     "build:types": "yarn run build:types:node",
     "build:types:node": "tsc --emitDeclarationOnly --declarationDir ./dist/module ",
@@ -33,5 +34,8 @@
     "eslint-plugin-tsdoc": "^0.2.14",
     "prisma": "^5.0.0",
     "typescript": "4.9.5"
+  },
+  "dependencies": {
+    "@prisma/client": "5.0.0"
   }
 }
