@@ -40,8 +40,7 @@ export class QueueService {
     try {
       // language=SQL format=false
       const res: any = await connection.query(
-        `INSERT INTO failures (data, time, webhook_url, error, retry)
-               VALUES (:data, :time, :webhookUrl, :error, :retry)`,
+        `INSERT INTO failures SET ?`,
         row
       );
       this.logger.info(
