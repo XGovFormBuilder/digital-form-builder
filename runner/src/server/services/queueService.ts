@@ -1,19 +1,20 @@
 import mysql from "mysql";
 import config from "server/config";
 import { promisifyMysql } from "server/utils/promisifyMysql";
+import { HapiServer } from "server/types";
 
 export class QueueService {
   connectionConfig: mysql.Connection;
-  logger: any;
+  logger: HapiServer["logger"];
 
-  constructor(logger: any) {
+  constructor(server: HapiServer) {
     this.connectionConfig = mysql.createConnection({
       host: config.queueDatabaseUrl,
       user: config.queueDatabaseUsername,
       password: config.queueDatabasePassword,
       database: "webhook_failures",
     });
-    this.logger = logger;
+    this.logger = server.logger;
   }
 
   /**
@@ -50,7 +51,7 @@ export class QueueService {
       await connection.close();
       return res[0].id;
     } catch (err) {
-      this.logger.error(["queueService", "sendToQueue", err]);
+      this.logger.error(["queueService", "sendToQueue"], err);
     }
   }
 }
