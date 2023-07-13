@@ -13,7 +13,8 @@
     "model",
     "runner",
     "designer",
-    "e2e"
+    "e2e",
+    "queueModel"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
