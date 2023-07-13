@@ -1,0 +1,24 @@
+{
+  "name": "@xgovformbuilder/submitter",
+  "version": "1.0.0",
+  "description": "Digital forms webhook queue submitter",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "watch": "babel --watch --extensions '.ts' src -d dist --copy-files -s inline",
+    "start": "node dist/index.js",
+    "start:local": "NODE_ENV=development nodemon dist/index.js",
+    "dev": "concurrently 'yarn watch' 'yarn start:local'",
+    "build": "babel --extensions '.ts' src -d dist",
+    "lint": "yarn bin/run eslint .",
+    "fix-lint": "yarn bin/run eslint . --fix"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+  }
+}
