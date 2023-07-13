@@ -17,7 +17,7 @@ export class WebhookService {
   constructor(server: HapiServer) {
     this.logger = server.logger;
     if (config.enableQueueService) {
-      this.QueueService = new QueueService(this.logger);
+      this.QueueService = new QueueService(server);
     }
   }
 
@@ -38,17 +38,15 @@ export class WebhookService {
       JSON.stringify(data)
     );
     let request = method === "POST" ? post : put;
-
-    const { payload } = await request(url, {
-      ...DEFAULT_OPTIONS,
-      payload: JSON.stringify(data),
-    });
-
-    if (typeof payload === "object" && !Buffer.isBuffer(payload)) {
-      return payload.reference;
-    }
-
     try {
+      const { payload } = await request(url, {
+        ...DEFAULT_OPTIONS,
+        payload: JSON.stringify(data),
+      });
+
+      if (typeof payload === "object" && !Buffer.isBuffer(payload)) {
+        return payload.reference;
+      }
       const { reference } = JSON.parse(payload);
       this.logger.info(
         ["WebhookService", "postRequest"],
