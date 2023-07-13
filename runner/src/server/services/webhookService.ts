@@ -13,7 +13,7 @@ const DEFAULT_OPTIONS = {
 
 export class WebhookService {
   logger: any;
-  QueueService: QueueService | undefined;
+  QueueService?: QueueService;
   constructor(server: HapiServer) {
     this.logger = server.logger;
     if (config.enableQueueService) {
