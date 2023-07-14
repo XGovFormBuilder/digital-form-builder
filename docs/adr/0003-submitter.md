@@ -2,7 +2,7 @@
 
 - Status: [ accepted ]
 - Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/jenbutongit) [@superafroman](https://github.com/superafroman)
-- Date: [2023-07-13 when the decision was last updated]
+- Date: [2023-07-14 when the decision was last updated]
 
 ## Context and Problem Statement
 
@@ -10,7 +10,7 @@ After a user submits their form, if there is an issue with submission, whether o
 
 We do provide logging of the full payload if there is an error, however would require support staff to manually re-enter details.
 
-## Decision Drivers <!-- optional -->
+## Decision Drivers
 
 - We have "lost" submissions due to webhook errors
 - It is likely all transactional services will require to implement a queue or some failsafe to ensure submissions aren't lost
@@ -46,4 +46,7 @@ Use a native queue service, like SQS.
 Option 1 for now, however an upgrade to Option 2 will be possible.
 
 Most transactional services will already have a database, or be able to provision one simply.
-Databases are easily set up via Docker, enabling faster local development. We will also circumvent any vendor lock-in this way (AWS vs Azure vs GCP).
+Databases are easily set up via Docker, enabling faster local development. We will also circumvent any vendor lock-in this way (AWS vs Azure vs GCP),
+however, given a strong need from the OS community, adapters or subclasses can be written at a later date.
+
+See supplementary sequence diagram [0003-submitter-diagram.svg](./0003-submitter-diagram.svg)
