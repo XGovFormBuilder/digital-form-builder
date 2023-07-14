@@ -18,6 +18,12 @@ We do provide logging of the full payload if there is an error, however would re
 
 ## Considered Options
 
+Terminology:
+
+- Submission: User's data to be sent to a webhook
+- Submitter: A new process which will become responsible for POST-ing or PUT-ing data to the webhook
+- Queue: A database which will store a user's submission. This can also be used for auditing purposes
+
 ### Option 1
 
 1. After a user submits a form, push the payload into the database, including any additional information required
@@ -26,6 +32,12 @@ We do provide logging of the full payload if there is an error, however would re
 4. On response, update the entry and flag it as "successful" with reference code if applicable
 5. The runner will continuously poll the database for 2 seconds to check if there is an update or reference number
 6. As long as the database insertion described in (1) is successful, the user will see the success page
+
+[Prisma ORM](https://www.prisma.io/) will be used. This will allow us to use the same interfaces, regardless of which database you wish to use.
+Prisma supports PostgreSQL, MySQL, MariaDB, SQLite, AWS Aurora (inc serverless), Microsoft SQL Server, Azure SQL, MongoDB, CockroachDB.
+[Full details on supported versions on their website](https://www.prisma.io/docs/reference/database-reference/supported-databases).
+
+Prisma will be able to generate migrations for your new or existing database.
 
 ### Option 2
 
@@ -48,5 +60,8 @@ Option 1 for now, however an upgrade to Option 2 will be possible.
 Most transactional services will already have a database, or be able to provision one simply.
 Databases are easily set up via Docker, enabling faster local development. We will also circumvent any vendor lock-in this way (AWS vs Azure vs GCP),
 however, given a strong need from the OS community, adapters or subclasses can be written at a later date.
+
+You will not be required to use this new process, however will be advised that you do!
+You will also be able to implement your own submitter if you do not want to use this solution.
 
 See supplementary sequence diagram [0003-submitter-diagram.svg](./0003-submitter-diagram.svg)
