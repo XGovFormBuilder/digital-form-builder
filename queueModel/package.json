@@ -7,6 +7,10 @@
   "engines": {
     "node": ">=16"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/feat/failure-queue/queueModel"
+  },
   "scripts": {
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",
