@@ -1,19 +1,12 @@
-import mysql from "mysql";
-import config from "server/config";
-import { promisifyMysql } from "server/utils/promisifyMysql";
 import { HapiServer } from "server/types";
+import { Prisma, PrismaClient } from "@xgovformbuilder/queueModel";
 
 export class QueueService {
-  connectionConfig: mysql.Connection;
+  prisma: PrismaClient;
   logger: HapiServer["logger"];
 
   constructor(server: HapiServer) {
-    this.connectionConfig = mysql.createConnection({
-      host: config.queueDatabaseUrl,
-      user: config.queueDatabaseUsername,
-      password: config.queueDatabasePassword,
-      database: "webhook_failures",
-    });
+    this.prisma = new PrismaClient();
     this.logger = server.logger;
   }
 
@@ -24,33 +17,34 @@ export class QueueService {
    * @param error
    * @returns The ID of the newly added row, or undefined in the event of an error
    */
-  async sendToQueue(data: object, url: string, error: any) {
-    const row = {
+  async sendToQueue(data: object, url?: string, error?: any) {
+    const rowData = {
       data: JSON.stringify(data),
       time: new Date().getTime(),
-      webhookUrl: url,
-      error: JSON.stringify(error),
+      webhookUrl: url ?? "",
+      error: JSON.stringify(error ?? {}),
       retry: 0,
     };
 
-    this.connectionConfig.connect();
-
-    const connection = promisifyMysql(this.connectionConfig);
-
     try {
-      // language=SQL format=false
-      const res: any = await connection.query(
-        `INSERT INTO failures SET ?`,
-        row
-      );
-      this.logger.info(
+      await this.prisma.$connect();
+      const row = await this.prisma.submission.create({
+        data: rowData,
+      });
+      this.logger.log(
         ["queueService", "sendToQueue"],
-        `Webhook failure sent to queue successfully. Failure id: ${res[0].id}`
+        `Submission sent to queue successfully. Row: ${row}`
       );
-      await connection.close();
-      return res[0].id;
+      await this.prisma.$disconnect();
+      return row.id;
     } catch (err) {
-      this.logger.error(["queueService", "sendToQueue"], err);
+      if (err instanceof Prisma.PrismaClientInitializationError) {
+        this.logger.error(["queueService", "sendToQueue"], err);
+      }
+      if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        this.logger.error(["queueService", "sendToQueue"], err);
+      }
+      return;
     }
   }
 }
