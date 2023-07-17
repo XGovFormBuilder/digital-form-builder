@@ -8,12 +8,6 @@ const DEFAULT_OPTIONS = {
 export const queue = {
   name: "queue",
   register: async function (server, options) {
-    const DEFAULT_OPTIONS = {
-      enableQueueService: config.enableQueueService,
-    };
-
-    console.log("SPAWN");
-
     const process = spawnSync("prisma", ["migrate", "deploy"], {
       encoding: "utf-8",
     });
