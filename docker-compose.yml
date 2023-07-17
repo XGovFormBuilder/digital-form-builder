@@ -40,22 +40,23 @@ services:
       - PREVIEW_MODE=true
       - LAST_COMMIT
       - LAST_TAG
-#      - ENABLE_QUEUE_SERVICE=true
-#      - QUEUE_DATABASE_URL=mysql://user:password@failure-database:3306/db_name
+    #      - ENABLE_QUEUE_SERVICE=true
+    #      - QUEUE_DATABASE_URL=mysql://user:password@failure-database:3306/db_name
     command: yarn runner start
     depends_on:
       - redis
-#      - mysql
+  #      - mysql
   redis:
     image: "redis:alpine"
     command: redis-server --requirepass 123abc
     ports:
       - "6379:6379"
-#  mysql:
-#    container_name: failure-database
+#  queue-db:
+#    container_name: queue-db
 #    image: "mysql:latest"
 #    command: --default-authentication-plugin=mysql_native_password
 #    ports:
 #      - "3306:3306"
-#    env_file:
-#      - ".env_mysql"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: queue
