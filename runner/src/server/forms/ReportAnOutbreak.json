@@ -378,12 +378,11 @@
             ],
             "next": [
                 {
-                    "path": "/Section-5-Details-about-current-Flu-(Influenza)-cases-in-your-setting",
-                    "condition": "RyGOGx"
-                },
-                {
                     "path": "/Section-4-Details-about-current-COVID-19-in-your-setting-Continuation-1",
                     "condition": "hBlver"
+                },
+                {
+                    "path": "/Section-5-Details-about-current-Flu-(Influenza)-cases-in-your-setting"
                 }
             ]
         },
@@ -556,12 +555,11 @@
             ],
             "next": [
                 {
-                    "path": "/section-5---details-about-current-flu-influenza-cases-in-your-setting-continuation-1",
-                    "condition": "naYVkg"
-                },
-                {
                     "path": "/Section-6-Details-about-current-Acute-Respiratory-Infections-(ARIs)-in-your-setting",
                     "condition": "hxUPqJ"
+                },
+                {
+                    "path": "/section-5---details-about-current-flu-influenza-cases-in-your-setting-continuation-1"
                 }
             ]
         },
@@ -826,8 +824,7 @@
                     "condition": "mNBvqY"
                 },
                 {
-                    "path": "/Section-7-Details-about-Vaccination-among-your-staff-and-the-people-you-care-for",
-                    "condition": "zkuUIt"
+                    "path": "/Section-7-Details-about-Vaccination-among-your-staff-and-the-people-you-care-for"
                 }
             ]
         },
@@ -1200,8 +1197,7 @@
                     "condition": "ILbbEK"
                 },
                 {
-                    "path": "/Section-8-Infection-Prevention-and-control-(IPC)-Measures-&-Outbreak-Management-Continuation-1",
-                    "condition": "FaCoiF"
+                    "path": "/Section-8-Infection-Prevention-and-control-(IPC)-Measures-&-Outbreak-Management-Continuation-1"
                 }
             ]
         },
@@ -1266,8 +1262,7 @@
                     "condition": "GvhtMF"
                 },
                 {
-                    "path": "/Section-10-Final-questions-about-how-you-feel-managing-this-situation",
-                    "condition": "eOIjVX"
+                    "path": "/Section-10-Final-questions-about-how-you-feel-managing-this-situation"
                 }
             ]
         },
@@ -1347,8 +1342,7 @@
                     "condition": "TnWZXd"
                 },
                 {
-                    "path": "/Section-10-Final-questions-about-how-you-feel-managing-this-situation-Continuation-2",
-                    "condition": "uaXYOB"
+                    "path": "/Section-10-Final-questions-about-how-you-feel-managing-this-situation-Continuation-2"
                 }
             ]
         },
@@ -1393,12 +1387,11 @@
                     "condition": "VBVcUJ"
                 },
                 {
-                    "path": "/Section-1-Details-of-your-setting-Continuation-3",
-                    "condition": "RXMRyV"
-                },
-                {
                     "path": "/Section-1-Details-of-your-setting-Continuation-1",
                     "condition": "sUrRwU"
+                },
+                {
+                    "path": "/Section-1-Details-of-your-setting-Continuation-3"
                 }
             ]
         },
@@ -1432,8 +1425,7 @@
                     "condition": "WcIkbk"
                 },
                 {
-                    "path": "/Section-2-What-are-your-reporting-Continuation-1",
-                    "condition": "owvpHq"
+                    "path": "/Section-2-What-are-your-reporting-Continuation-1"
                 }
             ]
         },
@@ -2269,28 +2261,6 @@
             }
         },
         {
-            "displayName": "S1Q1:OTHER",
-            "name": "RXMRyV",
-            "value": {
-                "name": "S1Q1:OTHER",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S1Q1",
-                            "type": "RadiosField",
-                            "display": "S1Q1. What type of adult social care provider are you?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "Other",
-                            "display": "Other"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "displayName": "S1Q1:NEITHER",
             "name": "VBVcUJ",
             "value": {
@@ -2349,28 +2319,6 @@
             }
         },
         {
-            "displayName": "S2Q1:NO",
-            "name": "owvpHq",
-            "value": {
-                "name": "S2Q1:NO",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S2Q1",
-                            "type": "YesNoField",
-                            "display": "S2Q1. Are you reporting two or more cases of acute respiratory infection (Flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days and that are POTENTIALLY LINKED to transmission within your setting?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "false",
-                            "display": "false"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "displayName": "S4Q1:YES",
             "name": "hBlver",
             "value": {
@@ -2387,28 +2335,6 @@
                             "type": "Value",
                             "value": "true",
                             "display": "true"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "displayName": "S4Q1:NO",
-            "name": "RyGOGx",
-            "value": {
-                "name": "S4Q1:NO",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S4Q1",
-                            "type": "YesNoField",
-                            "display": "S4Q1. Have you had two or more case(s) of COVID-19 in the last 14 days (confirmed by LFD or PCR)?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "false",
-                            "display": "false"
                         }
                     }
                 ]
@@ -2437,28 +2363,6 @@
             }
         },
         {
-            "displayName": "S6Q1:NO",
-            "name": "zkuUIt",
-            "value": {
-                "name": "S6Q1:NO",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S6Q1",
-                            "type": "YesNoField",
-                            "display": "S6Q1. Do you have two or more cases of acute respiratory infection (ARI) but do not know the organism/bug causing this?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "false",
-                            "display": "false"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "displayName": "S9Q1:YES",
             "name": "GvhtMF",
             "value": {
@@ -2475,28 +2379,6 @@
                             "type": "Value",
                             "value": "true",
                             "display": "true"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "displayName": "S9Q1:NO",
-            "name": "eOIjVX",
-            "value": {
-                "name": "S9Q1:NO",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S9Q1",
-                            "type": "YesNoField",
-                            "display": "S9Q1 Do you use agency staff or share staff with other care settings?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "false",
-                            "display": "false"
                         }
                     }
                 ]
@@ -2589,28 +2471,6 @@
             }
         },
         {
-            "displayName": "S5 1 - S5 2",
-            "name": "naYVkg",
-            "value": {
-                "name": "S5 1 - S5 2",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S5Q1",
-                            "type": "YesNoField",
-                            "display": "S5Q1. Are you reporting at least one case of confirmed Flu (Influenza)?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "true",
-                            "display": "true"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "displayName": "S10Q3 YES",
             "name": "TnWZXd",
             "value": {
@@ -2633,28 +2493,6 @@
             }
         },
         {
-            "displayName": "S10Q3 NO",
-            "name": "uaXYOB",
-            "value": {
-                "name": "S10Q3 NO",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S10Q3",
-                            "type": "YesNoField",
-                            "display": "S10Q3. Do you have any specific issues?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "false",
-                            "display": "false"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "displayName": "S8Q4 NO",
             "name": "ILbbEK",
             "value": {
@@ -2671,28 +2509,6 @@
                             "type": "Value",
                             "value": "false",
                             "display": "false"
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            "displayName": "S8Q4 YES",
-            "name": "FaCoiF",
-            "value": {
-                "name": "S8Q4 YES",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "S8Q4",
-                            "type": "YesNoField",
-                            "display": "S8Q4. Does your setting undertake Aerosol Generating Procedures (AGPs)?"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "true",
-                            "display": "true"
                         }
                     }
                 ]
