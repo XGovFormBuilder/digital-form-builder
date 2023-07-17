@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A hapi plugin to provide the queue model for Xgov digital form builder based applications using the queue service",
   "main": "dist/module/index.js",
-  "browser": "dist/browser/index.js",
   "engines": {
     "node": ">=16"
   },
@@ -16,9 +15,8 @@
     "fix-lint": "yarn run eslint . --fix",
     "build": "yarn run build:prisma && yarn run build:types && yarn run build:node",
     "build:prisma": "prisma generate --schema=./src/prisma/schema.prisma",
-    "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module",
-    "build:types": "yarn run build:types:node",
-    "build:types:node": "tsc --emitDeclarationOnly --declarationDir ./dist/module ",
+    "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module --copy-files",
+    "build:types": "tsc --emitDeclarationOnly",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
