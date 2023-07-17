@@ -6,6 +6,8 @@ import { Input } from "@govuk-jsx/input";
 import ErrorSummary from "./../../error-summary";
 import { DataContext } from "../../context";
 import logger from "../../plugins/logger";
+import { FeeOptions } from "./Options";
+
 export class FeeEdit extends React.Component {
   static contextType = DataContext;
 
@@ -145,6 +147,10 @@ export class FeeEdit extends React.Component {
             Save
           </button>
         </form>
+
+        <hr className="govuk-!-margin-top-5" />
+
+        <FeeOptions />
       </div>
     );
   }

@@ -466,6 +466,14 @@
   ],
   "phaseBanner": {},
   "fees": [],
+  "feeOptions": {
+    "paymentReferenceFormat": "EGGS-",
+    "payReturnUrl": "https://my.egg.service.scramble",
+    "payApiKey": {
+      "test": "ab",
+      "production": "cd"
+    }
+  },
   "payApiKey": "",
   "outputs": [
     {
@@ -473,7 +481,7 @@
       "title": "email",
       "type": "email",
       "outputConfiguration": {
-        "emailAddress": "jennifermyanh.duong@digital.homeoffice.gov.uk"
+        "emailAddress": "jen@cautionyourblast.com"
       }
     }
   ],
