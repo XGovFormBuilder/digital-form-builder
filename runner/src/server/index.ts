@@ -35,6 +35,7 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
+import { spawnSync } from "child_process";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -162,6 +163,16 @@ async function createServer(routeConfig: RouteConfig) {
   server.state("cookies_policy", {
     encoding: "base64json",
   });
+
+  if (config.enableQueueService) {
+    const process = spawnSync("prisma migrate dev --name init", [], {
+      shell: true,
+      encoding: "utf-8",
+    });
+    if (process.error) {
+      console.log(`There was an error: ${JSON.stringify(process.error)}`);
+    }
+  }
 
   return server;
 }

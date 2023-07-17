@@ -5696,6 +5696,7 @@ __metadata:
     "@types/wreck": ^14.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": "workspace:model"
+    "@xgovformbuilder/queueModel": "workspace:queueModel"
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
     acorn: ^8.7.0

@@ -1,7 +1,5 @@
 import { post, put } from "./httpService";
 import { HapiServer } from "../types";
-import config from "../config";
-import { QueueService } from "server/services/queueService";
 
 const DEFAULT_OPTIONS = {
   headers: {
@@ -13,12 +11,8 @@ const DEFAULT_OPTIONS = {
 
 export class WebhookService {
   logger: any;
-  QueueService?: QueueService;
   constructor(server: HapiServer) {
     this.logger = server.logger;
-    if (config.enableQueueService) {
-      this.QueueService = new QueueService(server);
-    }
   }
 
   /**
@@ -59,15 +53,6 @@ export class WebhookService {
       return reference;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
-      if (this.QueueService) {
-        const res = this.QueueService.sendToQueue(data, url, error);
-        if (!res) {
-          this.logger.error(
-            ["WebhookService", "postRequest"],
-            "There was an issue sending the failure to the failure queue"
-          );
-        }
-      }
       return "UNKNOWN";
     }
   }
