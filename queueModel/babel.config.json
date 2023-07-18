@@ -18,8 +18,7 @@
         "@babel/plugin-proposal-private-methods",
         "@babel/plugin-transform-runtime"
       ],
-      "sourceMaps": true,
-      "ignore": ["./src/prisma"]
+      "sourceMaps": true
     }
   }
 }
