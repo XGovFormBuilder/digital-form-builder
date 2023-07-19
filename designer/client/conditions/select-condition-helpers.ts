@@ -13,7 +13,7 @@ export function hasNestedCondition(condition: ConditionData) {
   if (typeof condition.value === "string") {
     return false;
   }
-  return condition.value.conditions?.find?.(hasConditionName) ?? false;
+  return condition.value.conditions?.find?.(isConditionRef) ?? false;
 }
 
 export function getConditionType(condition: ConditionData) {
