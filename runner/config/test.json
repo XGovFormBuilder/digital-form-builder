@@ -1,5 +1,5 @@
 {
-  "safelist": ["webho.ok"],
+  "safelist": ["https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
   "isTest": true,
   "previewMode": true,
   "enforceCsrf": false,
