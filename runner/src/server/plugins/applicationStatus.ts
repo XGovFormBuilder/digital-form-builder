@@ -20,8 +20,35 @@ const applicationStatus = {
               assign: "shouldRetryPay",
             },
             {
-              method: (request) => {
+              method: async (request, h) => {
                 const { cacheService } = request.services([]);
+
+                const confirmationViewModel = await cacheService.getConfirmationState(
+                  request
+                );
+
+                if (!confirmationViewModel) {
+                  return null;
+                }
+
+                const { redirectUrl, confirmation } = confirmationViewModel;
+
+                if (redirectUrl) {
+                  request.logger.info(
+                    [`/${request.params.id}/status`, request.yar.id],
+                    `confirmationViewModel.redirect detected. User will be redirected to ${redirectUrl}`
+                  );
+                  return h.redirect(redirectUrl).takeover();
+                }
+
+                if (confirmation) {
+                  request.logger.info(
+                    [`/${request.params.id}/status`, request.yar.id],
+                    `confirmationViewModel.redirect detected.`
+                  );
+                  return h.view("confirmation", confirmation).takeover();
+                }
+
                 return cacheService.getConfirmationState(request);
               },
               assign: "confirmationViewModel",
@@ -31,17 +58,6 @@ const applicationStatus = {
             const { statusService, cacheService } = request.services([]);
             const { params } = request;
             const form = server.app.forms[params.id];
-
-            if (!!request.pre.confirmationViewModel?.confirmation) {
-              request.logger.info(
-                [`/${params.id}/status`],
-                `${request.yar.id} confirmationViewModel found for user`
-              );
-              return h.view(
-                "confirmation",
-                request.pre.confirmationViewModel.confirmation
-              );
-            }
 
             if (request.pre.shouldRetryPay) {
               return h.view("pay-error", {
@@ -69,7 +85,11 @@ const applicationStatus = {
                 ["applicationStatus"],
                 `Callback skipSummary detected, redirecting ${request.yar.id} to ${redirectUrl} and clearing state`
               );
+              await cacheService.setConfirmationState(request, {
+                redirectUrl,
+              });
               await cacheService.clearState(request);
+
               return h.redirect(redirectUrl);
             }
 
