@@ -63,6 +63,16 @@ const applicationStatus = {
               reference: newReference,
             } = await statusService.outputRequests(request);
 
+            if (state.callback?.skipSummary?.redirectUrl) {
+              const { redirectUrl } = state.callback?.skipSummary;
+              request.logger.info(
+                ["applicationStatus"],
+                `Callback skipSummary detected, redirecting ${request.yar.id} to ${redirectUrl} and clearing state`
+              );
+              await cacheService.clearState(request);
+              return h.redirect(redirectUrl);
+            }
+
             const viewModel = statusService.getViewModel(
               state,
               form,

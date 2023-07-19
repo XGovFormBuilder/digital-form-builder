@@ -8,6 +8,9 @@ export type InitialiseSessionOptions = {
   message?: string;
   htmlMessage?: string;
   title?: string;
+  skipSummary?: {
+    redirectUrl: string;
+  };
 };
 
 export type DecodedSessionToken = {
