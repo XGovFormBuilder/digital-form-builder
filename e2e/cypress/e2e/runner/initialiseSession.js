@@ -4,7 +4,6 @@ When("the session is initialised with the options", (table) => {
   //     | form | callbackUrl | redirectPath | message | htmlMessage | title | redirectUrl
   const { form, redirectUrl, ...options } = table.hashes()[0];
   const url = `${Cypress.env("RUNNER_URL")}/session/${form}`;
-  console.log(redirectUrl);
   cy.request("POST", url, {
     options: {
       ...options,
