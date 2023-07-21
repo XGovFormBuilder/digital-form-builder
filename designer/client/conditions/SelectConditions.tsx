@@ -147,7 +147,7 @@ class SelectConditions extends React.Component<Props, State> {
         ) as string
       )
     );
-    if (fields.includes(conditionFieldName)) {
+    if (fields.includes(conditionFieldName.trim())) {
       validConditions.push(condition.name);
       return true;
     }

@@ -59,6 +59,7 @@ test("SelectConditions renders available conditions", () => {
             schema: {},
           },
         ],
+        section: "checkBeforeYouStart",
         next: [
           {
             path: "/how-many-people",
@@ -73,6 +74,7 @@ test("SelectConditions renders available conditions", () => {
       {
         path: "/no-uk-passport",
         title: "You're not eligible for this service",
+        section: "checkBeforeYouStart",
         component: [
           {
             type: "Para",
@@ -100,6 +102,7 @@ test("SelectConditions renders available conditions", () => {
             list: "numberOfApplicants",
           },
         ],
+        section: "applicantDetails",
         next: [
           {
             path: "/applicant-one",
@@ -108,8 +111,17 @@ test("SelectConditions renders available conditions", () => {
         title: "How many applicants are there?",
       },
     ],
-    sections: [],
-    startPage: "",
+    sections: [
+      {
+        name: "checkBeforeYouStart",
+        title: "Check before you start",
+      },
+      {
+        name: "applicantDetails",
+        title: "Applicant details",
+      },
+    ],
+    startPage: "uk-passport",
     conditions: [
       {
         name: "hasUKPassport",
@@ -138,12 +150,13 @@ test("SelectConditions renders available conditions", () => {
       },
     ],
   };
+  const conditionsChange = jest.fn();
   const providerProps = {
     data,
     save: jest.fn(),
   };
   const { getByText, queryByText, getByTestId } = customRender(
-    <SelectConditions />,
+    <SelectConditions conditionsChange={conditionsChange} hints={[]} />,
     providerProps
   );
   const expectedConditions = data.conditions.map(
