@@ -1,7 +1,10 @@
-import { redirectTo } from "./engine";
-import { HapiRequest, HapiResponseToolkit } from "../types";
+import { redirectTo } from "./../engine";
+import { HapiRequest, HapiResponseToolkit } from "../../types";
+import { retryPay } from "./retryPay";
+import { handleUserWithConfirmationViewModel } from "server/plugins/applicationStatus/handleUserWithConfirmationViewModel";
+import { checkUserCompletedSummary } from "server/plugins/applicationStatus/checkUserCompletedSummary";
 
-const applicationStatus = {
+const index = {
   plugin: {
     name: "applicationStatus",
     dependencies: "@hapi/vision",
@@ -13,45 +16,16 @@ const applicationStatus = {
         options: {
           pre: [
             {
-              method: (request) => {
-                const { statusService } = request.services([]);
-                return statusService.shouldRetryPay(request);
-              },
+              method: retryPay,
               assign: "shouldRetryPay",
             },
             {
-              method: async (request, h) => {
-                const { cacheService } = request.services([]);
-
-                const confirmationViewModel = await cacheService.getConfirmationState(
-                  request
-                );
-
-                if (!confirmationViewModel) {
-                  return null;
-                }
-
-                const { redirectUrl, confirmation } = confirmationViewModel;
-
-                if (redirectUrl) {
-                  request.logger.info(
-                    [`/${request.params.id}/status`, request.yar.id],
-                    `confirmationViewModel.redirect detected. User will be redirected to ${redirectUrl}`
-                  );
-                  return h.redirect(redirectUrl).takeover();
-                }
-
-                if (confirmation) {
-                  request.logger.info(
-                    [`/${request.params.id}/status`, request.yar.id],
-                    `confirmationViewModel.redirect detected.`
-                  );
-                  return h.view("confirmation", confirmation).takeover();
-                }
-
-                return cacheService.getConfirmationState(request);
-              },
+              method: handleUserWithConfirmationViewModel,
               assign: "confirmationViewModel",
+            },
+            {
+              method: checkUserCompletedSummary,
+              assign: "userCompletedSummary",
             },
           ],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
@@ -59,21 +33,7 @@ const applicationStatus = {
             const { params } = request;
             const form = server.app.forms[params.id];
 
-            if (request.pre.shouldRetryPay) {
-              return h.view("pay-error", {
-                errorList: ["there was a problem with your payment"],
-              });
-            }
-
             const state = await cacheService.getState(request);
-
-            if (state?.userCompletedSummary !== true) {
-              request.logger.error(
-                [`/${params.id}/status`],
-                `${request.yar.id} user has incomplete state`
-              );
-              return h.redirect(`/${params.id}/summary`);
-            }
 
             const {
               reference: newReference,
@@ -139,4 +99,4 @@ const applicationStatus = {
   },
 };
 
-export default applicationStatus;
+export default index;
