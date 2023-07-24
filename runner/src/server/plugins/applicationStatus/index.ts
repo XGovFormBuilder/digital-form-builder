@@ -4,7 +4,7 @@ import { retryPay } from "./retryPay";
 import { handleUserWithConfirmationViewModel } from "./handleUserWithConfirmationViewModel";
 import { checkUserCompletedSummary } from "./checkUserCompletedSummary";
 
-const index = {
+const applicationStatus = {
   plugin: {
     name: "applicationStatus",
     dependencies: "@hapi/vision",
@@ -99,4 +99,4 @@ const index = {
   },
 };
 
-export default index;
+export default applicationStatus;
