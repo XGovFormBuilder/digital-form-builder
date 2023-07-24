@@ -22,7 +22,7 @@ Feature: Initialise session - prepopulate a session
     Given the form "initialiseSession" exists
     When the session is initialised with the options
       | form              | callbackUrl                                                 | redirectPath | message | htmlMessage                      | title |
-      | initialiseSession | hhttps://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io | /summary     |         | <p>This is not a type of egg</p> |       |
+      | initialiseSession | https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io | /summary     |         | <p>This is not a type of egg</p> |       |
     And I go to the initialised session URL
     Then I see "Summary"
     And I see "This is not a type of egg"
