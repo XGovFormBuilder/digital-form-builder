@@ -27,7 +27,7 @@ export async function handleUserWithConfirmationViewModel(
   if (confirmation) {
     request.logger.info(
       [`/${request.params.id}/status`, request.yar.id],
-      `confirmationViewModel.redirect detected.`
+      `confirmationViewModel.confirmation detected. Re-presenting ${confirmation}`
     );
     return h.view("confirmation", confirmation).takeover();
   }
