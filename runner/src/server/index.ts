@@ -35,8 +35,7 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
-import { spawnSync } from "child_process";
-import { queue } from "server/plugins/queue";
+import { pluginQueue } from "server/plugins/queue";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -165,7 +164,7 @@ async function createServer(routeConfig: RouteConfig) {
     encoding: "base64json",
   });
 
-  await server.register(queue);
+  await server.register(pluginQueue);
 
   return server;
 }
