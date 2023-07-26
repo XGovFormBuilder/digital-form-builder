@@ -14,7 +14,8 @@
     "runner",
     "designer",
     "e2e",
-    "queueModel"
+    "queueModel",
+    "submitter"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
