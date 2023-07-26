@@ -15,7 +15,7 @@
     "fix-lint": "yarn run eslint . --fix",
     "build": "yarn run build:prisma && yarn run build:types && yarn run build:node",
     "build:prisma": "prisma generate",
-    "migrate": "prisma migrate",
+    "migrate": "prisma migrate dev",
     "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module --copy-files",
     "build:types": "tsc --emitDeclarationOnly",
     "type-check": "tsc --noEmit"
