@@ -10,7 +10,8 @@ generator client {
 model Submission {
   id Int @id @default(autoincrement())
   webhook_url String?
-  data String
+  time BigInt
+  data String @db.VarChar(8192)
   error String?
   return_reference String?
 }
