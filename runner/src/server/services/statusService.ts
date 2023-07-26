@@ -122,6 +122,10 @@ export class StatusService {
           formData,
           callback.callbackUrl
         );
+        this.logger.info(
+          ["StatusService", "outputRequests"],
+          `Queue reference: ${queueReference}`
+        );
         if (!queueReference) {
           this.logQueueServiceError();
         }
@@ -143,6 +147,10 @@ export class StatusService {
           formData,
           firstWebhook.outputData.url
         );
+        this.logger.info(
+          ["StatusService", "outputRequests"],
+          `Queue reference: ${queueReference}`
+        );
         if (!queueReference) {
           this.logQueueServiceError();
         }
@@ -157,7 +165,11 @@ export class StatusService {
     }
 
     if (!queueReference) {
-      queueReference = await this.queueService?.sendToQueue(formData);
+      queueReference = await this.queueService?.sendToQueue(formData, "");
+      this.logger.info(
+        ["StatusService", "outputRequests"],
+        `Queue reference: ${queueReference}`
+      );
       if (!queueReference) {
         this.logQueueServiceError();
       }
