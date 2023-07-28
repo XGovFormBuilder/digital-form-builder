@@ -9,5 +9,5 @@ async function initApp() {
 }
 
 initApp().catch((err) => {
-  initLogger.error(["Server initialisation"], err);
+  initLogger.error(["Server initialisation"], err.message);
 });
