@@ -5787,6 +5787,7 @@ __metadata:
     "@types/hapi__hapi": ^20.0.0
     "@types/pino": ^7.0.5
     "@xgovformbuilder/queueModel": "workspace:queueModel"
+    config: ^3.3.9
     eslint: ^8.11.0
     eslint-plugin-import: ^2.25.4
     eslint-plugin-tsdoc: ^0.2.14
@@ -8480,6 +8481,15 @@ __metadata:
   dependencies:
     json5: ^2.1.1
   checksum: 53b68dbf303a262b16ee376bb8ee08a9f1f4d09ea5d35a45cd9a47a47591a0817c00d5d10f0d53328221f2a927c98ef8eb921679ad9722c80400df6839c40861
+  languageName: node
+  linkType: hard
+
+"config@npm:^3.3.9":
+  version: 3.3.9
+  resolution: "config@npm:3.3.9"
+  dependencies:
+    json5: ^2.2.3
+  checksum: 2c29e40be22274462769670a4b69fcbcad2d3049eb15030073e410d32c892ef29e0c879a3d68ef92ddd572c516e4f65a11bb6458f680a44ceb0f051bcd3d97ff
   languageName: node
   linkType: hard
 
@@ -15774,7 +15784,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"json5@npm:^2.2.2":
+"json5@npm:^2.2.2, json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
