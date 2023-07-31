@@ -4,6 +4,7 @@ import { pluginQueue } from "./plugins/queue";
 import config from "./config";
 import { QueueService, WebhookService } from "./services";
 import Schmervice from "schmervice";
+import { pluginCron } from "./plugins/cron";
 
 const serverOptions: ServerOptions = {
   debug: { request: [`${config.isDev}`] },
@@ -36,6 +37,7 @@ export async function createServer(): Promise<hapi.Server> {
   await server.register(pluginLogging);
   await server.register(pluginQueue);
   await server.register(Schmervice);
+  await server.register(pluginCron, { frequency: config.pollingInterval });
 
   server.registerService([WebhookService, QueueService]);
   return server;
