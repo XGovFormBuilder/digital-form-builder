@@ -20,7 +20,8 @@
     "@hapi/hapi": "^20.2.2",
     "config": "^3.3.9",
     "hapi-pino": "8.0.0",
-    "pino": "^8.14.2"
+    "pino": "^8.14.2",
+    "schmervice": "^1.6.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
@@ -37,7 +38,7 @@
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-typescript": "^7.21.4",
     "@babel/register": "^7.21.0",
-    "@types/hapi__hapi": "^20.0.0",
+    "@types/hapi": "^18.0.7",
     "@types/pino": "^7.0.5",
     "@xgovformbuilder/queueModel": "workspace:queueModel",
     "eslint": "^8.11.0",
