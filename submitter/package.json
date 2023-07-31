@@ -20,6 +20,7 @@
     "@hapi/hapi": "^20.2.2",
     "config": "^3.3.9",
     "hapi-pino": "8.0.0",
+    "node-cron": "^3.0.2",
     "pino": "^8.14.2",
     "schmervice": "^1.6.0"
   },
