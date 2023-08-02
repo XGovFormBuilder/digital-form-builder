@@ -26,8 +26,7 @@ export class WebhookService {
   async postRequest(
     url: string,
     data: object,
-    method: "POST" | "PUT" = "POST",
-    ref: string
+    method: "POST" | "PUT" = "POST"
   ) {
     this.logger.info(
       ["WebhookService", "postRequest body"],
@@ -40,15 +39,17 @@ export class WebhookService {
         payload: JSON.stringify(data),
       });
 
+      const { reference } = JSON.parse(payload);
+
       this.logger.info(
         ["WebhookService", "postRequest"],
         `Webhook request to ${url} submitted OK`
       );
-      this.logger.debug(
-        ["WebhookService", "postRequest", `REF: ${ref}`],
-        JSON.stringify(payload)
+      this.logger.info(
+        ["WebhookService", "postRequest", `url: ${url}`],
+        payload
       );
-      return;
+      return reference ?? "UNKNOWN";
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
       return error as Error;
