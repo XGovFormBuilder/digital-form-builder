@@ -17,6 +17,7 @@ export class QueueService {
 
   async processSubmissions() {
     try {
+      await this.prisma.$connect();
       const rows = await this.prisma.submission.findMany({
         where: {
           AND: {
@@ -30,30 +31,38 @@ export class QueueService {
       });
       if (rows.length > 0) {
         for (const row of rows) {
-          const error = await this.webhookService.postRequest(
+          const result = await this.webhookService.postRequest(
             row.webhook_url as string,
             JSON.parse(row.data),
-            "POST",
-            row.return_reference as string
+            "POST"
           );
-          if (error) {
+          if (result.message) {
             this.logger.error(
-              [
-                "QueueService",
-                "processSubmissions",
-                `row ref: ${row.return_reference}`,
-              ],
-              error
+              ["QueueService", "processSubmissions", `row ref: ${row.id}`],
+              result
             );
             await this.prisma.submission.update({
               data: {
-                error: error.message,
+                error: result.message,
               },
               where: {
                 id: row.id,
               },
             });
+            continue;
           }
+          this.logger.info(
+            ["QueueService", "processSubmissions", `row ref: ${row.id}`],
+            `return ref: ${result}`
+          );
+          await this.prisma.submission.update({
+            data: {
+              return_reference: result,
+            },
+            where: {
+              id: row.id,
+            },
+          });
         }
       }
     } catch (err) {
@@ -62,5 +71,9 @@ export class QueueService {
         (err as Error).message
       );
     }
+  }
+
+  async closeConnection() {
+    await this.prisma.$disconnect();
   }
 }
