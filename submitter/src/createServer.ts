@@ -37,8 +37,9 @@ export async function createServer(): Promise<hapi.Server> {
   await server.register(pluginLogging);
   await server.register(pluginQueue);
   await server.register(Schmervice);
-  await server.register(pluginPoll, { frequency: config.pollingInterval });
 
   server.registerService([WebhookService, QueueService]);
+
+  await server.register(pluginPoll);
   return server;
 }
