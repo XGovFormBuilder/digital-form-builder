@@ -1,4 +1,8 @@
 const { deferConfig } = require("config/defer");
+const dotEnv = require("dotenv");
+if (process.env.NODE_ENV !== "test") {
+  dotEnv.config({ path: ".env" });
+}
 
 module.exports = {
   env: "development",
