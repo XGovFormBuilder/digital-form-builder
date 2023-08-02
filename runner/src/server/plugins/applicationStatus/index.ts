@@ -42,7 +42,7 @@ const index = {
             const state = await cacheService.getState(request);
 
             const { reference: newReference } =
-              (await queueService?.outputRequests(request)) ??
+              (await queueService.outputRequests(request)) ??
               (await statusService.outputRequests(request));
 
             if (state.callback?.skipSummary?.redirectUrl) {
