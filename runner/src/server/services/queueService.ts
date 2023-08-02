@@ -1,5 +1,6 @@
 import { HapiServer } from "server/types";
 import { PrismaClient } from "@xgovformbuilder/queueModel";
+import config from "../config";
 
 export class QueueService {
   prisma: PrismaClient;
@@ -11,10 +12,9 @@ export class QueueService {
   }
 
   /**
-   * Send data from output to failure queue
+   * Send data from form submission to submission queue
    * @param data
    * @param url
-   * @param error
    * @returns The ID of the newly added row, or undefined in the event of an error
    */
   async sendToQueue(data: object, url?: string) {
@@ -48,8 +48,8 @@ export class QueueService {
       if (newRow?.return_reference) {
         newRowReference = newRow.return_reference;
       }
-      timeElapsed += 500;
-    }, 500);
+      timeElapsed += config.queueServicePollingInterval;
+    }, config.queueServicePollingInterval);
     if (timeElapsed >= 2000 || newRowReference) {
       clearInterval(pollForRef);
       await this.prisma.$disconnect();

@@ -143,4 +143,5 @@ module.exports = {
   enableQueueService: false,
   queueDatabaseUrl: "",
   queueDatabasePassword: "",
+  queueServicePollingInterval: "500",
 };

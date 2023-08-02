@@ -1,10 +1,8 @@
-import Cron from "node-cron";
-
-export const pluginCron = {
-  name: "cron",
+export const pluginPoll = {
+  name: "poll",
   register: async function (server, options) {
     const { queueService } = server.services;
-    Cron.schedule(`${options.frequency ?? "*/2 * * * *"}`, async () => {
+    setInterval(async () => {
       const error = await queueService.processSubmissions();
       if (error) {
         server.error(["cron", "Process submissions"], error);
@@ -14,6 +12,6 @@ export const pluginCron = {
         ["cron", "Process submissions"],
         "Submissions processed successfully"
       );
-    });
+    }, options.frequency);
   },
 };
