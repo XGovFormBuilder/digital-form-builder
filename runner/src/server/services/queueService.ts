@@ -1,5 +1,5 @@
 import { HapiServer } from "server/types";
-import { Prisma, PrismaClient } from "@xgovformbuilder/queueModel";
+import { PrismaClient } from "@xgovformbuilder/queueModel";
 
 export class QueueService {
   prisma: PrismaClient;
@@ -22,6 +22,7 @@ export class QueueService {
       data: JSON.stringify(data),
       time: new Date().getTime(),
       webhook_url: url ?? "",
+      complete: false,
     };
     await this.prisma.$connect();
     const row = await this.prisma.submission.create({
@@ -32,7 +33,27 @@ export class QueueService {
       time: row.time.toString(),
     };
     this.logger.info(["queueService", "sendToQueue", "success"], serialisedRow);
-    await this.prisma.$disconnect();
-    return serialisedRow.id;
+    let newRowReference;
+    let timeElapsed = 0;
+    const pollForRef = setInterval(async () => {
+      let newRow = await this.prisma.submission.findUnique({
+        select: {
+          return_reference: true,
+        },
+        where: {
+          id: row.id,
+        },
+      });
+
+      if (newRow?.return_reference) {
+        newRowReference = newRow.return_reference;
+      }
+      timeElapsed += 500;
+    }, 500);
+    if (timeElapsed >= 2000 || newRowReference) {
+      clearInterval(pollForRef);
+      await this.prisma.$disconnect();
+      return [newRowReference ?? "UNKNOWN", serialisedRow.id];
+    }
   }
 }
