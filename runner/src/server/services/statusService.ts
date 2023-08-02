@@ -12,8 +12,6 @@ import { ComponentCollection } from "server/plugins/engine/components/ComponentC
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
-import { QueueService } from "server/services/queueService";
-import config from "server/config";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -49,7 +47,6 @@ export class StatusService {
   webhookService: WebhookService;
   notifyService: NotifyService;
   payService: PayService;
-  queueService?: QueueService;
 
   constructor(server: HapiServer) {
     this.logger = server.logger;
@@ -63,9 +60,6 @@ export class StatusService {
     this.webhookService = webhookService;
     this.notifyService = notifyService;
     this.payService = payService;
-    if (config.enableQueueService) {
-      this.queueService = new QueueService(server);
-    }
   }
   async shouldShowPayErrorPage(request: HapiRequest): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
@@ -120,7 +114,6 @@ export class StatusService {
     const { outputs, callback } = state;
 
     let newReference;
-    let queueReference;
 
     if (callback) {
       this.logger.info(
@@ -128,17 +121,6 @@ export class StatusService {
         `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`
       );
       try {
-        queueReference = await this.queueService?.sendToQueue(
-          formData,
-          callback.callbackUrl
-        );
-        this.logger.info(
-          ["StatusService", "outputRequests"],
-          `Queue reference: ${queueReference}`
-        );
-        if (!queueReference) {
-          this.logQueueServiceError();
-        }
         newReference = await this.webhookService.postRequest(
           callback.callbackUrl,
           formData,
@@ -152,19 +134,6 @@ export class StatusService {
     const firstWebhook = outputs?.find((output) => output.type === "webhook");
     const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
     if (firstWebhook) {
-      if (!queueReference) {
-        queueReference = await this.queueService?.sendToQueue(
-          formData,
-          firstWebhook.outputData.url
-        );
-        this.logger.info(
-          ["StatusService", "outputRequests"],
-          `Queue reference: ${queueReference}`
-        );
-        if (!queueReference) {
-          this.logQueueServiceError();
-        }
-      }
       newReference = await this.webhookService.postRequest(
         firstWebhook.outputData.url,
         formData
@@ -172,17 +141,6 @@ export class StatusService {
       await this.cacheService.mergeState(request, {
         reference: newReference,
       });
-    }
-
-    if (!queueReference) {
-      queueReference = await this.queueService?.sendToQueue(formData, "");
-      this.logger.info(
-        ["StatusService", "outputRequests"],
-        `Queue reference: ${queueReference}`
-      );
-      if (!queueReference) {
-        this.logQueueServiceError();
-      }
     }
 
     const { notify = [], webhook = [] } = this.outputArgs(
@@ -337,12 +295,5 @@ export class StatusService {
     );
 
     return model;
-  }
-
-  logQueueServiceError() {
-    this.logger.error(
-      ["StatusService", "outputRequests"],
-      "There was an issue sending the submission to the submission queue"
-    );
   }
 }
