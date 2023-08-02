@@ -1,13 +1,13 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "outDir": "dist",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
     "paths": {
-      "src/*": ["src/*"],
+      "src/*": ["src/*"]
     },
     "resolveJsonModule": true,
     "lib": [
