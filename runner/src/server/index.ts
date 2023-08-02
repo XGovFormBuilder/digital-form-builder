@@ -36,6 +36,8 @@ import {
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
 import { pluginQueue } from "server/plugins/queue";
+import { QueueStatusService } from "server/services/queueStatusService";
+import { QueueService } from "server/services/queueService";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -112,6 +114,8 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     StatusService,
     AddressService,
+    QueueService,
+    QueueStatusService,
   ]);
 
   server.ext(

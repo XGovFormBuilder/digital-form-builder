@@ -3,7 +3,7 @@ import { HapiRequest, HapiServer } from "server/types";
 import Boom from "boom";
 import { QueueService } from "server/services/queueService";
 
-export class queueStatusService extends StatusService {
+export class QueueStatusService extends StatusService {
   queueService: QueueService;
   constructor(server: HapiServer) {
     super(server);
@@ -22,7 +22,7 @@ export class queueStatusService extends StatusService {
 
     if (callback) {
       this.logger.info(
-        ["StatusService", "outputRequests"],
+        ["QueueStatusService", "outputRequests"],
         `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`
       );
       try {
@@ -33,9 +33,9 @@ export class queueStatusService extends StatusService {
         if (!queueResults) {
           this.logQueueServiceError();
         }
-        [newReference, queueReference] = queueResults as any[];
+        [newReference, queueReference] = queueResults as string[];
         this.logger.info(
-          ["StatusService", "outputRequests"],
+          ["QueueStatusService", "outputRequests"],
           `Queue reference: ${queueReference}`
         );
       } catch (e) {
@@ -54,9 +54,9 @@ export class queueStatusService extends StatusService {
         if (!queueResults) {
           this.logQueueServiceError();
         }
-        [queueReference, newReference] = queueResults as any[];
+        [newReference, queueReference] = queueResults as string[];
         this.logger.info(
-          ["StatusService", "outputRequests"],
+          ["QueueStatusService", "outputRequests"],
           `Queue reference: ${queueReference}`
         );
       }
@@ -70,9 +70,9 @@ export class queueStatusService extends StatusService {
       if (!queueResults) {
         this.logQueueServiceError();
       }
-      [newReference, queueReference] = queueResults as any[];
+      [newReference, queueReference] = queueResults as string[];
       this.logger.info(
-        ["StatusService", "outputRequests"],
+        ["QueueStatusService", "outputRequests"],
         `Queue reference: ${queueReference}`
       );
     }
@@ -99,7 +99,7 @@ export class queueStatusService extends StatusService {
 
   logQueueServiceError() {
     this.logger.error(
-      ["StatusService", "outputRequests"],
+      ["QueueStatusService", "outputRequests"],
       "There was an issue sending the submission to the submission queue"
     );
   }
