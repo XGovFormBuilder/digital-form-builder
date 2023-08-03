@@ -18,10 +18,8 @@
   },
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
-    "config": "^3.3.9",
+    "config": "^3.3.7",
     "hapi-pino": "8.0.0",
-    "node-cron": "^3.0.2",
-    "pino": "^8.14.2",
     "schmervice": "^1.6.0"
   },
   "devDependencies": {
@@ -40,7 +38,6 @@
     "@babel/preset-typescript": "^7.21.4",
     "@babel/register": "^7.21.0",
     "@types/hapi": "^18.0.7",
-    "@types/pino": "^7.0.5",
     "@xgovformbuilder/queueModel": "workspace:queueModel",
     "eslint": "^8.11.0",
     "eslint-plugin-import": "^2.25.4",
