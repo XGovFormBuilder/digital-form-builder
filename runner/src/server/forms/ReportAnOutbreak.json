@@ -192,8 +192,8 @@
                     "name": "S1Q7",
                     "options": {},
                     "type": "TelephoneNumberField",
-                    "hint": "Please consider using a non-personal number.",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
+                    "hint": "Please consider using a non-personal number.",
                     "nameHasError": false
                 },
                 {
@@ -2533,6 +2533,5 @@
     },
     "phaseBanner": {
         "phase": "beta"
-    },
-    "feeOptions": {}
+    }
 }
