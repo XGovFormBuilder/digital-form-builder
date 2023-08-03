@@ -1,6 +1,4 @@
 import { createServer } from "./createServer";
-import logger from "pino";
-const initLogger = logger();
 
 async function initApp() {
   const server = await createServer();
@@ -9,5 +7,5 @@ async function initApp() {
 }
 
 initApp().catch((err) => {
-  initLogger.error(["Server initialisation"], err.message);
+  console.error(err.message);
 });
