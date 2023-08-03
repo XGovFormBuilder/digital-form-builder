@@ -133,11 +133,10 @@
                 {
                     "name": "S1Q7",
                     "options": {},
-                    "type": "NumberField",
+                    "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
-                    "nameHasError": false,
                     "hint": "Please consider using a non-personal number.",
-                    "schema": {}
+                    "nameHasError": false
                 },
                 {
                     "name": "S1Q8",
@@ -192,11 +191,10 @@
                 {
                     "name": "S1Q7",
                     "options": {},
-                    "type": "NumberField",
-                    "title": "S1Q7. Telephone number/s of Key Contact Person",
-                    "nameHasError": false,
+                    "type": "TelephoneNumberField",
                     "hint": "Please consider using a non-personal number.",
-                    "schema": {}
+                    "title": "S1Q7. Telephone number/s of Key Contact Person",
+                    "nameHasError": false
                 },
                 {
                     "name": "S1Q8",
@@ -255,11 +253,10 @@
                 {
                     "name": "S1Q7",
                     "options": {},
-                    "type": "NumberField",
+                    "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
-                    "nameHasError": false,
                     "hint": "Please consider using a non-personal number.",
-                    "schema": {}
+                    "nameHasError": false
                 },
                 {
                     "name": "S1Q8",
@@ -279,7 +276,7 @@
             ]
         },
         {
-            "path": "/Section-3-Details-about-the-people-reveiving-and-giving-care-in-your-setting",
+            "path": "/Section-3-Details-about-the-people-receiving-and-giving-care-in-your-setting",
             "title": "Section 3 - Details about the people receiving and giving care in your setting",
             "components": [
                 {
@@ -442,7 +439,7 @@
                     "name": "S4Q6",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S4Q6. Symptom onset date of first case",
@@ -454,7 +451,7 @@
                     "name": "S4Q7",
                     "options": {
                         "required": false,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S4Q7. Symptom onset date of second case",
@@ -466,7 +463,7 @@
                     "name": "S4Q8",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S4Q8. Symptom onset date of most recent case",
@@ -705,7 +702,7 @@
                     "name": "S5Q12",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S5Q12. Symptom onset date of first case (confirmed flu, suspected flu OR chest infections)",
@@ -717,7 +714,7 @@
                     "name": "S5Q13",
                     "options": {
                         "required": false,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S5Q13. Symptom onset date of second case (confirmed flu, suspected flu OR chest infections)",
@@ -729,7 +726,7 @@
                     "name": "S5Q14",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S5Q14. Symptom onset date of most recent case (confirmed flu, suspected flu OR chest infections)",
@@ -860,7 +857,7 @@
                     "name": "S6Q4",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S6Q4. Symptom onset date of first case",
@@ -872,7 +869,7 @@
                     "name": "S6Q5",
                     "options": {
                         "required": false,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S6Q5. Symptom onset date of second case",
@@ -884,7 +881,7 @@
                     "name": "S6Q6",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S6Q6. Symptom onset date of most recent case",
@@ -1421,7 +1418,7 @@
             ],
             "next": [
                 {
-                    "path": "/Section-3-Details-about-the-people-reveiving-and-giving-care-in-your-setting",
+                    "path": "/Section-3-Details-about-the-people-receiving-and-giving-care-in-your-setting",
                     "condition": "WcIkbk"
                 },
                 {
@@ -1483,7 +1480,7 @@
                     "condition": "xxFtDU"
                 },
                 {
-                    "path": "/Section-3-Details-about-the-people-reveiving-and-giving-care-in-your-setting"
+                    "path": "/Section-3-Details-about-the-people-receiving-and-giving-care-in-your-setting"
                 }
             ]
         },
@@ -2536,5 +2533,6 @@
     },
     "phaseBanner": {
         "phase": "beta"
-    }
+    },
+    "feeOptions": {}
 }
