@@ -57,6 +57,11 @@ const conditionGroupSchema = joi.object().keys({
     ),
 });
 
+const conditionsApiSchema = joi.object().keys({
+  url: joi.string().required(),
+  values: joi.object({ a: joi.any() }).unknown().optional(),
+});
+
 const conditionsModelSchema = joi.object().keys({
   name: joi.string().required(),
   conditions: joi
@@ -64,10 +69,14 @@ const conditionsModelSchema = joi.object().keys({
     .items(
       joi
         .alternatives()
-        .try(conditionSchema, conditionRefSchema, conditionGroupSchema)
+        .try(
+          conditionSchema,
+          conditionRefSchema,
+          conditionGroupSchema,
+          conditionsApiSchema
+        )
     ),
 });
-
 const conditionsSchema = joi.object().keys({
   name: joi.string().required(),
   displayName: joi.string(),
