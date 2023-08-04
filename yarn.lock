@@ -5246,6 +5246,7 @@ __metadata:
     notifications-node-client: ^5.2.0
     nunjucks: ^3.2.3
     pdfmake: 0.1.65
+    prisma: ^5.1.1
     resolve: ^1.19.0
     sass: ^1.49.9
     schmervice: ^1.6.0
@@ -5286,6 +5287,7 @@ __metadata:
     eslint-plugin-tsdoc: ^0.2.14
     hapi-pino: 8.0.0
     nodemon: ^3.0.1
+    prisma: ^5.1.1
     schmervice: ^1.6.0
     typescript: 4.9.5
   languageName: unknown
