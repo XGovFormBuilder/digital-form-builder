@@ -1,5 +1,5 @@
 export { Schema, componentSchema } from "./schema";
-export { ConditionRawData, ConditionsWrapper } from "./data-model";
+export * from "./data-model";
 export { Logger } from "./utils/logger";
 export { FormConfiguration } from "./form";
 export { ComponentTypes, ConditionalComponentTypes } from "./components";

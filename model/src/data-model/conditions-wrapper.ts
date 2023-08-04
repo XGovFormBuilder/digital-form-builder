@@ -1,12 +1,14 @@
 import { Condition } from "../conditions/condition";
 import { ConditionsModel } from "../conditions/condition-model";
 
+export type ApiConditionWrapperValue = {
+  url: string;
+  values: { [k: string]: string };
+};
+
 export type ConditionWrapperValue =
-  | string
-  | {
-      name: string;
-      conditions: Condition[];
-    };
+  | StaticConditionWrapperValue
+  | ApiConditionWrapperValue;
 
 export type ConditionRawData = {
   name: string;
@@ -14,12 +16,26 @@ export type ConditionRawData = {
   value: ConditionWrapperValue;
 };
 
+export type StaticConditionRawData = ConditionRawData & {
+  value: StaticConditionWrapperValue;
+};
+
+export type ApiConditionRawData = ConditionRawData & {
+  value: ApiConditionWrapperValue;
+};
+
+export type StaticConditionWrapperValue =
+  | string
+  | {
+      name: string;
+      conditions: Condition[];
+    };
 export class ConditionsWrapper {
   name: string;
   displayName: string;
-  value: ConditionWrapperValue;
+  value: StaticConditionWrapperValue;
 
-  constructor(rawData: ConditionRawData) {
+  constructor(rawData: StaticConditionRawData) {
     const { name, displayName, value } = rawData;
     this.displayName = displayName || name;
     this.value = value;

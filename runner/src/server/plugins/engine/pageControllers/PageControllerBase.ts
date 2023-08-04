@@ -181,7 +181,7 @@ export class PageControllerBase {
    * @param state - the values currently stored in a users session
    * @param suppressRepetition - cancels repetition logic
    */
-  getNextPage(state: FormSubmissionState, suppressRepetition = false) {
+  async getNextPage(state: FormSubmissionState, suppressRepetition = false) {
     if (this.repeatField && !suppressRepetition) {
       const requiredCount = reach(state, this.repeatField);
       const otherRepeatPagesInSection = this.model.pages.filter(
@@ -205,15 +205,30 @@ export class PageControllerBase {
       }
     }
 
-    let defaultLink;
-    const nextLink = this.next.find((link) => {
-      const { condition } = link;
-      if (condition) {
-        return this.model.conditions[condition]?.fn?.(state);
-      }
-      defaultLink = link;
-      return false;
+    const next = this.next;
+
+    const defaultLink = next.find((link) => !link.condition);
+    let nextLink;
+
+    const allLinksWithConditions = next.filter((link) => link.condition);
+
+    const apiConditions = allLinksWithConditions.filter(({ condition }) => {
+      return this.model.conditions[condition].isApiCondition;
     });
+
+    const conditions = allLinksWithConditions.filter(({ condition }) => {
+      return !this.model.conditions[condition].isApiCondition;
+    });
+
+    nextLink ??= apiConditions.find(async (link) => {
+      return await this.model.conditions[link.condition]?.fn?.(state);
+    });
+
+    nextLink ??= conditions.find(async (link) => {
+      const { condition } = link;
+      return await this.model.conditions[condition]?.fn?.(state);
+    });
+
     return nextLink?.page ?? defaultLink?.page;
   }
 
@@ -221,8 +236,8 @@ export class PageControllerBase {
   /**
    * returns the path to the next page
    */
-  getNext(state: any) {
-    const nextPage = this.getNextPage(state);
+  async getNext(state: any) {
+    const nextPage = await this.getNextPage(state);
     const query = { num: 0 };
     let queryString = "";
     if (nextPage?.repeatField) {
@@ -346,7 +361,10 @@ export class PageControllerBase {
   /**
    * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`
    */
-  getConditionEvaluationContext(model: FormModel, state: FormSubmissionState) {
+  async getConditionEvaluationContext(
+    model: FormModel,
+    state: FormSubmissionState
+  ) {
     //Note: This function does not support repeatFields right now
 
     let relevantState: FormSubmissionState = {};
@@ -373,7 +391,7 @@ export class PageControllerBase {
       relevantState = merge(relevantState, newValue);
 
       //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
-      nextPage = nextPage.getNextPage(relevantState);
+      nextPage = await nextPage.getNextPage(relevantState);
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
     }
 
@@ -701,8 +719,8 @@ export class PageControllerBase {
   /**
    * TODO:- proceed is interfering with subclasses
    */
-  proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
-    return proceed(request, h, this.getNext(state));
+  async proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
+    return await proceed(request, h, await this.getNext(state));
   }
 
   getPartialMergeState(value) {

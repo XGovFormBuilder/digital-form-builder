@@ -68,10 +68,22 @@ const conditionsModelSchema = joi.object().keys({
     ),
 });
 
+const apiConditionSchema = joi.object({
+  url: joi.string(),
+  values: joi
+    .object({
+      a: joi.string(),
+    })
+    .pattern(joi.string(), joi.string()),
+});
+
 const conditionsSchema = joi.object().keys({
   name: joi.string().required(),
   displayName: joi.string(),
-  value: joi.alternatives().try(joi.string(), conditionsModelSchema).required(),
+  value: joi
+    .alternatives()
+    .try(joi.string(), conditionsModelSchema, apiConditionSchema)
+    .required(),
 });
 
 const localisedString = joi

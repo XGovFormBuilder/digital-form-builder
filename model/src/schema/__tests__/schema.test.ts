@@ -106,3 +106,26 @@ describe("payment configuration", () => {
     });
   });
 });
+
+test("api conditions", () => {
+  const configuration = {
+    ...baseConfiguration,
+    conditions: [
+      {
+        name: "api",
+        value: {
+          url: "http://localhost",
+          values: {
+            type: "funeralDirectors",
+          },
+        },
+      },
+    ],
+  };
+
+  const { error } = Schema.validate(configuration, {
+    abortEarly: false,
+  });
+
+  expect(error).toBeUndefined();
+});

@@ -14,7 +14,7 @@ module.exports = {
   initialisedSessionTimeout: minute * 60 * 24 * 28, // Defaults to 28 days. Set the TTL for the initialised session in ms.
   initialisedSessionKey: `${nanoid.random(16)}`, // This should be set if you are deploying replicas, otherwise the key will be different per replica
   initialisedSessionAlgorithm: "HS512", // allowed algorithms: "RS256", "RS384", "RS512","PS256", "PS384", "PS512", "ES256", "ES384", "ES512", "EdDSA", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "HS256", "HS384", "HS512"
-
+  safelist: [], // allowed hostnames of the callback URLs
   /**
    * Server
    */
@@ -127,5 +127,9 @@ module.exports = {
   logPrettyPrint: true,
   logRedactPaths: ["req.headers['x-forwarded-for']"], // You should check your privacy policy before disabling this. Check https://getpino.io/#/docs/redaction on how to configure redaction paths
 
-  safelist: ["61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
+  /**
+   * API Conditions
+   */
+
+  apiConditionSecret: `${nanoid.random(16)}`, // This secret will be used to generate a signature. You must use the same signature on your API. This should be set if you are deploying replicas, otherwise the key will be different per replica
 };

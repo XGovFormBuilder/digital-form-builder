@@ -1,5 +1,4 @@
 import joi from "joi";
-import { add } from "date-fns";
 import { Parser } from "expr-eval";
 import {
   Schema,
@@ -8,6 +7,7 @@ import {
   FormDefinition,
   Page,
   ConditionRawData,
+  ApiConditionRawData,
   List,
 } from "@xgovformbuilder/model";
 
@@ -15,6 +15,14 @@ import { FormSubmissionState } from "../types";
 import { PageControllerBase, getPageController } from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
+import {
+  dateForComparison,
+  getSignature,
+  timeForComparison,
+} from "server/plugins/engine/models/FormModel.helpers";
+import wreck from "wreck";
+import hoek from "hoek";
+import pino from "pino";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -49,6 +57,8 @@ export class FormModel {
   conditions: Record<string, ExecutableCondition> | {};
   pages: any;
   startPage: any;
+
+  logger;
 
   feeOptions?: {
     paymentReferenceFormat?: string;
@@ -90,6 +100,8 @@ export class FormModel {
     this.name = def.name;
     this.values = result.value;
 
+    this.logger = pino().child({ form: this.name });
+
     if (options.defaultPageController) {
       this.DefaultPageController = getPageController(
         options.defaultPageController
@@ -100,8 +112,9 @@ export class FormModel {
 
     this.conditions = {};
     def.conditions.forEach((conditionDef) => {
-      const condition = this.makeCondition(conditionDef);
-      this.conditions[condition.name] = condition;
+      this.makeCondition(conditionDef).then((condition) => {
+        this.conditions[condition.name] = condition;
+      });
     });
 
     // @ts-ignore
@@ -191,42 +204,44 @@ export class FormModel {
    * Instantiates a Condition based on {@link ConditionRawData}
    * @param condition
    */
-  makeCondition(condition: ConditionRawData) {
+  async makeCondition(condition: ConditionRawData) {
     const parser = new Parser({
       operators: {
         logical: true,
       },
     });
 
-    parser.functions.dateForComparison = function (timePeriod, timeUnit) {
-      return add(new Date(), { [timeUnit]: timePeriod }).toISOString();
-    };
-
-    /**
-     * TODO:- this is most definitely broken.
-     */
-    parser.functions.timeForComparison = function (timePeriod, timeUnit) {
-      const offsetTime = add(Number(timePeriod), timeUnit);
-      return `${offsetTime.getHours()}:${offsetTime.getMinutes()}`;
-    };
+    parser.functions.dateForComparison = dateForComparison;
+    parser.functions.timeForComparison = timeForComparison;
 
     const { name, value } = condition;
-    const expr = this.toConditionExpression(value, parser);
+    let fn, expr;
+    const isApiCondition = ApiCondition.isApiCondition(condition);
 
-    const fn = (value) => {
-      const ctx = new EvaluationContext(this.conditions, value);
-      try {
-        return expr.evaluate(ctx);
-      } catch (err) {
-        return false;
-      }
-    };
+    if (isApiCondition) {
+      const apiCondition = new ApiCondition(condition);
+      fn = apiCondition.makeFn();
+    }
+
+    if (!isApiCondition) {
+      expr = this.toConditionExpression(value, parser);
+
+      fn = async (value) => {
+        const ctx = new EvaluationContext(this.conditions, value);
+        try {
+          return expr.evaluate(ctx);
+        } catch (err) {
+          return false;
+        }
+      };
+    }
 
     return {
       name,
       value,
       expr,
       fn,
+      isApiCondition,
     };
   }
 
@@ -245,5 +260,84 @@ export class FormModel {
 
   getList(name: string): List | [] {
     return this.lists.find((list) => list.name === name) ?? [];
+  }
+}
+
+class ApiCondition {
+  baseRequest;
+  needsStateEntries;
+  url;
+  logger = pino().child({ name: "apiCondition" });
+
+  constructor(conditionData: ApiConditionRawData) {
+    const { value } = conditionData;
+    const { url, values } = value;
+    this.url = url;
+
+    const entries = Object.entries(values) as [string, string][];
+
+    const { baseRequest, needsStateEntries } = entries.reduce(
+      (prev, [key, value]) => {
+        const needsValueFromState = value.startsWith("$");
+
+        if (needsValueFromState) {
+          // @ts-ignore
+          prev.needsStateEntries.push([key, value.substring(1)]);
+          return prev;
+        }
+
+        prev.baseRequest[key] = value;
+        return prev;
+      },
+      { baseRequest: {}, needsStateEntries: [] }
+    );
+
+    this.baseRequest = baseRequest;
+    this.needsStateEntries = needsStateEntries;
+  }
+
+  requestBody(state) {
+    const dynamicValues = this.needsStateEntries.reduce(
+      (prev, [key, value]) => {
+        prev[key] = hoek.reach(state, value);
+      },
+      {}
+    );
+
+    return {
+      ...this.baseRequest,
+      ...dynamicValues,
+    };
+  }
+
+  makeFn() {
+    return async (state) => {
+      const requestBody = this.requestBody(state);
+      try {
+        return await wreck.post(this.url, {
+          payload: requestBody,
+          headers: {
+            signature: getSignature(JSON.stringify(requestBody)),
+          },
+        });
+      } catch (e) {
+        if (e.isBoom) {
+          this.logger.info({
+            requestBody,
+            response: e.output.payload,
+          });
+          return;
+        }
+        this.logger.error(e);
+      }
+      return false;
+    };
+  }
+
+  static isApiCondition(
+    conditionData: ConditionRawData
+  ): conditionData is ApiConditionRawData {
+    // @ts-ignore
+    return !!conditionData.value?.url;
   }
 }
