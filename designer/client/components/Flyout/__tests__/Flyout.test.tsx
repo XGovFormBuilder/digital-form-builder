@@ -14,7 +14,7 @@ const { test, describe, beforeEach, afterEach } = lab;
 function HookWrapper(props) {
   const hook = props.hook ? props.hook() : undefined;
   // @ts-ignore
-  return <div hook={hook} />;
+  return <div />;
 }
 
 describe("useFlyoutContext", () => {
