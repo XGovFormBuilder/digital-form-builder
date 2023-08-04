@@ -22,28 +22,13 @@ COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  .
 USER 1001
 RUN --mount=type=cache,target=./.yarn/cache,id=base,uid=1001,mode=0755 yarn
 
-
 # ----------------------------
 # Stage 3
-# Base with model stage
-# In this layer we build the model workspace.
-# It will re-run only if anything inside ./model changes, otherwise this stage is cached.
-# rsync is used to merge folders instead of individually copying files
-FROM dependencies AS model
-WORKDIR /usr/src/app
-COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
-COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
-    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
-RUN yarn model build
-
-# ----------------------------
-# Stage 4
 # Base with queue model stage
 # In this layer we build the queueModel workspace.
 # It will re-run only if anything inside /queueModel changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM model AS queue-model
+FROM dependencies AS queue-model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./queueModel/package.json ./queueModel/tsconfig.json ./queueModel/babel.config.json ./queueModel/schema.prisma ./queueModel/
 COPY --chown=appuser:appuser ./queueModel/src ./queueModel/src/
@@ -53,29 +38,27 @@ RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queueModel \
 RUN yarn queueModel build
 
 # ----------------------------
-# Stage 5
+# Stage 4
 # Build stage
-# In this layer we build the runner workspace
-# It will re-run only if anything inside ./runner changes, otherwise this stage is cached.
+# In this layer we build the submitter workspace
+# It will re-run only if anything inside ./submitter changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM queue-model AS build-runner
+FROM queue-model AS build-submitter
 WORKDIR /usr/src/app
 ARG LAST_COMMIT=""
 ARG LAST_TAG=""
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
-COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
-COPY --chown=appuser:appuser ./runner/config ./runner/config
+COPY --chown=appuser:appuser ./submitter/package.json ./submitter/tsconfig.json ./submitter/.babelrc ./submitter/nodemon.json ./submitter/
+COPY --chown=appuser:appuser ./submitter/config ./submitter/config
 RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner \
-    yarn workspaces focus @xgovformbuilder/runner
-COPY --chown=appuser:appuser ./runner/src ./runner/src/
-COPY --chown=appuser:appuser ./runner/bin ./runner/bin/
-COPY --chown=appuser:appuser ./runner/public ./runner/public/
-RUN touch runner/.env && \
-    echo "LAST_TAG_GH=$LAST_TAG" >> runner/.env && \
-    echo "LAST_COMMIT=$LAST_COMMIT" >> runner/.env
+    yarn workspaces focus @xgovformbuilder/submitter
+COPY --chown=appuser:appuser ./submitter/src ./submitter/src/
+RUN touch submitter/.env && \
+    echo "LAST_TAG_GH=$LAST_TAG" >> submitter/.env && \
+    echo "LAST_COMMIT=$LAST_COMMIT" >> submitter/.env
 
-RUN yarn runner build
+RUN yarn submitter build
 USER 1001
-EXPOSE 3009
-CMD [ "yarn", "runner", "start" ]
+EXPOSE 9000
+CMD [ "yarn", "submitter", "start" ]
