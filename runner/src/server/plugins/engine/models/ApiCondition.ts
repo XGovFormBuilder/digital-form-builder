@@ -62,8 +62,8 @@ export class ApiCondition {
             signature: getSignature(JSON.stringify(requestBody)),
           },
         });
-
-        return res?.statusCode >= 200 && res?.statusCode < 300;
+        const statusCode = res?.statusCode ?? 500;
+        return statusCode >= 200 && statusCode < 300;
       } catch (e) {
         if (!e.isBoom) {
           logger.error(e);

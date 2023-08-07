@@ -259,7 +259,7 @@ export class SummaryViewModel {
     return details;
   }
 
-  private getRelevantPages(model: FormModel, state: FormSubmissionState) {
+  private async getRelevantPages(model: FormModel, state: FormSubmissionState) {
     let nextPage = model.startPage;
     const relevantPages: any[] = [];
     let endPage = null;
@@ -273,7 +273,7 @@ export class SummaryViewModel {
       ) {
         endPage = nextPage;
       }
-      nextPage = nextPage.getNextPage(state, true);
+      nextPage = await nextPage?.getNextPage?.(state, true);
     }
 
     return { relevantPages, endPage };
