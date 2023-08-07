@@ -1,0 +1,540 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/cyllid-sydd-ei-angen",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Cyllid sydd ei angen",
+      "path": "/cyllid-sydd-ei-angen",
+      "components": [
+        {
+          "name": "RgwAoN",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cyfanswm y cais am gyllid</li>\n<li>gyfanswm costau cyfalaf</li>\n<li>arian cyfatebol</li>\n<li>esboniad cyllid refeniw (dewisol)</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/cyfanswm-y-cais-am-gyllid-gan-y-gronfa-perchnogaeth-gymunedol"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/cyfanswm-y-cais-am-gyllid-gan-y-gronfa-perchnogaeth-gymunedol",
+      "title": "Cyfanswm y cais am gyllid gan y Gronfa Perchnogaeth Gymunedol",
+      "components": [
+        {
+          "name": "ngpQfE",
+          "options": {},
+          "type": "Details",
+          "title": "Help gydag achos rheoli",
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>"
+        },
+        {
+          "name": "iPBHAo",
+          "options": {},
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-s\">Cyfanswm y cais am gyllid</h3>\n\n<p class=\"govuk-caption-m\">Dyma'r swm yr ydych yn ymgeisio amdano ar gyfer y Gronfa</p>\n\n<p class=\"govuk-caption-m\">Gallwch wneud cais am hyd at 80% o'ch costau cyfalaf, hyd at uchafswm o £1 miliwn.</p>\n\n<p class=\"govuk-caption-m\">In certain circumstances you can apply for up to 90% of your capital costs. If you are eligible to do this, the development support provider will have already confirmed with you.</p>\n\n<p class=\"govuk-caption-m\">Cofiwch, gallwch wneud cais am hyd at £50,000 o'ch costau refeniw (dim mwy nag 20% o'ch cyllid cyfalaf).</p>"
+        },
+        {
+          "name": "ABROnB",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-!-width-one-third",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "Arian Cyfalaf",
+          "hint": "<label class=\"govuk-body\" for=\"ABROnB\">Arian Cyfalaf </label>"
+        },
+        {
+          "name": "cLDRvN",
+          "options": {
+            "classes": "govuk-!-width-one-third",
+            "hideTitle": true,
+            "required": false,
+            "prefix": "£"
+          },
+          "type": "NumberField",
+          "hint": "<label class=\"govuk-body\" for=\"cLDRvN\">Arian Refeniw (dewisol)</label>",
+          "title": "Arian Refeniw (dewisol)"
+        }
+      ],
+      "next": [
+        {
+          "path": "/costau-cyfalaf-ar-gyfer-eich-prosiect"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/costau-cyfalaf-ar-gyfer-eich-prosiect",
+      "title": "Costau cyfalaf ar gyfer eich prosiect",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Eich costau cyfalaf"
+        }
+      },
+      "components": [
+        {
+          "name": "GaAAPb",
+          "options": {},
+          "type": "Details",
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
+          "title": "Help gydag achos rheoli"
+        },
+        {
+          "name": "EaxCoo",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Costau cyfalaf</h2>\n\n<p class=\"govuk-hint\">Dywedwch wrthym am gyfanswm costau cyfalaf eich prosiect.</p>\n\n<p class=\"govuk-hint\">Dylai hyn fod ar gyfer y prosiect cyfan, nid dim ond yr hyn yr ydych yn gofyn amdano gan y gronfa.</p>\n\n<p class=\"govuk-hint\">Costau cyfalaf can be used to:\n<ul class=\"govuk-hint\">\n<li>purchase or lease the asset</li>\n<li>thalu am gostau ailwampio</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Cofiwch, gallwch wneud cais am hyd at 50% o'ch costau cyfalaf, hyd at uchafswm o £1 miliwn.</p>\n<p class=\"govuk-hint\">Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>\n"
+        },
+        {
+          "name": "qQLyXL",
+          "options": {
+            "prefix": "£",
+            "columnTitles": ["Disgrifiad", "Swm", "Gweithredu "],
+            "required": true
+          },
+          "type": "MultiInputField",
+          "title": "Costau cyfalaf",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "GLQlOh",
+              "options": {},
+              "type": "TextField",
+              "title": "Disgrifiwch y gost"
+            },
+            {
+              "name": "JtwkMy",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "Swm",
+              "hint": "",
+              "schema": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/os-ydych-wedi-sicrhau-arian-cyfatebol"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/os-ydych-wedi-sicrhau-arian-cyfatebol",
+      "title": "Os ydych wedi sicrhau arian cyfatebol",
+      "components": [
+        {
+          "name": "DOvZvB",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A ydych chi wedi sicrhau unrhyw arian cyfatebol eto?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/wedi-sicrhau-arian-cyfatebol",
+          "condition": "QyNLbn"
+        },
+        {
+          "path": "/os-ydych-chi-wedi-nodi-cyllid-cyfatebol-pellach",
+          "condition": "nzrkpu"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/wedi-sicrhau-arian-cyfatebol",
+      "title": "Wedi sicrhau arian cyfatebol",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Yr arian cyfatebol rydych wedi'i sicrhau"
+        }
+      },
+      "components": [
+        {
+          "name": "CtrlQH",
+          "options": {},
+          "type": "Details",
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
+          "title": "Help gydag achos rheoli"
+        },
+        {
+          "name": "LZUkqw",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Wedi sicrhau arian cyfatebol</h2>\n\n<p class=\"govuk-hint\">Mae angen i chi godi ffynonellau eraill o gyllid ochr yn ochr â buddsoddiad o'r gronfa hon.</p>\n\n<p class=\"govuk-hint\">Gall cael ystod o gyllidwyr yn cyfrannu at eich prosiect ddangos ansawdd eich prosiect a'r gefnogaeth sydd iddo yn y gymuned.</p>\n\n<p class=\"govuk-hint\">Gall ffynonellau arian cyfatebol gynnwys:\n<ul class=\"govuk-hint\">\n<li>cyrff cyhoeddus</li>\n<li>gweinyddiaethau datganoledig</li>\n<li>ymddiriedolaethau elusennol</li>\n<li>cyllidwyr y loteri genedlaethol</li>\n<li>cyfranddaliadau cymunedol</li>\n<li>buddsoddwyr cymdeithasol</li>\n<li>benthycwyr eraill</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Gallech ddefnyddio eich cynllun busnes i ddarparu tystiolaeth i gefnogi eich atebion.</p>"
+        },
+        {
+          "name": "MopCmv",
+          "options": {
+            "prefix": "£",
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"],
+            "required": true
+          },
+          "type": "MultiInputField",
+          "title": "Wedi sicrhau arian cyfatebol",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "JKqLWU",
+              "options": {},
+              "type": "TextField",
+              "title": "Ffynhonnell cyllid wedi'i sicrhau"
+            },
+            {
+              "name": "LVJcDC",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "Swm",
+              "hint": "",
+              "schema": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/os-ydych-chi-wedi-nodi-cyllid-cyfatebol-pellach"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/os-ydych-chi-wedi-nodi-cyllid-cyfatebol-pellach",
+      "title": "Os ydych chi wedi nodi cyllid cyfatebol pellach",
+      "components": [
+        {
+          "name": "DmgsiG",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A oes gennych unrhyw arian cyfatebol wedi'i nodi ond heb ei sicrhau eto?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/arian-cyfatebol-heb-ei-sicrhau",
+          "condition": "DrELrt"
+        },
+        {
+          "path": "/arian-refeniw",
+          "condition": "nPKnjf"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/arian-cyfatebol-heb-ei-sicrhau",
+      "title": "Arian cyfatebol heb ei sicrhau",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "samePageTitle": "Eich arian cyfatebol heb ei sicrhau"
+        }
+      },
+      "components": [
+        {
+          "name": "xsaziw",
+          "options": {},
+          "type": "Details",
+          "content": "Rydym am ddeall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych chi'n gwneud cais amdano o'r gronfa hon</li>\n<li>your full operational costs </li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych chi'n cynllunio i'w sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi lanlwytho cynllun busnes i gefnogi'r atebion a rowch i ni yn yr adran hon.</p>\n</div>",
+          "title": "Help gydag achos rheoli"
+        },
+        {
+          "name": "fixtAm",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-heading-s\">Arian cyfatebol heb ei sicrhau</label>\n\n<p class=\"govuk-hint\">Mae angen i chi godi ffynonellau eraill o gyllid ochr yn ochr â buddsoddiad o'r gronfa hon.</p>\n<p class=\"govuk-hint\">Gall cael ystod o gyllidwyr yn cyfrannu at eich prosiect ddangos ansawdd eich prosiect a'r gefnogaeth sydd iddo yn y gymuned.</p>\n<label class=\"govuk-hint\">Gall ffynonellau arian cyfatebol gynnwys:</label>\n\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>cyrff cyhoeddus</li>\n<li>gweinyddiaethau datganoledig</li>\n<li>ymddiriedolaethau elusennol</li>\n<li>cyllidwyr y loteri genedlaethol</li>\n<li>cyfranddaliadau cymunedol</li>\n<li>buddsoddwyr cymdeithasol</li>\n<li>benthycwyr eraill</li>\n</ul>\n<p class=\"govuk-hint\">Gallech ddefnyddio eich cynllun busnes i:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>ddweud wrthym faint y maen'n debygol o'i gymryd i sicrhau ffynonellau arian cyfatebol</li>\n<li>ddarparu unrhyw wybodaeth i gefnogi eich atebion</li>\n</ul>"
+        },
+        {
+          "name": "vEOdBS",
+          "options": {
+            "prefix": "£",
+            "columnTitles": ["Ffynhonnell", "Swm", "Gweithredu"],
+            "required": true
+          },
+          "type": "MultiInputField",
+          "title": "Arian cyfatebol heb ei sicrhau",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "iMJdfs",
+              "options": {},
+              "type": "TextField",
+              "title": "Ffynhonnell cyllid heb ei sicrhau"
+            },
+            {
+              "name": "THOdae",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "Swm",
+              "hint": "",
+              "schema": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/arian-refeniw"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/arian-refeniw",
+      "title": "Arian Refeniw",
+      "components": [
+        {
+          "name": "matkNH",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Ydych chi'n gwneud cais am arian refeniw o'r Gronfa Perchnogaeth Gymunedol? (dewisol)",
+          "hint": "Revenue costs go towards running the asset once you've taken ownership of it. This might include general costs, including for:\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>cyfleustodau</li>\n<li>staffio</li>\n<li>penodi ymgynghorwyr allanol</li>\n</ul>\n<p>Cofiwch, gallwch wneud cais am hyd at hanner can mil o bunnoedd (£50,000) o'ch costau refeniw (dim mwy nag 20% o'ch cyllid cyfalaf).</p>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu unrhyw wybodaeth sy'n cefnogi'ch atebion</p>",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-y-byddwch-yn-defnyddio-cyllid-refeniw",
+          "condition": "iegbPT"
+        },
+        {
+          "path": "/summary",
+          "condition": "zVdAqG"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/sut-y-byddwch-yn-defnyddio-cyllid-refeniw",
+      "title": "Sut y byddwch yn defnyddio cyllid refeniw",
+      "components": [
+        {
+          "name": "XPDbsl",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym sut y bydd y cyllid refeniw yr ydych wedi gofyn amdano yn helpu i redeg yr ased",
+          "hint": "Cynhwyswch yr anghenion penodol y bydd yn eu diwallu, a sut y byddwch yn bodloni'r anghenion hyn unwaith y byddwch wedi gwario'r arian."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "bgUGuD"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "bgUGuD",
+      "title": "Cyllid sydd ei angen"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "A ydych chi wedi sicrhau unrhyw arian cyfatebol eto-yes",
+      "name": "QyNLbn",
+      "value": {
+        "name": "A ydych chi wedi sicrhau unrhyw arian cyfatebol eto-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "DOvZvB",
+              "type": "YesNoField",
+              "display": "A ydych chi wedi sicrhau unrhyw arian cyfatebol eto?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych chi wedi sicrhau unrhyw arian cyfatebol eto-no",
+      "name": "nzrkpu",
+      "value": {
+        "name": "A ydych chi wedi sicrhau unrhyw arian cyfatebol eto-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "DOvZvB",
+              "type": "YesNoField",
+              "display": "A ydych chi wedi sicrhau unrhyw arian cyfatebol eto?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A oes gennych unrhyw arian cyfatebol wedi'i nodi ond heb ei sicrhau eto-yes",
+      "name": "DrELrt",
+      "value": {
+        "name": "A oes gennych unrhyw arian cyfatebol wedi'i nodi ond heb ei sicrhau eto-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "DmgsiG",
+              "type": "YesNoField",
+              "display": "A oes gennych unrhyw arian cyfatebol wedi'i nodi ond heb ei sicrhau eto?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A oes gennych unrhyw arian cyfatebol wedi'i nodi ond heb ei sicrhau eto-no",
+      "name": "nPKnjf",
+      "value": {
+        "name": "A oes gennych unrhyw arian cyfatebol wedi'i nodi ond heb ei sicrhau eto-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "DmgsiG",
+              "type": "YesNoField",
+              "display": "A oes gennych unrhyw arian cyfatebol wedi'i nodi ond heb ei sicrhau eto?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Ydych chi'n gwneud cais am arian refeniw o'r Gronfa Perchnogaeth Gymunedol-yes",
+      "name": "iegbPT",
+      "value": {
+        "name": "Ydych chi'n gwneud cais am arian refeniw o'r Gronfa Perchnogaeth Gymunedol-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "matkNH",
+              "type": "YesNoField",
+              "display": "Ydych chi'n gwneud cais am arian refeniw o'r Gronfa Perchnogaeth Gymunedol? (dewisol)"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Ydych chi'n gwneud cais am arian refeniw o'r Gronfa Perchnogaeth Gymunedol-no",
+      "name": "zVdAqG",
+      "value": {
+        "name": "Ydych chi'n gwneud cais am arian refeniw o'r Gronfa Perchnogaeth Gymunedol-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "matkNH",
+              "type": "YesNoField",
+              "display": "Ydych chi'n gwneud cais am arian refeniw o'r Gronfa Perchnogaeth Gymunedol? (dewisol)"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

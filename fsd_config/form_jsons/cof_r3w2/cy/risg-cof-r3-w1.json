@@ -1,0 +1,99 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/risg",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Risg",
+      "path": "/risg",
+      "components": [
+        {
+          "name": "ISSbyv",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>risgiau i'ch prosiect (lanlwytho dogfen)</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/cofrestr-risg-eich-prosiect"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/cofrestr-risg-eich-prosiect",
+      "title": "Cofrestr risg eich prosiect",
+      "components": [
+        {
+          "name": "hsEgFI",
+          "options": {},
+          "type": "Details",
+          "content": "<div class=\"govuk-body\">\n<p>Rydym eisiau deall unrhyw risgiau y gallai eich prosiect eu hwynebu a sut y bwriadwch eu lliniaru. Gallant ddigwydd yn ystod y cyfnodau cynllunio neu gyflawni, neu ar ôl i chi gymryd perchnogaeth o'r ased.</p>\n<p> Nid yw hyn yn cynnwys unrhyw risgiau i'r ased na pham y gallai gau; gwnaethom eich holi ynglŷn â hyn yn gynharach yn eich cais.</p>\n<p>Mae enghreifftiau o risgiau yn cynnwys:</p>\n\n<div>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>caniatâd cynllunio ar gyfer unrhyw waith angenrheidiol ar yr ased</li>\n<li>problemau posibl gyda chyflenwi deunyddiau adeiladu</li>\n<li>staff yn gadael yn ystod cyfnod cyflawni eich prosiect</li>\n</ul>\n</div>\n</div>",
+          "title": "Help gyda risg"
+        },
+        {
+          "name": "EODncR",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Risgiau i'ch prosiect (lanlwytho dogfen)",
+          "hint": "<div class=\"govuk-caption-m\">\n<p>Lanlwythwch ddogfen sy'n nodi manylion unrhyw risgiau y gallai eich prosiect eu hwynebu.</p>\n<p>Dylech gynnwys:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>disgrifiad o'r risg</li>\n<li>y tebygolrwydd y bydd yn digwydd</li>\n<li>pa bryd y gallai ddigwydd</li>\n<li>sut y bwriadwch liniaru'r risg</li>\n<li>y tebygolrwydd y bydd yn digwydd ar ôl lliniaru</li>\n</ul> \n\n<p>Peidiwch â chynnwys unrhyw risgiau i'r ased na pham y gallai gau; gwnaethom eich holi ynglŷn â hyn yn gynharach yn eich cais.</p>\n\n\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 10MB ar unrhyw un o'r fformatau canlynol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</div>\n\n<h2 class=\"govuk-heading-s\">Lanlwythwch y ddogfen risg</h2>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "HKdODf"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "HKdODf"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "HKdODf",
+      "title": "Risg"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

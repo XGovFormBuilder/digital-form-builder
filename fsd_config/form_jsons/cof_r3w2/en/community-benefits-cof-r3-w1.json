@@ -1,0 +1,137 @@
+{
+  "metadata": {},
+  "startPage": "/community-benefits",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Community benefits",
+      "path": "/community-benefits",
+      "components": [
+        {
+          "name": "lLCjXj",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>community benefits project will deliver</li>\n<li>how you’ll measure benefits</li>\n<li>how benefits will be delivered and sustained</li>\n<li>how community ownership will be inclusive</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/benefits-youll-deliver"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/benefits-youll-deliver",
+      "title": "Benefits you'll deliver",
+      "components": [
+        {
+          "name": "pqYxJO",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "What community benefits do you expect to deliver with this project?",
+          "list": "oizZTG",
+          "hint": "Select all that apply"
+        },
+        {
+          "name": "lgfiGB",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us about these benefits in detail, and how the asset's activities will help deliver them",
+          "hint": "Include how you gathered feedback from local people on which activities to run, and how each will address a specific community need"
+        },
+        {
+          "name": "zKKouR",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Explain how you plan to deliver and sustain these benefits over time",
+          "hint": "Include the key milestones you intend to meet in order to deliver these benefits."
+        },
+        {
+          "name": "ZyIQGI",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how you'll make sure the whole community benefits from the asset",
+          "hint": "For example, people who have not used the asset in the past, and other people who live in the local area.\n\n<p>Where possible, reference any data you have on protected characteristics and equality impacts.</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "PTOBPV"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "PTOBPV"
+    }
+  ],
+  "lists": [
+    {
+      "title": "What community benefits do you expect to deliver with this project",
+      "name": "oizZTG",
+      "type": "string",
+      "items": [
+        {
+          "text": "Community pride and perceptions of the local area as a place to live",
+          "value": "community-pride"
+        },
+        {
+          "text": "Social trust, cohesion and a sense of belonging",
+          "value": "social-trust"
+        },
+        {
+          "text": "Participation in community life, arts and culture, or sport",
+          "value": "participation"
+        },
+        {
+          "text": "Local economic outcomes, such as employment and volunteering opportunities, and employability and skills",
+          "value": "local-economic"
+        },
+        {
+          "text": "Delivering positive impact in physical and mental health, and reducing loneliness and isolation",
+          "value": "delivering-positive"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "PTOBPV",
+      "title": "Community benefits"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
