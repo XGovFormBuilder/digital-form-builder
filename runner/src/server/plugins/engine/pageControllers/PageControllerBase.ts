@@ -362,36 +362,19 @@ export class PageControllerBase {
    * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`
    */
   async getConditionEvaluationContext(
-    model: FormModel,
+    _model: FormModel,
     state: FormSubmissionState
   ) {
     //Note: This function does not support repeatFields right now
 
     let relevantState: FormSubmissionState = {};
-    //Start at our startPage
-    let nextPage = model.startPage;
+    //Start at this page
+    let nextPage = this;
 
     //While the current page isn't null
     while (nextPage != null) {
-      //Either get the current state or the current state of the section if this page belongs to a section
-      const currentState =
-        (nextPage.section ? state[nextPage.section.name] : state) ?? {};
-      let newValue = {};
-
-      //Iterate all components on this page and pull out the saved values from the state
-      for (const component of nextPage.components.items) {
-        newValue[component.name] = currentState[component.name];
-      }
-
-      if (nextPage.section) {
-        newValue = { [nextPage.section.name]: newValue };
-      }
-
-      //Combine our stored values with the existing relevantState that we've been building up
-      relevantState = merge(relevantState, newValue);
-
       //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
-      nextPage = await nextPage.getNextPage(relevantState);
+      nextPage = await nextPage.getNextPage(state);
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
     }
 
