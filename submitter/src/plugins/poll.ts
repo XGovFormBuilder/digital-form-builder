@@ -4,6 +4,7 @@ export const pluginPoll = {
   name: "poll",
   register: async function (server, _options) {
     const { queueService } = server.services([]);
+    await queueService.openConnection();
     setInterval(async () => {
       const error = await queueService.processSubmissions();
       if (error) {

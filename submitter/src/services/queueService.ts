@@ -15,16 +15,22 @@ export class QueueService {
     this.webhookService = webhookService;
   }
 
+  async openConnection() {
+    await this.prisma.$connect();
+  }
+
   async processSubmissions() {
     try {
-      await this.prisma.$connect();
       const rows = await this.prisma.submission.findMany({
         where: {
           AND: {
             error: null,
-            return_reference: null,
+            complete: false,
             NOT: {
               webhook_url: null,
+            },
+            retry_counter: {
+              lt: 5,
             },
           },
         },
@@ -44,6 +50,7 @@ export class QueueService {
             await this.prisma.submission.update({
               data: {
                 error: result.message,
+                retry_counter: row.retry_counter + 1,
               },
               where: {
                 id: row.id,
@@ -58,6 +65,7 @@ export class QueueService {
           await this.prisma.submission.update({
             data: {
               return_reference: result,
+              complete: true,
             },
             where: {
               id: row.id,
