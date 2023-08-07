@@ -373,8 +373,10 @@ export class PageControllerBase {
 
     //While the current page isn't null
     while (nextPage != null) {
+      //Either get the current state or the current state of the section if this page belongs to a section
+
       //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
-      nextPage = await nextPage.getNextPage(state);
+      nextPage = await nextPage?.getNextPage?.(relevantState);
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
     }
 
