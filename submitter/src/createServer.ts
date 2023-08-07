@@ -41,5 +41,14 @@ export async function createServer(): Promise<hapi.Server> {
   server.registerService([WebhookService, QueueService]);
 
   await server.register(pluginPoll);
+
+  server.ext({
+    type: "onPreStop",
+    method: async function (req, h) {
+      const { queueService } = req.local.services([]);
+      await queueService.closeConnection();
+      return h.continue();
+    },
+  });
   return server;
 }
