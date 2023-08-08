@@ -371,6 +371,14 @@
                     "values": {
                         "type": "listRef"
                     }
+                },
+                {
+                    "name": "fOmfbi",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -548,6 +556,14 @@
                     "values": {
                         "type": "listRef"
                     }
+                },
+                {
+                    "name": "UZUwOk",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -813,6 +829,14 @@
                         "type": "listRef"
                     },
                     "hint": "If you haven't already, you should test the most recent five of your symptomatic residents-clients as soon as you can by COVID-19 LFD test."
+                },
+                {
+                    "name": "DqLzcF",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -2506,6 +2530,28 @@
                             "type": "Value",
                             "value": "false",
                             "display": "false"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "S10Q2: IS ANSWERED",
+            "name": "tholUC",
+            "value": {
+                "name": "S10Q2: IS ANSWERED",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "S10Q2",
+                            "type": "RadiosField",
+                            "display": "S10Q2. Are you confident that your setting is able to manage this current outbreak?"
+                        },
+                        "operator": "is not",
+                        "value": {
+                            "type": "Value",
+                            "value": " ",
+                            "display": " "
                         }
                     }
                 ]
