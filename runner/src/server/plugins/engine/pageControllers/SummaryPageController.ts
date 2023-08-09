@@ -29,7 +29,12 @@ export class SummaryPageController extends PageController {
         return this.makePostRouteHandler()(request, h);
       }
       const state = await cacheService.getState(request);
-      const viewModel = new SummaryViewModel(this.title, model, state, request);
+      const viewModel = await SummaryViewModel.init({
+        pageTitle: this.title,
+        model,
+        state,
+        request,
+      });
 
       if (viewModel.endPage) {
         return redirectTo(
@@ -102,12 +107,12 @@ export class SummaryPageController extends PageController {
       const { payService, cacheService } = request.services([]);
       const model = this.model;
       const state = await cacheService.getState(request);
-      const summaryViewModel = new SummaryViewModel(
-        this.title,
+      const summaryViewModel = await SummaryViewModel.init({
+        pageTitle: this.title,
         model,
         state,
-        request
-      );
+        request,
+      });
       this.setFeedbackDetails(summaryViewModel, request);
 
       // redirect user to start page if there are incomplete form errors

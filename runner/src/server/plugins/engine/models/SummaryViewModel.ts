@@ -27,12 +27,26 @@ import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types
  * TODO - Pull out summary behaviours into separate service classes?
  */
 
+interface SummaryViewModelInputs extends SummaryViewModelInitInputs {
+  def: FormDefinition;
+  endPage: any;
+  details: any;
+  result: any;
+  relevantPages: any;
+}
+
+interface SummaryViewModelInitInputs {
+  pageTitle: string;
+  model: FormModel;
+  state: FormSubmissionState;
+  request: HapiRequest;
+}
+
 export class SummaryViewModel {
   /**
    * Responsible for parsing state values to the govuk-frontend summary list template and parsing data for outputs
    * The plain object is also used to generate data for outputs
    */
-
   pageTitle: string;
   declaration: any; // TODO
   skipSummary: boolean;
@@ -59,34 +73,31 @@ export class SummaryViewModel {
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
 
-  constructor(
-    pageTitle: string,
-    model: FormModel,
-    state: FormSubmissionState,
-    request: HapiRequest
-  ) {
+  constructor({
+    pageTitle,
+    model,
+    state,
+    request,
+    def,
+    endPage,
+    details,
+    result,
+    relevantPages,
+  }: SummaryViewModelInputs) {
     this.pageTitle = pageTitle;
-    const { relevantPages, endPage } = this.getRelevantPages(model, state);
-    const details = this.summaryDetails(request, model, state, relevantPages);
-    const { def } = model;
-    // @ts-ignore
     this.declaration = def.declaration;
-    // @ts-ignore
     this.skipSummary = def.skipSummary;
     this._payApiKey = def.payApiKey;
     this.endPage = endPage;
+    this.result = result;
+    this.details = details;
+    this.state = state;
+    this.value = result.value;
+    this.callback = state.callback;
     this.feedbackLink =
       def.feedback?.url ??
       ((def.feedback?.emailAddress && `mailto:${def.feedback?.emailAddress}`) ||
         config.feedbackLink);
-
-    const schema = model.makeFilteredSchema(state, relevantPages);
-    const collatedRepeatPagesState = gatherRepeatPages(state);
-
-    const result = schema.validate(collatedRepeatPagesState, {
-      abortEarly: false,
-      stripUnknown: true,
-    });
 
     if (result.error) {
       this.processErrors(result, details);
@@ -104,50 +115,86 @@ export class SummaryViewModel {
         request
       );
 
-      /**
-       * If there outputs defined, parse the state data for the appropriate outputs.
-       * Skip outputs if this is a callback
-       */
       if (def.outputs && !state.callback) {
-        this._outputs = def.outputs.map((output) => {
-          switch (output.type) {
-            case "notify":
-              return {
-                type: "notify",
-                outputData: NotifyModel(
-                  model,
-                  output.outputConfiguration,
-                  state
-                ),
-              };
-            case "email":
-              return {
-                type: "email",
-                outputData: EmailModel(
-                  model,
-                  output.outputConfiguration,
-                  this._webhookData
-                ),
-              };
-            case "webhook":
-              return {
-                type: "webhook",
-                outputData: { url: output.outputConfiguration.url },
-              };
-            default:
-              return {};
-          }
-        });
+        this._outputs = this.handleOutputs(def, model, state);
       }
     }
-
-    this.result = result;
-    this.details = details;
-    this.state = state;
-    this.value = result.value;
-    this.callback = state.callback;
   }
 
+  /**
+   * If there are outputs defined, parse the state data for the appropriate outputs.
+   * Skip outputs if this is a callback
+   */
+  private handleOutputs(def, model, state) {
+    const outputs = def.outputs.map((output) => {
+      switch (output.type) {
+        case "notify":
+          return {
+            type: "notify",
+            outputData: NotifyModel(model, output.outputConfiguration, state),
+          };
+        case "email":
+          return {
+            type: "email",
+            outputData: EmailModel(
+              model,
+              output.outputConfiguration,
+              this._webhookData
+            ),
+          };
+        case "webhook":
+          return {
+            type: "webhook",
+            outputData: { url: output.outputConfiguration.url },
+          };
+        default:
+          return {};
+      }
+    });
+
+    return outputs;
+  }
+
+  /**
+   * Initialises the summary view model by running async functions before returning the view model
+   */
+  static async init({
+    pageTitle,
+    model,
+    state,
+    request,
+  }: SummaryViewModelInitInputs) {
+    const { relevantPages, endPage } = await SummaryViewModel.getRelevantPages(
+      model,
+      state
+    );
+    const details = SummaryViewModel.summaryDetails(
+      request,
+      model,
+      state,
+      relevantPages
+    );
+    const { def } = model;
+    const schema = model.makeFilteredSchema(state, relevantPages);
+    const collatedRepeatPagesState = gatherRepeatPages(state);
+
+    const result = schema.validate(collatedRepeatPagesState, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
+
+    return new SummaryViewModel({
+      pageTitle,
+      model,
+      state,
+      request,
+      def,
+      endPage,
+      details,
+      result,
+      relevantPages,
+    });
+  }
   private processErrors(result, details) {
     this.errors = result.error.details.map((err) => {
       const name = err.path[err.path.length - 1];
@@ -180,7 +227,7 @@ export class SummaryViewModel {
     });
   }
 
-  private summaryDetails(
+  private static summaryDetails(
     request,
     model: FormModel,
     state: FormSubmissionState,
@@ -259,7 +306,10 @@ export class SummaryViewModel {
     return details;
   }
 
-  private async getRelevantPages(model: FormModel, state: FormSubmissionState) {
+  private static async getRelevantPages(
+    model: FormModel,
+    state: FormSubmissionState
+  ) {
     let nextPage = model.startPage;
     const relevantPages: any[] = [];
     let endPage = null;
