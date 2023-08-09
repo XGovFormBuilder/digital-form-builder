@@ -1210,6 +1210,14 @@
                     "values": {
                         "type": "listRef"
                     }
+                },
+                {
+                    "name": "YDTdPc",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1275,6 +1283,14 @@
                     "values": {
                         "type": "listRef"
                     }
+                },
+                {
+                    "name": "jfabXv",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1355,6 +1371,14 @@
                     "values": {
                         "type": "listRef"
                     }
+                },
+                {
+                    "name": "WgJtXP",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1400,6 +1424,14 @@
                     "title": "S1Q2. If other, please state what sort of setting you are",
                     "nameHasError": false,
                     "schema": {}
+                },
+                {
+                    "name": "KRUUTd",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1438,6 +1470,14 @@
                         "type": "listRef"
                     },
                     "schema": {}
+                },
+                {
+                    "name": "azBXMt",
+                    "options": {
+                        "condition": "tholUC"
+                    },
+                    "type": "Para",
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
