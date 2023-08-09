@@ -42,11 +42,11 @@ interface SummaryViewModelInitInputs {
   request: HapiRequest;
 }
 
+/**
+ * Responsible for parsing state values to the govuk-frontend summary list template and parsing data for outputs
+ * The plain object is also used to generate data for outputs
+ */
 export class SummaryViewModel {
-  /**
-   * Responsible for parsing state values to the govuk-frontend summary list template and parsing data for outputs
-   * The plain object is also used to generate data for outputs
-   */
   pageTitle: string;
   declaration: any; // TODO
   skipSummary: boolean;
