@@ -220,15 +220,23 @@ export class PageControllerBase {
       return !this.model.conditions[condition].isApiCondition;
     });
 
-    nextLink ??= apiConditions.find(async (link) => {
-      return await this.model.conditions[link.condition]?.fn?.(state);
-    });
+    for (const link of apiConditions) {
+      const result = await this.model.conditions[link.condition]?.fn?.(state);
+      if (result) {
+        nextLink = link;
+        break;
+      }
+    }
 
-    nextLink ??= conditions.find(async (link) => {
-      const { condition } = link;
-      return await this.model.conditions[condition]?.fn?.(state);
-    });
+    for (const link of conditions) {
+      const result = await this.model.conditions[link.condition]?.fn?.(state);
+      if (result) {
+        nextLink = link;
+        break;
+      }
+    }
 
+    console.log("linkToUse", nextLink?.page ?? defaultLink?.page);
     return nextLink?.page ?? defaultLink?.page;
   }
 
@@ -371,7 +379,7 @@ export class PageControllerBase {
     let nextPage = this;
 
     //While the current page isn't null
-    while (nextPage != null) {
+    while (nextPage != null && nextPage.hasNext) {
       //Either get the current state or the current state of the section if this page belongs to a section
 
       //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
@@ -433,7 +441,10 @@ export class PageControllerBase {
        * Content components can be hidden based on a condition. If the condition evaluates to true, it is safe to be kept, otherwise discard it
        */
       //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
-      let relevantState = this.getConditionEvaluationContext(this.model, state);
+      let relevantState = await this.getConditionEvaluationContext(
+        this.model,
+        state
+      );
 
       //Filter our components based on their conditions using our calculated state
       viewModel.components = viewModel.components.filter((component) => {
@@ -634,7 +645,7 @@ export class PageControllerBase {
       const { cacheService } = request.services([]);
       const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
-      let relevantState = this.getConditionEvaluationContext(
+      const relevantState = await this.getConditionEvaluationContext(
         this.model,
         savedState
       );
