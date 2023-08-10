@@ -63,38 +63,16 @@
           "type": "RadiosField",
           "title": "How do you intend to take community ownership of the asset?",
           "list": "grEEzr"
-        },
-        {
-          "name": "tTOrEp",
-          "options": {
-            "dropzoneConfig": {
-              "maxFiles": 1,
-              "parallelUploads": 1,
-              "maxFilesize": 10,
-              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
-            },
-            "showNoScriptWarning": false,
-            "minimumRequiredFiles": 1
-          },
-          "type": "ClientSideFileUploadField",
-          "title": "Upload asset valuation or lease agreement",
-          "hint": "<label class=\"gov-uk-hint\">\nUpload evidence to support what you plan to do with the asset.\n\n<p>Buy the asset: an official document showing the asset's value from an independent surveyor or similar professional.</p>\n\n<p>Already owned by the organisation: evidence that you already own your asset.</p>\n\n<p>Lease the asset / already leased by the organisation: a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
-        },
-        {
-          "name": "hdmYjg",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Do you know who currently owns your asset?"
         }
       ],
       "next": [
         {
-          "path": "/who-currently-owns-your-asset",
-          "condition": "KZLYTF"
+          "path": "/risk-of-closure-KVISjF",
+          "condition": "FwscXH"
         },
         {
-          "path": "/current-ownership-status",
-          "condition": "GRGSGT"
+          "path": "/upload-asset-valuation-or-lease-agreement",
+          "condition": ""
         }
       ],
       "section": "wxYZcT"
@@ -115,88 +93,6 @@
       "next": [
         {
           "path": "/the-asset-in-community-ownership"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/who-currently-owns-your-asset",
-      "title": "Who currently owns your asset",
-      "components": [
-        {
-          "name": "zDhrJs",
-          "options": {
-            "classes": "govuk-!-width-full"
-          },
-          "type": "TextField",
-          "title": "Name of current asset owner"
-        }
-      ],
-      "next": [
-        {
-          "path": "/if-youve-already-taken-ownership"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/current-ownership-status",
-      "title": "Current ownership status",
-      "components": [
-        {
-          "name": "CSsbsG",
-          "options": {
-            "classes": "govuk-!-width-full"
-          },
-          "type": "TextField",
-          "title": "Describe the current ownership status"
-        }
-      ],
-      "next": [
-        {
-          "path": "/if-youve-already-taken-ownership"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/if-youve-already-taken-ownership",
-      "title": "If you've already taken ownership",
-      "components": [
-        {
-          "name": "uPvsqM",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Have you already completed the purchase or lease?"
-        }
-      ],
-      "next": [
-        {
-          "path": "/terms-of-your-ownership-or-lease",
-          "condition": "AJuEPq"
-        },
-        {
-          "path": "/expected-terms-of-your-ownership-or-lease",
-          "condition": "iIXWCr"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/terms-of-your-ownership-or-lease",
-      "title": "Terms of your ownership or lease",
-      "components": [
-        {
-          "name": "mbbYPe",
-          "options": {},
-          "type": "FreeTextField",
-          "title": "Describe the sale process, or the terms of your lease if you have rented the asset",
-          "hint": "For example, an auction"
-        }
-      ],
-      "next": [
-        {
-          "path": "/public-ownership"
         }
       ],
       "section": "wxYZcT"
@@ -244,7 +140,7 @@
           "condition": "oHpvvn"
         },
         {
-          "path": "/assets-of-community-value",
+          "path": "/risk-of-closure-JncvIu",
           "condition": "ujYYpF"
         }
       ],
@@ -311,8 +207,87 @@
             "minimumRequiredFiles": 1
           },
           "type": "ClientSideFileUploadField",
-          "title": "Upload public ownership evidence",
-          "hint": "Upload a document to summarise:\n<p>\n<ul class=\"govuk-hint\">\n<li>the risk the asset is facing</li>\n<li>that any statutory services will not be transferred from the public authority</li>\n<li>that the asset will be sustainable after it has been transferred</li>\n</ul>\n</p>\n\n\n\n<p>For example, this evidence can include confirmation from the public owner or a letter from the local authority.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+          "title": "Upload evidence to confirm the above information and that the asset is at risk",
+          "hint": "This could be from:\n<p>\n<ul class=\"govuk-hint\">\n<li>a letter from an appropriate public authority officer or cabinet member</li>\n<li>that any statutory services will not be transferred from the public authority</li>\n<li>a published cabinet paper from a local authority</li>\n</ul>\n</p>\n\n\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/risk-of-closure-JncvIu"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/who-owns-the-asset",
+      "title": "Who owns the asset",
+      "components": [
+        {
+          "name": "wAUFqr",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you know who currently owns your asset?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-currently-owns-your-asset",
+          "condition": "YBZKoC"
+        },
+        {
+          "path": "/current-ownership-status",
+          "condition": "oFfQbV"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/who-currently-owns-your-asset",
+      "title": "Who currently owns your asset",
+      "components": [
+        {
+          "name": "FOURVe",
+          "options": {},
+          "type": "TextField",
+          "title": "Name of current asset owner"
+        }
+      ],
+      "next": [
+        {
+          "path": "/expected-terms-of-your-ownership-or-lease"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/current-ownership-status",
+      "title": "Current ownership status",
+      "components": [
+        {
+          "name": "XiHjDO",
+          "options": {},
+          "type": "TextField",
+          "title": "Tell us what you know about the sale or lease of the asset"
+        }
+      ],
+      "next": [
+        {
+          "path": "/expected-terms-of-your-ownership-or-lease"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/risk-of-closure-JncvIu",
+      "title": "Risk of closure",
+      "components": [
+        {
+          "name": "qlqyUq",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Why is the asset at risk of closure?",
+          "hint": "Select all that apply",
+          "list": "YNTnCC"
         }
       ],
       "next": [
@@ -327,115 +302,86 @@
       "title": "Assets of community value",
       "components": [
         {
-          "name": "wjBFTf",
+          "name": "iqnlTk",
           "options": {},
           "type": "YesNoField",
-          "title": "Is this a registered Asset of Community Value (ACV)?",
-          "hint": ""
-        }
-      ],
-      "next": [
-        {
-          "path": "/purchasing-within-the-timeframe",
-          "condition": "pErRiw"
-        },
-        {
-          "path": "/assets-listed-for-disposal",
-          "condition": "nxnCXz"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/purchasing-within-the-timeframe",
-      "title": "Purchasing within the timeframe",
-      "components": [
-        {
-          "name": "piPFPL",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Will you purchase the asset within the appropriate time frame?"
-        }
-      ],
-      "next": [
-        {
-          "path": "/assets-listed-for-disposal"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/assets-listed-for-disposal",
-      "title": "Assets listed for disposal",
-      "components": [
-        {
-          "name": "HyWPwE",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Is the asset listed for disposal, or part of a Community Asset Transfer?"
-        }
-      ],
-      "next": [
-        {
-          "path": "/asset-listing-details",
-          "condition": "XVOzZh"
-        },
-        {
-          "path": "/risk-of-closure",
-          "condition": "lmmYts"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/asset-listing-details",
-      "title": "Asset listing details",
-      "components": [
-        {
-          "name": "EhPcad",
-          "options": {},
-          "type": "DatePartsField",
-          "title": "When was the asset listed?",
-          "hint": "For example, 27 3 2007"
-        },
-        {
-          "name": "nCbPsB",
-          "options": {
-            "classes": "govuk-!-width-full"
-          },
-          "type": "WebsiteField",
-          "title": "Provide a link to the listing"
-        },
-        {
-          "name": "jkQGyo",
-          "options": { "maxWords": "500" },
-          "type": "FreeTextField",
-          "title": "Describe the current status of the Community Asset Transfer"
-        }
-      ],
-      "next": [
-        {
-          "path": "/risk-of-closure"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/risk-of-closure",
-      "title": "Risk of closure",
-      "components": [
-        {
-          "name": "KQlOaJ",
-          "options": {},
-          "type": "CheckboxesField",
-          "title": "Why is the asset at risk of closure?",
-          "hint": "Select all that apply",
-          "list": "RGVpbi"
+          "title": "Is this a registered Asset of Community Value (ACV)?"
         }
       ],
       "next": [
         {
           "path": "/summary"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/risk-of-closure-KVISjF",
+      "title": "Risk of closure",
+      "components": [
+        {
+          "name": "LmOXLT",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Why is the asset at risk of closure?",
+          "hint": "Select all that apply",
+          "list": "IZlNBH"
+        }
+      ],
+      "next": [
+        {
+          "path": "/assets-of-community-value"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/upload-asset-valuation-or-lease-agreement",
+      "title": "Upload asset valuation or lease agreement",
+      "components": [
+        {
+          "name": "tTOrEp",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload asset valuation or lease agreement",
+          "hint": "<label class=\"gov-uk-hint\">\nUpload evidence to support what you plan to do with the asset.\n\n<p>Buy the asset: an official document showing the asset's value from an independent surveyor or similar professional.</p>\n\n<p>Already owned by the organisation: evidence that you already own your asset.</p>\n\n<p>Lease the asset / already leased by the organisation: a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/terms-of-your-lease",
+          "condition": "hWsHyx"
+        },
+        {
+          "path": "/who-owns-the-asset"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/terms-of-your-lease",
+      "title": "Terms of your lease",
+      "components": [
+        {
+          "name": "apJIBm",
+          "options": {},
+          "type": "FreeTextField",
+          "title": "Describe the terms of your lease if you have rented the asset",
+          "hint": "For example, length of lease, conditions of lease or break clauses"
+        }
+      ],
+      "next": [
+        {
+          "path": "/public-ownership"
         }
       ],
       "section": "wxYZcT"
@@ -553,6 +499,56 @@
           "value": "current-ownership-not-tenable"
         }
       ]
+    },
+    {
+      "title": "Why is the asset at risk of closure?",
+      "name": "YNTnCC",
+      "type": "string",
+      "items": [
+        {
+          "text": "Closure",
+          "value": "Closure"
+        },
+        {
+          "text": "Sale",
+          "value": "Sale"
+        },
+        {
+          "text": "Neglect or dereliction",
+          "value": "Neglect or dereliction"
+        },
+        {
+          "text": "Unsustainable current business model",
+          "value": "Unsustainable current business model"
+        },
+        {
+          "text": "Listed for disposal",
+          "value": "Listed for disposal"
+        },
+        {
+          "text": "Part of a Community Asset Transfer",
+          "value": "Part of a Community Asset Transfer"
+        }
+      ]
+    },
+    {
+      "title": "Why is the asset at risk of closure? 2",
+      "name": "IZlNBH",
+      "type": "string",
+      "items": [
+        {
+          "text": "Closure",
+          "value": "Closure"
+        },
+        {
+          "text": "Neglect or dereliction",
+          "value": "Neglect or dereliction"
+        },
+        {
+          "text": "Unsustainable current business model",
+          "value": "Unsustainable current business model"
+        }
+      ]
     }
   ],
   "sections": [
@@ -617,50 +613,6 @@
               "name": "hdmYjg",
               "type": "YesNoField",
               "display": "Do you know who currently owns your asset?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Have you already completed the purchase or lease-yes",
-      "name": "AJuEPq",
-      "value": {
-        "name": "Have you already completed the purchase or lease-yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "uPvsqM",
-              "type": "YesNoField",
-              "display": "Have you already completed the purchase or lease?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Have you already completed the purchase or lease-no",
-      "name": "iIXWCr",
-      "value": {
-        "name": "Have you already completed the purchase or lease-no",
-        "conditions": [
-          {
-            "field": {
-              "name": "uPvsqM",
-              "type": "YesNoField",
-              "display": "Have you already completed the purchase or lease?"
             },
             "operator": "is",
             "value": {
@@ -799,6 +751,94 @@
               "type": "Value",
               "value": "false",
               "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you know who owns the asset - yes",
+      "name": "YBZKoC",
+      "value": {
+        "name": "Do you know who owns the asset - yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "wAUFqr",
+              "type": "YesNoField",
+              "display": "Do you know who currently owns your asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you know who owns the asset - no",
+      "name": "oFfQbV",
+      "value": {
+        "name": "Do you know who owns the asset - no",
+        "conditions": [
+          {
+            "field": {
+              "name": "wAUFqr",
+              "type": "YesNoField",
+              "display": "Do you know who currently owns your asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "already-owned-by-organisation-yes",
+      "name": "FwscXH",
+      "value": {
+        "name": "already-owned-by-organisation-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "LaxeJN",
+              "type": "RadiosField",
+              "display": "How do you intend to take community ownership of the asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "already-owned-by-organisation",
+              "display": "already-owned-by-organisation"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "already-leased-by-organisation-yes",
+      "name": "hWsHyx",
+      "value": {
+        "name": "already-leased-by-organisation-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "LaxeJN",
+              "type": "RadiosField",
+              "display": "How do you intend to take community ownership of the asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "already-leased-by-organisation",
+              "display": "already-leased-by-organisation"
             }
           }
         ]

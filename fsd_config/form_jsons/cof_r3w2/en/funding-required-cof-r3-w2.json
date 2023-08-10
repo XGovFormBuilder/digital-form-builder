@@ -16,14 +16,14 @@
       ],
       "next": [
         {
-          "path": "/total-funding-request-from-the-community-ownership-fund"
+          "path": "/capital-funding-request"
         }
       ],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/total-funding-request-from-the-community-ownership-fund",
-      "title": "Total funding request from the Community Ownership Fund",
+      "path": "/capital-funding-request",
+      "title": "Capital funding request",
       "components": [
         {
           "name": "ngpQfE",
@@ -36,30 +36,24 @@
           "name": "iPBHAo",
           "options": {},
           "type": "Html",
-          "content": "<h3 class=\"govuk-heading-s\">Total funding request</h3>\n\n<p class=\"govuk-caption-m\">This is the amount you are applying for from the Community Ownership Fund.</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to 80% of your capital costs, up to a maximum of £1 million.</p>\n\n<p class=\"govuk-caption-m\">In certain circumstances you can apply for up to 90% of your capital costs. If you are eligible to do this, the development support provider will have already confirmed with you.</p>\n\n<p class=\"govuk-caption-m\">You can apply for up to fifty thousand pounds (£50,000) of your revenue costs (no more than 20% of your capital funding).</p>"
+          "content": "<p class=\"govuk-caption-m\">Capital costs are the costs of buying or leasing your asset and paying for refurbishment.</p>\n\n<p class=\"govuk-caption-m\">Community Ownership Fund (COF) will fund up to 80% of the total capital costs of your project, up to a maximum of £2 million.</p>\n\n<p class=\"govuk-caption-m\">At least 20% of the total capital costs of your project must be covered by other sources (match funding). For example:</p>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>You want to purchase a community asset which costs £2,500,000. You can apply for £2m from COF, and must raise the remaining £500,000 from other sources.</li>\n<li>You want to purchase a community asset which costs £250,000. You can apply for £200,000 from COF, and must raise the remaining £50,000 from other sources.</li>\n</ul>\n\n<p class=\"govuk-caption-m\">(In exceptional circumstances, you may only need to secure 10% in match funding. Your development support provider will have already confirmed this with you if you’re eligible.)</p>\n\n<p class=\"govuk-caption-m\">If successful, you must spend all the funding within 12 months.</p>"
         },
         {
           "name": "ABROnB",
           "options": {
             "prefix": "£",
             "classes": "govuk-!-width-one-third",
-            "hideTitle": true
+            "hideTitle": false
           },
           "type": "NumberField",
-          "title": "Capital funding",
+          "title": "Capital funding request",
           "hint": "<label class=\"govuk-body\" for=\"ABROnB\">Capital funding </label>"
         },
         {
-          "name": "cLDRvN",
-          "options": {
-            "classes": "govuk-!-width-one-third",
-            "hideTitle": true,
-            "required": false,
-            "prefix": "£"
-          },
-          "type": "NumberField",
-          "hint": "<label class=\"govuk-body\" for=\"cLDRvN\">Revenue funding (optional)</label>",
-          "title": "Revenue funding (optional)"
+          "name": "hJkmBS",
+          "options": {},
+          "type": "YesNoField",
+          "title": "If successful, will you use your funding in the next 12 months?"
         }
       ],
       "next": [
@@ -103,7 +97,7 @@
           "name": "EaxCoo",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Capital costs</h2>\n\n<p class=\"govuk-hint\">Tell us about the total capital costs of your project.</p>\n\n<p class=\"govuk-hint\">This should be for the whole project, not just what you're requesting from the fund.</p>\n\n<p class=\"govuk-hint\">Capital costs can be used to:\n<ul class=\"govuk-hint\">\n<li>purchase or lease the asset</li>\n<li>pay for refurbishment costs</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Remember, you can apply for up to 80% (or 90% if the development support provider has confirmed you're eligible to do this) of your capital costs, up to a maximum of £1 million.</p>\n<p class=\"govuk-hint\">You can use your business plan to provide information that supports your answers.</p>\n"
+          "content": "<h2 class=\"govuk-heading-s\">Capital costs</h2>\n\n<p class=\"govuk-hint\">Tell us about the total capital costs of your project.</p>\n\n<p class=\"govuk-hint\">This should be for the whole project, not just what you're requesting from the fund.</p>\n\n<p class=\"govuk-hint\">Capital costs can be used to:\n<ul class=\"govuk-hint\">\n<li>purchase or lease the asset</li>\n<li>pay for refurbishment costs</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Remember, you can apply for up to 80% (or 90% if the development support provider has confirmed you're eligible to do this) of your capital costs, up to a maximum of £1 million.</p>\n<p class=\"govuk-hint\">You can use your business plan to provide information that supports your answers.</p>\n\n\n\n"
         },
         {
           "name": "qQLyXL",
@@ -149,6 +143,12 @@
       "title": "If you've secured match funding",
       "components": [
         {
+          "name": "LVKBMP",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">At least 20% of your total capital costs must be covered by your organisation or another funder (match funding).</p>\n\n<p class=\"govuk-hint\">Match funding sources could include:\n<ul class=\"govuk-hint\">\n<li>public bodies</li>\n<li>devolved administrations</li>\n<li>charitable trusts</li>\n<li>national lottery funders</li>\n<li>community shares</li>\n<li>social investors</li>\n<li>other lenders</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">You do not need to have secured all of your match funding yet, but you should have identified potential funders.</p>\n\n"
+        },
+        {
           "name": "DOvZvB",
           "options": {},
           "type": "YesNoField",
@@ -161,7 +161,7 @@
           "condition": "QyNLbn"
         },
         {
-          "path": "/if-youve-identified-further-match-funding",
+          "path": "/unsecured-match-funding",
           "condition": "nzrkpu"
         }
       ],
@@ -229,7 +229,7 @@
       ],
       "next": [
         {
-          "path": "/if-youve-identified-further-match-funding"
+          "path": "/have-you-already-spent-the-match-funding-you-have-secured"
         }
       ],
       "section": "bgUGuD"
@@ -247,12 +247,12 @@
       ],
       "next": [
         {
-          "path": "/unsecured-match-funding",
-          "condition": "DrELrt"
-        },
-        {
           "path": "/revenue-funding",
           "condition": "nPKnjf"
+        },
+        {
+          "path": "/unsecured-match-funding",
+          "condition": "DrELrt"
         }
       ],
       "section": "bgUGuD"
@@ -368,6 +368,27 @@
       "next": [
         {
           "path": "/summary"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/have-you-already-spent-the-match-funding-you-have-secured",
+      "title": "Have you already spent the match funding you have secured?",
+      "components": [
+        {
+          "name": "HgpNUe",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "hint": "Note that any funding that you have already spent will not be eligible as match funding",
+          "title": "Have you already spent the match funding you have secured?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/if-youve-identified-further-match-funding"
         }
       ],
       "section": "bgUGuD"
