@@ -1,311 +1,393 @@
 {
-  "metadata": {},
-  "startPage": "/asset-information",
-  "backLinkText": "Go back to application overview",
+  "startPage": "/start",
   "pages": [
     {
-      "title": "Asset information",
-      "path": "/asset-information",
-      "components": [
-        {
-          "name": "JGhnud",
-          "options": {},
-          "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>asset type</li>\n<li>what you intend to do with the asset</li>\n<li>asset ownership details (if applicable)</li>\n<li>asset ownership status</li>\n<li>public ownership details (if applicable)</li>\n<li>Asset of Community Value details (if applicable)</li>\n<li>Community Asset Transfer details (if applicable)</li>\n<li>reason asset is at risk</li>\n</ul>"
-        }
-      ],
+      "title": "Start",
+      "path": "/start",
+      "components": [],
       "next": [
         {
-          "path": "/how-the-asset-is-used-in-the-community"
+          "path": "/uk-passport"
         }
       ],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/how-the-asset-is-used-in-the-community",
-      "title": "How the asset is used in the community",
-      "section": "wxYZcT",
+      "path": "/uk-passport",
       "components": [
         {
-          "name": "oXGwlA",
-          "options": {},
-          "type": "RadiosField",
-          "title": "Asset type",
-          "hint": "Select how the asset is mainly used. For example, if it is a theatre that also has a cafe, select 'Theatre'",
-          "list": "jWXaBR"
+          "type": "YesNoField",
+          "name": "ukPassport",
+          "title": "Do you have a UK passport?",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "section": "checkBeforeYouStart",
+      "next": [
+        {
+          "path": "/how-many-people"
+        },
+        {
+          "path": "/no-uk-passport",
+          "condition": "doesntHaveUKPassport"
+        }
+      ],
+      "title": "Do you have a UK passport?"
+    },
+    {
+      "path": "/no-uk-passport",
+      "title": "You're not eligible for this service",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If you still think you're eligible please contact the Foreign and Commonwealth Office.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/how-many-people",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "options": {
+            "classes": "govuk-input--width-10",
+            "required": true
+          },
+          "type": "SelectField",
+          "name": "numberOfApplicants",
+          "title": "How many applicants are there?",
+          "list": "numberOfApplicants"
         }
       ],
       "next": [
         {
-          "path": "/the-asset-in-community-ownership"
+          "path": "/applicant-one"
+        }
+      ],
+      "title": "How many applicants are there?"
+    },
+    {
+      "path": "/applicant-one",
+      "title": "Applicant 1",
+      "section": "applicantOneDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
         },
         {
-          "path": "/how-the-asset-is-used-in-the-community-BgwTSc",
-          "condition": "VxBLMN"
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-one-address"
         }
       ]
     },
     {
-      "title": "Check your answers",
-      "path": "/summary",
-      "controller": "./pages/summary.js",
-      "components": [],
-      "next": [],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/the-asset-in-community-ownership",
-      "title": "The asset in community ownership",
+      "path": "/applicant-one-address",
+      "section": "applicantOneDetails",
       "components": [
         {
-          "name": "LaxeJN",
-          "options": {},
-          "type": "RadiosField",
-          "title": "How do you intend to take community ownership of the asset?",
-          "list": "grEEzr"
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
         }
       ],
       "next": [
         {
-          "path": "/risk-of-closure-KVISjF",
-          "condition": "FwscXH"
+          "path": "/applicant-two",
+          "condition": "moreThanOneApplicant"
         },
         {
-          "path": "/upload-asset-valuation-or-lease-agreement",
-          "condition": ""
+          "path": "/contact-details"
         }
       ],
-      "section": "wxYZcT"
+      "title": "Address"
     },
     {
-      "path": "/how-the-asset-is-used-in-the-community-BgwTSc",
-      "title": "How the asset is used in the community",
+      "path": "/applicant-two",
+      "title": "Applicant 2",
+      "section": "applicantTwoDetails",
       "components": [
         {
-          "name": "aJGyCR",
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
           "options": {
-            "classes": "govuk-input--width-20"
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
           },
           "type": "TextField",
-          "title": "Type of asset (other)"
-        }
-      ],
-      "next": [
-        {
-          "path": "/the-asset-in-community-ownership"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/expected-terms-of-your-ownership-or-lease",
-      "title": "Expected terms of your ownership or lease",
-      "components": [
-        {
-          "name": "XPcbJx",
-          "options": {},
-          "type": "FreeTextField",
-          "title": "Describe the expected sale process, or the proposed terms of your lease if you are renting the asset",
-          "hint": "For example, an auction"
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
         },
         {
-          "name": "jGjScT",
-          "options": {},
-          "type": "DatePartsField",
-          "title": "Expected date of sale or lease",
-          "hint": "For example, 27 3 2007\n"
-        }
-      ],
-      "next": [
-        {
-          "path": "/public-ownership"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/public-ownership",
-      "title": "Public ownership",
-      "components": [
-        {
-          "name": "VGXXyq",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Is your asset currently publicly owned?"
-        }
-      ],
-      "next": [
-        {
-          "path": "/public-ownership-details-and-declarations",
-          "condition": "oHpvvn"
-        },
-        {
-          "path": "/risk-of-closure-JncvIu",
-          "condition": "ujYYpF"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/public-ownership-details-and-declarations",
-      "title": "Public ownership details and declarations",
-      "components": [
-        {
-          "name": "rNYmXq",
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
           "options": {
-            "classes": "govuk-!-width-full"
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-two-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-two-address",
+      "section": "applicantTwoDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-three",
+          "condition": "moreThanTwoApplicants"
+        },
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/applicant-three",
+      "title": "Applicant 3",
+      "section": "applicantThreeDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
           },
           "type": "TextField",
-          "title": "Tell us about the person you have spoken to at the relevant public body about the asset",
-          "hint": "<label class=\"govuk-body\">Name of contact</label>"
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
         },
         {
-          "name": "SiOmZn",
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
           "options": {
-            "hideTitle": true,
-            "classes": "govuk-!-width-full"
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-three-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-three-address",
+      "section": "applicantThreeDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-four",
+          "condition": "moreThanThreeApplicants"
+        },
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/applicant-four",
+      "title": "Applicant 4",
+      "section": "applicantFourDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
           },
           "type": "TextField",
-          "hint": "Job title of contact",
-          "title": "Job title of contact"
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
         },
         {
-          "name": "XXVXuj",
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
           "options": {
-            "hideTitle": true,
-            "classes": "govuk-!-width-full"
+            "required": true
           },
-          "type": "TextField",
-          "title": "Organisation name",
-          "hint": "Organisation name"
-        },
+          "schema": {}
+        }
+      ],
+      "next": [
         {
-          "name": "MIqglh",
-          "options": {},
-          "type": "CheckboxesField",
-          "title": "When you buy or lease a publicly owned asset, the public authority cannot transfer statutory services or duties to the community group.",
-          "hint": "This includes things like social care, waste collection and planning services.\n\n<p>We do not define individual libraries as statutory services for this purpose.</p>",
-          "list": "OSzelY"
-        },
+          "path": "/applicant-four-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-four-address",
+      "section": "applicantFourDetails",
+      "components": [
         {
-          "name": "JdEmqn",
-          "options": {},
-          "type": "CheckboxesField",
-          "list": "OSzelY",
-          "title": "Grants from this fund cannot be used to buy the freehold or premium on the lease of a publicly owned asset. Money must only be used for renovation and refurbishment costs"
-        },
-        {
-          "name": "RFTloT",
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
           "options": {
-            "dropzoneConfig": {
-              "maxFiles": 1,
-              "parallelUploads": 1,
-              "maxFilesize": 10,
-              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
-            },
-            "showNoScriptWarning": false,
-            "minimumRequiredFiles": 1
+            "required": true
           },
-          "type": "ClientSideFileUploadField",
-          "title": "Upload evidence to confirm the above information and that the asset is at risk",
-          "hint": "This could be from:\n<p>\n<ul class=\"govuk-hint\">\n<li>a letter from an appropriate public authority officer or cabinet member</li>\n<li>that any statutory services will not be transferred from the public authority</li>\n<li>a published cabinet paper from a local authority</li>\n</ul>\n</p>\n\n\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+          "schema": {}
         }
       ],
       "next": [
         {
-          "path": "/risk-of-closure-JncvIu"
+          "path": "/contact-details"
         }
       ],
-      "section": "wxYZcT"
+      "title": "Address"
     },
     {
-      "path": "/who-owns-the-asset",
-      "title": "Who owns the asset",
+      "path": "/contact-details",
+      "section": "applicantDetails",
       "components": [
         {
-          "name": "wAUFqr",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Do you know who currently owns your asset?"
-        }
-      ],
-      "next": [
-        {
-          "path": "/who-currently-owns-your-asset",
-          "condition": "YBZKoC"
+          "type": "TelephoneNumberField",
+          "name": "phoneNumber",
+          "title": "Phone number",
+          "hint": "If you haven't got a UK phone number, include country code",
+          "options": {
+            "required": true
+          },
+          "schema": {}
         },
         {
-          "path": "/current-ownership-status",
-          "condition": "oFfQbV"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/who-currently-owns-your-asset",
-      "title": "Who currently owns your asset",
-      "components": [
-        {
-          "name": "FOURVe",
-          "options": {},
-          "type": "TextField",
-          "title": "Name of current asset owner"
-        }
-      ],
-      "next": [
-        {
-          "path": "/expected-terms-of-your-ownership-or-lease"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/current-ownership-status",
-      "title": "Current ownership status",
-      "components": [
-        {
-          "name": "XiHjDO",
-          "options": {},
-          "type": "TextField",
-          "title": "Tell us what you know about the sale or lease of the asset"
-        }
-      ],
-      "next": [
-        {
-          "path": "/expected-terms-of-your-ownership-or-lease"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/risk-of-closure-JncvIu",
-      "title": "Risk of closure",
-      "components": [
-        {
-          "name": "qlqyUq",
-          "options": {},
-          "type": "CheckboxesField",
-          "title": "Why is the asset at risk of closure?",
-          "hint": "Select all that apply",
-          "list": "YNTnCC"
-        }
-      ],
-      "next": [
-        {
-          "path": "/assets-of-community-value"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/assets-of-community-value",
-      "title": "Assets of community value",
-      "components": [
-        {
-          "name": "iqnlTk",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Is this a registered Asset of Community Value (ACV)?"
+          "type": "EmailAddressField",
+          "name": "emailAddress",
+          "title": "Your email address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
         }
       ],
       "next": [
@@ -313,557 +395,123 @@
           "path": "/summary"
         }
       ],
-      "section": "wxYZcT"
+      "title": "Applicant contact details"
     },
     {
-      "path": "/risk-of-closure-KVISjF",
-      "title": "Risk of closure",
-      "components": [
-        {
-          "name": "LmOXLT",
-          "options": {},
-          "type": "CheckboxesField",
-          "title": "Why is the asset at risk of closure?",
-          "hint": "Select all that apply",
-          "list": "IZlNBH"
-        }
-      ],
-      "next": [
-        {
-          "path": "/assets-of-community-value"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/upload-asset-valuation-or-lease-agreement",
-      "title": "Upload asset valuation or lease agreement",
-      "components": [
-        {
-          "name": "tTOrEp",
-          "options": {
-            "dropzoneConfig": {
-              "maxFiles": 1,
-              "parallelUploads": 1,
-              "maxFilesize": 10,
-              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
-            },
-            "showNoScriptWarning": false,
-            "minimumRequiredFiles": 1
-          },
-          "type": "ClientSideFileUploadField",
-          "title": "Upload asset valuation or lease agreement",
-          "hint": "<label class=\"gov-uk-hint\">\nUpload evidence to support what you plan to do with the asset.\n\n<p>Buy the asset: an official document showing the asset's value from an independent surveyor or similar professional.</p>\n\n<p>Already owned by the organisation: evidence that you already own your asset.</p>\n\n<p>Lease the asset / already leased by the organisation: a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
-        }
-      ],
-      "next": [
-        {
-          "path": "/terms-of-your-lease",
-          "condition": "hWsHyx"
-        },
-        {
-          "path": "/who-owns-the-asset"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/terms-of-your-lease",
-      "title": "Terms of your lease",
-      "components": [
-        {
-          "name": "apJIBm",
-          "options": {},
-          "type": "FreeTextField",
-          "title": "Describe the terms of your lease if you have rented the asset",
-          "hint": "For example, length of lease, conditions of lease or break clauses"
-        }
-      ],
-      "next": [
-        {
-          "path": "/public-ownership"
-        }
-      ],
-      "section": "wxYZcT"
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
     }
   ],
   "lists": [
     {
-      "title": "Asset type",
-      "name": "jWXaBR",
-      "type": "string",
+      "name": "numberOfApplicants",
+      "title": "Number of people",
+      "type": "number",
       "items": [
         {
-          "text": "Community centre",
-          "value": "community-centre"
+          "text": "1",
+          "value": 1,
+          "description": "",
+          "condition": ""
         },
         {
-          "text": "Cinema",
-          "value": "cinema"
+          "text": "2",
+          "value": 2,
+          "description": "",
+          "condition": ""
         },
         {
-          "text": "Gallery",
-          "value": "gallery"
+          "text": "3",
+          "value": 3,
+          "description": "",
+          "condition": ""
         },
         {
-          "text": "Museum",
-          "value": "museum"
-        },
-        {
-          "text": "Music venue",
-          "value": "music-venue"
-        },
-        {
-          "text": "Park",
-          "value": "park"
-        },
-        {
-          "text": "Post office building",
-          "value": "post-office"
-        },
-        {
-          "text": "Pub",
-          "value": "pub"
-        },
-        {
-          "text": "Shop",
-          "value": "shop"
-        },
-        {
-          "text": "Sporting or leisure facility",
-          "value": "sporting"
-        },
-        {
-          "text": "Theatre",
-          "value": "theatre"
-        },
-        {
-          "text": "Other",
-          "value": "other"
-        }
-      ]
-    },
-    {
-      "title": "How do you intend to take community ownership of the asset?",
-      "name": "grEEzr",
-      "type": "string",
-      "items": [
-        {
-          "text": "Buy the asset",
-          "value": "buy-the-asset"
-        },
-        {
-          "text": "Lease the asset",
-          "value": "lease-the-asset"
-        },
-        {
-          "text": "Already owned by organisation",
-          "value": "already-owned-by-organisation"
-        },
-        {
-          "text": "Already leased by organisation",
-          "value": "already-leased-by-organisation"
-        }
-      ]
-    },
-    {
-      "title": "I Confirm",
-      "name": "OSzelY",
-      "type": "string",
-      "items": [
-        {
-          "text": "I confirm",
-          "value": "confirm"
-        }
-      ]
-    },
-    {
-      "title": "Risk of closure",
-      "name": "RGVpbi",
-      "type": "string",
-      "items": [
-        {
-          "text": "For sale or listed for disposal",
-          "value": "for-sale-or-listed-for-disposal"
-        },
-        {
-          "text": "Future use not secured",
-          "value": "future-use-not-secured"
-        },
-        {
-          "text": "Unprofitable under current business model",
-          "value": "unprofitable-under-current-business-model"
-        },
-        {
-          "text": "Current ownership not tenable",
-          "value": "current-ownership-not-tenable"
-        }
-      ]
-    },
-    {
-      "title": "Why is the asset at risk of closure?",
-      "name": "YNTnCC",
-      "type": "string",
-      "items": [
-        {
-          "text": "Closure",
-          "value": "Closure"
-        },
-        {
-          "text": "Sale",
-          "value": "Sale"
-        },
-        {
-          "text": "Neglect or dereliction",
-          "value": "Neglect or dereliction"
-        },
-        {
-          "text": "Unsustainable current business model",
-          "value": "Unsustainable current business model"
-        },
-        {
-          "text": "Listed for disposal",
-          "value": "Listed for disposal"
-        },
-        {
-          "text": "Part of a Community Asset Transfer",
-          "value": "Part of a Community Asset Transfer"
-        }
-      ]
-    },
-    {
-      "title": "Why is the asset at risk of closure? 2",
-      "name": "IZlNBH",
-      "type": "string",
-      "items": [
-        {
-          "text": "Closure",
-          "value": "Closure"
-        },
-        {
-          "text": "Neglect or dereliction",
-          "value": "Neglect or dereliction"
-        },
-        {
-          "text": "Unsustainable current business model",
-          "value": "Unsustainable current business model"
+          "text": "4",
+          "value": 4,
+          "description": "",
+          "condition": ""
         }
       ]
     }
   ],
   "sections": [
     {
-      "name": "wxYZcT",
-      "title": "Asset information"
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
+    },
+    {
+      "name": "applicantDetails",
+      "title": "Applicant details"
+    },
+    {
+      "name": "applicantOneDetails",
+      "title": "Applicant 1"
+    },
+    {
+      "name": "applicantTwoDetails",
+      "title": "Applicant 2"
+    },
+    {
+      "name": "applicantThreeDetails",
+      "title": "Applicant 3"
+    },
+    {
+      "name": "applicantFourDetails",
+      "title": "Applicant 4"
     }
   ],
-  "conditions": [
-    {
-      "displayName": "How the asset is used-other",
-      "name": "VxBLMN",
-      "value": {
-        "name": "How the asset is used-other",
-        "conditions": [
-          {
-            "field": {
-              "name": "oXGwlA",
-              "type": "RadiosField",
-              "display": "Asset type"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "other",
-              "display": "other"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Do you know who currently owns your asset-yes",
-      "name": "KZLYTF",
-      "value": {
-        "name": "Do you know who currently owns your asset-yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "hdmYjg",
-              "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Do you know who currently owns your asset-no",
-      "name": "GRGSGT",
-      "value": {
-        "name": "Do you know who currently owns your asset-no",
-        "conditions": [
-          {
-            "field": {
-              "name": "hdmYjg",
-              "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Is your asset currently publicly owned-yes",
-      "name": "oHpvvn",
-      "value": {
-        "name": "Is your asset currently publicly owned-yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "VGXXyq",
-              "type": "YesNoField",
-              "display": "Is your asset currently publicly owned?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Is your asset currently publicly owned-no",
-      "name": "ujYYpF",
-      "value": {
-        "name": "Is your asset currently publicly owned-no",
-        "conditions": [
-          {
-            "field": {
-              "name": "VGXXyq",
-              "type": "YesNoField",
-              "display": "Is your asset currently publicly owned?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Is this a registered Asset of Community Value (ACV)-yes",
-      "name": "pErRiw",
-      "value": {
-        "name": "Is this a registered Asset of Community Value (ACV)-yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "wjBFTf",
-              "type": "YesNoField",
-              "display": "Is this a registered Asset of Community Value (ACV)?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Is the asset listed for disposal, or part of a Community Asset Transfer-yes",
-      "name": "XVOzZh",
-      "value": {
-        "name": "Is the asset listed for disposal, or part of a Community Asset Transfer-yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "HyWPwE",
-              "type": "YesNoField",
-              "display": "Is the asset listed for disposal, or part of a Community Asset Transfer?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Is this a registered Asset of Community Value (ACV)-no",
-      "name": "nxnCXz",
-      "value": {
-        "name": "Is this a registered Asset of Community Value (ACV)-no",
-        "conditions": [
-          {
-            "field": {
-              "name": "wjBFTf",
-              "type": "YesNoField",
-              "display": "Is this a registered Asset of Community Value (ACV)?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Is the asset listed for disposal, or part of a Community Asset Transfer-no",
-      "name": "lmmYts",
-      "value": {
-        "name": "Is the asset listed for disposal, or part of a Community Asset Transfer-no",
-        "conditions": [
-          {
-            "field": {
-              "name": "HyWPwE",
-              "type": "YesNoField",
-              "display": "Is the asset listed for disposal, or part of a Community Asset Transfer?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Do you know who owns the asset - yes",
-      "name": "YBZKoC",
-      "value": {
-        "name": "Do you know who owns the asset - yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "wAUFqr",
-              "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Do you know who owns the asset - no",
-      "name": "oFfQbV",
-      "value": {
-        "name": "Do you know who owns the asset - no",
-        "conditions": [
-          {
-            "field": {
-              "name": "wAUFqr",
-              "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "already-owned-by-organisation-yes",
-      "name": "FwscXH",
-      "value": {
-        "name": "already-owned-by-organisation-yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "LaxeJN",
-              "type": "RadiosField",
-              "display": "How do you intend to take community ownership of the asset?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "already-owned-by-organisation",
-              "display": "already-owned-by-organisation"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "already-leased-by-organisation-yes",
-      "name": "hWsHyx",
-      "value": {
-        "name": "already-leased-by-organisation-yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "LaxeJN",
-              "type": "RadiosField",
-              "display": "How do you intend to take community ownership of the asset?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "already-leased-by-organisation",
-              "display": "already-leased-by-organisation"
-            }
-          }
-        ]
-      }
-    }
-  ],
+  "phaseBanner": {},
   "fees": [],
+  "payApiKey": "",
   "outputs": [
+    {
+      "name": "Ric43H5Ctwl4NBDC9x1_4",
+      "title": "email",
+      "type": "email",
+      "outputConfiguration": {
+        "emailAddress": "jennifermyanh.duong@digital.homeoffice.gov.uk"
+      }
+    },
     {
       "name": "update-form",
       "title": "Update form in application store",
       "type": "savePerPage",
       "outputConfiguration": {
-        "savePerPageUrl": "https://webhook.site/94889001-a334-4cdb-9d88-244cc7e430eb"
+        "savePerPageUrl": "True"
       }
     }
   ],
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
   "version": 2,
-  "skipSummary": false,
-  "name": "Apply for funding to save an asset in your community",
-  "feedback": {
-    "feedbackForm": false,
-    "url": ""
-  },
-  "phaseBanner": {
-    "phase": "beta"
-  }
+  "conditions": [
+    {
+      "name": "hasUKPassport",
+      "displayName": "hasUKPassport",
+      "value": "checkBeforeYouStart.ukPassport==true"
+    },
+    {
+      "name": "doesntHaveUKPassport",
+      "displayName": "doesntHaveUKPassport",
+      "value": "checkBeforeYouStart.ukPassport==false"
+    },
+    {
+      "name": "moreThanOneApplicant",
+      "displayName": "moreThanOneApplicant",
+      "value": "applicantDetails.numberOfApplicants > 1"
+    },
+    {
+      "name": "moreThanTwoApplicants",
+      "displayName": "moreThanTwoApplicants",
+      "value": "applicantDetails.numberOfApplicants > 2"
+    },
+    {
+      "name": "moreThanThreeApplicants",
+      "displayName": "moreThanThreeApplicants",
+      "value": "applicantDetails.numberOfApplicants > 3"
+    }
+  ]
 }
