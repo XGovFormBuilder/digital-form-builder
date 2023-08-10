@@ -236,7 +236,6 @@ export class PageControllerBase {
       }
     }
 
-    console.log("linkToUse", nextLink?.page ?? defaultLink?.page);
     return nextLink?.page ?? defaultLink?.page;
   }
 
