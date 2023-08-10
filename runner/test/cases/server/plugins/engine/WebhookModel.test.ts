@@ -66,37 +66,39 @@ const testDetails = [
   },
 ];
 
-suite("WebhookModel", () => {
+suite("WebhookModel", async () => {
   afterEach(() => {
     sinon.restore();
   });
   const formModel = new FormModel(form, {});
   formModel.basePath = "test";
   formModel.name = "My Service";
-  const viewModel = new SummaryViewModel(
-    "summary",
-    formModel,
-    {
-      progress: ["/test/first-page", "/test/second-page"],
-      approximate: {
-        approximate__month: 1,
-        approximate__year: 2000,
-      },
-      caz: "1",
-      aSection: {
-        fullDate: "2000-12-11T00:00:00.000Z",
-      },
+  const state = {
+    progress: ["/test/first-page", "/test/second-page"],
+    approximate: {
+      approximate__month: 1,
+      approximate__year: 2000,
     },
-    {
-      app: {
-        location: "/",
-      },
-      query: {},
-      state: {
-        cookie_policy: {},
-      },
-    }
-  );
+    caz: "1",
+    aSection: {
+      fullDate: "2000-12-11T00:00:00.000Z",
+    },
+  };
+  const request = {
+    app: {
+      location: "/",
+    },
+    query: {},
+    state: {
+      cookie_policy: {},
+    },
+  };
+  const viewModel = await SummaryViewModel.init({
+    pageTitle: "summary",
+    model: formModel,
+    state,
+    request,
+  });
 
   test("parses Details correctly", () => {
     expect(viewModel.details).to.equal(testDetails);
