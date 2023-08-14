@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/cefnogaeth-leol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Cefnogaeth leol",
+      "path": "/cefnogaeth-leol",
+      "components": [
+        {
+          "name": "gqavTE",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cefnogaeth leol i'ch prosiect</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/eich-cefnogaeth-ar-gyfer-y-prosiect"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/eich-cefnogaeth-ar-gyfer-y-prosiect",
+      "title": "Eich cefnogaeth ar gyfer y prosiect",
+      "components": [
+        {
+          "name": "tDVPnl",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am y gefnogaeth leol i'ch prosiect",
+          "hint": "Gall hyn gynnwys:\n<p>\n<ul class=\"govuk-hint\">\n<li>arolygon o'r gymuned</li>\n<li>cyfarfodydd neuadd tref rydych wedi'u cynnal</li>\n<li>nifer y gwirfoddolwyr amcangyfrifedig sydd gennych ar gyfer eich prosiect</li>\n<li>llythyr gan eich AS lleol</li>\n</ul>\n</p>\n\nOs ydych yn bwriadu lanlwytho unrhyw dystiolaeth ategol isod, cyfeiriwch ati yma."
+        },
+        {
+          "name": "bDWjTN",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "optionalText": true,
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 0
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Lanlwythwch dystiolaeth ategol",
+          "hint": "Uwchlwythwch dystiolaeth i ddangos y gefnogaeth sydd gennych gan y gymuned.\n\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 10MB ar unrhyw un o'r fformatau canlynol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "apkBSm"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "apkBSm"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "apkBSm",
+      "title": "Cefnogaeth leol"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

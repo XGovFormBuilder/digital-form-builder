@@ -1,0 +1,100 @@
+{
+  "metadata": {},
+  "startPage": "/local-support",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Local support",
+      "path": "/local-support",
+      "components": [
+        {
+          "name": "gqavTE",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>local support for your project</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-support-for-the-project"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/your-support-for-the-project",
+      "title": "Your support for the project",
+      "components": [
+        {
+          "name": "tDVPnl",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us about the local support for your project",
+          "hint": "This can include:\n<p>\n<ul class=\"govuk-hint\">\n<li>surveys of the community</li>\n<li>minutes of town hall meetings you have run</li>\n<li>the estimated number of volunteers you have for your project</li>\n<li>a letter from your local MP</li>\n</ul>\n</p>\n\nIf you plan to upload any supporting evidence below, reference it here."
+        },
+        {
+          "name": "bDWjTN",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "optionalText": true,
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 0
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload supporting evidence (optional)",
+          "hint": "Upload evidence to show the support you have from the community.\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "apkBSm"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "apkBSm"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "apkBSm",
+      "title": "Local support"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

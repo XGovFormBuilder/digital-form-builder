@@ -1,0 +1,312 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/gwybodaeth-am-y-prosiect",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Gwybodaeth am y prosiect",
+      "path": "/gwybodaeth-am-y-prosiect",
+      "components": [
+        {
+          "name": "PuuaRA",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cyllid blaenorol y Gronfa Perchnogaeth Gymunedol a dderbyniwyd (os yw'n gymwys)</li>\n<li>enw'r prosiect</li>\n<li>sut mae'r ased yn cael ei ddefnyddio</li>\n<li>crynodeb o'r prosiect    </li>\n<li>planned activities/services</li>\n<li>cyfeiriad yr ased</li>\n<li>etholaeth yr ased</li>\n<li>Ardal ased y cyngor</li>\n</ul>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/ceisiadau-cronfa-perchnogaeth-gymunedol-blaenorol"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/ceisiadau-cronfa-perchnogaeth-gymunedol-blaenorol",
+      "title": "Ceisiadau Cronfa Perchnogaeth Gymunedol blaenorol",
+      "components": [
+        {
+          "name": "pWwCRM",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Ydych chi wedi gwneud cais i'r Gronfa Perchnogaeth Gymunedol o'r blaen?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/ceisiadau-cronfa-perchnogaeth-gymunedol-llwyddiannus",
+          "condition": "GhNZig"
+        },
+        {
+          "path": "/enw-r-prosiect-a-chrynodeb-ohono",
+          "condition": "mqlhBn"
+        }
+      ],
+      "section": "qsnIGd"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "qsnIGd"
+    },
+    {
+      "path": "/ceisiadau-cronfa-perchnogaeth-gymunedol-llwyddiannus",
+      "title": "Ceisiadau Cronfa Perchnogaeth Gymunedol llwyddiannus",
+      "components": [
+        {
+          "name": "paawsj",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Oedd eich cais yn llwyddiannus?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/enw-r-prosiect-a-chrynodeb-ohono",
+          "condition": "ObwCag"
+        },
+        {
+          "path": "/prosiectau-a-ariannwyd-yn-flaenorol-gan-y-gronfa-perchnogaeth-gymunedol",
+          "condition": "TTGIAJ"
+        }
+      ],
+      "section": "qsnIGd"
+    },
+    {
+      "path": "/enw-r-prosiect-a-chrynodeb-ohono",
+      "title": "Enw'r prosiect a chrynodeb ohono",
+      "components": [
+        {
+          "name": "apGjFS",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw'r prosiect",
+          "hint": "<p>Dyma beth fydd eich prosiect yn cael ei alw o fewn eich sefydliad a chan y cyhoedd.</p>\n\n<p>Dewiswch enw sy'n disgrifio'ch prosiect. Er enghraifft, enw eich ased, neu gysylltiad â lleoliad eich ased.</p>"
+        },
+        {
+          "name": "bEWpAj",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym sut mae'r ased yn cael ei ddefnyddio ar hyn o bryd, neu sut mae wedi'i ddefnyddio'n flaenorol, a pham mae'n bwysig i'r gymuned",
+          "hint": "Os yw eisoes wedi'i golli i'r gymuned, dywedwch wrthym sut y'i defnyddiwyd cyn cau.",
+          "schema": {
+            "regex": ""
+          }
+        },
+        {
+          "name": "uypCNM",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Rhowch grynodeb byr o'ch prosiect, gan gynnwys beth rydych chi'n gobeithio ei gyflawni"
+        },
+        {
+          "name": "AgeRbd",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am y gweithgareddau a/neu'r gwasanaethau arfaethedig a fydd yn digwydd yn yr ased"
+        }
+      ],
+      "next": [
+        {
+          "path": "/cyfeiriad-yr-ased"
+        }
+      ],
+      "section": "qsnIGd"
+    },
+    {
+      "path": "/prosiectau-a-ariannwyd-yn-flaenorol-gan-y-gronfa-perchnogaeth-gymunedol",
+      "title": "Prosiectau a ariannwyd yn flaenorol gan y Gronfa Perchnogaeth Gymunedol",
+      "components": [
+        {
+          "name": "ACppgI",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch y prosiect y cawsoch arian ar ei gyfer",
+          "hint": "Cynhwyswch:\n<p>\n<ul  class=\"govuk-hint\">\n<li>enw'r prosiect</li>\n<li>trosolwg cyffredinol o'r prosiect</li>\n<li>y dyddiad y derbynioch gyllid</li>\n</ul>\n</p>"
+        },
+        {
+          "name": "yuvajR",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "Swm y cyllid a dderbyniwyd"
+        }
+      ],
+      "next": [
+        {
+          "path": "/enw-r-prosiect-a-chrynodeb-ohono"
+        }
+      ],
+      "section": "qsnIGd"
+    },
+    {
+      "path": "/cyfeiriad-yr-ased",
+      "title": "Cyfeiriad yr ased",
+      "components": [
+        {
+          "name": "EfdliG",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "Cyfeiriad yr ased cymunedol"
+        },
+        {
+          "name": "fIEUcb",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Ym mha etholaeth mae eich ased?"
+        },
+        {
+          "name": "SWfcTo",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Ym mha ardal cyngor lleol mae eich ased?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "qsnIGd"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "qsnIGd",
+      "title": "Gwybodaeth am y prosiect"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Ceisiadau Cronfa Perchnogaeth Gymunedol blaenorol-yes",
+      "name": "GhNZig",
+      "value": {
+        "name": "Ceisiadau Cronfa Perchnogaeth Gymunedol blaenorol-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "pWwCRM",
+              "type": "YesNoField",
+              "display": "Ydych chi wedi gwneud cais i'r Gronfa Perchnogaeth Gymunedol o'r blaen?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Ceisiadau Cronfa Perchnogaeth Gymunedol blaenorol-no",
+      "name": "mqlhBn",
+      "value": {
+        "name": "Ceisiadau Cronfa Perchnogaeth Gymunedol blaenorol-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "pWwCRM",
+              "type": "YesNoField",
+              "display": "Ydych chi wedi gwneud cais i'r Gronfa Perchnogaeth Gymunedol o'r blaen?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Oedd eich cais yn llwyddiannus-no",
+      "name": "ObwCag",
+      "value": {
+        "name": "Oedd eich cais yn llwyddiannus-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "paawsj",
+              "type": "YesNoField",
+              "display": "Oedd eich cais yn llwyddiannus?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Oedd eich cais yn llwyddiannus-yes",
+      "name": "TTGIAJ",
+      "value": {
+        "name": "Oedd eich cais yn llwyddiannus-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "paawsj",
+              "type": "YesNoField",
+              "display": "Oedd eich cais yn llwyddiannus?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

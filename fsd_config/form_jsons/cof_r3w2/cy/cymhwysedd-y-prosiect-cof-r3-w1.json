@@ -1,0 +1,229 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/cymhwysedd-y-prosiect",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Cymhwysedd y prosiect",
+      "path": "/cymhwysedd-y-prosiect",
+      "components": [
+        {
+          "name": "OEcmLf",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>p'un a yw eich prosiect yn bodloni diffiniad cymhorthdal</li>\n<li>p'un a yw rheolau cymorth gwladwriaethol yn gymwys (os ydych yng Ngogledd Iwerddon)</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/os-yw-eich-prosiect-yn-bodloni-r-diffiniad"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/os-yw-eich-prosiect-yn-bodloni-r-diffiniad",
+      "title": "Os yw eich prosiect yn bodloni'r diffiniad",
+      "components": [
+        {
+          "name": "ZEKMQd",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich prosiect yn bodloni diffiniad cymhorthdal?",
+          "hint": "Ar gyfer prosiectau yn Lloegr, Gogledd Iwerddon, yr Alban a Chymru, amlinellir y diffiniad hwn ym Mharagraff 2 o'r <a href=\"https://www.gov.uk/government/publications/complying-with-the-uks-international-obligations-on-subsidy-control-guidance-for-public-authorities/technical-guidance-on-the-uks-international-subsidy-control-commitments\">Ddeddf Rheoli Cymorthdaliadau (2022)</a>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-bydd-eich-prosiect-yn-cydymffurfio-a-rheoliadau",
+          "condition": "VDaoWq"
+        },
+        {
+          "path": "/summary",
+          "condition": "LiixOJ"
+        }
+      ],
+      "section": "WsFJts"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/sut-bydd-eich-prosiect-yn-cydymffurfio-a-rheoliadau",
+      "title": "Sut bydd eich prosiect yn cydymffurfio â rheoliadau",
+      "components": [
+        {
+          "name": "Aoectt",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Eglurwch sut y credwch y gellir darparu grant o'r gronfa hon gan gydymffurfio â'r Ddeddf Rheoli Cymorthdaliadau (2022)",
+          "hint": "Caiff hyn ei fesur gan y 7 egwyddor gyffredin a bennwyd yn Atodlen 1"
+        },
+        {
+          "name": "zgqCkd",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich prosiect wedi'i leoli yng Ngogledd Iwerddon?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-bydd-eich-prosiect-yn-cydymffurfio-a-rheolau-cymorth-gwladwriaethol",
+          "condition": "VCUXku"
+        },
+        {
+          "path": "/summary",
+          "condition": "yHuWgO"
+        }
+      ],
+      "section": "WsFJts"
+    },
+    {
+      "path": "/sut-bydd-eich-prosiect-yn-cydymffurfio-a-rheolau-cymorth-gwladwriaethol",
+      "title": "Sut bydd eich prosiect yn cydymffurfio â rheolau cymorth gwladwriaethol",
+      "components": [
+        {
+          "name": "nGupOl",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Eglurwch sut bydd eich prosiect yn cydymffurfio â rheolau cymorth gwladwriaethol",
+          "hint": "Gallwch gael mwy o wybodaeth ynglŷn â phryd y mae rheolau cymorth gwladwriaethol yn gymwys yng Ngogledd Iwerddon yng \n<a href=\"https://www.gov.uk/government/publications/complying-with-the-uks-international-obligations-on-subsidy-control-guidance-for-public-authorities\">nghanllawiau'r llywodraeth.</a>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "WsFJts"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "WsFJts",
+      "title": "Cymhwysedd y prosiect"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "A yw eich prosiect yn bodloni diffiniad cymhorthdal-yes",
+      "name": "VDaoWq",
+      "value": {
+        "name": "A yw eich prosiect yn bodloni diffiniad cymhorthdal-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "ZEKMQd",
+              "type": "YesNoField",
+              "display": "A yw eich prosiect yn bodloni diffiniad cymhorthdal?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich prosiect yn bodloni diffiniad cymhorthdal-no",
+      "name": "LiixOJ",
+      "value": {
+        "name": "A yw eich prosiect yn bodloni diffiniad cymhorthdal-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "ZEKMQd",
+              "type": "YesNoField",
+              "display": "A yw eich prosiect yn bodloni diffiniad cymhorthdal?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich prosiect wedi'i leoli yng Ngogledd Iwerddon-yes",
+      "name": "VCUXku",
+      "value": {
+        "name": "A yw eich prosiect wedi'i leoli yng Ngogledd Iwerddon-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "zgqCkd",
+              "type": "YesNoField",
+              "display": "A yw eich prosiect wedi'i leoli yng Ngogledd Iwerddon?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich prosiect wedi'i leoli yng Ngogledd Iwerddon-no",
+      "name": "yHuWgO",
+      "value": {
+        "name": "A yw eich prosiect wedi'i leoli yng Ngogledd Iwerddon-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "zgqCkd",
+              "type": "YesNoField",
+              "display": "A yw eich prosiect wedi'i leoli yng Ngogledd Iwerddon?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

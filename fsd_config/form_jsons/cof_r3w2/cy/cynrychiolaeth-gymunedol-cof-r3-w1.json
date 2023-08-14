@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/cynrychiolaeth-gymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Cynrychiolaeth gymunedol",
+      "path": "/cynrychiolaeth-gymunedol",
+      "components": [
+        {
+          "name": "gwrwki",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>aelodau eich bwrdd</li>\n<li>strwythurau llywodraethu ac aelodaeth</li>\n<li>sut byddwch chi'n ystyried barn y gymuned</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-byddwch-chin-rhedeg-yr-ased"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/sut-byddwch-chin-rhedeg-yr-ased",
+      "title": "Sut byddwch chi'n rhedeg yr ased",
+      "components": [
+        {
+          "name": "ReomFo",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Rhestrwch aelodau eich bwrdd",
+          "hint": "Cynhwyswch:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>eu rôl</li>\n<li>eu prif gyfrifoldebau</li>\n</ul>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
+        },
+        {
+          "name": "fjVmOt",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am eich strwythurau llywodraethu ac aelodaeth"
+        },
+        {
+          "name": "GETNxN",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Eglurwch sut byddwch chi'n ystyried barn y gymuned wrth redeg yr ased",
+          "hint": "Cynhwyswch y modd y byddant yn cael eu cynnwys wrth wneud penderfyniadau, a sut byddwch chi'n mesur cefnogaeth gyhoeddus i'ch penderfyniadau"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "KbnmOO"
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "KbnmOO"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "KbnmOO",
+      "title": "Cynrychiolaeth gymunedol"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

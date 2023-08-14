@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/buddion-cymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Buddion cymunedol",
+      "path": "/buddion-cymunedol",
+      "components": [
+        {
+          "name": "lLCjXj",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>buddion cymunedol y bydd y prosiect yn eu cyflawni</li>\n<li>sut byddwch chi'n mesur buddion</li>\n<li>sut bydd buddion yn cael eu cyflawni a'u cynnal</li>\n<li>sut bydd perchnogaeth gymunedol yn gynhwysol</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/buddion-y-byddwch-yn-eu-darparu"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/buddion-y-byddwch-yn-eu-darparu",
+      "title": "Buddion y byddwch yn eu darparu",
+      "components": [
+        {
+          "name": "pqYxJO",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pa fuddion cymunedol ydych chi'n disgwyl eu cyflawni gyda'r prosiect hwn?",
+          "list": "oizZTG",
+          "hint": "Dewiswch bob un sy'n berthnasol"
+        },
+        {
+          "name": "lgfiGB",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am y manteision hyn yn fanwl, a sut y bydd gweithgareddau'r ased yn helpu i'w cyflawni",
+          "hint": "Cynhwyswch sut y gwnaethoch gasglu adborth gan bobl leol ar ba weithgareddau i'w cynnal, a sut y bydd pob un yn mynd i'r afael ag angen cymunedol penodol"
+        },
+        {
+          "name": "zKKouR",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Eglurwch sut rydych yn bwriadu cyflawni a chynnal y buddion hyn dros amser",
+          "hint": "Cynhwyswch y cerrig milltir allweddol yr ydych yn bwriadu eu cyrraedd er mwyn cyflawni'r buddion hyn."
+        },
+        {
+          "name": "ZyIQGI",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym sut byddwch chi'n gwneud yn siŵr bod y gymuned gyfan yn elwa o'r ased",
+          "hint": "For example, people who have not used the asset in the past, and other people who live in the local area.\n\n<p>Lle bo modd, cyfeiriwch at unrhyw ddata sydd gennych ar nodweddion gwarchodedig ac effeithiau ar gydraddoldeb.</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "PTOBPV"
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "PTOBPV"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Pa fuddion cymunedol ydych chi'n disgwyl eu cyflawni gyda'r prosiect hwn?",
+      "name": "oizZTG",
+      "type": "string",
+      "items": [
+        {
+          "text": "Balchder cymunedol a chanfyddiadau o'r ardal leol fel lle i fyw ynddo",
+          "value": "community-pride"
+        },
+        {
+          "text": "Ymddiriedaeth gymdeithasol, cydlyniant ac ymdeimlad o berthyn",
+          "value": "social-trust"
+        },
+        {
+          "text": "Cyfranogi mewn bywyd cymunedol, y celfyddydau a diwylliant, neu chwaraeon",
+          "value": "participation"
+        },
+        {
+          "text": "Canlyniadau economaidd lleol, fel cyflogaeth a chyfleoedd i wirfoddoli, a  chyflogadwyedd a sgiliau",
+          "value": "local-economic"
+        },
+        {
+          "text": "Cael effaith gadarnhaol ar iechyd corfforol ac iechyd meddwl, a lleihau unigrwydd ac ynysigrwydd",
+          "value": "delivering-positive"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "PTOBPV",
+      "title": "Buddion cymunedol"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
