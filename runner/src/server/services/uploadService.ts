@@ -21,7 +21,17 @@ if (process.env.VCAP_SERVICES) {
   }
 }
 
-const s3 = new S3({ region });
+let endpointUrl = process.env.AWS_ENDPOINT_OVERRIDE;
+const awsConfig={};
+if (endpointUrl) {
+  awsConfig.endpoint = endpointUrl;
+  awsConfig.s3ForcePathStyle = true;
+  awsConfig.signatureVersion = "v3";
+}
+else{
+  awsConfig.region = region;
+}
+const s3 = new S3(awsConfig);
 
 const parsedError = (key: string, error?: string) => {
   return {

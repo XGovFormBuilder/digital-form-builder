@@ -48,6 +48,7 @@
   "savePerPage": "SAVE_PER_PAGE",
   "awsBucketName": "AWS_BUCKET_NAME",
   "awsRegion": "AWS_REGION",
+  "awsEndpointOverride": "AWS_ENDPOINT_OVERRIDE",
   "jwtAuthCookieName": "JWT_AUTH_COOKIE_NAME",
   "jwtRedirectToAuthenticationUrl": "JWT_REDIRECT_TO_AUTHENTICATION_URL",
   "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64",
