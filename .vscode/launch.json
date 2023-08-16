@@ -12,6 +12,42 @@
       "port": 9228,
       "localRoot": "${workspaceFolder:digital-form-builder}",
       "remoteRoot": "/usr/src/app"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch and debug Runner",
+      "cwd": "${workspaceFolder}/runner",
+      "program": "${workspaceRoot}/node_modules/nodemon/bin/nodemon.js",
+      "args": ["--inspect=9228", "dist/index.js"],
+      "env": {
+        "NODE_ENV": "development",
+        "PREVIEW_MODE": "true"
+      },
+      "protocol": "inspector",
+      "internalConsoleOptions": "openOnSessionStart",
+      "port": 9228
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch and debug designer",
+      "cwd": "${workspaceFolder}/designer",
+      "program": "${workspaceRoot}/node_modules/nodemon/bin/nodemon.js",
+      "args": ["--inspect=9229", "dist/server.js"],
+      "env": {
+        "NODE_ENV": "development",
+        "PREVIEW_MODE": "true"
+      },
+      "protocol": "inspector",
+      "internalConsoleOptions": "openOnSessionStart",
+      "port": 9229
+    },
+    {
+      "command": "yarn designer dev",
+      "name": "Debug designer/server",
+      "request": "launch",
+      "type": "node-terminal"
     }
   ]
 }
