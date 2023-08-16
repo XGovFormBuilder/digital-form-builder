@@ -1,0 +1,67 @@
+# The manifest for the "form-runner" service.
+# Read the full specification for the "Load Balanced Web Service" type at:
+#  https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/
+name: 'fsd-form-runner'
+type: 'Load Balanced Web Service'
+
+# Distribute traffic to your service.
+http:
+  # Requests to this path will be forwarded to your service.
+  # To match all requests you can use the "/" path.
+  path: '/'
+  # You can specify a custom health check path. The default is "/".
+  healthcheck: '/healthcheck'
+  alias: form-runner.test.access-funding.test.levellingup.gov.uk
+
+# Configuration for your containers and service.
+image:
+  # Docker build arguments. For additional overrides: https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#image-build
+  location: ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:latest
+  # Port exposed through your container to route traffic to it.
+  port: 8080
+
+# Valid values: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html
+# Number of CPU units for the task.
+cpu: 256
+# Amount of memory in MiB used by the task.
+memory: 512
+
+# See https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#platform
+platform: linux/x86_64
+
+# Number of tasks that should be running in your service.
+count: 1
+
+# Enable running commands in your container.
+exec: true
+
+network:
+  connect: true # Enable Service Connect for intra-environment traffic between services.
+
+  # Override the network configuration with the public/private/data subnets built using terraform
+  # notification should be private (internal)
+  # vpc:
+  #   placement:
+  #     subnets: ["subnet-04851bdddcd8f5bbc", "subnet-0178ac1212c96b6c4"]
+
+# storage:
+  # readonly_fs: true       # Limit to read-only access to mounted root filesystems.
+
+# Optional fields for more advanced use-cases.
+#
+# Pass environment variables as key value pairs.
+variables:
+  # SENTRY_DSN: "https://8092c54bdc3a4b4ba124dea42b836504@o1432034.ingest.sentry.io/4503918903820288"
+  FLASK_ENV: ${COPILOT_ENVIRONMENT_NAME}
+  PORT: 8080
+
+# You can override any of the values defined above by environment.
+# environments:
+#   production:
+#     count: 2               # Number of tasks to run for the "prod" environment.
+#     variables:
+#       http:
+#       alias: funding-service-design-form-runner-production.apps.internal
+#     image:
+#       location: ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:prod
+
