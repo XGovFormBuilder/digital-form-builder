@@ -21,15 +21,12 @@ if (process.env.VCAP_SERVICES) {
   }
 }
 
+const awsConfig = { region };
 let endpointUrl = process.env.AWS_ENDPOINT_OVERRIDE;
-const awsConfig={};
 if (endpointUrl) {
   awsConfig.endpoint = endpointUrl;
   awsConfig.s3ForcePathStyle = true;
-  awsConfig.signatureVersion = "v3";
-}
-else{
-  awsConfig.region = region;
+  awsConfig.signatureVersion = "v4";
 }
 const s3 = new S3(awsConfig);
 
