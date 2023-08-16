@@ -11,6 +11,7 @@ http:
   path: '/'
   # You can specify a custom health check path. The default is "/".
   healthcheck: '/healthcheck'
+  alias: form-runner.test.access-funding.test.levellingup.gov.uk
 
 # Configuration for your containers and service.
 image:
