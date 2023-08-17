@@ -5,6 +5,21 @@ permissions:
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description:  Which AWS Account to use
+        type: choice
+        required: true
+        options:
+        - test
+        - uat
+        default: test
+      copilot:
+        description: Whether to deploy to AWS?
+        type: boolean
+        required: false
+        default: false
+
 
 env:
   DOCKER_REGISTRY: ghcr.io
@@ -47,6 +62,7 @@ jobs:
             COMMIT_SHA=:${{ github.sha }}
 
   deploy-and-test-dev:
+    if: ${{ !github.event.inputs.copilot }}
     needs: docker-build
     runs-on: ubuntu-latest
     steps:
@@ -89,7 +105,7 @@ jobs:
 
   run-shared-tests_dev:
     needs: deploy-and-test-dev
-    if: ${{ github.actor != 'dependabot[bot]'}}
+    if: ${{ github.actor != 'dependabot[bot]'}} && ${{ !github.event.inputs.copilot }}
     uses: communitiesuk/funding-design-service-workflows/.github/workflows/run-shared-tests.yml@main
     with:
       perf_test_target_url_application_store: https://funding-service-design-application-store-dev.london.cloudapps.digital
@@ -106,7 +122,7 @@ jobs:
 
   deploy-to-test:
     needs: deploy-and-test-dev
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && ${{ !github.event.inputs.copilot }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
@@ -125,7 +141,7 @@ jobs:
 
   run-shared-tests_test:
     needs: deploy-to-test
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    if: ${{ github.actor != 'dependabot[bot]' }} && ${{ !github.event.inputs.copilot }}
     uses: communitiesuk/funding-design-service-workflows/.github/workflows/run-shared-tests.yml@main
     with:
       perf_test_target_url_application_store: https://funding-service-design-application-store-test.london.cloudapps.digital
@@ -139,3 +155,48 @@ jobs:
       run_e2e_tests: true
     secrets:
       E2E_PAT: ${{secrets.E2E_PAT}}
+
+  deploy-aws:
+    if: ${{ github.event.inputs.copilot }}
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+    concurrency: deploy-${{ inputs.environment || 'test' }}
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read  # This is required for actions/checkout
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment || 'test' }}
+    steps:
+    - name: Git clone the repository
+      uses: actions/checkout@v3
+
+    - name: Get current date
+      id: currentdatetime
+      run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
+        role-session-name: FORMS_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
+        aws-region: eu-west-2
+
+    - name: Install AWS Copilot CLI
+      run: |
+        curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
+
+    - name: Inject Git SHA into manifest
+      run: |
+        yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-forms/manifest.yml
+
+    - name: Inject replacement image into manifest
+      run: |
+        yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:sha-${{ github.sha }}"'  copilot/fsd-forms/manifest.yml
+
+#    - name: Run database migrations
+#      run: scripts/migration-task-script.py ${{ inputs.environment || 'test' }}
+
+    - name: Copilot deploy
+      run: |
+        copilot deploy --env ${{ inputs.environment || 'test' }}
