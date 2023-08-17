@@ -26,7 +26,7 @@ let endpointUrl = process.env.AWS_ENDPOINT_OVERRIDE;
 if (endpointUrl) {
   awsConfig.endpoint = endpointUrl;
   awsConfig.s3ForcePathStyle = true;
-  awsConfig.signatureVersion = "v4";
+  awsConfig.signatureVersion = process.env.AWS_SIGNATURE_VERSION | "v4";
 }
 const s3 = new S3(awsConfig);
 
