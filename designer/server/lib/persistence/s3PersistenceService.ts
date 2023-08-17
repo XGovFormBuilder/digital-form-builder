@@ -17,14 +17,12 @@ export class S3PersistenceService implements PersistenceService {
   constructor(server: HapiServer) {
     this.logger = server.logger;
 
-    const region = "eu-west-2"; // Set your desired region
-    const endpointUrl = process.env.AWS_ENDPOINT_OVERRIDE;
-
     const s3Config = {
-      region,
+      region: "eu-west-2",
       params: { Bucket: config.s3Bucket },
     };
 
+    const endpointUrl = process.env.AWS_ENDPOINT_OVERRIDE;
     if (endpointUrl) {
       s3Config.endpoint = endpointUrl;
       s3Config.s3ForcePathStyle = true;
