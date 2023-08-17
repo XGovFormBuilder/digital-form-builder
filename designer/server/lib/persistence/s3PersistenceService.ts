@@ -26,7 +26,7 @@ export class S3PersistenceService implements PersistenceService {
     if (endpointUrl) {
       s3Config.endpoint = endpointUrl;
       s3Config.s3ForcePathStyle = true;
-      s3Config.signatureVersion = process.env.AWS_SIGNATURE_VERSION | "v4";;
+      s3Config.signatureVersion = process.env.AWS_SIGNATURE_VERSION || "v4";
     }
 
     this.bucket = new S3(s3Config);
