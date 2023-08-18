@@ -159,8 +159,6 @@ jobs:
   deploy-aws:
     if: ${{ github.event.inputs.copilot }}
     needs: docker-build
-    runs-on: ubuntu-latest
-    steps:
     concurrency: deploy-${{ inputs.environment || 'test' }}
     permissions:
       id-token: write # This is required for requesting the JWT
