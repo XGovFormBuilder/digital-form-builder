@@ -62,7 +62,7 @@ jobs:
             COMMIT_SHA=:${{ github.sha }}
 
   deploy-and-test-dev:
-    if: ${{ !github.event.inputs.copilot }}
+    if: ${{ github.event.inputs.copilot != 'true' }}
     needs: docker-build
     runs-on: ubuntu-latest
     steps:
@@ -105,7 +105,7 @@ jobs:
 
   run-shared-tests_dev:
     needs: deploy-and-test-dev
-    if: ${{ github.actor != 'dependabot[bot]'}} && ${{ !github.event.inputs.copilot }}
+    if: ${{ github.actor != 'dependabot[bot]'}} && ${{ github.event.inputs.copilot != 'true' }}
     uses: communitiesuk/funding-design-service-workflows/.github/workflows/run-shared-tests.yml@main
     with:
       perf_test_target_url_application_store: https://funding-service-design-application-store-dev.london.cloudapps.digital
@@ -122,7 +122,7 @@ jobs:
 
   deploy-to-test:
     needs: deploy-and-test-dev
-    if: github.ref == 'refs/heads/main' && ${{ !github.event.inputs.copilot }}
+    if: github.ref == 'refs/heads/main' && ${{ github.event.inputs.copilot != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
@@ -141,7 +141,7 @@ jobs:
 
   run-shared-tests_test:
     needs: deploy-to-test
-    if: ${{ github.actor != 'dependabot[bot]' }} && ${{ !github.event.inputs.copilot }}
+    if: ${{ github.actor != 'dependabot[bot]' }} && ${{ github.event.inputs.copilot != 'true' }}
     uses: communitiesuk/funding-design-service-workflows/.github/workflows/run-shared-tests.yml@main
     with:
       perf_test_target_url_application_store: https://funding-service-design-application-store-test.london.cloudapps.digital
@@ -157,10 +157,8 @@ jobs:
       E2E_PAT: ${{secrets.E2E_PAT}}
 
   deploy-aws:
-    if: ${{ github.event.inputs.copilot }}
+    if: ${{ github.event.inputs.copilot != 'false' }}
     needs: docker-build
-    runs-on: ubuntu-latest
-    steps:
     concurrency: deploy-${{ inputs.environment || 'test' }}
     permissions:
       id-token: write # This is required for requesting the JWT
@@ -188,11 +186,11 @@ jobs:
 
     - name: Inject Git SHA into manifest
       run: |
-        yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-forms/manifest.yml
+        yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
 
     - name: Inject replacement image into manifest
       run: |
-        yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:sha-${{ github.sha }}"'  copilot/fsd-forms/manifest.yml
+        yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:sha-${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
 
 #    - name: Run database migrations
 #      run: scripts/migration-task-script.py ${{ inputs.environment || 'test' }}
