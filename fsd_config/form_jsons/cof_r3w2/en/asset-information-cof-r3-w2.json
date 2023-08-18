@@ -73,6 +73,10 @@
         {
           "path": "/upload-asset-valuation-or-lease-agreement",
           "condition": ""
+        },
+        {
+          "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
+          "condition": "hWsHyx"
         }
       ],
       "section": "wxYZcT"
@@ -385,6 +389,16 @@
         }
       ],
       "section": "wxYZcT"
+    },
+    {
+      "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
+      "title": "Upload asset valuation or lease agreement",
+      "components": [],
+      "next": [
+        {
+          "path": "/terms-of-your-lease"
+        }
+      ]
     }
   ],
   "lists": [
