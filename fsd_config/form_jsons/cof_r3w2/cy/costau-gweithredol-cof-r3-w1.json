@@ -19,7 +19,7 @@
           "path": "/incwm-rhagweladwy-a-chostau-gweithredol-i-redeg-yr-ased"
         }
       ],
-      "controller": "./tudalennau/dechrau.js"
+      "controller": "./pages/start.js"
     },
     {
       "path": "/incwm-rhagweladwy-a-chostau-gweithredol-i-redeg-yr-ased",
@@ -55,7 +55,7 @@
     {
       "title": "Gwirio'ch atebion",
       "path": "/crynodeb",
-      "controller": "./tudalennau/crynodeb.js",
+      "controller": "./pages/summary.js",
       "components": [],
       "next": [],
       "section": "oSfXFZ"
