@@ -393,7 +393,24 @@
     {
       "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
       "title": "Upload asset valuation or lease agreement",
-      "components": [],
+      "components": [
+        {
+          "name": "TtOReP",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Please upload evidence that shows the asset is already leased by your organisation.",
+          "hint": "<label class=\"gov-uk-hint\">\nThis could be a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+        }
+      ],
       "next": [
         {
           "path": "/terms-of-your-lease"
