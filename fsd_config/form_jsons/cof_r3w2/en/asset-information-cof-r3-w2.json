@@ -11,7 +11,7 @@
           "name": "JGhnud",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>asset type</li>\n<li>what you intend to do with the asset</li>\n<li>asset ownership details (if applicable)</li>\n<li>asset ownership status</li>\n<li>public ownership details (if applicable)</li>\n<li>Asset of Community Value details (if applicable)</li>\n<li>Community Asset Transfer details (if applicable)</li>\n<li>reason asset is at risk</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>asset type</li>\n<li>what you intend to do with the asset</li>\n<li>asset ownership status</li>\n<li>asset ownership details (if applicable)</li>\n<li>public ownership details (if applicable)</li>\n<li>reason asset is at risk</li>\n<li>Asset of Community Value details (if applicable)</li>\n<li>Community Asset Transfer details (if applicable)</li>\n</ul>"
         }
       ],
       "next": [
@@ -73,6 +73,10 @@
         {
           "path": "/upload-asset-valuation-or-lease-agreement",
           "condition": ""
+        },
+        {
+          "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
+          "condition": "hWsHyx"
         }
       ],
       "section": "wxYZcT"
@@ -105,7 +109,7 @@
           "name": "XPcbJx",
           "options": {},
           "type": "FreeTextField",
-          "title": "Describe the expected sale process, or the proposed terms of your lease if you are renting the asset",
+          "title": "Describe the expected sale process, or the proposed terms of your lease if you are planning to rent the asset",
           "hint": "For example, an auction"
         },
         {
@@ -208,7 +212,7 @@
           },
           "type": "ClientSideFileUploadField",
           "title": "Upload evidence to confirm the above information and that the asset is at risk",
-          "hint": "This could be from:\n<p>\n<ul class=\"govuk-hint\">\n<li>a letter from an appropriate public authority officer or cabinet member</li>\n<li>that any statutory services will not be transferred from the public authority</li>\n<li>a published cabinet paper from a local authority</li>\n</ul>\n</p>\n\n\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+          "hint": "This could be from:\n<p>\n<ul class=\"govuk-hint\">\n<li>a letter from an appropriate public authority officer or cabinet member</li>\n<li>a published cabinet paper from a local authority</li>\n</ul>\n</p>\n\n\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
         }
       ],
       "next": [
@@ -352,8 +356,8 @@
             "minimumRequiredFiles": 1
           },
           "type": "ClientSideFileUploadField",
-          "title": "Upload asset valuation or lease agreement",
-          "hint": "<label class=\"gov-uk-hint\">\nUpload evidence to support what you plan to do with the asset.\n\n<p>Buy the asset: an official document showing the asset's value from an independent surveyor or similar professional.</p>\n\n<p>Already owned by the organisation: evidence that you already own your asset.</p>\n\n<p>Lease the asset / already leased by the organisation: a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+          "title": "Please upload evidence that shows the asset valuation (if you are buying the asset) or the lease agreement (if you are leasing the asset).",
+          "hint": "<label class=\"gov-uk-hint\">\nIf you are buying the asset: this could be an official document showing the asset's value from an independent surveyor or similar professional.\n\n<p>If you are leasing the asset: this could be a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
         }
       ],
       "next": [
@@ -385,6 +389,33 @@
         }
       ],
       "section": "wxYZcT"
+    },
+    {
+      "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
+      "title": "Upload asset valuation or lease agreement",
+      "components": [
+        {
+          "name": "TtOReP",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Please upload evidence that shows the asset is already leased by your organisation.",
+          "hint": "<label class=\"gov-uk-hint\">\nThis could be a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/terms-of-your-lease"
+        }
+      ]
     }
   ],
   "lists": [
