@@ -43,10 +43,10 @@
           "options": {
             "prefix": "£",
             "classes": "govuk-!-width-one-third",
-            "hideTitle": false
+            "hideTitle": true
           },
           "type": "NumberField",
-          "title": "",
+          "title": "Capital funding request",
           "hint": "<label class=\"govuk-body\" for=\"ABROnB\">Capital funding request</label>"
         },
         {

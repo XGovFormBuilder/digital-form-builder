@@ -1,5 +1,7 @@
 {
-  "metadata": {},
+  "metadata": {
+    "isWelsh": true
+  },
   "startPage": "/costau-gweithredol",
   "backLinkText": "Ewch yn ôl i arolwg y cais",
   "pages": [

@@ -1,5 +1,7 @@
 {
-  "metadata": {},
+  "metadata": {
+    "isWelsh": true
+  },
   "startPage": "/anghenion-cyllid",
   "backLinkText": "Dychwelyd i arolwg y cais",
   "pages": [
@@ -43,10 +45,10 @@
           "options": {
             "prefix": "£",
             "classes": "govuk-!-width-one-third",
-            "hideTitle": false
+            "hideTitle": true
           },
           "type": "NumberField",
-          "title": "",
+          "title": "Cais am Gyllid Cyfalaf",
           "hint": "<label class=\"govuk-body\" for=\"ABROnB\">Cais am gyllid cyfalaf</label>"
         },
         {
