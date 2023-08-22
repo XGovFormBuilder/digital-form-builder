@@ -399,7 +399,7 @@
       ],
       "next": [
         {
-          "path": "/summary"
+          "path": "/how-youll-use-revenue-funding"
         }
       ],
       "section": "bgUGuD"
@@ -421,6 +421,27 @@
       "next": [
         {
           "path": "/if-youve-identified-further-match-funding"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/how-youll-use-revenue-funding",
+      "title": "How you'll use revenue funding",
+      "components": [
+        {
+          "name": "XPDbsl",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how the revenue funding you've requested will help run the asset",
+          "hint": "Include the specific needs it will meet, and how you'll meet these needs once you've spent the funding."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
         }
       ],
       "section": "bgUGuD"
