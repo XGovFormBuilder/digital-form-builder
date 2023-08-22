@@ -49,14 +49,14 @@
           "path": "/incwm-i-redeg-yr-ased"
         },
         {
-          "path": "/crynodeb"
+          "path": "/summary"
         }
       ],
       "section": "oSfXFZ"
     },
     {
       "title": "Gwirio'ch atebion",
-      "path": "/crynodeb",
+      "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
       "next": [],
