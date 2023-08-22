@@ -1,44 +1,42 @@
 {
-  "metadata": {
-    "isWelsh": true
-  },
-  "startPage": "/anghenion-cyllid",
-  "backLinkText": "Dychwelyd i arolwg y cais",
+  "metadata": {},
+  "startPage": "/funding-required",
+  "backLinkText": "Go back to application overview",
   "pages": [
     {
-      "title": "Anghenion cyllid",
-      "path": "/anghenion-cyllid",
+      "title": "Funding required",
+      "path": "/funding-required",
       "components": [
         {
           "name": "RgwAoN",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn gofyn am:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>eich cais am gyllid cyfalaf</li>\n<li>cyllid cydweddu rydych wedi ei nodi neu ei sicrhau</li>\n<li>eich cais am gyllid refeniw (dewisol)</li>\n<li>disgrifiad o'ch costau refeniw</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>your capital funding request</li>\n<li>match funding you've identified or secured</li>\n<li>your revenue funding request (optional)</li>\n<li>description of your revenue costs</li>\n</ul>"
         }
       ],
       "next": [
         {
-          "path": "/cais-am-gyllid-cyfalaf"
+          "path": "/capital-funding-request"
         }
       ],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/cais-am-gyllid-cyfalaf",
-      "title": "Cais am gyllid cyfalaf",
+      "path": "/capital-funding-request",
+      "title": "Capital funding request",
       "components": [
         {
           "name": "ngpQfE",
           "options": {},
           "type": "Details",
-          "title": "Cymorth gyda'r achos rheoli",
-          "content": "Rydym yn bwriadu deall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych yn ei wneud cais amdano o'r gronfa hon</li>\n<li>eich costau gweithredol cyflawn</li>\n<li>unrhyw gyllid rydych eisoes wedi ei dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych yn bwriadu'i sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi ei dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi uwchlwytho cynllun busnes i gefnogi'r atebion rydych yn eu rhoi i ni yn yr adran hon.</p>\n</div>"
+          "title": "Help with management case",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full operational costs</li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n</div>"
         },
         {
           "name": "iPBHAo",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-caption-m\">Costau cyfalaf yw costau prynu neu lesu'ch ased a thalu am gostyngiad.</p>\n\n<p class=\"govuk-caption-m\">Bydd Cronfa Perchnogaeth Gymunedol (COF) yn cyllido hyd at 80% o gostau cyfalaf cyflawn eich prosiect, hyd at uchafswm o £2 filiwn.</p>\n\n<p class=\"govuk-caption-m\">Rhaid talu am o leiaf 20% o gostau cyfalaf cyflawn eich prosiect drwy ffynonellau eraill (cyllid cydweddu). Er enghraifft:</p>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>Rydych eisiau prynu ased cymunedol sy'n costio £2,500,000. Gallwch wneud cais am £2m o COF, a rhaid codi'r £500,000 sy'n weddill o ffynonellau eraill.</li>\n<li>Rydych eisiau prynu ased cymunedol sy'n costio £250,000. Gallwch wneud cais am £200,000 o COF, a rhaid codi'r £50,000 sy'n weddill o ffynonellau eraill.</li>\n</ul>\n\n<p class=\"govuk-caption-m\">(Mewn amgylchiadau eithriadol, efallai y bydd angen i chi sicrhau dim ond 10% mewn cyllid cydweddu. Bydd eich darparwr cymorth datblygu eisoes wedi cadarnhau hyn gyda chi os ydych yn gymwys.)</p>\n\n<p class=\"govuk-caption-m\">Os llwyddiannus, rhaid i chi wario'r holl gyllid o fewn 12 mis.</p>"
+          "content": "<p class=\"govuk-caption-m\">Capital costs are the costs of buying or leasing your asset and paying for refurbishment.</p>\n\n<p class=\"govuk-caption-m\">Community Ownership Fund (COF) will fund up to 80% of the total capital costs of your project, up to a maximum of £2 million.</p>\n\n<p class=\"govuk-caption-m\">At least 20% of the total capital costs of your project must be covered by other sources (match funding). For example:</p>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>You want to purchase a community asset which costs £2,500,000. You can apply for £2m from COF, and must raise the remaining £500,000 from other sources.</li>\n<li>You want to purchase a community asset which costs £250,000. You can apply for £200,000 from COF, and must raise the remaining £50,000 from other sources.</li>\n</ul>\n\n<p class=\"govuk-caption-m\">(In exceptional circumstances, you may only need to secure 10% in match funding. Your development support provider will have already confirmed this with you if you’re eligible.)</p>\n\n<p class=\"govuk-caption-m\">If successful, you must spend all the funding within 12 months.</p>"
         },
         {
           "name": "ABROnB",
@@ -48,34 +46,34 @@
             "hideTitle": true
           },
           "type": "NumberField",
-          "title": "Cais am Gyllid Cyfalaf",
-          "hint": "<label class=\"govuk-body\" for=\"ABROnB\">Cais am gyllid cyfalaf</label>"
+          "title": "Capital funding request",
+          "hint": "<label class=\"govuk-body\" for=\"ABROnB\">Capital funding request</label>"
         },
         {
           "name": "hJkmBS",
           "options": {},
           "type": "YesNoField",
-          "title": "Os llwyddiannus, a wnewch chi ddefnyddio'ch cyllid o fewn y 12 mis nesaf?"
+          "title": "If successful, will you use your funding in the next 12 months?"
         }
       ],
       "next": [
         {
-          "path": "/costau-cyfalaf-ar-gyfer-eich-prosiect"
+          "path": "/capital-costs-for-your-project"
         }
       ],
       "section": "bgUGuD"
     },
     {
-      "path": "/eich-atebion-llenwir",
-      "title": "Gwiriwch eich atebion",
+      "title": "Check your answers",
+      "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
       "next": [],
       "section": "bgUGuD"
     },
     {
-      "path": "/costau-cyfalaf-ar-gyfer-eich-prosiect",
-      "title": "Costau cyfalaf ar gyfer eich prosiect",
+      "path": "/capital-costs-for-your-project",
+      "title": "Capital costs for your project",
       "controller": "RepeatingFieldPageController",
       "options": {
         "summaryDisplayMode": {
@@ -84,7 +82,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich costau cyfalaf"
+          "samePageTitle": "Your capital costs"
         }
       },
       "components": [
@@ -92,32 +90,32 @@
           "name": "GaAAPb",
           "options": {},
           "type": "Details",
-          "content": "Rydym yn bwriadu deall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych yn ei wneud cais amdano o'r gronfa hon</li>\n<li>eich costau gweithredol cyflawn </li>\n<li>unrhyw gyllid rydych eisoes wedi ei dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych yn bwriadu'i sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi ei dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi uwchlwytho cynllun busnes i gefnogi'r atebion rydych yn eu rhoi i ni yn yr adran hon.</p>\n</div>",
-          "title": "Cymorth gyda'r achos rheoli"
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full operational costs </li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n</div>",
+          "title": "Help with management case"
         },
         {
           "name": "EaxCoo",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Costau cyfalaf</h2>\n\n<p class=\"govuk-hint\">Dywedwch wrthym am gostau cyfalaf cyflawn eich prosiect.</p>\n\n<p class=\"govuk-hint\">Dylai hyn fod ar gyfer y prosiect cyfan, nid yn unig yr hyn rydych yn gofyn amdano o'r gronfa.</p>\n\n<p class=\"govuk-hint\">Gellir defnyddio costau cyfalaf i:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>prynu neu lesu'r aset</li>\n<li>talu am gostyngiad</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Cofiwch, gallwch wneud cais am hyd at 80% (neu 90% os yw'r darparwr cymorth datblygu wedi cadarnhau eich bod yn gymwys i wneud hyn) o'ch costau cyfalaf, hyd at uchafswm o £2 filiwn.</p>\n<p class=\"govuk-hint\">Gallwch ddefnyddio'ch cynllun busnes i roi gwybodaeth sy'n cefnogi'ch atebion.</p>\n\n\n\n"
+          "content": "<h2 class=\"govuk-heading-s\">Capital costs</h2>\n\n<p class=\"govuk-hint\">Tell us about the total capital costs of your project.</p>\n\n<p class=\"govuk-hint\">This should be for the whole project, not just what you're requesting from the fund.</p>\n\n<p class=\"govuk-hint\">Capital costs can be used to:\n<ul class=\"govuk-hint\">\n<li>purchase or lease the asset</li>\n<li>pay for refurbishment costs</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Remember, you can apply for up to 80% (or 90% if the development support provider has confirmed you're eligible to do this) of your capital costs, up to a maximum of £2 million.</p>\n<p class=\"govuk-hint\">You can use your business plan to provide information that supports your answers.</p>\n\n\n\n"
         },
         {
           "name": "qQLyXL",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Disgrifiad", "Swm", "Gweithred"],
+            "columnTitles": ["Description", "Amount", "Action"],
             "required": true
           },
           "type": "MultiInputField",
-          "title": "Costau cyfalaf",
-          "hint": "Y MultiInputField sydd ei angen",
+          "title": "Capital costs",
+          "hint": "The MultiInputField needed",
           "schema": {},
           "children": [
             {
               "name": "GLQlOh",
               "options": {},
               "type": "TextField",
-              "title": "Disgrifiwch y gost"
+              "title": "Describe the cost"
             },
             {
               "name": "JtwkMy",
@@ -126,7 +124,7 @@
                 "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
-              "title": "Swm",
+              "title": "Amount",
               "hint": "",
               "schema": {}
             }
@@ -135,43 +133,43 @@
       ],
       "next": [
         {
-          "path": "/os-ydych-chi-wedie-sicrhau-cyllid-cyfatebol"
+          "path": "/if-youve-secured-match-funding"
         }
       ],
       "section": "bgUGuD"
     },
     {
-      "path": "/os-ydych-chi-wedie-sicrhau-cyllid-cyfatebol",
-      "title": "Os ydych chi wedi sicrhau cyllid cyfatebol",
+      "path": "/if-youve-secured-match-funding",
+      "title": "If you've secured match funding",
       "components": [
         {
           "name": "LVKBMP",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-hint\">Rhaid i o leiaf 20% o eich costau cyfalaf cyfanswm gael eu talu gan eich sefydliad neu arianwr arall (cyllid cyfatebol).</p>\n\n<p class=\"govuk-hint\">Gall ffynonellau cyllid cyfatebol gynnwys:\n<ul class=\"govuk-hint\">\n<li>cyrff cyhoeddus</li>\n<li>gweinyddiaethau datganoledig</li>\n<li>ymddiriedolaethau elusennol</li>\n<li>cyllid y loteri genedlaethol</li>\n<li>cyfranddaliadau cymunedol</li>\n<li>buddsoddwyr cymdeithasol</li>\n<li>benthycwyr eraill</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Nid oes angen i chi wedi sicrhau holl eich cyllid cyfatebol eto, ond dylech fod wedi nodi arianwyr posibl.</p>\n\n"
+          "content": "<p class=\"govuk-hint\">At least 20% of your total capital costs must be covered by your organisation or another funder (match funding).</p>\n\n<p class=\"govuk-hint\">Match funding sources could include:\n<ul class=\"govuk-hint\">\n<li>public bodies</li>\n<li>devolved administrations</li>\n<li>charitable trusts</li>\n<li>national lottery funders</li>\n<li>community shares</li>\n<li>social investors</li>\n<li>other lenders</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">You do not need to have secured all of your match funding yet, but you should have identified potential funders.</p>\n\n"
         },
         {
           "name": "DOvZvB",
           "options": {},
           "type": "YesNoField",
-          "title": "A ydych chi wedi sicrhau unrhyw gyllid cyfatebol eto?"
+          "title": "Have you secured any match funding yet?"
         }
       ],
       "next": [
         {
-          "path": "/cyllid-cyfatebol-sicrhiedig",
+          "path": "/secured-match-funding",
           "condition": "QyNLbn"
         },
         {
-          "path": "/cyllid-cyfatebol-dihysbys",
+          "path": "/unsecured-match-funding",
           "condition": "nzrkpu"
         }
       ],
       "section": "bgUGuD"
     },
     {
-      "path": "/cyllid-cyfatebol-sicrhiedig",
-      "title": "Cyllid cyfatebol sicrhiedig",
+      "path": "/secured-match-funding",
+      "title": "Secured match funding",
       "controller": "RepeatingFieldPageController",
       "options": {
         "summaryDisplayMode": {
@@ -180,7 +178,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich cyllid cyfatebol sicrhiedig"
+          "samePageTitle": "Your secured match funding"
         }
       },
       "components": [
@@ -188,25 +186,25 @@
           "name": "LZUkqw",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Cyllid cyfatebol sicrhiedig</h2>\n\n<p class=\"govuk-hint\">Dywedwch wrthym pa ffynonellau cyllid rydych eisoes wedi eu sicrhau fel cyllid cyfatebol.</p>\n\n<p class=\"govuk-hint\">Gall ffynonellau cyllid cyfatebol gynnwys:\n<ul class=\"govuk-hint\">\n<li>cyrff cyhoeddus</li>\n<li>gweinyddiaethau datganoledig</li>\n<li>ymddiriedolaethau elusennol</li>\n<li>cyllid y loteri genedlaethol</li>\n<li>cyfranddaliadau cymunedol</li>\n<li>buddsoddwyr cymdeithasol</li>\n<li>benthycwyr eraill</li>\n</ul>\n</p>"
+          "content": "<h2 class=\"govuk-heading-s\">Secured match funding</h2>\n\n<p class=\"govuk-hint\">Tell us which sources of funding you have already secured as match funding.</p>\n\n<p class=\"govuk-hint\">Match funding sources can include:\n<ul class=\"govuk-hint\">\n<li>public bodies</li>\n<li>devolved administrations</li>\n<li>charitable trusts</li>\n<li>national lottery funders</li>\n<li>community shares</li>\n<li>social investors</li>\n<li>other lenders</li>\n</ul>\n</p>"
         },
         {
           "name": "MopCmv",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Ffynnonell", "Swm", "Gweithred"],
+            "columnTitles": ["Source", "Amount", "Action"],
             "required": true
           },
           "type": "MultiInputField",
-          "title": "Cyllid cyfatebol sicrhiedig",
-          "hint": "Y MultiInputField sydd ei angen",
+          "title": "Secured match funding",
+          "hint": "The MultiInputField needed",
           "schema": {},
           "children": [
             {
               "name": "JKqLWU",
               "options": {},
               "type": "TextField",
-              "title": "Ffynnonell o gyllid sicrhiedig"
+              "title": "Source of secured funding"
             },
             {
               "name": "LVJcDC",
@@ -215,7 +213,7 @@
                 "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
-              "title": "Swm",
+              "title": "Amount",
               "hint": "",
               "schema": {}
             }
@@ -224,37 +222,37 @@
       ],
       "next": [
         {
-          "path": "/a-ydych-chi-eisoes-wedi-gwario'r-cyllid-cyfatebol-rydych-wedi-sicrhau"
+          "path": "/have-you-already-spent-the-match-funding-you-have-secured"
         }
       ],
       "section": "bgUGuD"
     },
     {
-      "path": "/os-ydych-chi-wedi-iddo-nod-sicrhau-cyllid-cyfatebol-pellach",
-      "title": "Os ydych chi wedi nodi i sicrhau cyllid cyfatebol pellach",
+      "path": "/if-youve-identified-further-match-funding",
+      "title": "If you’ve identified further match funding",
       "components": [
         {
           "name": "DmgsiG",
           "options": {},
           "type": "YesNoField",
-          "title": "A ydych chi wedi nodi, ond heb ei sicrhau eto, unrhyw gyllid cyfatebol ychwanegol?"
+          "title": "Have you identified, but not yet secured, any additional match funding?"
         }
       ],
       "next": [
         {
-          "path": "/cyllid-cyfatebol-refeni",
+          "path": "/revenue-funding",
           "condition": "nPKnjf"
         },
         {
-          "path": "/cyllid-cyfatebol-dihysbys",
+          "path": "/unsecured-match-funding",
           "condition": "DrELrt"
         }
       ],
       "section": "bgUGuD"
     },
     {
-      "path": "/cyllid-cyfatebol-dihysbys",
-      "title": "Cyllid cyfatebol dihysbys",
+      "path": "/unsecured-match-funding",
+      "title": "Unsecured match funding",
       "controller": "RepeatingFieldPageController",
       "options": {
         "summaryDisplayMode": {
@@ -263,7 +261,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich cyllid cyfatebol dihysbys"
+          "samePageTitle": "Your unsecured match funding"
         }
       },
       "components": [
@@ -271,25 +269,25 @@
           "name": "fixtAm",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-heading-s\">Cyllid cyfatebol dihysbys</label>\n\n<p class=\"govuk-hint\">Dywedwch wrthym pa ffynonellau cyllid rydych yn bwriadu eu sicrhau fel cyllid cyfatebol.</p>\n<p class=\"govuk-hint\">Gallwch ddefnyddio eich cynllun busnes i:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>dweud wrthym pa mor hir y bydd yn debygol o gymryd amser i sicrhau unrhyw gyllid cyfatebol sydd heb ei dalu</li>\n<li>darparu unrhyw wybodaeth sy'n cefnogi eich atebion</li>\n</ul>"
+          "content": "<label class=\"govuk-heading-s\">Unsecured match funding</label>\n\n<p class=\"govuk-hint\">Tell us which sources of funding you intend to secure as match funding.</p>\n<p class=\"govuk-hint\">You can use your business plan to:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>tell us how long it will likely take to secure any outstanding match funding</li>\n<li>provide any information that supports your answers</li>\n</ul>"
         },
         {
           "name": "vEOdBS",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Ffynnonell", "Swm", "Gweithred"],
+            "columnTitles": ["Source", "Amount", "Action"],
             "required": true
           },
           "type": "MultiInputField",
-          "title": "Cyllid cyfatebol dihysbys",
-          "hint": "Y MultiInputField sydd ei angen",
+          "title": "Unsecured match funding",
+          "hint": "The MultiInputField needed",
           "schema": {},
           "children": [
             {
               "name": "iMJdfs",
               "options": {},
               "type": "TextField",
-              "title": "Ffynnonell o gyllid cyfatebol dihysbys"
+              "title": "Source of unsecured match funding"
             },
             {
               "name": "THOdae",
@@ -298,7 +296,7 @@
                 "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
-              "title": "Swm",
+              "title": "Amount",
               "hint": "",
               "schema": {}
             }
@@ -307,21 +305,21 @@
       ],
       "next": [
         {
-          "path": "/cyllid-cyfatebol-refeni"
+          "path": "/revenue-funding"
         }
       ],
       "section": "bgUGuD"
     },
     {
-      "path": "/cyllid-cyflogaeth",
-      "title": "Cyllid cyflogaeth",
+      "path": "/revenue-funding",
+      "title": "Revenue funding",
       "components": [
         {
           "name": "matkNH",
           "options": {},
           "type": "YesNoField",
-          "title": "Ydych chi'n gwneud cais am gyllid cyflogaeth o Gronfa Perchnogaeth Gymunedol? (dewisol)",
-          "hint": "Mae costau cyflogaeth yn mynd tuag at redeg yr ased ar ôl i chi gymryd perchnogaeth ohono. Gall hyn gynnwys costau cyffredinol, gan gynnwys am:\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>cyfleusterau</li>\n<li>staffio</li>\n</ul>\n<p>Cofiwch, gallwch wneud cais am hyd at bump mil o bunnoedd (£5,000) o'ch costau cyflogaeth (dim mwy na 20% o'ch cyllid cyfalaf).</p>\n<p>Gallwch ddefnyddio eich cynllun busnes i ddarparu unrhyw wybodaeth sy'n cefnogi eich atebion</p>",
+          "title": "Are you applying for revenue funding from the Community Ownership Fund? (optional)",
+          "hint": "Revenue costs go towards running the asset once you've taken ownership of it. This might include general costs, including for:\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>utilities</li>\n<li>staffing</li>\n</ul>\n<p>Remember, you can apply for up to fifty thousand pounds (£50,000) of your revenue costs (no more than 20% of your capital funding).</p>\n<p>You can use your business plan to provide any information that supports your answers</p>",
           "values": {
             "type": "listRef"
           }
@@ -329,19 +327,19 @@
       ],
       "next": [
         {
-          "path": "/costau-cyflogaeth-dewisol",
+          "path": "/revenue-costs-optional",
           "condition": "iegbPT"
         },
         {
-          "path": "/crynhoi",
+          "path": "/summary",
           "condition": "zVdAqG"
         }
       ],
       "section": "bgUGuD"
     },
     {
-      "path": "/costau-cyflogaeth-dewisol",
-      "title": "Costau cyflogaeth (dewisol)",
+      "path": "/revenue-costs-optional",
+      "title": "Revenue costs (optional)",
       "controller": "RepeatingFieldPageController",
       "options": {
         "summaryDisplayMode": {
@@ -350,7 +348,7 @@
           "hideRowTitles": false
         },
         "customText": {
-          "samePageTitle": "Eich costau cyflogaeth"
+          "samePageTitle": "Your revenue costs"
         }
       },
       "components": [
@@ -358,32 +356,32 @@
           "name": "ngpQfE",
           "options": {},
           "type": "Details",
-          "title": "Help gyda'r achos rheoli",
-          "content": "Rydym yn ceisio deall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid rydych yn gwneud cais amdano o'r gronfa hon</li>\n<li>eich costau gweithredol llawn</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid rydych yn bwriadu ei sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid rydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Gwnawn ofyn i chi uwchlwytho cynllun busnes i gefnogi'r atebion a roddwch inni yn yr adran hon.\n\nGall y gronfa hon gynnig hyd at 50% o'ch costau cyfalaf i adnewyddu a thrwsio'r ased.</p>\n</div>"
+          "title": "Help with management case",
+          "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full operational costs</li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.\n\nThis fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>"
         },
         {
           "name": "FIXTaM",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-heading-s\">Costau cyflogaeth (dewisol)</label>\n\n<p class=\"govuk-hint\">Dywedwch wrthym am y costau cyflogaeth cyfansawdd o'ch prosiect.</p>\n<p class=\"govuk-hint\">Dyma'r costau rhedeg y prosiect. Gall hyn gynnwys costau cyffredinol, gan gynnwys am:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>cyfleusterau</li>\n<li>staffio</li>\n</ul></p>\n<p class=\"govuk-hint\">Cofiwch, gallwch wneud cais am hyd at £50,000 o'ch costau cyflogaeth (dim mwy na 20% o'ch cyllid cyfalaf).\n\nGallwch ddefnyddio eich cynllun busnes i:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>dweud wrthym pam rydych angen cyllid cyflogaeth</li>\n<li>darparu unrhyw wybodaeth sy'n cefnogi eich atebion</li>\n</ul>"
+          "content": "<label class=\"govuk-heading-s\">Revenue costs (optional)</label>\n\n<p class=\"govuk-hint\">Tell us about the total revenue costs of your project.</p>\n<p class=\"govuk-hint\">These are the running costs of the project. This might include general costs, including for:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>utilities</li>\n<li>staffing</li>\n</ul></p>\n<p class=\"govuk-hint\">Remember, you can apply for up to £50,000 of your revenue costs (no more than 20% of your capital funding).\n\nYou can use your business plan to:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>tell us why you need revenue funding</li>\n<li>provide any information that supports your answers</li>\n</ul>"
         },
         {
           "name": "VeoDbs",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Disgrifiad", "Swm", "Gweithred"],
+            "columnTitles": ["Description", "Amount", "Action"],
             "required": true
           },
           "type": "MultiInputField",
-          "title": "Costau cyflogaeth (dewisol)",
-          "hint": "Y MultiInputField sydd ei angen",
+          "title": "Revenue costs (optional)",
+          "hint": "The MultiInputField needed",
           "schema": {},
           "children": [
             {
               "name": "ImjDFS",
               "options": {},
               "type": "TextField",
-              "title": "Disgrifiad y gost"
+              "title": "Describe the cost"
             },
             {
               "name": "thoDAE",
@@ -392,7 +390,7 @@
                 "classes": "govuk-!-width-one-half"
               },
               "type": "NumberField",
-              "title": "Swm",
+              "title": "Amount",
               "hint": "",
               "schema": {}
             }
@@ -401,7 +399,7 @@
       ],
       "next": [
         {
-          "path": "/crynhoi"
+          "path": "/how-youll-use-revenue-funding"
         }
       ],
       "section": "bgUGuD"
@@ -423,6 +421,27 @@
       "next": [
         {
           "path": "/if-youve-identified-further-match-funding"
+        }
+      ],
+      "section": "bgUGuD"
+    },
+    {
+      "path": "/how-youll-use-revenue-funding",
+      "title": "How you'll use revenue funding",
+      "components": [
+        {
+          "name": "XPDbsl",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how the revenue funding you've requested will help run the asset",
+          "hint": "Include the specific needs it will meet, and how you'll meet these needs once you've spent the funding."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
         }
       ],
       "section": "bgUGuD"
@@ -573,7 +592,7 @@
   "outputs": [
     {
       "name": "update-form",
-      "title": "Diweddaru'r ffurflen yn y cais",
+      "title": "Update form in application store",
       "type": "savePerPage",
       "outputConfiguration": {
         "savePerPageUrl": "True"
@@ -582,7 +601,7 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "name": "Apply for funding to save an asset in your community",
   "feedback": {
     "feedbackForm": false,
     "url": ""
