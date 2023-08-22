@@ -1,29 +1,29 @@
 {
   "metadata": {},
-  "startPage": "/asset-information",
-  "backLinkText": "Go back to application overview",
+  "startPage": "/gwybodaeth-am-ardal-eiddo",
+  "backLinkText": "Ewch yn ôl i amlwgwr cais",
   "pages": [
     {
-      "title": "Asset information",
-      "path": "/asset-information",
+      "title": "Gwybodaeth am eiddo",
+      "path": "/gwybodaeth-am-ardal-eiddo",
       "components": [
         {
           "name": "JGhnud",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>asset type</li>\n<li>what you intend to do with the asset</li>\n<li>asset ownership status</li>\n<li>asset ownership details (if applicable)</li>\n<li>public ownership details (if applicable)</li>\n<li>reason asset is at risk</li>\n<li>Asset of Community Value details (if applicable)</li>\n<li>Community Asset Transfer details (if applicable)</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn gofyn am:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>math eiddo</li>\n<li>beth rydych yn bwriadu ei wneud gyda'r eiddo</li>\n<li>statws meddu eiddo</li>\n<li>manylion meddu eiddo (os yn berthnasol)</li>\n<li>manylion meddu eiddo cyhoeddus (os yn berthnasol)</li>\n<li>rheswm pam mae'r eiddo mewn perygl</li>\n<li>manylion Hawswn Cymunedol eiddo (os yn berthnasol)</li>\n<li>manylion Trosglwyddiad Eiddo Cymunedol (os yn berthnasol)</li>\n</ul>"
         }
       ],
       "next": [
         {
-          "path": "/how-the-asset-is-used-in-the-community"
+          "path": "/sut-mae-r-eiddo'n-ychwanegol"
         }
       ],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/how-the-asset-is-used-in-the-community",
-      "title": "How the asset is used in the community",
+      "path": "/sut-mae-r-eiddo'n-ychwanegol",
+      "title": "Sut mae'r eiddo'n cael ei ddefnyddio yn y gymuned",
       "section": "wxYZcT",
       "components": [
         {
@@ -31,22 +31,22 @@
           "options": {},
           "type": "RadiosField",
           "title": "Asset type",
-          "hint": "Select how the asset is mainly used. For example, if it is a theatre that also has a cafe, select 'Theatre'",
+          "hint": "Dewiswch sut mae'r eiddo yn cael ei ddefnyddio yn bennaf. Er enghraifft, os yw'n theatr sydd â chaffi hefyd, dewiswch 'Theatr'",
           "list": "jWXaBR"
         }
       ],
       "next": [
         {
-          "path": "/the-asset-in-community-ownership"
+          "path": "/eiddo-mewn-meddiannu-cymunedol"
         },
         {
-          "path": "/how-the-asset-is-used-in-the-community-BgwTSc",
+          "path": "/sut-mae-r-eiddo'n-ychwanegol-BgwTSc",
           "condition": "VxBLMN"
         }
       ]
     },
     {
-      "title": "Check your answers",
+      "title": "Gwiriwch eich atebion",
       "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
@@ -54,35 +54,35 @@
       "section": "wxYZcT"
     },
     {
-      "path": "/the-asset-in-community-ownership",
-      "title": "The asset in community ownership",
+      "path": "/eiddo-mewn-meddiannu-cymunedol",
+      "title": "Yr eiddo mewn meddiannu cymunedol",
       "components": [
         {
           "name": "LaxeJN",
           "options": {},
           "type": "RadiosField",
-          "title": "How do you intend to take community ownership of the asset?",
+          "title": "Sut ydych yn bwriadu meddu'r eiddo ar y gymuned?",
           "list": "grEEzr"
         }
       ],
       "next": [
         {
-          "path": "/risk-of-closure-KVISjF",
+          "path": "/perygl-cau-KVISjF",
           "condition": "FwscXH"
         },
         {
-          "path": "/upload-asset-valuation-or-lease-agreement"
+          "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol"
         },
         {
-          "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
+          "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol-pJQtXk",
           "condition": "hWsHyx"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/how-the-asset-is-used-in-the-community-BgwTSc",
-      "title": "How the asset is used in the community",
+      "path": "/sut-mae-r-eiddo'n-ychwanegol-BgwTSc",
+      "title": "Sut mae'r eiddo'n cael ei ddefnyddio yn y gymuned",
       "components": [
         {
           "name": "aJGyCR",
@@ -90,68 +90,68 @@
             "classes": "govuk-input--width-20"
           },
           "type": "TextField",
-          "title": "Type of asset (other)"
+          "title": "Math o eiddo (arall)"
         }
       ],
       "next": [
         {
-          "path": "/the-asset-in-community-ownership"
+          "path": "/eiddo-mewn-meddiannu-cymunedol"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/expected-terms-of-your-ownership-or-lease",
-      "title": "Expected terms of your ownership or lease",
+      "path": "/amodau-arthrog-ddenant-profiadol",
+      "title": "Amodau arthrog ddenant profiadwy",
       "components": [
         {
           "name": "XPcbJx",
           "options": {},
           "type": "FreeTextField",
-          "title": "Describe the expected sale process, or the proposed terms of your lease if you are planning to rent the asset",
-          "hint": "For example, an auction"
+          "title": "Disgrifiwch y broses werthu ddisgrifiwch, neu'r telerau arfaethedig o'ch denantiaeth os ydych yn bwriadu rhentu'r eiddo",
+          "hint": "Er enghraifft, arwerthiant"
         },
         {
           "name": "jGjScT",
           "options": {},
           "type": "DatePartsField",
-          "title": "Expected date of sale or lease",
-          "hint": "For example, 27 3 2007\n"
+          "title": "Dyddiad disgwyliedig y gwerthiant neu'r trosglwyddiad",
+          "hint": "Er enghraifft, 27 3 2007\n"
         }
       ],
       "next": [
         {
-          "path": "/public-ownership"
+          "path": "/perchenogaeth-cyhoeddus"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/public-ownership",
-      "title": "Public ownership",
+      "path": "/perchenogaeth-cyhoeddus",
+      "title": "Perchenogaeth gyhoeddus",
       "components": [
         {
           "name": "VGXXyq",
           "options": {},
           "type": "YesNoField",
-          "title": "Is your asset currently publicly owned?"
+          "title": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd?"
         }
       ],
       "next": [
         {
-          "path": "/public-ownership-details-and-declarations",
+          "path": "/manylion-ac-hysbysiadau-perchenogaeth-cyhoeddus",
           "condition": "oHpvvn"
         },
         {
-          "path": "/risk-of-closure-JncvIu",
+          "path": "/perygl-cau-JncvIu",
           "condition": "ujYYpF"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/public-ownership-details-and-declarations",
-      "title": "Public ownership details and declarations",
+      "path": "/manylion-ac-hysbysiadau-perchenogaeth-cyhoeddus",
+      "title": "Manylion ac hysbysiadau perchenogaeth cyhoeddus",
       "components": [
         {
           "name": "rNYmXq",
@@ -159,8 +159,8 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
-          "title": "Tell us about the person you have spoken to at the relevant public body about the asset",
-          "hint": "<label class=\"govuk-body\">Name of contact</label>"
+          "title": "Dywedwch wrthym am y person rydych wedi siarad ag ef/hi yn y corff cyhoeddus perthnasol am yr eiddo",
+          "hint": "<label class=\"govuk-body\">Enw'r cyswllt</label>"
         },
         {
           "name": "SiOmZn",
@@ -169,8 +169,8 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
-          "hint": "Job title of contact",
-          "title": "Job title of contact"
+          "hint": "Teitl swydd y cyswllt",
+          "title": "Teitl swydd y cyswllt"
         },
         {
           "name": "XXVXuj",
@@ -179,15 +179,15 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
-          "title": "Organisation name",
-          "hint": "Organisation name"
+          "title": "Enw'r sefydliad",
+          "hint": "Enw'r sefydliad"
         },
         {
           "name": "MIqglh",
           "options": {},
           "type": "CheckboxesField",
-          "title": "When you buy or lease a publicly owned asset, the public authority cannot transfer statutory services or duties to the community group.",
-          "hint": "This includes things like social care, waste collection and planning services.\n\n<p>We do not define individual libraries as statutory services for this purpose.</p>",
+          "title": "Pan fyddwch yn prynu neu'n rhyng-gontractu eiddo eiddo cyhoeddus, ni all yr awdurdod cyhoeddus drosglwyddo gwasanaethau statudol neu ddyletswyddau i'r grŵp cymunedol.",
+          "hint": "Mae hyn yn cynnwys pethau fel gofal cymdeithasol, casglu gwastraff a gwasanaethau cynllunio.\n\n<p>Nid ydym yn diffinio llyfrgelloedd unigol fel gwasanaethau statudol at ddibenion hyn.</p>",
           "list": "OSzelY"
         },
         {
@@ -195,7 +195,7 @@
           "options": {},
           "type": "CheckboxesField",
           "list": "OSzelY",
-          "title": "Grants from this fund cannot be used to buy the freehold or premium on the lease of a publicly owned asset. Money must only be used for renovation and refurbishment costs"
+          "title": "Ni all grantiau o'r gronfa hon cael eu defnyddio i brynu'r ior neu'r premiwm ar y pryd ar y lleiant yr eiddo cyhoeddus. Mae'n rhaid i'r arian gael ei ddefnyddio'n unig ar gyfer costau adnewyddu ac adnewyddu"
         },
         {
           "name": "RFTloT",
@@ -210,105 +210,105 @@
             "minimumRequiredFiles": 1
           },
           "type": "ClientSideFileUploadField",
-          "title": "Upload evidence to confirm the above information and that the asset is at risk",
-          "hint": "This could be from:\n<p>\n<ul class=\"govuk-hint\">\n<li>a letter from an appropriate public authority officer or cabinet member</li>\n<li>a published cabinet paper from a local authority</li>\n</ul>\n</p>\n\n\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+          "title": "Lanlwytho tystiolaeth i gadarnhau'r wybodaeth uchod a bod yr eiddo mewn perygl",
+          "hint": "Gall hyn fod o:\n<p>\n<ul class=\"govuk-hint\">\n<li>llythyr gan swyddog awdurdod cyhoeddus priodol neu aelod cabinet</li>\n<li>deunydd cabinet a gyhoeddwyd gan awdurdod lleol</li>\n</ul>\n</p>\n\n\n\n<p>Dylai fod yn ffeil unigol nid yn fwy na 10MB mewn fformat derbyniol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
         }
       ],
       "next": [
         {
-          "path": "/risk-of-closure-JncvIu"
+          "path": "/perygl-cau-JncvIu"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/who-owns-the-asset",
-      "title": "Who owns the asset",
+      "path": "/pwy-sy'n-meddu-ar-y-eiddo",
+      "title": "Pwy sy'n meddu ar yr eiddo",
       "components": [
         {
           "name": "wAUFqr",
           "options": {},
           "type": "YesNoField",
-          "title": "Do you know who currently owns your asset?"
+          "title": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo ar hyn o bryd?"
         }
       ],
       "next": [
         {
-          "path": "/who-currently-owns-your-asset",
+          "path": "/pwy-sy'n-meddu-ar-eich-eiddo-ar-hyn-o-bryd",
           "condition": "YBZKoC"
         },
         {
-          "path": "/current-ownership-status",
+          "path": "/statws-safle-presennol",
           "condition": "oFfQbV"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/who-currently-owns-your-asset",
-      "title": "Who currently owns your asset",
+      "path": "/pwy-sy'n-meddu-ar-eich-eiddo-ar-hyn-o-bryd",
+      "title": "Pwy sy'n meddu ar eich eiddo ar hyn o bryd",
       "components": [
         {
           "name": "FOURVe",
           "options": {},
           "type": "TextField",
-          "title": "Name of current asset owner"
+          "title": "Enw perchennog presennol yr eiddo"
         }
       ],
       "next": [
         {
-          "path": "/expected-terms-of-your-ownership-or-lease"
+          "path": "/amodau-arfaethedig-eich-perchenogaeth-neu-lysgenant"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/current-ownership-status",
-      "title": "Current ownership status",
+      "path": "/statws-safle-presennol",
+      "title": "Statws presennol y meddiant",
       "components": [
         {
           "name": "XiHjDO",
           "options": {},
           "type": "TextField",
-          "title": "Tell us what you know about the sale or lease of the asset"
+          "title": "Dywedwch wrthym beth rydych yn ei wybod am werthiant neu lyniant yr eiddo"
         }
       ],
       "next": [
         {
-          "path": "/expected-terms-of-your-ownership-or-lease"
+          "path": "/amodau-arfaethedig-eich-perchenogaeth-neu-lysgenant"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/risk-of-closure-JncvIu",
-      "title": "Risk of closure",
+      "path": "/perygl-cau-JncvIu",
+      "title": "Perygl cau",
       "components": [
         {
           "name": "qlqyUq",
           "options": {},
           "type": "CheckboxesField",
-          "title": "Why is the asset at risk of closure?",
-          "hint": "Select all that apply",
+          "title": "Pam mae'r eiddo mewn perygl cau?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
           "list": "YNTnCC"
         }
       ],
       "next": [
         {
-          "path": "/assets-of-community-value"
+          "path": "/eiddo-gwerthu-trosglwyddiant-ardal-cymunedol"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/assets-of-community-value",
-      "title": "Assets of community value",
+      "path": "/eiddo-gwerthu-trosglwyddiant-ardal-cymunedol",
+      "title": "Eiddo gwerthu trosglwyddiant ardal/cymunedol",
       "components": [
         {
           "name": "iqnlTk",
           "options": {},
           "type": "YesNoField",
-          "title": "Is this a registered Asset of Community Value (ACV)?"
+          "title": "Ai hwn yw Ased Gymunedol Cofrestredig (ACV)?"
         }
       ],
       "next": [
@@ -319,28 +319,28 @@
       "section": "wxYZcT"
     },
     {
-      "path": "/risk-of-closure-KVISjF",
-      "title": "Risk of closure",
+      "path": "/perygl-cau-KVISjF",
+      "title": "Perygl cau",
       "components": [
         {
           "name": "LmOXLT",
           "options": {},
           "type": "CheckboxesField",
-          "title": "Why is the asset at risk of closure?",
-          "hint": "Select all that apply",
+          "title": "Pam mae'r eiddo mewn perygl cau?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
           "list": "IZlNBH"
         }
       ],
       "next": [
         {
-          "path": "/assets-of-community-value"
+          "path": "/eiddo-gwerthu-trosglwyddiant-ardal-cymunedol"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/upload-asset-valuation-or-lease-agreement",
-      "title": "Upload asset valuation or lease agreement",
+      "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol",
+      "title": "Lanlwytho gwerthiant arâd eiddo neu gytundeb i fenthyg",
       "components": [
         {
           "name": "tTOrEp",
@@ -355,43 +355,43 @@
             "minimumRequiredFiles": 1
           },
           "type": "ClientSideFileUploadField",
-          "title": "Please upload evidence that shows the asset valuation (if you are buying the asset) or the lease agreement (if you are leasing the asset).",
-          "hint": "<label class=\"gov-uk-hint\">\nIf you are buying the asset: this could be an official document showing the asset's value from an independent surveyor or similar professional.\n\n<p>If you are leasing the asset: this could be a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+          "title": "Lanlwythwch dystiolaeth i gadarnhau'r wybodaeth uchod a bod yr eiddo mewn perygl",
+          "hint": "<label class=\"gov-uk-hint\">\nOs ydych yn prynu'r eiddo: gall hyn fod yn ddogfen swyddogol sy'n dangos gwerth yr eiddo gan syrfëwr annibynnol neu swyddog proffesiynol tebyg.\n\n<p>Os ydych yn llogi'r eiddo: gall hyn fod yn gopi o'ch cytundeb tenantiaeth, neu enghreifftiau o delerau a chytundebau cytunedig, sy'n dangos 15 mlynedd o denantiaeth gydag amodau toriadau rhesymol.</p>\n\n<p>Dylai fod yn ffeil unigol nid yn fwy na 10MB mewn fformat derbyniol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
         }
       ],
       "next": [
         {
-          "path": "/terms-of-your-lease",
+          "path": "/telerau-eich-lysgenant",
           "condition": "hWsHyx"
         },
         {
-          "path": "/who-owns-the-asset"
+          "path": "/pwy-sy'n-meddu-ar-y-eiddo"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/terms-of-your-lease",
-      "title": "Terms of your lease",
+      "path": "/telerau-eich-lysgenant",
+      "title": "Telerau eich llynedd",
       "components": [
         {
           "name": "apJIBm",
           "options": {},
           "type": "FreeTextField",
-          "title": "Describe the terms of your lease if you have rented the asset",
-          "hint": "For example, length of lease, conditions of lease or break clauses"
+          "title": "Disgrifiwch telerau eich llynedd os ydych wedi rhentu'r eiddo",
+          "hint": "Er enghraifft, hyd y llogi, amodau'r llogi neu agweddau toriadau"
         }
       ],
       "next": [
         {
-          "path": "/public-ownership"
+          "path": "/perchenogaeth-cyhoeddus"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
-      "title": "Upload asset valuation or lease agreement",
+      "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol-pJQtXk",
+      "title": "Lanlwythwch gwerthiant arâd eiddo neu gytundeb i fenthyg",
       "components": [
         {
           "name": "TtOReP",
@@ -406,176 +406,176 @@
             "minimumRequiredFiles": 1
           },
           "type": "ClientSideFileUploadField",
-          "title": "Please upload evidence that shows the asset is already leased by your organisation.",
-          "hint": "<label class=\"gov-uk-hint\">\nThis could be a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+          "title": "Lanlwythwch dystiolaeth sy'n profi bod yr eiddo eisoes yn cael ei denantio gan eich sefydliad.",
+          "hint": "<label class=\"gov-uk-hint\">\nGall hyn fod yn gopi o'ch cytundeb tenantiaeth, neu enghreifftiau o delerau a chytundebau cytunedig, sy'n dangos 15 mlynedd o tenanit gyda thoriadau rhesymol.\n\n<p>Dylai fod yn ffeil unigol nid yn fwy na 10MB mewn fformat derbyniol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
         }
       ],
       "next": [
         {
-          "path": "/terms-of-your-lease"
+          "path": "/telerau-eich-lysgenant"
         }
       ]
     }
   ],
   "lists": [
     {
-      "title": "Asset type",
+      "title": "Math eiddo",
       "name": "jWXaBR",
       "type": "string",
       "items": [
         {
-          "text": "Community centre",
+          "text": "Canolfan gymunedol",
           "value": "community-centre"
         },
         {
-          "text": "Cinema",
+          "text": "Sinema",
           "value": "cinema"
         },
         {
-          "text": "Gallery",
+          "text": "Oriel",
           "value": "gallery"
         },
         {
-          "text": "Museum",
+          "text": "Amgueddfa",
           "value": "museum"
         },
         {
-          "text": "Music venue",
+          "text": "Lleoliad cerddoriaeth",
           "value": "music-venue"
         },
         {
-          "text": "Park",
+          "text": "Parc",
           "value": "park"
         },
         {
-          "text": "Post office building",
+          "text": "Adeilad swyddfa bost",
           "value": "post-office"
         },
         {
-          "text": "Pub",
+          "text": "Tafarn",
           "value": "pub"
         },
         {
-          "text": "Shop",
+          "text": "Siop",
           "value": "shop"
         },
         {
-          "text": "Sporting or leisure facility",
+          "text": "Cyfleuster hamdden neu chwaraeon",
           "value": "sporting"
         },
         {
-          "text": "Theatre",
+          "text": "Theatr",
           "value": "theatre"
         },
         {
-          "text": "Other",
+          "text": "Arall",
           "value": "other"
         }
       ]
     },
     {
-      "title": "How do you intend to take community ownership of the asset?",
+      "title": "Sut ydych yn bwriadu meddu ar yr eiddo ar y gymuned?",
       "name": "grEEzr",
       "type": "string",
       "items": [
         {
-          "text": "Buy the asset",
+          "text": "Prynu'r eiddo",
           "value": "buy-the-asset"
         },
         {
-          "text": "Lease the asset",
+          "text": "Llogi'r eiddo",
           "value": "lease-the-asset"
         },
         {
-          "text": "Already owned by organisation",
+          "text": "Eisoes yn eiddo i'w sefydliad",
           "value": "already-owned-by-organisation"
         },
         {
-          "text": "Already leased by organisation",
+          "text": "Eisoes wedi'i llogi gan eich sefydliad",
           "value": "already-leased-by-organisation"
         }
       ]
     },
     {
-      "title": "I Confirm",
+      "title": "Rwy'n cadarnhau",
       "name": "OSzelY",
       "type": "string",
       "items": [
         {
-          "text": "I confirm",
+          "text": "Rwy'n cadarnhau",
           "value": "confirm"
         }
       ]
     },
     {
-      "title": "Risk of closure",
+      "title": "Perygl cau",
       "name": "RGVpbi",
       "type": "string",
       "items": [
         {
-          "text": "For sale or listed for disposal",
+          "text": "Ar werth neu wedi'i restru ar gyfer gwaredu",
           "value": "for-sale-or-listed-for-disposal"
         },
         {
-          "text": "Future use not secured",
+          "text": "Nid yw'r defnydd yn y dyfodol wedi'i sicrhau",
           "value": "future-use-not-secured"
         },
         {
-          "text": "Unprofitable under current business model",
+          "text": "Gwerth annyoneddol na thâl fel y mae'r model busnes presennol",
           "value": "unprofitable-under-current-business-model"
         },
         {
-          "text": "Current ownership not tenable",
+          "text": "Nid yw'r perchenogaeth gyfredol yn ddichonadwy",
           "value": "current-ownership-not-tenable"
         }
       ]
     },
     {
-      "title": "Why is the asset at risk of closure?",
+      "title": "Pam mae'r eiddo mewn perygl cau?",
       "name": "YNTnCC",
       "type": "string",
       "items": [
         {
-          "text": "Closure",
+          "text": "Cau",
           "value": "Closure"
         },
         {
-          "text": "Sale",
+          "text": "Werthiant",
           "value": "Sale"
         },
         {
-          "text": "Neglect or dereliction",
+          "text": "Camddeall neu wanllyd",
           "value": "Neglect or dereliction"
         },
         {
-          "text": "Unsustainable current business model",
+          "text": "Model busnes presennol na ellir ei gynnal",
           "value": "Unsustainable current business model"
         },
         {
-          "text": "Listed for disposal",
+          "text": "Wedî'i restru ar gyfer gwaredu",
           "value": "Listed for disposal"
         },
         {
-          "text": "Part of a Community Asset Transfer",
+          "text": "Rhan o Trosglwyddiad Ased Cymunedol",
           "value": "Part of a Community Asset Transfer"
         }
       ]
     },
     {
-      "title": "Why is the asset at risk of closure? 2",
+      "title": "Pam mae'r eiddo mewn perygl cau? 2",
       "name": "IZlNBH",
       "type": "string",
       "items": [
         {
-          "text": "Closure",
+          "text": "Cau",
           "value": "Closure"
         },
         {
-          "text": "Neglect or dereliction",
+          "text": "Camddeall neu wanllyd",
           "value": "Neglect or dereliction"
         },
         {
-          "text": "Unsustainable current business model",
+          "text": "Model busnes presennol na ellir ei gynnal",
           "value": "Unsustainable current business model"
         }
       ]
@@ -584,21 +584,21 @@
   "sections": [
     {
       "name": "wxYZcT",
-      "title": "Asset information"
+      "title": "Gwybodaeth am eiddo"
     }
   ],
   "conditions": [
     {
-      "displayName": "How the asset is used-other",
+      "displayName": "Sut mae'r eiddo'n cael ei ddefnyddio-arall",
       "name": "VxBLMN",
       "value": {
-        "name": "How the asset is used-other",
+        "name": "Sut mae'r eiddo'n cael ei ddefnyddio-arall",
         "conditions": [
           {
             "field": {
               "name": "oXGwlA",
               "type": "RadiosField",
-              "display": "Asset type"
+              "display": "Math eiddo"
             },
             "operator": "is",
             "value": {
@@ -611,16 +611,16 @@
       }
     },
     {
-      "displayName": "Do you know who currently owns your asset-yes",
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Ie",
       "name": "KZLYTF",
       "value": {
-        "name": "Do you know who currently owns your asset-yes",
+        "name": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Ie",
         "conditions": [
           {
             "field": {
               "name": "hdmYjg",
               "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo?"
             },
             "operator": "is",
             "value": {
@@ -633,16 +633,16 @@
       }
     },
     {
-      "displayName": "Do you know who currently owns your asset-no",
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Na",
       "name": "GRGSGT",
       "value": {
-        "name": "Do you know who currently owns your asset-no",
+        "name": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Na",
         "conditions": [
           {
             "field": {
               "name": "hdmYjg",
               "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo?"
             },
             "operator": "is",
             "value": {
@@ -655,16 +655,16 @@
       }
     },
     {
-      "displayName": "Is your asset currently publicly owned-yes",
+      "displayName": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Ie",
       "name": "oHpvvn",
       "value": {
-        "name": "Is your asset currently publicly owned-yes",
+        "name": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Ie",
         "conditions": [
           {
             "field": {
               "name": "VGXXyq",
               "type": "YesNoField",
-              "display": "Is your asset currently publicly owned?"
+              "display": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd?"
             },
             "operator": "is",
             "value": {
@@ -677,16 +677,16 @@
       }
     },
     {
-      "displayName": "Is your asset currently publicly owned-no",
+      "displayName": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Na",
       "name": "ujYYpF",
       "value": {
-        "name": "Is your asset currently publicly owned-no",
+        "name": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Na",
         "conditions": [
           {
             "field": {
               "name": "VGXXyq",
               "type": "YesNoField",
-              "display": "Is your asset currently publicly owned?"
+              "display": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd?"
             },
             "operator": "is",
             "value": {
@@ -699,16 +699,16 @@
       }
     },
     {
-      "displayName": "Is this a registered Asset of Community Value (ACV)-yes",
+      "displayName": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Ie",
       "name": "pErRiw",
       "value": {
-        "name": "Is this a registered Asset of Community Value (ACV)-yes",
+        "name": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Ie",
         "conditions": [
           {
             "field": {
               "name": "wjBFTf",
               "type": "YesNoField",
-              "display": "Is this a registered Asset of Community Value (ACV)?"
+              "display": "Ai hwn yw Ased Gymunedol Cofrestredig (ACV)?"
             },
             "operator": "is",
             "value": {
@@ -721,16 +721,16 @@
       }
     },
     {
-      "displayName": "Is the asset listed for disposal, or part of a Community Asset Transfer-yes",
+      "displayName": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Ie",
       "name": "XVOzZh",
       "value": {
-        "name": "Is the asset listed for disposal, or part of a Community Asset Transfer-yes",
+        "name": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Ie",
         "conditions": [
           {
             "field": {
               "name": "HyWPwE",
               "type": "YesNoField",
-              "display": "Is the asset listed for disposal, or part of a Community Asset Transfer?"
+              "display": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol?"
             },
             "operator": "is",
             "value": {
@@ -743,16 +743,16 @@
       }
     },
     {
-      "displayName": "Is this a registered Asset of Community Value (ACV)-no",
+      "displayName": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Na",
       "name": "nxnCXz",
       "value": {
-        "name": "Is this a registered Asset of Community Value (ACV)-no",
+        "name": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Na",
         "conditions": [
           {
             "field": {
               "name": "wjBFTf",
               "type": "YesNoField",
-              "display": "Is this a registered Asset of Community Value (ACV)?"
+              "display": "Ai hwn yw Ased Gymunedol Cofrestredig (ACV)?"
             },
             "operator": "is",
             "value": {
@@ -765,16 +765,16 @@
       }
     },
     {
-      "displayName": "Is the asset listed for disposal, or part of a Community Asset Transfer-no",
+      "displayName": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Na",
       "name": "lmmYts",
       "value": {
-        "name": "Is the asset listed for disposal, or part of a Community Asset Transfer-no",
+        "name": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Na",
         "conditions": [
           {
             "field": {
               "name": "HyWPwE",
               "type": "YesNoField",
-              "display": "Is the asset listed for disposal, or part of a Community Asset Transfer?"
+              "display": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol?"
             },
             "operator": "is",
             "value": {
@@ -787,16 +787,16 @@
       }
     },
     {
-      "displayName": "Do you know who owns the asset - yes",
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Ie",
       "name": "YBZKoC",
       "value": {
-        "name": "Do you know who owns the asset - yes",
+        "name": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Ie",
         "conditions": [
           {
             "field": {
               "name": "wAUFqr",
               "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo ar hyn o bryd?"
             },
             "operator": "is",
             "value": {
@@ -809,16 +809,16 @@
       }
     },
     {
-      "displayName": "Do you know who owns the asset - no",
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Na",
       "name": "oFfQbV",
       "value": {
-        "name": "Do you know who owns the asset - no",
+        "name": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Na",
         "conditions": [
           {
             "field": {
               "name": "wAUFqr",
               "type": "YesNoField",
-              "display": "Do you know who currently owns your asset?"
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo ar hyn o bryd?"
             },
             "operator": "is",
             "value": {
@@ -831,44 +831,44 @@
       }
     },
     {
-      "displayName": "already-owned-by-organisation-yes",
+      "displayName": "Eisoes yn eiddo i'w sefydliad - Ie",
       "name": "FwscXH",
       "value": {
-        "name": "already-owned-by-organisation-yes",
+        "name": "Eisoes yn eiddo i'w sefydliad - Ie",
         "conditions": [
           {
             "field": {
               "name": "LaxeJN",
               "type": "RadiosField",
-              "display": "How do you intend to take community ownership of the asset?"
+              "display": "Sut mae'r eiddo'n cael ei ddefnyddio-arall?"
             },
             "operator": "is",
             "value": {
               "type": "Value",
               "value": "already-owned-by-organisation",
-              "display": "already-owned-by-organisation"
+              "display": "Eisoes yn eiddo i'w sefydliad"
             }
           }
         ]
       }
     },
     {
-      "displayName": "already-leased-by-organisation-yes",
+      "displayName": "Eisoes wedi'i llogi gan eich sefydliad - Ie",
       "name": "hWsHyx",
       "value": {
-        "name": "already-leased-by-organisation-yes",
+        "name": "Eisoes wedi'i llogi gan eich sefydliad - Ie",
         "conditions": [
           {
             "field": {
               "name": "LaxeJN",
               "type": "RadiosField",
-              "display": "How do you intend to take community ownership of the asset?"
+              "display": "Sut mae'r eiddo'n cael ei ddefnyddio-arall?"
             },
             "operator": "is",
             "value": {
               "type": "Value",
               "value": "already-leased-by-organisation",
-              "display": "already-leased-by-organisation"
+              "display": "Eisoes wedi'i llogi gan eich sefydliad"
             }
           }
         ]
@@ -888,7 +888,7 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "name": "Apply for funding to save an asset in your community",
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
   "feedback": {
     "feedbackForm": false,
     "url": ""
