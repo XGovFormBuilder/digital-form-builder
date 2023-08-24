@@ -410,8 +410,10 @@
         },
         {
           "name": "OJWGGr",
-          "options": {},
-          "type": "TextField",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "WebsiteField",
           "title": "Provide a link to the listing"
         }
       ],
