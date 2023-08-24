@@ -431,7 +431,7 @@
         {
           "name": "WKIGQE",
           "options": {},
-          "type": "MultilineTextField",
+          "type": "FreeTextField",
           "title": "Describe the current status of the Community Asset Transfer"
         }
       ],
