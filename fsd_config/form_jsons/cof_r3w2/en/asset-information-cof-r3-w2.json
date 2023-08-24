@@ -430,7 +430,9 @@
       "components": [
         {
           "name": "WKIGQE",
-          "options": {},
+          "options": {
+            "maxWords": "500"
+          },
           "type": "FreeTextField",
           "title": "Describe the current status of the Community Asset Transfer"
         }
