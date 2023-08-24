@@ -815,14 +815,14 @@
                     "name": "rkWfvT",
                     "options": {},
                     "type": "Para",
-                    "content": "Do you have two or more cases of acute respiratory infection (ARI)  but do not know the infection/microorganism causing this?</br>\nIf you have already entered these ARI cases in the COVID-19 section, do NOT re-enter them in this section and click \"No\" below.",
+                    "content": "This section is about symptomatic cases of acute respiratory infection (ARI) where the causative organism/bug is not known. You will automatically move to the next section if you answer No.",
                     "schema": {}
                 },
                 {
                     "name": "S6Q1",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "S6Q1. Do you have two or more cases of acute respiratory infection (ARI)  but do not know the infection/microorganism causing this?",
+                    "title": "S6Q1: Do you have two or more cases of acute respiratory infection (ARI)  but do not know the infection/microorganism causing this? If you have already entered these ARI cases in the COVID-19 section, do NOT re-enter them in this section and click \"No\" below",
                     "nameHasError": false,
                     "schema": {},
                     "values": {
@@ -1544,7 +1544,7 @@
                     "name": "ZaQztW",
                     "options": {},
                     "type": "Para",
-                    "content": "You must click \"Yes\" for at least one of the previous three questions (unlinked cases should be reported and managed as single cases)."
+                    "content": "You must click \"Yes\" for at least one of the three previous questions (unlinked cases should be reported and managed as single cases)."
                 }
             ],
             "next": [
