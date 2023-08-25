@@ -45,5 +45,6 @@
   "safelist": "SAFELIST",
   "initialisedSessionTimeout": "INITIALISED_SESSION_TIMEOUT",
   "initialisedSessionKey": "INITIALISED_SESSION_KEY",
+  "initialisedSessionAdditionalDecodeKeys": "INITIALISED_SESSION_ADDITIONAL_DECODE_KEYS",
   "initialisedSessionAlgorithm": "INITIALISED_SESSION_ALGORITHM"
 }

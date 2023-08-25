@@ -56,18 +56,28 @@ export function generateSessionTokenForForm(callback, formId) {
 }
 
 export function verifyToken(decodedToken) {
-  try {
-    Jwt.token.verify(decodedToken, {
-      key: config.initialisedSessionKey,
-      algorithm: config.initialisedSessionAlgorithm,
-    });
-    return { isValid: true };
-  } catch (err) {
-    return {
-      isValid: false,
-      error: `${err}`,
-    };
+  let additionalKeys = config.initialisedSessionAdditionalDecodeKeys ?? [];
+  if (!Array.isArray(additionalKeys)) {
+    additionalKeys = additionalKeys.split(",");
   }
+
+  const keysToTry = [config.initialisedSessionKey, ...additionalKeys];
+  let isValid, error;
+
+  for (const key of keysToTry) {
+    try {
+      Jwt.token.verify(decodedToken, {
+        key,
+        algorithm: config.initialisedSessionAlgorithm,
+      });
+      return { isValid: true };
+    } catch (e) {
+      isValid = false;
+      error = e;
+    }
+  }
+
+  return { isValid, error };
 }
 
 export const callbackValidation = (safelist = config.safelist) =>
