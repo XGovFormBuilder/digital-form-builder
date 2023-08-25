@@ -297,14 +297,22 @@
       ],
       "next": [
         {
-          "path": "/eiddo-gwerthu-trosglwyddiant-ardal-cymunedol"
+          "path": "/manylion-rhestru-aseion",
+          "condition": "EQpfAl"
+        },
+        {
+          "path": "/trosiad-aseth-cymunedol",
+          "condition": "rrSKPO"
+        },
+        {
+          "path": "/asedau-o-werth-cymunedol"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/eiddo-gwerthu-trosglwyddiant-ardal-cymunedol",
-      "title": "Eiddo gwerthu trosglwyddiant ardal/cymunedol",
+      "path": "/asedau-o-werth-cymunedol",
+      "title": "Asedau o werth cymunedol",
       "components": [
         {
           "name": "iqnlTk",
@@ -387,6 +395,57 @@
       "next": [
         {
           "path": "/perchenogaeth-cyhoeddus"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/manylion-rhestru-aseion",
+      "title": "Manylion rhestru aseion",
+      "components": [
+        {
+          "name": "QPIPjx",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "Pryd cafodd yr ased ei restru?",
+          "hint": "Er enghraifft, 27 3 2007"
+        },
+        {
+          "name": "OJWGGr",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "WebsiteField",
+          "title": "Darparwch ddolen i'r rhestr"
+        }
+      ],
+      "next": [
+        {
+          "path": "/trosiad-aseth-cymunedol",
+          "condition": "rrSKPO"
+        },
+        {
+          "path": "/asedau-o-werth-cymunedol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/trosiad-aseth-cymunedol",
+      "title": "Trosiad aseth cymunedol",
+      "components": [
+        {
+          "name": "WKIGQE",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch statws presennol y Trosiad Aseth Cymunedol"
+        }
+      ],
+      "next": [
+        {
+          "path": "/asedau-o-werth-cymunedol"
         }
       ],
       "section": "wxYZcT"
@@ -871,6 +930,50 @@
               "type": "Value",
               "value": "already-leased-by-organisation",
               "display": "Eisoes wedi'i llogi gan eich sefydliad"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "listed-for-disposal",
+      "name": "EQpfAl",
+      "value": {
+        "name": "listed-for-disposal",
+        "conditions": [
+          {
+            "field": {
+              "name": "qlqyUq",
+              "type": "CheckboxesField",
+              "display": "Pam mae'r aseth yn beryglus o gau?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Listed for disposal",
+              "display": "Listed for disposal"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "part-of-a-community-asset-transfer",
+      "name": "rrSKPO",
+      "value": {
+        "name": "part-of-a-community-asset-transfer",
+        "conditions": [
+          {
+            "field": {
+              "name": "qlqyUq",
+              "type": "CheckboxesField",
+              "display": "Pam mae'r aseth yn beryglus o gau?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Rhan o Brosiect Trosglwyddo Aseth Cymunedol",
+              "display": "Rhan o Brosiect Trosglwyddo Aseth Cymunedol"
             }
           }
         ]

@@ -295,6 +295,14 @@
       ],
       "next": [
         {
+          "path": "/asset-listing-details",
+          "condition": "EQpfAl"
+        },
+        {
+          "path": "/community-asset-transfer",
+          "condition": "rrSKPO"
+        },
+        {
           "path": "/assets-of-community-value"
         }
       ],
@@ -385,6 +393,57 @@
       "next": [
         {
           "path": "/public-ownership"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/asset-listing-details",
+      "title": "Asset listing details",
+      "components": [
+        {
+          "name": "QPIPjx",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "When was the asset listed?",
+          "hint": "For example, 27 3 2007"
+        },
+        {
+          "name": "OJWGGr",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "WebsiteField",
+          "title": "Provide a link to the listing"
+        }
+      ],
+      "next": [
+        {
+          "path": "/community-asset-transfer",
+          "condition": "rrSKPO"
+        },
+        {
+          "path": "/assets-of-community-value"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/community-asset-transfer",
+      "title": "Community asset transfer",
+      "components": [
+        {
+          "name": "WKIGQE",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Describe the current status of the Community Asset Transfer"
+        }
+      ],
+      "next": [
+        {
+          "path": "/assets-of-community-value"
         }
       ],
       "section": "wxYZcT"
@@ -870,6 +929,50 @@
               "type": "Value",
               "value": "already-leased-by-organisation",
               "display": "already-leased-by-organisation"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "listed-for-disposal",
+      "name": "EQpfAl",
+      "value": {
+        "name": "listed-for-disposal",
+        "conditions": [
+          {
+            "field": {
+              "name": "qlqyUq",
+              "type": "CheckboxesField",
+              "display": "Why is the asset at risk of closure?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Listed for disposal",
+              "display": "Listed for disposal"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "part-of-a-community-asset-transfer",
+      "name": "rrSKPO",
+      "value": {
+        "name": "part-of-a-community-asset-transfer",
+        "conditions": [
+          {
+            "field": {
+              "name": "qlqyUq",
+              "type": "CheckboxesField",
+              "display": "Why is the asset at risk of closure?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Part of a Community Asset Transfer",
+              "display": "Part of a Community Asset Transfer"
             }
           }
         ]
