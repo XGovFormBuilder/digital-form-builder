@@ -224,7 +224,7 @@
       ],
       "next": [
         {
-          "path": "/a-ydych-eisoes-wedi-defnyddio-ctyllid-cydweddu-a-wedi'i-sicrhau"
+          "path": "/a-ydych-di-ddylu-bydd-chi-wedi-defnyddio-yr-ctyllid-cydweddu-y-chydwybododd-chi"
         }
       ],
       "section": "bgUGuD"
@@ -355,20 +355,20 @@
       },
       "components": [
         {
-          "name": "ngpQfE",
+          "name": "FdWhuX",
           "options": {},
           "type": "Details",
           "title": "Help gyda'r achos rheoli",
           "content": "Rydym yn ceisio deall:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>faint o gyllid yr ydych yn ei wneud cais amdano o'r gronfa hon</li>\n<li'eich costau gweithrediadol cyflawn llawn</li>\n<li>unrhyw gyllid yr ydych eisoes wedi'i dderbyn ar gyfer eich prosiect hyd yma</li>\n<li>unrhyw gyllid yr ydych yn bwriadu ei sicrhau ar gyfer eich prosiect</li>\n<li>unrhyw gyllid yr ydych eisoes wedi'i dderbyn tuag at gostau cyfalaf</li>\n</ul>\n<p>Byddwn yn gofyn i chi uwchlwytho cynllun busnes i gefnogi'r atebion yr ydych yn eu rhoi i ni yn yr adran hon.\n\nBydd y gronfa hon yn cynnig hyd at 50% o'ch costau cyfalaf i adnewyddu a thrwsio'r ased.</p>\n</div>"
         },
         {
-          "name": "FIXTaM",
+          "name": "XSwCIQ",
           "options": {},
           "type": "Para",
           "content": "<label class=\"govuk-heading-s\">Costau refeniw (dewisol)</label>\n\n<p class=\"govuk-hint\">Dywedwch wrthym am gyfanswm costau refeniw eich prosiect.</p>\n<p class=\"govuk-hint\">Dyma'r costau rhedeg y prosiect. Gall hyn gynnwys costau cyffredinol, gan gynnwys ar gyfer:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>gwasanaethau cyhoeddus</li>\n<li>staffio</li>\n</ul></p>\n<p class=\"govuk-hint\">Cofiwch, gallwch wneud cais am hyd at £50,000 o'ch costau refeniw (dim mwy na 20% o'ch cyllid cyfalaf).\n\nGallwch ddefnyddio eich cynllun busnes i:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>dweud wrthym pam rydych angen cyllid refeniw</li>\n<li>darparu unrhyw wybodaeth sy'n cefnogi eich atebion</li>\n</ul>"
         },
         {
-          "name": "VeoDbs",
+          "name": "tSKhQQ",
           "options": {
             "prefix": "£",
             "columnTitles": ["Disgrifiad", "Swm", "Gweithred"],
@@ -380,13 +380,13 @@
           "schema": {},
           "children": [
             {
-              "name": "ImjDFS",
+              "name": "hGsUaZ",
               "options": {},
               "type": "TextField",
               "title": "Disgrifiwch y gost"
             },
             {
-              "name": "thoDAE",
+              "name": "UyaAHw",
               "options": {
                 "prefix": "£",
                 "classes": "govuk-!-width-one-half"
@@ -401,7 +401,7 @@
       ],
       "next": [
         {
-          "path": "/sut-byddwch-chi'n-defnyddio-cyllid-refeniw"
+          "path": "/sut-byddwch-chwilio-am-ddaduniad-cyllid-cydweddu-ychwanegol"
         }
       ],
       "section": "bgUGuD"
@@ -422,7 +422,7 @@
       ],
       "next": [
         {
-          "path": "/os-byddwch-chwilio-am-ddaduniad-cyllid-cydweddu-ychwanegol"
+          "path": "/os-byddwch-wedi-sicrhau-ffynonell-ctyllid-cydweddu-pellach"
         }
       ],
       "section": "bgUGuD"

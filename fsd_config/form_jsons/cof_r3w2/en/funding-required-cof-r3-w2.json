@@ -353,20 +353,20 @@
       },
       "components": [
         {
-          "name": "ngpQfE",
+          "name": "FdWhuX",
           "options": {},
           "type": "Details",
           "title": "Help with management case",
           "content": "We are looking to understand:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full operational costs</li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.\n\nThis fund can offer up to 50% of your capital costs to renovate and repair the asset.</p>\n</div>"
         },
         {
-          "name": "FIXTaM",
+          "name": "XSwCIQ",
           "options": {},
           "type": "Para",
           "content": "<label class=\"govuk-heading-s\">Revenue costs (optional)</label>\n\n<p class=\"govuk-hint\">Tell us about the total revenue costs of your project.</p>\n<p class=\"govuk-hint\">These are the running costs of the project. This might include general costs, including for:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>utilities</li>\n<li>staffing</li>\n</ul></p>\n<p class=\"govuk-hint\">Remember, you can apply for up to £50,000 of your revenue costs (no more than 20% of your capital funding).\n\nYou can use your business plan to:</p>\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-1\">\n<li>tell us why you need revenue funding</li>\n<li>provide any information that supports your answers</li>\n</ul>"
         },
         {
-          "name": "VeoDbs",
+          "name": "tSKhQQ",
           "options": {
             "prefix": "£",
             "columnTitles": ["Description", "Amount", "Action"],
@@ -378,13 +378,13 @@
           "schema": {},
           "children": [
             {
-              "name": "ImjDFS",
+              "name": "hGsUaZ",
               "options": {},
               "type": "TextField",
               "title": "Describe the cost"
             },
             {
-              "name": "thoDAE",
+              "name": "UyaAHw",
               "options": {
                 "prefix": "£",
                 "classes": "govuk-!-width-one-half"
