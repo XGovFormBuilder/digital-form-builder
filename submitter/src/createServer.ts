@@ -44,10 +44,9 @@ export async function createServer(): Promise<hapi.Server> {
 
   server.ext({
     type: "onPreStop",
-    method: async function (req, h) {
-      const { queueService } = req.local.services([]);
+    method: async function () {
+      const { queueService } = server.services([]);
       await queueService.closeConnection();
-      return h.continue();
     },
   });
   return server;
