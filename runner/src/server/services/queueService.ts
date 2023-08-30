@@ -21,8 +21,9 @@ export class QueueService {
     const rowData = {
       data: JSON.stringify(data),
       time: new Date().getTime(),
-      webhook_url: url ?? "",
+      webhook_url: url ?? null,
       complete: false,
+      retry_counter: 0,
     };
     await this.prisma.$connect();
     const row = await this.prisma.submission.create({
