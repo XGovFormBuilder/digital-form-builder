@@ -15,4 +15,5 @@ model Submission {
   error String?
   return_reference String?
   complete Boolean
+  retry_counter Int
 }
