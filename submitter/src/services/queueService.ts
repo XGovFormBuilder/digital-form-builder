@@ -23,15 +23,13 @@ export class QueueService {
     try {
       const rows = await this.prisma.submission.findMany({
         where: {
-          AND: {
-            error: null,
-            complete: false,
-            NOT: {
-              webhook_url: null,
-            },
-            retry_counter: {
-              lt: 5,
-            },
+          error: null,
+          complete: false,
+          webhook_url: {
+            not: null,
+          },
+          retry_counter: {
+            lt: 5,
           },
         },
       });
