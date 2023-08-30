@@ -475,7 +475,8 @@
         {
           "path": "/telerau-eich-lysgenant"
         }
-      ]
+      ],
+      "section": "wxYZcT"
     }
   ],
   "lists": [
@@ -972,7 +973,7 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Rhan o Brosiect Trosglwyddo Aseth Cymunedol",
+              "value": "Part of a Community Asset Transfer",
               "display": "Rhan o Brosiect Trosglwyddo Aseth Cymunedol"
             }
           }
