@@ -4,5 +4,5 @@
  */
 
 module.exports = {
-  testMatch: ["**/tests/**.test.ts"],
+  testMatch: ["**/__tests__/**.test.ts"],
 };
