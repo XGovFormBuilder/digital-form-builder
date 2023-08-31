@@ -1,7 +1,7 @@
-import { WebhookService } from "../src/services";
-import { createServer } from "../src/createServer";
-import { HapiServer } from "../src/types";
-import { prisma } from "../src/prismaClient";
+import { WebhookService } from "../index";
+import { createServer } from "../../createServer";
+import { HapiServer } from "../../types";
+import { prisma } from "../../prismaClient";
 import type { Prisma } from "@xgovformbuilder/queueModel";
 
 let server: HapiServer;
