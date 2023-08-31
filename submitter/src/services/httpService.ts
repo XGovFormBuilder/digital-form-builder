@@ -29,19 +29,8 @@ export const get = <T = any>(url: string, options?: object) => {
   return request<T>("get", url, options);
 };
 
-export const getJson = <T = any>(url: string) => {
-  return get<T>(url, { json: true });
-};
-
 export const post = <T = any>(url: string, options: object) => {
   return request<T>("post", url, options);
-};
-
-export const postJson = <T = any>(url: string, options: object) => {
-  return post<T>(url, {
-    ...options,
-    json: true,
-  });
 };
 
 export const put = <T = any>(url: string, options: object) => {
