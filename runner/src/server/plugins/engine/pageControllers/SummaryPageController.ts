@@ -63,7 +63,7 @@ export class SummaryPageController extends PageController {
           ...restructuredErrors,
         ];
 
-        const sortedPathNames = model.pages
+        const sortedPathNames = relevantPages
           .filter(
             (page) => page.section?.name && page.components.items.length > 0
           )
