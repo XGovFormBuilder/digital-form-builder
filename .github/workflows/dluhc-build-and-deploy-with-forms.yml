@@ -106,7 +106,7 @@ jobs:
   run-shared-tests_dev:
     needs: deploy-and-test-dev
     if: ${{ github.actor != 'dependabot[bot]'}} && ${{ github.event.inputs.copilot != 'true' }}
-    uses: communitiesuk/funding-design-service-workflows/.github/workflows/run-shared-tests.yml@main
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/run-shared-tests.yml@main
     with:
       perf_test_target_url_application_store: https://funding-service-design-application-store-dev.london.cloudapps.digital
       perf_test_target_url_fund_store: https://funding-service-design-fund-store-dev.london.cloudapps.digital
@@ -142,7 +142,7 @@ jobs:
   run-shared-tests_test:
     needs: deploy-to-test
     if: ${{ github.actor != 'dependabot[bot]' }} && ${{ github.event.inputs.copilot != 'true' }}
-    uses: communitiesuk/funding-design-service-workflows/.github/workflows/run-shared-tests.yml@main
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/run-shared-tests.yml@main
     with:
       perf_test_target_url_application_store: https://funding-service-design-application-store-test.london.cloudapps.digital
       perf_test_target_url_fund_store: https://funding-service-design-fund-store-test.london.cloudapps.digital
