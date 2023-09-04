@@ -111,7 +111,7 @@
           "options": {},
           "type": "FreeTextField",
           "title": "Disgrifiwch y broses werthu ddisgrifiwch, neu'r telerau arfaethedig o'ch denantiaeth os ydych yn bwriadu rhentu'r eiddo",
-          "hint": "Er enghraifft, arwerthiant"
+          "hint": ""
         },
         {
           "name": "jGjScT",

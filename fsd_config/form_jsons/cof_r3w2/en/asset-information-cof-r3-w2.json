@@ -109,7 +109,7 @@
           "options": {},
           "type": "FreeTextField",
           "title": "Describe the expected sale process, or the proposed terms of your lease if you are planning to rent the asset",
-          "hint": "For example, an auction"
+          "hint": ""
         },
         {
           "name": "jGjScT",
