@@ -28,4 +28,5 @@ module.exports = {
   queueDatabaseUsername: "",
   queueDatabasePassword: "",
   pollingInterval: "5000",
+  retentionPeriod: "365",
 };

@@ -1,7 +1,7 @@
 import { WebhookService } from "../index";
 import { createServer } from "../../createServer";
 import { HapiServer } from "../../types";
-import { prisma } from "../../prismaClient";
+import { prisma } from "../../../prismaClient";
 import type { Prisma } from "@xgovformbuilder/queueModel";
 
 let server: HapiServer;
@@ -49,21 +49,24 @@ test("Queue service does not process any submissions if the table is empty", asy
 test("Queue service does not process any submissions if all submissions are complete or have errored", async () => {
   const seedRes = await seedDb([
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: "https://a-failing-url.com",
       complete: true,
       retry_counter: 0,
     },
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: null,
       complete: false,
       retry_counter: 0,
     },
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: "https://a-failing-url.com",
       complete: false,
@@ -82,7 +85,8 @@ test("Queue service does not process any submissions if all submissions are comp
 test("Queue service updates a submission entry with an error if the webhook fails", async () => {
   const seedRes = await seedDb([
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: "https://a-failing-url.com",
       complete: false,
@@ -117,7 +121,8 @@ test("Queue service updates a submission entry with an error if the webhook fail
 test("Queue service updates a submission entry with a successful response if the webhook was successful", async () => {
   const seedRes = await seedDb([
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: "https://a-passing-url.com",
       complete: false,
@@ -152,21 +157,24 @@ test("Queue service updates a submission entry with a successful response if the
 test("Queue service runs through all valid submissions without throwing an error", async () => {
   const seedRes = await seedDb([
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: "https://a-url.com",
       complete: true,
       retry_counter: 0,
     },
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: "https://a-url.com",
       complete: false,
       retry_counter: 0,
     },
     {
-      time: 1234567,
+      created_at: 1234567,
+      updated_at: 1234567,
       data: `{"some": "data"}`,
       webhook_url: "https://a-url.com",
       complete: false,

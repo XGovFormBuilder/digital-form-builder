@@ -1,5 +1,5 @@
-import config from "./config";
-import { prisma } from "./prismaClient";
+import config from "../config";
+import { prisma } from "../prismaClient";
 
 export async function redactSubmissions() {
   const retentionAsTimestamp =

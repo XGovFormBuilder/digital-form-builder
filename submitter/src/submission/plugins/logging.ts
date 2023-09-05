@@ -1,5 +1,5 @@
 import pino from "hapi-pino";
-import config from "../config";
+import config from "../../config";
 
 export const pluginLogging = {
   plugin: pino,

@@ -1,5 +1,5 @@
 import { Prisma } from "@xgovformbuilder/queueModel";
-import { prisma } from "../prismaClient";
+import { prisma } from "../../../../queueRetention/src/prismaClient";
 import { redactSubmissions } from "../index";
 
 async function seedDb(submissions: Prisma.SubmissionCreateManyInput[]) {
