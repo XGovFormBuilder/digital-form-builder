@@ -1,6 +1,6 @@
 import type { Prisma } from "@xgovformbuilder/queueModel";
 import { PrismaClient } from "@xgovformbuilder/queueModel";
-import config from "config";
+import config from "./config";
 import logger from "pino";
 
 const prismaLogger = logger();

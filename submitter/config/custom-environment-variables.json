@@ -8,5 +8,6 @@
   "queueDatabaseUrl": "QUEUE_DATABASE_URL",
   "queueDatabaseUsername": "QUEUE_DATABASE_USERNAME",
   "queueDatabasePassword": "QUEUE_DATABASE_PASSWORD",
-  "pollingInterval": "QUEUE_POLLING_INTERVAL"
+  "pollingInterval": "QUEUE_POLLING_INTERVAL",
+  "retentionPeriod": "QUEUE_RETENTION_PERIOD_DAYS"
 }

@@ -15,7 +15,6 @@
     "designer",
     "e2e",
     "queueModel",
-    "queueRetention",
     "submitter"
   ],
   "scripts": {
@@ -31,7 +30,6 @@
     "model": "yarn workspace @xgovformbuilder/model",
     "e2e": "yarn workspace e2e",
     "queueModel": "yarn workspace @xgovformbuilder/queueModel",
-    "queueRetention": "yarn workspace @xgovformbuilder/queueRetention",
     "submitter": "yarn workspace @xgovformbuilder/submitter",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",

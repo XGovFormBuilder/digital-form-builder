@@ -1,7 +1,7 @@
 import hapi, { ServerOptions } from "@hapi/hapi";
 import { pluginLogging } from "./plugins/logging";
 import { pluginQueue } from "./plugins/queue";
-import config from "./config";
+import config from "../config";
 import { QueueService, WebhookService } from "./services";
 import Schmervice from "schmervice";
 import { pluginPoll } from "./plugins/poll";
