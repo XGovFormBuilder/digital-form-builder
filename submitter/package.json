@@ -6,13 +6,17 @@
   "private": true,
   "scripts": {
     "watch": "babel --watch --extensions '.ts' src -d dist",
-    "start": "node dist/index.js",
-    "start:local": "NODE_ENV=development nodemon dist/index.js",
-    "dev": "concurrently 'yarn watch' 'yarn start:local'",
+    "start": "node dist/submission/index.js",
+    "start:submission": "node dist/submission/index.js",
+    "start:retention": "node dist/retention/index.js",
+    "start:submission:local": "NODE_ENV=development nodemon dist/submission/index.js",
+    "start:retention:local": "NODE_ENV=development nodemon dist/retention/index.js",
+    "dev:submission": "concurrently 'yarn watch' 'yarn start:submission:local'",
+    "dev:retention": "concurrently 'yarn watch' 'yarn start:retention:local'",
     "build": "babel --extensions '.ts' src -d dist",
     "lint": "yarn bin/run eslint .",
     "fix-lint": "yarn bin/run eslint . --fix",
-    "test": "node -r dotenv/config ./node_modules/jest/bin/jest.js"
+    "test": "jest"
   },
   "engines": {
     "node": ">=16"
@@ -48,6 +52,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-tsdoc": "^0.2.14",
     "jest": "^26.6.3",
+    "jest-mock-extended": "^3.0.5",
     "nodemon": "^3.0.1",
     "prisma": "^5.1.1",
     "typescript": "4.9.5"
