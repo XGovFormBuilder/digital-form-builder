@@ -20,7 +20,8 @@ export class QueueService {
   async sendToQueue(data: object, url?: string) {
     const rowData = {
       data: JSON.stringify(data),
-      time: new Date().getTime(),
+      created_at: new Date(),
+      updated_at: new Date(),
       webhook_url: url ?? null,
       complete: false,
       retry_counter: 0,
@@ -29,11 +30,7 @@ export class QueueService {
     const row = await this.prisma.submission.create({
       data: rowData,
     });
-    const serialisedRow = {
-      ...row,
-      time: row.time.toString(),
-    };
-    this.logger.info(["queueService", "sendToQueue", "success"], serialisedRow);
+    this.logger.info(["queueService", "sendToQueue", "success"], row);
     try {
       const newRowRef = (await this.pollForRef(row.id)) ?? "UNKNOWN";
       this.logger.info(
