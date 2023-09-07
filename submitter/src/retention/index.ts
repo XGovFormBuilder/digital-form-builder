@@ -1,32 +1,18 @@
-import config from "../config";
-import { prisma } from "../prismaClient";
+import { redactSubmissions } from "./src/redactSubmissions";
+import logger from "pino";
 
-export async function redactSubmissions() {
-  const retentionAsTimestamp =
-    parseInt(config.retentionPeriod) * 24 * 60 * 60 * 1000;
-  const retentionLimit = new Date().getTime() - retentionAsTimestamp;
-  const validSubs = await prisma.submission.findMany({
-    where: {
-      updated_at: {
-        lt: retentionLimit,
-      },
-      complete: true,
-    },
-    select: {
-      id: true,
-    },
-  });
-  if (validSubs.length > 0) {
-    prisma.submission.deleteMany({
-      where: {
-        id: {
-          in: validSubs.map((sub) => sub.id),
-        },
-      },
-    });
-  }
+const initLogger = logger();
+
+async function main() {
+  await redactSubmissions();
 }
 
-(async () => {
-  await redactSubmissions();
-})();
+main()
+  .then(() => {
+    initLogger.info("All jobs completed successfully");
+    process.exit(0);
+  })
+  .catch((err) => {
+    initLogger.error(["retention"], err);
+    process.exit(1);
+  });
