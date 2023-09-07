@@ -58,7 +58,7 @@ export class QueueService {
 
   async updateWithSuccess(row: Submission, result: any) {
     this.logger.info(
-      ["QueueService", "processSubmissions", `row ref: ${row.id}`],
+      ["QueueService", "updateWithSuccess", `row ref: ${row.id}`],
       `return ref: ${result}`
     );
     await this.prisma.submission.update({
