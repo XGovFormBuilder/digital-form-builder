@@ -1,7 +1,8 @@
-import { PrismaClient } from "@xgovformbuilder/queueModel";
+import { PrismaClient, Submission } from "@xgovformbuilder/queueModel";
 import { Server } from "@hapi/hapi";
 import { WebhookService } from "./webhookService";
 import { HapiServer } from "../types";
+import { prisma } from "../../prismaClient";
 
 export class QueueService {
   prisma: PrismaClient;
@@ -9,7 +10,7 @@ export class QueueService {
   webhookService: WebhookService;
 
   constructor(server: HapiServer) {
-    this.prisma = new PrismaClient();
+    this.prisma = prisma;
     this.logger = server.logger;
     const { webhookService } = server.services([]);
     this.webhookService = webhookService;
@@ -41,34 +42,10 @@ export class QueueService {
             "POST"
           );
           if (result.message) {
-            this.logger.error(
-              ["QueueService", "processSubmissions", `row ref: ${row.id}`],
-              result
-            );
-            await this.prisma.submission.update({
-              data: {
-                error: result.message,
-                retry_counter: row.retry_counter + 1,
-              },
-              where: {
-                id: row.id,
-              },
-            });
+            await this.updateWithError(row, result);
             continue;
           }
-          this.logger.info(
-            ["QueueService", "processSubmissions", `row ref: ${row.id}`],
-            `return ref: ${result}`
-          );
-          await this.prisma.submission.update({
-            data: {
-              return_reference: result,
-              complete: true,
-            },
-            where: {
-              id: row.id,
-            },
-          });
+          await this.updateWithSuccess(row, result);
         }
       }
     } catch (err) {
@@ -77,6 +54,39 @@ export class QueueService {
         (err as Error).message
       );
     }
+  }
+
+  async updateWithSuccess(row: Submission, result: any) {
+    this.logger.info(
+      ["QueueService", "processSubmissions", `row ref: ${row.id}`],
+      `return ref: ${result}`
+    );
+    await this.prisma.submission.update({
+      data: {
+        return_reference: result,
+        complete: true,
+      },
+      where: {
+        id: row.id,
+      },
+    });
+  }
+
+  async updateWithError(row: Submission, result: any) {
+    this.logger.error(
+      ["QueueService", "updateWithError", `row ref: ${row.id}`],
+      result
+    );
+    await this.prisma.submission.update({
+      data: {
+        error: result.message,
+        retry_counter: row.retry_counter + 1,
+      },
+      where: {
+        id: row.id,
+      },
+    });
+    return;
   }
 
   async closeConnection() {
