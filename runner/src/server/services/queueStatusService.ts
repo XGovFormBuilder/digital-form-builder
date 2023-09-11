@@ -17,8 +17,8 @@ export class QueueStatusService extends StatusService {
 
     const { outputs, callback } = state;
 
-    let newReference;
-    let queueReference;
+    let newReference: string | undefined;
+    let queueReference: number | undefined;
 
     if (callback) {
       this.logger.info(
@@ -33,7 +33,7 @@ export class QueueStatusService extends StatusService {
         if (!queueResults) {
           this.logQueueServiceError();
         }
-        [newReference, queueReference] = queueResults as string[];
+        [queueReference, newReference] = queueResults;
         this.logger.info(
           ["QueueStatusService", "outputRequests"],
           `Queue reference: ${queueReference}`
@@ -54,14 +54,14 @@ export class QueueStatusService extends StatusService {
         if (!queueResults) {
           this.logQueueServiceError();
         }
-        [newReference, queueReference] = queueResults as string[];
+        [queueReference, newReference] = queueResults;
         this.logger.info(
           ["QueueStatusService", "outputRequests"],
           `Queue reference: ${queueReference}`
         );
       }
       await this.cacheService.mergeState(request, {
-        reference: newReference,
+        reference: newReference ?? state.fees?.paymentReference,
       });
     }
 
@@ -70,7 +70,7 @@ export class QueueStatusService extends StatusService {
       if (!queueResults) {
         this.logQueueServiceError();
       }
-      [newReference, queueReference] = queueResults as string[];
+      [queueReference, newReference] = queueResults;
       this.logger.info(
         ["QueueStatusService", "outputRequests"],
         `Queue reference: ${queueReference}`

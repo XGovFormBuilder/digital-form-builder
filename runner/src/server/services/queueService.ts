@@ -1,13 +1,15 @@
 import { HapiServer } from "server/types";
 import { PrismaClient } from "@xgovformbuilder/queueModel";
+import { prisma } from "../prismaClient";
 import config from "../config";
 
+type QueueResponse = [number, string] | [number, undefined];
 export class QueueService {
   prisma: PrismaClient;
   logger: HapiServer["logger"];
 
   constructor(server: HapiServer) {
-    this.prisma = new PrismaClient();
+    this.prisma = prisma;
     this.logger = server.logger;
   }
 
@@ -17,7 +19,7 @@ export class QueueService {
    * @param url
    * @returns The ID of the newly added row, or undefined in the event of an error
    */
-  async sendToQueue(data: object, url?: string) {
+  async sendToQueue(data: object, url?: string): Promise<QueueResponse> {
     const rowData = {
       data: JSON.stringify(data),
       created_at: new Date(),
@@ -38,14 +40,14 @@ export class QueueService {
         `Return ref: ${newRowRef}`
       );
       await this.prisma.$disconnect();
-      return [newRowRef, row.id];
+      return [row.id, newRowRef];
     } catch (err) {
       this.logger.error(
         ["QueueService", "sendToQueue", `Row ref: ${row.id}`],
         "Polling for return reference failed."
       );
       await this.prisma.$disconnect();
-      return ["UNKNOWN", row.id];
+      return [row.id, undefined];
     }
   }
 
