@@ -3765,13 +3765,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/engines@npm:5.1.0":
-  version: 5.1.0
-  resolution: "@prisma/engines@npm:5.1.0"
-  checksum: d84adb1ebaa3f1eac43b1e7bb35ab5de1306719b9ef7bf4a32fe6fa8801130801620e9585c986e69f929065b38699e9f988f01c4d25e4e921925b0dcccb482fb
-  languageName: node
-  linkType: hard
-
 "@prisma/engines@npm:5.1.1":
   version: 5.1.1
   resolution: "@prisma/engines@npm:5.1.1"
@@ -5192,7 +5185,6 @@ __metadata:
     eslint: ^8.10.0
     eslint-plugin-import: ^2.25.4
     eslint-plugin-tsdoc: ^0.2.14
-    prisma: ^5.0.0
     typescript: 4.9.5
   languageName: unknown
   linkType: soft
@@ -5320,6 +5312,7 @@ __metadata:
     "@types/hapi": ^18.0.7
     "@types/pino": ^6.0.0
     "@xgovformbuilder/queueModel": "workspace:queueModel"
+    babel-jest: ^29.6.2
     config: ^3.3.7
     dotenv: 8.2.0
     eslint: ^8.11.0
@@ -8820,6 +8813,7 @@ __metadata:
     govuk-frontend: ^4.3.1
     hmpo-components: ^5.2.1
     husky: ^4.3.0
+    jest-mock-extended: ^3.0.5
     lint-staged: ^10.4.2
     magic-string: ^0.25.7
     prettier: 2.1.2
@@ -17626,17 +17620,6 @@ __metadata:
     ansi-styles: ^5.0.0
     react-is: ^18.0.0
   checksum: a0f972a44f959023c0df9cdfe9eed7540264d7f7ddf74667db8a5294444d5aa153fd47d20327df10ae86964e2ceec10e46ea06b1a5c9c12e02348b78c952c9fc
-  languageName: node
-  linkType: hard
-
-"prisma@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "prisma@npm:5.1.0"
-  dependencies:
-    "@prisma/engines": 5.1.0
-  bin:
-    prisma: build/index.js
-  checksum: c37719438d84cdee27907704312725f3c4c91a339182f819654d0864e9fbf5e156bdf3b97d39fca0c1fee778f63e936880083f9f6cea4fdab489ce13af940375
   languageName: node
   linkType: hard
 
