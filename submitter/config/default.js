@@ -20,6 +20,12 @@ module.exports = {
   isDev: deferConfig(function () {
     return this.env !== "production";
   }),
+  isProd: deferConfig(function () {
+    return this.env === "production";
+  }),
+  isTest: deferConfig(function () {
+    return this.env === "test";
+  }),
 
   /**
    * Queue service config

@@ -48,6 +48,7 @@
     "@types/hapi": "^18.0.7",
     "@types/pino": "^6.0.0",
     "@xgovformbuilder/queueModel": "workspace:queueModel",
+    "babel-jest": "^29.6.2",
     "eslint": "^8.11.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-tsdoc": "^0.2.14",
