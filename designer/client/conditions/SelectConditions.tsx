@@ -1,10 +1,6 @@
 import React, { ChangeEvent } from "react";
 import InlineConditions from "./InlineConditions";
-import {
-  Condition,
-  ConditionRef,
-  ConditionsModel,
-} from "@xgovformbuilder/model";
+import { Condition, ConditionsModel, Data } from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
@@ -16,9 +12,17 @@ import {
   inputsAccessibleAt,
   hasConditions as dataHasConditions,
 } from "../data";
-import { getConditionType, isConditionRef } from "./select-condition-helpers";
+import {
+  hasNestedCondition,
+  isObjectCondition,
+  isDuplicateCondition,
+  hasConditionName,
+  getFieldNameSubstring,
+  conditionsByType,
+} from "./select-condition-helpers";
 interface Props {
   path: string;
+  data: Data;
   conditionsChange: (selectedCondition: string) => void;
   hints: any[];
   noFieldsHintText?: string;
@@ -71,113 +75,141 @@ class SelectConditions extends React.Component<Props, State> {
     const inputs = path
       ? inputsAccessibleAt(data, path)
       : allInputs(data) ?? [];
-    return inputs.map((input) => input.propertyPath);
+    return inputs
+      .map((input) => ({
+        label: input.title,
+        name: this.trimSectionName(input.propertyPath),
+        type: input.type,
+      }))
+      .reduce((obj, item) => {
+        obj[item.name] = item;
+        return obj;
+      }, {});
   }
 
   conditionsForPath(path: string) {
     const { data } = this.context;
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
-    let sortedConditions = this.sortConditions(conditions);
-    let validConditionNames = [];
-    return sortedConditions.filter((condition) => {
-      if (getConditionType(condition) === "string") {
-        return this.handleStringCondition(
+    let conditionsForPath: any[] = [];
+    const conditionsByTypeMap = conditionsByType(conditions);
+
+    fields.forEach((field) => {
+      this.handleStringConditions(
+        conditionsByTypeMap.string,
+        field.name,
+        conditionsForPath
+      );
+      this.handleConditions(
+        conditionsByTypeMap.object,
+        field.name,
+        conditionsForPath
+      );
+      this.handleNestedConditions(
+        conditionsByTypeMap.nested,
+        field.name,
+        conditionsForPath
+      );
+    });
+
+    return conditionsForPath;
+  }
+
+  handleConditions(
+    objectConditions: ConditionData[],
+    fieldName: string,
+    conditionsForPath: any[]
+  ) {
+    objectConditions.forEach((condition) => {
+      condition.value.conditions?.forEach((innerCondition) => {
+        this.checkAndAddCondition(
           condition,
-          fields,
-          validConditionNames
+          fieldName,
+          getFieldNameSubstring(innerCondition.field.name),
+          conditionsForPath
         );
-      }
-      if (getConditionType(condition) === "nested") {
-        return this.handleNestedCondition(
-          condition,
-          fields,
-          validConditionNames
-        );
-      }
-      if (getConditionType(condition) === "object") {
-        return this.handleCondition(condition, fields, validConditionNames);
-      }
-      return false;
+      });
     });
   }
 
-  sortConditions(conditions: ConditionData[]) {
-    return conditions
-      .reduce<ConditionData[][]>(
-        (acc, curr) => {
-          acc[getConditionType(curr) === "nested" ? 1 : 0].push(curr);
-          return acc;
-        },
-        [[], []]
-      )
-      .flat();
-  }
-
-  handleCondition(
-    condition: ConditionData,
-    fields: string[],
-    validConditions: string[]
+  handleStringConditions(
+    stringConditions: any[],
+    fieldName: string,
+    conditionsForPath: any[]
   ) {
-    let conditionValue = condition.value as ConditionObject;
-    for (let i = 0; i < conditionValue.conditions.length; i++) {
-      if (!fields.includes(conditionValue.conditions[i].field.name)) {
-        return false;
-      }
-    }
-    validConditions.push(condition.name);
-    return true;
-  }
-
-  handleStringCondition(
-    condition: ConditionData,
-    fields: string[],
-    validConditions: string[]
-  ) {
-    const conditionValue: string = condition.value as string;
     const operators = ["==", "!=", ">", "<"];
-    if (!operators.some((operator) => conditionValue.includes(operator))) {
-      return false;
-    }
-    let conditionFieldName = conditionValue.substring(
-      0,
-      conditionValue.lastIndexOf(
-        operators.find((operator) =>
-          conditionValue.includes(operator)
-        ) as string
+    const conditionsWithAcceptedOperators = stringConditions.filter(
+      (condition) =>
+        operators.some((operator) => condition.value.includes(operator))
+    );
+    const conditionsWithFieldName = conditionsWithAcceptedOperators.map(
+      (condition) => ({
+        ...condition,
+        conditionFieldName: condition.value
+          .substring(
+            condition.value.indexOf(".") + 1,
+            condition.value.lastIndexOf(
+              operators.filter((operator) => condition.value.includes(operator))
+            )
+          )
+          .trim(),
+      })
+    );
+    conditionsWithFieldName.forEach((condition) =>
+      this.checkAndAddCondition(
+        condition,
+        fieldName,
+        condition.conditionFieldName,
+        conditionsForPath
       )
     );
-    if (fields.includes(conditionFieldName)) {
-      validConditions.push(condition.name);
-      return true;
-    }
-    return false;
   }
   // loops through nested conditions, checking the referenced condition against the current field
-  handleNestedCondition(
-    condition: ConditionData,
-    fields: string[],
-    validConditions: string[]
+  handleNestedConditions(
+    nestedConditions: ConditionData[],
+    fieldName: string,
+    conditionsForPath: any[]
   ) {
-    let conditionValue = condition.value as ConditionObject;
-    for (let i = 0; i < conditionValue.conditions.length; i++) {
-      let innerCondition: Condition | ConditionRef =
-        conditionValue.conditions[i];
-      if (
-        !isConditionRef(innerCondition) &&
-        !fields.includes(innerCondition.field.name)
-      ) {
-        return false;
-      }
-      if (
-        isConditionRef(innerCondition) &&
-        !validConditions.includes(innerCondition.conditionName)
-      ) {
-        return false;
-      }
+    nestedConditions.forEach((condition) => {
+      condition.value.conditions.forEach((innerCondition) => {
+        // if the condition is already in the conditions array, skip the for each loop iteration
+        if (isDuplicateCondition(conditionsForPath, condition.name)) return;
+        // if the inner condition isn't a nested condition, handle it in the standard way
+        if (!hasConditionName(innerCondition)) {
+          this.checkAndAddCondition(
+            condition,
+            fieldName,
+            getFieldNameSubstring(innerCondition.field.name),
+            conditionsForPath
+          );
+          return;
+        }
+        //if the inner condition is a nested condition,
+        //check if that nested condition is already in the conditions array,
+        //and if so, add this condition to the array
+        if (
+          isDuplicateCondition(conditionsForPath, innerCondition.conditionName)
+        )
+          conditionsForPath.push(condition);
+      });
+    });
+  }
+
+  checkAndAddCondition(
+    conditionToAdd,
+    fieldName: string,
+    conditionFieldName: string,
+    conditions: any[]
+  ) {
+    if (isDuplicateCondition(conditions, conditionToAdd.name)) return;
+    if (fieldName === conditionFieldName) conditions.push(conditionToAdd);
+  }
+
+  trimSectionName(fieldName: string) {
+    if (fieldName.includes(".")) {
+      return fieldName.substring(fieldName.indexOf(".") + 1);
     }
-    validConditions.push(condition.name);
-    return true;
+    return fieldName;
   }
 
   onClickDefineCondition = (e) => {
