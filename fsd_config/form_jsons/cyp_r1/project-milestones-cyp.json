@@ -35,7 +35,8 @@
               "title": "When will you reach this milestone?",
               "hint": "For example, 3 2024",
               "name": "LZbOBu",
-              "nameHasError": false
+              "nameHasError": false,
+              "options": {}
             }
           ]
         }
@@ -477,7 +478,16 @@
     }
   ],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false
 }

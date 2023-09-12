@@ -92,7 +92,8 @@
                 "classes": "govuk-input--width-10"
               },
               "type": "NumberField",
-              "title": "Amount"
+              "title": "Amount",
+              "schema": {}
             },
             {
               "name": "kjuHtl",
@@ -169,7 +170,8 @@
                 "classes": "govuk-input--width-10"
               },
               "type": "NumberField",
-              "title": "Amount"
+              "title": "Amount",
+              "schema": {}
             },
             {
               "name": "MadvIr",
@@ -183,7 +185,8 @@
               "title": "When will you receive the additional funding?",
               "hint": "For example, 3 2024",
               "name": "HpLJyL",
-              "nameHasError": false
+              "nameHasError": false,
+              "options": {}
             },
             {
               "name": "MadvIr",
@@ -664,7 +667,16 @@
     }
   ],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false
 }

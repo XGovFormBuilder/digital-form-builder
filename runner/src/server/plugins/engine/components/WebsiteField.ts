@@ -15,8 +15,9 @@ export class WebsiteField extends TextField {
   constructor(def: WebsiteFieldComponent, model: FormModel) {
     super(def, model);
 
+    const { schema = {} } = def;
     this.options = def.options;
-    this.schema = def.schema;
+    this.schema = schema;
     this.formSchema = Joi.string();
 
     const isRequired = def.options.required ?? true;
@@ -32,12 +33,12 @@ export class WebsiteField extends TextField {
       .uri()
       .message(def.options?.customValidationMessage ?? this.defaultMessage);
 
-    if (def.schema.max) {
-      this.formSchema = this.formSchema.max(def.schema.max);
+    if (schema.max) {
+      this.formSchema = this.formSchema.max(schema.max);
     }
 
-    if (def.schema.min) {
-      this.formSchema = this.formSchema.min(def.schema.min);
+    if (schema.min) {
+      this.formSchema = this.formSchema.min(schema.min);
     }
 
     addClassOptionIfNone(this.options, "govuk-input--width-10");

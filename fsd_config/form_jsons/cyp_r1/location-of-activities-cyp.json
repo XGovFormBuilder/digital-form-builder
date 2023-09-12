@@ -16,7 +16,7 @@
       ],
       "next": [
         {
-          "path": "/local-authority-areas"
+          "path": "/local-authority-areas-wJVJuV"
         },
         {
           "path": "/check-your-answers-TENbOr",
@@ -26,7 +26,7 @@
       "section": "wxOzRK"
     },
     {
-      "path": "/local-authority-areas",
+      "path": "/local-authority-areas-wJVJuV",
       "title": "Which local authority areas will you work across?",
       "components": [
         {
@@ -504,7 +504,16 @@
     }
   ],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false
 }

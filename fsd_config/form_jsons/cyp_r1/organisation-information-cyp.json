@@ -44,10 +44,9 @@
         {
           "name": "jcmcJE",
           "options": {
-            "classes": "govuk-input",
             "hideTitle": true
           },
-          "type": "RadioField",
+          "type": "RadiosField",
           "title": "Organisation classification",
           "hint": "Select one option",
           "list": "jcXaBR"
@@ -205,7 +204,8 @@
               },
               "type": "WebsiteField",
               "title": "Website and social media",
-              "hint": "Link 1"
+              "hint": "Link 1",
+              "schema": {}
             },
             {
               "name": "OghGGr",
@@ -216,7 +216,8 @@
               },
               "type": "WebsiteField",
               "title": "Website and social media",
-              "hint": "Link 2 (optional)"
+              "hint": "Link 2 (optional)",
+              "schema": {}
             },
             {
               "name": "RphKTp",
@@ -227,7 +228,8 @@
               },
               "type": "WebsiteField",
               "title": "Website and social media",
-              "hint": "Link 3 (optional)"
+              "hint": "Link 3 (optional)",
+              "schema": {}
             }
           ]
         }
@@ -257,7 +259,8 @@
                 "classes": "govuk-!-width-full"
               },
               "type": "WebsiteField",
-              "title": "Link"
+              "title": "Link",
+              "schema": {}
             }
           ]
         }
@@ -473,7 +476,7 @@
           {
             "field": {
               "name": "jcXaBR",
-              "type": "RadioField",
+              "type": "RadiosField",
               "display": "How is your organisation classified?"
             },
             "operator": "is",
@@ -774,7 +777,16 @@
     }
   ],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false
 }

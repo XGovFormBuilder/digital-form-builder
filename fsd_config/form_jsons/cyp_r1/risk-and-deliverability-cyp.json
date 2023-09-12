@@ -53,8 +53,9 @@
               "options": {
                 "maxWords": "500"
               },
-              "type": "FreeTextField",
-              "title": "Risk"
+              "type": "MultilineTextField",
+              "title": "Risk",
+              "schema": {}
             },
             {
               "name": "eADHGN",
@@ -75,8 +76,9 @@
               "options": {
                 "maxWords": "500"
               },
-              "type": "FreeTextField",
-              "title": "Proposed mitigation"
+              "type": "MultilineTextField",
+              "title": "Proposed mitigation",
+              "schema": {}
             }
           ]
         }
@@ -550,7 +552,16 @@
     }
   ],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false
 }
