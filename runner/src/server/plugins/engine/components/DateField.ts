@@ -17,7 +17,7 @@ export class DateField extends FormComponent {
 
     let schema = joi.date();
 
-    schema = schema.label(def.title);
+    schema = schema.label(def.title.toLowerCase());
     const { maxDaysInPast, maxDaysInFuture } = options;
 
     if (maxDaysInPast ?? false) {

@@ -1,4 +1,3 @@
-import http from "http";
 import FormData from "form-data";
 
 import config from "../config";
@@ -14,6 +13,14 @@ const parsedError = (key: string, error?: string) => {
     name: key,
     text: error,
   };
+};
+
+const ERRORS = {
+  fileSizeError: 'The selected file for "%s" is too large',
+  fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
+  virusError: 'The selected file for "%s" contained a virus',
+  qualityError: 'The selected file for "%s" was too blurry',
+  default: "There was an error uploading your file",
 };
 
 export class UploadService {
@@ -55,32 +62,36 @@ export class UploadService {
       });
     }
 
-    const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await post(`${config.documentUploadApiUrl}/v1/files`, data);
-    return this.parsedDocumentUploadResponse(res);
+    const requestData = { headers: form.getHeaders(), payload: form };
+    const responseData = await post(
+      `${config.documentUploadApiUrl}/v1/files`,
+      requestData
+    );
+
+    return this.parsedDocumentUploadResponse(responseData);
   }
 
-  parsedDocumentUploadResponse(res: http.IncomingMessage) {
+  parsedDocumentUploadResponse({ res, payload }) {
+    const errorCodeFromApi = payload?.toString?.();
     let error: string | undefined;
     let location: string | undefined;
-
     switch (res.statusCode) {
       case 201:
         location = res.headers.location;
         break;
+      case 400:
+        error = ERRORS.fileTypeError;
+        break;
       case 413:
-        error = 'The selected file for "%s" is too large';
+        error = ERRORS.fileSizeError;
         break;
       case 422:
-        error = 'The selected file for "%s" contained a virus';
-        break;
-      case 400:
-        error = "Invalid file type. Upload a PNG, JPG or PDF";
+        error = ERRORS[errorCodeFromApi] ?? ERRORS.virusError;
         break;
       default:
-        error = "There was an error uploading your file";
+        error = ERRORS.default;
+        break;
     }
-
     return {
       location,
       error,
@@ -182,8 +193,8 @@ export class UploadService {
             ];
           }
         } catch (e) {
-          if (e.data && e.data.res) {
-            const { error } = this.parsedDocumentUploadResponse(e.data.res);
+          if (e.data?.res) {
+            const { error } = this.parsedDocumentUploadResponse(e.data);
             request.pre.errors = [
               ...(h.request.pre.errors || []),
               parsedError(key, error),

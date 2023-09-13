@@ -14,9 +14,10 @@
     "dev:submission": "concurrently 'yarn watch' 'yarn start:submission:local'",
     "dev:retention": "concurrently 'yarn watch' 'yarn start:retention:local'",
     "build": "babel --extensions '.ts' src -d dist",
-    "lint": "yarn bin/run eslint .",
+    "lint": "yarn eslint .",
     "fix-lint": "yarn bin/run eslint . --fix",
-    "test": "jest"
+    "test": "jest",
+    "test-cov": "jest --coverage"
   },
   "engines": {
     "node": ">=16"
@@ -25,8 +26,9 @@
     "@hapi/hapi": "^20.2.2",
     "config": "^3.3.7",
     "dotenv": "8.2.0",
+    "hapi-cron": "^1.1.0",
     "hapi-pino": "8.0.0",
-    "pino": "^6.0.0",
+    "pino": "8.15.1",
     "schmervice": "^1.6.0"
   },
   "devDependencies": {
@@ -46,7 +48,6 @@
     "@babel/register": "^7.21.0",
     "@types/config": "^3.3.0",
     "@types/hapi": "^18.0.7",
-    "@types/pino": "^6.0.0",
     "@xgovformbuilder/queue-model": "workspace:queue-model",
     "babel-jest": "^29.6.2",
     "eslint": "^8.11.0",

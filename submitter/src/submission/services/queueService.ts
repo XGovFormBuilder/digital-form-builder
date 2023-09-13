@@ -4,6 +4,12 @@ import { HapiServer } from "../types";
 import { prisma } from "../../prismaClient";
 import { WebhookService } from "./webhookService";
 
+const ERRORS = {
+  DB_FIND_ERROR: `Q001 - Prisma (ORM) could not find submissions`,
+  SUBMISSION: `Q002 - Post to webhook failed`,
+  UPDATE: `Q003 - Updating DB failed`,
+};
+
 export class QueueService {
   prisma: PrismaClient;
   logger: Server["logger"];
@@ -29,28 +35,39 @@ export class QueueService {
 
   async getSubmissions() {
     try {
-      return await this.prisma.submission.findMany({
+      const submissionRes = await this.prisma.submission.findMany({
         where: {
           complete: false,
-          webhook_url: {
-            not: null,
-          },
-          retry_counter: {
-            lt: this.MAX_RETRIES,
-          },
+          OR: [
+            {
+              allow_retry: true,
+              retry_counter: {
+                lt: this.MAX_RETRIES,
+              },
+            },
+            {
+              allow_retry: false,
+              error: null,
+            },
+          ],
         },
+        orderBy: [
+          {
+            created_at: "desc",
+          },
+          {
+            error: { sort: "asc", nulls: "first" },
+          },
+        ],
+        take: 1,
       });
+      return submissionRes.at(0);
     } catch (e) {
-      this.logger.error(["queueService", "processSubmissions"], e);
-      return [];
-    }
-  }
-
-  async processSubmissions() {
-    const submissions = await this.getSubmissions();
-    this.logger.info(`Found ${submissions.length} to submit`);
-    for (const row of submissions) {
-      await this.submit(row);
+      this.logger.error(
+        ["queueService", "processSubmissions"],
+        `${ERRORS.DB_FIND_ERROR}: ${e?.message ?? e}`
+      );
+      return;
     }
   }
 
@@ -75,7 +92,7 @@ export class QueueService {
         rowId: row.id,
         error,
       },
-      "Submission failed"
+      ERRORS.SUBMISSION
     );
 
     await this.prisma.submission.update({
@@ -107,7 +124,7 @@ export class QueueService {
         await this.updateWithSuccess(row, payload.reference);
       }
     } catch (err) {
-      this.logger.error(`${err}`);
+      this.logger.error(ERRORS.UPDATE);
     }
   }
 }
