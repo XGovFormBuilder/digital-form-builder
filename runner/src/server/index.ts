@@ -105,10 +105,6 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(Schmervice);
   await server.register(pluginAuth);
 
-  const statusServices = config.enableQueueService
-    ? [QueueStatusService, QueueService]
-    : [StatusService];
-
   server.registerService([
     CacheService,
     NotifyService,
@@ -117,8 +113,16 @@ async function createServer(routeConfig: RouteConfig) {
     EmailService,
     WebhookService,
     AddressService,
-    ...statusServices,
   ]);
+
+  if (config.enableQueueService) {
+    server.registerService([
+      QueueService,
+      Schmervice.withName("statusService", QueueStatusService),
+    ]);
+  } else {
+    server.registerService(StatusService);
+  }
 
   server.ext(
     "onPreResponse",
