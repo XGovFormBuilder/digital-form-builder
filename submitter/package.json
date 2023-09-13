@@ -16,7 +16,8 @@
     "build": "babel --extensions '.ts' src -d dist",
     "lint": "yarn eslint .",
     "fix-lint": "yarn bin/run eslint . --fix",
-    "test": "jest"
+    "test": "jest",
+    "test-cov": "jest --coverage"
   },
   "engines": {
     "node": ">=16"
