@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       app:
-        description: the app to build "designer" or "runner"
+        description: the app to build "designer", "runner" or "sumbitter"
         required: true
         type: string
       publish:
