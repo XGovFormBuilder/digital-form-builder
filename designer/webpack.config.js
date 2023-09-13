@@ -40,7 +40,6 @@ const client = {
         exclude: [
           {
             test: /node_modules/,
-            // Exclude the following from the exclusion
             exclude: /pino/,
           },
         ],
