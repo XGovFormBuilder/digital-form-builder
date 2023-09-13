@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       app:
-        description: the app to build "designer" or "runner"
+        description: the app to build "designer", "runner" or "sumbitter"
         required: true
         type: string
       publish:
@@ -22,7 +22,6 @@ on:
       hash:
         description: hash used for docker caching
         value: ${{ jobs.build-app.outputs.hash }}
-
 
 jobs:
   build-app:
@@ -64,7 +63,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
 
         # The hash is a function of the Dockerfile and the yarn.lock Packages take up the bulk of the time during a docker build. The hash is used to cache the docker builds.
         # As long as the yarn.lock and dockerfiles are the same, you will be able to share this cache with another commit/branch.
