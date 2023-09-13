@@ -110,7 +110,7 @@
     "@types/wreck": "^14.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "@xgovformbuilder/model": "workspace:model",
-    "@xgovformbuilder/queueModel": "workspace:queueModel",
+    "@xgovformbuilder/queue-model": "workspace:queue-model",
     "acorn": "^8.7.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-module-name-mapper": "^1.2.0",

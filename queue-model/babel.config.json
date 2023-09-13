@@ -12,12 +12,6 @@
           }
         ]
       ],
-      "plugins": [
-        "@babel/plugin-proposal-export-default-from",
-        "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-proposal-private-methods",
-        "@babel/plugin-transform-runtime"
-      ],
       "sourceMaps": true
     }
   }
