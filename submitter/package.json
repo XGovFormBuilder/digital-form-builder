@@ -14,7 +14,7 @@
     "dev:submission": "concurrently 'yarn watch' 'yarn start:submission:local'",
     "dev:retention": "concurrently 'yarn watch' 'yarn start:retention:local'",
     "build": "babel --extensions '.ts' src -d dist",
-    "lint": "yarn bin/run eslint .",
+    "lint": "yarn eslint .",
     "fix-lint": "yarn bin/run eslint . --fix",
     "test": "jest"
   },
