@@ -4300,46 +4300,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/pino-pretty@npm:*":
-  version: 4.7.5
-  resolution: "@types/pino-pretty@npm:4.7.5"
-  dependencies:
-    "@types/node": "*"
-    "@types/pino": 6.3
-  checksum: 80b3e80d1d9b52f015382bbd544206228d0c35eed1a0e1443245568eee01191b5fe916e7821de2922846f267e5d0693f4796562d3bcf24266156d1abc9e2e673
-  languageName: node
-  linkType: hard
-
-"@types/pino-std-serializers@npm:*":
-  version: 2.4.1
-  resolution: "@types/pino-std-serializers@npm:2.4.1"
-  dependencies:
-    "@types/node": "*"
-  checksum: a156e25882db9aade2576dbe6414379efcdd4fad24211d3f22f20e0cd4bee569215799ee5cd9b2b15282f18461a8a54573ff42bf6bee5d35b72513be2f78bdec
-  languageName: node
-  linkType: hard
-
-"@types/pino@npm:6.3, @types/pino@npm:^6.0.0":
-  version: 6.3.12
-  resolution: "@types/pino@npm:6.3.12"
-  dependencies:
-    "@types/node": "*"
-    "@types/pino-pretty": "*"
-    "@types/pino-std-serializers": "*"
-    sonic-boom: ^2.1.0
-  checksum: 801735146669312d02459781e5180220630eaef643da36dc5a9a97520e7ecc3da7270f31a86fcdcb1dc835073c9143fc628024ba5e3a0ea7cbb86aada4897709
-  languageName: node
-  linkType: hard
-
-"@types/pino@npm:^7.0.5":
-  version: 7.0.5
-  resolution: "@types/pino@npm:7.0.5"
-  dependencies:
-    pino: "*"
-  checksum: f1c59f7d9a7b717e014e93a6e3f235cf824c93696f6530d41316a6188eb6e3846ce44941d2641665c6a4d0dc64a63ea24e277b2acff52e766ad7169e1a20f973
-  languageName: node
-  linkType: hard
-
 "@types/podium@npm:*":
   version: 1.0.1
   resolution: "@types/podium@npm:1.0.1"
@@ -5016,7 +4976,6 @@ __metadata:
     "@types/dagre": ^0.7.47
     "@types/hapi": ^18.0.7
     "@types/node": ^17.0.21
-    "@types/pino": ^7.0.5
     "@types/react": ^17.0.39
     "@types/react-dom": ^17.0.11
     "@typescript-eslint/eslint-plugin": ^5.13.0
@@ -5227,7 +5186,6 @@ __metadata:
     "@types/hoek": ^4.1.4
     "@types/mysql": ^2.15.21
     "@types/nodemailer": ^6.4.4
-    "@types/pino": ^7.0.5
     "@types/url-parse": ^1.4.8
     "@types/wreck": ^14.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
@@ -5273,7 +5231,7 @@ __metadata:
     notifications-node-client: ^5.2.0
     nunjucks: ^3.2.3
     pdfmake: 0.1.65
-    pino: ^6.0.0
+    pino: 8.15.1
     prisma: ^5.1.1
     resolve: ^1.19.0
     sass: ^1.49.9
@@ -5308,7 +5266,6 @@ __metadata:
     "@hapi/hapi": ^20.2.2
     "@types/config": ^3.3.0
     "@types/hapi": ^18.0.7
-    "@types/pino": ^6.0.0
     "@xgovformbuilder/queue-model": "workspace:queue-model"
     babel-jest: ^29.6.2
     config: ^3.3.7
@@ -5320,7 +5277,7 @@ __metadata:
     jest: ^26.6.3
     jest-mock-extended: ^3.0.5
     nodemon: ^3.0.1
-    pino: ^6.0.0
+    pino: 8.15.1
     prisma: ^5.1.1
     schmervice: ^1.6.0
     typescript: 4.9.5
@@ -17246,13 +17203,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino-abstract-transport@npm:v1.0.0":
-  version: 1.0.0
-  resolution: "pino-abstract-transport@npm:1.0.0"
+"pino-abstract-transport@npm:v1.1.0":
+  version: 1.1.0
+  resolution: "pino-abstract-transport@npm:1.1.0"
   dependencies:
     readable-stream: ^4.0.0
     split2: ^4.0.0
-  checksum: 05dd0eda52dd99fd204b39fe7b62656744b63e863bc052cdd5105d25f226a236966d0a46e39a1ace4838f6e988c608837ff946d2d0bc92835ca7baa0a3bff8d8
+  checksum: cc84caabee5647b5753ae484d5f63a1bca0f6e1791845e2db2b6d830a561c2b5dd1177720f68d78994c8a93aecc69f2729e6ac2bc871a1bf5bb4b0ec17210668
   languageName: node
   linkType: hard
 
@@ -17292,14 +17249,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino@npm:*":
-  version: 8.14.2
-  resolution: "pino@npm:8.14.2"
+"pino@npm:8.15.1":
+  version: 8.15.1
+  resolution: "pino@npm:8.15.1"
   dependencies:
     atomic-sleep: ^1.0.0
     fast-redact: ^3.1.1
     on-exit-leak-free: ^2.1.0
-    pino-abstract-transport: v1.0.0
+    pino-abstract-transport: v1.1.0
     pino-std-serializers: ^6.0.0
     process-warning: ^2.0.0
     quick-format-unescaped: ^4.0.3
@@ -17309,7 +17266,7 @@ __metadata:
     thread-stream: ^2.0.0
   bin:
     pino: bin.js
-  checksum: 9b777472be2d57a3120f7fd39090d04eacd3af1b25d74ebf606defb9c34fd587820f91ca12bfe52e61330e5fd9f72f67db98293c0ff8c77893e855a65f1dadf0
+  checksum: cbc6aa4e7fcf28dac326292f6c9276bb6abd1c480e49a830601071c99fc74c09eb56c7049034ea011ccf7a224243af3452f59b73f07f4a22929b8f886130d5a2
   languageName: node
   linkType: hard
 
@@ -19595,15 +19552,6 @@ __metadata:
     atomic-sleep: ^1.0.0
     flatstr: ^1.0.12
   checksum: 189fa8fe5c2dc05d3513fc1a4926a2f16f132fa6fa0b511745a436010cdcd9c1d3b3cb6a9d7c05bd32a965dc77673a5ac0eb0992e920bdedd16330d95323124f
-  languageName: node
-  linkType: hard
-
-"sonic-boom@npm:^2.1.0":
-  version: 2.8.0
-  resolution: "sonic-boom@npm:2.8.0"
-  dependencies:
-    atomic-sleep: ^1.0.0
-  checksum: c7f9c89f931d7f60f8e0741551a729f0d81e6dc407a99420fc847a9a4c25af048a615b1188ab3c4f1fb3708fe4904973ddab6ebcc8ed5b78b50ab81a99045910
   languageName: node
   linkType: hard
 
