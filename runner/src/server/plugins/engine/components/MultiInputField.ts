@@ -78,6 +78,20 @@ export class MultiInputField extends FormComponent {
             }`;
           } else if (componentType == "YesNoField") {
             keyToRenderedValue[key] = value ? "Yes" : "No";
+          } else if (componentType == "UkAddressField") {
+            keyToRenderedValue[key] = value
+              ? [
+                  value.addressLine1,
+                  value.addressLine2,
+                  value.town,
+                  value.county,
+                  value.postcode,
+                ]
+                  .filter((p) => {
+                    return !!p;
+                  })
+                  .join(", ")
+              : "";
           } else {
             keyToRenderedValue[key] = `${this.getPrefix(key)}${value}`;
           }

@@ -4,9 +4,11 @@
 {% from "character-count/macro.njk" import govukCharacterCount %}
 {% from "./textfield.html" import TextField %}
 {% from "radios/macro.njk" import govukRadios %}
+{% from "../partials/components.html" import componentList %}
 
 
 {% macro MultiInputField(component) %}
+<!--TODO lets see if we can come up with a better way of rendering this -->
     {% for item in component.model.items %}
     <label class="govuk-label" for={{item.id}}>
         {{item.label}}
@@ -26,6 +28,10 @@
         {{ govukRadios(item) }}
         {% elif item.componentType == "MonthYearField" %}
         {{ govukDateInput(item) }}
+        {% elif item.componentType == "WebsiteField" %}
+        {{ govukInput(item) }}
+        {% elif item.componentType == "UkAddressField" %}
+        {{ componentList(item.children) }}
         {%endif%}
     </label>
     {% endfor %}

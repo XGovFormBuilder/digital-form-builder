@@ -8,6 +8,7 @@ import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
 import { parseISO, format } from "date-fns";
 import config from "server/config";
 import { SaveViewModel } from "../models";
+import { UkAddressField } from "../components";
 export class RepeatingSummaryPageController extends PageController {
   private getRoute!: HapiLifecycleMethod;
   private postRoute!: HapiLifecycleMethod;
@@ -194,6 +195,20 @@ export class RepeatingSummaryPageController extends PageController {
       return value[`${key}__month`] + "/" + value[`${key}__year`];
     } else if (componentType == "YesNoField") {
       return value ? "Yes" : "No";
+    } else if (componentType == "UkAddressField") {
+      return value
+        ? [
+            value.addressLine1,
+            value.addressLine2,
+            value.town,
+            value.county,
+            value.postcode,
+          ]
+            .filter((p) => {
+              return !!p;
+            })
+            .join(", ")
+        : "";
     }
 
     return `${this.inputComponent.getPrefix(key)}${value}`;
@@ -220,9 +235,9 @@ export class RepeatingSummaryPageController extends PageController {
 
       const row = {
         action: {
-          href: `?removeAtIndex=${i}${
-            view ? `&view=${view}` : ``
-          }${form_session_identifier}`,
+          href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}${
+            form_session_identifier ? form_session_identifier : ``
+          }`,
           text: this.options.customText?.removeText ?? "Remove",
           visuallyHiddenText: title,
         },

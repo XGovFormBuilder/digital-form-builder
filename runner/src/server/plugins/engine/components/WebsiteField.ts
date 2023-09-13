@@ -3,6 +3,7 @@ import Joi, { StringSchema } from "joi";
 import { FormModel } from "../models";
 import { TextField } from "./TextField";
 import { addClassOptionIfNone } from "./helpers";
+import { FormData, FormSubmissionErrors } from "../types";
 
 export class WebsiteField extends TextField {
   private defaultMessage =
@@ -54,5 +55,18 @@ export class WebsiteField extends TextField {
     return {
       [this.name]: this.formSchema,
     };
+  }
+
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const options: any = this.options;
+    const schema: any = this.schema;
+    const viewModel = super.getViewModel(formData, errors);
+
+    if (options.hideTitle) {
+      viewModel.label = { text: "", html: viewModel.hint?.html!, classes: "" };
+      viewModel.hint = { html: this.localisedString(this.hint) };
+    }
+
+    return viewModel;
   }
 }
