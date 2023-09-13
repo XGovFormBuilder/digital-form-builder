@@ -29,6 +29,7 @@ export class WebhookService {
       parsed = JSON.parse(data);
     } catch (e) {
       this.logger.error(`Not submitting ${data}, ${e}`);
+      return { payload: { error: e.message } };
     }
 
     this.logger.info({ data: parsed }, `${method} to ${url}`);
