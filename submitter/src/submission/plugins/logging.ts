@@ -4,7 +4,7 @@ import config from "../../config";
 export const pluginLogging = {
   plugin: pino,
   options: {
-    prettyPrint: config.logPrettyPrint,
+    prettyPrint: true,
     level: config.logLevel,
     formatters: {
       level: (label) => {

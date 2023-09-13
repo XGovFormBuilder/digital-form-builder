@@ -1,13 +1,14 @@
 import { PrismaClient, Submission } from "@xgovformbuilder/queue-model";
 import { Server } from "@hapi/hapi";
-import { WebhookService } from "./webhookService";
 import { HapiServer } from "../types";
 import { prisma } from "../../prismaClient";
+import { WebhookService } from "./webhookService";
 
 export class QueueService {
   prisma: PrismaClient;
   logger: Server["logger"];
   webhookService: WebhookService;
+  MAX_RETRIES = 1000;
 
   constructor(server: HapiServer) {
     this.prisma = prisma;
@@ -16,70 +17,62 @@ export class QueueService {
     this.webhookService = webhookService;
   }
 
-  async openConnection() {
-    await this.prisma.$connect();
-  }
-
-  async processSubmissions() {
+  async getSubmissions() {
     try {
-      const rows = await this.prisma.submission.findMany({
+      return await this.prisma.submission.findMany({
         where: {
-          error: null,
           complete: false,
           webhook_url: {
             not: null,
           },
           retry_counter: {
-            lt: 5,
+            lt: this.MAX_RETRIES,
           },
         },
       });
-      if (rows.length > 0) {
-        for (const row of rows) {
-          const result = await this.webhookService.postRequest(
-            row.webhook_url as string,
-            JSON.parse(row.data),
-            "POST"
-          );
-          if (result.message) {
-            await this.updateWithError(row, result);
-            continue;
-          }
-          await this.updateWithSuccess(row, result);
-        }
-      }
-    } catch (err) {
-      this.logger.error(
-        ["queueService", "processSubmissions"],
-        (err as Error).message
-      );
+    } catch (e) {
+      this.logger.error(["queueService", "processSubmissions"], e);
+      return [];
     }
   }
 
-  async updateWithSuccess(row: Submission, result: any) {
-    this.logger.info(
-      ["QueueService", "updateWithSuccess", `row ref: ${row.id}`],
-      `return ref: ${result}`
-    );
-    await this.prisma.submission.update({
+  async processSubmissions() {
+    const submissions = await this.getSubmissions();
+    this.logger.info(`Found ${submissions.length} to submit`);
+    for (const row of submissions) {
+      await this.submit(row);
+    }
+  }
+
+  async updateWithSuccess(row: Submission, reference: string = "UNKNOWN") {
+    const update = this.prisma.submission.update({
       data: {
-        return_reference: result,
+        return_reference: reference,
         complete: true,
       },
       where: {
         id: row.id,
+        complete: false,
       },
     });
+
+    this.logger.info(update);
+
+    this.logger.info(update, `${row.id} succeeded: ${reference}`);
   }
 
-  async updateWithError(row: Submission, result: any) {
+  async updateWithError(row: Submission, error) {
     this.logger.error(
-      ["QueueService", "updateWithError", `row ref: ${row.id}`],
-      result
+      {
+        rowId: row.id,
+        error,
+      },
+      "Submission failed"
     );
+
     await this.prisma.submission.update({
       data: {
-        error: result.message,
+        error: JSON.stringify(error),
         retry_counter: row.retry_counter + 1,
       },
       where: {
@@ -89,7 +82,24 @@ export class QueueService {
     return;
   }
 
-  async closeConnection() {
-    await this.prisma.$disconnect();
+  async submit(row) {
+    // this.logger.info(row, "POST");
+
+    try {
+      const { payload } = await this.webhookService.postRequest(
+        row.webhook_url,
+        row.data
+      );
+
+      if (payload.error) {
+        // await this.updateWithError(row, payload);
+      }
+
+      if (payload.reference) {
+        await this.updateWithSuccess(row, payload.reference);
+      }
+    } catch (err) {
+      this.logger.error(`${err}`);
+    }
   }
 }

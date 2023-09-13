@@ -2,20 +2,19 @@ import { HapiServer } from "server/types";
 import { PrismaClient } from "@xgovformbuilder/queue-model";
 import { prisma } from "../prismaClient";
 import config from "../config";
-import { EventEmitter } from "events";
 
 type QueueResponse = [number, string | undefined];
 export class QueueService {
   prisma: PrismaClient;
   logger: HapiServer["logger"];
   interval: number;
-  emitter: EventEmitter;
+  // emitter: EventEmitter;
 
   constructor(server: HapiServer) {
     this.prisma = prisma;
     this.logger = server.logger;
     this.interval = parseInt(config.queueServicePollingInterval);
-    this.emitter = new EventEmitter();
+    // this.emitter = new EventEmitter();
   }
 
   /**

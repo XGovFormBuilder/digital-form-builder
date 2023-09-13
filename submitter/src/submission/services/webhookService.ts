@@ -11,48 +11,43 @@ const DEFAULT_OPTIONS = {
 
 export class WebhookService {
   logger: any;
+
   constructor(server: HapiServer) {
     this.logger = server.logger;
   }
 
-  /**
-   * Posts data to a webhook
-   * @param url - url of the webhook
-   * @param data - object to send to the webhook
-   * @param method - POST or PUT request, defaults to POST
-   * @param ref - the reference being used in the submission
-   * @returns object with the property `reference` webhook if the response returns with a reference number. If the call fails, the reference will be 'UNKNOWN'.
-   */
   async postRequest(
     url: string,
-    data: object,
+    data: string,
     method: "POST" | "PUT" = "POST"
   ) {
-    this.logger.info(
-      ["WebhookService", "postRequest body"],
-      JSON.stringify(data)
-    );
-    let request = method === "POST" ? post : put;
+    const request = method === "POST" ? post : put;
+
+    let parsed;
+
+    try {
+      parsed = JSON.parse(data);
+    } catch (e) {
+      this.logger.error(`Not submitting ${data}, ${e}`);
+    }
+
+    this.logger.info({ data: parsed }, `${method} to ${url}`);
+
     try {
       const { payload } = await request(url, {
         ...DEFAULT_OPTIONS,
-        payload: JSON.stringify(data),
+        payload: parsed,
       });
 
       const { reference } = JSON.parse(payload);
 
-      this.logger.info(
-        ["WebhookService", "postRequest"],
-        `Webhook request to ${url} submitted OK`
-      );
-      this.logger.info(
-        ["WebhookService", "postRequest", `url: ${url}`],
-        payload
-      );
-      return reference ?? "UNKNOWN";
-    } catch (error) {
-      this.logger.error(["WebhookService", "postRequest"], error);
-      return error as Error;
+      return { payload: { reference: reference ?? "UNKNOWN" } };
+    } catch (e) {
+      if (e.isBoom) {
+        return e.output;
+      }
+      this.logger.error({ data }, e);
+      return { payload: { error: e.message } };
     }
   }
 }

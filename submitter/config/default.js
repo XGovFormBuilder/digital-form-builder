@@ -33,6 +33,6 @@ module.exports = {
   queueDatabaseUrl: "",
   queueDatabaseUsername: "",
   queueDatabasePassword: "",
-  pollingInterval: "5000",
+  pollingInterval: "2000",
   retentionPeriod: "365",
 };
