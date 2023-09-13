@@ -1,5 +1,5 @@
-import type { Prisma } from "@xgovformbuilder/queueModel";
-import { PrismaClient } from "@xgovformbuilder/queueModel";
+import type { Prisma } from "@xgovformbuilder/queue-model";
+import { PrismaClient } from "@xgovformbuilder/queue-model";
 import config from "./config";
 import logger from "pino";
 

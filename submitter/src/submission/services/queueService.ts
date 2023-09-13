@@ -1,4 +1,4 @@
-import { PrismaClient, Submission } from "@xgovformbuilder/queueModel";
+import { PrismaClient, Submission } from "@xgovformbuilder/queue-model";
 import { Server } from "@hapi/hapi";
 import { WebhookService } from "./webhookService";
 import { HapiServer } from "../types";

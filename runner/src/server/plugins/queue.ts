@@ -8,7 +8,7 @@ export const pluginQueue = {
   register: async function (server, options) {
     if (DEFAULT_OPTIONS.enableQueueService) {
       const schemaLocation = require.resolve(
-        "@xgovformbuilder/queueModel/schema.prisma"
+        "@xgovformbuilder/queue-model/schema.prisma"
       );
 
       const child = spawnSync(
