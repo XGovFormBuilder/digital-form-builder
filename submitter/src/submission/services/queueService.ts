@@ -48,7 +48,6 @@ export class QueueService {
 
   async processSubmissions() {
     const submissions = await this.getSubmissions();
-    console.log(submissions);
     this.logger.info(`Found ${submissions.length} to submit`);
     for (const row of submissions) {
       await this.submit(row);
@@ -82,7 +81,9 @@ export class QueueService {
     await this.prisma.submission.update({
       data: {
         error: JSON.stringify(error),
-        retry_counter: row.retry_counter + 1,
+        retry_counter: {
+          increment: 1,
+        },
       },
       where: {
         id: row.id,
