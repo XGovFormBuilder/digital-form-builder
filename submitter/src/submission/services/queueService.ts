@@ -15,6 +15,16 @@ export class QueueService {
     this.logger = server.logger;
     const { webhookService } = server.services([]);
     this.webhookService = webhookService;
+
+    if (process.env.MAX_RETRIES) {
+      try {
+        this.MAX_RETRIES = parseInt(process.env.MAX_RETRIES);
+      } catch (e) {
+        this.logger.warn(
+          `MAX_RETRIES was set to ${process.env.MAX_RETRIES} but could not be parsed. Using ${this.MAX_RETRIES} instead`
+        );
+      }
+    }
   }
 
   async getSubmissions() {
@@ -38,6 +48,7 @@ export class QueueService {
 
   async processSubmissions() {
     const submissions = await this.getSubmissions();
+    console.log(submissions);
     this.logger.info(`Found ${submissions.length} to submit`);
     for (const row of submissions) {
       await this.submit(row);
@@ -45,7 +56,7 @@ export class QueueService {
   }
 
   async updateWithSuccess(row: Submission, reference: string = "UNKNOWN") {
-    const update = this.prisma.submission.update({
+    const update = await this.prisma.submission.update({
       data: {
         return_reference: reference,
         complete: true,
@@ -55,8 +66,6 @@ export class QueueService {
         complete: false,
       },
     });
-
-    this.logger.info(update);
 
     this.logger.info(update, `${row.id} succeeded: ${reference}`);
   }
@@ -83,8 +92,6 @@ export class QueueService {
   }
 
   async submit(row) {
-    // this.logger.info(row, "POST");
-
     try {
       const { payload } = await this.webhookService.postRequest(
         row.webhook_url,
@@ -92,7 +99,7 @@ export class QueueService {
       );
 
       if (payload.error) {
-        // await this.updateWithError(row, payload);
+        await this.updateWithError(row, payload);
       }
 
       if (payload.reference) {
