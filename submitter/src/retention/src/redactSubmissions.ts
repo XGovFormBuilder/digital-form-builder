@@ -8,24 +8,14 @@ export async function redactSubmissions() {
     today.getMonth(),
     today.getDate() - parseInt(config.retentionPeriod)
   );
-  const validSubs = await prisma.submission.findMany({
-    where: {
-      updated_at: {
-        lt: retentionLimit,
-      },
-      complete: true,
-    },
-    select: {
-      id: true,
-    },
-  });
-  if (validSubs.length > 0) {
-    prisma.submission.deleteMany({
+  try {
+    await prisma.submission.deleteMany({
       where: {
-        id: {
-          in: validSubs.map((sub) => sub.id),
+        updated_at: {
+          lt: retentionLimit,
         },
+        complete: true,
       },
     });
-  }
+  } catch (e) {}
 }
