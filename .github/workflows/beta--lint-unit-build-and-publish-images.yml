@@ -62,7 +62,7 @@ jobs:
     secrets: inherit
     with:
       semver: ${{ needs.assign-semver.outputs.SEMVER }}-beta
-      publish: false
+      publish: true
       app: ${{matrix.app}}
 
   tag-branch:
