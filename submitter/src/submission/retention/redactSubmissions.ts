@@ -1,6 +1,7 @@
 import config from "../../config";
 import { prisma } from "../../prismaClient";
 import { pino } from "pino";
+import { R_ERRORS } from "./errors";
 const logger = pino().child({ process: "removeExpired" });
 
 let RETENTION_PERIOD = 365;
@@ -9,7 +10,7 @@ try {
   RETENTION_PERIOD = parseInt(config.retentionPeriod);
   logger.info(`config.retentionPeriod set to ${config.rentionPeriod}`);
 } catch (e) {
-  logger.error(ERRORS.CONFIG);
+  logger.error(R_ERRORS.CONFIG);
 }
 
 export async function redactSubmissions() {
@@ -36,6 +37,6 @@ export async function redactSubmissions() {
 
     logger.info(`deleted ${del.count} records`);
   } catch (e) {
-    logger.error(e, `${ERRORS.DELETION_FAILED} < ${retentionLimit}`);
+    logger.error(e, `${R_ERRORS.DELETION_FAILED} < ${retentionLimit}`);
   }
 }
