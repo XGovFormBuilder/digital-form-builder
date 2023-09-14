@@ -61,7 +61,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     secrets: inherit
     with:
-      semver: ${{ needs.assign-semver.outputs.SEMVER }}-beta
+      semver: ${{ needs.assign-semver.outputs.SEMVER }}
       publish: false
       app: ${{matrix.app}}
 
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [calculate-version, assign-semver, build-and-publish-images]
     env:
-      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}-beta
+      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -77,5 +77,5 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
       - name: Tag branch with run number
         run: |
-          git tag ${{ env.SEMVER }}-beta
+          git tag ${{ env.SEMVER }}
           git push --tags origin HEAD
