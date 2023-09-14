@@ -66,7 +66,7 @@ module.exports = {
    * Redis integration is optional, but recommended for production environments.
    */
   sessionTimeout: 20 * minute,
-  confirmationSessionTimeout: 1,
+  confirmationSessionTimeout: 20 * minute,
   paymentSessionTimeout: 90 * minute, // GOV.UK Pay sessions are 90 minutes. It is possible a user takes longer than 20 minutes to complete a payment.
   // sessionCookiePassword: "",
   // redisHost: "http://localhost",
@@ -128,15 +128,7 @@ module.exports = {
   logRedactPaths: ["req.headers['x-forwarded-for']"], // You should check your privacy policy before disabling this. Check https://getpino.io/#/docs/redaction on how to configure redaction paths
 
   safelist: ["61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
-  /**
-   * Failure queue
-   */
-  enableQueueService: false,
-  queueDatabaseUrl: "",
-  queueDatabaseUsername: "",
-  queueDatabasePassword: "",
 
-  safelist: ["61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
   /**
    * Failure queue
    */
