@@ -2449,6 +2449,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/hoek@npm:^6.1.2":
+  version: 6.2.4
+  resolution: "@hapi/hoek@npm:6.2.4"
+  checksum: 17e6e687509c20d3730dfb14b05536024d50253e96fcd0c7a4df8247e3a30568a8028b59208173f3e63dbab3eb6b71f07eff06b234dd5c2bd773d254af769e37
+  languageName: node
+  linkType: hard
+
 "@hapi/inert@npm:^6.0.1, @hapi/inert@npm:^6.0.5":
   version: 6.0.5
   resolution: "@hapi/inert@npm:6.0.5"
@@ -5273,6 +5280,7 @@ __metadata:
     eslint: ^8.11.0
     eslint-plugin-import: ^2.25.4
     eslint-plugin-tsdoc: ^0.2.14
+    hapi-cron: ^1.1.0
     hapi-pino: 8.0.0
     jest: ^26.6.3
     jest-mock-extended: ^3.0.5
@@ -8052,6 +8060,15 @@ __metadata:
   version: 1.1.1
   resolution: "create-require@npm:1.1.1"
   checksum: a9a1503d4390d8b59ad86f4607de7870b39cad43d929813599a23714831e81c520bddf61bcdd1f8e30f05fd3a2b71ae8538e946eb2786dc65c2bbc520f692eff
+  languageName: node
+  linkType: hard
+
+"cron@npm:^1.7.1":
+  version: 1.8.2
+  resolution: "cron@npm:1.8.2"
+  dependencies:
+    moment-timezone: ^0.5.x
+  checksum: 9df2d2e24684e1ebce37e3e29c183b1dfecf7adb5fb16f84435014e7205926fc9868e9bfacfa5f7b93c556c9f4a6fbcce5fde9bee1306d20bc848568bb587791
   languageName: node
   linkType: hard
 
@@ -11644,6 +11661,16 @@ __metadata:
   bin:
     handlebars: bin/handlebars
   checksum: 00e68bb5c183fd7b8b63322e6234b5ac8fbb960d712cb3f25587d559c2951d9642df83c04a1172c918c41bcfc81bfbd7a7718bbce93b893e0135fc99edea93ff
+  languageName: node
+  linkType: hard
+
+"hapi-cron@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "hapi-cron@npm:1.1.0"
+  dependencies:
+    "@hapi/hoek": ^6.1.2
+    cron: ^1.7.1
+  checksum: 8e24bf17d9af49aa5f544d0464109f4c5b1d8c9a2cae3034d161e8a532d024d3d646c2be77e9dc2a16311205b4b75b8daecf29516f8750ac2c66367e6936bee3
   languageName: node
   linkType: hard
 
@@ -15795,6 +15822,15 @@ __metadata:
   version: 2.2.3
   resolution: "module-alias@npm:2.2.3"
   checksum: 6169187f69de8dcf8af8fab4d9e53ada6338a43f7670d38d0b27a089c28f9eb18d85a6fd46f11b54c63079a68449b85d071d7db0ac067f9f7faedbcd6231456d
+  languageName: node
+  linkType: hard
+
+"moment-timezone@npm:^0.5.x":
+  version: 0.5.43
+  resolution: "moment-timezone@npm:0.5.43"
+  dependencies:
+    moment: ^2.29.4
+  checksum: 8075c897ed8a044f992ef26fe8cdbcad80caf974251db424cae157473cca03be2830de8c74d99341b76edae59f148c9d9d19c1c1d9363259085688ec1cf508d0
   languageName: node
   linkType: hard
 

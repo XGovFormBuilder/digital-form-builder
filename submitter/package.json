@@ -26,6 +26,7 @@
     "@hapi/hapi": "^20.2.2",
     "config": "^3.3.7",
     "dotenv": "8.2.0",
+    "hapi-cron": "^1.1.0",
     "hapi-pino": "8.0.0",
     "pino": "8.15.1",
     "schmervice": "^1.6.0"
