@@ -59,6 +59,9 @@
     "prisma": "^5.1.1",
     "typescript": "4.9.5"
   },
+  "resolutions": {
+    "@hapi/hoek": "^8.5.2"
+  },
   "pkg": {
     "assets": [
       "../node_modules/.prisma/client/*.node"
