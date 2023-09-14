@@ -61,7 +61,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     secrets: inherit
     with:
-      semver: ${{ needs.assign-semver.outputs.SEMVER }}
+      semver: ${{ needs.assign-semver.outputs.SEMVER }}-beta
       publish: false
       app: ${{matrix.app}}
 
