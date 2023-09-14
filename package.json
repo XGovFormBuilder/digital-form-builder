@@ -93,7 +93,7 @@
     "@xmldom/xmldom": "0.8.6",
     "@cypress/request": "3.x.x",
     "@adobe/css-tools": "4.3.1",
-    "@hapi/hoek@npm:6.2.4": "^8.5.2"
+    "@hapi/hoek@6.x.x": "8.5.2"
   },
   "husky": {
     "hooks": {
