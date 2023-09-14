@@ -1,4 +1,4 @@
-import { pino } from "pino";
+import pino from "pino";
 const logLevel = process.env.REACT_LOG_LEVEL;
 
 export default pino({
