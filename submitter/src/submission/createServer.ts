@@ -5,6 +5,8 @@ import config from "../config";
 import { QueueService, WebhookService } from "./services";
 import Schmervice from "schmervice";
 import { pluginPoll } from "./plugins/poll";
+import { pluginRetention } from "./plugins/retention";
+import { pluginRetentionCron } from "./plugins/retentionCron";
 
 const serverOptions: ServerOptions = {
   debug: { request: [`${config.isDev}`] },
@@ -41,13 +43,8 @@ export async function createServer(): Promise<hapi.Server> {
   server.registerService([WebhookService, QueueService]);
 
   await server.register(pluginPoll);
+  await server.register(pluginRetention);
+  await server.register(pluginRetentionCron);
 
-  server.ext({
-    type: "onPreStop",
-    method: async function () {
-      const { queueService } = server.services([]);
-      await queueService.closeConnection();
-    },
-  });
   return server;
 }

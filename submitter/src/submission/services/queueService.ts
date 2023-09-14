@@ -4,6 +4,12 @@ import { HapiServer } from "../types";
 import { prisma } from "../../prismaClient";
 import { WebhookService } from "./webhookService";
 
+const ERRORS = {
+  DB_FIND_ERROR: `Q001 - Prisma (ORM) could not find submissions`,
+  SUBMISSION: `Q002 - Post to webhook failed`,
+  UPDATE: `Q003 - Updating DB failed`,
+};
+
 export class QueueService {
   prisma: PrismaClient;
   logger: Server["logger"];
@@ -41,7 +47,10 @@ export class QueueService {
         },
       });
     } catch (e) {
-      this.logger.error(["queueService", "processSubmissions"], e);
+      this.logger.error(
+        ["queueService", "processSubmissions"],
+        `${ERRORS.DB_FIND_ERROR}: ${e?.message ?? e}`
+      );
       return [];
     }
   }
@@ -75,7 +84,7 @@ export class QueueService {
         rowId: row.id,
         error,
       },
-      "Submission failed"
+      ERRORS.SUBMISSION
     );
 
     await this.prisma.submission.update({
@@ -107,7 +116,7 @@ export class QueueService {
         await this.updateWithSuccess(row, payload.reference);
       }
     } catch (err) {
-      this.logger.error(`${err}`);
+      this.logger.error(ERRORS.UPDATE);
     }
   }
 }
