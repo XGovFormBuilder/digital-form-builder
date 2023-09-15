@@ -31,19 +31,15 @@ const index = {
           ],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { statusService, cacheService } = request.services([]);
-            let queueService;
-            if (config.enableQueueService) {
-              const { queueStatusService } = request.services([]);
-              queueService = queueStatusService;
-            }
+
             const { params } = request;
             const form = server.app.forms[params.id];
 
             const state = await cacheService.getState(request);
 
-            const { reference: newReference } =
-              (await queueService.outputRequests(request)) ??
-              (await statusService.outputRequests(request));
+            const {
+              reference: newReference,
+            } = await statusService.outputRequests(request);
 
             if (state.callback?.skipSummary?.redirectUrl) {
               const { redirectUrl } = state.callback?.skipSummary;
