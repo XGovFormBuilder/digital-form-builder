@@ -10,11 +10,11 @@ generator client {
 model Submission {
   id Int @id @default(autoincrement())
   webhook_url String?
-  created_at DateTime
-  updated_at DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime?
   data String @db.VarChar(8192)
   error String?
   return_reference String?
-  complete Boolean
+  complete Boolean @default(false)
   retry_counter Int
 }

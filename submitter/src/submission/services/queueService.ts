@@ -45,6 +45,14 @@ export class QueueService {
             lt: this.MAX_RETRIES,
           },
         },
+        orderBy: [
+          {
+            created_at: "desc",
+          },
+          {
+            error: { sort: "asc", nulls: "first" },
+          },
+        ],
       });
     } catch (e) {
       this.logger.error(
