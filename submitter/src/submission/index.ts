@@ -1,10 +1,16 @@
 import { createServer } from "./createServer";
+import { setupDatabase } from "./setupDatabase";
 
 async function initApp() {
-  const server = await createServer();
+  await setupDatabase();
 
-  await server.start();
-  process.send && process.send("online");
+  const server = await createServer();
+  try {
+    await server.start();
+    process?.send?.("online");
+  } catch (e) {
+    throw e;
+  }
 }
 
 initApp().catch((err) => {
