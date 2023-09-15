@@ -14,7 +14,6 @@ export class QueueService {
     this.prisma = prisma;
     this.logger = server.logger;
     this.interval = parseInt(config.queueServicePollingInterval);
-    // this.emitter = new EventEmitter();
   }
 
   /**

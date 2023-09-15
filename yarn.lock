@@ -5177,6 +5177,7 @@ __metadata:
     hmpo-components: ^5.2.1
     ioredis: 4.16.1
     joi: 17.2.1
+    lodash: ^4.17.21
     lodash-es: ^4.17.21
     nanoid: ^3.3.4
     nodemailer: ~6.6.0
