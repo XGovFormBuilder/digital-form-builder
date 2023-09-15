@@ -8,7 +8,9 @@ let RETENTION_PERIOD = 365;
 
 try {
   RETENTION_PERIOD = parseInt(config.retentionPeriod);
-  logger.info(`config.retentionPeriod set to ${config.rentionPeriod}`);
+  logger.info(
+    `config.retentionPeriod set to ${config.rentionPeriod}, defaulting to ${RETENTION_PERIOD} instead`
+  );
 } catch (e) {
   logger.error(R_ERRORS.CONFIG);
 }

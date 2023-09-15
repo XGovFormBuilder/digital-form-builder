@@ -1,6 +1,5 @@
 import hapi, { ServerOptions } from "@hapi/hapi";
 import { pluginLogging } from "./plugins/logging";
-import { pluginQueue } from "./plugins/queue";
 import config from "../config";
 import { QueueService, WebhookService } from "./services";
 import Schmervice from "schmervice";
@@ -37,7 +36,6 @@ export async function createServer(): Promise<hapi.Server> {
   const server = hapi.server(serverOptions);
 
   await server.register(pluginLogging);
-  await server.register(pluginQueue);
   await server.register(Schmervice);
 
   server.registerService([WebhookService, QueueService]);
