@@ -1,5 +1,6 @@
 import config from "../../config";
 import { redactSubmissions } from "../retention/redactSubmissions";
+import { R_ERRORS } from "../retention/errors";
 export const pluginRetention = {
   name: "retention",
   register: async function (server, _options) {
@@ -15,7 +16,7 @@ export const pluginRetention = {
           await redactSubmissions();
           return h.response().code(204);
         } catch (e) {
-          server.error(ERRORS.RUN_ERROR);
+          server.error(R_ERRORS.RUN_ERROR);
           return h.response().code(400);
         }
       },
