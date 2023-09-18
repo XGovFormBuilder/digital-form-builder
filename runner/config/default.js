@@ -128,4 +128,6 @@ module.exports = {
   logRedactPaths: ["req.headers['x-forwarded-for']"], // You should check your privacy policy before disabling this. Check https://getpino.io/#/docs/redaction on how to configure redaction paths
 
   safelist: ["61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
+
+  savePerPage: true,
 };

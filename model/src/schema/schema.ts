@@ -200,13 +200,19 @@ const webhookSchema = joi.object().keys({
   url: joi.string(),
 });
 
+const savePerPageSchema = joi.object().keys({
+  savePerPageUrl: joi.string(),
+});
+
 const outputSchema = joi.object().keys({
   name: joi.string(),
   title: joi.string().optional(),
-  type: joi.string().allow("notify", "email", "webhook", "sheets"),
+  type: joi
+    .string()
+    .allow("notify", "email", "webhook", "savePerPage", "sheets"),
   outputConfiguration: joi
     .alternatives()
-    .try(notifySchema, emailSchema, webhookSchema),
+    .try(notifySchema, emailSchema, webhookSchema, savePerPageSchema),
 });
 
 const feedbackSchema = joi.object().keys({
