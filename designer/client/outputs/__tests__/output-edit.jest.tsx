@@ -44,7 +44,7 @@ describe("OutputEdit", () => {
           type: "notify",
           outputConfiguration: {
             templateId: "123ID",
-            apiKey: "123KEY",  // pragma: allowlist secret
+            apiKey: "123KEY", // pragma: allowlist secret
             emailField: "9WH4EX",
             personalisation: [],
           },
