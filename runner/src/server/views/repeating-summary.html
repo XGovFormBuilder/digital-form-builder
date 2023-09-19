@@ -4,7 +4,7 @@
 
 {% extends 'layout.html' %}
 {% block content %}
-    <div class="govuk-grid-row govuk-width-container ">      
+    <div class="govuk-grid-row govuk-width-container ">
         <form method="post" enctype="multipart/form-data">
           <table class="govuk-table">
             <h2 class="govuk-caption-l govuk-!-margin-top-0" id="section-title">{{sectionTitle}}</h2>
@@ -26,8 +26,8 @@
                     <td class={{value.class}}>{{ value.text }}</td>
                   {% else %}
                   <td class={{value.class}}>Not supplied</td>
-                  {% endif %}  
-                {% endfor %}        
+                  {% endif %}
+                {% endfor %}
 
                 <td class="govuk-table__cell">
                   <a href={{row.action.href}}>{{ row.action.text }}
@@ -47,4 +47,3 @@
         </form>
     </div>
 {% endblock %}
-

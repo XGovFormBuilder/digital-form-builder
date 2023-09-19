@@ -42,9 +42,9 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 | PUBLISH_URL             | Base URL used by designer to POST and GET runner's API     |    no    | localhost:3009 |                             |
 | PERSISTENT_BACKEND      | storage backend service.                                   |    no    | preview        | s3,blob, preview            | currently only s3 integration and preview is properly supported. blob (or none) is stubbed.                                               |
 | S3_BUCKET               | Name of the S3 bucket to upload to                         |    no    |                |                             |
-| AWS_ACCESS_KEY_ID       | AWS Access Key if AWS services required                    |    no <hr> **yes** if PERSISTENT_BACKEND is `s3`    | | |                                                                                                                                           
-| AWS_SECRET_ACCESS_KEY   | AWS Access Key if AWS services required                    |    no <hr> **yes** if PERSISTENT_BACKEND is `s3`    | | |                                                                                                                                          
-| LOG_LEVEL               | Log level                                                  |    no    | debug          | trace,debug,info,error      |                                                                                                                                           
+| AWS_ACCESS_KEY_ID       | AWS Access Key if AWS services required                    |    no <hr> **yes** if PERSISTENT_BACKEND is `s3`    | | |
+| AWS_SECRET_ACCESS_KEY   | AWS Access Key if AWS services required                    |    no <hr> **yes** if PERSISTENT_BACKEND is `s3`    | | |
+| LOG_LEVEL               | Log level                                                  |    no    | debug          | trace,debug,info,error      |
 | FOOTER_TEXT             | Text displayed on the left side of the footer              |    no    |                |                             |
 | SESSION_TIMEOUT         | server-side storage expiration time - in milliseconds      |    no    |                |                             |
 | SESSION_COOKIE_PASSWORD | at least 32 char long string for session cookie encryption |    no    |                |                             |

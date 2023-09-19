@@ -4,9 +4,9 @@
   <script type="text/javascript">
     tinymce.init({
       setup: function (editor) {
-        editor.on('init input setcontent change', function () {          
+        editor.on('init input setcontent change', function () {
           setWordCount(editor);
-        });       
+        });
       },
       selector: '#{{ component.model.id }}',
       skin: 'tinymce-5',
