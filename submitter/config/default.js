@@ -11,7 +11,7 @@ module.exports = {
   /**
    * logging config
    */
-  logPrettyPrint: true,
+  logPrettyPrint: false,
   logLevel: "info",
 
   /**
