@@ -45,25 +45,39 @@
           "name": "jcjKhe",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Tell us about your organisation's main activities</h2>\n\n<div class=\"govuk-body\">\n <p>Include any activities you undertake in order to achieve the organisation's purpose. \nYou must list at least one, and can include up to three</p></div>"
+          "content": "<h2 class=\"govuk-heading-s\">Tell us about your organisation's main activities</h2>\n\n<div class=\"govuk-body\">\n <p>Include any activities you undertake in order to achieve the organisation's purpose.</p> \n\n <p>You must list at least one, and can include up to three</p></div>"
         },
         {
           "name": "kxgOne",
-          "options": { "maxWords": "500" },
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
           "type": "FreeTextField",
-          "title": "Activity 1"
+          "title": "Activity 1",
+          "hint": "<label for=\"kxgOne\" class=\"govuk-body\">Activity 1</label>"
         },
         {
           "name": "kxgTwo",
-          "options": { "maxWords": "500" },
+          "options": {
+            "maxWords": "500",
+            "required": false,
+            "hideTitle": true
+          },
           "type": "FreeTextField",
-          "title": "Activity 2 (optional)"
+          "title": "Activity 2 (optional)",
+          "hint": "<label for=\"kxgTwo\" class=\"govuk-body\">Activity 2 (optional)</label>"
         },
         {
           "name": "kxgThr",
-          "options": { "maxWords": "500" },
+          "options": {
+            "maxWords": "500",
+            "required": false,
+            "hideTitle": true
+          },
           "type": "FreeTextField",
-          "title": "Activity 3 (optional)"
+          "title": "Activity 3 (optional)",
+          "hint": "<label for=\"kxgThr\" class=\"govuk-body\">Activity 3 (optional)</label>"
         }
       ],
       "next": [
@@ -77,6 +91,13 @@
       "title": "How is your organisation classified?",
       "path": "/how-is-your-organisation-classified",
       "components": [
+        {
+          "name": "GNpQfE",
+          "options": {},
+          "type": "Details",
+          "title": "Help with organisation types",
+          "content": "<p>A registered community interest company is a special type of limited company. It exists to benefit the community rather than private shareholders.</p>\n <p>A social enterprise is a business with social objectives. It reinvests its surpluses in the business or community, rather than driving the need to maximise profit for shareholders and owners.</p>\nCommunity groups must:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full operational costs</li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n</div>"
+        },
         {
           "name": "jcmcJE",
           "options": {
@@ -98,11 +119,7 @@
           "condition": "aVVJJz"
         },
         {
-          "path": "/company-registration-number",
-          "condition": "aVJVJz"
-        },
-        {
-          "path": "/organisation-address"
+          "path": "/company-registration-number"
         }
       ],
       "section": "uLwBuz"
@@ -114,7 +131,8 @@
         {
           "name": "jemcJE",
           "options": {
-            "classes": "govuk-input"
+            "classes": "govuk-input",
+            "hideTitle": true
           },
           "type": "TextField",
           "title": "How is your organisation classified?",
@@ -136,7 +154,7 @@
           "name": "jcjKhd",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Company registration number</h2>\n\n<div class=\"govuk-body\">\n <p>You can find this by searching Companies House. \nIt is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
+          "content": "<div class=\"govuk-input\">\n <p>You can find this by searching Companies House. \n\n It is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
         },
         {
           "name": "jencJE",
@@ -164,7 +182,7 @@
           "name": "jcjKhc",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Charity number</h2>\n\n<div class=\"govuk-body\">\n <p>You can find this by searching the register of charities on the Charity Commission website \nIt is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
+          "content": "<div class=\"govuk-input\">\n <p>You can find this by searching the register of charities on the Charity Commission website \n\n It is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
         },
         {
           "name": "jeocJE",
@@ -309,6 +327,12 @@
       },
       "components": [
         {
+          "name": "jcjKhd",
+          "options": {},
+          "type": "Para",
+          "content": "<div class=\"govuk-input\">\n <p>You can add more partner organisations on the next step</p></div>"
+        },
+        {
           "name": "tZoOKx",
           "options": {
             "columnTitles": [
@@ -327,7 +351,9 @@
           "children": [
             {
               "name": "GpLJDu",
-              "options": {},
+              "options": {
+                "classes": "govuk-!-width-full"
+              },
               "type": "TextField",
               "title": "Partner organisation name"
             },
@@ -344,7 +370,7 @@
                 "classes": "govuk-!-width-full"
               },
               "type": "WebsiteField",
-              "title": "Website and social media",
+              "title": "Website and social media links",
               "hint": "Link 1",
               "schema": {}
             },
@@ -413,6 +439,7 @@
               },
               "type": "WebsiteField",
               "title": "Link",
+              "hint": "For example, your company's Facebook, Instagram or Twitter accounts (if applicable) \n\n You can add more links on the next step",
               "schema": {}
             }
           ]
@@ -443,7 +470,7 @@
           "name": "sPbqXm",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>organisation name</li>\n        <li>alternative organisation names (if applicable)</li>\n        <li>organisation address</li>\n    <li>alternative organisation address (if applicable)</li>\n    <li>the organisation's main activities</li>\n    <li>organisation type</li>\n    <li>charity registration number (if applicable)</li>\n    <li>company registration number (if applicable)</li>\n    <li>joint bids with partner organisations (if applicable)</li>\n        <li>partner organisation addresses (if applicable)</li>\n        <li>how you plan to work with partner organisations (if applicable)</li>\n        <li>organisation website and social media details</li>\n    </ul>",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>organisation name</li>\n        <li>alternative organisation names (if applicable)</li>\n        <li>organisation address</li>\n    <li>alternative organisation address (if applicable)</li>\n    <li>the organisation's main activities</li>\n    <li>organisation type</li>\n    <li>charity registration number (if applicable)</li>\n    <li>company registration number (if applicable)</li>\n    <li>joint bids with partner organisations (if applicable)</li>\n        <li>partner organisation addresses (if applicable)</li>\n    <li>partner organisations website and social media links (if applicable)</li>\n    <li>how you plan to work with partner organisations (if applicable)</li>\n    <li>if an agreement currently exist between your organisations and the partnership organisations</li>\n    <li>organisation website and social media details</li>\n    </ul>",
           "schema": {}
         }
       ],
@@ -466,7 +493,7 @@
           },
           "type": "FreeTextField",
           "title": "Tell us about how you plan to work with the partner organisations",
-          "hint": "Explain what their role is in the delivery of the project and how they’ll assist with deliver"
+          "hint": "Explain what their role is in the delivery of the project and how they’ll assist with delivery"
         }
       ],
       "next": [
