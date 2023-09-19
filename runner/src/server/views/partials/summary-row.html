@@ -7,6 +7,10 @@
         {% if item.value %}
             {% if item.type == 'FileUploadField' %}
                 Uploaded
+            {%elif item.type == 'MultiInputField' %}
+               {% for itemValue in item.value%}
+                   {{itemValue}}<br>
+               {% endfor %}    
             {% else %}
                 {{item.value}}
             {% endif %}

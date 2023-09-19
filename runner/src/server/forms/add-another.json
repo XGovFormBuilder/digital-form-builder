@@ -1,0 +1,86 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "You have selected these languages",
+          "samePageTitle": "Revenue Costs"
+        }
+      },
+      "components": [
+        {
+          "name": "MultiInputField",
+          "options": {
+            "prefix": "£",
+            "columnTitles": ["Title", "Cost", "Link"]
+          },
+          "type": "MultiInputField",
+          "title": "MultiInputField",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "type": "TextField",
+              "name": "type-of-revenue-cost",
+              "title": "Type of Revenue Cost",
+              "schema": {},
+              "options": {}
+            },
+            {
+              "type": "NumberField",
+              "name": "Cost",
+              "title": "Amount",
+              "schema": {},
+              "options": { "classes": "govuk-!-width-one-half", "prefix": "£" }
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ],
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [
+        {
+          "type": "NumberField",
+          "name": "Cost",
+          "title": "Amount",
+          "schema": {},
+          "options": { "classes": "govuk-!-width-one-half" }
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2
+}

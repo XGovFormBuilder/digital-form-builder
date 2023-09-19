@@ -1,0 +1,158 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "You have selected these languages",
+          "samePageTitle": "Revenue Costs",
+          "columnOneTitle": "Title",
+          "columnTwoTitle": "Cost",
+          "columnThreeTitle": "Link"
+        }
+      },
+      "components": [
+        {
+          "name": "MultiInputField",
+          "options": {
+            "textFieldTitle": "Type of Revenue Cost",
+            "numberFieldTitle": "Amount",
+            "columnTitles": ["Title", "Cost", "Date", "Reason", "Link"]
+          },
+          "type": "MultiInputField",
+          "title": "MultiInputField",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "CaKTWN",
+              "options": {},
+              "type": "TextField",
+              "title": "Type of Capital"
+            },
+            {
+              "name": "iLxCxn",
+              "options": {
+                "prefix": "£"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "hint": "",
+              "schema": {}
+            },
+            {
+              "name": "sUDJbo",
+              "options": { "isMultiInput": true },
+              "type": "RadiosField",
+              "title": "Financial Year",
+              "list": "TestList"
+            },
+            {
+              "name": "CmOaAX",
+              "options": {},
+              "type": "TextField",
+              "title": "How has the cost been calculated?",
+              "hint": ""
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ],
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "You have selected these languages",
+          "samePageTitle": "Revenue Costs",
+          "columnOneTitle": "Title",
+          "columnTwoTitle": "Cost",
+          "columnThreeTitle": "Link"
+        }
+      },
+      "components": [
+        {
+          "name": "MultiInputField-test",
+          "options": {
+            "textFieldTitle": "Type of Revenue Cost",
+            "numberFieldTitle": "Amount",
+            "columnTitles": ["Title", "Cost", "Link"]
+          },
+          "type": "MultiInputField",
+          "title": "MultiInputField 2",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "type": "MultilineTextField",
+              "name": "type-of-revenue-cost-test",
+              "title": "Test",
+              "schema": {},
+              "options": {}
+            },
+            {
+              "type": "MultilineTextField",
+              "name": "value-test",
+              "title": "Test",
+              "schema": {},
+              "options": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "Years",
+      "name": "TestList",
+      "type": "string",
+      "items": [
+        {
+          "text": "2023/24",
+          "value": "2023/24"
+        },
+        {
+          "text": "2024/25",
+          "value": "2024/25"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2
+}

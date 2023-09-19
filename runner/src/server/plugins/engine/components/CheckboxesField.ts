@@ -33,11 +33,28 @@ export class CheckboxesField extends SelectionControlField {
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
-    let formDataItems = (formData[this.name] ?? "").split(",");
+    let formDataItems = formData[this.name];
+    if (
+      typeof formDataItems === "string" ||
+      typeof formDataItems === "undefined"
+    ) {
+      formDataItems = (formDataItems ?? "").split(",");
+    }
     viewModel.items = (viewModel.items ?? []).map((item) => ({
       ...item,
       checked: !!formDataItems.find((i) => `${item.value}` === i),
     }));
+
+    if (this.options.divider) {
+      let divider = { divider: this.options.divider };
+      viewModel.items.splice(viewModel.items.length - 1, 0, divider);
+    }
+
+    if (this.options.behaviour) {
+      viewModel.items[
+        viewModel.items.length - 1
+      ].behaviour = this.options.behaviour;
+    }
 
     return viewModel;
   }

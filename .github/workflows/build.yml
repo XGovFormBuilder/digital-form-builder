@@ -23,7 +23,6 @@ on:
         description: hash used for docker caching
         value: ${{ jobs.build-app.outputs.hash }}
 
-
 jobs:
   build-app:
     if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
@@ -65,7 +64,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-
         # The hash is a function of the Dockerfile and the yarn.lock Packages take up the bulk of the time during a docker build. The hash is used to cache the docker builds.
         # As long as the yarn.lock and dockerfiles are the same, you will be able to share this cache with another commit/branch.
       - id: hashFile
@@ -80,18 +78,17 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ${{inputs.app}}/Dockerfile
-          push: true
+          push: false
           context: .
           tags: ${{ steps.hashFile.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
-          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
 
       - name: Build ${{inputs.app}} and push
         if: ${{inputs.semver && inputs.publish == true }}
         uses: docker/build-push-action@v3
         with:
           file: ${{inputs.app}}/Dockerfile
-          push: true
+          push: false
           context: .
           tags: |
             ghcr.io/xgovformbuilder/digital-form-builder-${{inputs.app}}:${{inputs.semver}}

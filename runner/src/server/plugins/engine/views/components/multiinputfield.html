@@ -1,0 +1,38 @@
+{% from "input/macro.njk" import govukInput %}
+{% from "date-input/macro.njk" import govukDateInput %}
+{% from "textarea/macro.njk" import govukTextarea %}
+{% from "character-count/macro.njk" import govukCharacterCount %}
+{% from "./textfield.html" import TextField %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "../partials/components.html" import componentList %}
+
+
+{% macro MultiInputField(component) %}
+<!--TODO lets see if we can come up with a better way of rendering this -->
+    {% for item in component.model.items %}
+    <label class="govuk-label" for={{item.id}}>
+        {{item.label}}
+        {% if item.componentType == "TextField"%}    
+        {{ govukInput(item) }}
+        {% elif item.componentType == "MultilineTextField"%}
+            {% if item.isCharacterOrWordCount %}
+                {{ govukCharacterCount(item) }}
+            {% else %}
+                {{ govukTextarea(item) }}
+            {% endif %}        
+        {% elif item.componentType == "DatePartsField" %}
+        {{ govukDateInput(item) }}
+        {% elif item.componentType == "NumberField" %}
+        {{ govukInput(item) }}
+        {% elif item.componentType == "RadiosField" or item.componentType == "YesNoField"%}
+        {{ govukRadios(item) }}
+        {% elif item.componentType == "MonthYearField" %}
+        {{ govukDateInput(item) }}
+        {% elif item.componentType == "WebsiteField" %}
+        {{ govukInput(item) }}
+        {% elif item.componentType == "UkAddressField" %}
+        {{ componentList(item.children) }}
+        {%endif%}
+    </label>
+    {% endfor %}
+{% endmacro %}

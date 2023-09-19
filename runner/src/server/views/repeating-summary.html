@@ -3,25 +3,48 @@
 {% from "button/macro.njk" import govukButton %}
 
 {% extends 'layout.html' %}
-
-
 {% block content %}
-  <div class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">{{customText.separatePageTitle or pageTitle }}</h1>
-        {{ govukSummaryList(details) }}
-        <form action="?view=summary"  method="post" enctype="multipart/form-data">
+    <div class="govuk-grid-row govuk-width-container ">      
+        <form method="post" enctype="multipart/form-data">
+          <table class="govuk-table">
+            <h2 class="govuk-caption-l govuk-!-margin-top-0" id="section-title">{{sectionTitle}}</h2>
+            <h1 class="govuk-heading-l">
+              {{page.options.customText.separatePageTitle}}
+            </h1>
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                {% for heading in details.headings %}
+                <th scope="col" class="govuk-table__header">{{heading}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            {{details.length}}
+            {% for row in details.rows %}
+              <tr class="govuk-table__row">
+                {% for value in row.values %}
+                  {% if not (value.text == "null") %}
+                    <td class={{value.class}}>{{ value.text }}</td>
+                  {% else %}
+                  <td class={{value.class}}>Not supplied</td>
+                  {% endif %}  
+                {% endfor %}        
+
+                <td class="govuk-table__cell">
+                  <a href={{row.action.href}}>{{ row.action.text }}
+                    <span class="govuk-visually-hidden">{{ row.key.text }}</span>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+        </table>
           <div class="govuk-button-group">
-            <input type="hidden" name="crumb" value="{{crumb}}"/>
-            <button name="next" value="continue" class="govuk-button">Continue</button>
+            <button name="next" value="continue" class="govuk-button">Save and Continue</button>
             <button name="next" value="increment" class="govuk-button govuk-button--secondary">
               Add another
             </button>
           </div>
+          <input type="hidden" name="crumb" value={{crumb}} />
         </form>
-      </div>
     </div>
-  </div>
 {% endblock %}
 

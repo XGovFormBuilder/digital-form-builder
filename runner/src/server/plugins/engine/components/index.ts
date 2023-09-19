@@ -33,3 +33,4 @@ export { UkAddressField } from "./UkAddressField";
 export { WebsiteField } from "./WebsiteField";
 export { YesNoField } from "./YesNoField";
 export { MonthYearField } from "./MonthYearField";
+export { MultiInputField } from "./MultiInputField";

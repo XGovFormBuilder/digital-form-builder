@@ -67,9 +67,12 @@ export class YesNoField extends ListFormComponent {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
 
-    viewModel.fieldset = {
-      legend: viewModel.label,
-    };
+    if (!this.options.isMultiInput) {
+      viewModel.fieldset = {
+        legend: viewModel.label,
+      };
+    }
+
     viewModel.items = this.items.map(({ text, value }) => ({
       text,
       value,

@@ -71,6 +71,7 @@ export enum OutputType {
   Email = "email",
   Notify = "notify",
   Webhook = "webhook",
+  SavePerPage = "savePerPage",
 }
 
 export type EmailOutputConfiguration = {
@@ -96,10 +97,15 @@ export type WebhookOutputConfiguration = {
   url: string;
 };
 
+export type SavePerPageOutputConfiguration = {
+  savePerPageUrl: string;
+};
+
 export type OutputConfiguration =
   | EmailOutputConfiguration
   | NotifyOutputConfiguration
-  | WebhookOutputConfiguration;
+  | WebhookOutputConfiguration
+  | SavePerPageOutputConfiguration;
 
 export type Output = {
   name: string;

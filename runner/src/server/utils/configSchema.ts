@@ -101,6 +101,7 @@ export const configSchema = Joi.object({
       "HS512"
     )
     .default("HS512"),
+  savePerPage: Joi.boolean().optional(),
 });
 
 export function buildConfig(config) {

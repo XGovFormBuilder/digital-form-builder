@@ -78,4 +78,5 @@ export type DataType =
   | "date"
   | "monthYear"
   | "number"
-  | "file";
+  | "file"
+  | "multiInput";
