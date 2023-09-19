@@ -12,7 +12,7 @@ model Submission {
   webhook_url String?
   created_at DateTime @default(now())
   updated_at DateTime?
-  data String @db.VarChar(8192)
+  data String? @db.Text
   error String?
   return_reference String?
   complete Boolean @default(false)
