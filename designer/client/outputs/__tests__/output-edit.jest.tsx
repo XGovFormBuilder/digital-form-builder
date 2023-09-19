@@ -101,7 +101,7 @@ describe("OutputEdit", () => {
           outputConfiguration: {
             personalisation: [],
             templateId: "NewTemplateId",
-            apiKey: "NewAPIKey",
+            apiKey: "NewAPIKey", // pragma: allowlist secret
             emailField: "9WH4EX",
             addReferencesToPersonalisation: true,
           },

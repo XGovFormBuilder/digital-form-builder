@@ -11,4 +11,4 @@ repos:
     -   id: detect-secrets
         args: ['--disable-plugin', 'HexHighEntropyString',
           '--disable-plugin', 'Base64HighEntropyString']
-        exclude: runner/config/custom-environment-variables.json
+        exclude: '(runner/config/custom-environment-variables.json|.yarn/releases/yarn-2.4.0.cjs)'
