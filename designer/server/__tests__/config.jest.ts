@@ -64,7 +64,7 @@ describe("Config", () => {
       ...OLD_ENV,
       PERSISTENT_BACKEND: "s3",
       AWS_ACCESS_KEY_ID: "key",
-      AWS_SECRET_ACCESS_KEY: "secret",
+      AWS_SECRET_ACCESS_KEY: "secret", // pragma: allowlist secret
     };
     jest.resetModules();
     await expect(import("../config")).resolves.toBeTruthy();

@@ -27,7 +27,7 @@ Feature: Complete a form
     Given I am at the start of the "runner components test" form
     When I complete the form
     Then the Summary page is displayed with my answers
-  
+
   Scenario: The footer and links are visible on start page
     Given I am at the start of the "report a terrorist" form
     Then I can see the footer at the bottom of the page

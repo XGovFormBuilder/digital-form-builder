@@ -12,14 +12,14 @@
     {% for item in component.model.items %}
     <label class="govuk-label" for={{item.id}}>
         {{item.label}}
-        {% if item.componentType == "TextField"%}    
+        {% if item.componentType == "TextField"%}
         {{ govukInput(item) }}
         {% elif item.componentType == "MultilineTextField"%}
             {% if item.isCharacterOrWordCount %}
                 {{ govukCharacterCount(item) }}
             {% else %}
                 {{ govukTextarea(item) }}
-            {% endif %}        
+            {% endif %}
         {% elif item.componentType == "DatePartsField" %}
         {{ govukDateInput(item) }}
         {% elif item.componentType == "NumberField" %}

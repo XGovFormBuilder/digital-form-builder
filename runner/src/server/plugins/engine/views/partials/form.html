@@ -26,8 +26,8 @@
             {% for row in details.rows %}
               <tr class="govuk-table__row">
                 {% for value in row.values %}
-                <td class={{value.class}}>{{ value.text }}</td>            
-                {% endfor %}        
+                <td class={{value.class}}>{{ value.text }}</td>
+                {% endfor %}
 
                 <td class="govuk-table__cell">
                   <a href={{row.action.href}}>{{ row.action.text }}

@@ -64,4 +64,3 @@ variables:
 #       alias: funding-service-design-form-runner-production.apps.internal
 #     image:
 #       location: ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:prod
-

@@ -12,5 +12,3 @@ This is just an area where architectural decisions/docs made on, or before 26-03
 
 ###Class Diagram
 ![](0000-class-diagram.svg)
-
-

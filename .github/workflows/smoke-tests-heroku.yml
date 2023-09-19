@@ -69,4 +69,3 @@ jobs:
           SLACK_USERNAME: forms-nightly-bot
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
           SLACK_WEBHOOK: ${{ secrets.CYB_SLACK_WEBHOOK }}
-
