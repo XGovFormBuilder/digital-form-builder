@@ -102,11 +102,17 @@ export class MonthYearField extends FormComponent {
       }
     });
 
+    let fieldset = {};
+
+    if (!this.options.isMultiInput) {
+      fieldset = {
+        legend: viewModel.label,
+      };
+    }
+
     return {
       ...viewModel,
-      fieldset: {
-        legend: viewModel.label,
-      },
+      fieldset: fieldset,
       items: componentViewModels,
     };
   }

@@ -102,6 +102,9 @@ export class SummaryPageController extends PageController {
       const { payService, cacheService } = request.services([]);
       const model = this.model;
       const state = await cacheService.getState(request);
+      state.metadata.isSummaryPageSubmit = true;
+      await cacheService.mergeState(request, { ...state });
+
       const summaryViewModel = new SummaryViewModel(
         this.title,
         model,

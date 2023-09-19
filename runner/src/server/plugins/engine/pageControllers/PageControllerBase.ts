@@ -523,6 +523,12 @@ export class PageControllerBase {
     const progress = state.progress || [];
     const { num } = request.query;
 
+    if (state.metadata === undefined) {
+      state["metadata"] = {};
+    }
+    state.metadata["isSummaryPageSubmit"] = false;
+    await cacheService.mergeState(request, { ...state });
+
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {
       const reformattedErrors = fileFields.map((field) => {

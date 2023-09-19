@@ -3,17 +3,54 @@
 
 <form method="post" enctype="multipart/form-data" autocomplete="on">
   <input type="hidden" name="crumb" value="{{crumb}}"/>
-  {{ componentList(components) }}
-
   {% if page.isRepeatingFieldPageController and details %}
-    {{ govukButton({
-      attributes: { id: "add-another"},
-      classes: "govuk-button govuk-button--secondary",
-      text: "Add to list"
-      })
-    }}
-    {{ govukSummaryList(details) }}
-  {% endif %}
+		{{ componentList(components) }}
+		{{ govukButton({
+    attributes: { id: "add-another"},
+    classes: "govuk-button govuk-button--secondary",
+    text: page.saveText
+    })
+  }}
+		{% if page.options.customText.samePageTitle %}
+		<table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">{{page.options.customText.samePageTitle}}</caption>
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                {% for heading in details.headings %}
+                <th scope="col" class="govuk-table__header">{{heading}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            {{details.length}}
+            {% for row in details.rows %}
+              <tr class="govuk-table__row">
+                {% for value in row.values %}
+                <td class={{value.class}}>{{ value.text }}</td>            
+                {% endfor %}        
+
+                <td class="govuk-table__cell">
+                  <a href={{row.action.href}}>{{ row.action.text }}
+                    <span class="govuk-visually-hidden">{{ row.key.text }}</span>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+        </table>
+		{% endif %}
+		{%if not details.rows.length %}
+			<tr class="govuk-table__row">
+				<p class="govuk-body" style="margin-top: 30px;">
+					<strong>{{page.noCostsTitle}}</strong>
+				</p>
+				<p class="govuk-body">
+					{{page.noCostsText}}
+				</p>
+				<hr/>
+			</tr>
+		{% endif %}
+	{% else %}
+		{{ componentList(components) }}
+	{% endif %}
 
   {% if not (components[0].type == "FlashCard") %}
     {% if isStartPage %}
