@@ -120,7 +120,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-UnbKte"
+          "path": "/summary"
         },
         {
           "path": "/hong-kong-british-nationals",
@@ -151,11 +151,7 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-UnbKte"
-        },
-        {
-          "path": "/fund-recipients-ukraine-schemes",
-          "condition": "btRdYE"
+          "path": "/summary"
         },
         {
           "path": "/afghan-citizens-resettlement-scheme",
@@ -182,21 +178,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-UnbKte"
-        },
-        {
-          "path": "/fund-recipients-ukraine-schemes",
-          "condition": "btRdYE"
-        },
-        {
-          "path": "/hong-kong-british-nationals",
-          "condition": "ctRdYE"
+          "path": "/summary"
         }
       ],
       "section": "vhPnrc"
     },
     {
-      "path": "/check-your-answers-UnbKte",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],
