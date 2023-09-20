@@ -34,7 +34,7 @@
               "options": {
                 "maxWords": "200"
               },
-              "type": "FreeTextField",
+              "type": "TextField",
               "title": "Activities that will help you achieve the objective"
             }
           ]
