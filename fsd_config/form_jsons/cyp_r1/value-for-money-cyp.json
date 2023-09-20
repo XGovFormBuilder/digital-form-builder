@@ -11,7 +11,7 @@
           "name": "vDJxWL",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-hint\">This is the amount you are applying for from the Children and Young People’s Resettlement Fund. This is a revenue only fund\n</p>",
+          "content": "<p class=\"govuk-hint\">This is the amount you are applying for from the Children and Young People’s Resettlement Fund. \n This is a revenue only fund\n</p>",
           "schema": {}
         },
         {
@@ -21,7 +21,7 @@
             "classes": "govuk-input--width-10"
           },
           "type": "NumberField",
-          "title": "From date of funding announcement to 31 March 2024",
+          "title": "25 September 2023 to 31 March 2024",
           "schema": {}
         },
         {
@@ -50,7 +50,7 @@
           "name": "fvAgYh",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>how much money you're requesting from the Fund</li>\n    <li>how much additional funding you've secured elsewhere</li>\n        <li>how you'll use the money</li>\n        <li>how many people in your organisation you'll pay with money from the Fund</li>\n    </ul>",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>how much money you're requesting from the Fund</li>\n    <li>how you'll use the money</li>\n    <li>how many people in your organisation you'll pay with money from the Fund</li>\n    <li>how much additional funding you've secured elsewhere</li>\n    </ul>",
           "schema": {}
         }
       ],
@@ -69,19 +69,22 @@
           "name": "EaxCii",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Risks to the project</h2>\n\n<p class=\"govuk-hint\">Tell us about: </p>\n\n<ul class=\"govuk-hint\">\n<li>any risks to the project</li>\n<li>the liklihood of them happening</li>\n<li>the impact they'll have on the project</li>\n<li>how you plan to mitigate them</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Tou can add more risks on the next step.</p>\n\n\n\n"
+          "content": "<p class=\"govuk-hint\">Tell us how you will use the funding. For example, staff, supplies and services, contribution to overheads, irrecoverable VAT</p> \n\n <p class=\"govuk-hint\">You can add more items on the next step.</p>"
         },
         {
           "name": "qwktzL",
           "options": {},
           "type": "MultiInputField",
-          "title": "Risks to the project",
+          "title": "Item of expenditure",
           "hint": "The MultiInputField needed",
           "schema": {},
           "children": [
             {
               "name": "gLQlyJ",
-              "options": {},
+              "options": {
+                "hideTitle": true,
+                "classes": "govuk-!-width-full"
+              },
               "type": "TextField",
               "title": "Item of expenditure"
             },
@@ -97,7 +100,9 @@
             },
             {
               "name": "kjuHtl",
-              "options": {},
+              "options": {
+                "hideTitle": true
+              },
               "type": "RadiosField",
               "title": "Year",
               "list": "yOwfxo"

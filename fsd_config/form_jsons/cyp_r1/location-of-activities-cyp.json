@@ -9,9 +9,13 @@
       "components": [
         {
           "name": "iqqqTk",
-          "options": {},
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-input"
+          },
           "type": "YesNoField",
-          "title": "Is the project taking place regionally?"
+          "title": "Is the project taking place regionally?",
+          "hint": "If it is not taking place regionally, we assume it will take place nationally"
         }
       ],
       "next": [
@@ -31,7 +35,9 @@
       "components": [
         {
           "name": "tApPKx",
-          "options": {},
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
           "type": "MultiInputField",
           "title": "Which local authority areas will you work across?",
           "hint": "The MultiInputField needed",
@@ -42,7 +48,7 @@
               "options": {},
               "type": "TextField",
               "title": "Which local authority areas will you work across?",
-              "hint": "You can add more local authority areas on the next step"
+              "hint": "You can add more local authority areas on the next step."
             }
           ]
         }

@@ -27,7 +27,7 @@
           "condition": "tjnNpA"
         }
       ],
-      "section": "YICTMm"
+      "section": "pyQhSV"
     },
     {
       "path": "/previous-projects",
@@ -37,6 +37,7 @@
           "name": "qPcbJQ",
           "options": {
             "maxWords": "1000",
+            "classes": "govuk-input",
             "hideTitle": true
           },
           "type": "FreeTextField",
@@ -49,7 +50,7 @@
           "path": "/check-your-answers-pCJOit"
         }
       ],
-      "section": "YICTMm"
+      "section": "pyQhSV"
     },
     {
       "path": "/check-your-answers-pCJOit",
@@ -57,7 +58,7 @@
       "components": [],
       "next": [],
       "controller": "./pages/summary.js",
-      "section": "YICTMm"
+      "section": "pyQhSV"
     },
     {
       "path": "/intro-your-skills-and-experience",

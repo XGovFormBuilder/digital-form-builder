@@ -16,7 +16,9 @@
         },
         {
           "name": "rKHBnt",
-          "options": {},
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
           "type": "TextField",
           "title": "Name of lead contact",
           "schema": {}
@@ -24,23 +26,37 @@
         {
           "name": "yWtfkb",
           "options": {
-            "required": false
+            "required": false,
+            "classes": "govuk-!-width-full"
           },
           "type": "TextField",
           "title": "Alternative name",
           "schema": {}
         },
         {
-          "name": "BKOHaM",
-          "options": {},
+          "name": "kbOHaM",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
           "type": "TextField",
+          "title": "Lead contact job title",
+          "schema": {}
+        },
+        {
+          "name": "BKOHaM",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "EmailAddressField",
           "title": "Lead contact email address",
           "schema": {}
         },
         {
           "name": "CyANDT",
-          "options": {},
-          "type": "TextField",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TelephoneNumberField",
           "title": "Lead contact telephone number",
           "schema": {}
         },
@@ -80,7 +96,9 @@
         },
         {
           "name": "pDrPDz",
-          "options": {},
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
           "type": "TextField",
           "title": "Authorised signatory full name",
           "schema": {}
@@ -88,23 +106,38 @@
         {
           "name": "teowxM",
           "options": {
-            "required": false
+            "required": false,
+            "classes": "govuk-!-width-full"
           },
           "type": "TextField",
           "title": "Alternative name",
           "schema": {}
         },
         {
-          "name": "ljfzCy",
-          "options": {},
+          "name": "tikwxM",
+          "options": {
+            "required": false,
+            "classes": "govuk-!-width-full"
+          },
           "type": "TextField",
+          "title": "Authorised signatory job title",
+          "schema": {}
+        },
+        {
+          "name": "ljfzCy",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "EmailAddressField",
           "title": "Authorised signatory email address",
           "schema": {}
         },
         {
           "name": "gNgJme",
-          "options": {},
-          "type": "TextField",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TelephoneNumberField",
           "title": "Authorised signatory telephone number",
           "schema": {}
         }

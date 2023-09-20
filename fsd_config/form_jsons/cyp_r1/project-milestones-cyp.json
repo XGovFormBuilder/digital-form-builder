@@ -36,7 +36,9 @@
               "hint": "For example, 3 2024",
               "name": "LZbOBu",
               "nameHasError": false,
-              "options": {}
+              "options": {
+                "hideTitle": true
+              }
             }
           ]
         }

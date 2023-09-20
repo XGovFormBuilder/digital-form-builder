@@ -11,7 +11,7 @@
           "name": "LAIkqw",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Objectives and activities</h2>\n\n<p class=\"govuk-hint\">Tell us about your project's objectives and how you plan you achieve these objectives.</p>\n\n<p class=\"govuk-hint\">You can add more objectives on the next step.</p>\n\n"
+          "content": "<h2 class=\"govuk-heading-s\">Objectives and activities</h2>\n\n<p class=\"govuk-hint\">Tell us about your project's objectives and how you plan to achieve these objectives.</p>\n\n<p class=\"govuk-hint\">You can add more objectives on the next step.</p>\n\n"
         },
         {
           "name": "tAoPKx",
@@ -23,7 +23,9 @@
           "children": [
             {
               "name": "kaQUfV",
-              "options": {},
+              "options": {
+                "classes": "govuk-!-width-full"
+              },
               "type": "TextField",
               "title": "Objective"
             },
@@ -32,7 +34,7 @@
               "options": {
                 "maxWords": "200"
               },
-              "type": "TextField",
+              "type": "FreeTextField",
               "title": "Activities that will help you achieve the objective"
             }
           ]

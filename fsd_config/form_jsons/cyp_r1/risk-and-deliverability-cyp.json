@@ -38,11 +38,13 @@
           "name": "EaxCuu",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Risks to the project</h2>\n\n<p class=\"govuk-hint\">Tell us about: </p>\n\n<ul class=\"govuk-hint\">\n<li>any risks to the project</li>\n<li>the liklihood of them happening</li>\n<li>the impact they'll have on the project</li>\n<li>how you plan to mitigate them</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">Tou can add more risks on the next step.</p>\n\n\n\n"
+          "content": "<h2 class=\"govuk-heading-s\">Risks to the project</h2>\n\n<p class=\"govuk-hint\">Tell us about: </p>\n\n<ul class=\"govuk-hint\">\n<li>any risks to the project</li>\n<li>the liklihood of them happening</li>\n<li>the impact they'll have on the project</li>\n<li>how you plan to mitigate them</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">You can add more risks on the next step.</p>\n\n\n\n"
         },
         {
           "name": "qQLYzL",
-          "options": {},
+          "options": {
+            "hideTitle": true
+          },
           "type": "MultiInputField",
           "title": "Risks to the project",
           "hint": "The MultiInputField needed",
@@ -59,14 +61,18 @@
             },
             {
               "name": "eADHGN",
-              "options": {},
+              "options": {
+                "hideTitle": true
+              },
               "type": "RadiosField",
               "title": "Likelihood",
               "list": "zOwfxe"
             },
             {
               "name": "MPHvIr",
-              "options": {},
+              "options": {
+                "hideTitle": true
+              },
               "type": "RadiosField",
               "title": "Impact",
               "list": "yOwfxe"
