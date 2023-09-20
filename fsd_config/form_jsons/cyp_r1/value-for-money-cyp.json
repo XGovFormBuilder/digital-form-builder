@@ -137,7 +137,7 @@
           "condition": "aHJvyz"
         },
         {
-          "path": "/check-your-answers-POspbL"
+          "path": "/summary"
         }
       ],
       "section": "xYwdyD"
@@ -205,13 +205,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-POspbL"
+          "path": "/summary"
         }
       ],
       "section": "xYwwyD"
     },
     {
-      "path": "/check-your-answers-POspbL",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],

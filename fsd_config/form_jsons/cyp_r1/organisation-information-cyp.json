@@ -322,7 +322,8 @@
         },
         "customText": {
           "separatePageTitle": "Your partner organisation details",
-          "samePageTitle": ""
+          "samePageTitle": "",
+          "removeText": "Delete"
         }
       },
       "components": [
@@ -447,14 +448,14 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-OLZQxx"
+          "path": "/summary"
         }
       ],
       "controller": "RepeatingFieldPageController",
       "section": "uLwBuz"
     },
     {
-      "path": "/check-your-answers-OLZQxx",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],

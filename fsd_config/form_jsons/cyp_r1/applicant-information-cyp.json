@@ -78,7 +78,7 @@
           "condition": "bDEBOE"
         },
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "pyQsHV"
@@ -144,13 +144,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "pyQsHV"
     },
     {
-      "path": "/check-your-answers",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],

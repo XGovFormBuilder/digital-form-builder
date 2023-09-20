@@ -20,13 +20,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-qieRVl"
+          "path": "/summary"
         }
       ],
       "section": "PPssHV"
     },
     {
-      "path": "/check-your-answers-qieRVl",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],

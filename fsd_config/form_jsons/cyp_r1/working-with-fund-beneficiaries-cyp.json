@@ -19,13 +19,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-ySwQiT"
+          "path": "/summary"
         }
       ],
       "section": "Nyppws"
     },
     {
-      "path": "/check-your-answers-ySwQiT",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],

@@ -23,7 +23,7 @@
           "condition": "VMLTbi"
         },
         {
-          "path": "/check-your-answers-pCJOit",
+          "path": "/summary",
           "condition": "tjnNpA"
         }
       ],
@@ -47,13 +47,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-pCJOit"
+          "path": "/summary"
         }
       ],
       "section": "pyQhSV"
     },
     {
-      "path": "/check-your-answers-pCJOit",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],
