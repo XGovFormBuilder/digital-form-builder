@@ -4,7 +4,7 @@
   "backLinkText": "Go back to application overview",
   "pages": [
     {
-      "path": "/check-your-answers-jaHDPV",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],
@@ -33,6 +33,17 @@
     {
       "path": "/risks-to-the-project",
       "title": "Risks to the project",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your project risks",
+          "removeText": "Delete"
+        }
+      },
       "components": [
         {
           "name": "EaxCuu",
@@ -43,7 +54,14 @@
         {
           "name": "qQLYzL",
           "options": {
-            "hideTitle": true
+            "columnTitles": [
+              "Risk",
+              "Likelihood",
+              "Impact",
+              "Proposed mitigation",
+              "Action"
+            ],
+            "required": true
           },
           "type": "MultiInputField",
           "title": "Risks to the project",
@@ -61,18 +79,14 @@
             },
             {
               "name": "eADHGN",
-              "options": {
-                "hideTitle": true
-              },
+              "options": {},
               "type": "RadiosField",
               "title": "Likelihood",
               "list": "zOwfxe"
             },
             {
               "name": "MPHvIr",
-              "options": {
-                "hideTitle": true
-              },
+              "options": {},
               "type": "RadiosField",
               "title": "Impact",
               "list": "yOwfxe"
@@ -94,7 +108,8 @@
           "path": "/who-is-responsible-risk-register"
         }
       ],
-      "section": "hhbMar"
+      "section": "hhbMar",
+      "controller": "RepeatingFieldPageController"
     },
     {
       "path": "/who-is-responsible-risk-register",
@@ -136,7 +151,7 @@
       ],
       "next": [
         {
-          "path": "/safe-guarding-policies"
+          "path": "/summary"
         }
       ],
       "section": "hhbMar"
@@ -180,88 +195,6 @@
           "value": "Low"
         }
       ]
-    },
-    {
-      "title": "Focus of the project",
-      "name": "hfQISg",
-      "type": "string",
-      "items": [
-        {
-          "text": "Trauma support",
-          "value": "trauma-support"
-        },
-        {
-          "text": "Mental health and wellbeing",
-          "value": "mental-health-and-wellbeing"
-        },
-        {
-          "text": "Teaching English as a language",
-          "value": "teaching-english-as-a-language"
-        },
-        {
-          "text": "Peer groups and befriending",
-          "value": "peer-groups-and-befriending"
-        },
-        {
-          "text": "Supporting hosts and sponsors",
-          "value": "supporting-hosts-and-sponsors"
-        },
-        {
-          "text": "Maintaining links to culture",
-          "value": "maintaining-links-to-culture"
-        }
-      ]
-    },
-    {
-      "title": "Cohort focus",
-      "name": "YSgfSN",
-      "type": "string",
-      "items": [
-        {
-          "text": "Ukrainian schemes",
-          "value": "ukrainian-schemes"
-        },
-        {
-          "text": "Hong Kong British Nationals (Overseas)",
-          "value": "hong-kong-british-nationals"
-        },
-        {
-          "text": "Afghan citizens resettlement scheme",
-          "value": "afghan-citizens-resettlement-scheme"
-        }
-      ]
-    },
-    {
-      "title": "Eligibility",
-      "name": "qwnTyS",
-      "type": "string",
-      "items": [
-        {
-          "text": "Upper or lower tier local authority",
-          "value": "1"
-        },
-        {
-          "text": "Charity with a registered charity number",
-          "value": "2"
-        },
-        {
-          "text": "Registered community interest company",
-          "value": "3"
-        },
-        {
-          "text": "Social enterprise",
-          "value": "4"
-        },
-        {
-          "text": "Community group",
-          "value": "5"
-        },
-        {
-          "text": "None of these",
-          "value": "6",
-          "description": ""
-        }
-      ]
     }
   ],
   "sections": [
@@ -270,316 +203,7 @@
       "title": "5.1 Risk and deliverability"
     }
   ],
-  "conditions": [
-    {
-      "displayName": "org other name yes",
-      "name": "aHJVVz",
-      "value": {
-        "name": "org other name yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "KUdOhN",
-              "type": "YesNoField",
-              "display": "Does your organisation use any other names?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Org other name no",
-      "name": "tOevBV",
-      "value": {
-        "name": "Org other name no",
-        "conditions": [
-          {
-            "field": {
-              "name": "KUdOhN",
-              "type": "YesNoField",
-              "display": "Does your organisation use any other names?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "joint bid yes",
-      "name": "nMJAdu",
-      "value": {
-        "name": "joint bid yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "MRdGKt",
-              "type": "YesNoField",
-              "display": "Is your application a joint bid in partnership with other organisations?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "joint bid no",
-      "name": "ZhSWyC",
-      "value": {
-        "name": "joint bid no",
-        "conditions": [
-          {
-            "field": {
-              "name": "MRdGKt",
-              "type": "YesNoField",
-              "display": "Is your application a joint bid in partnership with other organisations?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "authorised signatory yes",
-      "name": "hDzCae",
-      "value": {
-        "name": "authorised signatory yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "DbFHbD",
-              "type": "YesNoField",
-              "display": "Is the lead contact the same person as the authorised signatory?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "authorised signatory no",
-      "name": "bDEBOE",
-      "value": {
-        "name": "authorised signatory no",
-        "conditions": [
-          {
-            "field": {
-              "name": "DbFHbD",
-              "type": "YesNoField",
-              "display": "Is the lead contact the same person as the authorised signatory?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Similar projects no",
-      "name": "tjnNpA",
-      "value": {
-        "name": "Similar projects no",
-        "conditions": [
-          {
-            "field": {
-              "name": "HrGXKi",
-              "type": "YesNoField",
-              "display": "Have you delivered projects like this before?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Similar projects yes",
-      "name": "VMLTbi",
-      "value": {
-        "name": "Similar projects yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "HrGXKi",
-              "type": "YesNoField",
-              "display": "Have you delivered projects like this before?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Ukraine support",
-      "name": "btRdYE",
-      "value": {
-        "name": "Ukraine support",
-        "conditions": [
-          {
-            "field": {
-              "name": "vYYoAC",
-              "type": "CheckboxesField",
-              "display": "Which cohort will your project focus on?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "ukrainian-schemes",
-              "display": "ukrainian-schemes"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Organisation no",
-      "name": "dfsBce",
-      "value": {
-        "name": "Organisation no",
-        "conditions": [
-          {
-            "field": {
-              "name": "KUdOhN",
-              "type": "YesNoField",
-              "display": "Does your organisation use any other names?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Organisation yes",
-      "name": "GZIoHg",
-      "value": {
-        "name": "Organisation yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "KUdOhN",
-              "type": "YesNoField",
-              "display": "Does your organisation use any other names?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Not a joint bid",
-      "name": "MbgmFQ",
-      "value": {
-        "name": "Not a joint bid",
-        "conditions": [
-          {
-            "field": {
-              "name": "MRdGKt",
-              "type": "YesNoField",
-              "display": "Is your application a joint bid in partnership with other organisations?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Based in england no",
-      "name": "JZGvHK",
-      "value": {
-        "name": "Based in england no",
-        "conditions": [
-          {
-            "field": {
-              "name": "qGbSWS",
-              "type": "YesNoField",
-              "display": "Is your organisation based in England?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Take place in England no",
-      "name": "LOPfHT",
-      "value": {
-        "name": "Take place in England no",
-        "conditions": [
-          {
-            "field": {
-              "name": "mknqUV",
-              "type": "YesNoField",
-              "display": "Will the project take place in England?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    }
-  ],
+  "conditions": [],
   "fees": [],
   "outputs": [
     {

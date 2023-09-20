@@ -6,6 +6,17 @@
     {
       "path": "/objectives-and-activities",
       "title": "Objectives and activities",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Objectives and activities",
+          "removeText": "Delete"
+        }
+      },
       "components": [
         {
           "name": "LAIkqw",
@@ -15,7 +26,10 @@
         },
         {
           "name": "tAoPKx",
-          "options": {},
+          "options": {
+            "columnTitles": ["Objective", "Activity", "Action"],
+            "required": true
+          },
           "type": "MultiInputField",
           "title": "Project milestones",
           "hint": "The MultiInputField needed",
@@ -42,13 +56,14 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers-vhqGaH"
+          "path": "/summary"
         }
       ],
-      "section": "zzpzem"
+      "section": "zzpzem",
+      "controller": "RepeatingFieldPageController"
     },
     {
-      "path": "/check-your-answers-vhqGaH",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],
