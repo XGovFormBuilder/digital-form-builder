@@ -9,7 +9,7 @@ import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
-import config from "config";
+import config from "../../config";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -177,6 +177,11 @@ export const plugin = {
         if (model) {
           return getStartPageRedirect(request, h, id, model);
         }
+
+        if (config.serviceStartPage) {
+          return h.redirect(config.serviceStartPage);
+        }
+
         throw Boom.notFound("No default form found");
       },
     });
