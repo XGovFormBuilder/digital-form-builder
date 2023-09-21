@@ -247,7 +247,7 @@ export class RepeatingSummaryPageController extends PageController {
       for (const [i, name] of orderedNames.entries()) {
         row.values.push({
           text: keyToRenderedValue[name],
-          class: i == 0 ? "govuk-table__header" : "govuk-table__cell",
+          class: "govuk-table__cell",
         } as never);
       }
 
