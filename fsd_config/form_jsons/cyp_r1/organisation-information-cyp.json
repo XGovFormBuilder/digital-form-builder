@@ -154,12 +154,11 @@
           "name": "jcjKhd",
           "options": {},
           "type": "Para",
-          "content": "<div class=\"govuk-input\">\n <p>You can find this by searching Companies House. \n\n It is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
+          "content": "<div class=\"govuk-hint\"><p>You can find this by searching Companies House. \n\n It is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
         },
         {
           "name": "jencJE",
           "options": {
-            "classes": "govuk-input",
             "hideTitle": true
           },
           "type": "TextField",
@@ -182,12 +181,11 @@
           "name": "jcjKhc",
           "options": {},
           "type": "Para",
-          "content": "<div class=\"govuk-input\">\n <p>You can find this by searching the register of charities on the Charity Commission website \n\n It is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
+          "content": "<div class=\"govuk-hint\">\n <p>You can find this by searching the register of charities on the Charity Commission website \n\n It is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
         },
         {
           "name": "jeocJE",
           "options": {
-            "classes": "govuk-input",
             "hideTitle": true
           },
           "type": "TextField",
@@ -331,7 +329,7 @@
           "name": "jcjKhd",
           "options": {},
           "type": "Para",
-          "content": "<div class=\"govuk-input\">\n <p>You can add more partner organisations on the next step</p></div>"
+          "content": "<div class=\"govuk-hint\">\n <p>You can add more partner organisations on the next step</p></div>"
         },
         {
           "name": "tZoOKx",
@@ -798,94 +796,6 @@
               "type": "Value",
               "value": "false",
               "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "authorised signatory yes",
-      "name": "hDzCae",
-      "value": {
-        "name": "authorised signatory yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "DbFHbD",
-              "type": "YesNoField",
-              "display": "Is the lead contact the same person as the authorised signatory?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "authorised signatory no",
-      "name": "bDEBOE",
-      "value": {
-        "name": "authorised signatory no",
-        "conditions": [
-          {
-            "field": {
-              "name": "DbFHbD",
-              "type": "YesNoField",
-              "display": "Is the lead contact the same person as the authorised signatory?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Similar projects no",
-      "name": "tjnNpA",
-      "value": {
-        "name": "Similar projects no",
-        "conditions": [
-          {
-            "field": {
-              "name": "HrGXKi",
-              "type": "YesNoField",
-              "display": "Have you delivered projects like this before?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "Similar projects yes",
-      "name": "VMLTbi",
-      "value": {
-        "name": "Similar projects yes",
-        "conditions": [
-          {
-            "field": {
-              "name": "HrGXKi",
-              "type": "YesNoField",
-              "display": "Have you delivered projects like this before?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
             }
           }
         ]

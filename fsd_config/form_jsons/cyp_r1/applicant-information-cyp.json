@@ -116,7 +116,7 @@
         {
           "name": "tikwxM",
           "options": {
-            "required": false,
+            "required": true,
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
