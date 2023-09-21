@@ -64,6 +64,17 @@
     {
       "path": "/item-of-expenditure",
       "title": "Item of expenditure",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your items of expenditure",
+          "removeText": "Delete"
+        }
+      },
       "components": [
         {
           "name": "EaxCii",
@@ -73,7 +84,11 @@
         },
         {
           "name": "qwktzL",
-          "options": {},
+          "options": {
+            "columnTitles": ["Item of expenditure", "Amount", "Year", "Action"],
+            "required": true,
+            "classes": "govuk-!-width-full"
+          },
           "type": "MultiInputField",
           "title": "Item of expenditure",
           "hint": "The MultiInputField needed",
@@ -115,7 +130,8 @@
           "path": "/will-you-use-additional-funding"
         }
       ],
-      "section": "xYdwyD"
+      "section": "xYdwyD",
+      "controller": "RepeatingFieldPageController"
     },
     {
       "path": "/will-you-use-additional-funding",
@@ -145,6 +161,17 @@
     {
       "path": "/additional-funding",
       "title": "Additional funding",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your additional funding",
+          "removeText": "Delete"
+        }
+      },
       "components": [
         {
           "name": "EaxCll",
@@ -154,7 +181,17 @@
         },
         {
           "name": "qqktzL",
-          "options": {},
+          "options": {
+            "columnTitles": [
+              "Funding source",
+              "Amount",
+              "Date",
+              "Type",
+              "Action"
+            ],
+            "required": true,
+            "classes": "govuk-!-width-full"
+          },
           "type": "MultiInputField",
           "title": "Funding source",
           "hint": "for example, money from reserves, trusts or foundations",
@@ -179,17 +216,10 @@
               "schema": {}
             },
             {
-              "name": "MadvIr",
-              "options": {},
-              "type": "RadiosField",
-              "title": "Which type of funding is it?",
-              "list": "yOwfxo"
-            },
-            {
-              "type": "MonthYearField",
-              "title": "When will you receive the additional funding?",
-              "hint": "For example, 3 2024",
               "name": "HpLJyL",
+              "type": "MonthYearField",
+              "title": "When is the additional funding available from?",
+              "hint": "For example, 3 2024",
               "nameHasError": false,
               "options": {}
             },
@@ -208,7 +238,8 @@
           "path": "/summary"
         }
       ],
-      "section": "xYwwyD"
+      "section": "xYdwyD",
+      "controller": "RepeatingFieldPageController"
     },
     {
       "path": "/summary",
