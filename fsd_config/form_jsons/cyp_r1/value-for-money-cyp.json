@@ -11,7 +11,7 @@
           "name": "vDJxWL",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-hint\">This is the amount you are applying for from the Children and Young People’s Resettlement Fund. \n This is a revenue only fund\n</p>",
+          "content": "<p class=\"govuk-hint\">This is the amount you are applying for from the Children and Young People’s Resettlement Fund.</p> \n <p class=\"govuk-hint\">This is a revenue only fund\n</p>",
           "schema": {}
         },
         {
@@ -115,9 +115,7 @@
             },
             {
               "name": "kjuHtl",
-              "options": {
-                "hideTitle": true
-              },
+              "options": {},
               "type": "RadiosField",
               "title": "Year",
               "list": "yOwfxo"
@@ -144,7 +142,7 @@
           },
           "type": "YesNoField",
           "title": "Will you use additional funding for your project?",
-          "hint": "for example, money from reserves, trusts or foundations"
+          "hint": "For example, money from reserves, trusts or foundations"
         }
       ],
       "next": [
@@ -156,7 +154,7 @@
           "path": "/summary"
         }
       ],
-      "section": "xYwdyD"
+      "section": "xYdwyD"
     },
     {
       "path": "/additional-funding",
@@ -194,16 +192,15 @@
           },
           "type": "MultiInputField",
           "title": "Funding source",
-          "hint": "for example, money from reserves, trusts or foundations",
+          "hint": "You can add more funding sources on the next step",
           "schema": {},
           "children": [
             {
               "name": "gLqiyJ",
-              "options": {
-                "hideTitle": true
-              },
+              "options": {},
               "type": "TextField",
-              "title": "Funding source"
+              "title": "Funding source",
+              "hint": "For example, money from reserves, trusts or foundations"
             },
             {
               "name": "yuzbjT",
@@ -258,11 +255,11 @@
       "items": [
         {
           "text": "Capital",
-          "value": "capital"
+          "value": "Capital"
         },
         {
           "text": "Revenue",
-          "value": "revenue"
+          "value": "Revenue"
         }
       ]
     },

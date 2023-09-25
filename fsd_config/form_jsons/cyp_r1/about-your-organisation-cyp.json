@@ -96,7 +96,7 @@
           "options": {},
           "type": "Details",
           "title": "Help with organisation types",
-          "content": "<p>A registered community interest company is a special type of limited company. It exists to benefit the community rather than private shareholders.</p>\n <p>A social enterprise is a business with social objectives. It reinvests its surpluses in the business or community, rather than driving the need to maximise profit for shareholders and owners.</p>\nCommunity groups must:\n<div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>how much funding you are applying for from this fund</li>\n<li>your full operational costs</li>\n<li>any funding you've already received for your project so far</li>\n<li>any funding you've plan to secure for your project</li>\n<li>any funding you've already received towards capital costs</li>\n</ul>\n<p>We'll ask you to upload a business plan to support the answers you give us in this section.</p>\n</div>"
+          "content": "<p>A registered community interest company is a special type of limited company. It exists to benefit the community rather than private shareholders.</p>\n<p>A social enterprise is a business with social objectives. It reinvests its surpluses in the business or community, rather than driving the need to maximise profit for shareholders and owners.</p>\n<div>\nCommunity groups must:\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>be established for charitable, benevolent, or philanthropic purposes</li>\n<li>have a governing body with at least 3 members</li>\n<li>have a governing document they can produce</li>\n<li>provide accounts for the last 2 financial years</li>\n</div>"
         },
         {
           "name": "jcmcJE",

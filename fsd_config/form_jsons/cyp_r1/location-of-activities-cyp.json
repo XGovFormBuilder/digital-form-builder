@@ -57,7 +57,7 @@
           "children": [
             {
               "name": "kaQUSV",
-              "options": {},
+              "options": { "hideTitle": true },
               "type": "TextField",
               "title": "Which local authority areas will you work across?",
               "hint": "You can add more local authority areas on the next step."
