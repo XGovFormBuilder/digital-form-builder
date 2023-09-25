@@ -269,7 +269,8 @@
         {
           "name": "smBPvK",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "required": false
           },
           "type": "UkAddressField",
           "title": "Alternative organisation address",

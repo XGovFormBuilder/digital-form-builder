@@ -45,7 +45,11 @@ export class UkAddressField extends FormComponent {
         name: "addressLine1",
         title: addressLine1Title,
         schema: { max: 100 },
-        options: { required: isRequired, classes: "govuk-!-width-full" },
+        options: {
+          required: isRequired,
+          classes: "govuk-!-width-full",
+          optionalText: false,
+        },
       },
       {
         type: "TextField",
@@ -59,7 +63,11 @@ export class UkAddressField extends FormComponent {
         name: "town",
         title: townCityText,
         schema: { max: 100 },
-        options: { required: isRequired, classes: "govuk-!-width-two-thirds" },
+        options: {
+          required: isRequired,
+          classes: "govuk-!-width-two-thirds",
+          optionalText: false,
+        },
       },
       {
         type: "TextField",
@@ -81,6 +89,7 @@ export class UkAddressField extends FormComponent {
           required: isRequired,
           customValidationMessage: "Enter a valid postcode",
           classes: "govuk-!-width-one-half",
+          optionalText: false,
         },
       },
     ];
@@ -153,7 +162,11 @@ export class UkAddressField extends FormComponent {
     const name = this.name;
     const value = state[name];
 
-    if (typeof value !== "string" && typeof value !== "undefined") {
+    if (
+      typeof value !== "string" &&
+      typeof value !== "undefined" &&
+      value !== null
+    ) {
       value.addressLine2 =
         value.addressLine2 === "" ? "null" : value.addressLine2;
       value.county = value.county === "" ? "null" : value.county;
