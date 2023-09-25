@@ -22,6 +22,8 @@ import { reach } from "hoek";
 export class ViewModel {
   pageTitle: string;
   declaration: any; // TODO
+  markAsComplete: boolean | undefined;
+  markAsCompleteComponent: boolean | undefined;
   skipSummary: boolean;
   endPage: any; // TODO
   result: any;
@@ -35,6 +37,7 @@ export class ViewModel {
   privacyPolicyUrl: string | undefined;
   phaseTag: string | undefined;
   declarationError: any; // TODO
+  markAsCompleteError: any;
   errors:
     | {
         path: string;
@@ -292,6 +295,21 @@ export class ViewModel {
           title: "Declaration",
           type: "boolean",
           answer: true,
+        },
+      ],
+    });
+  }
+
+  addMarkAsCompleteAsQuestion(markAsComplete: boolean) {
+    this._webhookData?.questions?.push({
+      category: null,
+      question: "MarkAsComplete",
+      fields: [
+        {
+          key: "markAsComplete",
+          title: "Do you want to mark this section as complete?",
+          type: "boolean",
+          answer: markAsComplete,
         },
       ],
     });

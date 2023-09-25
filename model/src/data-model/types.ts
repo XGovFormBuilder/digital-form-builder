@@ -173,4 +173,5 @@ export type FormDefinition = {
   paymentReferenceFormat?: string;
   backLinkText?: string;
   footer?: Footer;
+  markAsComplete?: boolean | undefined;
 };

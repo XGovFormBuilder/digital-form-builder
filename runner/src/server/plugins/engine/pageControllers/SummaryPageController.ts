@@ -167,6 +167,11 @@ export class SummaryPageController extends PageController {
         viewModel.declarationError = declarationError[0];
       }
 
+      const markAsCompleteError = request.yar.flash("markAsCompleteError");
+      if (markAsCompleteError.length) {
+        viewModel.markAsCompleteError = markAsCompleteError[0];
+      }
+
       viewModel.details.find((value, index) => {
         viewModel.containsFileType = value.items.some(
           (item) => item.type === "FileUploadField"
@@ -337,6 +342,22 @@ export class SummaryPageController extends PageController {
           );
         }
         summaryViewModel.addDeclarationAsQuestion();
+      }
+
+      if (summaryViewModel.markAsCompleteComponent) {
+        const { markAsComplete } = request.payload as { markAsComplete?: any };
+
+        if (!markAsComplete) {
+          request.yar.flash("markAsCompleteError", "You must select yes or no");
+          return redirectTo(
+            request,
+            h,
+            `${request.headers.referer}#markAsComplete`
+          );
+        }
+        summaryViewModel.addMarkAsCompleteAsQuestion(
+          markAsComplete.toLowerCase() === "true"
+        );
       }
 
       await cacheService.mergeState(request, {
