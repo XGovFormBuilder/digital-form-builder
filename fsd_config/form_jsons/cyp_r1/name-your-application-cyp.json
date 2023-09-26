@@ -14,7 +14,7 @@
             "hideTitle": true
           },
           "type": "TextField",
-          "hint": "This is what your application will be called and will help you find it when you save and return. \n\n Choose a memorable name that describes your application.",
+          "hint": "This is what your application will be called and will help you find it when you save and return. \n<br><br>\n Choose a memorable name that describes your application.",
           "title": "Name your application",
           "schema": {}
         }
