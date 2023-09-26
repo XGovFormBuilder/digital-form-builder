@@ -19,7 +19,7 @@
           "name": "gMoQAm",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>risks to the project</li>\n        <li>the likelihood of the risks</li>\n        <li>the impact of the risks</li>\n        <li>how you'll mitigate the risks</li>\n        <li>a person accountable for the risk register</li>\n        <li>your organisation's safeguarding policies</li>\n    </ul>",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>risks to the project</li>\n        <li>the likelihood of the risks</li>\n        <li>the impact of the risks</li>\n        <li>how you'll mitigate the risks</li>\n        <li>a person accountable for the risk register</li>\n        <li>your organisation's governance structure</li>\n    </ul>",
           "schema": {}
         }
       ],
@@ -122,7 +122,7 @@
           },
           "type": "TextField",
           "title": "Who is owns the overall risk register?",
-          "hint": "Enter a full name",
+          "hint": "<div class=\"govuk-hint\">Enter a full name</div>",
           "schema": {}
         }
       ],
