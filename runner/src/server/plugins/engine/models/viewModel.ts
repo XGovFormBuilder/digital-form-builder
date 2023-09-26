@@ -393,11 +393,17 @@ function Item(
     });
   }
 
+  let componentValue = component.getDisplayStringFromState(sectionState);
+
+  if (componentValue == "" && component.options.required == false) {
+    componentValue = null;
+  }
+
   return {
     name: component.name,
     path: page.path,
     label: component.localisedString(component.title),
-    value: component.getDisplayStringFromState(sectionState),
+    value: componentValue,
     rawValue: sectionState[component.name],
     url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
     pageId: `/${model.basePath}${page.path}`,
