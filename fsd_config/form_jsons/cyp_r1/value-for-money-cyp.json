@@ -21,7 +21,7 @@
             "classes": "govuk-input--width-10"
           },
           "type": "NumberField",
-          "title": "25 September 2023 to 31 March 2024",
+          "title": "27 September 2023 to 31 March 2024",
           "schema": {}
         },
         {
@@ -269,8 +269,8 @@
       "type": "string",
       "items": [
         {
-          "text": "25 September 2023 to 31 March 2024",
-          "value": "25 September 2023 to 31 March 2024"
+          "text": "27 September 2023 to 31 March 2024",
+          "value": "27 September 2023 to 31 March 2024"
         },
         {
           "text": "1 April 2024 to 31 March 2025",
