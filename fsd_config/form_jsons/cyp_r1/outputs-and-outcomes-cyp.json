@@ -135,7 +135,7 @@
     },
     {
       "path": "/hong-kong-british-nationals",
-      "title": "How many fund recipients from the Hong Kong British Nationals (Overseas) cohort do you expect your project to support with the funding?",
+      "title": "How many fund recipients from the Hong Kong British National (Overseas) cohort do you expect your project to support with the funding?",
       "components": [
         {
           "name": "tBwdYp",
@@ -144,7 +144,7 @@
             "classes": "govuk-input govuk-!-width-one-quarter"
           },
           "type": "NumberField",
-          "title": "How many fund recipients from the Hong Kong British Nationals (Overseas) cohort do you expect your project to support with the funding?",
+          "title": "How many fund recipients from the Hong Kong British National (Overseas) cohort do you expect your project to support with the funding?",
           "hint": "Fund recipients are people aged 21 and under",
           "schema": {}
         }
@@ -254,7 +254,7 @@
           "value": "ukrainian-schemes"
         },
         {
-          "text": "Hong Kong British Nationals (Overseas)",
+          "text": "Hong Kong British National (Overseas)",
           "value": "hong-kong-british-nationals"
         },
         {
