@@ -73,7 +73,7 @@
     "nodemailer": "~6.6.0",
     "notifications-node-client": "^5.2.0",
     "nunjucks": "^3.2.3",
-    "pdfmake": "0.1.65",
+    "pdfmake": "0.2.7",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
     "tmp": "^0.2.1",
