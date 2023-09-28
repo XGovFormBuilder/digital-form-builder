@@ -19,6 +19,8 @@ if (process.env.VCAP_SERVICES) {
     process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key;
     bucketName = s3Credentials.bucket_name;
   }
+} else if(process.env.AWS_BUCKET_NAME) {
+  bucketName = process.env.AWS_BUCKET_NAME
 }
 
 const awsConfig = { region };
