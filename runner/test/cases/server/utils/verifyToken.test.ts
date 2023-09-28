@@ -42,4 +42,28 @@ describe("verifyToken", function () {
     sinon.restore();
     expect(verifyToken(decodedToken).isValid).to.be.true();
   });
+  test("initialisedSessionAdditionalDecodeKeys are used to validate the key if they exist", () => {
+    sinon
+      .stub(config, "initialisedSessionAdditionalDecodeKeys")
+      .value("OLD_KEY1,OLD_KEY2");
+
+    sinon.stub(config, "initialisedSessionKey").value("OLD_KEY2");
+
+    const tokenWithOldKey = generateSessionTokenForForm("localhost", "test");
+
+    sinon.stub(config, "initialisedSessionKey").value("NEW_KEY");
+    const tokenWithNewKey = generateSessionTokenForForm("localhost", "test");
+
+    expect(verifyToken(Jwt.token.decode(tokenWithOldKey)).isValid).to.be.true();
+    expect(verifyToken(Jwt.token.decode(tokenWithNewKey)).isValid).to.be.true();
+
+    sinon
+      .stub(config, "initialisedSessionAdditionalDecodeKeys")
+      .value("OLD_KEY1");
+
+    expect(
+      verifyToken(Jwt.token.decode(tokenWithOldKey)).isValid
+    ).to.be.false();
+    expect(verifyToken(Jwt.token.decode(tokenWithNewKey)).isValid).to.be.true();
+  });
 });

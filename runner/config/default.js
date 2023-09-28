@@ -13,6 +13,7 @@ module.exports = {
    */
   initialisedSessionTimeout: minute * 60 * 24 * 28, // Defaults to 28 days. Set the TTL for the initialised session in ms.
   initialisedSessionKey: `${nanoid.random(16)}`, // This should be set if you are deploying replicas, otherwise the key will be different per replica
+  initialisedSessionAdditionalDecodeKeys: [], // If you have recently switched algos or changed keys, you can add old keys here if you have access to them. Add these as CSV when using env vars.
   initialisedSessionAlgorithm: "HS512", // allowed algorithms: "RS256", "RS384", "RS512","PS256", "PS384", "PS512", "ES256", "ES384", "ES512", "EdDSA", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "HS256", "HS384", "HS512"
 
   /**

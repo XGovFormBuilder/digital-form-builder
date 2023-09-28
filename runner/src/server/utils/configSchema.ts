@@ -78,6 +78,10 @@ export const configSchema = Joi.object({
   safelist: Joi.array().items(Joi.string()),
   initialisedSessionTimeout: Joi.number(),
   initialisedSessionKey: Joi.string(),
+  initialisedSessionAdditionalDecodeKeys: Joi.array()
+    .items(Joi.string())
+    .single()
+    .optional(),
   initialisedSessionAlgorithm: Joi.string()
     .allow(
       "RS256",
