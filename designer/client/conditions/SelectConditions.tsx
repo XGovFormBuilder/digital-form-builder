@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import InlineConditions from "./InlineConditions";
-import { Condition, ConditionsModel, Data } from "@xgovformbuilder/model";
+import { Condition, ConditionsModel } from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
@@ -14,15 +14,11 @@ import {
 } from "../data";
 import {
   hasNestedCondition,
-  isObjectCondition,
-  isDuplicateCondition,
-  hasConditionName,
-  getFieldNameSubstring,
-  conditionsByType,
+  validateNestedCondition,
+  validateSimpleCondition,
 } from "./select-condition-helpers";
 interface Props {
   path: string;
-  data: Data;
   conditionsChange: (selectedCondition: string) => void;
   hints: any[];
   noFieldsHintText?: string;
@@ -34,7 +30,7 @@ interface State {
   fields: any;
 }
 
-type ConditionObject = {
+export type ConditionObject = {
   name: string;
   conditions: Condition[];
 };
@@ -75,141 +71,39 @@ class SelectConditions extends React.Component<Props, State> {
     const inputs = path
       ? inputsAccessibleAt(data, path)
       : allInputs(data) ?? [];
-    return inputs
-      .map((input) => ({
-        label: input.title,
-        name: this.trimSectionName(input.propertyPath),
-        type: input.type,
-      }))
-      .reduce((obj, item) => {
-        obj[item.name] = item;
-        return obj;
-      }, {});
+    return inputs.map((input) => input.propertyPath);
   }
 
   conditionsForPath(path: string) {
     const { data } = this.context;
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
-    let conditionsForPath: any[] = [];
-    const conditionsByTypeMap = conditionsByType(conditions);
-
-    fields.forEach((field) => {
-      this.handleStringConditions(
-        conditionsByTypeMap.string,
-        field.name,
-        conditionsForPath
-      );
-      this.handleConditions(
-        conditionsByTypeMap.object,
-        field.name,
-        conditionsForPath
-      );
-      this.handleNestedConditions(
-        conditionsByTypeMap.nested,
-        field.name,
-        conditionsForPath
-      );
+    let validConditions: ConditionData[] = [];
+    const [
+      simpleConditions,
+      nestedConditions,
+    ] = (conditions as ConditionData[]).reduce<ConditionData[][]>(
+      (acc, curr) => {
+        acc[hasNestedCondition(curr) ? 1 : 0].push(curr);
+        return acc;
+      },
+      [[], []]
+    );
+    simpleConditions.forEach((condition) => {
+      if (validateSimpleCondition(condition, fields)) {
+        validConditions.push(condition);
+      }
     });
-
-    return conditionsForPath;
-  }
-
-  handleConditions(
-    objectConditions: ConditionData[],
-    fieldName: string,
-    conditionsForPath: any[]
-  ) {
-    objectConditions.forEach((condition) => {
-      condition.value.conditions?.forEach((innerCondition) => {
-        this.checkAndAddCondition(
-          condition,
-          fieldName,
-          getFieldNameSubstring(innerCondition.field.name),
-          conditionsForPath
-        );
-      });
-    });
-  }
-
-  handleStringConditions(
-    stringConditions: any[],
-    fieldName: string,
-    conditionsForPath: any[]
-  ) {
-    const operators = ["==", "!=", ">", "<"];
-    const conditionsWithAcceptedOperators = stringConditions.filter(
-      (condition) =>
-        operators.some((operator) => condition.value.includes(operator))
-    );
-    const conditionsWithFieldName = conditionsWithAcceptedOperators.map(
-      (condition) => ({
-        ...condition,
-        conditionFieldName: condition.value
-          .substring(
-            condition.value.indexOf(".") + 1,
-            condition.value.lastIndexOf(
-              operators.filter((operator) => condition.value.includes(operator))
-            )
-          )
-          .trim(),
-      })
-    );
-    conditionsWithFieldName.forEach((condition) =>
-      this.checkAndAddCondition(
-        condition,
-        fieldName,
-        condition.conditionFieldName,
-        conditionsForPath
-      )
-    );
-  }
-  // loops through nested conditions, checking the referenced condition against the current field
-  handleNestedConditions(
-    nestedConditions: ConditionData[],
-    fieldName: string,
-    conditionsForPath: any[]
-  ) {
     nestedConditions.forEach((condition) => {
-      condition.value.conditions.forEach((innerCondition) => {
-        // if the condition is already in the conditions array, skip the for each loop iteration
-        if (isDuplicateCondition(conditionsForPath, condition.name)) return;
-        // if the inner condition isn't a nested condition, handle it in the standard way
-        if (!hasConditionName(innerCondition)) {
-          this.checkAndAddCondition(
-            condition,
-            fieldName,
-            getFieldNameSubstring(innerCondition.field.name),
-            conditionsForPath
-          );
-          return;
-        }
-        //if the inner condition is a nested condition,
-        //check if that nested condition is already in the conditions array,
-        //and if so, add this condition to the array
-        if (
-          isDuplicateCondition(conditionsForPath, innerCondition.conditionName)
-        )
-          conditionsForPath.push(condition);
-      });
+      let conditionsToAdd = validateNestedCondition(
+        condition,
+        fields,
+        validConditions,
+        conditions
+      );
+      validConditions = validConditions.concat(conditionsToAdd);
     });
-  }
-
-  checkAndAddCondition(
-    conditionToAdd,
-    fieldName: string,
-    conditionFieldName: string,
-    conditions: any[]
-  ) {
-    if (isDuplicateCondition(conditions, conditionToAdd.name)) return;
-    if (fieldName === conditionFieldName) conditions.push(conditionToAdd);
-  }
-
-  trimSectionName(fieldName: string) {
-    if (fieldName.includes(".")) {
-      return fieldName.substring(fieldName.indexOf(".") + 1);
-    }
-    return fieldName;
+    return validConditions;
   }
 
   onClickDefineCondition = (e) => {

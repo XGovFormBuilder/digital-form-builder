@@ -21,6 +21,7 @@ const rawData = {
           schema: {},
         },
       ],
+      section: "checkBeforeYouStart",
     },
     {
       title: "Second page",
@@ -34,7 +35,12 @@ const rawData = {
       components: [],
     },
   ],
-  sections: [],
+  sections: [
+    {
+      name: "checkBeforeYouStart",
+      title: "Check before you start",
+    },
+  ],
   startPage: "",
   conditions: [],
 };
@@ -162,7 +168,7 @@ test("links are correctly generated when the form is submitted", () => {
           conditions: [
             {
               field: {
-                name: "ukPassport",
+                name: "checkBeforeYouStart.ukPassport",
                 type: "YesNoField",
                 display: "Do you have a UK passport?",
               },
@@ -184,7 +190,7 @@ test("links are correctly generated when the form is submitted", () => {
           conditions: [
             {
               field: {
-                name: "ukPassport",
+                name: "checkBeforeYouStart.ukPassport",
                 type: "YesNoField",
                 display: "Do you have a UK passport?",
               },

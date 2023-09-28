@@ -21,18 +21,15 @@ test("updateCondition throws if no condition could be found", () => {
 test("updateCondition successfully updates a condition", () => {
   expect(
     updateCondition(data, "isCatPerson", {
-      displayName: "cats rule",
-      value: {
-        name: "valueName",
-        conditions: [],
-      },
+      name: "cats rule",
+      asPerUserGroupings: [],
     })
   ).toEqual({
     conditions: [
       {
         displayName: "cats rule",
         name: "isCatPerson",
-        value: { name: "valueName", conditions: [] },
+        value: { name: "newCondition", conditions: [] },
       },
     ],
     lists: [],
