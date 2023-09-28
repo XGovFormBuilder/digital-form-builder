@@ -6,4 +6,5 @@ export { StartPageController } from "./StartPageController";
 export { SummaryPageController } from "./SummaryPageController";
 export { PageControllerBase } from "./PageControllerBase";
 export { RepeatingFieldPageController } from "./RepeatingFieldPageController";
+export { RepeatingSummaryPageController } from "./RepeatingSummaryPageController";
 export { getPageController, controllerNameFromPath } from "./helpers";
