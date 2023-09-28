@@ -45,7 +45,7 @@
           "name": "jcjKhe",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Tell us about your organisation's main activities</h2>\n\n<div class=\"govuk-body\">\n <p>Include any activities you undertake in order to achieve the organisation's purpose.</p> \n\n <p>You must list at least one, and can include up to three</p></div>"
+          "content": "<h2 class=\"govuk-heading-s\">Tell us about your organisation's main activities</h2>\n\n<div class=\"govuk-hint\">\n <p>Include any activities you undertake in order to achieve the organisation's purpose.</p> \n\n <p>You must list at least one, and can include up to three</p></div>"
         },
         {
           "name": "kxgOne",
@@ -105,7 +105,7 @@
           },
           "type": "RadiosField",
           "title": "Organisation classification",
-          "hint": "Select one option",
+          "hint": "<p class=\"govuk-hint\">Select one option</p>",
           "list": "jcXaBR"
         }
       ],
@@ -154,7 +154,7 @@
           "name": "jcjKhd",
           "options": {},
           "type": "Para",
-          "content": "<div class=\"govuk-hint\"><p>You can find this by searching Companies House. \n\n It is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
+          "content": "<div class=\"govuk-hint\"><p>You can find this by searching Companies House.</p><p>It is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
         },
         {
           "name": "jencJE",
@@ -181,7 +181,7 @@
           "name": "jcjKhc",
           "options": {},
           "type": "Para",
-          "content": "<div class=\"govuk-hint\">\n <p>You can find this by searching the register of charities on the Charity Commission website \n\n It is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
+          "content": "<div class=\"govuk-hint\">\n <p>You can find this by searching the register of charities on the Charity Commission website</p><p>It is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
         },
         {
           "name": "jeocJE",
@@ -429,7 +429,6 @@
           "options": { "columnTitles": ["Link", "Action"] },
           "type": "MultiInputField",
           "title": "Website and social media",
-          "hint": "For example, your company's Facebook, Instagram or Twitter accounts (if applicable) \n You can add more links on the next step",
           "schema": {},
           "children": [
             {
@@ -439,7 +438,7 @@
               },
               "type": "WebsiteField",
               "title": "Link",
-              "hint": "For example, your company's Facebook, Instagram or Twitter accounts (if applicable) \n\n You can add more links on the next step",
+              "hint": "<p class=\"govuk-hint\">For example, your company's Facebook, Instagram or Twitter accounts (if applicable)</p><p class=\"govuk-hint\">You can add more links on the next step</p>",
               "schema": {}
             }
           ]
@@ -493,7 +492,7 @@
           },
           "type": "FreeTextField",
           "title": "Tell us about how you plan to work with the partner organisations",
-          "hint": "Explain what their role is in the delivery of the project and how they’ll assist with delivery"
+          "hint": "<p class=\"govuk-hint\">Explain what their role is in the delivery of the project and how they'll assist with delivery</p>"
         }
       ],
       "next": [
@@ -514,7 +513,7 @@
           },
           "type": "YesNoField",
           "title": "Does an agreement currently exists between your organisations and the partnership organisations?",
-          "hint": "We may ask for a copy of the agreement if your application is successful",
+          "hint": "<p class=\"govuk-hint\">We may ask for a copy of the agreement if your application is successful</p>",
           "schema": {}
         }
       ],

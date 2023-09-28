@@ -65,7 +65,7 @@
           "options": {},
           "type": "YesNoField",
           "title": "Is the lead contact the same person as the authorised signatory?",
-          "hint": "An authorised signatory:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n            <li>is allowed to act on behalf of the organisation</li>\n            <li>will sign the grant funding agreement if your application is successful</li>\n          </ul>",
+          "hint": "<p class=\"govuk-hint\">An authorised signatory:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n            <li>is allowed to act on behalf of the organisation</li>\n            <li>will sign the grant funding agreement if your application is successful</li>\n          </ul></p>",
           "values": {
             "type": "listRef"
           },

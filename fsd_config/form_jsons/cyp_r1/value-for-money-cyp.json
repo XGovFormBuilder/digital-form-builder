@@ -142,7 +142,7 @@
           },
           "type": "YesNoField",
           "title": "Will you use additional funding for your project?",
-          "hint": "For example, money from reserves, trusts or foundations"
+          "hint": "<p class=\"govuk-hint\">For example, money from reserves, trusts or foundations</p>"
         }
       ],
       "next": [
@@ -192,7 +192,7 @@
           },
           "type": "MultiInputField",
           "title": "Funding source",
-          "hint": "You can add more funding sources on the next step",
+          "hint": "<p class=\"govuk-hint\">You can add more funding sources on the next step</p>",
           "schema": {},
           "children": [
             {
@@ -200,7 +200,7 @@
               "options": {},
               "type": "TextField",
               "title": "Funding source",
-              "hint": "For example, money from reserves, trusts or foundations"
+              "hint": "<p class=\"govuk-hint\">For example, money from reserves, trusts or foundations</p>"
             },
             {
               "name": "yuzbjT",
@@ -216,7 +216,7 @@
               "name": "HpLJyL",
               "type": "MonthYearField",
               "title": "When is the additional funding available from?",
-              "hint": "For example, 3 2024",
+              "hint": "<p class=\"govuk-hint\">For example, 3 2024</p>",
               "nameHasError": false,
               "options": {}
             },

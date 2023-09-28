@@ -58,7 +58,7 @@
           },
           "type": "CheckboxesField",
           "title": "What is the main focus of your project?",
-          "hint": "Select all that apply",
+          "hint": "<p class=\"govuk-hint\">Select all that apply</p>",
           "list": "hfQISg",
           "schema": {}
         }
@@ -81,7 +81,7 @@
           },
           "type": "CheckboxesField",
           "title": "Which cohort will your project focus on?",
-          "hint": "Select all that apply",
+          "hint": "<p class=\"govuk-hint\">Select all that apply</p>",
           "list": "YSgfSN",
           "schema": {}
         }
@@ -114,7 +114,7 @@
           },
           "type": "NumberField",
           "title": "How many fund recipients from the Ukraine schemes do you expect your project to support with the funding?",
-          "hint": "Fund recipients are people aged 21 and under",
+          "hint": "<p class=\"govuk-hint\">Fund recipients are people aged 21 and under</p>",
           "schema": {}
         }
       ],
@@ -145,7 +145,7 @@
           },
           "type": "NumberField",
           "title": "How many fund recipients from the Hong Kong British National (Overseas) cohort do you expect your project to support with the funding?",
-          "hint": "Fund recipients are people aged 21 and under",
+          "hint": "<p class=\"govuk-hint\">Fund recipients are people aged 21 and under</p>",
           "schema": {}
         }
       ],
@@ -172,7 +172,7 @@
           },
           "type": "NumberField",
           "title": "How many fund recipients from the Afghan Citizens Resettlement Scheme do you expect your project to support with the funding?",
-          "hint": "Fund recipients are people aged 21 and under",
+          "hint": "<p class=\"govuk-hint\">Fund recipients are people aged 21 and under</p>",
           "schema": {}
         }
       ],

@@ -22,7 +22,7 @@
           "name": "LAUkqw",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-hint\">Tell us you project's milestones up to, and including 2025.</p>\n\n<p class=\"govuk-hint\">You should mention the key deliverables that will help you monitor your progress.</p>\n\n<p class=\"govuk-hint\">You can add more milestones on the next step.</p>\n\n"
+          "content": "<p class=\"govuk-hint\">Tell us your project's milestones up to, and including 2025.</p>\n\n<p class=\"govuk-hint\">You should mention the key deliverables that will help you monitor your progress.</p>\n\n<p class=\"govuk-hint\">You can add more milestones on the next step.</p>\n\n"
         },
         {
           "name": "tAoOKx",
@@ -42,13 +42,13 @@
               },
               "type": "MultilineTextField",
               "title": "Milestone",
-              "hint": "For example, recruit member of staff, reach a percentage of the proposed recipients, deliver a particular activity",
+              "hint": "<p class=\"govuk-hint\">For example, recruit member of staff, reach a percentage of the proposed recipients, deliver a particular activity</p>",
               "schema": {}
             },
             {
               "type": "MonthYearField",
               "title": "When will you reach this milestone?",
-              "hint": "For example, 3 2024",
+              "hint": "<p class=\"govuk-hint\">For example, 3 2024</p>",
               "name": "LZbOBu",
               "nameHasError": false,
               "options": {}

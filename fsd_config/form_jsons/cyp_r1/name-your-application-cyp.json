@@ -14,7 +14,7 @@
             "hideTitle": true
           },
           "type": "TextField",
-          "hint": "This is what your application will be called and will help you find it when you save and return. \n<br><br>\n Choose a memorable name that describes your application.",
+          "hint": "<p class=\"govuk-hint\">This is what your application will be called and will help you find it when you save and return. </p><p class=\"govuk-hint\"> Choose a memorable name that describes your application.</p>",
           "title": "Name your application",
           "schema": {}
         }

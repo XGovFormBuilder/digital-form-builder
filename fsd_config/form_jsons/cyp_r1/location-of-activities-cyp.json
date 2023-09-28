@@ -14,7 +14,7 @@
           },
           "type": "YesNoField",
           "title": "Is the project taking place regionally?",
-          "hint": "If it is not taking place regionally, we assume it will take place nationally"
+          "hint": "<p class=\"govuk-hint\">If it is not taking place regionally, we assume it will take place nationally</p>"
         }
       ],
       "next": [
@@ -60,7 +60,7 @@
               "options": { "hideTitle": true },
               "type": "TextField",
               "title": "Which local authority areas will you work across?",
-              "hint": "You can add more local authority areas on the next step."
+              "hint": "<p class=\"govuk-hint\">You can add more local authority areas on the next step.</p>"
             }
           ]
         }

@@ -113,7 +113,7 @@
     },
     {
       "path": "/who-is-responsible-risk-register",
-      "title": "Who owns for the overall risk register?",
+      "title": "Who owns the overall risk register?",
       "components": [
         {
           "name": "KHESdE",
@@ -121,7 +121,7 @@
             "hideTitle": true
           },
           "type": "TextField",
-          "title": "Who is owns the overall risk register?",
+          "title": "Who owns the overall risk register?",
           "hint": "<div class=\"govuk-hint\">Enter a full name</div>",
           "schema": {}
         }
@@ -145,7 +145,7 @@
           },
           "type": "FreeTextField",
           "title": "Tell us about your organisation's governance structure",
-          "hint": "Include members of your board, their roles and main responsibilities",
+          "hint": "<p class=\"govuk-hint\">Include members of your board, their roles and main responsibilities</p>",
           "schema": {}
         }
       ],
