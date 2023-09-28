@@ -1,0 +1,96 @@
+Parameters:
+  App:
+    Type: String
+    Description: Your application's name.
+  Env:
+    Type: String
+    Description: The environment name your service, job, or workflow is being deployed to.
+  Name:
+    Type: String
+    Description: The name of the service, job, or workflow being deployed.
+
+Resources:
+  # Subnet group to control where the Redis gets placed
+  FormRunnerRedisSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Properties:
+      Description: Group of subnets to place Redis into
+      SubnetIds: !Split [ ',', { 'Fn::ImportValue': !Sub '${App}-${Env}-PrivateSubnets' } ]
+
+  # Security group to add the Redis cluster to the VPC,
+  # and to allow the Fargate containers to talk to Redis on port 6379
+  FormRunnerRedisSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Redis Security Group"
+      VpcId:
+        Fn::ImportValue:
+          !Sub '${App}-${Env}-VpcId'
+
+  # Enable ingress from other ECS services created within the environment.
+  FormRunnerRedisIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: Ingress from Fargate containers
+      GroupId: !Ref 'FormRunnerRedisSecurityGroup'
+      IpProtocol: tcp
+      FromPort: 6379
+      ToPort: 6379
+      SourceSecurityGroupId:
+        Fn::ImportValue:
+          !Sub '${App}-${Env}-EnvironmentSecurityGroup'
+
+  # Secret Storage of access credentials
+  FormRunnerRedisSecret:
+    Metadata:
+      'aws:copilot:description': 'A Secrets Manager secret to store your DB credentials'
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: !Sub 'Redis main user secret for ${AWS::StackName}'
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "redis"}'
+        GenerateStringKey: "password"
+        ExcludePunctuation: true
+        IncludeSpace: false
+        PasswordLength: 16
+
+  # Creation of the cluster itself
+  FormRunnerRedisReplicationGroup:
+    Type: AWS::ElastiCache::ReplicationGroup
+    Properties:
+      ReplicationGroupDescription: !Sub '${Env} Funding Service Form Runner'
+      AutomaticFailoverEnabled: true
+      AtRestEncryptionEnabled: true
+      TransitEncryptionEnabled: true
+      AutoMinorVersionUpgrade: true
+      MultiAZEnabled: true
+      CacheNodeType: cache.t3.micro
+      CacheSubnetGroupName: !Ref 'FormRunnerRedisSubnetGroup'
+      SecurityGroupIds:
+        - !GetAtt 'FormRunnerRedisSecurityGroup.GroupId'
+      Engine: redis
+      NumCacheClusters: 2
+
+  # Redis endpoint stored in SSM so that other services can retrieve the endpoint.
+  FormRunnerRedisEndpointAddressParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub '/${App}/${Env}/${Name}/redis'   # Other services can retrieve the endpoint from this path.
+      Type: String
+      Value: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address'
+
+Outputs:
+  FormRunnerRedisEndpoint:
+    Description: The endpoint of the redis cluster
+    Value: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address'
+    Export:
+      Name: !Sub ${App}-${Env}-FormRunnerRedisEndpoint
+  FormRunnerRedisInstanceURI:
+    Description: "The URI of the redis cluster."
+    Value:
+      !Sub
+      - "rediss://${HOSTNAME}:${PORT}"
+      - HOSTNAME: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address'
+        PORT: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Port'
+    Export:
+      Name: !Sub ${App}-${Env}-FormRunnerRedisInstanceURI

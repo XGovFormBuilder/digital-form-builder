@@ -10,21 +10,21 @@ http:
   # To match all requests you can use the "/" path.
   path: '/'
   # You can specify a custom health check path. The default is "/".
-  healthcheck: '/healthcheck'
-  alias: form-runner.test.access-funding.test.levellingup.gov.uk
+  healthcheck: '/health-check'
+  alias: forms.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk
 
 # Configuration for your containers and service.
 image:
   # Docker build arguments. For additional overrides: https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#image-build
-  location: ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:latest
+  location: ghcr.io/communitiesuk/runner:latest
   # Port exposed through your container to route traffic to it.
-  port: 8080
+  port: 3009
 
 # Valid values: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html
 # Number of CPU units for the task.
 cpu: 256
 # Amount of memory in MiB used by the task.
-memory: 512
+memory: 1024
 
 # See https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#platform
 platform: linux/x86_64
@@ -51,16 +51,42 @@ network:
 #
 # Pass environment variables as key value pairs.
 variables:
-  # SENTRY_DSN: "https://8092c54bdc3a4b4ba124dea42b836504@o1432034.ingest.sentry.io/4503918903820288"
-  FLASK_ENV: ${COPILOT_ENVIRONMENT_NAME}
-  PORT: 8080
+  NODE_ENV: production
+  SERVICE_START_PAGE: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/account"
+  JWT_REDIRECT_TO_AUTHENTICATION_URL: "https://authenticator.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/sessions/sign-out"
+  LOGOUT_URL: "https://authenticator.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/sessions/sign-out"
+  MULTIFUND_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/account"
+  BASIC_AUTH_ON: true
+  SINGLE_REDIS: true
+  CONTACT_US_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/contact_us"
+  FEEDBACK_LINK: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/feedback"
+  PRIVACY_POLICY_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/privacy"
+  COOKIE_POLICY_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/cookie_policy"
+  ACCESSIBILITY_STATEMENT_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/accessibility_statement"
+  NODE_CONFIG: "{\"safelist\": [\"http://fsd-application-store:8080\"]}"
+  AWS_BUCKET_NAME:
+    from_cfn: ${COPILOT_APPLICATION_NAME}-${COPILOT_ENVIRONMENT_NAME}-FormUploadsBucket
+
+secrets:
+  RSA256_PUBLIC_KEY_BASE64: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/RSA256_PUBLIC_KEY_BASE64
+  SESSION_COOKIE_PASSWORD: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/SESSION_COOKIE_PASSWORD
 
 # You can override any of the values defined above by environment.
-# environments:
-#   production:
-#     count: 2               # Number of tasks to run for the "prod" environment.
-#     variables:
-#       http:
-#       alias: funding-service-design-form-runner-production.apps.internal
-#     image:
-#       location: ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:prod
+environments:
+  # uat:
+    # http:
+    #   alias: frontend.uat.access-funding.test.levellingup.gov.uk
+  production:
+    http:
+      alias: forms.access-funding.levellingup.gov.uk
+    variables:
+      SERVICE_START_PAGE: "https://frontend.access-funding.levellingup.gov.uk/account"
+      JWT_REDIRECT_TO_AUTHENTICATION_URL: "https://authenticator.access-funding.levellingup.gov.uk/sessions/sign-out"
+      LOGOUT_URL: "https://authenticator.access-funding.levellingup.gov.uk/sessions/sign-out"
+      MULTIFUND_URL: "https://frontend.access-funding.levellingup.gov.uk/account"
+      BASIC_AUTH_ON: false
+      CONTACT_US_URL: "https://frontend.access-funding.levellingup.gov.uk/contact_us"
+      FEEDBACK_LINK: "https://frontend.access-funding.levellingup.gov.uk/feedback"
+      PRIVACY_POLICY_URL: "https://frontend.access-funding.levellingup.gov.uk/privacy"
+      COOKIE_POLICY_URL: "https://frontend.access-funding.levellingup.gov.uk/cookie_policy"
+      ACCESSIBILITY_STATEMENT_URL: "https://frontend.access-funding.levellingup.gov.uk/accessibility_statement"
