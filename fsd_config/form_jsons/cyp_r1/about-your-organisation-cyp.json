@@ -45,7 +45,7 @@
           "name": "jcjKhe",
           "options": {},
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Tell us about your organisation's main activities</h2>\n\n<div class=\"govuk-hint\">\n <p>Include any activities you undertake in order to achieve the organisation's purpose.</p> \n\n <p>You must list at least one, and can include up to three</p></div>"
+          "content": "<div class=\"govuk-hint\">\n <p>Include any activities you undertake in order to achieve the organisation's purpose.</p> \n\n <p>You must list at least one, and can include up to three</p></div>"
         },
         {
           "name": "kxgOne",
@@ -181,7 +181,7 @@
           "name": "jcjKhc",
           "options": {},
           "type": "Para",
-          "content": "<div class=\"govuk-hint\">\n <p>You can find this by searching the register of charities on the Charity Commission website</p><p>It is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
+          "content": "<div class=\"govuk-hint\">\n <p>You can find this by searching the register of charities on the Charity Commission website.</p><p>It is usually 7 numbers, or 8 numbers if your charity is recently registered</p></div>"
         },
         {
           "name": "jeocJE",
@@ -338,9 +338,9 @@
             "columnTitles": [
               "Organisation name",
               "Address",
-              "Link 1",
-              "Link 2",
-              "Link 3",
+              "Website and social media link 1",
+              "Website and social media link 2",
+              "Website and social media link 3",
               "Action"
             ]
           },
@@ -362,7 +362,7 @@
               "options": {},
               "type": "UkAddressField",
               "title": "Partner organisation address",
-              "hint": ""
+              "hint": "Partner organisation address"
             },
             {
               "name": "MKbOlA",
@@ -504,7 +504,7 @@
     },
     {
       "path": "/agreement-exists",
-      "title": "Does an agreement currently exists between your organisations and the partnership organisations?",
+      "title": "Does an agreement currently exist between your organisation and the partnership organisations?",
       "components": [
         {
           "name": "RUdOhN",
@@ -512,7 +512,7 @@
             "hideTitle": true
           },
           "type": "YesNoField",
-          "title": "Does an agreement currently exists between your organisations and the partnership organisations?",
+          "title": "Does an agreement currently exist between your organisation and the partnership organisations?",
           "hint": "<p class=\"govuk-hint\">We may ask for a copy of the agreement if your application is successful</p>",
           "schema": {}
         }
