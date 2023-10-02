@@ -1,0 +1,350 @@
+{
+    "metadata": {},
+    "startPage": "/22-roles-and-recruitment",
+    "pages": [
+        {
+            "title": "2.2 Roles and recruitment",
+            "path": "/22-roles-and-recruitment",
+            "components": [
+                {
+                    "name": "vwXfgR",
+                    "options": {},
+                    "type": "Html",
+                    "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>if you have a team in place ready to deliver the project</li>\n<li>how you will make sure you have a team in place ready to deliver the project (if applicable)</li>\n<li>the shape of the project team (if applicable)</li>\n<li>if you need to backfill any roles in the organisation</li>\n<li>the estimated cost of backfilling roles (if applicable)</li>\n<li>if you know who will lead the day-to-day delivery of the project in your organisation</li>\n<li>who will lead the day-to-day delivery of the project in your organisation (if applicable)</li>\n</ul>"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/do-you-have-a-team-in-place-ready-to-deliver-the-project"
+                }
+            ],
+            "controller": "./pages/start.js"
+        },
+        {
+            "path": "/do-you-have-a-team-in-place-ready-to-deliver-the-project",
+            "title": "Do you have a team in place ready to deliver the project?",
+            "components": [
+                {
+                    "name": "vuZiab",
+                    "options": {
+                        "hideTitle": true
+                    },
+                    "type": "YesNoField",
+                    "title": "Do you have a team in place ready to deliver the project?"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/how-will-you-make-sure-you-have-a-team-in-place-ready-to-deliver-the-project",
+                    "condition": "bRZmty"
+                },
+                {
+                    "path": "/tell-us-about-the-shape-of-the-project-team",
+                    "condition": "BBLyPD"
+                }
+            ],
+            "section": "nJcRTz"
+        },
+        {
+            "path": "/how-will-you-make-sure-you-have-a-team-in-place-ready-to-deliver-the-project",
+            "title": "How will you make sure you have a team in place ready to deliver the project?",
+            "components": [
+                {
+                    "name": "MXfVrs",
+                    "options": {
+                        "hideTitle": true,
+                        "maxWords": "250"
+                    },
+                    "type": "MultilineTextField",
+                    "hint": "<div class=\"govuk-hint\">Tell us about how you plan to recruit any new roles if they are needed</div>",
+                    "title": "How will you make sure you have a team in place ready to deliver the project?"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/tell-us-about-the-shape-of-the-project-team"
+                }
+            ],
+            "section": "nJcRTz"
+        },
+        {
+            "path": "/tell-us-about-the-shape-of-the-project-team",
+            "title": "Tell us about the shape of the project team",
+            "components": [
+                {
+                    "name": "OPOrME",
+                    "options": {
+                        "hideTitle": true,
+                        "maxWords": "250"
+                    },
+                    "type": "MultilineTextField",
+                    "title": "Tell us about the shape of the project team",
+                    "hint": "<div class=\"govuk-hint\">Tell us about:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>the roles in the team </li>\n  <li>the scale of the team</li>\n  <li>whether you have a GIS (geographic information system) officer to support the project or if you plan to recruit one</li>\n</ul>\n</div>"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/will-you-need-to-backfill-any-roles-in-the-organisation"
+                }
+            ],
+            "section": "nJcRTz"
+        },
+        {
+            "path": "/will-you-need-to-backfill-any-roles-in-the-organisation",
+            "title": "Will you need to backfill any roles in the organisation?",
+            "components": [
+                {
+                    "name": "gSQPxs",
+                    "options": {
+                        "hideTitle": true
+                    },
+                    "type": "YesNoField",
+                    "title": "Will you need to backfill any roles in the organisation?"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/what-is-the-estimated-cost-of-backfilling-roles",
+                    "condition": "CkxdlS"
+                },
+                {
+                    "path": "/do-you-know-who-will-lead-the-day-to-day-delivery-of-the-project-in-your-organisation",
+                    "condition": "VRNfek"
+                }
+            ],
+            "section": "nJcRTz"
+        },
+        {
+            "path": "/what-is-the-estimated-cost-of-backfilling-roles",
+            "title": "What is the estimated cost of backfilling roles?",
+            "components": [
+                {
+                    "name": "KEnthg",
+                    "options": {
+                        "suffix": "",
+                        "prefix": "£",
+                        "classes": "govuk-input--width-10",
+                        "hideTitle": true
+                    },
+                    "type": "NumberField",
+                    "title": "What is the estimated cost of backfilling roles?"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/do-you-know-who-will-lead-the-day-to-day-delivery-of-the-project-in-your-organisation"
+                }
+            ],
+            "section": "nJcRTz"
+        },
+        {
+            "path": "/do-you-know-who-will-lead-the-day-to-day-delivery-of-the-project-in-your-organisation",
+            "title": "Do you know who will lead the day-to-day delivery of the project in your organisation?",
+            "components": [
+                {
+                    "name": "pRqIkv",
+                    "options": {
+                        "hideTitle": true
+                    },
+                    "type": "YesNoField",
+                    "title": "Do you know who will lead the day-to-day delivery of the project in your organisation?"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/who-will-lead-the-day-to-day-delivery-of-the-project-in-your-organisation",
+                    "condition": "NPjkPj"
+                },
+                {
+                    "path": "/check-your-answers",
+                    "condition": "gaFxer"
+                }
+            ],
+            "section": "nJcRTz"
+        },
+        {
+            "path": "/who-will-lead-the-day-to-day-delivery-of-the-project-in-your-organisation",
+            "title": "Who will lead the day-to-day delivery of the project in your organisation?",
+            "components": [
+                {
+                    "name": "eWmNSY",
+                    "options": {
+                        "hideTitle": true
+                    },
+                    "type": "TextField",
+                    "title": "Who will lead the day-to-day delivery of the project in your organisation?",
+                    "hint": "<div class=\"govuk-hint\">Enter a full name</div>"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/check-your-answers"
+                }
+            ],
+            "section": "nJcRTz"
+        },
+        {
+            "path": "/check-your-answers",
+            "title": "Check your answers",
+            "components": [],
+            "next": [],
+            "section": "nJcRTz",
+            "controller": "./pages/summary.js"
+        }
+    ],
+    "lists": [],
+    "sections": [
+        {
+            "name": "nJcRTz",
+            "title": "Roles and recruitment"
+        }
+    ],
+    "conditions": [
+        {
+            "displayName": "Team in place no",
+            "name": "bRZmty",
+            "value": {
+                "name": "Team in place no",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "vuZiab",
+                            "type": "YesNoField",
+                            "display": "Do you have a team in place ready to deliver the project?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "Team in place yes",
+            "name": "BBLyPD",
+            "value": {
+                "name": "Team in place yes",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "vuZiab",
+                            "type": "YesNoField",
+                            "display": "Do you have a team in place ready to deliver the project?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "true",
+                            "display": "true"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "Backfill yes",
+            "name": "CkxdlS",
+            "value": {
+                "name": "Backfill yes",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "gSQPxs",
+                            "type": "YesNoField",
+                            "display": "Will you need to backfill any roles in the organisation?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "true",
+                            "display": "true"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "Backfill no",
+            "name": "VRNfek",
+            "value": {
+                "name": "Backfill no",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "gSQPxs",
+                            "type": "YesNoField",
+                            "display": "Will you need to backfill any roles in the organisation?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "Lead day to day yes",
+            "name": "NPjkPj",
+            "value": {
+                "name": "Lead day to day yes",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "pRqIkv",
+                            "type": "YesNoField",
+                            "display": "Do you know who will lead the day-to-day delivery of the project in your organisation?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "true",
+                            "display": "true"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "Lead day to day no",
+            "name": "gaFxer",
+            "value": {
+                "name": "Lead day to day no",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "pRqIkv",
+                            "type": "YesNoField",
+                            "display": "Do you know who will lead the day-to-day delivery of the project in your organisation?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "fees": [],
+    "outputs": [
+        {
+            "name": "update-form",
+            "title": "Update form in application store",
+            "type": "savePerPage",
+            "outputConfiguration": {
+                "savePerPageUrl": "True"
+            }
+        }
+    ],
+    "version": 2,
+    "skipSummary": false,
+    "markAsComplete": false
+}

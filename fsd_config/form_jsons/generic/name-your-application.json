@@ -1,0 +1,57 @@
+{
+    "metadata": {},
+    "startPage": "/name-your-application",
+    "pages": [
+        {
+            "title": "Name your application",
+            "path": "/name-your-application",
+            "components": [
+                {
+                    "name": "JAAhRP",
+                    "options": {
+                        "hideTitle": true
+                    },
+                    "type": "TextField",
+                    "title": "Name your application",
+                    "hint": "<div class=\"govuk-hint\">This is what your application will be called and will help you find it when you save and return.</div>\n<div class=\"govuk-hint\">Choose a memorable name that describes your application.</div>"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/check-your-answers"
+                }
+            ],
+            "section": "ScxYon"
+        },
+        {
+            "title": "Check your answers",
+            "path": "/check-your-answers",
+            "controller": "./pages/summary.js",
+            "components": [],
+            "next": [],
+            "section": "ScxYon"
+        }
+    ],
+    "lists": [],
+    "sections": [
+        {
+            "name": "ScxYon",
+            "title": "Name your application"
+        }
+    ],
+    "conditions": [],
+    "fees": [],
+    "outputs": [
+        {
+            "name": "update-form",
+            "title": "Update form in application store",
+            "type": "savePerPage",
+            "outputConfiguration": {
+                "savePerPageUrl": "True"
+            }
+        }
+    ],
+    "version": 2,
+    "skipSummary": false,
+    "markAsComplete": false
+}

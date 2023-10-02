@@ -1,0 +1,76 @@
+{
+    "metadata": {},
+    "startPage": "/31-engaging-the-odp-community",
+    "pages": [
+        {
+            "title": "3.1 Engaging the ODP community",
+            "path": "/31-engaging-the-odp-community",
+            "components": [
+                {
+                    "name": "zAIXJE",
+                    "options": {},
+                    "type": "Html",
+                    "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>why you want to be a part of the ODP (open digital planning) community</li>\n</ul>"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/why-do-you-want-to-be-a-part-of-the-odp-open-digital-planning-community"
+                }
+            ],
+            "controller": "./pages/start.js"
+        },
+        {
+            "path": "/why-do-you-want-to-be-a-part-of-the-odp-open-digital-planning-community",
+            "title": "Why do you want to be a part of the ODP (open digital planning) community?",
+            "components": [
+                {
+                    "name": "mmTkva",
+                    "options": {
+                        "hideTitle": true,
+                        "maxWords": "250"
+                    },
+                    "type": "MultilineTextField",
+                    "title": "Why do you want to be a part of the ODP (open digital planning) community?",
+                    "hint": "<div class=\"govuk-hint\">Tell us:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>what you will get from the community</li>\n  <li>what you will give to the community</li>\n</ul>\n</div>"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/check-your-answers"
+                }
+            ],
+            "section": "QiDJsl"
+        },
+        {
+            "path": "/check-your-answers",
+            "title": "Check your answers",
+            "components": [],
+            "next": [],
+            "section": "QiDJsl",
+            "controller": "./pages/summary.js"
+        }
+    ],
+    "lists": [],
+    "sections": [
+        {
+            "name": "QiDJsl",
+            "title": "Engaging the ODP community"
+        }
+    ],
+    "conditions": [],
+    "fees": [],
+    "outputs": [
+        {
+            "name": "update-form",
+            "title": "Update form in application store",
+            "type": "savePerPage",
+            "outputConfiguration": {
+                "savePerPageUrl": "True"
+            }
+        }
+    ],
+    "version": 2,
+    "skipSummary": false,
+    "markAsComplete": false
+}
