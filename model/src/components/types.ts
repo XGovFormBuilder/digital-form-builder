@@ -24,6 +24,8 @@ export enum ComponentTypeEnum {
   FlashCard = "FlashCard",
   List = "List",
   MultiInputField = "MultiInputField",
+  FreeTextField = "FreeTextField",
+  ClientSideFileUploadField = "ClientSideFileUploadField",
 }
 
 export type ComponentType =
@@ -52,6 +54,8 @@ export type ComponentType =
   | "FlashCard"
   | "List"
   | "WebsiteField"
+  | "FreeTextField"
+  | "ClientSideFileUploadField"
   | "MultiInputField";
 
 export type ComponentSubType = "field" | "content";
@@ -82,6 +86,7 @@ interface TextFieldBase {
     classes?: string;
     allow?: string;
     autocomplete?: string;
+    noReturnUrlOnSummaryPage?: boolean;
   };
   schema: {
     max?: number;
@@ -201,6 +206,10 @@ export interface MultilineTextFieldComponent extends TextFieldBase {
     max?: number;
     min?: number;
   };
+}
+
+export interface FreeTextFieldComponent extends TextFieldBase {
+  type: "FreeTextField";
 }
 
 export interface FileUploadFieldComponent {
