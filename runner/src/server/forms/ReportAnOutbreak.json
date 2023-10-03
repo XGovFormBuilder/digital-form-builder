@@ -136,8 +136,7 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false,
-                    "schema": {}
+                    "nameHasError": false
                 },
                 {
                     "name": "S1Q8",
@@ -195,8 +194,7 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false,
-                    "schema": {}
+                    "nameHasError": false
                 },
                 {
                     "name": "S1Q8",
@@ -258,8 +256,7 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false,
-                    "schema": {}
+                    "nameHasError": false
                 },
                 {
                     "name": "S1Q8",
@@ -372,8 +369,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -558,8 +554,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -832,8 +827,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1214,8 +1208,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1288,8 +1281,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1377,8 +1369,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1431,8 +1422,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1478,8 +1468,7 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
-                    "schema": {}
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
                 }
             ],
             "next": [
@@ -1546,8 +1535,7 @@
                     "name": "bihqCt",
                     "options": {},
                     "type": "Para",
-                    "content": "You must click \"Yes\" for at least one of the three previous questions (unlinked cases should be reported and managed as single cases).",
-                    "schema": {}
+                    "content": "You must click \"Yes\" for at least one of the three previous questions (unlinked cases should be reported and managed as single cases)."
                 }
             ],
             "next": [
@@ -2687,7 +2675,7 @@
     ],
     "version": 2,
     "skipSummary": false,
-    "declaration": "<style>\n\tul {\n\t\tlist-style-type: none;\n\t}\n\n\tli {\n\t\tlist-style-type: none;\n\t\tpadding-left: 15px;\n\t\tposition: relative;\n\t}\n\tli::before {\n\t\tcontent: \"– \";\n\t\tpadding-right: 30px;\n\t\twidth: 10px;\n\t\tposition: absolute;\n\t\tleft: 0;\n\t}\n</style>\n<div class=\"govuk-prose-scope\">\n  <p>In this section you can review and change your answers. The Submit button at the bottom of this page will result in your\n  responses being submitted.</p>\n  \n  <p>Please be aware that your responses in this form may be shared with the Local Authority, Community Infection Control\n  Team, Health Protection Team and/or NHS for the purposes of assisting you with the management of your situation.</p>\n  \n  <p>Please ensure you have not included any person identifiable information in your responses (e.g. names or dates of\n  birth).</p>\n  \n  <p><b>Please note that if you need to enter another set of information into the Care OBRA Tool, you need to wait for at least\n  20 minutes. If you enter further information before 20 minutes have elapsed, this information will not be saved.</b></p>\n  \n  <p>Please tick to confirm understanding of this.</p>\n</div>\n",
+    "declaration": "<style>\n\tul {\n\t\tlist-style-type: none;\n\t}\n\n\tli {\n\t\tlist-style-type: none;\n\t\tpadding-left: 15px;\n\t\tposition: relative;\n\t}\n\tli::before {\n\t\tcontent: \"– \";\n\t\tpadding-right: 30px;\n\t\twidth: 10px;\n\t\tposition: absolute;\n\t\tleft: 0;\n\t}\n</style>\n<div class=\"govuk-prose-scope\">\n\n  <p>In this section you can review and change your answers. The Submit button at the bottom of this page will result in your\n  responses being submitted.</p>\n  <p>Please be aware that your responses in this form may be shared with the Local Authority, Community Infection Control\n  Team, Health Protection Team and/or NHS for the purposes of assisting you with the management of your situation.</p>\n \n  <p>Please ensure you have not included any person identifiable information in your responses (e.g. names or dates of\n  birth).</p>\n  \n  <p><b>Please note that if you need to enter another set of information into the Care OBRA Tool, you need to wait for at least\n  20 minutes. If you enter further information before 20 minutes have elapsed, this information will not be saved.</b></p>\n  \n  <p>Please tick to confirm understanding of this.</p>\n</div>\n",
     "name": "Report an outbreak",
     "feedback": {
         "feedbackForm": true,
@@ -2695,6 +2683,5 @@
     },
     "phaseBanner": {
         "phase": "beta"
-    },
-    "feeOptions": {}
+    }
 }
