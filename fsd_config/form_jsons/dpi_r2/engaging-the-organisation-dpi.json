@@ -30,7 +30,7 @@
                         "hideTitle": true,
                         "maxWords": "250"
                     },
-                    "type": "MultilineTextField",
+                    "type": "FreeTextField",
                     "title": "How will you make sure team members engage with other parts of the organisation?",
                     "hint": "<div class= \"govuk-hint\"> We expect you to regularly engage with:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\"> \n<li>planning departments</li>\n<li>transformation departments</li>\n<li>data departments</li>\n<li>GIS (geographical information system) teams</li>\n<li>senior leadership</li>\n<li>information technology teams</li> \n</ul>\n</div>"
                 }
@@ -60,7 +60,7 @@
                         "hideTitle": true,
                         "maxWords": "250"
                     },
-                    "type": "MultilineTextField",
+                    "type": "FreeTextField",
                     "title": "How will you share the progress of the work across the organisation?"
                 }
             ],

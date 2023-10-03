@@ -63,7 +63,7 @@
                         "hideTitle": true,
                         "maxWords": "250"
                     },
-                    "type": "MultilineTextField",
+                    "type": "FreeTextField",
                     "title": "Tell us about how you have worked on similar previous projects",
                     "hint": "<div class=\"govuk-hint\">Tell us about:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>the scale of the project</li>\n  <li>the value of the project</li>\n  <li>where the project was based</li>\n</ul>\n</div>"
                 }

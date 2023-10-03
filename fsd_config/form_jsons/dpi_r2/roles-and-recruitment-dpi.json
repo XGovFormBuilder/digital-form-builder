@@ -55,7 +55,7 @@
                         "hideTitle": true,
                         "maxWords": "250"
                     },
-                    "type": "MultilineTextField",
+                    "type": "FreeTextField",
                     "hint": "<div class=\"govuk-hint\">Tell us about how you plan to recruit any new roles if they are needed</div>",
                     "title": "How will you make sure you have a team in place ready to deliver the project?"
                 }
@@ -77,7 +77,7 @@
                         "hideTitle": true,
                         "maxWords": "250"
                     },
-                    "type": "MultilineTextField",
+                    "type": "FreeTextField",
                     "title": "Tell us about the shape of the project team",
                     "hint": "<div class=\"govuk-hint\">Tell us about:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>the roles in the team </li>\n  <li>the scale of the team</li>\n  <li>whether you have a GIS (geographic information system) officer to support the project or if you plan to recruit one</li>\n</ul>\n</div>"
                 }

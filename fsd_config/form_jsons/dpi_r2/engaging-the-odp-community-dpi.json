@@ -30,7 +30,7 @@
                         "hideTitle": true,
                         "maxWords": "250"
                     },
-                    "type": "MultilineTextField",
+                    "type": "FreeTextField",
                     "title": "Why do you want to be a part of the ODP (open digital planning) community?",
                     "hint": "<div class=\"govuk-hint\">Tell us:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>what you will get from the community</li>\n  <li>what you will give to the community</li>\n</ul>\n</div>"
                 }
