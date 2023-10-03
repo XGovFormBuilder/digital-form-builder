@@ -30,6 +30,7 @@
         {% elif item.componentType == "WebsiteField" %}
         {{ govukInput(item) }}
         {% elif item.componentType == "UkAddressField" %}
+        <h3 class="{{item.label.classes}}">{{ item.label.text }}</h3>
         {{ componentList(item.children) }}
         {%endif%}
     </label>
