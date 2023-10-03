@@ -17,7 +17,7 @@
                     "name": "nMOTrx",
                     "options": {},
                     "type": "Para",
-                    "content": "<style>\n\tul {\n\t\tlist-style-type: none;\n\t}\n\n\tli {\n\t\tlist-style-type: none;\n\t\tpadding-left: 15px;\n\t\tposition: relative;\n\t}\n\n\tli::before {\n\t\tcontent: \"– \";\n\t\tpadding-right: 30px;\n\t\twidth: 10px;\n\t\tposition: absolute;\n\t\tleft: 0;\n\t}\n</style>\n\n<div>\n\t<p>This is an online Care Outbreak Risk Assessment (Care OBRA) Tool for all Adult Social Care providers reporting a single case of Influenza (Flu) or a suspected or confirmed outbreak of acute respiratory infections, defined as:</p>\n\n\t<p>\n\t\t<i>\n\t\t\tTwo or more cases of Acute Respiratory Infection (COVID-19, Flu or unknown infection) within 14 days and potentially linked to the same care setting i.e.cases are probably linked to each other and transmission in the care setting is\n\t\t\tlikely.\n\t\t</i>\n\t</p>\n\n\t<p>\n\t\tThe purpose of the Care OBRA Tool is to gather information that the UK Health Security Agency (UKHSA) Health Protection Team (HPT) or Community Infection Control (CIC) Team need to assess the situation within your setting in order to help you\n\t\tmanage the outbreak.\n\t</p>\n\n\t<p>As soon as you have “submitted” your data into the Care OBRA Tool, you will receive:</p>\n\t<ul>\n\t\t<li style=\"padding-left: 20px\">An automatic <b>acknowledgement email</b> providing you with a copy of the data that you have input into the tool</li>\n\t\t<li style=\"padding-left: 20px\">A further automatic <b>advice email</b> which gives you information and advice on how to manage the situation that you have reported</li>\n\t</ul>\n\n\t<p>The HPT or CIC Team will also review your data to decide whether any further action is required and may then provide further advice and support by calling or emailing you.</p>\n\n\t<p>This form should take around 10 minutes to complete.</p>\n\n\t<p>This form is for the reporting of <b>NEW outbreaks</b> of Acute Respiratory Infection (ARI) and can also be used to report <b>single cases of confirmed Influenza</b></p>\n\n\t<p>It is <b>NOT</b> suitable for:</p>\n\t<ul>\n\t\t<li style=\"padding-left: 20px\">updating on existing outbreaks/clusters that you have already notified to the HPT or CIC Team</li>\n\t\t<li style=\"padding-left: 20px\">single cases of COVID-19 (you no longer need to report these)</li>\n\t</ul>\n\n\t<p style=\"color: #d4351c; font-weight: bold\">Please be aware that if you leave the Care OBRA risk assessment tool part-way through, after 20 minutes of no activity, your answers will be reset and you will have to start again.</p>\n\n\t<p>Therefore, we suggest you seek out the following information before you start to complete this form:</p>\n\t<ul>\n\t\t<li style=\"padding-left: 20px\">The postcode of your setting</li>\n\t\t<li style=\"padding-left: 20px\">The Unique Organisation Number UON* and/or CQC Location ID of your setting</li>\n\t\t<li style=\"padding-left: 20px\">Total number of Residents/Clients and Staff in your setting</li>\n\t\t<li style=\"padding-left: 20px\">Number of residents/clients who have had a letter saying that they are especially vulnerable to COVID-19 and are, therefore, eligible for COVID-19 treatments</li>\n\t\t<li style=\"padding-left: 20px\">Number of Residents/Clients and/or Staff with symptoms</li>\n\t\t<li style=\"padding-left: 20px\">Dates of symptom onset for cases</li>\n\t\t<li style=\"padding-left: 20px\">Test results (and date of test) for anyone tested</li>\n\t\t<li style=\"padding-left: 20px\">Number of Residents/Clients and Staff vaccinated or not, for both COVID-19 and Influenza (Flu)</li>\n\t</ul>\n\n\t<p>*UON is the same number that you use to order new COVID-19 test kits or register test results. Please see the bottom of this page for guidance on how to find your UON.</p>\n\n\t<p style=\"font-weight: bold\">Please DO NOT include any person identifiable information about people receiving care in this form (e.g. names and date of birth)</p>\n\n\t<p>\n\t\t<b\n\t\t\t>After submission of your data, if you receive an email that assesses your situation as “High Priority” over <span style=\"color: #d4351c\">a weekend or a bank holiday</span>, please also\n\t\t\t<span style=\"color: #d4351c\">call the Health Protection Team (HPT) out of hours service</span></b\n\t\t>. Otherwise, your outbreak will only be picked up by our team the next working day.\n\t</p>\n\n\t<p>\n\t\tContact details for your local HPT (in and out of hours) can be found by clicking on this link\n\t\t<a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.gov.uk/health-protection-team\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a>. If you are calling regarding a High Priority Outbreak, you should\n\t\ttell the call handler that you have been directed to call this number by your local HPT and you should have your Care OBRA reference number to hand.\n\t</p>\n\n\t<p>\n\t\tIf for any reason you have been unable to complete this form, or your enquiry is not suitable for entry onto this form (then please contact your local HPT the next working day if non-urgent, or in an emergency, call your HPTs out of hours\n\t\tservice (click on the link above to find details of your local HPT).\n\t</p>\n\n\t<p style=\"font-weight: bold\">Unique Organisation Number (UON)</p>\n\t<p>\n\t\tIf you can't find your <b>UON</b> then please visit\n\t\t<a target=\"_blank\" id=\"health-protection-team\" href=\"https://organisation-number-lookup.test-for-coronavirus.service.gov.uk/\">Organisation number lookup - GOV.UK (test-for-coronavirus.service.gov.uk).</a> You will need your CQC Location ID.\n\t</p>\n\t<p>\n\t\tIf you don’t know your <b>CQC Location ID</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about\n\t\thalf-way down the page to <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">CQC care directory - csv</a>. You will find your <b>CQC Location ID</b> in this look up table.\n\t</p>\n\t<p>If you still can’t find your UON number, then telephone 119.</p>\n\t<p>If all the above fail, then please call your local Health Protection or Community Infection Control Team (as per your usual arrangements).</p>\n\t<p style=\"font-weight: bold\">Data sharing</p>\n\t<p>\n\t\tThe data you provide may be shared with other stakeholders such as your Local Authority, Community Infection Control Team and NHS in order to ensure you receive the most appropriate support from the most relevant organisation. The UKHSA data\n\t\tsharing policy can be found on:\n\t</p>\n\t<p><a target=\"_blank\" id=\"ukhsa-privacy-notice\" href=\"https://www.gov.uk/government/publications/ukhsa-privacy-notice\">https://www.gov.uk/government/publications/ukhsa-privacy-notice</a></p>\n\t<p style=\"color: #1d70b8; font-weight: bold\">Continue for completion of the Care OBRA Tool</p>\n</div>\n",
+                    "content": "<style>\n\tul {\n\t\tlist-style-type: none;\n\t}\n\n\tli {\n\t\tlist-style-type: none;\n\t\tpadding-left: 15px;\n\t\tposition: relative;\n\t}\n\n\tli::before {\n\t\tcontent: \"– \";\n\t\tpadding-right: 30px;\n\t\twidth: 10px;\n\t\tposition: absolute;\n\t\tleft: 0;\n\t}\n</style>\n\n<div>\n\t<p>This is an online Care Outbreak Risk Assessment (Care OBRA) Tool for all Adult Social Care providers reporting a single case of Influenza (Flu) or a suspected or confirmed outbreak of acute respiratory infections, defined as:</p>\n\n\t<p>\n\t\t<i>\n\t\t\tTwo or more cases of Acute Respiratory Infection (COVID-19, Flu or unknown infection) within 14 days and potentially linked to the same care setting i.e.cases are probably linked to each other and transmission in the care setting is\n\t\t\tlikely.\n\t\t</i>\n\t</p>\n\n\t<p>\n\t\tThe purpose of the Care OBRA Tool is to gather information that the UK Health Security Agency (UKHSA) Health Protection Team (HPT) or Community Infection Control (CIC) Team need to assess the situation within your setting in order to help you\n\t\tmanage the outbreak.\n\t</p>\n\n\t<p>As soon as you have “submitted” your data into the Care OBRA Tool, you will receive:</p>\n\t<ul>\n\t\t<li style=\"padding-left: 20px\">An automatic <b>acknowledgement email</b> providing you with a copy of the data that you have input into the tool</li>\n\t\t<li style=\"padding-left: 20px\">A further automatic <b>advice email</b> which gives you information and advice on how to manage the situation that you have reported</li>\n\t</ul>\n\n\t<p>The HPT or CIC Team will also review your data to decide whether any further action is required and may then provide further advice and support by calling or emailing you.</p>\n\n\t<p>This form should take around 10 minutes to complete.</p>\n\n\t<p>This form is for the reporting of <b>NEW outbreaks</b> of Acute Respiratory Infection (ARI) and can also be used to report <b>single cases of confirmed Influenza</b></p>\n\n\t<p>It is <b>NOT</b> suitable for:</p>\n\t<ul>\n\t\t<li style=\"padding-left: 20px\">updating on existing outbreaks/clusters that you have already notified to the HPT or CIC Team</li>\n\t\t<li style=\"padding-left: 20px\">single cases of COVID-19 (you no longer need to report these)</li>\n\t</ul>\n\n\t<p style=\"color: #d4351c; font-weight: bold\">Please be aware that if you leave the Care OBRA risk assessment tool part-way through, after 20 minutes of no activity, your answers will be reset and you will have to start again.</p>\n\n\t<p>Therefore, we suggest you seek out the following information before you start to complete this form:</p>\n\t<ul>\n\t\t<li style=\"padding-left: 20px\">The postcode of your setting</li>\n\t\t<li style=\"padding-left: 20px\">The Unique Organisation Number UON* and/or CQC Location ID of your setting</li>\n\t\t<li style=\"padding-left: 20px\">Total number of Residents/Clients and Staff in your setting</li>\n\t\t<li style=\"padding-left: 20px\">Number of Residents/Clients and/or Staff with symptoms</li>\n\t\t<li style=\"padding-left: 20px\">Dates of symptom onset for cases</li>\n\t\t<li style=\"padding-left: 20px\">Test results (and date of test) for anyone tested</li>\n\t\t<li style=\"padding-left: 20px\">Number of Residents/Clients and Staff vaccinated or not, for both COVID-19 and Influenza (Flu)</li>\n\t</ul>\n\n\t<p>*UON is the same number that you use to order new COVID-19 test kits or register test results. Please see the bottom of this page for guidance on how to find your UON.</p>\n\n\t<p style=\"font-weight: bold\">Please DO NOT include any person identifiable information about people receiving care in this form (e.g. names and date of birth)</p>\n\n\t<p>\n\t\t<b\n\t\t\t>After submission of your data, if you receive an email that assesses your situation as “High Priority” over <span style=\"color: #d4351c\">a weekend or a bank holiday</span>, please also\n\t\t\t<span style=\"color: #d4351c\">call the Health Protection Team (HPT) out of hours service</span></b\n\t\t>. Otherwise, your outbreak will only be picked up by our team the next working day.\n\t</p>\n\n\t<p>\n\t\tContact details for your local HPT (in and out of hours) can be found by clicking on this link\n\t\t<a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.gov.uk/health-protection-team\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a>. If you are calling regarding a High Priority Outbreak, you should\n\t\ttell the call handler that you have been directed to call this number by your local HPT and you should have your Care OBRA reference number to hand.\n\t</p>\n\n\t<p>\n\t\tIf for any reason you have been unable to complete this form, or your enquiry is not suitable for entry onto this form (then please contact your local HPT the next working day if non-urgent, or in an emergency, call your HPTs out of hours\n\t\tservice (click on the link above to find details of your local HPT).\n\t</p>\n\n\t<p style=\"font-weight: bold\">Unique Organisation Number (UON)</p>\n\t<p>\n\t\tIf you can't find your <b>UON</b> then please visit\n\t\t<a target=\"_blank\" id=\"health-protection-team\" href=\"https://organisation-number-lookup.test-for-coronavirus.service.gov.uk/\">Organisation number lookup - GOV.UK (test-for-coronavirus.service.gov.uk).</a> You will need your CQC Location ID.\n\t</p>\n\t<p>\n\t\tIf you don’t know your <b>CQC Location ID</b> then please visit <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about\n\t\thalf-way down the page to <a target=\"_blank\" id=\"health-protection-team\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">CQC care directory - csv</a>. You will find your <b>CQC Location ID</b> in this look up table.\n\t</p>\n\t<p>If you still can’t find your UON number, then telephone 119.</p>\n\t<p>If all the above fail, then please call your local Health Protection or Community Infection Control Team (as per your usual arrangements).</p>\n\t<p style=\"font-weight: bold\">Data sharing</p>\n\t<p>\n\t\tThe data you provide may be shared with other stakeholders such as your Local Authority, Community Infection Control Team and NHS in order to ensure you receive the most appropriate support from the most relevant organisation. The UKHSA data\n\t\tsharing policy can be found on:\n\t</p>\n\t<p><a target=\"_blank\" id=\"ukhsa-privacy-notice\" href=\"https://www.gov.uk/government/publications/ukhsa-privacy-notice\">https://www.gov.uk/government/publications/ukhsa-privacy-notice</a></p>\n\t<p style=\"color: #1d70b8; font-weight: bold\">Continue for completion of the Care OBRA Tool</p>\n</div>\n",
                     "schema": {}
                 }
             ],
@@ -136,7 +136,8 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "schema": {}
                 },
                 {
                     "name": "S1Q8",
@@ -194,7 +195,8 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "schema": {}
                 },
                 {
                     "name": "S1Q8",
@@ -256,7 +258,8 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "schema": {}
                 },
                 {
                     "name": "S1Q8",
@@ -369,7 +372,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -554,7 +558,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -827,7 +832,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1208,7 +1214,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1281,7 +1288,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1369,7 +1377,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1422,7 +1431,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1455,7 +1465,7 @@
                     "options": {},
                     "type": "YesNoField",
                     "title": "S2Q1. Are you reporting two or more cases of acute respiratory infection (Flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days and that are POTENTIALLY LINKED to transmission within your setting?",
-                    "hint": "If you are unsure whether the cases may be linked due to transmission in your setting, please tick yes.\nIf you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications\" target=\"_blank\">https://www.gov.uk/government/publications</a>: Outbreak Management section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"No\" if you are certain your cases are not linked to transmission within your setting.",
+                    "hint": "If you are unsure whether the cases may be linked due to transmission in your setting, please tick yes.\nIf you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement/covid-19-supplement-to-the-infection-prevention-and-control-resource-for-adult-social-care#outbreaks-in-care-homes\" target=\"_blank\">'Outbreak in care homes'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"No\" if you are certain your cases are not linked to transmission within your setting.",
                     "nameHasError": false,
                     "values": {
                         "type": "listRef"
@@ -1468,7 +1478,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1490,7 +1501,7 @@
                     "options": {},
                     "type": "YesNoField",
                     "title": "S2Q2. Are you reporting two or more cases of acute respiratory infection (flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days but that are DEFINITELY NOT LINKED to transmission within your setting?",
-                    "hint": "If you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications\" target=\"_blank\">https://www.gov.uk/government/publications</a>: Outbreak Management section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"Yes\" if you are certain your cases are not linked to transmission within your setting.",
+                    "hint": "If you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement/covid-19-supplement-to-the-infection-prevention-and-control-resource-for-adult-social-care#outbreaks-in-care-homes\" target=\"_blank\">'Outbreak in care homes'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"Yes\" if you are certain your cases are not linked to transmission within your setting.",
                     "nameHasError": false,
                     "schema": {},
                     "values": {
@@ -1535,7 +1546,8 @@
                     "name": "bihqCt",
                     "options": {},
                     "type": "Para",
-                    "content": "You must click \"Yes\" for at least one of the three previous questions (unlinked cases should be reported and managed as single cases)."
+                    "content": "You must click \"Yes\" for at least one of the three previous questions (unlinked cases should be reported and managed as single cases).",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -2675,7 +2687,7 @@
     ],
     "version": 2,
     "skipSummary": false,
-    "declaration": "<style>\n\tul {\n\t\tlist-style-type: none;\n\t}\n\n\tli {\n\t\tlist-style-type: none;\n\t\tpadding-left: 15px;\n\t\tposition: relative;\n\t}\n\tli::before {\n\t\tcontent: \"– \";\n\t\tpadding-right: 30px;\n\t\twidth: 10px;\n\t\tposition: absolute;\n\t\tleft: 0;\n\t}\n</style>\n<div class=\"govuk-prose-scope\">\n\t<!-- <p>In this section you can review and change your answers. The Submit button at the bottom of this page will result in your responses being submitted.</p>\n\t<p>Please be aware that your responses in this form may be shared with the Local Authority, Community Infection Control Team, Health Protection Team and/or NHS for the purposes of assisting you with the management of your situation.</p>\n\t<p>Once you press “submit”, you should receive at least two automatic emails from the Care OBRA Tool:</p>\n\t<ul style=\"list-style: none\">\n\t\t<li style=\"padding-left: 20px\">One “acknowledgement email” which gives a summary of the information you entered onto the form</li>\n\t\t<li style=\"padding-left: 20px\">\n\t\t\tOne “advice email” which tells you what steps you should take to prevent spread of infection amongst your clients/residents and staff; and what to expect next from your Health Protection Team (HPT) or Community Infection Control (CIC)\n\t\t\tTeam\n\t\t</li>\n\t</ul>\n\t<p>If you have reported an outbreak AND a single case of a different infection, you may receive an additional advice email</p>\n\t<p>If:</p>\n\t<ul style=\"list-style: none\">\n\t\t<li style=\"padding-left: 20px\">You do not receive these emails within one hour OR</li>\n\t\t<li style=\"padding-left: 20px\">You need very urgent outbreak management advice</li>\n\t</ul>\n\t<p>You should call your local HPT or CIC Team.</p>\n\t<p>If you do not know the contact details of your HPT you can find them here - <a href=\"https://www.gov.uk/health-protection-team\" target=\"_blank\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a></p>\n\t<p>Before submitting your answers, please ensure you have not included any person identifiable information in your responses (e.g. names or dates of birth).</p>\n\t<p><b>Please note that if you need to enter another set of information into the Care OBRA Tool, you need to wait for at least 20 minutes. If you enter further information before 20 minutes have elapsed, this information will not be saved.</b></p>\n\t<p>Please tick to confirm understanding of this.</p> -->\n  <p>In this section you can review and change your answers. The Submit button at the bottom of this page will result in your\n  responses being submitted.</p>\n  <p>Please be aware that your responses in this form may be shared with the Local Authority, Community Infection Control\n  Team, Health Protection Team and/or NHS for the purposes of assisting you with the management of your situation.</p>\n  </div>\n  <br/>\n  <p>Please ensure you have not included any person identifiable information in your responses (e.g. names or dates of\n  birth).</p>\n  \n  <p><b>Please note that if you need to enter another set of information into the Care OBRA Tool, you need to wait for at least\n  20 minutes. If you enter further information before 20 minutes have elapsed, this information will not be saved.</b></p>\n  \n  <p>Please tick to confirm understanding of this.</p>\n</div>\n",
+    "declaration": "<style>\n\tul {\n\t\tlist-style-type: none;\n\t}\n\n\tli {\n\t\tlist-style-type: none;\n\t\tpadding-left: 15px;\n\t\tposition: relative;\n\t}\n\tli::before {\n\t\tcontent: \"– \";\n\t\tpadding-right: 30px;\n\t\twidth: 10px;\n\t\tposition: absolute;\n\t\tleft: 0;\n\t}\n</style>\n<div class=\"govuk-prose-scope\">\n  <p>In this section you can review and change your answers. The Submit button at the bottom of this page will result in your\n  responses being submitted.</p>\n  \n  <p>Please be aware that your responses in this form may be shared with the Local Authority, Community Infection Control\n  Team, Health Protection Team and/or NHS for the purposes of assisting you with the management of your situation.</p>\n  \n  <p>Please ensure you have not included any person identifiable information in your responses (e.g. names or dates of\n  birth).</p>\n  \n  <p><b>Please note that if you need to enter another set of information into the Care OBRA Tool, you need to wait for at least\n  20 minutes. If you enter further information before 20 minutes have elapsed, this information will not be saved.</b></p>\n  \n  <p>Please tick to confirm understanding of this.</p>\n</div>\n",
     "name": "Report an outbreak",
     "feedback": {
         "feedbackForm": true,
@@ -2683,5 +2695,6 @@
     },
     "phaseBanner": {
         "phase": "beta"
-    }
+    },
+    "feeOptions": {}
 }
