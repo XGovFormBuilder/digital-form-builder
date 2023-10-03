@@ -35,7 +35,7 @@
             ],
             "next": [
                 {
-                    "path": "/check-your-answers",
+                    "path": "/summary",
                     "condition": "QOCrNa"
                 },
                 {
@@ -47,7 +47,7 @@
         },
         {
             "title": "Check your answers",
-            "path": "/check-your-answers",
+            "path": "/summary",
             "controller": "./pages/summary.js",
             "components": [],
             "next": [],
@@ -70,7 +70,7 @@
             ],
             "next": [
                 {
-                    "path": "/check-your-answers"
+                    "path": "/summary"
                 }
             ],
             "section": "akREtH"
