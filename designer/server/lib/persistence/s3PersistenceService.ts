@@ -17,10 +17,19 @@ export class S3PersistenceService implements PersistenceService {
   constructor(server: HapiServer) {
     this.logger = server.logger;
 
-    this.bucket = new S3({
+    const s3Config: ClientConfiguration = {
       region: "eu-west-2",
       params: { Bucket: config.s3Bucket },
-    });
+    };
+
+    const endpointUrl = process.env.AWS_ENDPOINT_OVERRIDE;
+    if (endpointUrl) {
+      s3Config.endpoint = endpointUrl;
+      s3Config.s3ForcePathStyle = true;
+      s3Config.signatureVersion = process.env.AWS_SIGNATURE_VERSION || "v4";
+    }
+
+    this.bucket = new S3(s3Config);
   }
 
   async listAllConfigurations() {
