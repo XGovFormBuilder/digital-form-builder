@@ -62,13 +62,33 @@
                   </div>
                 {% endif %}
 
-                <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
-                    {% if fees and fees.details|length %}
-                        Submit and pay
-                    {% else %}
-                        Submit
-                    {% endif %}
-                </button>
+               <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                {% if fees and fees.details|length %}
+                Submit and pay
+                {% else %}
+                Submit
+                {% endif %}
+              </button>
+              
+              <!-- Handle greying out of the button and preventing further clicks -->
+              <script>
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    const button = document.querySelector('.govuk-button');
+
+                  button.addEventListener('click', function () {
+                    this.style.opacity = '0.5';
+                    this.style.cursor = 'not-allowed';
+                    this.innerHTML = 'Submitting...';
+
+                    // Prevent further clicks
+                    this.addEventListener('click', function (e) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }, { once: true });
+                  });
+                  });
+                  
+              </script>
             </form>
         {% endif %}
       </div>
