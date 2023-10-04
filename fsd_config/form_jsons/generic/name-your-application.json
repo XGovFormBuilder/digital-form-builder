@@ -18,14 +18,14 @@
             ],
             "next": [
                 {
-                    "path": "/check-your-answers"
+                    "path": "/summary"
                 }
             ],
             "section": "ScxYon"
         },
         {
             "title": "Check your answers",
-            "path": "/check-your-answers",
+            "path": "/summary",
             "controller": "./pages/summary.js",
             "components": [],
             "next": [],
@@ -53,5 +53,6 @@
     ],
     "version": 2,
     "skipSummary": false,
-    "markAsComplete": false
+    "markAsComplete": false,
+    "name":"Apply for funding to begin your digital planning improvement journey"
 }
