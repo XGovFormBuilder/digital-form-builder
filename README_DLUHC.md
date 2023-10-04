@@ -67,3 +67,23 @@ This image is built, pushed and deployed by [Build and Deploy Forms](./.github/w
 ## .github/workflows/branch--lint-unit-and-smoke-test.yml
 
 Runs against a branch that has an open pull request against it. It will execute on every push to such a branch to build and run smoke tests. Unchanged from upstream repo.
+
+## Extras
+
+This repo comes with a .pre-commit-config.yaml, if you wish to use this do
+the following while in your virtual enviroment:
+
+    # set up virtual enviroment
+    python -m venv .venv
+    source .venv/Scripts/activate
+
+    # Install pre-commit
+    pip install pre-commit
+    pre-commit install
+
+Once the above is done you will have autoformatting (trailing-whitespace, end-of-file-fixer and check-ast) built
+into your workflow. You will be notified of any errors during commits.
+
+### `detect-secrets` hook
+We use this pre-commit hook to prevent new secrets from entering the code base.(For more info: https://github.com/Yelp/detect-secrets)
+- If the hook detects false positives, mark with an inline `pragma: allowlist secret` comment to ignore it.
