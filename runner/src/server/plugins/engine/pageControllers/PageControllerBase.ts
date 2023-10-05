@@ -27,6 +27,9 @@ import config from "server/config";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
+const ADDITIONAL_VALIDATION_FUNCTIONS = Symbol(
+  "ADDITIONAL_VALIDATION_FUNCTIONS"
+);
 
 export class PageControllerBase {
   /**
@@ -42,6 +45,7 @@ export class PageControllerBase {
     phaseBanner?: {
       phase?: string;
     };
+    footer: any;
   };
   name: string;
   model: FormModel;
@@ -54,6 +58,8 @@ export class PageControllerBase {
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
+  saveAndContinueText: string;
+  continueText: string;
   backLinkFallback?: string;
 
   // TODO: pageDef type
@@ -89,6 +95,14 @@ export class PageControllerBase {
 
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
+
+    this.saveAndContinueText = "Save and continue";
+    this.continueText = "Continue";
+
+    if (model?.def?.metadata?.isWelsh) {
+      this.saveAndContinueText = "Cadw a pharhau";
+      this.continueText = "Parhau";
+    }
   }
 
   /**
@@ -110,36 +124,39 @@ export class PageControllerBase {
     isStartPage: boolean;
     startPage?: HapiResponseObject;
     backLink?: string;
+    backLinkText?: string;
     phaseTag?: string | undefined;
+    footer?: any;
   } {
     let showTitle = true;
     let pageTitle = this.title;
     let sectionTitle = this.section?.title;
-    if (sectionTitle && iteration !== undefined) {
+    if (sectionTitle && iteration !== undefined && iteration !== "null") {
       sectionTitle = `${sectionTitle} ${iteration}`;
     }
     const components = this.components.getViewModel(formData, errors);
 
-    const formComponents = components.filter((c) => c.isFormComponent);
-    const hasSingleFormComponent = formComponents.length === 1;
-    const singleFormComponent = hasSingleFormComponent
-      ? formComponents[0]
-      : null;
-    const singleFormComponentIsFirst =
-      singleFormComponent && singleFormComponent === components[0];
+    //TODO im not eniterly sure why this is in here, i dont want to remove it completely as maybe we can add a option to skip it
+    // const formComponents = components.filter((c) => c.isFormComponent);
+    // const hasSingleFormComponent = formComponents.length === 1;
+    // const singleFormComponent = hasSingleFormComponent
+    //   ? formComponents[0]
+    //   : null;
+    // const singleFormComponentIsFirst =
+    //   singleFormComponent && singleFormComponent === components[0];
 
-    if (singleFormComponent && singleFormComponentIsFirst) {
-      const label: any = singleFormComponent.model.label;
+    // if (singleFormComponent && singleFormComponentIsFirst) {
+    //   const label: any = singleFormComponent.model.label;
 
-      if (pageTitle) {
-        label.text = pageTitle;
-      }
+    //   if (pageTitle) {
+    //     label.text = pageTitle;
+    //   }
 
-      label.isPageHeading = true;
-      label.classes = "govuk-label--l";
-      pageTitle = pageTitle || label.text;
-      showTitle = false;
-    }
+    //   label.isPageHeading = true;
+    //   label.classes = "govuk-label--l";
+    //   pageTitle = pageTitle || label.text;
+    //   showTitle = false;
+    // }
 
     return {
       page: this,
@@ -150,6 +167,7 @@ export class PageControllerBase {
       components,
       errors,
       isStartPage: false,
+      footer: this.def.footer,
     };
   }
 
@@ -212,7 +230,9 @@ export class PageControllerBase {
     const nextLink = this.next.find((link) => {
       const { condition } = link;
       if (condition) {
-        return this.model.conditions[condition]?.fn?.(state);
+        this.model.conditions[condition] &&
+          (this.model.conditions[condition].fn(state) ||
+            this.model.conditions[condition].fn(state[this.section?.name]));
       }
       defaultLink = link;
       return false;
@@ -334,6 +354,15 @@ export class PageControllerBase {
     return this.validate(newState, this.stateSchema);
   }
 
+  async validateComponentFunctions(request, viewModel) {
+    let errors = [];
+    for (let func of this.additionalValidationFunctions) {
+      const errorList = await func(request, viewModel);
+      errors.push(...errorList);
+    }
+    return errors;
+  }
+
   /**
    * returns the language set in a user's browser. Can be used for localisable strings
    */
@@ -385,14 +414,14 @@ export class PageControllerBase {
 
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { cacheService } = request.services([]);
+      const { cacheService, uploadService } = request.services([]);
       const lang = this.langFromRequest(request);
       const state = await cacheService.getState(request);
       const progress = state.progress || [];
       const { num } = request.query;
       const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
       const startPage = this.model.def.startPage;
-      const formData = this.getFormDataFromState(state, num - 1);
+      let formData = this.getFormDataFromState(state, num - 1);
 
       const isStartPage = this.path === `${startPage}`;
       const isInitialisedSession = !!state.callback;
@@ -417,18 +446,50 @@ export class PageControllerBase {
       if (originalFilenames) {
         Object.entries(formData).forEach(([key, value]) => {
           if (value && value === (originalFilenames[key] || {}).location) {
-            formData[key] = originalFilenames[key].originalFilename;
+            formData[key] = originalFilenames[key].location;
           }
         });
       }
 
       const viewModel = this.getViewModel(formData, num);
+
+      const form_session_identifier =
+        state.metadata?.form_session_identifier ?? "";
+      if (form_session_identifier) {
+        const comp = viewModel.components.find(
+          (c) => c.type === "ClientSideFileUploadField"
+        );
+        if (comp) {
+          const pageAndForm = currentPath.includes("?")
+            ? currentPath.split("?")[0]
+            : currentPath;
+          const folderPath = `${form_session_identifier}${pageAndForm}/${comp.model.id}`;
+          const files = await uploadService.listFilesInBucketFolder(
+            folderPath,
+            form_session_identifier
+          );
+          comp.model.existingFiles.push(...files);
+        }
+      }
+
+      const fileUploadFields = viewModel.components
+        .filter((component) => component.type === "FileUploadField")
+        .map((component) => component.model);
+
+      for (let fileUploadField of fileUploadFields) {
+        state[fileUploadField.name + "__filename"] =
+          state[fileUploadField.name];
+      }
+      await cacheService.mergeState(request, { ...state });
+
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
 
       this.setPhaseTag(viewModel);
       this.setFeedbackDetails(viewModel, request);
+      this.setContactUsDetails(viewModel, request);
+      this.setPrivacyDetails(viewModel, request);
 
       /**
        * Content components can be hidden based on a condition. If the condition evaluates to true, it is safe to be kept, otherwise discard it
@@ -489,7 +550,9 @@ export class PageControllerBase {
       await cacheService.mergeState(request, { progress });
 
       viewModel.backLink =
-        progress[progress.length - 2] ?? this.backLinkFallback;
+        state.callback?.returnUrl ?? progress[progress.length - 2];
+      viewModel.backLinkText =
+        this.model.def?.backLinkText ?? "Go back to application overview";
       return h.view(this.viewName, viewModel);
     };
   }
@@ -513,15 +576,36 @@ export class PageControllerBase {
     const { cacheService } = request.services([]);
     const hasFilesizeError = request.payload === null;
     const preHandlerErrors = request.pre.errors;
-    const payload = (request.payload || {}) as FormData;
-    const formResult: any = this.validateForm(payload);
     const state = await cacheService.getState(request);
+    const payload = (request.payload || {}) as FormData;
+    let formResult: any = this.validateForm(payload);
     const originalFilenames = (state || {}).originalFilenames || {};
-    const fileFields = this.getViewModel(formResult)
-      .components.filter((component) => component.type === "FileUploadField")
+    const viewModel = this.getViewModel(formResult);
+    const fileFields = viewModel.components
+      .filter((component) => component.type === "FileUploadField")
       .map((component) => component.model);
     const progress = state.progress || [];
     const { num } = request.query;
+
+    for (let file of fileFields) {
+      let fileName = file.name + "__filename";
+      if (!payload.hasOwnProperty(fileName)) {
+        payload[fileName] = state[fileName];
+      }
+    }
+
+    formResult = this.validateForm(payload);
+
+    const additionalValidationErrors = await this.validateComponentFunctions(
+      request,
+      viewModel
+    );
+    if (additionalValidationErrors.length > 0) {
+      formResult.errors = {
+        titleText: "There is a problem",
+        errorList: additionalValidationErrors,
+      };
+    }
 
     if (state.metadata === undefined) {
       state["metadata"] = {};
@@ -585,26 +669,28 @@ export class PageControllerBase {
     if (formResult.errors) {
       //TODO:- refactor to match POST REDIRECT GET pattern.
 
-      return this.renderWithErrors(
+      return await this.renderWithErrors(
         request,
         h,
         payload,
         num,
         progress,
-        formResult.errors
+        formResult.errors,
+        state.callback?.returnUrl
       );
     }
 
     const newState = this.getStateFromValidForm(formResult.value);
     const stateResult = this.validateState(newState);
     if (stateResult.errors) {
-      return this.renderWithErrors(
+      return await this.renderWithErrors(
         request,
         h,
         payload,
         num,
         progress,
-        stateResult.errors
+        stateResult.errors,
+        state.callback?.returnUrl
       );
     }
 
@@ -674,6 +760,40 @@ export class PageControllerBase {
     };
   }
 
+  setPrivacyDetails(viewModel, request) {
+    let privacyPolicyUrl: string;
+    if (request.query.form_session_identifier) {
+      privacyPolicyUrl =
+        this.getConfiguredPrivacyLink() +
+        "?application_id=" +
+        request.query.form_session_identifier;
+    } else {
+      privacyPolicyUrl = this.getConfiguredPrivacyLink();
+    }
+    viewModel.privacyPolicyUrl = privacyPolicyUrl;
+  }
+
+  getConfiguredPrivacyLink() {
+    return config.privacyPolicyUrl;
+  }
+
+  setContactUsDetails(viewModel, request) {
+    let contactUsUrl: string;
+    if (request.query.form_session_identifier) {
+      contactUsUrl =
+        this.getConfiguredContactUsLink() +
+        "?application_id=" +
+        request.query.form_session_identifier;
+    } else {
+      contactUsUrl = this.getConfiguredContactUsLink();
+    }
+    viewModel.contactUsUrl = contactUsUrl;
+  }
+
+  getConfiguredContactUsLink() {
+    return config.contactUsUrl;
+  }
+
   setFeedbackDetails(viewModel, request) {
     const feedbackContextInfo = this.getFeedbackContextInfo(request);
     if (feedbackContextInfo) {
@@ -685,6 +805,18 @@ export class PageControllerBase {
     }
     if (this.def.feedback?.emailAddress) {
       viewModel.feedbackLink = `mailto:${this.def.feedback.emailAddress}`;
+    }
+    if (!viewModel.feedbackLink) {
+      let feedbackLink: string;
+      if (request.query.form_session_identifier) {
+        feedbackLink =
+          this.getConfiguredFeedbackLink() +
+          "?application_id=" +
+          request.query.form_session_identifier;
+      } else {
+        feedbackLink = this.getConfiguredFeedbackLink();
+      }
+      viewModel.feedbackLink = feedbackLink;
     }
   }
 
@@ -802,6 +934,10 @@ export class PageControllerBase {
     this[STATE_SCHEMA] = value;
   }
 
+  get additionalValidationFunctions() {
+    return this[ADDITIONAL_VALIDATION_FUNCTIONS];
+  }
+
   private objLength(object: {}) {
     return Object.keys(object).length;
   }
@@ -814,12 +950,46 @@ export class PageControllerBase {
     }
   }
 
-  private renderWithErrors(request, h, payload, num, progress, errors) {
+  private async renderWithErrors(
+    request,
+    h,
+    payload,
+    num,
+    progress,
+    errors,
+    returnUrl
+  ) {
     const viewModel = this.getViewModel(payload, num, errors);
+    const { cacheService, uploadService } = request.services([]);
+    const state = await cacheService.getState(request);
+    const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
 
-    viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
+    const form_session_identifier =
+      state.metadata?.form_session_identifier ?? "";
+    if (form_session_identifier) {
+      const comp = viewModel.components.find(
+        (c) => c.type === "ClientSideFileUploadField"
+      );
+      if (comp) {
+        const pageAndForm = currentPath.includes("?")
+          ? currentPath.split("?")[0]
+          : currentPath;
+        const folderPath = `${form_session_identifier}${pageAndForm}/${comp.model.id}`;
+        const files = await uploadService.listFilesInBucketFolder(
+          folderPath,
+          form_session_identifier
+        );
+        comp.model.existingFiles.push(...files);
+      }
+    }
+
+    viewModel.backLink = returnUrl ?? progress[progress.length - 2];
+    viewModel.backLinkText =
+      this.model.def?.backLinkText ?? "Go back to application overview";
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
+    this.setContactUsDetails(viewModel, request);
+    this.setPrivacyDetails(viewModel, request);
 
     return h.view(this.viewName, viewModel);
   }
