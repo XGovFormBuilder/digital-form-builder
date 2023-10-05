@@ -3,7 +3,8 @@ import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { optionalText } from "./constants";
+import { optionalTextEnglish } from "./constants";
+import { optionalTextCymraeg } from "./constants";
 import * as helpers from "./helpers";
 import {
   FormData,
@@ -24,13 +25,26 @@ export class DatePartsField extends FormComponent {
     const { name, options } = this;
     const isRequired =
       "required" in options && options.required === false ? false : true;
-    const optionalText = "optionalText" in options && options.optionalText;
+    const optionalText = model?.def?.metadata?.isWelsh
+      ? optionalTextCymraeg
+      : optionalTextEnglish;
+
+    let dayTitle = "Day";
+    let monthTitle = "Month";
+    let yearTitle = "Year";
+
+    if (model?.def?.metadata?.isWelsh) {
+      dayTitle = "Diwrnod";
+      monthTitle = "mis";
+      yearTitle = "blwyddyn";
+    }
+
     this.children = new ComponentCollection(
       [
         {
           type: "NumberField",
           name: `${name}__day`,
-          title: "Day",
+          title: dayTitle,
           schema: { min: 1, max: 31 },
           options: {
             required: isRequired,
@@ -42,7 +56,7 @@ export class DatePartsField extends FormComponent {
         {
           type: "NumberField",
           name: `${name}__month`,
-          title: "Month",
+          title: monthTitle,
           schema: { min: 1, max: 12 },
           options: {
             required: isRequired,
@@ -54,7 +68,7 @@ export class DatePartsField extends FormComponent {
         {
           type: "NumberField",
           name: `${name}__year`,
-          title: "Year",
+          title: yearTitle,
           schema: { min: 1000, max: 3000 },
           options: {
             required: isRequired,
@@ -123,6 +137,9 @@ export class DatePartsField extends FormComponent {
   // @ts-ignore - eslint does not report this as an error, only tsc
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
+    const optionalText = this.model?.def?.metadata?.isWelsh
+      ? optionalTextCymraeg
+      : optionalTextEnglish;
 
     // Use the component collection to generate the subitems
     const componentViewModels = this.children
@@ -141,8 +158,13 @@ export class DatePartsField extends FormComponent {
       }
     });
 
-    const firstError = errors?.errorList?.[0];
-    const errorMessage = firstError && { text: firstError?.text };
+    let errorMessage;
+    errors?.errorList?.find((value) => {
+      if (value.name.includes(this.name)) {
+        const firstError = errors?.errorList?.[0];
+        errorMessage = firstError && { text: firstError?.text };
+      }
+    });
 
     return {
       ...viewModel,

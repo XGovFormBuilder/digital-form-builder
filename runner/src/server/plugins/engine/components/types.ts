@@ -1,3 +1,5 @@
+import { S3Object } from "server/services/uploadService";
+
 export type Label = {
   text: string;
   classes: string;
@@ -58,6 +60,9 @@ export type ViewModel = {
   };
   children?: ComponentCollectionViewModel;
   autocomplete?: string;
+  filename: string;
+  existingFileText: string;
+  componentType?: string;
 };
 
 export type MultilineTextFieldViewModel = {
@@ -71,6 +76,20 @@ export type ComponentCollectionViewModel = {
   isFormComponent: boolean;
   model: ViewModel;
 }[];
+
+export type FreeTextFieldViewModel = {
+  maxlength?: number;
+  isCharacterOrWordCount: boolean;
+  maxWords?: number;
+} & ViewModel;
+
+export type ClientSideFileUploadFieldViewModel = {
+  dropzoneConfig: object;
+  existingFiles: S3Object[];
+  showNoScriptWarning?: boolean;
+  totalOverallFilesize?: number;
+  hideTitle?: boolean;
+} & ViewModel;
 
 export type DataType =
   | "list"
