@@ -279,30 +279,6 @@ export class RepeatingSummaryPageController extends PageController {
         );
       }
 
-      const section = this.pageDef.section;
-      let value: any;
-
-      if (section) {
-        value = state[section][this.inputComponent.name];
-      } else {
-        value = state[this.inputComponent.name];
-      }
-
-      const isRequired = this.inputComponent.options.required;
-      if (value.length == 0 && (isRequired || typeof isRequired == "undefined")) {
-        const { progress = [] } = state;
-        const viewModel = this.getViewModel(state);
-        viewModel.crumb = request.plugins.crumb;
-
-        viewModel.backLink =
-          state.callback?.returnUrl ?? progress[progress.length - 2];
-        viewModel.backLinkText =
-          this.model.def?.backLinkText ?? "Go back to application overview";
-        viewModel.tableIsEmpty = true;
-
-        return h.view("repeating-summary", viewModel);
-      }
-
       if (config.savePerPage) {
         const savedState = await cacheService.getState(request);
 

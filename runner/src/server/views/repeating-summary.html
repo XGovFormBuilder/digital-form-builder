@@ -5,18 +5,6 @@
 {% extends 'layout.html' %}
 {% block content %}
   <div class="govuk-grid-row govuk-width-container ">
-    {% if tableIsEmpty %}
-      <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-        <h2 class="govuk-error-summary__title" id="error-summary-title">Fix the following errors</h2>
-        <div class="govuk-error-summary__body">
-          <ul class="govuk-list govuk-error-summary__list">
-            <li>
-              <a class="govuk-error-message">You require at least one table entry to continue.</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    {% endif %}
     <form method="post" enctype="multipart/form-data">
       <table class="govuk-table">
         <h2 class="govuk-caption-l govuk-!-margin-top-0" id="section-title">{{sectionTitle}}</h2>
