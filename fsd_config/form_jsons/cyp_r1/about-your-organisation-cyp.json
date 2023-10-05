@@ -147,19 +147,20 @@
       "section": "uLwBuz"
     },
     {
-      "title": "Company registration number",
+      "title": "Company registration number (optional)",
       "path": "/company-registration-number",
       "components": [
         {
           "name": "jcjKhd",
           "options": {},
           "type": "Para",
-          "content": "<div class=\"govuk-hint\"><p>You can find this by searching Companies House.</p><p>It is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
+          "content": "<div class=\"govuk-hint\"><p>If you have a registration number, you can find this by searching Companies House.</p><p>It is usually 8 numbers, or 2 letters followed by 6 numbers</p></div>"
         },
         {
           "name": "jencJE",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "required":false
           },
           "type": "TextField",
           "title": "Company registration number",
