@@ -8,6 +8,7 @@ export type Fields = {
   title: string;
   type: string;
   answer: string | number | boolean;
+  columnTitles?: any;
 }[];
 
 export type Question = {
