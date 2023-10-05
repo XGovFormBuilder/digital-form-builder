@@ -1,5 +1,6 @@
 {
   "startPage": "/do-you-have-a-link-to-the-evidence",
+  "backLinkText": "Go back to application overview",
   "pages": [
     {
       "title": "Do you have a link to the evidence?",
@@ -140,11 +141,25 @@
       "title": "Yes I have evidence",
       "components": [
         {
+          "name": "koE_ae_pre",
+          "options": {},
+          "type": "Para",
+          "content": "File upload component!",
+          "schema": {}
+        },
+        {
           "name": "koE_ae",
           "options": {
-            "required": false
+            "dropzoneConfig": {
+              "maxFiles": 5,
+              "parallelUploads": 2,
+              "maxFilesize": 5,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": true,
+            "minimumRequiredFiles": 0
           },
-          "type": "FileUploadField",
+          "type": "ClientSideFileUploadField",
           "title": "Evidence File Upload",
           "hint": "Please upload your evidence here",
           "schema": {}
@@ -199,7 +214,16 @@
   "phaseBanner": {},
   "metadata": {},
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "q7mMOb6Eu6EauibjcTFT3",
+      "title": "powerapps",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://prod-182.westeurope.logic.azure.com:443/workflows/cfa66b774dad40459bf36e334d860445/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4nNQTOYk5DnEByQSKMb5jzu_cXJ0NKJuH4KZGBiqvMk"
+      }
+    }
+  ],
   "version": 2,
   "conditions": [
     {
@@ -267,6 +291,24 @@
           }
         ]
       }
+    }
+  ],
+  "footer": [
+    {
+      "href": "https://www.gov.uk/government/publications/community-ownership-fund-privacy-notice/community-ownership-fund-privacy-notice",
+      "text": "Privacy test"
+    },
+    {
+      "href": "https://www.google.com",
+      "text": "Cookies test"
+    },
+    {
+      "href": "https://www.gov.uk/government/publications/community-ownership-fund-privacy-notice/community-ownership-fund-privacy-notice",
+      "text": "Accessibility Statement test"
+    },
+    {
+      "href": "https://www.gov.uk/government/publications/community-ownership-fund-privacy-notice/community-ownership-fund-privacy-notice",
+      "text": "Contact Us test"
     }
   ]
 }

@@ -475,6 +475,14 @@
       "outputConfiguration": {
         "emailAddress": "jennifermyanh.duong@digital.homeoffice.gov.uk"
       }
+    },
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "https://webhook.site/452f70e1-731a-473d-8af8-4f12dec0e9a2"
+      }
     }
   ],
   "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
