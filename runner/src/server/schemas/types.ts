@@ -33,6 +33,7 @@ export type InitialiseSessionSchema = {
     redirectPath?: string;
     customText: ConfirmationPage["customText"];
     components: ConfirmationPage["components"];
+    returnUrl?: string;
   };
   questions: InitialiseSessionQuestion[];
 } & Pick<WebhookSchema, "questions" | "metadata">;
