@@ -1455,7 +1455,7 @@
                     "options": {},
                     "type": "YesNoField",
                     "title": "S2Q1. Are you reporting two or more cases of acute respiratory infection (Flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days and that are POTENTIALLY LINKED to transmission within your setting?",
-                    "hint": "If you are unsure whether the cases may be linked due to transmission in your setting, please tick yes.\nIf you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement/covid-19-supplement-to-the-infection-prevention-and-control-resource-for-adult-social-care#outbreaks-in-care-homes\" target=\"_blank\">'Outbreak in care homes'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"No\" if you are certain your cases are not linked to transmission within your setting.",
+                    "hint": "If you are unsure whether the cases may be linked due to transmission in your setting, please tick yes.</br>\nIf you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement/covid-19-supplement-to-the-infection-prevention-and-control-resource-for-adult-social-care#outbreaks-in-care-homes\" target=\"_blank\">'Outbreak in care homes'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.</br>\nOnly click \"No\" if you are certain your cases are not linked to transmission within your setting.",
                     "nameHasError": false,
                     "values": {
                         "type": "listRef"
@@ -1490,7 +1490,7 @@
                     "options": {},
                     "type": "YesNoField",
                     "title": "S2Q2. Are you reporting two or more cases of acute respiratory infection (flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days but that are DEFINITELY NOT LINKED to transmission within your setting?",
-                    "hint": "If you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement/covid-19-supplement-to-the-infection-prevention-and-control-resource-for-adult-social-care#outbreaks-in-care-homes\" target=\"_blank\">'Outbreak in care homes'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"Yes\" if you are certain your cases are not linked to transmission within your setting.",
+                    "hint": "If you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement/covid-19-supplement-to-the-infection-prevention-and-control-resource-for-adult-social-care#outbreaks-in-care-homes\" target=\"_blank\">'Outbreak in care homes'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.</br>\nOnly click \"Yes\" if you are certain your cases are not linked to transmission within your setting.",
                     "nameHasError": false,
                     "schema": {},
                     "values": {
