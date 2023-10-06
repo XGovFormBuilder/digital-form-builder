@@ -75,7 +75,19 @@
       ],
       "next": [
         {
-          "path": "/which-format-is-your-dataset-in-for-article-4-direction"
+          "path": "/which-format-is-your-dataset-in-for-article-4-direction",
+          "condition": "ZepbPF"
+        },
+        {
+          "path": "/which-format-is-your-dataset-in-for-listed-buildings",
+          "condition": "fIzaVE"
+        },
+        {
+          "path": "/which-format-is-your-dataset-in-for-tree-preservation-orders",
+          "condition": "nSTABU"
+        },
+        {
+          "path": "/how-long-do-you-think-it-will-take-your-organisation-to-publish-all-4-datasets"
         }
       ],
       "section": "FjGMRE"
@@ -98,7 +110,15 @@
       ],
       "next": [
         {
-          "path": "/which-format-is-your-dataset-in-for-listed-buildings"
+          "path": "/which-format-is-your-dataset-in-for-listed-buildings",
+          "condition": "fIzaVE"
+        },
+        {
+          "path": "/which-format-is-your-dataset-in-for-tree-preservation-orders",
+          "condition": "nSTABU"
+        },
+        {
+          "path": "/how-long-do-you-think-it-will-take-your-organisation-to-publish-all-4-datasets"
         }
       ],
       "section": "FjGMRE"
@@ -121,7 +141,11 @@
       ],
       "next": [
         {
-          "path": "/which-format-is-your-dataset-in-for-tree-preservation-orders"
+          "path": "/which-format-is-your-dataset-in-for-tree-preservation-orders",
+          "condition": "nSTABU"
+        },
+        {
+          "path": "/how-long-do-you-think-it-will-take-your-organisation-to-publish-all-4-datasets"
         }
       ],
       "section": "FjGMRE"
@@ -477,5 +501,5 @@
   "version": 2,
   "skipSummary": false,
   "markAsComplete": false,
-  "name":"Apply for funding to begin your digital planning improvement journey"
+  "name": "Apply for funding to begin your digital planning improvement journey"
 }
