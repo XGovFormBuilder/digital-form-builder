@@ -19,7 +19,6 @@ const {
   redisPassword,
   redisTls,
   isSandbox,
-  isDev,
   sessionTimeout,
   confirmationSessionTimeout,
   paymentSessionTimeout,
@@ -151,11 +150,11 @@ export const catboxProvider = () => {
    * More information at {@link https://hapi.dev/module/catbox/api}
    */
   const provider = {
-    constructor: (!isDev && redisHost) ? CatboxRedis : CatboxMemory,
+    constructor: (redisHost) ? CatboxRedis : CatboxMemory,
     options: {},
   };
   
-  if (!isDev && redisHost) {
+  if (redisHost) {
     const redisOptions: {
       password?: string;
       tls?: {};
