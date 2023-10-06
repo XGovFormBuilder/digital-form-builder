@@ -14,7 +14,7 @@
                 {{ summaryRow(repeated) }}
             {% endfor %}
         {% else %}
-          {{ summaryRow(item) }}
+          {{ summaryRow(item, data.notSuppliedText, data.changeText) }}
         {% endif %}
       {% endif %}
     {% endfor %}

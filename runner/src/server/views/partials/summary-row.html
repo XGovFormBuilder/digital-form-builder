@@ -1,26 +1,54 @@
-{% macro summaryRow(item) %}
+{% macro summaryRow(item, notSuppliedText, changeText) %}
 <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
         {{item.label}}
     </dt>
     <dd class="govuk-summary-list__value">
         {% if item.value %}
-            {% if item.type == 'FileUploadField' %}
-                Uploaded
-            {%elif item.type == 'MultiInputField' %}
-               {% for itemValue in item.value%}
-                   {{itemValue}}<br>
-               {% endfor %}    
+            {%if item.type == 'MultiInputField' %}
+                {% for itemValue in item.value%}
+                    {{itemValue}}<br>
+                {% endfor %}
+            {% elif item.type == 'NumberField' %}
+                {{item.prefix}}{{item.value}}
+            {% elif item.type == 'ClientSideFileUploadField' %}
+                {% if item.value.files|length == 0 %}
+                    {{ notSuppliedText }}
+                {% else %}
+                    {% for file in item.value.files %}
+                        <div>
+                            <a class="govuk-link" href="/s3{{item.value.folderPath}}/download-file?filename={{file.Key}}&form_session_identifier={{file.FormSessionId}}">
+                                {{ file.Key }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% elif item.type == 'FreeTextField' %}
+                <div id={{item.name}}></div>
+                <script>
+                    // Nunjucks automatically converts any html to escaped html to prevent cross-site scripting
+                    // This method bellow safely unescapes it so it can be rendered correctly.
+                    document.getElementById('{{item.name}}').innerHTML = unescapeHtml('{{item.value}}');
+
+                    function unescapeHtml(html) {
+                        var div = document.createElement('div');
+                        div.innerHTML = html;
+                        return div.textContent;
+                      }
+                </script>
+                <noscript>
+                    {{item.value}}
+                </noscript>
             {% else %}
                 {{item.value}}
             {% endif %}
         {% else %}
-            Not supplied
+           {{notSuppliedText}}
         {% endif %}
     </dd>
     <dd class="govuk-summary-list__actions">
         <a class="govuk-link" href="{{item.url}}">
-            Change<span class="govuk-visually-hidden"> {{item.label}}</span>
+            {{changeText}}<span class="govuk-visually-hidden"> {{item.label}}</span>
         </a>
     </dd>
 </div>
