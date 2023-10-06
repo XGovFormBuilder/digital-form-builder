@@ -5,6 +5,8 @@ import Scooter from "@hapi/scooter";
 import inert from "@hapi/inert";
 import Schmervice from "schmervice";
 import blipp from "blipp";
+import HapiJwtAuth2 from "hapi-auth-jwt2";
+import HapiBasicAuth from "@hapi/basic";
 import config from "./config";
 
 import { configureEnginePlugin } from "./plugins/engine";
@@ -35,6 +37,8 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
+import { bucketName, region } from "server/services/uploadService";
+import clientSideUpload from "server/plugins/clientSideUpload";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -125,6 +129,16 @@ async function createServer(routeConfig: RouteConfig) {
       if ("header" in response && response.header) {
         response.header("X-Robots-Tag", "noindex, nofollow");
 
+        const existingHeaders = response.headers;
+        const existingCsp = existingHeaders["content-security-policy"] || "";
+        if (typeof existingCsp === "string") {
+          const newCsp = existingCsp?.replace(
+            /connect-src[^;]*/,
+            `connect-src 'self' https://${bucketName}.s3.${region}.amazonaws.com/`
+          );
+          response.header("Content-Security-Policy", newCsp);
+        }
+
         const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
         if (!WEBFONT_EXTENSIONS.test(request.url.toString())) {
           response.header(
@@ -151,9 +165,17 @@ async function createServer(routeConfig: RouteConfig) {
 
   await server.register(pluginLocale);
   await server.register(pluginViews);
+  await server.register(HapiBasicAuth);
+  await server.register(HapiJwtAuth2);
+
   await server.register(
     configureEnginePlugin(formFileName, formFilePath, options)
   );
+  // clientSideUpload uses authStrategy, which is dynamically assigned,
+  // we need to register clientSideUpload afterwards, order matters.
+  // runner/src/server/plugins/engine/plugin.ts:102
+  await server.register(clientSideUpload);
+
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
