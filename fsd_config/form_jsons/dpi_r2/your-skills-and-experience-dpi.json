@@ -15,13 +15,13 @@
             ],
             "next": [
                 {
-                    "path": "/have-you-delivered-projects-like-this-before"
+                    "path": "/has-your-organisation-delivered-projects-like-this-before"
                 }
             ],
             "controller": "./pages/start.js"
         },
         {
-            "path": "/have-you-delivered-projects-like-this-before",
+            "path": "/has-your-organisation-delivered-projects-like-this-before",
             "title": "Have you delivered projects like this before?",
             "components": [
                 {
@@ -30,7 +30,7 @@
                         "hideTitle": true
                     },
                     "type": "YesNoField",
-                    "title": "Have you delivered projects like this before?"
+                    "title": "Has your organisation delivered projects like this before?"
                 }
             ],
             "next": [
@@ -64,8 +64,8 @@
                         "maxWords": "250"
                     },
                     "type": "FreeTextField",
-                    "title": "Tell us about how you have worked on similar previous projects",
-                    "hint": "<div class=\"govuk-hint\">Tell us about:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>the scale of the project</li>\n  <li>the value of the project</li>\n  <li>where the project was based</li>\n</ul>\n</div>"
+                    "title": "Tell us about how your organisation has worked on similar previous projects",
+                    "hint": "<div class=\"govuk-hint\">Tell us about:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>the scale of the project</li>\n  <li>the value of the project</li>\n  <li>who was involved</li>\n</ul>\n</div>"
                 }
             ],
             "next": [
@@ -144,4 +144,4 @@
     "skipSummary": false,
     "markAsComplete": false,
     "name":"Apply for funding to begin your digital planning improvement journey"
-}
+  }

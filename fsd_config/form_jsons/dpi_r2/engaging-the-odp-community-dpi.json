@@ -10,7 +10,7 @@
                     "name": "zAIXJE",
                     "options": {},
                     "type": "Html",
-                    "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>why you want to be a part of the ODP (open digital planning) community</li>\n</ul>"
+                    "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>why you want to be a part of the ODP (Open Digital Planning) community</li>\n</ul>"
                 }
             ],
             "next": [
@@ -22,7 +22,7 @@
         },
         {
             "path": "/why-do-you-want-to-be-a-part-of-the-odp-open-digital-planning-community",
-            "title": "Why do you want to be a part of the ODP (open digital planning) community?",
+            "title": "Why do you want to be a part of the ODP (Open Digital Planning) community?",
             "components": [
                 {
                     "name": "mmTkva",
@@ -31,7 +31,7 @@
                         "maxWords": "250"
                     },
                     "type": "FreeTextField",
-                    "title": "Why do you want to be a part of the ODP (open digital planning) community?",
+                    "title": "Why do you want to be a part of the ODP (Open Digital Planning) community?",
                     "hint": "<div class=\"govuk-hint\">Tell us:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>what you will get from the community</li>\n  <li>what you will give to the community</li>\n</ul>\n</div>"
                 }
             ],
