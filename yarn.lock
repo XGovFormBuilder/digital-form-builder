@@ -2670,6 +2670,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/basic@npm:6.0.0":
+  version: 6.0.0
+  resolution: "@hapi/basic@npm:6.0.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/hoek": 9.x.x
+  checksum: c7c4b6f2a0bcb765c9f19ba56ec6868b51470df8223ada0428bd295d8b40d34832bd30dfdf50cc7bdaa01c9ef2bb009f0a1065fd06bdd0b947b6b83cebc1790a
+  languageName: node
+  linkType: hard
+
 "@hapi/bell@npm:^12.3.0":
   version: 12.3.0
   resolution: "@hapi/bell@npm:12.3.0"
@@ -5608,6 +5618,7 @@ __metadata:
     "@babel/preset-typescript": ^7.21.4
     "@babel/register": ^7.21.0
     "@babel/runtime": ^7.21.0
+    "@hapi/basic": 6.0.0
     "@hapi/bell": ^12.3.0
     "@hapi/boom": ^9.1.4
     "@hapi/catbox": 11.1.0
@@ -5659,6 +5670,7 @@ __metadata:
     flat: 5.0.2
     form-data: ^4.0.0
     govuk-frontend: ^4.3.1
+    hapi-auth-jwt2: 10.2.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -5666,6 +5678,7 @@ __metadata:
     hmpo-components: ^5.2.1
     ioredis: 4.16.1
     joi: 17.2.1
+    jsonwebtoken: 8.5.1
     lodash-es: ^4.17.21
     nanoid: ^3.3.4
     nodemailer: ~6.6.0
@@ -8419,7 +8432,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.4.2":
+"cookie@npm:^0.4.0, cookie@npm:^0.4.2":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
@@ -12568,6 +12581,17 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"hapi-auth-jwt2@npm:10.2.0":
+  version: 10.2.0
+  resolution: "hapi-auth-jwt2@npm:10.2.0"
+  dependencies:
+    "@hapi/boom": ^9.0.0
+    cookie: ^0.4.0
+    jsonwebtoken: ^8.5.1
+  checksum: 227bb6af526d0487163ceeeb744162591e4469336dc84100df4ffd77fcbe0e07006a2ca94347980a760849850285f54c895bf1159a79ca08e0283b1960ac2f43
+  languageName: node
+  linkType: hard
+
 "hapi-pino@npm:8.0.0":
   version: 8.0.0
   resolution: "hapi-pino@npm:8.0.0"
@@ -15663,7 +15687,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^8.2.1":
+"jsonwebtoken@npm:8.5.1, jsonwebtoken@npm:^8.2.1, jsonwebtoken@npm:^8.5.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
   dependencies:
