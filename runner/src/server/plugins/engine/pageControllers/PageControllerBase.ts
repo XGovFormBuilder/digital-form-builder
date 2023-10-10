@@ -95,6 +95,9 @@ export class PageControllerBase {
 
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
+    this[
+      ADDITIONAL_VALIDATION_FUNCTIONS
+    ] = this.components.additionalValidationFunctions;
 
     this.saveAndContinueText = "Save and continue";
     this.continueText = "Continue";
@@ -818,6 +821,10 @@ export class PageControllerBase {
       }
       viewModel.feedbackLink = feedbackLink;
     }
+  }
+
+  getConfiguredFeedbackLink() {
+    return config.feedbackLink;
   }
 
   getFeedbackContextInfo(request: HapiRequest) {
