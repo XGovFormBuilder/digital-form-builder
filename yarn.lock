@@ -5670,7 +5670,7 @@ __metadata:
     flat: 5.0.2
     form-data: ^4.0.0
     govuk-frontend: ^4.3.1
-    hapi-auth-jwt2: 10.2.0
+    hapi-auth-jwt2: 10.4.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -12580,14 +12580,14 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"hapi-auth-jwt2@npm:10.2.0":
-  version: 10.2.0
-  resolution: "hapi-auth-jwt2@npm:10.2.0"
+"hapi-auth-jwt2@npm:10.4.0":
+  version: 10.4.0
+  resolution: "hapi-auth-jwt2@npm:10.4.0"
   dependencies:
     "@hapi/boom": ^9.0.0
     cookie: ^0.4.0
-    jsonwebtoken: ^8.5.1
-  checksum: 227bb6af526d0487163ceeeb744162591e4469336dc84100df4ffd77fcbe0e07006a2ca94347980a760849850285f54c895bf1159a79ca08e0283b1960ac2f43
+    jsonwebtoken: ^9.0.0
+  checksum: 40d927e1ccf4acae39c1a021e48beb4e932e118a047a1ea554572099de25dcce4a53550c43b380636df5bae9705369a9f9e5a38137f9b0e66277f1f5f4afcb58
   languageName: node
   linkType: hard
 
@@ -15686,7 +15686,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^8.2.1, jsonwebtoken@npm:^8.5.1":
+"jsonwebtoken@npm:^8.2.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
   dependencies:
@@ -15701,6 +15701,24 @@ fsevents@~2.3.1:
     ms: ^2.1.1
     semver: ^5.6.0
   checksum: 93c9e3f23c59b758ac88ba15f4e4753b3749dfce7a6f7c40fb86663128a1e282db085eec852d4e0cbca4cefdcd3a8275ee255dbd08fcad0df26ad9f6e4cc853a
+  languageName: node
+  linkType: hard
+
+"jsonwebtoken@npm:^9.0.0":
+  version: 9.0.2
+  resolution: "jsonwebtoken@npm:9.0.2"
+  dependencies:
+    jws: ^3.2.2
+    lodash.includes: ^4.3.0
+    lodash.isboolean: ^3.0.3
+    lodash.isinteger: ^4.0.4
+    lodash.isnumber: ^3.0.3
+    lodash.isplainobject: ^4.0.6
+    lodash.isstring: ^4.0.1
+    lodash.once: ^4.0.0
+    ms: ^2.1.1
+    semver: ^7.5.4
+  checksum: fc739a6a8b33f1974f9772dca7f8493ca8df4cc31c5a09dcfdb7cff77447dcf22f4236fb2774ef3fe50df0abeb8e1c6f4c41eba82f500a804ab101e2fbc9d61a
   languageName: node
   linkType: hard
 
@@ -20404,6 +20422,17 @@ resolve@^2.0.0-next.3:
   bin:
     semver: bin/semver.js
   checksum: ba9c7cbbf2b7884696523450a61fee1a09930d888b7a8d7579025ad93d459b2d1949ee5bbfeb188b2be5f4ac163544c5e98491ad6152df34154feebc2cc337c1
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.5.4":
+  version: 7.5.4
+  resolution: "semver@npm:7.5.4"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: 12d8ad952fa353b0995bf180cdac205a4068b759a140e5d3c608317098b3575ac2f1e09182206bf2eb26120e1c0ed8fb92c48c592f6099680de56bb071423ca3
   languageName: node
   linkType: hard
 
