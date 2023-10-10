@@ -46,7 +46,7 @@ suite("Date time parts field", () => {
     expect(returned.fieldset).to.equal({
       legend: {
         classes: "govuk-label--s",
-        text: `${def.title} (Optional)`,
+        text: `${def.title} (optional)`,
       },
     });
     expect(returned.items).to.equal([

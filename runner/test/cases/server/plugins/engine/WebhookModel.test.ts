@@ -3,6 +3,7 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import { WebhookModel } from "../../../../../src/server/plugins/engine/models/submission/WebhookModel";
 import form from "./SummaryViewModel.json";
+import welshForm from "./WelshSummaryViewModel.json";
 import {
   FormModel,
   SummaryViewModel,
@@ -105,6 +106,34 @@ suite("WebhookModel", () => {
     }
   );
 
+  const welshFormModel = new FormModel(welshForm, {});
+  welshFormModel.basePath = "test";
+  welshFormModel.name = "My Service";
+  const welshViewModel = new SummaryViewModel(
+    "summary",
+    welshFormModel,
+    {
+      progress: ["/test/first-page", "/test/second-page"],
+      approximate: {
+        approximate__month: 1,
+        approximate__year: 2000,
+      },
+      caz: "1",
+      aSection: {
+        fullDate: "2000-12-11T00:00:00.000Z",
+      },
+    },
+    {
+      app: {
+        location: "/",
+      },
+      query: {},
+      state: {
+        cookie_policy: {},
+      },
+    }
+  );
+
   test("parses Details correctly", () => {
     expect(viewModel.details).to.equal(testDetails);
 
@@ -151,5 +180,10 @@ suite("WebhookModel", () => {
         },
       ],
     });
+  });
+  test("parses welsh Details correctly", () => {
+    expect(welshViewModel.details[0].notSuppliedText).to.equal(
+      "Heb ei ddarparu"
+    );
   });
 });

@@ -32,8 +32,8 @@ suite(`Feedback`, () => {
 
     const $ = cheerio.load(response.payload);
 
-    expect($(".govuk-phase-banner__text .govuk-link").attr("href")).to.equal(
-      "mailto:test@feedback.cat"
+    expect($(".govuk-phase-banner__text").text().trim()).to.equal(
+      "This is a new service."
     );
   });
 });

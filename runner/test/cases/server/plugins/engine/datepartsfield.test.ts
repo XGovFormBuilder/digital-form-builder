@@ -44,7 +44,7 @@ suite("Date parts field", () => {
     expect(returned.fieldset).to.equal({
       legend: {
         classes: "govuk-label--s",
-        text: `${def.title} (Optional)`,
+        text: `${def.title} (optional)`,
       },
     });
     expect(returned.items).to.equal([
@@ -67,7 +67,7 @@ suite("Date parts field", () => {
         {
           path: "approximate__day",
           href: "#approximate__day",
-          name: "approximate__day",
+          name: "myComponent__approximate__day",
           text: '"Day" must be a number',
         },
       ],
