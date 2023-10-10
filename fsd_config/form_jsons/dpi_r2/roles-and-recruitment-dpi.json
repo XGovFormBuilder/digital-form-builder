@@ -169,7 +169,8 @@
                 {
                     "name": "eWmNSY",
                     "options": {
-                        "hideTitle": true
+                        "hideTitle": true,
+                        "classes": "govuk-!-width-full"
                     },
                     "type": "TextField",
                     "title": "Who will lead the day-to-day delivery of the project in your organisation?",

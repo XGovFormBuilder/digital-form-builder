@@ -22,7 +22,7 @@
         },
         {
             "path": "/has-your-organisation-delivered-projects-like-this-before",
-            "title": "Have you delivered projects like this before?",
+            "title": "Has your organisation delivered projects like this before?",
             "components": [
                 {
                     "name": "rGADMs",
@@ -55,7 +55,7 @@
         },
         {
             "path": "/similar-previous-projects",
-            "title": "Tell us about how you have worked on similar previous projects",
+            "title": "Tell us about how your organisation has worked on similar previous projects",
             "components": [
                 {
                     "name": "zHgZBx",
@@ -94,7 +94,7 @@
                         "field": {
                             "name": "rGADMs",
                             "type": "YesNoField",
-                            "display": "Have you delivered projects like this before?"
+                            "display": "Has your organisation delivered projects like this before?"
                         },
                         "operator": "is",
                         "value": {
@@ -116,7 +116,7 @@
                         "field": {
                             "name": "rGADMs",
                             "type": "YesNoField",
-                            "display": "Have you delivered projects like this before?"
+                            "display": "Has your organisation delivered projects like this before?"
                         },
                         "operator": "is",
                         "value": {

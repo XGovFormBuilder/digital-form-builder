@@ -28,7 +28,8 @@
                 {
                     "name": "nYJiWy",
                     "options": {
-                        "hideTitle": true
+                        "hideTitle": true,
+                        "classes": "govuk-!-width-full"
                     },
                     "type": "TextField",
                     "title": "Organisation name",
@@ -64,21 +65,21 @@
                 },
                 {
                     "name": "uYsivE",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "TextField",
                     "title": "Name of project sponsor",
                     "schema": {}
                 },
                 {
                     "name": "xgrxxv",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "EmailAddressField",
                     "title": "Project sponsor email address",
                     "schema": {}
                 },
                 {
                     "name": "xbOBdn",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "TelephoneNumberField",
                     "title": "Project sponsor telephone number",
                     "schema": {}
@@ -97,21 +98,21 @@
             "components": [
                 {
                     "name": "cPpwET",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "TextField",
                     "title": "Name of section 151 officer",
                     "schema": {}
                 },
                 {
                     "name": "EMukio",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "EmailAddressField",
                     "title": "Section 151 officer email address",
                     "schema": {}
                 },
                 {
                     "name": "GPxiGe",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "TelephoneNumberField",
                     "title": "Section 151 officer telephone number",
                     "schema": {}
@@ -137,28 +138,28 @@
                 },
                 {
                     "name": "AYmilW",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "TextField",
                     "title": "Name of lead contact",
                     "schema": {}
                 },
                 {
                     "name": "UjZJtC",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "TextField",
                     "title": "Lead contact job title",
                     "schema": {}
                 },
                 {
                     "name": "IRugBv",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "EmailAddressField",
                     "title": "Lead contact email address",
                     "schema": {}
                 },
                 {
                     "name": "jvfZpA",
-                    "options": {},
+                    "options": {"classes": "govuk-!-width-full"},
                     "type": "TelephoneNumberField",
                     "title": "Lead contact telephone number",
                     "schema": {}

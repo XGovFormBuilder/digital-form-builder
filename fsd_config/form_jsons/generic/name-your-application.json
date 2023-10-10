@@ -9,7 +9,8 @@
                 {
                     "name": "JAAhRP",
                     "options": {
-                        "hideTitle": true
+                        "hideTitle": true,
+                        "classes": "govuk-!-width-full"
                     },
                     "type": "TextField",
                     "title": "Name your application",
