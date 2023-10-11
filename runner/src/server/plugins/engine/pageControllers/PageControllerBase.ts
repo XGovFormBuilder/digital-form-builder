@@ -233,9 +233,11 @@ export class PageControllerBase {
     const nextLink = this.next.find((link) => {
       const { condition } = link;
       if (condition) {
-        this.model.conditions[condition] &&
+        return (
+          this.model.conditions[condition] &&
           (this.model.conditions[condition].fn(state) ||
-            this.model.conditions[condition].fn(state[this.section?.name]));
+            this.model.conditions[condition].fn(state[this.section?.name]))
+        );
       }
       defaultLink = link;
       return false;
