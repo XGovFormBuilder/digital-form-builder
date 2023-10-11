@@ -1,0 +1,92 @@
+{
+  "metadata": {},
+  "startPage": "/51-declarations",
+  "pages": [
+    {
+      "title": "5.1 Declarations",
+      "path": "/51-declarations",
+      "components": [
+        {
+          "name": "rhgBAM",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>confirmation you have signed the Local Digital Declaration and agree to follow the 5 core principles</li>\n<li>confirmation your Section 151 Officer consents to the funds being carried over and spent in the next financial year (March 2024-25) and beyond, if deemed necessary in project budget planning</li>\n<li>confirmation you agree to let all outputs from this work be published under open licence with a view to any organisation accessing, using or adopting them freely</li>\n<li>confirmation the information you have provided is accurate</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/agree-to-the-final-confirmations"
+        }
+      ],
+      "section": "HgUinB",
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/agree-to-the-final-confirmations",
+      "title": "Agree to the final confirmations",
+      "components": [
+        {
+          "name": "JUgCya",
+          "options": {},
+          "type": "YesNoField",
+          "title": "You have signed the Local Digital Declaration and agree to follow the 5 core principles"
+        },
+        {
+          "name": "vbmqwB",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Your section 151 officer consents to the funds being carried over and spent in the next financial year (March 2024-25) and beyond if deemed necessary in project budget planning"
+        },
+        {
+          "name": "EQffUz",
+          "options": {},
+          "type": "YesNoField",
+          "title": "You agree to let all outputs from this work be published under open licence with a view to any organisation accessing, using or adopting them freely"
+        },
+        {
+          "name": "kPYiQE",
+          "options": {},
+          "type": "YesNoField",
+          "title": "The information you have provided is accurate"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "HgUinB"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "HgUinB"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "HgUinB",
+      "title": "Declarations"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to begin your digital planning improvement journey"
+}

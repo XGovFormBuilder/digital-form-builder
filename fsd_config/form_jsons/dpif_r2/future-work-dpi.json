@@ -1,0 +1,103 @@
+{
+  "metadata": {},
+  "startPage": "/41-future-work",
+  "pages": [
+    {
+      "title": "4.1 Future work",
+      "path": "/41-future-work",
+      "components": [
+        {
+          "name": "MARbEo",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>which software improvements you are interested in working on in the future</li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-software-improvements-are-you-interested-in-working-on-in-the-future"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/which-software-improvements-are-you-interested-in-working-on-in-the-future",
+      "title": "Which software improvements are you interested in working on in the future?",
+      "components": [
+        {
+          "name": "DCQllx",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Which software improvements are you interested in working on in the future?",
+          "hint": "<div class=\"govuk-hint\">If you're successful, you may be invited to apply for additional funding to improve the planning software in your organisation.</div>\n<div class=\"govuk-hint\">Select all that apply</div>\n",
+          "list": "wyGXhI",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "SKgfoO"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "SKgfoO"
+    }
+  ],
+  "lists": [
+    {
+      "title": "software improvements",
+      "name": "wyGXhI",
+      "type": "string",
+      "items": [
+        {
+          "text": "Adopting PlanX",
+          "value": "adopting-planX"
+        },
+        {
+          "text": "Adopting BOPS (back office planning system)",
+          "value": "adopting-bops"
+        },
+        {
+          "text": "Working with an existing software provider",
+          "value": "working-with-existing-software"
+        },
+        {
+          "text": "Working with a new software provider",
+          "value": "working-with-new-software"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "SKgfoO",
+      "title": "Future work"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to begin your digital planning improvement journey"
+}
