@@ -123,7 +123,7 @@ module.exports = {
   // authClientAuthUrl: "", // oAuth client secret
   // authClientTokenUrl: "", // oAuth client token endpoint
   // authClientProfileUrl: "" // oAuth client user profile endpoint
-  logoutUrl: "/logoout",
+  logoutUrl: "/logout",
   multifundDashboard: "/account",
   basicAuthOn: false,
   overwriteInitialisedSession: true,
