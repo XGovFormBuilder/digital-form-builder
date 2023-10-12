@@ -1,10 +1,10 @@
 {
   "metadata": {},
-  "startPage": "/51-declarations",
+  "startPage": "/61-declarations",
   "pages": [
     {
-      "title": "5.1 Declarations",
-      "path": "/51-declarations",
+      "title": "6.1 Declarations",
+      "path": "/61-declarations",
       "components": [
         {
           "name": "rhgBAM",
