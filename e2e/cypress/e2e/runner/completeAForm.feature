@@ -11,7 +11,7 @@ Feature: Complete a form
     * I continue
     * I choose "No, I don't have evidence"
     * I continue
-    * I enter "the additional info" for "Additional Info (Optional)"
+    * I enter "the additional info" for "Additional Info (optional)"
     * I continue
     Then I see a summary list with the values
       | title                               | value                     |
@@ -19,7 +19,7 @@ Feature: Complete a form
       | Link to the material                | link-to-the-material.co   |
       | Do you have any evidence?           | No, I don't have evidence |
       | Additional Info                     | the additional info       |
-    When I submit the form
+    When I save the form
     Then I see "Application complete"
 
 
@@ -51,7 +51,7 @@ Feature: Complete a form
     * I enter "jen+forms@cautionyourblast.com" for "Email address field"
     * I enter "123" for "Telephone number field"
     * I enter "line 1" for "Address line 1"
-    * I enter "line 2" for "Address line 2 (Optional)"
+    * I enter "line 2" for "Address line 2 (optional)"
     * I enter "London" for "Town or city"
     * I enter "ec2a4ps" for "Postcode"
     * I choose "Sole trader"
@@ -67,7 +67,7 @@ Feature: Complete a form
     When I choose "Yes"
     And I continue
     * I enter "line 1" for "Address line 1"
-    * I enter "line 2" for "Address line 2 (Optional)"
+    * I enter "line 2" for "Address line 2 (optional)"
     * I enter "London" for "Town or city"
     * I enter "ec2a4ps" for "Postcode"
     * I enter "2025-12-25" for "What date was the vehicle registered at this address?"
@@ -86,7 +86,7 @@ Feature: Complete a form
     * I continue
     * I enter "jen+forms@cautionyourblast.com" for "Your email address"
     * I continue
-    * I submit the form
+    * I save the form
     Then I see "Application complete"
 
 
