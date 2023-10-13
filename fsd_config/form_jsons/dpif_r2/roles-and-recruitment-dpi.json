@@ -10,7 +10,7 @@
           "name": "vwXfgR",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>if you have a team in place ready to deliver the project</li>\n<li>how you will make sure you have a team in place ready to deliver the project (if applicable)</li>\n<li>the shape of the project team (if applicable)</li>\n<li>if you need to backfill any roles in the organisation</li>\n<li>the estimated cost of backfilling roles (if applicable)</li>\n<li>if you know who will lead the day-to-day delivery of the project in your organisation</li>\n<li>who will lead the day-to-day delivery of the project in your organisation (if applicable)</li>\n</ul>"
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>whether you have a team in place ready to deliver the project</li>\n<li>how you will make sure you have a team in place ready to deliver the project (if applicable)</li>\n<li>the shape of the project team (if applicable)</li>\n<li>whether you need to backfill any roles in the organisation</li>\n<li>the estimated cost of backfilling roles (if applicable)</li>\n<li>whether you know who will lead the day-to-day delivery of the project in your organisation</li>\n<li>who will lead the day-to-day delivery of the project in your organisation (if applicable)</li>\n</ul>"
         }
       ],
       "next": [
