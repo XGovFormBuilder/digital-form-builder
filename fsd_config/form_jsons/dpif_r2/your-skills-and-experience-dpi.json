@@ -10,7 +10,7 @@
           "name": "MbtXtU",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>If your organisation has delivered projects like this before </li>\n<li>information about the projects you've delivered before (if applicable) </li>\n</ul>"
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>whether your organisation has delivered projects like this before </li>\n<li>information about the projects you've delivered before (if applicable) </li>\n</ul>"
         }
       ],
       "next": [
