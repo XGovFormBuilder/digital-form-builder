@@ -4,8 +4,31 @@
 
 {% block content %}
   <div class="govuk-main-wrapper">
+
+    
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
+       
+        <!-- ERROR MESSAGE -->
+        {% if result.error  %}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+          <div role="alert">
+            <h2 class="govuk-error-summary__title">
+              There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list govuk-error-summary__list">
+                {% for error in result.error.details %}
+                <li>
+                  <a href="#{{error.path}}">{{error.message}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+    {% endif %}
+
         <h1 class="govuk-heading-l">
           {% if callback and callback.title %}
             {{ callback.title }}
@@ -38,59 +61,59 @@
           <p class="govuk-body">Total cost: £{{fees.total / 100 }}</p>
         {% endif %}
 
-        {% if not result.error  %}
-            <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
-              <input type="hidden" name="crumb" value="{{crumb}}"/>
+        
 
-                {%if declaration %}
-                <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
-                  {{ declaration | safe  }}
-                  <div class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}">
-                    {% if declarationError %}
-                        <span id="nationality-error" class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error:</span> {{declarationError}}
-                        </span>
-                    {% endif %}
-                    <div class="govuk-checkboxes">
-                     <div class="govuk-checkboxes__item">
-                       <input class="govuk-checkboxes__input" id="declaration-1" name="declaration" type="checkbox" value="true">
-                       <label class="govuk-label govuk-checkboxes__label" for="declaration-1">
-                         Confirm
-                       </label>
-                     </div>
-                    </div>
-                  </div>
-                {% endif %}
+        <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
+          <input type="hidden" name="crumb" value="{{crumb}}"/>
 
-               <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
-                {% if fees and fees.details|length %}
-                Submit and pay
-                {% else %}
-                Submit
+            {%if declaration %}
+            <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
+              {{ declaration | safe  }}
+              <div class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}">
+                {% if declarationError %}
+                    <span id="nationality-error" class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> {{declarationError}}
+                    </span>
                 {% endif %}
-              </button>
+                <div class="govuk-checkboxes">
+                 <div class="govuk-checkboxes__item">
+                   <input class="govuk-checkboxes__input" id="declaration-1" name="declaration" type="checkbox" value="true">
+                   <label class="govuk-label govuk-checkboxes__label" for="declaration-1">
+                     Confirm
+                   </label>
+                 </div>
+                </div>
+              </div>
+            {% endif %}
+
+           <button data-prevent-double-click="true" {% if result.error %}disabled{% endif %} class="govuk-button" data-module="govuk-button">
+            {% if fees and fees.details|length %}
+            Submit and pay
+            {% else %}
+            Submit
+            {% endif %}
+          </button>
+          
+          <!-- Handle greying out of the button and preventing further clicks -->
+          <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const button = document.querySelector('.govuk-button');
+
+              button.addEventListener('click', function () {
+                this.style.opacity = '0.5';
+                this.style.cursor = 'not-allowed';
+                this.innerHTML = 'Submitting...';
+
+                // Prevent further clicks
+                this.addEventListener('click', function (e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }, { once: true });
+              });
+              });
               
-              <!-- Handle greying out of the button and preventing further clicks -->
-              <script>
-                document.addEventListener('DOMContentLoaded', (event) => {
-                    const button = document.querySelector('.govuk-button');
-
-                  button.addEventListener('click', function () {
-                    this.style.opacity = '0.5';
-                    this.style.cursor = 'not-allowed';
-                    this.innerHTML = 'Submitting...';
-
-                    // Prevent further clicks
-                    this.addEventListener('click', function (e) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }, { once: true });
-                  });
-                  });
-                  
-              </script>
-            </form>
-        {% endif %}
+          </script>
+        </form>
       </div>
     </div>
   </div>

@@ -63,7 +63,7 @@ suite("PageControllerBase", () => {
     };
 
     expect(page.getErrors(error)).to.equal({
-      titleText: "Fix the following errors",
+      titleText: "There is a problem",
       errorList: [
         {
           path: "approximate",

@@ -11,13 +11,31 @@
                 {{item.value}}
             {% endif %}
         {% else %}
-            Not supplied
+        {% if not (item.options.required | default(true)) %}
+        Not provided
+    {% else %}
+        <a class="govuk-link" href="{{item.url}}" id="{{item.name}}" name="{{item.name}}">
+            Enter {{item.label | capitalize}}
+        </a>
+    {% endif %}
         {% endif %}
     </dd>
     <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="{{item.url}}">
-            Change<span class="govuk-visually-hidden"> {{item.label}}</span>
-        </a>
+        {% if item.value %}
+                
+           
+            <a class="govuk-link" href="{{item.url}}" id="{{item.name}}" name="{{item.name}}">
+                Change<span class="govuk-visually-hidden"> {{item.label}}</span>
+            </a>
+
+            {% else %}
+            {% if not (item.options.required | default(true)) %}
+            <a class="govuk-link" href="{{item.url}}" id="{{item.name}}" name="{{item.name}}">
+                Add<span class="govuk-visually-hidden"> {{item.label}}</span>
+            </a>
+        {% endif %}
+            
+        {% endif %}
     </dd>
 </div>
 {% endmacro %}

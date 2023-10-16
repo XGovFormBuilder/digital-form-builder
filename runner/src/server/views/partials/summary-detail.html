@@ -1,22 +1,31 @@
 {% from "./summary-row.html" import summaryRow %}
 
 {% macro summaryDetail(data) %}
-    {%  set isRepeatableSection = (data.items[0] | isArray) %}
-    {% if not isRepeatableSection %}
-        <h2 class="govuk-heading-m">{{data.title}}</h2>
-    {% endif %}
-  <dl class="govuk-summary-list">
-    {% for item in data.items %}
-        {% if not hide %}
-        {%- if item | isArray %}
-            <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-0">{{data.title}} {{ loop.index }}</h2>
-            {% for repeated in item %}
-                {{ summaryRow(repeated) }}
-            {% endfor %}
-        {% else %}
-          {{ summaryRow(item) }}
-        {% endif %}
+{% set isRepeatableSection = (data.items[0] | isArray) %}
+
+<div class="govuk-summary-card">
+  {% if not isRepeatableSection %}
+  <div class="govuk-summary-card__title-wrapper">
+    <h2 class="govuk-summary-card__title">{{data.title}}</h2>
+  </div>
+  {% endif %}
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      {% for item in data.items %}
+      {% if not hide %}
+      {%- if item | isArray %}
+      <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-0">TITLE:{{data.title}} INDEX:{{ loop.index
+        }}</h2>
+      {% for repeated in item %}
+      {{ summaryRow(repeated) }}
+      {% endfor %}
+      {% else %}
+      {{ summaryRow(item) }}
       {% endif %}
-    {% endfor %}
-  </dl>
+      {% endif %}
+      {% endfor %}
+    </dl>
+  </div>
+</div>
+
 {% endmacro %}

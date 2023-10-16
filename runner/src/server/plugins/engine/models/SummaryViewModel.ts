@@ -416,16 +416,24 @@ function Item(
     });
   }
 
-  return {
+  const item = {
     name: component.name,
     path: page.path,
     label: component.localisedString(component.title),
     value: component.getDisplayStringFromState(sectionState),
     rawValue: sectionState[component.name],
+    options: component.options,
     url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
     pageId: `/${model.basePath}${page.path}`,
     type: component.type,
     title: component.title,
     dataType: component.dataType,
   };
+
+
+  console.log("COMPONENT THING", component)
+
+  console.log("ITEM", item)
+
+  return item;
 }
