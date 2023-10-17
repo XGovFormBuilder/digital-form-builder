@@ -285,12 +285,11 @@ export class PageControllerBase {
    */
   getErrors(validationResult): FormSubmissionErrors | undefined {
     if (validationResult && validationResult.error) {
-
-      console.log("VALIDATION RESULTS", validationResult.error.details)
+      console.log("VALIDATION RESULTS", validationResult.error.details);
       const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
-  
+
       const component = this.components.formItems;
-  
+
       function findTitleByFieldName(arr, fieldName) {
         for (let i = 0; i < arr.length; i++) {
           if (fieldName.indexOf("_") > 0) {
@@ -302,34 +301,42 @@ export class PageControllerBase {
         }
         return "Title not found";
       }
-  
+
       let missingParts = [];
       let newErrorList = [];
-      let dateComponentName = '';
-  
+      let dateComponentName = "";
+
       validationResult.error.details.forEach((err) => {
-        const name = err.path.map((n, index) => (index > 0 ? `__${n}` : n)).join("");
+        const name = err.path
+          .map((n, index) => (index > 0 ? `__${n}` : n))
+          .join("");
         const title = findTitleByFieldName(component, name);
-  
-        if (name.endsWith('__day') || name.endsWith('__month') || name.endsWith('__year')) {
-          missingParts.push(name.split('__')[1]);
-          dateComponentName = name.split('__')[0];  // Assuming all date parts have the same root name
+
+        if (
+          name.endsWith("__day") ||
+          name.endsWith("__month") ||
+          name.endsWith("__year")
+        ) {
+          missingParts.push(name.split("__")[1]);
+          dateComponentName = name.split("__")[0]; // Assuming all date parts have the same root name
         } else {
           newErrorList.push({
             path: err.path.join("."),
             href: `#${name}`,
             name: name,
             title: title,
-            text: err.message.replace(isoRegex, (text) => format(parseISO(text), "d MMMM yyyy")),
+            text: err.message.replace(isoRegex, (text) =>
+              format(parseISO(text), "d MMMM yyyy")
+            ),
           });
         }
       });
-  
+
       if (missingParts.length > 0) {
         const title = findTitleByFieldName(component, dateComponentName);
         let text = "";
         if (missingParts.length === 3) {
-          text = `${title} must be a valid date.`;
+          text = `${title} is required.`;
         } else {
           text = `${title} must have a ${missingParts.join(", ")}.`;
         }
@@ -337,7 +344,7 @@ export class PageControllerBase {
         // Set href to the first missing part
         const firstMissingPart = missingParts[0];
         const dynamicHref = `#${dateComponentName}__${firstMissingPart}`;
-  
+
         newErrorList.push({
           path: dateComponentName,
           href: dynamicHref,
@@ -347,15 +354,14 @@ export class PageControllerBase {
         });
       }
 
-  
       const errorObject = {
         titleText: this.errorSummaryTitle,
         errorList: newErrorList.reverse(),
       };
-      console.log("ERROR OBJECT")
+      console.log("ERROR OBJECT");
       return errorObject;
     }
-  
+
     return undefined;
   }
 
@@ -367,7 +373,7 @@ export class PageControllerBase {
   validate(value, schema) {
     const result = schema.validate(value, this.validationOptions);
     const errors = result.error ? this.getErrors(result) : null;
-    console.log("results", { ...result, ...errors })
+    console.log("results", { ...result, ...errors });
     return { value: result.value, errors };
   }
 
@@ -557,7 +563,7 @@ export class PageControllerBase {
     const { cacheService } = request.services([]);
     const hasFilesizeError = request.payload === null;
     const preHandlerErrors = request.pre.errors;
-    console.log("preHandlerErrors", preHandlerErrors)
+    console.log("preHandlerErrors", preHandlerErrors);
     const payload = (request.payload || {}) as FormData;
     const formResult: any = this.validateForm(payload);
     const state = await cacheService.getState(request);
@@ -568,7 +574,7 @@ export class PageControllerBase {
     const progress = state.progress || [];
     const { num } = request.query;
 
-    console.log("forResult.errors", formResult.errors)
+    console.log("forResult.errors", formResult.errors);
 
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {
