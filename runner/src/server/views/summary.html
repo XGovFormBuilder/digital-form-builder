@@ -10,15 +10,16 @@
       <div class="govuk-grid-column-two-thirds">
        
         <!-- ERROR MESSAGE -->
-        {% if result.error  %}
+        {% if errors  %}
         <div class="govuk-error-summary" data-module="govuk-error-summary">
           <div role="alert">
             <h2 class="govuk-error-summary__title">
               There is a problem
             </h2>
             <div class="govuk-error-summary__body">
+              <p>{{ errors | dump }}</p>
               <ul class="govuk-list govuk-error-summary__list">
-                {% for error in result.error.details %}
+                {% for error in errors %}
                 <li>
                   <a href="#{{error.path}}">{{error.message}}</a>
                 </li>

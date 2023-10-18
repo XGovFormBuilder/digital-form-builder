@@ -75,21 +75,47 @@ export class DatePartsField extends FormComponent {
     return this.children.getFormSchemaKeys();
   }
 
+  // getStateSchemaKeys() {
+  //   const { options } = this;
+  //   const { maxDaysInPast, maxDaysInFuture } = options as any;
+  //   let schema: any = this.stateSchema;
+
+  //   if (maxDaysInPast ?? false) {
+  //     schema = schema.min(() => sub(new Date(), { days: maxDaysInPast }));
+  //   }
+
+  //   if (maxDaysInFuture ?? false) {
+  //     schema = schema.max(() => add(new Date(), { days: maxDaysInFuture }));
+  //   }
+
+  //   return { [this.name]: schema };
+  // }
+
+
   getStateSchemaKeys() {
     const { options } = this;
     const { maxDaysInPast, maxDaysInFuture } = options as any;
     let schema: any = this.stateSchema;
-
-    if (maxDaysInPast ?? false) {
-      schema = schema.min(sub(new Date(), { days: maxDaysInPast }));
-    }
-
-    if (maxDaysInFuture ?? false) {
-      schema = schema.max(add(new Date(), { days: maxDaysInFuture }));
-    }
-
+  
+    schema = schema.custom((value, helpers) => {
+      if (maxDaysInPast) {
+        const minDate = sub(new Date(), { days: maxDaysInPast });
+        if (new Date(value) < minDate) {
+          return helpers.error('date.min', { limit: minDate });
+        }
+      }
+      if (maxDaysInFuture) {
+        const maxDate = add(new Date(), { days: maxDaysInFuture });
+        if (new Date(value) > maxDate) {
+          return helpers.error('date.max', { limit: maxDate });
+        }
+      }
+      return value;
+    });
+  
     return { [this.name]: schema };
   }
+
 
   getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;

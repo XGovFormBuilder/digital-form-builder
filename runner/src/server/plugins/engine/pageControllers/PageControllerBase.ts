@@ -285,7 +285,6 @@ export class PageControllerBase {
    */
   getErrors(validationResult): FormSubmissionErrors | undefined {
     if (validationResult && validationResult.error) {
-      console.log("VALIDATION RESULTS", validationResult.error.details);
       const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
 
       const component = this.components.formItems;
@@ -358,7 +357,6 @@ export class PageControllerBase {
         titleText: this.errorSummaryTitle,
         errorList: newErrorList.reverse(),
       };
-      console.log("ERROR OBJECT");
       return errorObject;
     }
 
@@ -373,7 +371,6 @@ export class PageControllerBase {
   validate(value, schema) {
     const result = schema.validate(value, this.validationOptions);
     const errors = result.error ? this.getErrors(result) : null;
-    console.log("results", { ...result, ...errors });
     return { value: result.value, errors };
   }
 
@@ -563,7 +560,6 @@ export class PageControllerBase {
     const { cacheService } = request.services([]);
     const hasFilesizeError = request.payload === null;
     const preHandlerErrors = request.pre.errors;
-    console.log("preHandlerErrors", preHandlerErrors);
     const payload = (request.payload || {}) as FormData;
     const formResult: any = this.validateForm(payload);
     const state = await cacheService.getState(request);

@@ -146,17 +146,32 @@ export class SummaryViewModel {
     this.state = state;
     this.value = result.value;
     this.callback = state.callback;
+
   }
 
   private processErrors(result, details) {
+    function replaceNameWithTitleIfInMessage(arr, errorObject) {
+      const found = arr.find((entry) => entry.name === errorObject.name);
+      if (found && errorObject.message.includes(errorObject.name)) {
+        errorObject.message = errorObject.message.replace(
+          errorObject.name,
+          found.title
+        );
+        errorObject.path = `${found.title}`;
+        errorObject.name = found.title;
+      }
+      return errorObject;
+    }
+
     this.errors = result.error.details.map((err) => {
       const name = err.path[err.path.length - 1];
 
-      return {
+      const errorObject = {
         path: err.path.join("."),
         name: name,
         message: err.message,
       };
+      return replaceNameWithTitleIfInMessage(details, errorObject);
     });
 
     details.forEach((detail) => {
@@ -429,11 +444,6 @@ function Item(
     title: component.title,
     dataType: component.dataType,
   };
-
-
-  console.log("COMPONENT THING", component)
-
-  console.log("ITEM", item)
 
   return item;
 }

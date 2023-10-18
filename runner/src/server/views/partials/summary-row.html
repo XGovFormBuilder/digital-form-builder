@@ -14,7 +14,7 @@
         {% if not (item.options.required | default(true)) %}
         Not provided
     {% else %}
-        <a class="govuk-link" href="{{item.url}}" id="{{item.name}}" name="{{item.name}}">
+        <a class="govuk-link" href="{{item.url}}" id="{{item.label}}" name="{{item.label}}">
             Enter {{item.label | capitalize}}
         </a>
     {% endif %}
@@ -24,13 +24,13 @@
         {% if item.value %}
                 
            
-            <a class="govuk-link" href="{{item.url}}" id="{{item.name}}" name="{{item.name}}">
+            <a class="govuk-link" href="{{item.url}}" id="{{item.label}}" name="{{item.label}}">
                 Change<span class="govuk-visually-hidden"> {{item.label}}</span>
             </a>
 
             {% else %}
             {% if not (item.options.required | default(true)) %}
-            <a class="govuk-link" href="{{item.url}}" id="{{item.name}}" name="{{item.name}}">
+            <a class="govuk-link" href="{{item.url}}" id="{{item.label}}" name="{{item.label}}">
                 Add<span class="govuk-visually-hidden"> {{item.label}}</span>
             </a>
         {% endif %}
