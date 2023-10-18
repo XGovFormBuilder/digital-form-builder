@@ -11,15 +11,15 @@
        
         <!-- ERROR MESSAGE -->
         {% if errors  %}
-        <div class="govuk-error-summary" data-module="govuk-error-summary">
+        <div class="govuk-error-summary" data-module="govuk-error-summary" >
           <div role="alert">
             <h2 class="govuk-error-summary__title">
               There is a problem
             </h2>
             <div class="govuk-error-summary__body">
-              <ul class="govuk-list govuk-error-summary__list">
+              <ul class="govuk-list govuk-error-summary__list" style="padding: 0;">
                 {% for error in errors %}
-                <li>
+                <li style="list-style-type: none !important; ">
                   <a href="#{{error.path}}">{{error.message}}</a>
                 </li>
                 {% endfor %}

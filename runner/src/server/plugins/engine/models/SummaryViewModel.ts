@@ -162,27 +162,40 @@ export class SummaryViewModel {
       }
       return errorObject;
     }
-
+  
     this.errors = result.error.details.map((err) => {
       const name = err.path[err.path.length - 1];
-
+      function extractContentBetweenQuotes(inputString) {
+        const matches = inputString.match(/"([^"]+)"/);
+        if (matches && matches.length > 1) {
+          return matches[1];
+        } else {
+          return null; // Return null if no content is found between quotes
+        }
+      }
+      const path = extractContentBetweenQuotes(err.message)
       const errorObject = {
-        path: err.path.join("."),
+        path: path,
         name: name,
         message: err.message,
       };
-      return replaceNameWithTitleIfInMessage(details, errorObject);
+      console.log("details", details);
+      console.log("errorObject", errorObject);
+      const error = replaceNameWithTitleIfInMessage(details, errorObject);
+  
+      console.log("ERRORS LIST", error);
+      return error;
     });
-
+  
     details.forEach((detail) => {
       const sectionErr = this.errors?.find((err) => err.path === detail.name);
-
+  
       detail.items.forEach((item) => {
         if (sectionErr) {
           item.inError = true;
           return;
         }
-
+  
         const err = this.errors?.find(
           (err) =>
             err.path ===
@@ -190,6 +203,11 @@ export class SummaryViewModel {
         );
         if (err) {
           item.inError = true;
+        }
+        // Set the name and path to the title
+        if (err && detail.title) {
+          err.name = detail.title;
+          err.path = detail.title;
         }
       });
     });

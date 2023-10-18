@@ -17,8 +17,6 @@ export class SummaryPageController extends PageController {
     h: HapiResponseToolkit
   ) {
 
-    console.log("HELLO")
-    console.log("VIEW MODEL", JSON.stringify(viewModel, null, 2))
 
 
     if (viewModel.errors) {
@@ -29,14 +27,10 @@ export class SummaryPageController extends PageController {
       const property = parts.length > 1 ? parts[parts.length - 1] : null;
       const iteration = parts.length === 3 ? Number(parts[1]) + 1 : null;
 
-      console.log("VIEW MODEL ERRORS", viewModel.errors)
-
       const pageWithError = this.model.pages.filter((page) => {
         // Existing error filtering logic
       })[0];
 
-
-      console.log("VIEW MODEL request", request)
 
       if (pageWithError) {
         const params = {
@@ -91,8 +85,6 @@ export class SummaryPageController extends PageController {
       // Call handleErrors
       const errorRedirect = await this.handleErrors(viewModel, request, h);
 
-      console.log("viewModel", viewModel)
-      console.log("errorRedirect 2", errorRedirect)
       if (errorRedirect) return errorRedirect;
 
       const declarationError = request.yar.flash("declarationError");
