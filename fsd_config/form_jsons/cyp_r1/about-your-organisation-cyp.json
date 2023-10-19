@@ -160,7 +160,7 @@
           "name": "jencJE",
           "options": {
             "hideTitle": true,
-            "required":false
+            "required": false
           },
           "type": "TextField",
           "title": "Company registration number",
@@ -421,7 +421,8 @@
         },
         "customText": {
           "separatePageTitle": "Your links",
-          "samePageTitle": ""
+          "samePageTitle": "",
+          "removeText": "Delete"
         }
       },
       "components": [
