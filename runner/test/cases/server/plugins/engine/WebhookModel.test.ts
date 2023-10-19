@@ -60,7 +60,7 @@ const testDetails = [
       {
         name: "fullDate",
         path: "/second-page",
-        label: "full date",
+        label: "full date (optional)",
         value: "11 December 2000",
         rawValue: "2000-12-11T00:00:00.000Z",
         url: "/test/second-page?returnUrl=%2Ftest%2Fsummary",
