@@ -62,31 +62,35 @@ export class UploadService {
 
   parsedDocumentUploadResponse(res: http.IncomingMessage, error?: any) {
     let location: string | undefined;
+    let parsedError = "There was an error uploading your file";
 
     if (error) {
-      error = JSON.parse(error).message.replace("[document_field]", '"%s"');
+      parsedError = JSON.parse(error).message.replace(
+        "[document_field]",
+        '"%s"'
+      );
     } else {
       switch (res.statusCode) {
         case 201:
           location = res.headers.location;
           break;
         case 413:
-          error = 'The selected file for "%s" is too large';
+          parsedError = 'The selected file for "%s" is too large';
           break;
         case 422:
-          error = 'The selected file for "%s" contained a virus';
+          parsedError = 'The selected file for "%s" contained a virus';
           break;
         case 400:
-          error = "Invalid file type. Upload a PNG, JPG or PDF";
+          parsedError = "Invalid file type. Upload a PNG, JPG or PDF";
           break;
         default:
-          error = "There was an error uploading your file";
+          break;
       }
     }
 
     return {
       location,
-      error,
+      error: parsedError,
     };
   }
 
@@ -185,7 +189,7 @@ export class UploadService {
             ];
           }
         } catch (e) {
-          if (e.data && e.data.res) {
+          if (e.data?.res) {
             const { error } = this.parsedDocumentUploadResponse(
               e.data.res,
               e.data.payload?.toString()
