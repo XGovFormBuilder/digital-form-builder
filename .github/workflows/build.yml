@@ -32,9 +32,9 @@ jobs:
       tag: ${{ steps.hashFile.outputs.tag }}
       hash: ${{ steps.hashFile.outputs.hash }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.6
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.6
         with:
           node-version: "16.x"
           cache: yarn
