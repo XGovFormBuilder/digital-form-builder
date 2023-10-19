@@ -121,7 +121,7 @@ async function createServer(routeConfig: RouteConfig) {
       Schmervice.withName("statusService", QueueStatusService),
     ]);
   } else {
-    server.registerService(StatusService);
+    server.registerService([StatusService]);
   }
 
   server.ext(
@@ -174,7 +174,9 @@ async function createServer(routeConfig: RouteConfig) {
     encoding: "base64json",
   });
 
-  await server.register(pluginQueue);
+  if (config.enableQueueService) {
+    await server.register(pluginQueue);
+  }
 
   return server;
 }

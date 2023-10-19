@@ -5,7 +5,7 @@ const DEFAULT_OPTIONS = {
 };
 export const pluginQueue = {
   name: "queue",
-  register: async function (server, options) {
+  register: async function (server, _options) {
     if (DEFAULT_OPTIONS.enableQueueService) {
       const schemaLocation = require.resolve(
         "@xgovformbuilder/queue-model/schema.prisma"
