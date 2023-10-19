@@ -403,7 +403,7 @@ function Item(
 
   if (
     component.options.required == false &&
-    !componentLabel.includes("optional")
+    !componentLabel.toLowerCase().endsWith("(optional)")
   ) {
     componentLabel += " (optional)";
   }
