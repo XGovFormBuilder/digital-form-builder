@@ -194,9 +194,7 @@ export class UploadService {
           }
         } catch (e) {
           if (e.data?.res) {
-            const { error } = this.parsedDocumentUploadResponse(
-              e.data.payload?.toString()
-            );
+            const { error } = this.parsedDocumentUploadResponse(e.data);
             request.pre.errors = [
               ...(h.request.pre.errors || []),
               parsedError(key, error),
