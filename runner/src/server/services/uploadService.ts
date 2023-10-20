@@ -69,22 +69,9 @@ export class UploadService {
 
   parsedDocumentUploadResponse(res: http.IncomingMessage, error?: any) {
     let location: string | undefined;
-    let parsedError = "There was an error uploading your file";
-    switch (res.statusCode) {
-      case 201:
-        location = res.headers.location;
-        break;
-      case 413:
-        parsedError = ERRORS.fileSizeError;
-        break;
-      case 422:
-        parsedError = ERRORS[error];
-        break;
-      case 400:
-        parsedError = ERRORS.fileTypeError;
-        break;
-      default:
-        break;
+    let parsedError = ERRORS[error] ?? "There was an error uploading your file";
+    if (res.statusCode === 201) {
+      location = res.headers.location;
     }
 
     return {
