@@ -35,7 +35,7 @@ export class QueueService {
 
   async getSubmissions() {
     try {
-      return await this.prisma.submission.findMany({
+      const submissionRes = await this.prisma.submission.findMany({
         where: {
           complete: false,
           webhook_url: {
@@ -53,21 +53,15 @@ export class QueueService {
             error: { sort: "asc", nulls: "first" },
           },
         ],
+        take: 1,
       });
+      return submissionRes.at(0);
     } catch (e) {
       this.logger.error(
         ["queueService", "processSubmissions"],
         `${ERRORS.DB_FIND_ERROR}: ${e?.message ?? e}`
       );
-      return [];
-    }
-  }
-
-  async processSubmissions() {
-    const submissions = await this.getSubmissions();
-    this.logger.info(`Found ${submissions.length} to submit`);
-    for (const row of submissions) {
-      await this.submit(row);
+      return;
     }
   }
 
