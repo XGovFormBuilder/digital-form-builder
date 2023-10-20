@@ -16,6 +16,13 @@ const parsedError = (key: string, error?: string) => {
   };
 };
 
+const ERRORS = {
+  fileSizeError: 'The selected file for "%s" is too large',
+  fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
+  virusError: 'The selected file for "%s" contained a virus',
+  qualityError: 'The selected file for "%s" was too blurry',
+};
+
 export class UploadService {
   /**
    * Service responsible for uploading files via the FileUploadField. This service has been registered by {@link #createServer}
@@ -63,29 +70,21 @@ export class UploadService {
   parsedDocumentUploadResponse(res: http.IncomingMessage, error?: any) {
     let location: string | undefined;
     let parsedError = "There was an error uploading your file";
-
-    if (error) {
-      parsedError = JSON.parse(error).message.replace(
-        "[document_field]",
-        '"%s"'
-      );
-    } else {
-      switch (res.statusCode) {
-        case 201:
-          location = res.headers.location;
-          break;
-        case 413:
-          parsedError = 'The selected file for "%s" is too large';
-          break;
-        case 422:
-          parsedError = 'The selected file for "%s" contained a virus';
-          break;
-        case 400:
-          parsedError = "Invalid file type. Upload a PNG, JPG or PDF";
-          break;
-        default:
-          break;
-      }
+    switch (res.statusCode) {
+      case 201:
+        location = res.headers.location;
+        break;
+      case 413:
+        parsedError = ERRORS.fileSizeError;
+        break;
+      case 422:
+        parsedError = ERRORS[error];
+        break;
+      case 400:
+        parsedError = ERRORS.fileTypeError;
+        break;
+      default:
+        break;
     }
 
     return {
