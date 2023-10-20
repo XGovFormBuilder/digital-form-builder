@@ -1,4 +1,3 @@
-import http from "http";
 import FormData from "form-data";
 
 import config from "../config";
@@ -63,20 +62,24 @@ export class UploadService {
     }
 
     const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await post(`${config.documentUploadApiUrl}/v1/files`, data);
-    return this.parsedDocumentUploadResponse(res);
+    const { res, payload } = await post(
+      `${config.documentUploadApiUrl}/v1/files`,
+      data
+    );
+    if (res.statusCode === 201) {
+      return {
+        location: res.headers.location,
+        error: undefined,
+      };
+    }
+    return this.parsedDocumentUploadResponse(payload);
   }
 
-  parsedDocumentUploadResponse(res: http.IncomingMessage, error?: any) {
-    let location: string | undefined;
-    let parsedError = ERRORS[error] ?? "There was an error uploading your file";
-    if (res.statusCode === 201) {
-      location = res.headers.location;
-    }
-
+  parsedDocumentUploadResponse(error?: any) {
+    this.logger.info(["uploadService", "error"], error);
     return {
-      location,
-      error: parsedError,
+      location: undefined,
+      error: ERRORS[error] ?? "There was an error uploading your file",
     };
   }
 
@@ -177,7 +180,6 @@ export class UploadService {
         } catch (e) {
           if (e.data?.res) {
             const { error } = this.parsedDocumentUploadResponse(
-              e.data.res,
               e.data.payload?.toString()
             );
             request.pre.errors = [
