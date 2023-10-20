@@ -20,6 +20,7 @@ const ERRORS = {
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
   virusError: 'The selected file for "%s" contained a virus',
   qualityError: 'The selected file for "%s" was too blurry',
+  default: "There was an error uploading your file",
 };
 
 export class UploadService {
@@ -72,8 +73,8 @@ export class UploadService {
 
   parsedDocumentUploadResponse({ res, payload }) {
     const errorCodeFromApi = payload?.toString?.();
-    let error = "There was an error uploading your file";
-    let location: string;
+    let error: string | undefined;
+    let location: string | undefined;
     switch (res.statusCode) {
       case 201:
         location = res.headers.location;
@@ -88,6 +89,7 @@ export class UploadService {
         error = ERRORS[errorCodeFromApi] ?? ERRORS.virusError;
         break;
       default:
+        error = ERRORS.default;
         break;
     }
     return {
