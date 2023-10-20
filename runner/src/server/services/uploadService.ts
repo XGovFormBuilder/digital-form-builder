@@ -61,25 +61,38 @@ export class UploadService {
       });
     }
 
-    const data = { headers: form.getHeaders(), payload: form };
-    const { res, payload } = await post(
+    const requestData = { headers: form.getHeaders(), payload: form };
+    const responseData = await post(
       `${config.documentUploadApiUrl}/v1/files`,
-      data
+      requestData
     );
-    if (res.statusCode === 201) {
-      return {
-        location: res.headers.location,
-        error: undefined,
-      };
-    }
-    return this.parsedDocumentUploadResponse(payload);
+
+    return this.parsedDocumentUploadResponse(responseData);
   }
 
-  parsedDocumentUploadResponse(error?: any) {
-    this.logger.info(["uploadService", "error"], error);
+  parsedDocumentUploadResponse({ res, payload }) {
+    const errorCodeFromApi = payload?.toString?.();
+    let error = "There was an error uploading your file";
+    let location: string;
+    switch (res.statusCode) {
+      case 201:
+        location = res.headers.location;
+        break;
+      case 400:
+        error = ERRORS.fileTypeError;
+        break;
+      case 413:
+        error = ERRORS.fileSizeError;
+        break;
+      case 422:
+        error = ERRORS[errorCodeFromApi] ?? ERRORS.virusError;
+        break;
+      default:
+        break;
+    }
     return {
-      location: undefined,
-      error: ERRORS[error] ?? "There was an error uploading your file",
+      location,
+      error,
     };
   }
 
