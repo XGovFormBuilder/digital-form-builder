@@ -22,8 +22,8 @@ const queueService = new QueueService(server);
 test("Queue service does not process any submissions if none found", async () => {
   (prisma.submission.findMany as jest.Mock).mockResolvedValueOnce([]);
 
-  await queueService.processSubmissions();
-  expect(webhookService.postRequest).not.toBeCalled();
+  const row = await queueService.getSubmissions();
+  expect(row).toBe(undefined);
 });
 
 test("Queue service updates a submission entry with an error if the webhook fails", async () => {
@@ -46,7 +46,8 @@ test("Queue service updates a submission entry with an error if the webhook fail
   });
   const updateWithError = jest.spyOn(queueService, "updateWithError");
 
-  await queueService.processSubmissions();
+  const row = await queueService.getSubmissions();
+  await queueService.submit(row);
   expect(updateWithError).toBeCalled();
 });
 test("Queue service updates a submission entry with a successful response if the webhook was successful", async () => {
@@ -69,7 +70,8 @@ test("Queue service updates a submission entry with a successful response if the
   });
 
   const updateFunc = jest.spyOn(queueService, "updateWithSuccess");
-  await queueService.processSubmissions();
+  const row = await queueService.getSubmissions();
+  await queueService.submit(row);
 
   expect(updateFunc).toBeCalled();
 });
