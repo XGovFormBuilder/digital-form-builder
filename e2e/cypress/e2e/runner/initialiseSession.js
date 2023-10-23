@@ -29,5 +29,5 @@ When("I revisit the status page", () => {
 
 When("I declare and continue", () => {
   cy.findByLabelText("Confirm").click();
-  cy.findByRole("button", { name: /submit/i }).click();
+  cy.findByRole("button", { name: /Save and continue/i, exact: false }).click();
 });

@@ -126,7 +126,7 @@ module.exports = {
   logoutUrl: "/logout",
   multifundDashboard: "/account",
   basicAuthOn: false,
-  overwriteInitialisedSession: true,
+  overwriteInitialisedSession: false,
 
   /**
    * Logging
