@@ -399,10 +399,19 @@ function Item(
     componentValue = null;
   }
 
+  let componentLabel = component.localisedString(component.title);
+
+  if (
+    component.options.required == false &&
+    !componentLabel.toLowerCase().endsWith("(optional)")
+  ) {
+    componentLabel += " (optional)";
+  }
+
   return {
     name: component.name,
     path: page.path,
-    label: component.localisedString(component.title),
+    label: componentLabel,
     value: componentValue,
     rawValue: sectionState[component.name],
     url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
