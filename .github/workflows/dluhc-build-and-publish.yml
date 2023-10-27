@@ -10,16 +10,44 @@ on:
         "**/README.md",
         "fsd_config/**",
         ".github/workflows/dluhc-build-and-deploy-with-forms.yml",
+        ".github/workflows/increment-version.yml",
+        "version",
       ]
 
 env:
-  VERSION: "0.1.186" # Manually increment this version when pushing to main
   IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
   DOCKER_REGISTRY: ghcr.io
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
 jobs:
+  check-tag-before-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Set version in env"
+        id: set-version
+        run: |
+          source version
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Check if tag exists
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: check_tag
+        with:
+          tag: ${{ env.VERSION }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fail job if tag exists
+        if: ${{ steps.check_tag.outputs.exists == 'true' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('Tag already exists. Increment version file and retry')
+
   lint-and-test:
+    needs: check-tag-before-build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,6 +55,7 @@ jobs:
     name: lint-and-test-${{matrix.app}}
     steps:
       - uses: actions/checkout@v2
+
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -82,16 +111,24 @@ jobs:
     name: build-and-push-${{matrix.app}}-image
     steps:
       - uses: actions/checkout@v2
+
+      - name: "Set version in env"
+        id: set-version
+        run: |
+          source version
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+
       - name: Docker compose pull
         run: docker-compose pull
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
-          echo LAST_TAG_GH=$VERSION >> ./${{ matrix.app }}/.env
+          echo LAST_TAG_GH=${{env.VERSION}} >> ./${{ matrix.app }}/.env
           echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
 
@@ -122,7 +159,7 @@ jobs:
           push: true
           file: ${{matrix.app}}/Dockerfile
           build-args: |
-            LAST_TAG='$VERSION'
+            LAST_TAG='${{env.VERSION}}'
             LAST_COMMIT='${{ github.sha }}'
 
   tag-repo:
@@ -135,7 +172,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Set version in env"
+        id: set-version
+        run: |
+          source version
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Tag repo with version
         run: |
-          git tag $VERSION
+          git tag ${{env.VERSION}}
           git push --tags origin HEAD
