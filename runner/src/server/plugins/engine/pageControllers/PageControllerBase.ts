@@ -355,7 +355,7 @@ export class PageControllerBase {
 
       const errorObject = {
         titleText: this.errorSummaryTitle,
-        errorList: newErrorList.reverse(),
+        errorList: newErrorList,
       };
       return errorObject;
     }
