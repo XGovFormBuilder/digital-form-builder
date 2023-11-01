@@ -88,7 +88,8 @@ export class DatePartsField extends FormComponent {
       schema = schema.max(add(new Date(), { days: maxDaysInFuture }));
     }
 
-    return { [this.name]: schema };
+    const returnValue = { [this.name]: schema };
+    return returnValue;
   }
 
   getFormDataFromState(state: FormSubmissionState) {
@@ -140,6 +141,7 @@ export class DatePartsField extends FormComponent {
         optionalText,
         ""
       ) as any;
+      //componentViewModel.label = `DATE: ${new Date()}` as any;
 
       if (componentViewModel.errorMessage) {
         componentViewModel.classes += " govuk-input--error";
@@ -184,7 +186,8 @@ export class DatePartsField extends FormComponent {
     }
 
     const errorMessage = isRequired && firstError && { text };
-
+    //added to test if it will run on form load
+    this.getStateSchemaKeys();
     return {
       ...viewModel,
       title: this.title,
