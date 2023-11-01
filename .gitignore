@@ -30,3 +30,4 @@ tsconfig.tsbuildinfo
 docs/**/typedoc
 
 /e2e/cypress/screenshots/
+runner/config/default.js
