@@ -1,0 +1,162 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "qswxzA",
+          "options": {},
+          "type": "Para",
+          "content": "Dev",
+          "schema": {}
+        },
+        {
+          "name": "xMMmZJ",
+          "options": { "hideTitle": false, "maxDaysInFuture": "0" },
+          "type": "DatePartsField",
+          "title": "Example Mandatory Date",
+          "hint": "Enter a date on or before todays date.",
+          "schema": {}
+        },
+        {
+          "name": "TOMWit",
+          "options": { "required": false, "maxDaysInFuture": "0" },
+          "type": "DatePartsField",
+          "title": "Example Optional Date",
+          "hint": "Enter any date.",
+          "schema": {}
+        },
+        {
+          "name": "SxtzIN",
+          "options": {},
+          "type": "TextField",
+          "title": "Example Mandatory Text",
+          "hint": "This is just a control component.",
+          "schema": {}
+        },
+        {
+          "name": "hEBdVq",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Go to Branch",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/second-page" },
+        { "path": "/branch-page", "condition": "Fyoqug" }
+      ],
+      "section": "OxDwvJ"
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    },
+    {
+      "path": "/second-page",
+      "title": "Second Page",
+      "components": [
+        {
+          "name": "YTKbMt",
+          "options": {},
+          "type": "Para",
+          "content": "Another example page",
+          "schema": {}
+        },
+        {
+          "name": "YSqqBs",
+          "options": {},
+          "type": "TextField",
+          "title": "Page 1 Text 1",
+          "schema": {}
+        },
+        {
+          "name": "GUHBnW",
+          "options": {},
+          "type": "TextField",
+          "title": "Page 2 Text 2"
+        }
+      ],
+      "next": [{ "path": "/summary" }],
+      "section": "hxWHlz"
+    },
+    {
+      "path": "/branch-page",
+      "title": "Branch Page",
+      "components": [
+        {
+          "name": "UpGQIQ",
+          "options": {},
+          "type": "Para",
+          "content": "Exmaple branch"
+        },
+        {
+          "name": "sjKvvU",
+          "options": {},
+          "type": "TextField",
+          "title": "Branch 1 Text 1",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/branch-page-continued" }],
+      "section": "jqLhVc"
+    },
+    {
+      "path": "/branch-page-continued",
+      "title": "Branch Page Continued",
+      "components": [
+        {
+          "name": "udfGek",
+          "options": {},
+          "type": "TextField",
+          "title": "Branch 2 Text 2"
+        },
+        {
+          "name": "FvXRZQ",
+          "options": {},
+          "type": "TextField",
+          "title": "Branch 2 Text 3"
+        }
+      ],
+      "next": [{ "path": "/summary" }],
+      "section": "jqLhVc"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    { "name": "OxDwvJ", "title": "Section One" },
+    { "name": "hxWHlz", "title": "Section Two" },
+    { "name": "jqLhVc", "title": "Branch Section" }
+  ],
+  "conditions": [
+    {
+      "displayName": "gotobranchpage",
+      "name": "Fyoqug",
+      "value": {
+        "name": "gotobranchpage",
+        "conditions": [
+          {
+            "field": {
+              "name": "OxDwvJ.hEBdVq",
+              "type": "YesNoField",
+              "display": "Go to Branch"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "declaration": "This is an example declaration",
+  "skipSummary": false,
+  "authCheck": false
+}

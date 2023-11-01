@@ -1,23 +1,48 @@
 {% macro summaryRow(item) %}
 <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-        {{item.label}}
-    </dt>
-    <dd class="govuk-summary-list__value">
-        {% if item.value %}
-            {% if item.type == 'FileUploadField' %}
-                Uploaded
-            {% else %}
-                {{item.value}}
-            {% endif %}
-        {% else %}
-            Not supplied
-        {% endif %}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="{{item.url}}">
-            Change<span class="govuk-visually-hidden"> {{item.label}}</span>
-        </a>
-    </dd>
+  <dt class="govuk-summary-list__key">
+    {{ item.label }}
+  </dt>
+  <dd class="govuk-summary-list__value">
+    {% if item.value %} {% if item.type == 'FileUploadField' %} Uploaded {% else
+    %}
+    {{ item.value }}
+    {% endif %} {% else %} {% if not (item.options.required | default(true)) %}
+    Not provided {% else %}
+    <a
+      class="govuk-link"
+      href="{{ item.url }}"
+      id="{{ item.label }}"
+      name="{{ item.label }}"
+    >
+      Enter {{ item.label }}
+    </a>
+    {% endif %} {% endif %}
+  </dd>
+  <dd class="govuk-summary-list__actions">
+    {% if item.value %}
+
+    <a
+      class="govuk-link"
+      href="{{ item.url }}"
+      id="{{ item.label }}"
+      name="{{ item.label }}"
+    >
+      Change<span class="govuk-visually-hidden"> {{ item.label }}</span>
+    </a>
+
+    {% else %} {% if not (item.options.required | default(true)) %}
+    <a
+      class="govuk-link"
+      href="{{ item.url }}"
+      id="{{ item.label }}"
+      name="{{ item.label }}"
+    >
+      Add<span class="govuk-visually-hidden"> {{ item.label }}</span>
+    </a>
+    {% else %}
+    <strong class="govuk-tag govuk-tag--red"> Required </strong>
+    {% endif %} {% endif %}
+  </dd>
 </div>
 {% endmacro %}

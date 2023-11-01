@@ -69,7 +69,7 @@ module.exports = {
   confirmationSessionTimeout: 20 * minute,
   paymentSessionTimeout: 90 * minute, // GOV.UK Pay sessions are 90 minutes. It is possible a user takes longer than 20 minutes to complete a payment.
   sessionCookiePassword: "${SessionCookies.Password}",
-  // // - COMMENT OUT TO TEST WITHOUT REDIS -
+  // - COMMENT OUT TO TEST WITHOUT REDIS -
   // // -----------------------------------------------------
   redisHost: "${Redis.Host}",
   redisPort: 6379,

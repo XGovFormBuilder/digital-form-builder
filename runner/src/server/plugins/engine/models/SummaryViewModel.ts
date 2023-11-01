@@ -146,28 +146,56 @@ export class SummaryViewModel {
     this.state = state;
     this.value = result.value;
     this.callback = state.callback;
+
   }
 
   private processErrors(result, details) {
+    function replaceNameWithTitleIfInMessage(arr, errorObject) {
+      const found = arr.find((entry) => entry.name === errorObject.name);
+      if (found && errorObject.message.includes(errorObject.name)) {
+        errorObject.message = errorObject.message.replace(
+          errorObject.name,
+          found.title
+        );
+        errorObject.path = `${found.title}`;
+        errorObject.name = found.title;
+      }
+      return errorObject;
+    }
+  
     this.errors = result.error.details.map((err) => {
       const name = err.path[err.path.length - 1];
-
-      return {
-        path: err.path.join("."),
+      function extractContentBetweenQuotes(inputString) {
+        const matches = inputString.match(/"([^"]+)"/);
+        if (matches && matches.length > 1) {
+          return matches[1];
+        } else {
+          return null; // Return null if no content is found between quotes
+        }
+      }
+      const path = extractContentBetweenQuotes(err.message)
+      const errorObject = {
+        path: path,
         name: name,
         message: err.message,
       };
+      console.log("details", details);
+      console.log("errorObject", errorObject);
+      const error = replaceNameWithTitleIfInMessage(details, errorObject);
+  
+      console.log("ERRORS LIST", error);
+      return error;
     });
-
+  
     details.forEach((detail) => {
       const sectionErr = this.errors?.find((err) => err.path === detail.name);
-
+  
       detail.items.forEach((item) => {
         if (sectionErr) {
           item.inError = true;
           return;
         }
-
+  
         const err = this.errors?.find(
           (err) =>
             err.path ===
@@ -175,6 +203,11 @@ export class SummaryViewModel {
         );
         if (err) {
           item.inError = true;
+        }
+        // Set the name and path to the title
+        if (err && detail.title) {
+          err.name = detail.title;
+          err.path = detail.title;
         }
       });
     });
@@ -416,16 +449,19 @@ function Item(
     });
   }
 
-  return {
+  const item = {
     name: component.name,
     path: page.path,
     label: component.localisedString(component.title),
     value: component.getDisplayStringFromState(sectionState),
     rawValue: sectionState[component.name],
+    options: component.options,
     url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
     pageId: `/${model.basePath}${page.path}`,
     type: component.type,
     title: component.title,
     dataType: component.dataType,
   };
+
+  return item;
 }

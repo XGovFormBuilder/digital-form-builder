@@ -21,10 +21,11 @@ export class DatePartsField extends FormComponent {
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
 
-    const { name, options } = this;
+    const { name, options, title } = this;
     const isRequired =
       "required" in options && options.required === false ? false : true;
     const optionalText = "optionalText" in options && options.optionalText;
+
     this.children = new ComponentCollection(
       [
         {
@@ -122,6 +123,10 @@ export class DatePartsField extends FormComponent {
 
   // @ts-ignore - eslint does not report this as an error, only tsc
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const isRequired =
+      "required" in this.options && this.options.required === false
+        ? false
+        : true;
     const viewModel = super.getViewModel(formData, errors);
 
     // Use the component collection to generate the subitems
@@ -142,10 +147,47 @@ export class DatePartsField extends FormComponent {
     });
 
     const firstError = errors?.errorList?.[0];
-    const errorMessage = firstError && { text: firstError?.text };
+    //const errorMessage = isRequired && firstError && { text: firstError?.text };
+
+    let text = "";
+
+    let missingParts: any = [];
+
+    if (formData[`${this.name}__day`] === "") {
+      missingParts.push("day");
+    }
+    if (formData[`${this.name}__month`] === "") {
+      missingParts.push("month");
+    }
+    if (formData[`${this.name}__year`] === "") {
+      missingParts.push("year");
+    }
+
+    if (missingParts.length === 3) {
+      text = `${this.title} is required.`;
+    } else if (missingParts.length > 0) {
+      text = `${this.title} must have a ${missingParts.join(", ")}.`;
+    }
+
+    if (errors?.errorList?.length === 1) {
+      text = errors?.errorList?.[0].text;
+    }
+
+    //if(formData[`${this.name}__day`])
+
+    if (errors?.errorList?.length === 1) {
+      text = errors?.errorList?.[0].text;
+    }
+
+    if (!text.includes(this.title)) {
+      text = "";
+    }
+
+    const errorMessage = isRequired && firstError && { text };
 
     return {
       ...viewModel,
+      title: this.title,
       errorMessage,
       fieldset: {
         legend: viewModel.label,

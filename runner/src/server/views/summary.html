@@ -1,97 +1,156 @@
-{% from "partials/summary-detail.html" import summaryDetail %}
-{% from "components/checkboxes/macro.njk" import govukCheckboxes %}
-{% extends 'layout.html' %}
-
-{% block content %}
-  <div class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">
-          {% if callback and callback.title %}
-            {{ callback.title }}
-          {% else %}
-            {{ pageTitle }}
-          {% endif %}
-        </h1>
-
-        {% if callback and callback.message %}
-          <div class="govuk-inset-text">
-            {{ callback.message }}
+{% from "partials/summary-detail.html" import summaryDetail %} {% from
+"components/checkboxes/macro.njk" import govukCheckboxes %} {% extends
+'layout.html' %} {% block content %}
+<div class="govuk-main-wrapper">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <!-- ERROR MESSAGE -->
+      {% if errors %}
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+        <div role="alert">
+          <h2 class="govuk-error-summary__title">There is a problem</h2>
+          <div class="govuk-error-summary__body">
+            <label id="form-error" class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> Please complete all required questions
+            </label>
+            <!-- <ul class="govuk-list govuk-error-summary__list" style="padding: 0">
+              {% for error in errors %}
+              <li style="list-style-type: none !important">
+                <a
+                  href="#{{ error.path }}"
+                  >{{error.message | replace("\"", "")}}</a
+                >
+              </li>
+              {% endfor %}
+            </ul> -->
           </div>
-        {% endif %}
-
-        {% if callback and callback.htmlMessage %}
-          {{ callback.htmlMessage | safe }}
-        {% endif %}
-
-        {% for detail in details %}
-          {{ summaryDetail(detail) }}
-        {% endfor %}
-
-        {% if fees and fees.details|length %}
-          <h2 class="govuk-heading-m">Fees</h2>
-          <ul class="govuk-list govuk-list--bullet">
-            {% for fee in fees.details %}
-              <li>{{ fee.description }}: £{{fee.amount / 100}}</li>
-            {% endfor %}
-          </ul>
-          <p class="govuk-body">Total cost: £{{fees.total / 100 }}</p>
-        {% endif %}
-
-        {% if not result.error  %}
-            <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
-              <input type="hidden" name="crumb" value="{{crumb}}"/>
-
-                {%if declaration %}
-                <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
-                  {{ declaration | safe  }}
-                  <div class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}">
-                    {% if declarationError %}
-                        <span id="nationality-error" class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error:</span> {{declarationError}}
-                        </span>
-                    {% endif %}
-                    <div class="govuk-checkboxes">
-                     <div class="govuk-checkboxes__item">
-                       <input class="govuk-checkboxes__input" id="declaration-1" name="declaration" type="checkbox" value="true">
-                       <label class="govuk-label govuk-checkboxes__label" for="declaration-1">
-                         Confirm
-                       </label>
-                     </div>
-                    </div>
-                  </div>
-                {% endif %}
-
-               <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
-                {% if fees and fees.details|length %}
-                Submit and pay
-                {% else %}
-                Submit
-                {% endif %}
-              </button>
-              
-              <!-- Handle greying out of the button and preventing further clicks -->
-              <script>
-                document.addEventListener('DOMContentLoaded', (event) => {
-                    const button = document.querySelector('.govuk-button');
-
-                  button.addEventListener('click', function () {
-                    this.style.opacity = '0.5';
-                    this.style.cursor = 'not-allowed';
-                    this.innerHTML = 'Submitting...';
-
-                    // Prevent further clicks
-                    this.addEventListener('click', function (e) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                    }, { once: true });
-                  });
-                  });
-                  
-              </script>
-            </form>
-        {% endif %}
+        </div>
       </div>
+      {% endif %}
+
+      <h1 class="govuk-heading-l">
+        {% if callback and callback.title %}
+        {{ callback.title }}
+        {% else %}
+        {{ pageTitle }}
+        {% endif %}
+      </h1>
+
+      {% if callback and callback.message %}
+      <div class="govuk-inset-text">
+        {{ callback.message }}
+      </div>
+      {% endif %} {% if callback and callback.htmlMessage %}
+      {{ callback.htmlMessage | safe }}
+      {% endif %} {% for detail in details %}
+      {{ summaryDetail(detail) }}
+      {% endfor %} {% if fees and fees.details|length %}
+      <h2 class="govuk-heading-m">Fees</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        {% for fee in fees.details %}
+        <li>{{ fee.description }}: £{{ fee.amount / 100 }}</li>
+        {% endfor %}
+      </ul>
+      <p class="govuk-body">Total cost: £{{ fees.total / 100 }}</p>
+      {% endif %}
+
+      <form
+        method="post"
+        enctype="multipart/form-data"
+        autocomplete="off"
+        novalidate
+      >
+        <input type="hidden" name="crumb" value="{{ crumb }}" />
+
+        {%if declaration %}
+        <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
+        {{ declaration | safe }}
+        <div
+          class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}"
+        >
+          {% if declarationError %}
+          <span id="nationality-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+            {{ declarationError }}
+          </span>
+          {% endif %}
+          <div class="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input
+                class="govuk-checkboxes__input"
+                id="declaration-1"
+                name="declaration"
+                {%
+                if
+                result.error
+                %}disabled{%
+                endif
+                %}
+                type="checkbox"
+                value="true"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label"
+                for="declaration-1"
+              >
+                Confirm
+              </label>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="govuk-button-group">
+          {% if result.error %}
+          {% endif %}
+          <button
+            data-prevent-double-click="true"
+            {%
+            if
+            result.error
+            %}disabled{%
+            endif
+            %}
+            class="govuk-button"
+            data-module="govuk-button"
+          >
+            {% if fees and fees.details|length %} Submit and pay {% else %} Submit
+            {% endif %}
+          </button>
+
+          {% if result.error %}
+          <label id="form-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> You must enter all required questions before submitting.
+          </label>
+          {% endif %}
+        </div>
+        
+
+
+        <!-- Handle greying out of the button and preventing further clicks -->
+        <script>
+          document.addEventListener("DOMContentLoaded", (event) => {
+            const button = document.querySelector(".govuk-button");
+
+            button.addEventListener("click", function () {
+              this.style.opacity = "0.5";
+              this.style.cursor = "not-allowed";
+              this.innerHTML = "Submitting...";
+
+              // Prevent further clicks
+              this.addEventListener(
+                "click",
+                function (e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                },
+                { once: true }
+              );
+            });
+          });
+        </script>
+      </form>
     </div>
   </div>
+</div>
 {% endblock %}
