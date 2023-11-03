@@ -27,25 +27,41 @@
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
 
-  {% if gtmId1 %}
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','{{ gtmId1 }}');</script>
-  <!-- End Google Tag Manager -->
-  {% endif %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  {% if gtmId2 %}
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+
+        if (localStorage.getItem('consentMode') === null) {
+            gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'analytics_storage': 'denied',
+                'personalisation_storage': 'denied',
+                'functionality_storage': 'denied',
+                'security_storage': 'denied',
+            });
+        } else {
+            gtag('consent', 'default', JSON.parse(localStorage.getItem('consentMode')));
+        }
+    </script>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','{{ gtmId2 }}');</script>
-  <!-- End Google Tag Manager -->
-  {% endif %}
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-M5J9Q8HV');
+    </script>
+    <!-- End Google Tag Manager -->
 
   <!-- Matomo -->
   {% if matomoUrl and matomoId %}
@@ -94,18 +110,12 @@
 {% endblock %}
 
 {% block bodyStart %}
-
-  {% if gtmId1 %}
+    <!-- Google Tag Manager (noscript) -->
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmId1 }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5J9Q8HV"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-  {% endif %}
-
-  {% if gtmId2 %}
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmId2 }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-  {% endif %}
+    <!-- End Google Tag Manager (noscript) -->
 {% endblock %}
 
 {% block beforeContent %}
