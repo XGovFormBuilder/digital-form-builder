@@ -73,6 +73,11 @@ export class TextField extends FormComponent {
       viewModel.autocomplete = options.autocomplete;
     }
 
+    if (options.hideTitle) {
+      viewModel.label = { text: "", html: viewModel.hint?.html!, classes: "" };
+      viewModel.hint = undefined;
+    }
+
     return viewModel;
   }
 }

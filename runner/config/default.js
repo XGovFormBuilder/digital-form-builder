@@ -23,6 +23,7 @@ module.exports = {
   previewMode: false,
   enforceCsrf: true,
   sandbox: false,
+  singleRedis: false,
 
   /**
    * Helper flags
@@ -38,6 +39,9 @@ module.exports = {
   }),
   isSandbox: deferConfig(function () {
     return this.sandbox === true || this.sandbox === "true";
+  }),
+  isSingleRedis: deferConfig(function () {
+    return this.singleRedis === true || this.singleRedis === "true";
   }),
 
   /**
@@ -55,7 +59,7 @@ module.exports = {
    * Service
    */
   serviceUrl: "http://localhost:3009", //This is used for redirects back to the runner.
-  serviceName: "Digital Form Builder - Runner",
+  serviceName: "Access funding",
   serviceStartPage: "",
   privacyPolicyUrl: "",
   feedbackLink: "#", // Used in your phase banner. Can be a URL or more commonly mailto mailto:feedback@department.gov.uk
@@ -119,6 +123,10 @@ module.exports = {
   // authClientAuthUrl: "", // oAuth client secret
   // authClientTokenUrl: "", // oAuth client token endpoint
   // authClientProfileUrl: "" // oAuth client user profile endpoint
+  logoutUrl: "/logout",
+  multifundDashboard: "/account",
+  basicAuthOn: false,
+  overwriteInitialisedSession: false,
 
   /**
    * Logging
@@ -130,4 +138,6 @@ module.exports = {
   safelist: ["61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
 
   savePerPage: true,
+  awsBucketName: "paas-s3-broker-prod-lon-443b9fc2-55ff-4c2f-9ac3-d3ebfb18ef5a", // For uploading files to a aws bucket
+  awsRegion: "eu-west-2", // The aws buckets region
 };

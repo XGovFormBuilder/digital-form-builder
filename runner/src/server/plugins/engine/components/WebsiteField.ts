@@ -3,9 +3,11 @@ import Joi, { StringSchema } from "joi";
 import { FormModel } from "../models";
 import { TextField } from "./TextField";
 import { addClassOptionIfNone } from "./helpers";
+import { FormData, FormSubmissionErrors } from "../types";
 
 export class WebsiteField extends TextField {
-  private defaultMessage = "Enter website address in the correct format";
+  private defaultMessage =
+    "Enter website address in the correct format, starting with 'https://'";
 
   formSchema: StringSchema;
   options: WebsiteFieldComponent["options"];
@@ -14,8 +16,9 @@ export class WebsiteField extends TextField {
   constructor(def: WebsiteFieldComponent, model: FormModel) {
     super(def, model);
 
+    const { schema = {} } = def;
     this.options = def.options;
-    this.schema = def.schema;
+    this.schema = schema;
     this.formSchema = Joi.string();
 
     const isRequired = def.options.required ?? true;
@@ -31,12 +34,12 @@ export class WebsiteField extends TextField {
       .uri()
       .message(def.options?.customValidationMessage ?? this.defaultMessage);
 
-    if (def.schema.max) {
-      this.formSchema = this.formSchema.max(def.schema.max);
+    if (schema.max) {
+      this.formSchema = this.formSchema.max(schema.max);
     }
 
-    if (def.schema.min) {
-      this.formSchema = this.formSchema.min(def.schema.min);
+    if (schema.min) {
+      this.formSchema = this.formSchema.min(schema.min);
     }
 
     addClassOptionIfNone(this.options, "govuk-input--width-10");
@@ -52,5 +55,18 @@ export class WebsiteField extends TextField {
     return {
       [this.name]: this.formSchema,
     };
+  }
+
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const options: any = this.options;
+    const schema: any = this.schema;
+    const viewModel = super.getViewModel(formData, errors);
+
+    if (options.hideTitle) {
+      viewModel.label = { text: "", html: viewModel.hint?.html!, classes: "" };
+      viewModel.hint = { html: this.localisedString(this.hint) };
+    }
+
+    return viewModel;
   }
 }

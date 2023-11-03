@@ -2,6 +2,15 @@
 {% from "components/checkboxes/macro.njk" import govukCheckboxes %}
 {% extends 'layout.html' %}
 
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: "This is a new service"
+  }) }}
+{% endblock %}
+
 {% block content %}
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
@@ -22,6 +31,12 @@
 
         {% if callback and callback.htmlMessage %}
           {{ callback.htmlMessage | safe }}
+        {% endif %}
+
+        {% if containsFileType %}
+        <div class = "govuk-inset-text">
+          Check your uploaded file is visible. If not, upload it again.
+        </div>
         {% endif %}
 
         {% for detail in details %}
@@ -62,11 +77,42 @@
                   </div>
                 {% endif %}
 
+                {%if markAsCompleteComponent %}
+                  <div class="govuk-form-group {{ 'govuk-form-group--error' if markAsCompleteError }}">
+                    {% if markAsCompleteError %}
+                        <span id="nationality-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> {{markAsCompleteError}}
+                        </span>
+                    {% endif %}
+                    <fieldset class="govuk-fieldset">
+                      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                          Do you want to mark this section as complete?
+                        </h1>
+                      </legend>
+                      <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="markAsComplete-yes" name="markAsComplete" type="radio" value="true" {% if markAsComplete %}checked{%endif%}>
+                          <label class="govuk-label govuk-radios__label" for="markAsComplete-yes">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                          <input class="govuk-radios__input" id="markAsComplete-no" name="markAsComplete" type="radio" value="false" {% if markAsComplete == false %}checked{%endif%}>
+                          <label class="govuk-label govuk-radios__label" for="markAsComplete-no">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                {% endif %}
+
                 <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
                     {% if fees and fees.details|length %}
                         Submit and pay
                     {% else %}
-                        Submit
+                        {{saveAndContinueText}}
                     {% endif %}
                 </button>
             </form>

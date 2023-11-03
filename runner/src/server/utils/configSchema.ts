@@ -33,6 +33,7 @@ export const configSchema = Joi.object({
   payApiUrl: Joi.string().custom(secureUrl),
   payReturnUrl: Joi.string().custom(secureUrl),
   serviceUrl: Joi.string().optional(),
+  vcapServices: Joi.string(),
   redisHost: Joi.string().optional(),
   redisPort: Joi.number().optional(),
   redisPassword: Joi.string().optional(),
@@ -49,6 +50,9 @@ export const configSchema = Joi.object({
   fromEmailAddress: Joi.string().optional().allow(""),
   serviceStartPage: Joi.string().optional().allow(""),
   privacyPolicyUrl: Joi.string().optional().allow(""),
+  contactUsUrl: Joi.string().optional().allow(""),
+  cookiePolicyUrl: Joi.string().optional().allow(""),
+  accessibilityStatementUrl: Joi.string().optional().allow(""),
   notifyTemplateId: Joi.string().optional().allow(""),
   notifyAPIKey: Joi.string().optional().allow(""),
   lastCommit: Joi.string(),
@@ -102,6 +106,15 @@ export const configSchema = Joi.object({
     )
     .default("HS512"),
   savePerPage: Joi.boolean().optional(),
+  awsBucketName: Joi.string().optional(),
+  awsRegion: Joi.string().optional(),
+  jwtAuthCookieName: Joi.string().optional(),
+  jwtRedirectToAuthenticationUrl: Joi.string().optional(),
+  rsa256PublicKeyBase64: Joi.string().optional(),
+  logoutUrl: Joi.string().optional(),
+  multifundDashboard: Joi.string(),
+  basicAuthOn: Joi.boolean().optional(),
+  overwriteInitialisedSession: Joi.boolean().optional(),
 });
 
 export function buildConfig(config) {

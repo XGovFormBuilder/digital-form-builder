@@ -10,6 +10,15 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "config";
+import {
+  jwtAuthIsActivated,
+  jwtAuthStrategyName,
+  jwtStrategyOptions,
+} from "server/plugins/jwtAuth";
+import {
+  basicAuthStrategyName,
+  basicAuthStrategyOptions,
+} from "server/plugins/basicAuth";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -50,6 +59,7 @@ type PluginOptions = {
   previewMode: boolean;
 };
 
+export let authStrategy;
 export const plugin = {
   name: "@xgovformbuilder/runner/engine",
   dependencies: "@hapi/vision",
@@ -68,6 +78,32 @@ export const plugin = {
     const enabledString = config.previewMode ? `[ENABLED]` : `[DISABLED]`;
     const disabledRouteDetailString =
       "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
+
+    const jwtAuthStrategyIsActive = jwtAuthIsActivated(
+      config.jwtAuthCookieName,
+      config.jwtRedirectToAuthenticationUrl,
+      config.rsa256PublicKeyBase64
+    );
+
+    if (config.basicAuthOn) {
+      server.auth.strategy(
+        basicAuthStrategyName,
+        "basic",
+        basicAuthStrategyOptions
+      );
+    } else if (jwtAuthStrategyIsActive) {
+      server.auth.strategy(
+        jwtAuthStrategyName,
+        "jwt",
+        jwtStrategyOptions(config.jwtAuthCookieName)
+      );
+    }
+
+    authStrategy = config.basicAuthOn
+      ? basicAuthStrategyName
+      : jwtAuthStrategyIsActive
+      ? jwtAuthStrategyName
+      : options.auth;
 
     /**
      * The following publish endpoints (/publish, /published/{id}, /published)
@@ -197,6 +233,9 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
+      options: {
+        auth: authStrategy,
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
         const model = forms[id];
@@ -224,7 +263,8 @@ export const plugin = {
     const { uploadService } = server.services([]);
 
     const handleFiles = (request: HapiRequest, h: HapiResponseToolkit) => {
-      return uploadService.handleUploadRequest(request, h);
+      const { id } = request.params;
+      return uploadService.handleUploadRequest(request, h, forms[id]);
     };
 
     const postHandler = async (
@@ -256,6 +296,7 @@ export const plugin = {
             userPathLimit: 10,
           },
         },
+        auth: authStrategy,
         payload: {
           output: "stream",
           parse: true,

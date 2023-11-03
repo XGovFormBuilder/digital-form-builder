@@ -10,11 +10,11 @@ Feature: Back link fallback
   Scenario: Back link is displayed when there is no history
     Given the form "backLinkFallback" exists
     When I navigate to the "backLinkFallback" form
-    Then The back link href is "/help/cookies"
+    Then The back link href is not there
 
   Scenario: Back link fallback is not used if there is session history
     Given the form "backLinkFallback" exists
     When I navigate to the "backLinkFallback" form
-    Then The back link href is "/help/cookies"
+    Then The back link href is not there
     When I continue
     Then The back link href is "/backLinkFallback/start"

@@ -18,6 +18,7 @@ export class ComponentCollection {
   formItems: FormComponent /* | ConditionalFormComponent*/[];
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
+  additionalValidationFunctions: Function[];
 
   constructor(componentDefs: ComponentDef[] = [], model: FormModel) {
     const components = componentDefs.map((def) => {
@@ -43,6 +44,7 @@ export class ComponentCollection {
       .keys({ crumb: joi.string().optional().allow("") });
 
     this.stateSchema = joi.object().keys(this.getStateSchemaKeys()).required();
+    this.additionalValidationFunctions = this.getAllAdditionalValidationFunctions();
   }
 
   getFormSchemaKeys() {
@@ -63,6 +65,15 @@ export class ComponentCollection {
     });
 
     return keys;
+  }
+
+  getAllAdditionalValidationFunctions() {
+    const funcs = [];
+    this.formItems.forEach((item) => {
+      const itemFuncs = item.getAdditionalValidationFunctions();
+      funcs.push(...itemFuncs);
+    });
+    return funcs;
   }
 
   getFormDataFromState(state: FormSubmissionState): any {

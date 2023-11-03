@@ -62,6 +62,8 @@ export class SummaryViewModel extends ViewModel {
     this.result = result;
     this.value = result.value;
     this.name = model.name;
+    this.markAsCompleteComponent = state.callback?.markAsCompleteComponent;
+    this.markAsComplete = state.markAsComplete;
   }
 
   private processErrors(result, details) {

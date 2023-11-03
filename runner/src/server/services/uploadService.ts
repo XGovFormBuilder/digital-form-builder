@@ -1,11 +1,34 @@
 import http from "http";
-import FormData from "form-data";
-
 import config from "../config";
-import { get, post } from "./httpService";
+import { get } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
 
+const S3 = require("aws-sdk/clients/s3");
+
 type Payload = HapiRequest["payload"];
+
+export let bucketName = config.awsBucketName;
+export const region = config.awsRegion;
+
+if (process.env.VCAP_SERVICES) {
+  const vcap = process.env.VCAP_SERVICES;
+  const vcapJson = JSON.parse(vcap);
+  if ("aws-s3-bucket" in vcapJson) {
+    const s3Credentials = vcapJson["aws-s3-bucket"][0].credentials;
+    process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id;
+    process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key;
+    bucketName = s3Credentials.bucket_name;
+  }
+}
+
+const awsConfig = { region };
+let endpointUrl = process.env.AWS_ENDPOINT_OVERRIDE;
+if (endpointUrl) {
+  awsConfig.endpoint = endpointUrl;
+  awsConfig.S3ForcePathStyle = true;
+  awsConfig.signatureVersion = process.env.AWS_SIGNATURE_VERSION || "v4";
+}
+const s3 = new S3(awsConfig);
 
 const parsedError = (key: string, error?: string) => {
   return {
@@ -15,6 +38,11 @@ const parsedError = (key: string, error?: string) => {
     text: error,
   };
 };
+
+export interface S3Object {
+  Key: string;
+  Size: number;
+}
 
 export class UploadService {
   /**
@@ -30,8 +58,34 @@ export class UploadService {
     return 5 * 1024 * 1024; // 5mb
   }
 
-  get validFiletypes(): ["jpg", "jpeg", "png", "pdf"] {
-    return ["jpg", "jpeg", "png", "pdf"];
+  get validFiletypes(): [
+    "jpg",
+    "jpeg",
+    "png",
+    "pdf",
+    "txt",
+    "doc",
+    "docx",
+    "odt",
+    "csv",
+    "xls",
+    "xlsx",
+    "ods"
+  ] {
+    return [
+      "jpg",
+      "jpeg",
+      "png",
+      "pdf",
+      "txt",
+      "doc",
+      "docx",
+      "odt",
+      "csv",
+      "xls",
+      "xlsx",
+      "ods",
+    ];
   }
 
   fileStreamsFromPayload(payload: Payload) {
@@ -46,18 +100,20 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(locations: any[]) {
-    const form = new FormData();
-    for (const location of locations) {
-      form.append("files", location, {
-        filename: location.hapi.filename,
-        contentType: location.hapi.headers["content-type"],
-      });
-    }
+  async uploadDocuments(locations: any[], prefix: string, metadata) {
+    let error: string | undefined;
+    let location: string | undefined;
 
-    const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await post(`${config.documentUploadApiUrl}/v1/files`, data);
-    return this.parsedDocumentUploadResponse(res);
+    await this.uploadFilesS3(locations, prefix, metadata).then((result) => {
+      result.forEach((doc) => {
+        if (typeof doc.error !== "undefined") {
+          error = "Failed to upload file to server: " + doc.error;
+        } else {
+          location = `${prefix}/${locations[0].hapi.filename}`;
+        }
+      });
+    });
+    return { location, error };
   }
 
   parsedDocumentUploadResponse(res: http.IncomingMessage) {
@@ -92,15 +148,50 @@ export class UploadService {
     return h.continue;
   }
 
-  async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
+  async handleUploadRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    form?: any
+  ) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
+
+    const form_session_identifier =
+      state.metadata?.form_session_identifier ?? "";
+    const applicationId = state.metadata?.applicationId ?? "";
+
+    const { path } = request.params;
+    const page = form?.pages.find(
+      (page) => this.normalisePath(page.path) === this.normalisePath(path)
+    );
 
     let files: [string, any][] = [];
 
     if (request.payload !== null) {
       files = this.fileStreamsFromPayload(request.payload);
+    }
+
+    const clientSideUploadComponent = page.components.items.find(
+      (c) => c.type === "ClientSideFileUploadField"
+    );
+    if (
+      clientSideUploadComponent &&
+      form_session_identifier &&
+      request.payload
+    ) {
+      const { id, path } = request.params;
+      const delPath = `${form_session_identifier}/${id}/${path}/${clientSideUploadComponent.name}`;
+      const filesToDelete =
+        request.payload[`${clientSideUploadComponent.name}__delete[]`] || [];
+
+      if (Array.isArray(filesToDelete)) {
+        for (const fileKeyToDelete of filesToDelete) {
+          await this.deleteFileS3(`${delPath}/${fileKeyToDelete}`);
+        }
+      } else {
+        await this.deleteFileS3(`${delPath}/${filesToDelete}`);
+      }
     }
 
     /**
@@ -168,12 +259,36 @@ export class UploadService {
         )
       ).filter((value) => !!value);
 
+      let pageTitle = page.title;
+      let sectionTitle = page.section?.title ?? "";
+
+      if (page.def.metadata.isWelsh) {
+        pageTitle = encodeURI(pageTitle);
+        sectionTitle = encodeURI(sectionTitle);
+      }
+
+      const metaData = {
+        page: pageTitle,
+        section: sectionTitle,
+        componentName: key,
+      };
+
       if (validFiles.length === values.length) {
+        let prefix = applicationId;
+        if (clientSideUploadComponent) {
+          const { id, path } = request.params;
+          prefix = `${form_session_identifier}/${id}/${path}/${clientSideUploadComponent.name}`;
+        }
+
         try {
-          const { error, location } = await this.uploadDocuments(validFiles);
+          const { error, location } = await this.uploadDocuments(
+            validFiles,
+            prefix,
+            metaData
+          );
           if (location) {
             originalFilenames[key] = { location };
-            request.payload[key] = location;
+            request.payload[`${key}__filename`] = location;
           }
           if (error) {
             request.pre.errors = [
@@ -223,5 +338,99 @@ export class UploadService {
   downloadDocuments(paths: string[]) {
     const promises = paths.map((path) => get<string>(path, {}));
     return Promise.all(promises);
+  }
+
+  async uploadFilesS3(files, filePrefix, metadata) {
+    let response = new Array();
+
+    for (const file of files) {
+      const uploadParams = {
+        Bucket: bucketName,
+        Body: file,
+        Key: `${filePrefix}/${file.hapi.filename}`,
+        ContentType: file.hapi.headers["content-type"],
+        Metadata: metadata,
+      };
+
+      await s3
+        .upload(uploadParams)
+        .promise()
+        .then(function (data) {
+          response.push({ location: data.Location, error: undefined });
+        })
+        .catch((err) => {
+          response.push({
+            location: undefined,
+            error: `${err.code}: ${err.message}`,
+          });
+          this.logger.error(`File upload Error`, err);
+        });
+    }
+    return response;
+  }
+
+  normalisePath(path: string) {
+    return path.replace(/^\//, "").replace(/\/$/, "");
+  }
+
+  async listFilesInBucketFolder(
+    folderPath: string,
+    formSessionId: string
+  ): Promise<S3Object[]> {
+    const params = {
+      Bucket: bucketName,
+      Prefix: `${folderPath}/`,
+    };
+
+    const response = await s3.listObjectsV2(params).promise();
+
+    if (!response.Contents || response.Contents.length === 0) {
+      return [];
+    }
+
+    const files = response.Contents.filter((obj) => !obj.Key.endsWith("/")).map(
+      (obj) => ({
+        FormSessionId: formSessionId,
+        Key: obj.Key!.replace(`${folderPath}/`, ""),
+        Size: obj.Size!,
+      })
+    );
+
+    return files;
+  }
+
+  async getFileDownloadUrlS3(key: string) {
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+    };
+    const url = s3.getSignedUrl("getObject", params);
+    return url;
+  }
+
+  async getPreSignedUrlS3(key: string) {
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+      Expires: 60 * 60,
+    };
+
+    return await s3.getSignedUrlPromise("putObject", params);
+  }
+
+  async deleteFileS3(key: string) {
+    const params = {
+      Bucket: bucketName,
+      Key: key,
+    };
+
+    try {
+      await s3.deleteObject(params).promise();
+      return true;
+    } catch (err) {
+      console.error(`Issue when deleting file with key: ${key}`);
+      console.error(err);
+      return false;
+    }
   }
 }

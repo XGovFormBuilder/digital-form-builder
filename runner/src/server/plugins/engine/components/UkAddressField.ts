@@ -12,6 +12,7 @@ import {
   FormSubmissionState,
 } from "../types";
 import { FormModel } from "../models";
+import { i18n } from "../../i18n";
 
 export class UkAddressField extends FormComponent {
   formChildren: ComponentCollection;
@@ -24,34 +25,72 @@ export class UkAddressField extends FormComponent {
     const isRequired =
       "required" in options && options.required === false ? false : true;
 
+    let addressLine1Title = "Address line 1";
+    let addressLine2Title = "Address line 2";
+    let townCityText = "Town or city";
+    let county = "County";
+    let postcode = "Postcode";
+
+    if (model.def.metadata?.isWelsh) {
+      addressLine1Title = "Llinell cyfeiriad 1";
+      addressLine2Title = "Llinell cyfeiriad 2";
+      townCityText = "Tref neu ddinas";
+      county = "Sir";
+      postcode = "Cod post";
+    }
+
     const childrenList: any = [
       {
         type: "TextField",
         name: "addressLine1",
-        title: "Address line 1",
+        title: addressLine1Title,
         schema: { max: 100 },
-        options: { required: isRequired },
+        options: {
+          required: isRequired,
+          classes: "govuk-!-width-full",
+          optionalText: false,
+        },
       },
       {
         type: "TextField",
         name: "addressLine2",
-        title: "Address line 2",
+        title: addressLine2Title,
         schema: { max: 100, allow: "" },
-        options: { required: false },
+        options: { required: false, classes: "govuk-!-width-full" },
       },
       {
         type: "TextField",
         name: "town",
-        title: "Town or city",
+        title: townCityText,
         schema: { max: 100 },
-        options: { required: isRequired },
+        options: {
+          required: isRequired,
+          classes: "govuk-!-width-two-thirds",
+          optionalText: false,
+        },
+      },
+      {
+        type: "TextField",
+        name: "county",
+        title: county,
+        schema: { max: 100 },
+        options: { required: false, classes: "govuk-!-width-two-thirds" },
       },
       {
         type: "TextField",
         name: "postcode",
-        title: "Postcode",
-        schema: { max: 10 },
-        options: { required: isRequired },
+        title: postcode,
+        schema: {
+          max: 10,
+          regex:
+            "^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$",
+        },
+        options: {
+          required: isRequired,
+          customValidationMessage: "Enter a valid postcode",
+          classes: "govuk-!-width-one-half",
+          optionalText: false,
+        },
       },
     ];
 
@@ -94,10 +133,14 @@ export class UkAddressField extends FormComponent {
     const name = this.name;
     const value = state[name];
 
+    if (typeof value === "string") {
+      return this.convertStringAnswers(name, value);
+    }
     return {
       [`${name}__addressLine1`]: value && value.addressLine1,
       [`${name}__addressLine2`]: value && value.addressLine2,
       [`${name}__town`]: value && value.town,
+      [`${name}__county`]: value && value.county,
       [`${name}__postcode`]: value && value.postcode,
     };
   }
@@ -109,6 +152,7 @@ export class UkAddressField extends FormComponent {
           addressLine1: payload[`${name}__addressLine1`],
           addressLine2: payload[`${name}__addressLine2`],
           town: payload[`${name}__town`],
+          county: payload[`${name}__county`],
           postcode: payload[`${name}__postcode`],
         }
       : null;
@@ -118,8 +162,28 @@ export class UkAddressField extends FormComponent {
     const name = this.name;
     const value = state[name];
 
+    if (
+      typeof value !== "string" &&
+      typeof value !== "undefined" &&
+      value !== null
+    ) {
+      value.addressLine2 =
+        value.addressLine2 === "" ? "null" : value.addressLine2;
+      value.county = value.county === "" ? "null" : value.county;
+    }
+
+    if (typeof value === "string") {
+      return value;
+    }
+
     return value
-      ? [value.addressLine1, value.addressLine2, value.town, value.postcode]
+      ? [
+          value.addressLine1,
+          value.addressLine2,
+          value.town,
+          value.county,
+          value.postcode,
+        ]
           .filter((p) => {
             return !!p;
           })
@@ -147,5 +211,20 @@ export class UkAddressField extends FormComponent {
     }
 
     return viewModel;
+  }
+
+  // This method is used to solve the issue of the address fields appearing blank when
+  // returning to a completed section of a form.
+  convertStringAnswers(name: string, value: any) {
+    const address = value.split(", ");
+
+    return {
+      [`${name}__addressLine1`]: value && address[0],
+      [`${name}__addressLine2`]:
+        value && address[1] === "null" ? "" : address[1],
+      [`${name}__town`]: value && address[2],
+      [`${name}__county`]: value && address[3] === "null" ? "" : address[3],
+      [`${name}__postcode`]: value && address[4],
+    };
   }
 }

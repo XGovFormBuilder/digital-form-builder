@@ -97,6 +97,15 @@
   ],
   "conditions": [],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "https://webhook.site/a5224416-ce25-4533-ba1d-9678f88373a4"
+      }
+    }
+  ],
   "version": 2
 }

@@ -1,5 +1,6 @@
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
-import { optionalText } from "./constants";
+import { optionalTextEnglish } from "./constants";
+import { optionalTextCymraeg } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import {
@@ -9,7 +10,7 @@ import {
   FormSubmissionState,
 } from "../types";
 import { FormModel } from "../models";
-import { Schema } from "joi";
+import joi, { Schema } from "joi";
 import { DataType } from "./types";
 
 export class MonthYearField extends FormComponent {
@@ -53,13 +54,30 @@ export class MonthYearField extends FormComponent {
   }
 
   getStateSchemaKeys() {
+    let schema = joi.object(this.children.getStateSchemaKeys()) as Schema;
+    if (this.options?.required) {
+      schema = schema.required();
+    }
     return {
-      [this.name]: this.children.getStateSchemaKeys() as Schema,
+      [this.name]: schema,
     };
   }
 
   getFormDataFromState(state: FormSubmissionState) {
-    return this.children.getFormDataFromState(state);
+    if (state && state[this.name]) {
+      const result = state[this.name];
+      if (typeof result === "string") {
+        const [year, month] = result.split("-");
+        return {
+          [`${this.name}__month`]: month,
+          [`${this.name}__year`]: year,
+        };
+      }
+
+      return this.children.getFormDataFromState(state[this.name]);
+    }
+
+    return {};
   }
 
   getStateValueFromValidForm(payload: FormPayload) {
@@ -84,6 +102,9 @@ export class MonthYearField extends FormComponent {
   // @ts-ignore - eslint does not report this as an error, only tsc
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
+    const optionalText = this.model?.def?.metadata?.isWelsh
+      ? optionalTextCymraeg
+      : optionalTextEnglish;
 
     // Use the component collection to generate the subitems
     const componentViewModels = this.children

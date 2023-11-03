@@ -14,10 +14,11 @@
   "payApiUrl": "PAY_API_URL",
   "payReturnUrl": "PAY_RETURN_URL",
   "serviceUrl": "SERVICE_URL",
+  "vcapServices": "VCAP_SERVICES",
   "redisHost": "REDIS_HOST",
   "redisPort": "REDIS_PORT",
+  "singleRedis": "SINGLE_REDIS",
   "redisTls": "REDIS_TLS",
-  "sandbox": "sandbox",
   "redisPassword": "REDIS_PASSWORD",
   "serviceName": "SERVICE_NAME",
   "documentUploadApiUrl": "DOCUMENT_UPLOAD_API_URL",
@@ -29,6 +30,9 @@
   "fromEmailAddress": "FROM_EMAIL_ADDRESS",
   "serviceStartPage": "SERVICE_START_PAGE",
   "privacyPolicyUrl": "PRIVACY_POLICY_URL",
+  "contactUsUrl": "CONTACT_US_URL",
+  "cookiePolicyUrl": "COOKIE_POLICY_URL",
+  "accessibilityStatementUrl": "ACCESSIBILITY_STATEMENT_URL",
   "notifyTemplateId": "NOTIFY_TEMPLATE_ID",
   "notifyAPIKey": "NOTIFY_API_KEY",
   "lastCommit": "LAST_COMMIT",
@@ -46,5 +50,17 @@
   "initialisedSessionTimeout": "INITIALISED_SESSION_TIMEOUT",
   "initialisedSessionKey": "INITIALISED_SESSION_KEY",
   "initialisedSessionAlgorithm": "INITIALISED_SESSION_ALGORITHM",
-  "savePerPage": "SAVE_PER_PAGE"
+  "savePerPage": "SAVE_PER_PAGE",
+  "awsBucketName": "AWS_BUCKET_NAME",
+  "awsRegion": "AWS_REGION",
+  "awsEndpointOverride": "AWS_ENDPOINT_OVERRIDE",
+  "jwtAuthCookieName": "JWT_AUTH_COOKIE_NAME",
+  "jwtRedirectToAuthenticationUrl": "JWT_REDIRECT_TO_AUTHENTICATION_URL",
+  "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64",
+  "logoutUrl": "LOGOUT_URL",
+  "multifundDashboard": "MULTIFUND_URL",
+  "basicAuthOn": {
+    "__name": "BASIC_AUTH_ON",
+    "__format": "boolean"
+  }
 }

@@ -4,7 +4,6 @@
 {% from "footer/macro.njk" import govukFooter -%}
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "skip-link/macro.njk" import govukSkipLink -%}
-{% from "cookie-banner/macro.njk" import govukCookieBanner %}
 
 
 {% block head %}
@@ -68,6 +67,7 @@
   <!-- End Matomo Code -->
 
   <script src="{{ assetPath }}/accessible-autocomplete.min.js"></script>
+  <script src="{{ assetPath }}/tinymce.min.js"></script>
 {% endblock %}
 
 {% block pageTitle %}
@@ -94,9 +94,6 @@
 {% endblock %}
 
 {% block bodyStart %}
-  {% if not cookiesPolicy.isSet %}
-    {% include "partials/cookie-banner.html" %}
-  {% endif %}
 
   {% if gtmId1 %}
     <noscript>
@@ -118,7 +115,7 @@
                 tag: {
                     text: phaseTag
                 },
-                html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
+                html: "This is a new service."
             }) }}
         {% else %}
             {{ govukPhaseBanner({
@@ -131,7 +128,7 @@
     {% if backLink %}
         {{ govukBackLink({
             href: backLink,
-            text: "Back"
+            text: backLinkText
         }) }}
     {% endif %}
 {% endblock %}
@@ -172,21 +169,32 @@
 
 
 {% block footer %}
-    {{ govukFooter({
-        meta: {
-            items: [{
-                href: privacyPolicyUrl,
-                text: 'Privacy'
-            }, {
-                href: '/help/cookies',
-                text: 'Cookies'
-            }, {
-                href: '/help/accessibility-statement',
-                text: 'Accessibility Statement'
-            }, {
-                href: '/help/terms-and-conditions',
-                text: 'Terms and Conditions'
-            }]
-        }
-    }) }}
+  {% set footerItems = [] %}
+  {% if footer %}
+    {% for footerItem in footer %}
+      {% set _ = footerItems.push({
+        href: footerItem.href,
+        text: footerItem.text
+      }) %}
+    {% endfor %}
+  {% else %}
+  {% set footerItems = [{
+        href: privacyPolicyUrl,
+        text: 'Privacy'
+    }, {
+        href: cookiePolicyUrl,
+        text: 'Cookies'
+    }, {
+        href: accessibilityStatementUrl,
+        text: 'Accessibility Statement'
+    }, {
+        href: contactUsUrl,
+        text: 'Contact Us'
+    }]%}
+  {% endif %}
+  {{ govukFooter({
+    meta: {
+      items: footerItems
+    }
+  }) }}
 {% endblock %}

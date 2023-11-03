@@ -22,6 +22,8 @@ import { reach } from "hoek";
 export class ViewModel {
   pageTitle: string;
   declaration: any; // TODO
+  markAsComplete: boolean | undefined;
+  markAsCompleteComponent: boolean | undefined;
   skipSummary: boolean;
   endPage: any; // TODO
   result: any;
@@ -35,6 +37,7 @@ export class ViewModel {
   privacyPolicyUrl: string | undefined;
   phaseTag: string | undefined;
   declarationError: any; // TODO
+  markAsCompleteError: any;
   errors:
     | {
         path: string;
@@ -297,6 +300,21 @@ export class ViewModel {
     });
   }
 
+  addMarkAsCompleteAsQuestion(markAsComplete: boolean) {
+    this._webhookData?.questions?.push({
+      category: null,
+      question: "MarkAsComplete",
+      fields: [
+        {
+          key: "markAsComplete",
+          title: "Do you want to mark this section as complete?",
+          type: "boolean",
+          answer: markAsComplete,
+        },
+      ],
+    });
+  }
+
   protected addFeedbackSourceDataToWebhook(
     webhookData,
     model: FormModel,
@@ -375,11 +393,16 @@ function Item(
     });
   }
 
+  let componentValue = component.getDisplayStringFromState(sectionState);
+
+  if (componentValue == "" && component.options.required == false) {
+    componentValue = null;
+  }
   return {
     name: component.name,
     path: page.path,
     label: component.localisedString(component.title),
-    value: component.getDisplayStringFromState(sectionState),
+    value: componentValue,
     rawValue: sectionState[component.name],
     url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
     pageId: `/${model.basePath}${page.path}`,

@@ -2,11 +2,11 @@
 {% macro FileUploadField(component) %}
   {{ govukFileUpload(component.model) }}
   {% if component.model.value %}
-      <p class="govuk-body">You have already provided this file.</p>
+      <p class="govuk-body">{{component.model.existingFileText}}</p>
   {% endif %}
-    <div class="govuk-error-summary govuk-border-green upload-dialog" aria-labelledby="success-summary-title" role="alert" tabindex="-1">
-        <h2 class="govuk-!-margin-0 govuk-heading-m" id="success-summary-title">
-            Your file was successfully selected
-        </h2>
+    <div class="govuk-error-summary govuk-border-green upload-dialog govuk-!-padding-bottom-0" aria-labelledby="success-summary-title" role="alert" data-module="govuk-error-summary">
+        <p class="govuk-body govuk-!-font-weight-regular" id="success-summary-title">
+            {{component.model.content | safe}}
+        </p>
     </div>
 {% endmacro %}

@@ -2,10 +2,10 @@
 {% from "summary-list/macro.njk" import govukSummaryList -%}
 
 <form method="post" enctype="multipart/form-data" autocomplete="on">
-  <input type="hidden" name="crumb" value="{{crumb}}"/>
+	<input type="hidden" name="crumb" value="{{crumb}}"/>
   {% if page.isRepeatingFieldPageController and details %}
-		{{ componentList(components) }}
-		{{ govukButton({
+    {{ componentList(components) }}
+    {{ govukButton({
     attributes: { id: "add-another"},
     classes: "govuk-button govuk-button--secondary",
     text: page.saveText

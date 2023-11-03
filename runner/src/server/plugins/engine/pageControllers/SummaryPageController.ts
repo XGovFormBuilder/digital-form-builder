@@ -21,7 +21,7 @@ export class SummaryPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       this.langFromRequest(request);
 
-      const { cacheService } = request.services([]);
+      const { cacheService, uploadService } = request.services([]);
       const model = this.model;
 
       // @ts-ignore - ignoring so docs can be generated. Remove when properly typed
@@ -30,6 +30,83 @@ export class SummaryPageController extends PageController {
       }
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
+
+      const { relevantPages } = SummaryViewModel.getRelevantPages(model, state);
+      const clientSideUploadComponents = relevantPages
+        .filter(
+          (page) => page.components.additionalValidationFunctions.length > 0
+        )
+        .flatMap((page) =>
+          page.components.items
+            .filter((item) => item.type == "ClientSideFileUploadField")
+            .flatMap((x) => x)
+        );
+
+      const errorPromises = clientSideUploadComponents.map((component) => {
+        const funcs = component.getAdditionalValidationFunctions();
+        return Promise.all(
+          funcs.map((func) => func(request, { components: [component] }))
+        );
+      });
+      const nestedErrors = await Promise.all(errorPromises);
+      const errors = nestedErrors.flat(Infinity);
+      if (errors.length > 0) {
+        const restructuredErrors = errors.map(({ name, path, text }) => {
+          return {
+            path: path,
+            name: name,
+            message: text,
+          };
+        });
+        const allErrorsUnsorted = [
+          ...(viewModel.errors || []),
+          ...restructuredErrors,
+        ];
+
+        const sortedPathNames = relevantPages
+          .filter(
+            (page) => page.section?.name && page.components.items.length > 0
+          )
+          .map((page) => [
+            page.section?.name,
+            page.components.items.map((item) => item.name),
+          ])
+          .flatMap(([prefix, suffixes]) =>
+            suffixes.map((suffix) => `${prefix}.${suffix}`)
+          );
+
+        const sortedErrors = [...allErrorsUnsorted].sort((a, b) => {
+          const indexA = sortedPathNames.indexOf(a.path);
+          const indexB = sortedPathNames.indexOf(b.path);
+
+          return indexA - indexB;
+        });
+
+        viewModel.errors = sortedErrors;
+      }
+
+      viewModel.footer = this.def.footer;
+
+      const form_session_identifier =
+        state.metadata?.form_session_identifier ?? "";
+      if (form_session_identifier) {
+        for (const detail of viewModel.details) {
+          const comps = detail.items.filter(
+            (c) => c.type === "ClientSideFileUploadField"
+          );
+          for (const comp of comps) {
+            const folderPath = `${comp.pageId}/${comp.name}`;
+            const files = await uploadService.listFilesInBucketFolder(
+              `${form_session_identifier}${folderPath}`,
+              form_session_identifier
+            );
+            comp.value = {
+              folderPath,
+              files,
+            };
+          }
+        }
+      }
 
       if (viewModel.endPage) {
         return redirectTo(
@@ -89,6 +166,32 @@ export class SummaryPageController extends PageController {
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0];
       }
+
+      const markAsCompleteError = request.yar.flash("markAsCompleteError");
+      if (markAsCompleteError.length) {
+        viewModel.markAsCompleteError = markAsCompleteError[0];
+      }
+
+      viewModel.details.find((value, index) => {
+        viewModel.containsFileType = value.items.some(
+          (item) => item.type === "FileUploadField"
+        );
+      });
+
+      viewModel.details.find((value, index) => {
+        for (let item of value.items) {
+          if (item.type === "UkAddressField") {
+            if (item.value != null) {
+              item.value = item.value.replace(/, null/g, "");
+            }
+          }
+          // New lines wont render on the summary page
+          if (item.type === "FreeTextField" && item.value) {
+            item.value = item.value.replace(/\r\n/g, "");
+          }
+        }
+      });
+
       return h.view("summary", viewModel);
     };
   }
@@ -99,7 +202,7 @@ export class SummaryPageController extends PageController {
    */
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { payService, cacheService } = request.services([]);
+      const { payService, cacheService, uploadService } = request.services([]);
       const model = this.model;
       const state = await cacheService.getState(request);
       state.metadata.isSummaryPageSubmit = true;
@@ -111,7 +214,85 @@ export class SummaryPageController extends PageController {
         state,
         request
       );
+
+      const { relevantPages } = SummaryViewModel.getRelevantPages(model, state);
+      const clientSideUploadComponents = relevantPages
+        .filter(
+          (page) => page.components.additionalValidationFunctions.length > 0
+        )
+        .flatMap((page) =>
+          page.components.items
+            .filter((item) => item.type == "ClientSideFileUploadField")
+            .flatMap((x) => x)
+        );
+
+      const errorPromises = clientSideUploadComponents.map((component) => {
+        const funcs = component.getAdditionalValidationFunctions();
+        return Promise.all(
+          funcs.map((func) => func(request, { components: [component] }))
+        );
+      });
+      const nestedErrors = await Promise.all(errorPromises);
+      const errors = nestedErrors.flat(Infinity);
+      if (errors.length > 0) {
+        const restructuredErrors = errors.map(({ name, path, text }) => {
+          return {
+            path: path,
+            name: name,
+            message: text,
+          };
+        });
+        const allErrorsUnsorted = [
+          ...(summaryViewModel.errors || []),
+          ...restructuredErrors,
+        ];
+
+        const sortedPathNames = model.pages
+          .filter(
+            (page) => page.section?.name && page.components.items.length > 0
+          )
+          .map((page) => [
+            page.section?.name,
+            page.components.items.map((item) => item.name),
+          ])
+          .flatMap(([prefix, suffixes]) =>
+            suffixes.map((suffix) => `${prefix}.${suffix}`)
+          );
+
+        const sortedErrors = [...allErrorsUnsorted].sort((a, b) => {
+          const indexA = sortedPathNames.indexOf(a.path);
+          const indexB = sortedPathNames.indexOf(b.path);
+
+          return indexA - indexB;
+        });
+
+        summaryViewModel.errors = sortedErrors;
+      }
+
+      const form_session_identifier =
+        state.metadata?.form_session_identifier ?? "";
+      if (form_session_identifier) {
+        for (const detail of summaryViewModel.details) {
+          const comps = detail.items.filter(
+            (c) => c.type === "ClientSideFileUploadField"
+          );
+          for (const comp of comps) {
+            const folderPath = `${comp.pageId}/${comp.name}`;
+            const files = await uploadService.listFilesInBucketFolder(
+              `${form_session_identifier}${folderPath}`,
+              form_session_identifier
+            );
+            comp.value = {
+              folderPath,
+              files,
+            };
+          }
+        }
+      }
+
       this.setFeedbackDetails(summaryViewModel, request);
+      this.setContactUsDetails(summaryViewModel, request);
+      this.setPrivacyDetails(summaryViewModel, request);
 
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
@@ -160,6 +341,22 @@ export class SummaryPageController extends PageController {
           return redirectTo(request, h, `${url}#declaration`);
         }
         summaryViewModel.addDeclarationAsQuestion();
+      }
+
+      if (summaryViewModel.markAsCompleteComponent) {
+        const { markAsComplete } = request.payload as { markAsComplete?: any };
+
+        if (!markAsComplete) {
+          request.yar.flash("markAsCompleteError", "You must select yes or no");
+          return redirectTo(
+            request,
+            h,
+            `${request.headers.referer}#markAsComplete`
+          );
+        }
+        summaryViewModel.addMarkAsCompleteAsQuestion(
+          markAsComplete.toLowerCase() === "true"
+        );
       }
 
       await cacheService.mergeState(request, {
@@ -230,6 +427,40 @@ export class SummaryPageController extends PageController {
     };
   }
 
+  setPrivacyDetails(viewModel: SummaryViewModel, request: HapiRequest) {
+    let privacyPolicyUrl: string;
+    if (request.query.form_session_identifier) {
+      privacyPolicyUrl =
+        this.getConfiguredPrivacyLink() +
+        "?application_id=" +
+        request.query.form_session_identifier;
+    } else {
+      privacyPolicyUrl = this.getConfiguredPrivacyLink();
+    }
+    viewModel.privacyPolicyUrl = privacyPolicyUrl;
+  }
+
+  getConfiguredPrivacyLink() {
+    return config.privacyPolicyUrl;
+  }
+
+  setContactUsDetails(viewModel: SummaryViewModel, request: HapiRequest) {
+    let contactUsUrl: string;
+    if (request.query.form_session_identifier) {
+      contactUsUrl =
+        this.getConfiguredContactUsLink() +
+        "?application_id=" +
+        request.query.form_session_identifier;
+    } else {
+      contactUsUrl = this.getConfiguredContactUsLink();
+    }
+    viewModel.contactUsUrl = contactUsUrl;
+  }
+
+  getConfiguredContactUsLink() {
+    return config.contactUsUrl;
+  }
+
   setFeedbackDetails(viewModel: SummaryViewModel, request: HapiRequest) {
     const feedbackContextInfo = this.getFeedbackContextInfo(request);
 
@@ -240,6 +471,22 @@ export class SummaryPageController extends PageController {
 
     // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
+    if (!viewModel.feedbackLink) {
+      let feedbackLink: string;
+      if (request.query.form_session_identifier) {
+        feedbackLink =
+          this.getConfiguredFeedbackLink() +
+          "?application_id=" +
+          request.query.form_session_identifier;
+      } else {
+        feedbackLink = this.getConfiguredFeedbackLink();
+      }
+      viewModel.feedbackLink = feedbackLink;
+    }
+  }
+
+  getConfiguredFeedbackLink() {
+    return config.feedbackLink;
   }
 
   getFeedbackContextInfo(request: HapiRequest) {

@@ -235,6 +235,11 @@ const phaseBannerSchema = joi.object().keys({
   phase: joi.string().valid("alpha", "beta"),
 });
 
+const footerSchema = joi.object().keys({
+  href: joi.string(),
+  text: joi.string(),
+});
+
 const feeOptionSchema = joi
   .object()
   .keys({
@@ -270,6 +275,9 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    backLinkText: joi.string().allow("").optional(),
+    footer: joi.array().items(footerSchema).optional(),
+    markAsComplete: joi.boolean().default(false),
     feeOptions: feeOptionSchema,
   });
 

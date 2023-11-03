@@ -1,0 +1,89 @@
+{% macro FreeTextField(component) %}
+
+<head>
+  <script type="text/javascript">
+    tinymce.init({
+      setup: function (editor) {
+        editor.on('init input setcontent change', function () {
+          setWordCount(editor);
+        });
+      },
+      selector: '#{{ component.model.id }}',
+      skin: 'tinymce-5',
+      branding: false,
+      elementpath: false,
+      content_css: 'default',
+      height: 150,
+      menubar: false,
+      browser_spellcheck: true,
+      max_words: Number('{{ component.model.maxWords }}'),
+      iframe_aria_text: '{{ component.model.name }}',
+      paste_data_images: false,
+      content_style: "body { font-family: \"GDS Transport\",arial,sans-serif; font-size: 1.1875rem; }",
+      dragover_callback: function (e) {
+        // prevent dragover event from doing anything, images could be snuck in this way
+        e.preventDefault();
+      },
+      drop_callback: function (e) {
+        // prevent drop event from doing anything, images could be snuck in this way
+        e.preventDefault();
+      },
+      plugins: [
+        'advlist', 'autolink',
+        'lists', 'link', 'charmap', 'preview', 'anchor', 'searchreplace',
+        'fullscreen', 'insertdatetime', 'table', 'help'
+      ],
+      toolbar: 'bold | bullist numlist',
+      contextmenu: 'paste'
+    });
+
+    // this must match the back-end, or we'll have discrepancies
+    // runner\src\server\plugins\engine\components\FreeTextField.ts
+    function countWords(editor) {
+      let content = editor.getContent()
+      content = content.replace(/<[^>]*>/g, "").replace(/&[^;]+;/g, "");
+      const wordCount = (content.match(/\S+/g) || []).length;
+      return wordCount;
+    }
+
+    function setWordCount(editor) {
+      var maxWords = editor.getParam('max_words', 500);
+      var wordCount = countWords(editor);
+      var wordsRemaing = Number(maxWords) - wordCount;
+      var label = document.getElementById('word-count-label-' + editor.id);
+
+      if (label != null) {
+        label.textContent = 'You have ' + wordsRemaing + ' words remaining';
+        label.style.color = '#505a5f';
+
+        if (wordsRemaing < 0) {
+          var wordsOver = wordCount - Number(maxWords);
+          label.textContent = 'You have ' + wordsOver + ' words too many';
+          label.style.color = '#d4351c';
+          editor.dom.addClass(editor.getContainer(), 'red-border');
+        }
+        else {
+          editor.dom.removeClass(editor.getContainer(), 'red-border');
+        }
+      }
+    }
+  </script>
+</head>
+<div class="govuk-form-group govuk-character-count {{ 'govuk-form-group--error' if component.model.errorMessage }}"
+  data-module="govuk-character-count" data-maxwords="150">
+  <label class="govuk-label govuk-label--s" for={{component.model.id}}>{{component.model.label.text}}</label>
+  <div id="hint-{{component.model.id}}" class="govuk-hint">{{component.model.hint.html|safe}}</div>
+  {% if component.model.errorMessage %}
+  <span id="nationality-error" class="govuk-error-message">
+    <span class="govuk-visually-hidden">Error:</span> {{component.model.errorMessage.text}}
+  </span>
+  {% endif %}
+  <textarea id="{{ component.model.id }}" name="{{ component.model.name }}" rows="5"
+    class="govuk-textarea">{{ component.model.value }}</textarea>
+  {% if component.model.isCharacterOrWordCount == true %}
+  <div id="word-count-label-{{ component.model.id }}" class="govuk-hint govuk-js-character-count">You can enter up to {{
+    component.model.maxWords }} words</div>
+  {% endif %}
+</div>
+
+{% endmacro %}

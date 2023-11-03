@@ -28,7 +28,14 @@ export interface RepeatingFieldPage extends Page {
     };
     customText?: {
       separatePageTitle?: string;
+      samePageTitle?: string;
+      columnOneTitle?: string;
+      columnTwoTitle?: string;
+      columnThreeTitle?: string;
+      removeText?: string;
     };
+    required: boolean;
+    columnTitles?: [];
   };
 }
 

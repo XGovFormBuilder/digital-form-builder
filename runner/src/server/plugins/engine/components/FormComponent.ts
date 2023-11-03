@@ -1,7 +1,8 @@
 import joi, { Schema } from "joi";
 
 import { ComponentBase } from "./ComponentBase";
-import { optionalText } from "./constants";
+import { optionalTextEnglish } from "./constants";
+import { optionalTextCymraeg } from "./constants";
 
 import {
   FormSubmissionState,
@@ -61,6 +62,12 @@ export class FormComponent extends ComponentBase {
   getStateValueFromValidForm(payload: FormPayload): any {
     const name = this.name;
 
+    if (this.type === "FileUploadField" && payload[name] === "") {
+      return name in payload && payload[name + "__filename"] !== ""
+        ? payload[name + "__filename"]
+        : null;
+    }
+
     return name in payload && payload[name] !== "" ? payload[name] : null;
   }
 
@@ -79,6 +86,9 @@ export class FormComponent extends ComponentBase {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const options: any = this.options;
     const isOptional = options.required === false;
+    const optionalText = this.model?.def?.metadata?.isWelsh
+      ? optionalTextCymraeg
+      : optionalTextEnglish;
     const optionalPostfix =
       isOptional && options.optionalText !== false ? optionalText : "";
     this.lang = formData.lang;
@@ -130,6 +140,10 @@ export class FormComponent extends ComponentBase {
 
   getStateSchemaKeys(): { [k: string]: Schema } {
     return { [this.name]: joi.any() };
+  }
+
+  getAdditionalValidationFunctions(): Function[] {
+    return [];
   }
 
   getDisplayStringFromState(state) {
