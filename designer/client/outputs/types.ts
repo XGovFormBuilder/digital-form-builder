@@ -18,6 +18,7 @@ export type NotifyOutputConfiguration = {
 
 export type WebhookOutputConfiguration = {
   url: string;
+  allowRetry: boolean;
 };
 
 export type OutputConfiguration =
