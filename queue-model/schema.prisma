@@ -9,7 +9,7 @@ generator client {
 
 model Submission {
   id Int @id @default(autoincrement())
-  webhook_url String?
+  webhook_url String
   created_at DateTime @default(now())
   updated_at DateTime?
   data String? @db.Text

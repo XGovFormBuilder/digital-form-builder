@@ -24,14 +24,14 @@ export class QueueService {
    */
   async sendToQueue(
     data: object,
-    url?: string,
+    url: string,
     allowRetry = true
   ): Promise<QueueResponse> {
     const rowData = {
       data: JSON.stringify(data),
       created_at: new Date(),
       updated_at: new Date(),
-      webhook_url: url ?? null,
+      webhook_url: url,
       complete: false,
       retry_counter: 0,
       allow_retry: allowRetry,
