@@ -38,9 +38,6 @@ export class QueueService {
       const submissionRes = await this.prisma.submission.findMany({
         where: {
           complete: false,
-          webhook_url: {
-            not: null,
-          },
           OR: [
             {
               allow_retry: true,
