@@ -22,7 +22,11 @@ export class QueueService {
    * @param url
    * @returns The ID of the newly added row, or undefined in the event of an error
    */
-  async sendToQueue(data: object, url?: string): Promise<QueueResponse> {
+  async sendToQueue(
+    data: object,
+    url?: string,
+    allowRetry = true
+  ): Promise<QueueResponse> {
     const rowData = {
       data: JSON.stringify(data),
       created_at: new Date(),
@@ -30,6 +34,7 @@ export class QueueService {
       webhook_url: url ?? null,
       complete: false,
       retry_counter: 0,
+      allow_retry: allowRetry,
     };
     const row = await this.prisma.submission.create({
       data: rowData,
