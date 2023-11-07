@@ -41,9 +41,18 @@ export class QueueService {
           webhook_url: {
             not: null,
           },
-          retry_counter: {
-            lt: this.MAX_RETRIES,
-          },
+          OR: [
+            {
+              allow_retry: true,
+              retry_counter: {
+                lt: this.MAX_RETRIES,
+              },
+            },
+            {
+              allow_retry: false,
+              error: null,
+            },
+          ],
         },
         orderBy: [
           {
