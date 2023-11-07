@@ -198,6 +198,7 @@ const emailSchema = joi.object().keys({
 
 const webhookSchema = joi.object().keys({
   url: joi.string(),
+  allowRetry: joi.boolean().default(true),
 });
 
 const outputSchema = joi.object().keys({
