@@ -17,4 +17,5 @@ model Submission {
   return_reference String?
   complete Boolean @default(false)
   retry_counter Int
+  allow_retry Boolean
 }
