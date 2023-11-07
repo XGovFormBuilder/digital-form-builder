@@ -49,7 +49,8 @@ export class QueueStatusService extends StatusService {
       if (!queueReference) {
         const queueResults = await this.queueService?.sendToQueue(
           formData,
-          firstWebhook.outputData.url
+          firstWebhook.outputData.url,
+          firstWebhook.outputData.allowRetry
         );
         if (!queueResults) {
           this.logQueueServiceError();
