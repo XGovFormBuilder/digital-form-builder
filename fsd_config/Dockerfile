@@ -1,5 +1,5 @@
 ARG BASE_IMAGE_TAG="latest"
-FROM local-form-runner:latest as base
+FROM ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:$BASE_IMAGE_TAG as base
 ARG FORMS_DIR="forms-v3"
 WORKDIR /usr/src/app
 RUN rm -r runner/dist/server/forms && rm -r runner/src && rm -r runner/test
