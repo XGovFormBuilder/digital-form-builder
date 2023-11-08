@@ -20,7 +20,7 @@
         </thead>
         {{details.length}}
         {% for row in details.rows %}
-          <tr class="govuk-table__row">
+          <tr class="govuk-table__row" style="word-break: break-all;">
             {% for value in row.values %}
               {% if not(value.text == "null") %}
                 <td class={{value.class}}>{{ value.text }}</td>

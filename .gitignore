@@ -28,3 +28,4 @@ tsconfig.tsbuildinfo
 .yarn/install-state.gz
 docs/**/typedoc
 .venv
+fsd_config/Dockerfile
