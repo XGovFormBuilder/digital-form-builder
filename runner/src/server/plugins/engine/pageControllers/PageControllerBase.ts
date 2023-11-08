@@ -283,84 +283,69 @@ export class PageControllerBase {
    * Parses the errors from joi.validate so they can be rendered by govuk-frontend templates
    * @param validationResult - provided by joi.validate
    */
-  getErrors(validationResult): FormSubmissionErrors | undefined {
-    if (validationResult && validationResult.error) {
-      const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
+  getErrors(validationResult) {
+    if (!validationResult?.error) {
+      return undefined;
+    }
 
-      const component = this.components.formItems;
+    const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
+    const errors = validationResult.error.details;
+    const formItems = this.components.formItems;
 
-      function findTitleByFieldName(arr, fieldName) {
-        for (let i = 0; i < arr.length; i++) {
-          if (fieldName.indexOf("_") > 0) {
-            fieldName = fieldName.substring(0, fieldName.indexOf("_"));
-          }
-          if (arr[i].name === fieldName) {
-            return arr[i].title;
-          }
-        }
-        return "Title not found";
-      }
+    const findTitle = (fieldName: string) => {
+      return (
+        formItems.find((item) => item.name === fieldName)?.title ||
+        "Title not found"
+      );
+    };
 
-      let missingParts = [];
-      let newErrorList = [];
-      let dateComponentName = "";
+    const formatDateMessage = (message: string) => {
+      return message.replace(isoRegex, (text) =>
+        format(parseISO(text), "d MMMM yyyy")
+      );
+    };
 
-      validationResult.error.details.forEach((err) => {
-        const name = err.path
-          .map((n, index) => (index > 0 ? `__${n}` : n))
-          .join("");
-        const title = findTitleByFieldName(component, name);
+    const errorList = errors.reduce((list, err) => {
+      let name = err.path.join("__");
+      let title = findTitle(name.split("__")[0]);
+      let text = formatDateMessage(err.message);
 
-        if (
-          name.endsWith("__day") ||
-          name.endsWith("__month") ||
-          name.endsWith("__year")
-        ) {
-          missingParts.push(name.split("__")[1]);
-          dateComponentName = name.split("__")[0]; // Assuming all date parts have the same root name
-        } else {
-          newErrorList.push({
-            path: err.path.join("."),
+      if (
+        name.endsWith("__day") ||
+        name.endsWith("__month") ||
+        name.endsWith("__year")
+      ) {
+        // Check if there is already an error for the date field
+        const dateErrorIndex = list.findIndex(
+          (e) => e.name === name.split("__")[0]
+        );
+        if (dateErrorIndex === -1) {
+          // If not, add a new error for the date field
+          list.push({
+            path: name,
             href: `#${name}`,
-            name: name,
+            name: name.split("__")[0],
             title: title,
-            text: err.message.replace(isoRegex, (text) =>
-              format(parseISO(text), "d MMMM yyyy")
-            ),
+            text: `${title} is required.`,
           });
         }
-      });
-
-      if (missingParts.length > 0) {
-        const title = findTitleByFieldName(component, dateComponentName);
-        let text = "";
-        if (missingParts.length === 3) {
-          text = `${title} is required.`;
-        } else {
-          text = `${title} must have a ${missingParts.join(", ")}.`;
-        }
-
-        // Set href to the first missing part
-        const firstMissingPart = missingParts[0];
-        const dynamicHref = `#${dateComponentName}__${firstMissingPart}`;
-
-        newErrorList.push({
-          path: dateComponentName,
-          href: dynamicHref,
-          name: dateComponentName,
+      } else {
+        list.push({
+          path: name,
+          href: `#${name}`,
+          name: name,
           title: title,
           text: text,
         });
       }
 
-      const errorObject = {
-        titleText: this.errorSummaryTitle,
-        errorList: newErrorList,
-      };
-      return errorObject;
-    }
+      return list;
+    }, []);
 
-    return undefined;
+    return {
+      titleText: this.errorSummaryTitle,
+      errorList,
+    };
   }
 
   /**

@@ -186,8 +186,6 @@ export class DatePartsField extends FormComponent {
     }
 
     const errorMessage = isRequired && firstError && { text };
-    //added to test if it will run on form load
-    this.getStateSchemaKeys();
     return {
       ...viewModel,
       title: this.title,
