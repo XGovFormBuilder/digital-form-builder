@@ -25,7 +25,7 @@ suite("Number field", () => {
     const { schema } = numberField;
 
     expect(schema.validate(40, { messages }).error.message).to.contain(
-      "must be 30 or less"
+      "must be 30 or lower"
     );
 
     expect(schema.validate(30, { messages }).error).to.be.undefined();
@@ -40,7 +40,7 @@ suite("Number field", () => {
     const { schema } = numberField;
 
     expect(schema.validate(20, { messages }).error.message).to.contain(
-      "must be 30 or more"
+      "must be 30 or higher"
     );
 
     expect(schema.validate(40, { messages }).error).to.be.undefined();
