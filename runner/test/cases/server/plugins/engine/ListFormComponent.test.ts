@@ -91,7 +91,7 @@ suite("ListFormComponent", () => {
     });
 
     it("is labelled correctly", () => {
-      expect(component.formSchema.describe().flags.label).to.equal("Tada");
+      expect(component.formSchema.describe().flags.label).to.equal("tada");
     });
   });
 });

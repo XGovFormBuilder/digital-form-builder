@@ -51,14 +51,14 @@ suite("Multiline text field", () => {
 
     expect(
       formSchema.validate("egg", validationOptions).error.message
-    ).to.equal("My component must be at least 4 characters");
+    ).to.equal("my component must be at least 4 characters");
     expect(
       formSchema.validate("scrambled", validationOptions).error.message
-    ).to.equal("My component must be 5 characters or fewer");
+    ).to.equal("my component must be 5 characters or fewer");
 
     expect(
       formSchema.validate("scrambled", validationOptions).error.message
-    ).to.equal("My component must be 5 characters or fewer");
+    ).to.equal("my component must be 5 characters or fewer");
   });
 
   test("Should apply default schema if no options are passed", () => {
@@ -73,7 +73,7 @@ suite("Multiline text field", () => {
     const { formSchema } = multilineTextField;
 
     expect(formSchema.validate("", validationOptions).error.message).to.equal(
-      "My component is required"
+      "my component is required"
     );
     expect(formSchema.validate("benedict").error).to.be.undefined();
   });
