@@ -51,14 +51,14 @@ suite("Multiline text field", () => {
 
     expect(
       formSchema.validate("egg", validationOptions).error.message
-    ).to.equal("my component must be at least 4 characters");
+    ).to.equal("my component must be 4 characters or more");
     expect(
       formSchema.validate("scrambled", validationOptions).error.message
-    ).to.equal("my component must be 5 characters or fewer");
+    ).to.equal("my component must be 5 characters or less");
 
     expect(
       formSchema.validate("scrambled", validationOptions).error.message
-    ).to.equal("my component must be 5 characters or fewer");
+    ).to.equal("my component must be 5 characters or less");
   });
 
   test("Should apply default schema if no options are passed", () => {
