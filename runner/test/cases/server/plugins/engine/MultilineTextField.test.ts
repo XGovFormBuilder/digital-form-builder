@@ -73,7 +73,7 @@ suite("Multiline text field", () => {
     const { formSchema } = multilineTextField;
 
     expect(formSchema.validate("", validationOptions).error.message).to.equal(
-      "my component is required"
+      "Enter my component"
     );
     expect(formSchema.validate("benedict").error).to.be.undefined();
   });
