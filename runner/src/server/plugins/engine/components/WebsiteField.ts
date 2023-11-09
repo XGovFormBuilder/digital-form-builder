@@ -27,7 +27,7 @@ export class WebsiteField extends TextField {
     }
 
     this.formSchema = this.formSchema
-      .label(def.title)
+      .label(def.title.toLowerCase())
       .uri()
       .message(def.options?.customValidationMessage ?? this.defaultMessage);
 
