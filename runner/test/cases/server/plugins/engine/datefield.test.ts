@@ -21,19 +21,19 @@ suite("Date field", () => {
     const { schema } = dateField;
 
     expect(schema.validate("", { messages }).error.message).to.contain(
-      "must be a valid date"
+      "must be a real date"
     );
     expect(
       schema.validate("not-a-date", { messages }).error.message
-    ).to.contain("must be a valid date");
+    ).to.contain("must be a real date");
 
     expect(
       schema.validate("30-30-3000", { messages }).error.message
-    ).to.contain("must be a valid date");
+    ).to.contain("must be a real date");
 
     expect(
       schema.validate("4000-40-40", { messages }).error.message
-    ).to.contain("must be a valid date");
+    ).to.contain("must be a real date");
 
     expect(schema.validate("2021-12-25", { messages }).error).to.be.undefined();
   });
@@ -50,7 +50,7 @@ suite("Date field", () => {
 
     expect(
       schema.validate(date.toISOString(), { messages }).error.message
-    ).to.contain("must be on or before");
+    ).to.contain("must be the same as or before");
 
     expect(
       schema.validate(new Date().toISOString(), { messages }).error
@@ -69,7 +69,7 @@ suite("Date field", () => {
 
     expect(
       schema.validate(date.toISOString(), { messages }).error.message
-    ).to.contain("must be on or after");
+    ).to.contain("must be the same as or after");
 
     expect(
       schema.validate(new Date().toISOString(), { messages }).error
