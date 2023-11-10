@@ -6,13 +6,18 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     {% set tmpl = 'There was a problem with your payment' %}
-
     {{ govukErrorSummary({
       titleText: tmpl,
       errorList: [
-        { text: "The payment failed" }
+        { text: "The payment failed"  }
       ]
     }) }}
+
+    {% if not allowSubmissionsWithoutPayment %}
+    <p class="govuk-body">
+      {{ customPayErrorMessage | safe }}
+    </p>
+    {% endif %}
     <form method="post" autocomplete="off" novalidate>
       <input type="hidden" name="crumb" value="{{crumb}}" />
       {{ govukButton({ attributes: { id: "submit" }, text: "Retry" }) }}

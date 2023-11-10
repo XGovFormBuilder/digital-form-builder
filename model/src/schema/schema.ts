@@ -235,6 +235,9 @@ const feeOptionSchema = joi
     payApiKey: [joi.string().allow("").optional(), multiApiKeySchema],
     paymentReferenceFormat: [joi.string().optional()],
     payReturnUrl: joi.string().optional(),
+    allowSubmissionWithoutPayment: joi.boolean().optional().default(true),
+    maxRetries: joi.boolean().optional().default(3),
+    customPayErrorMessage: joi.string().optional(),
   })
   .default(({ payApiKey, paymentReferenceFormat }) => {
     return {
