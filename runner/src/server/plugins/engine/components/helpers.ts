@@ -94,8 +94,8 @@ export const addClassOptionIfNone = (
 };
 
 export function getCustomDateValidator(
-  maxDaysInFuture?: number,
-  maxDaysInPast?: number
+  maxDaysInPast?: number,
+  maxDaysInFuture?: number
 ) {
   return (value: Date, helpers: Joi.CustomHelpers) => {
     if (maxDaysInPast) {
