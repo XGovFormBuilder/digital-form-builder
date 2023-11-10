@@ -1,4 +1,7 @@
 import joi from "joi";
+import Joi from "joi";
+import { DatePartsField } from "server/plugins/engine/components/DatePartsField";
+import { add, startOfToday, sub } from "date-fns";
 
 /**
  * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
@@ -90,3 +93,32 @@ export const addClassOptionIfNone = (
     options.classes = className;
   }
 };
+
+export function getCustomDateValidator(
+  maxDaysInPast?: number,
+  maxDaysInFuture?: number
+) {
+  return (value: Date, helpers: Joi.CustomHelpers) => {
+    let minDate = new Date(1000, 1);
+    let maxDate = new Date(3000, 1);
+    if (maxDaysInPast) {
+      minDate = sub(startOfToday(), { days: maxDaysInPast });
+    }
+    if (maxDaysInFuture) {
+      maxDate = add(startOfToday(), { days: maxDaysInFuture });
+    }
+    if (value <= maxDate && value >= minDate) {
+      return value;
+    }
+    if (value > maxDate) {
+      return helpers.error("date.max", {
+        label: helpers.state.key,
+        limit: maxDate,
+      });
+    }
+    return helpers.error("date.min", {
+      label: helpers.state.key,
+      limit: minDate,
+    });
+  };
+}
