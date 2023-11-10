@@ -93,5 +93,5 @@ Feature: Complete a form
   Scenario: Error messages are displayed and can be resolved
     Given I navigate to the "report-a-terrorist" form
     When I continue
-    Then I see the error "Do you have a link to the material? is required" for "Do you have a link to the material?"
+    Then I see the error "Select do you have a link to the material?" for "Do you have a link to the material?"
 
