@@ -95,30 +95,28 @@ export const addClassOptionIfNone = (
 };
 
 export function getCustomDateValidator(
-  maxDaysInPast?: number,
-  maxDaysInFuture?: number
+  maxDaysInFuture?: number,
+  maxDaysInPast?: number
 ) {
   return (value: Date, helpers: Joi.CustomHelpers) => {
-    let minDate = new Date(1000, 1);
-    let maxDate = new Date(3000, 1);
     if (maxDaysInPast) {
-      minDate = sub(startOfToday(), { days: maxDaysInPast });
+      const minDate = sub(startOfToday(), { days: maxDaysInPast });
+      if (value < minDate) {
+        return helpers.error("date.min", {
+          label: helpers.state.key,
+          limit: minDate,
+        });
+      }
     }
     if (maxDaysInFuture) {
-      maxDate = add(startOfToday(), { days: maxDaysInFuture });
+      const maxDate = add(startOfToday(), { days: maxDaysInFuture });
+      if (value > maxDate) {
+        return helpers.error("date.max", {
+          label: helpers.state.key,
+          limit: maxDate,
+        });
+      }
     }
-    if (value <= maxDate && value >= minDate) {
-      return value;
-    }
-    if (value > maxDate) {
-      return helpers.error("date.max", {
-        label: helpers.state.key,
-        limit: maxDate,
-      });
-    }
-    return helpers.error("date.min", {
-      label: helpers.state.key,
-      limit: minDate,
-    });
+    return value;
   };
 }
