@@ -8,5 +8,15 @@ export const DEFAULT_FEE_OPTIONS = {
    * `allowSubmissionWithoutPayment: false`
    */
   allowSubmissionWithoutPayment: true,
+
+  /**
+   * The maximum number of times a user can attempt to pay before the form is auto submitted.
+   * There is no limit when allowSubmissionWithoutPayment is false. (The user can retry as many times as they like).
+   */
   maxAttempts: 3,
+
+  /**
+   * A supplementary error message (`customPayErrorMessage`) may also be configured if allowSubmissionWithoutPayment is false.
+   */
+  // customPayErrorMessage: "Custom error message",
 };
