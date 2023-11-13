@@ -1,0 +1,509 @@
+{
+  "metadata": {},
+  "startPage": "/intro-objectives-and-activities",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "path": "/objectives-and-activities",
+      "title": "Objectives and activities",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Objectives and activities",
+          "removeText": "Delete"
+        }
+      },
+      "components": [
+        {
+          "name": "LAIkqw",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">Tell us about your project's objectives and how you plan to achieve these objectives.</p>\n\n<p class=\"govuk-hint\">You can add more objectives on the next step.</p>\n\n"
+        },
+        {
+          "name": "tAoPKx",
+          "options": {
+            "columnTitles": ["Objective", "Activity", "Action"],
+            "required": true
+          },
+          "type": "MultiInputField",
+          "title": "Objectives and activities",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "kaQUfV",
+              "options": {
+                "classes": "govuk-!-width-full"
+              },
+              "type": "TextField",
+              "title": "Objective"
+            },
+            {
+              "name": "HpLJCu",
+              "options": {
+                "maxWords": "200"
+              },
+              "type": "MultilineTextField",
+              "title": "Activities that will help you achieve the objective",
+              "schema": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "zzpzem",
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "section": "zzpzem",
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/intro-objectives-and-activities",
+      "title": "4.4 Objectives and activities",
+      "section": "zzpzem",
+      "components": [
+        {
+          "name": "pnMqcm",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>your project's objectives</li>\n        <li>activities that will help you achieve the objective</li>\n    </ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/objectives-and-activities"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Focus of the project",
+      "name": "hfQISg",
+      "type": "string",
+      "items": [
+        {
+          "text": "Trauma support",
+          "value": "trauma-support"
+        },
+        {
+          "text": "Mental health and wellbeing",
+          "value": "mental-health-and-wellbeing"
+        },
+        {
+          "text": "Teaching English as a language",
+          "value": "teaching-english-as-a-language"
+        },
+        {
+          "text": "Peer groups and befriending",
+          "value": "peer-groups-and-befriending"
+        },
+        {
+          "text": "Supporting hosts and sponsors",
+          "value": "supporting-hosts-and-sponsors"
+        },
+        {
+          "text": "Maintaining links to culture",
+          "value": "maintaining-links-to-culture"
+        }
+      ]
+    },
+    {
+      "title": "Cohort focus",
+      "name": "YSgfSN",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ukrainian schemes",
+          "value": "ukrainian-schemes"
+        },
+        {
+          "text": "Hong Kong British Nationals (Overseas)",
+          "value": "hong-kong-british-nationals"
+        },
+        {
+          "text": "Afghan citizens resettlement scheme",
+          "value": "afghan-citizens-resettlement-scheme"
+        }
+      ]
+    },
+    {
+      "title": "Eligibility",
+      "name": "qwnTyS",
+      "type": "string",
+      "items": [
+        {
+          "text": "Upper or lower tier local authority",
+          "value": "1"
+        },
+        {
+          "text": "Charity with a registered charity number",
+          "value": "2"
+        },
+        {
+          "text": "Registered community interest company",
+          "value": "3"
+        },
+        {
+          "text": "Social enterprise",
+          "value": "4"
+        },
+        {
+          "text": "Community group",
+          "value": "5"
+        },
+        {
+          "text": "None of these",
+          "value": "6",
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "zzpzem",
+      "title": "Objectives and activities"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "org other name yes",
+      "name": "aHJVVz",
+      "value": {
+        "name": "org other name yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Org other name no",
+      "name": "tOevBV",
+      "value": {
+        "name": "Org other name no",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "joint bid yes",
+      "name": "nMJAdu",
+      "value": {
+        "name": "joint bid yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "MRdGKt",
+              "type": "YesNoField",
+              "display": "Is your application a joint bid in partnership with other organisations?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "joint bid no",
+      "name": "ZhSWyC",
+      "value": {
+        "name": "joint bid no",
+        "conditions": [
+          {
+            "field": {
+              "name": "MRdGKt",
+              "type": "YesNoField",
+              "display": "Is your application a joint bid in partnership with other organisations?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "authorised signatory yes",
+      "name": "hDzCae",
+      "value": {
+        "name": "authorised signatory yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "DbFHbD",
+              "type": "YesNoField",
+              "display": "Is the lead contact the same person as the authorised signatory?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "authorised signatory no",
+      "name": "bDEBOE",
+      "value": {
+        "name": "authorised signatory no",
+        "conditions": [
+          {
+            "field": {
+              "name": "DbFHbD",
+              "type": "YesNoField",
+              "display": "Is the lead contact the same person as the authorised signatory?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Similar projects no",
+      "name": "tjnNpA",
+      "value": {
+        "name": "Similar projects no",
+        "conditions": [
+          {
+            "field": {
+              "name": "HrGXKi",
+              "type": "YesNoField",
+              "display": "Have you delivered projects like this before?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Similar projects yes",
+      "name": "VMLTbi",
+      "value": {
+        "name": "Similar projects yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "HrGXKi",
+              "type": "YesNoField",
+              "display": "Have you delivered projects like this before?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Ukraine support",
+      "name": "btRdYE",
+      "value": {
+        "name": "Ukraine support",
+        "conditions": [
+          {
+            "field": {
+              "name": "vYYoAC",
+              "type": "CheckboxesField",
+              "display": "Which cohort will your project focus on?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "ukrainian-schemes",
+              "display": "ukrainian-schemes"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Organisation no",
+      "name": "dfsBce",
+      "value": {
+        "name": "Organisation no",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Organisation yes",
+      "name": "GZIoHg",
+      "value": {
+        "name": "Organisation yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Not a joint bid",
+      "name": "MbgmFQ",
+      "value": {
+        "name": "Not a joint bid",
+        "conditions": [
+          {
+            "field": {
+              "name": "MRdGKt",
+              "type": "YesNoField",
+              "display": "Is your application a joint bid in partnership with other organisations?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Based in england no",
+      "name": "JZGvHK",
+      "value": {
+        "name": "Based in england no",
+        "conditions": [
+          {
+            "field": {
+              "name": "qGbSWS",
+              "type": "YesNoField",
+              "display": "Is your organisation based in England?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Take place in England no",
+      "name": "LOPfHT",
+      "value": {
+        "name": "Take place in England no",
+        "conditions": [
+          {
+            "field": {
+              "name": "mknqUV",
+              "type": "YesNoField",
+              "display": "Will the project take place in England?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to support children and young people on pathways to the UK from Ukraine, Hong Kong and Afghanistan"
+}

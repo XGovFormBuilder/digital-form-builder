@@ -78,6 +78,20 @@ export class MultiInputField extends FormComponent {
             }`;
           } else if (componentType == "YesNoField") {
             keyToRenderedValue[key] = value ? "Yes" : "No";
+          } else if (componentType == "UkAddressField") {
+            keyToRenderedValue[key] = value
+              ? [
+                  value.addressLine1,
+                  value.addressLine2,
+                  value.town,
+                  value.county,
+                  value.postcode,
+                ]
+                  .filter((p) => {
+                    return !!p;
+                  })
+                  .join(", ")
+              : "";
           } else {
             keyToRenderedValue[key] = `${this.getPrefix(key)}${value}`;
           }
@@ -111,10 +125,6 @@ export class MultiInputField extends FormComponent {
 
     componentViewModels.forEach((componentViewModel) => {
       // Nunjucks macro expects label to be a string for this component
-      componentViewModel.label = componentViewModel.label?.text?.replace(
-        optionalText,
-        ""
-      ) as any;
 
       if (componentViewModel.errorMessage) {
         componentViewModel.classes += " govuk-input--error";

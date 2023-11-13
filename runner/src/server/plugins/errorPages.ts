@@ -17,7 +17,7 @@ export default {
             // An error was raised during
             // processing the request
             const statusCode = response.output.statusCode;
-            const errorMessage = response.message;
+            const errorMessage = `${response.message}\n${response.stack || ""}`;
 
             // In the event of 404
             // return the `404` view
@@ -39,7 +39,7 @@ export default {
             request.log("error", {
               statusCode: statusCode,
               data: response.data,
-              message: response.message,
+              message: errorMessage,
             });
 
             // The return the `500` view

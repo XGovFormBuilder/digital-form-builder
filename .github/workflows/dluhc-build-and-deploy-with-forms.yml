@@ -111,10 +111,10 @@ jobs:
       perf_test_target_url_application_store: https://funding-service-design-application-store-dev.london.cloudapps.digital
       perf_test_target_url_fund_store: https://funding-service-design-fund-store-dev.london.cloudapps.digital
       perf_test_target_url_assessment_store: https://funding-service-design-assessment-store-dev.london.cloudapps.digital
-      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.dev.gids.dev
-      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.dev.gids.dev
-      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.dev.gids.dev
-      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.dev.gids.dev
+      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.dev.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.dev.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.dev.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.dev.gids.dev  # pragma: allowlist secret
       run_performance_tests: true
       run_e2e_tests: false
     secrets:
@@ -147,10 +147,10 @@ jobs:
       perf_test_target_url_application_store: https://funding-service-design-application-store-test.london.cloudapps.digital
       perf_test_target_url_fund_store: https://funding-service-design-fund-store-test.london.cloudapps.digital
       perf_test_target_url_assessment_store: https://funding-service-design-assessment-store-test.london.cloudapps.digital
-      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.test.gids.dev
-      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.test.gids.dev
-      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.test.gids.dev
-      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.test.gids.dev
+      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.test.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.test.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.test.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.test.gids.dev  # pragma: allowlist secret
       run_performance_tests: true
       run_e2e_tests: true
     secrets:

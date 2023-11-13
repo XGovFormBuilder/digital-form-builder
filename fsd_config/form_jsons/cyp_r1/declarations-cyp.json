@@ -1,0 +1,110 @@
+{
+  "metadata": {},
+  "startPage": "/intro-declarations",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "path": "/agree-to-the-final-confirmations",
+      "title": "Agree to the final confirmations",
+      "components": [
+        {
+          "name": "sdeLyR",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Confirm your organisation adheres to the government code of conduct",
+          "schema": {}
+        },
+        {
+          "name": "SUTxtj",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Confirm your organisation has a data handling process in place",
+          "schema": {}
+        },
+        {
+          "name": "WWHYDI",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Confirm you have a bank account set up and associated with the organisation you are applying on behalf of",
+          "schema": {}
+        },
+        {
+          "name": "WGmcyu",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Confirm that your organisation's safegaurding policies are up to date",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "WGmDZu",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Confirm that the information you've provided in this application is accurate to the best of your knowledge on the date of submission",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "OEGHno"
+    },
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "section": "OEGHno",
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/intro-declarations",
+      "title": "7.1 Declarations",
+      "components": [
+        {
+          "name": "TkCSKm",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>confirmation your organisation adheres to the government code of conduct</li>\n        <li>confirmation your organisation has a data handling process in place</li>\n        <li>confirmation you have a bank account set up for your organisation</li>\n    <li>confirmation your organisation's safegaurding policies are up to date</li>\n        <li>confirmation that the information you have provided is accurate</li>\n    </ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/agree-to-the-final-confirmations"
+        }
+      ],
+      "section": "OEGHno",
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "OEGHno",
+      "title": "Declarations"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to support children and young people on pathways to the UK from Ukraine, Hong Kong and Afghanistan"
+}

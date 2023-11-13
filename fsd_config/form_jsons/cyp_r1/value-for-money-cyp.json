@@ -1,0 +1,716 @@
+{
+  "metadata": {},
+  "startPage": "/intro-value-for-money",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "path": "/funding-requested",
+      "title": "Funding requested",
+      "components": [
+        {
+          "name": "vDJxWL",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-hint\">This is the amount you are applying for from the Children and Young People’s Resettlement Fund.</p> \n <p class=\"govuk-hint\">This is a revenue only fund\n</p>",
+          "schema": {}
+        },
+        {
+          "name": "JXKUcj",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "27 September 2023 to 31 March 2024",
+          "schema": {}
+        },
+        {
+          "name": "OnPeeS",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-input--width-10"
+          },
+          "type": "NumberField",
+          "title": "1 April 2024 to 31 March 2025",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/item-of-expenditure"
+        }
+      ],
+      "section": "xYdwyD"
+    },
+    {
+      "path": "/intro-value-for-money",
+      "title": "6.1 Value for money",
+      "components": [
+        {
+          "name": "fvAgYh",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>how much money you're requesting from the Fund</li>\n    <li>how you'll use the money</li>\n    <li>how many people in your organisation you'll pay with money from the Fund</li>\n    <li>how much additional funding you've secured elsewhere</li>\n    </ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/funding-requested"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/item-of-expenditure",
+      "title": "Item of expenditure",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your items of expenditure",
+          "removeText": "Delete"
+        }
+      },
+      "components": [
+        {
+          "name": "EaxCii",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">Tell us how you will use the funding. For example, staff, supplies and services, contribution to overheads, irrecoverable VAT</p> \n\n <p class=\"govuk-hint\">You can add more items on the next step.</p>"
+        },
+        {
+          "name": "qwktzL",
+          "options": {
+            "columnTitles": ["Item of expenditure", "Amount", "Year", "Action"],
+            "required": true,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "MultiInputField",
+          "title": "Item of expenditure",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "gLQlyJ",
+              "options": {
+                "hideTitle": true,
+                "classes": "govuk-!-width-full"
+              },
+              "type": "TextField",
+              "title": "Item of expenditure"
+            },
+            {
+              "name": "JizgZP",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-input--width-10"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "schema": {}
+            },
+            {
+              "name": "kjuHtl",
+              "options": {},
+              "type": "RadiosField",
+              "title": "Year",
+              "list": "yOwfxo"
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/will-you-use-additional-funding"
+        }
+      ],
+      "section": "xYdwyD",
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/will-you-use-additional-funding",
+      "title": "Will you use additional funding for your project?",
+      "components": [
+        {
+          "name": "qwktlZ",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Will you use additional funding for your project?",
+          "hint": "<p class=\"govuk-hint\">For example, money from reserves, trusts or foundations</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/additional-funding",
+          "condition": "aHJvyz"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "xYdwyD"
+    },
+    {
+      "path": "/additional-funding",
+      "title": "Additional funding",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your additional funding",
+          "removeText": "Delete"
+        }
+      },
+      "components": [
+        {
+          "name": "EaxCll",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">You can add more funding sources on the next step</p>"
+        },
+        {
+          "name": "qqktzL",
+          "options": {
+            "columnTitles": [
+              "Funding source",
+              "Amount",
+              "Date",
+              "Type",
+              "Action"
+            ],
+            "required": true,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "MultiInputField",
+          "title": "Funding source",
+          "hint": "<p class=\"govuk-hint\">You can add more funding sources on the next step</p>",
+          "schema": {},
+          "children": [
+            {
+              "name": "gLqiyJ",
+              "options": {},
+              "type": "TextField",
+              "title": "Funding source",
+              "hint": "<p class=\"govuk-hint\">For example, money from reserves, trusts or foundations</p>"
+            },
+            {
+              "name": "yuzbjT",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-input--width-10"
+              },
+              "type": "NumberField",
+              "title": "Amount",
+              "schema": {}
+            },
+            {
+              "name": "HpLJyL",
+              "type": "MonthYearField",
+              "title": "When is the additional funding available from?",
+              "hint": "<p class=\"govuk-hint\">For example, 3 2024</p>",
+              "nameHasError": false,
+              "options": {}
+            },
+            {
+              "name": "MadvIr",
+              "options": {},
+              "type": "RadiosField",
+              "title": "Which type of funding is it?",
+              "list": "yOwfxi"
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "xYdwyD",
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "section": "xYdwyD",
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Which type of funding is it?",
+      "name": "yOwfxi",
+      "type": "string",
+      "items": [
+        {
+          "text": "Capital",
+          "value": "Capital"
+        },
+        {
+          "text": "Revenue",
+          "value": "Revenue"
+        }
+      ]
+    },
+    {
+      "title": "Year",
+      "name": "yOwfxo",
+      "type": "string",
+      "items": [
+        {
+          "text": "27 September 2023 to 31 March 2024",
+          "value": "27 September 2023 to 31 March 2024"
+        },
+        {
+          "text": "1 April 2024 to 31 March 2025",
+          "value": "1 April 2024 to 31 March 2025"
+        }
+      ]
+    },
+    {
+      "title": "Focus of the project",
+      "name": "hfQISg",
+      "type": "string",
+      "items": [
+        {
+          "text": "Trauma support",
+          "value": "trauma-support"
+        },
+        {
+          "text": "Mental health and wellbeing",
+          "value": "mental-health-and-wellbeing"
+        },
+        {
+          "text": "Teaching English as a language",
+          "value": "teaching-english-as-a-language"
+        },
+        {
+          "text": "Peer groups and befriending",
+          "value": "peer-groups-and-befriending"
+        },
+        {
+          "text": "Supporting hosts and sponsors",
+          "value": "supporting-hosts-and-sponsors"
+        },
+        {
+          "text": "Maintaining links to culture",
+          "value": "maintaining-links-to-culture"
+        }
+      ]
+    },
+    {
+      "title": "Cohort focus",
+      "name": "YSgfSN",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ukrainian schemes",
+          "value": "ukrainian-schemes"
+        },
+        {
+          "text": "Hong Kong British Nationals (Overseas)",
+          "value": "hong-kong-british-nationals"
+        },
+        {
+          "text": "Afghan citizens resettlement scheme",
+          "value": "afghan-citizens-resettlement-scheme"
+        }
+      ]
+    },
+    {
+      "title": "Eligibility",
+      "name": "qwnTyS",
+      "type": "string",
+      "items": [
+        {
+          "text": "Upper or lower tier local authority",
+          "value": "1"
+        },
+        {
+          "text": "Charity with a registered charity number",
+          "value": "2"
+        },
+        {
+          "text": "Registered community interest company",
+          "value": "3"
+        },
+        {
+          "text": "Social enterprise",
+          "value": "4"
+        },
+        {
+          "text": "Community group",
+          "value": "5"
+        },
+        {
+          "text": "None of these",
+          "value": "6",
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "xYdwyD",
+      "title": "Value for money"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "additional funding yes",
+      "name": "aHJvyz",
+      "value": {
+        "name": "additional funding yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "qwktlZ",
+              "type": "YesNoField",
+              "display": "Will you use additional funding for your project?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "org other name yes",
+      "name": "aHJVVz",
+      "value": {
+        "name": "org other name yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Org other name no",
+      "name": "tOevBV",
+      "value": {
+        "name": "Org other name no",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "joint bid yes",
+      "name": "nMJAdu",
+      "value": {
+        "name": "joint bid yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "MRdGKt",
+              "type": "YesNoField",
+              "display": "Is your application a joint bid in partnership with other organisations?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "joint bid no",
+      "name": "ZhSWyC",
+      "value": {
+        "name": "joint bid no",
+        "conditions": [
+          {
+            "field": {
+              "name": "MRdGKt",
+              "type": "YesNoField",
+              "display": "Is your application a joint bid in partnership with other organisations?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "authorised signatory yes",
+      "name": "hDzCae",
+      "value": {
+        "name": "authorised signatory yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "DbFHbD",
+              "type": "YesNoField",
+              "display": "Is the lead contact the same person as the authorised signatory?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "authorised signatory no",
+      "name": "bDEBOE",
+      "value": {
+        "name": "authorised signatory no",
+        "conditions": [
+          {
+            "field": {
+              "name": "DbFHbD",
+              "type": "YesNoField",
+              "display": "Is the lead contact the same person as the authorised signatory?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Similar projects no",
+      "name": "tjnNpA",
+      "value": {
+        "name": "Similar projects no",
+        "conditions": [
+          {
+            "field": {
+              "name": "HrGXKi",
+              "type": "YesNoField",
+              "display": "Have you delivered projects like this before?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Similar projects yes",
+      "name": "VMLTbi",
+      "value": {
+        "name": "Similar projects yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "HrGXKi",
+              "type": "YesNoField",
+              "display": "Have you delivered projects like this before?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Ukraine support",
+      "name": "btRdYE",
+      "value": {
+        "name": "Ukraine support",
+        "conditions": [
+          {
+            "field": {
+              "name": "vYYoAC",
+              "type": "CheckboxesField",
+              "display": "Which cohort will your project focus on?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "ukrainian-schemes",
+              "display": "ukrainian-schemes"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Organisation no",
+      "name": "dfsBce",
+      "value": {
+        "name": "Organisation no",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Organisation yes",
+      "name": "GZIoHg",
+      "value": {
+        "name": "Organisation yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "KUdOhN",
+              "type": "YesNoField",
+              "display": "Does your organisation use any other names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Not a joint bid",
+      "name": "MbgmFQ",
+      "value": {
+        "name": "Not a joint bid",
+        "conditions": [
+          {
+            "field": {
+              "name": "MRdGKt",
+              "type": "YesNoField",
+              "display": "Is your application a joint bid in partnership with other organisations?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Based in england no",
+      "name": "JZGvHK",
+      "value": {
+        "name": "Based in england no",
+        "conditions": [
+          {
+            "field": {
+              "name": "qGbSWS",
+              "type": "YesNoField",
+              "display": "Is your organisation based in England?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Take place in England no",
+      "name": "LOPfHT",
+      "value": {
+        "name": "Take place in England no",
+        "conditions": [
+          {
+            "field": {
+              "name": "mknqUV",
+              "type": "YesNoField",
+              "display": "Will the project take place in England?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to support children and young people on pathways to the UK from Ukraine, Hong Kong and Afghanistan"
+}

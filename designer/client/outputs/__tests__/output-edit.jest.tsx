@@ -44,7 +44,7 @@ describe("OutputEdit", () => {
           type: "notify",
           outputConfiguration: {
             templateId: "123ID",
-            apiKey: "123KEY",
+            apiKey: "123KEY", // pragma: allowlist secret
             emailField: "9WH4EX",
             personalisation: [],
           },
@@ -101,7 +101,7 @@ describe("OutputEdit", () => {
           outputConfiguration: {
             personalisation: [],
             templateId: "NewTemplateId",
-            apiKey: "NewAPIKey",
+            apiKey: "NewAPIKey", // pragma: allowlist secret
             emailField: "9WH4EX",
             addReferencesToPersonalisation: true,
           },

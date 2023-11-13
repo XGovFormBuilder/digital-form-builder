@@ -1,0 +1,221 @@
+{
+  "metadata": {},
+  "startPage": "/intro-risk-and-deliverability",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "section": "hhbMar",
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/intro-risk-and-deliverability",
+      "title": "5.1 Risk and deliverability",
+      "components": [
+        {
+          "name": "gMoQAm",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>risks to the project</li>\n        <li>the likelihood of the risks</li>\n        <li>the impact of the risks</li>\n        <li>how you'll mitigate the risks</li>\n        <li>a person accountable for the risk register</li>\n        <li>your organisation's governance structure</li>\n    </ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/risks-to-the-project"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/risks-to-the-project",
+      "title": "Risks to the project",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Your project risks",
+          "removeText": "Delete"
+        }
+      },
+      "components": [
+        {
+          "name": "EaxCuu",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-s\">Risks to the project</h2>\n\n<p class=\"govuk-hint\">Tell us about: </p>\n\n<ul class=\"govuk-hint\">\n<li>any risks to the project</li>\n<li>the liklihood of them happening</li>\n<li>the impact they'll have on the project</li>\n<li>how you plan to mitigate them</li>\n</ul>\n</p>\n<p class=\"govuk-hint\">You can add more risks on the next step.</p>\n\n\n\n"
+        },
+        {
+          "name": "qQLYzL",
+          "options": {
+            "columnTitles": [
+              "Risk",
+              "Likelihood",
+              "Impact",
+              "Proposed mitigation",
+              "Action"
+            ],
+            "required": true
+          },
+          "type": "MultiInputField",
+          "title": "Risks to the project",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "CzoasH",
+              "options": {
+                "maxWords": "500"
+              },
+              "type": "MultilineTextField",
+              "title": "Risk",
+              "schema": {}
+            },
+            {
+              "name": "eADHGN",
+              "options": {},
+              "type": "RadiosField",
+              "title": "Likelihood",
+              "list": "zOwfxe"
+            },
+            {
+              "name": "MPHvIr",
+              "options": {},
+              "type": "RadiosField",
+              "title": "Impact",
+              "list": "yOwfxe"
+            },
+            {
+              "name": "SKQluJ",
+              "options": {
+                "maxWords": "500"
+              },
+              "type": "MultilineTextField",
+              "title": "Proposed mitigation",
+              "schema": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-is-responsible-risk-register"
+        }
+      ],
+      "section": "hhbMar",
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/who-is-responsible-risk-register",
+      "title": "Who owns the overall risk register?",
+      "components": [
+        {
+          "name": "KHESdE",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "TextField",
+          "title": "Who owns the overall risk register?",
+          "hint": "<div class=\"govuk-hint\">Enter a full name</div>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/organisation-governance-structure"
+        }
+      ],
+      "section": "hhbMar"
+    },
+    {
+      "path": "/organisation-governance-structure",
+      "title": "Tell us about your organisation's governance structure",
+      "components": [
+        {
+          "name": "KHESFr",
+          "options": {
+            "hideTitle": true,
+            "maxWords": 500
+          },
+          "type": "FreeTextField",
+          "title": "Tell us about your organisation's governance structure",
+          "hint": "<p class=\"govuk-hint\">Include members of your board, their roles and main responsibilities</p>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "hhbMar"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Likelihood",
+      "name": "zOwfxe",
+      "type": "string",
+      "items": [
+        {
+          "text": "High",
+          "value": "High"
+        },
+        {
+          "text": "Medium",
+          "value": "Medium"
+        },
+        {
+          "text": "Low",
+          "value": "Low"
+        }
+      ]
+    },
+    {
+      "title": "Impact",
+      "name": "yOwfxe",
+      "type": "string",
+      "items": [
+        {
+          "text": "High",
+          "value": "High"
+        },
+        {
+          "text": "Medium",
+          "value": "Medium"
+        },
+        {
+          "text": "Low",
+          "value": "Low"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "hhbMar",
+      "title": "Risk and deliverability"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to support children and young people on pathways to the UK from Ukraine, Hong Kong and Afghanistan"
+}

@@ -1,0 +1,14 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-ast
+-   repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+    -   id: detect-secrets
+        args: ['--disable-plugin', 'HexHighEntropyString',
+          '--disable-plugin', 'Base64HighEntropyString']
+        exclude: '(runner/config/custom-environment-variables.json|.yarn/releases/yarn-2.4.0.cjs)'

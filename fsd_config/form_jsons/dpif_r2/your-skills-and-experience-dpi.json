@@ -1,0 +1,147 @@
+{
+  "metadata": {},
+  "startPage": "/31-your-skills-and-experience",
+  "pages": [
+    {
+      "title": "3.1 Your skills and experience",
+      "path": "/31-your-skills-and-experience",
+      "components": [
+        {
+          "name": "MbtXtU",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>whether your organisation has delivered projects like this before </li>\n<li>information about the projects you've delivered before (if applicable) </li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/has-your-organisation-delivered-projects-like-this-before"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/has-your-organisation-delivered-projects-like-this-before",
+      "title": "Has your organisation delivered projects like this before?",
+      "components": [
+        {
+          "name": "rGADMs",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Has your organisation delivered projects like this before?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary",
+          "condition": "QOCrNa"
+        },
+        {
+          "path": "/similar-previous-projects",
+          "condition": "MAfLtk"
+        }
+      ],
+      "section": "akREtH"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "akREtH"
+    },
+    {
+      "path": "/similar-previous-projects",
+      "title": "Tell us about how your organisation has worked on similar previous projects",
+      "components": [
+        {
+          "name": "zHgZBx",
+          "options": {
+            "hideTitle": true,
+            "maxWords": "250"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us about how your organisation has worked on similar previous projects",
+          "hint": "<div class=\"govuk-hint\">Tell us about:\n<ul class=\"govuk-list govuk-list--bullet govuk-hint\">\n  <li>the scale of the project</li>\n  <li>the value of the project</li>\n  <li>who was involved</li>\n</ul>\n</div>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "akREtH"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "akREtH",
+      "title": "Your skills and experience"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "previous projects",
+      "name": "MAfLtk",
+      "value": {
+        "name": "previous projects",
+        "conditions": [
+          {
+            "field": {
+              "name": "rGADMs",
+              "type": "YesNoField",
+              "display": "Has your organisation delivered projects like this before?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Previous project no",
+      "name": "QOCrNa",
+      "value": {
+        "name": "Previous project no",
+        "conditions": [
+          {
+            "field": {
+              "name": "rGADMs",
+              "type": "YesNoField",
+              "display": "Has your organisation delivered projects like this before?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to begin your digital planning improvement journey"
+}

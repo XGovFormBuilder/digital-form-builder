@@ -143,7 +143,7 @@ Copilot is the deployment of the infrastructure configuration, which is all stor
 For each AWS account, these commands will need to be run _once_ to initialise the environment:
 
 `copilot app init pre-award` - this links the pre-award app with the current service, and associates the next commands with the service. Essentially, this provides context for the service to run under
-    
+
 ```
 copilot init \
     --name fsd-form-runner \
@@ -152,5 +152,5 @@ copilot init \
     --image "ghcr.io/${{github.repository_owner}}"/runner \
     --port 80
 ```
-    
+
 This will initalise this service, using the current created image

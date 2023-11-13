@@ -19,7 +19,7 @@ suite("Server Auth", () => {
       config.authClientTokenUrl = "https://example.org/oauth/token";
       config.authClientProfileUrl = "https://example.org/oauth/profile";
       config.authClientId = "oAuthClientID";
-      config.authClientSecret = "oAuthClientSecret";
+      config.authClientSecret = "oAuthClientSecret"; // pragma: allowlist secret
       server = await createServer({});
       await server.start();
     });

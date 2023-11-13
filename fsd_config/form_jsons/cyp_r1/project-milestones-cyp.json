@@ -1,0 +1,118 @@
+{
+  "metadata": {},
+  "startPage": "/intro-project-milestones",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "path": "/project-milestones",
+      "title": "Project milestones",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": false,
+          "separatePage": true,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "Project milestones",
+          "removeText": "Delete"
+        }
+      },
+      "components": [
+        {
+          "name": "LAUkqw",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-hint\">Tell us your project's milestones up to, and including 2025.</p>\n\n<p class=\"govuk-hint\">You should mention the key deliverables that will help you monitor your progress.</p>\n\n<p class=\"govuk-hint\">You can add more milestones on the next step.</p>\n\n"
+        },
+        {
+          "name": "tAoOKx",
+          "options": {
+            "columnTitles": ["Milestone", "Date", "Action"],
+            "required": true
+          },
+          "type": "MultiInputField",
+          "title": "Project milestones",
+          "hint": "The MultiInputField needed",
+          "schema": {},
+          "children": [
+            {
+              "name": "HpLJDu",
+              "options": {
+                "maxWords": "200"
+              },
+              "type": "MultilineTextField",
+              "title": "Milestone",
+              "hint": "<p class=\"govuk-hint\">For example, recruit member of staff, reach a percentage of the proposed recipients, deliver a particular activity</p>",
+              "schema": {}
+            },
+            {
+              "type": "MonthYearField",
+              "title": "When will you reach this milestone?",
+              "hint": "<p class=\"govuk-hint\">For example, 3 2024</p>",
+              "name": "LZbOBu",
+              "nameHasError": false,
+              "options": {}
+            }
+          ]
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "zACCPu",
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/summary",
+      "title": "Check your answers",
+      "components": [],
+      "next": [],
+      "section": "zACCPu",
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/intro-project-milestones",
+      "title": "4.3 Project milestones",
+      "section": "zACCPu",
+      "components": [
+        {
+          "name": "WpaKDW",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><strong>In this section, we'll ask about:  </strong></p><ul class=\"govuk-list govuk-list--bullet\">\n        <li>your project's milestones</li>\n        <li>when you expect to reach the milestones</li>\n    </ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/project-milestones"
+        }
+      ],
+      "controller": "./pages/start.js"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "zACCPu",
+      "title": "Project milestones"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to support children and young people on pathways to the UK from Ukraine, Hong Kong and Afghanistan"
+}

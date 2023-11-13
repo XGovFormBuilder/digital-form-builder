@@ -49,7 +49,7 @@
   GOVUK.getCookie = function (name) {
     var nameEQ = name + '='
     var cookies = document.cookie.split(';')
-    
+
     for (var i = 0, len = cookies.length; i < len; i++) {
       var cookie = cookies[i]
       while (cookie.charAt(0) === ' ') {

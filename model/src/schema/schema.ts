@@ -258,6 +258,7 @@ export const Schema = joi
     specialPages: specialPagesSchema.optional(),
     backLinkText: joi.string().allow("").optional(),
     footer: joi.array().items(footerSchema).optional(),
+    markAsComplete: joi.boolean().default(false),
   });
 
 /**
