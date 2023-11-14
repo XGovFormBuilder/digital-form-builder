@@ -8,19 +8,17 @@
     "esModuleInterop": true,
     "paths": {
       "src/*": ["src/*"],
-      "server/*": ["src/server/*"],
+      "server/*": ["src/server/*"]
     },
     "resolveJsonModule": true,
     "lib": [
       "dom",
+      "ES2020.String",
       "ES2020.Promise",
       "ES2019.Object",
       "ES2019.Array"
     ],
     "skipLibCheck": true
   },
-  "include": [
-    "src",
-    "package.json"
-  ]
+  "include": ["src", "package.json"]
 }
