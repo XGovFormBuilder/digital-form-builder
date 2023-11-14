@@ -1,6 +1,6 @@
 import joi from "joi";
-import Joi from "joi";
 import { add, startOfToday, sub } from "date-fns";
+import { FormSubmissionState } from "server/plugins/engine/types";
 
 /**
  * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
@@ -118,4 +118,33 @@ export function getCustomDateValidator(
     }
     return value;
   };
+export function getVarsFromContent(content: string) {
+  const fieldsUsedAtTopLevelRegex = new RegExp(
+    /\{\{([a-zA-Z0-9\s_-]*)}}/,
+    "gm"
+  );
+  const fieldsUsedByTemplateRegex = new RegExp(
+    /\{\{[a-zA-Z0-9]*\[([a-zA-Z0-9\s]*)\]\.[a-zA-Z0-9_-]*}}/,
+    "gm"
+  );
+  const topLevelVars = [...content.matchAll(fieldsUsedAtTopLevelRegex)].map(
+    (variable) => variable[1]
+  );
+  const fieldsUsedByTemplate = [
+    ...content.matchAll(fieldsUsedByTemplateRegex),
+  ].map((variable) => variable[1]);
+  return [...new Set(topLevelVars.concat(fieldsUsedByTemplate))];
+}
+
+export function getTemplateVarsFromContentVars(
+  vars: string[],
+  state: FormSubmissionState
+) {
+  return vars.reduce(
+    (acc, curr) => ({
+      ...acc,
+      [curr]: state[curr],
+    }),
+    {}
+  );
 }
