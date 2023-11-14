@@ -26,7 +26,7 @@
           "name": "azSyOn",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">This page demonstrates how templating works.</p>\n<p class=\"govuk-body\">Depending on the answer you chose for the first question, you should see different content displayed below.</p>\n<p class=\"govuk-body\">You chosen the option: {{contentToDisplay}}</p>\n{{additionalContexts.example[contentToDisplay].additionalInfo | safe}}\n<p class=\"govuk-body\">The following list will have different items</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n{{additionalContexts.example[contentToDisplay].additionalDocs | safe }}\n</ul>"
+          "content": "<p class=\"govuk-body\">This page demonstrates how templating works.</p>\n<p class=\"govuk-body\">Depending on the answer you chose for the first question, you should see different content displayed below.</p>\n<p class=\"govuk-body\">You chosen the option: {{contentToDisplay}}</p>\n{{additionalContexts.example[contentToDisplay].additionalInfo | safe}}\n<p class=\"govuk-body\">The following list will have different items</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n{{additionalContexts.example[contentToDisplay].listItems | safe }}\n</ul>"
         }
       ],
       "next": [{ "path": "/summary" }]
