@@ -88,14 +88,15 @@ export class ComponentCollection {
   getViewModel(
     formData: FormData | FormSubmissionState,
     errors?: FormSubmissionErrors,
-    conditions?: FormModel["conditions"]
+    conditions?: FormModel["conditions"],
+    state?: FormSubmissionState
   ): ComponentCollectionViewModel {
     const result =
       this.items?.map((item: any) => {
         return {
           type: item.type,
           isFormComponent: item.isFormComponent,
-          model: item.getViewModel(formData, errors),
+          model: item.getViewModel(formData, errors, state),
         };
       }) ?? [];
 
