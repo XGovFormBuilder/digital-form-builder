@@ -7,6 +7,7 @@ import { capitalize } from "lodash";
 import pkg from "../../../package.json";
 import config from "../config";
 import { HapiRequest } from "../types";
+import additionalContexts from "../templates/additionalContexts.json";
 
 const basedir = path.join(process.cwd(), "..");
 
@@ -41,7 +42,16 @@ export default {
             autoescape: true,
             watch: false,
           });
+          environment.addGlobal("additionalContexts", additionalContexts);
           environment.addFilter("isArray", (x) => Array.isArray(x));
+          environment.addFilter("interpolate", function (str, component) {
+            const newContext = {
+              ...component.model,
+              ...this.ctx,
+            };
+            console.log("This is the context: ", newContext);
+            return nunjucks.renderString(str.val, newContext);
+          });
           options.compileOptions.environment = environment;
 
           return next();
