@@ -72,7 +72,7 @@ describe("payment configuration", () => {
       ...baseConfiguration,
       feeOptions: {
         allowSubmissionWithoutPayment: false,
-        maxRetries: 10,
+        maxAttempts: 10,
         paymentReferenceFormat: "EGGS-",
         payReturnUrl: "https://my.egg.service.scramble",
       },
@@ -84,7 +84,7 @@ describe("payment configuration", () => {
 
     expect(value.feeOptions).toEqual({
       allowSubmissionWithoutPayment: false,
-      maxRetries: 10,
+      maxAttempts: 10,
       paymentReferenceFormat: "EGGS-",
       payReturnUrl: "https://my.egg.service.scramble",
     });
@@ -96,7 +96,7 @@ describe("payment configuration", () => {
       paymentReferenceFormat: "FRIED-",
       feeOptions: {
         allowSubmissionWithoutPayment: true,
-        maxRetries: 3,
+        maxAttempts: 3,
         paymentReferenceFormat: "EGGS-",
         payReturnUrl: "https://my.egg.service.scramble",
       },
@@ -108,7 +108,7 @@ describe("payment configuration", () => {
 
     expect(value.feeOptions).toEqual({
       allowSubmissionWithoutPayment: true,
-      maxRetries: 3,
+      maxAttempts: 3,
       paymentReferenceFormat: "EGGS-",
       payReturnUrl: "https://my.egg.service.scramble",
     });

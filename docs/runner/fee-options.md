@@ -31,12 +31,12 @@
 }
 ```
 
-As a failsafe, if a user was not able to pay, we will allow them to try up to 3 times (`maxRetries`), then auto submit (`"allowSubmissionWithoutPayment": true`).
+As a failsafe, if a user was not able to pay, we will allow them to try up to 3 times (`maxAttempts`), then auto submit (`"allowSubmissionWithoutPayment": true`).
 This is the default behaviour. Makes sure you check your organisations policy or legislative requirements. You must ensure there is a process to remediate payment failures.
 
 When a user fails a payment, they will see the page [pay-error](./../../runner/src/server/views/pay-error.html).
 
-When `allowSubmissionsWithoutPayment` is true, the user will also see a link which allows them to skip payment. 
+When `allowSubmissionWithoutPayment` is true, the user will also see a link which allows them to skip payment. 
 
 
 ## Recommendations 
