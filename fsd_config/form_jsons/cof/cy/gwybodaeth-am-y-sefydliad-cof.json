@@ -1,0 +1,1127 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/gwybodaeth-am-y-sefydliad",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Gwybodaeth am y sefydliad",
+      "path": "/gwybodaeth-am-y-sefydliad",
+      "components": [
+        {
+          "name": "orUXQc",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<div class=\"govuk-body\">\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>rhif traciwr unigryw</li>\n<li>enw'r sefydliad</li>\n<li>enwau amgen eich sefydliad (os yw'n gymwys)</li>\n<li>diben y sefydliad</li>\n<li>gweithgareddau'r sefydliad</li>\n<li>profiad blaenorol o brosiectau tebyg (os yw'n gymwys)</li>\n<li>math o sefydliad</li>\n<li>Rhif elusen (os yw'n gymwys)</li>\n<li>rhif cofrestru'r sefydliad (os yw'n berthnasol)</li>\n<li>corff rheoleiddio’r sefydliad</li>\n<li>manylion y rhiant-gwmni (os yw'n gymwys)</li>\n<li>cyfeiriad a chyfryngau cymdeithasol y sefydliad</li>\n<li>sefydliad partner (os yw'n gymwys)</li>\n</ul>\n</div>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/enwau-r-sefydliad"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/enwau-r-sefydliad",
+      "title": "Enwau'r sefydliad",
+      "components": [
+        {
+          "name": "WWWWxy",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Eich rhif traciwr unigryw",
+          "hint": "Roedd hwn wedi'i gynnwys yn y llythyr yr anfonom i gadarnhau eich datganiad o ddiddordeb llwyddiannus.\n<p>Er enghraifft, ‘ANON-###-###-###’</p>",
+          "schema": {}
+        },
+        {
+          "name": "YdtlQZ",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw'r sefydliad",
+          "hint": "Mae'n rhaid i hwn gyfateb i enw cyfreithiol cofrestredig eich sefydliad",
+          "schema": {}
+        },
+        {
+          "name": "iBCGxY",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich sefydliad yn defnyddio unrhyw enwau eraill?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/enwau-amgen-eich-sefydliad",
+          "condition": "RzJfsD"
+        },
+        {
+          "path": "/diben-a-gweithgareddau",
+          "condition": "IshRJh"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/enwau-amgen-eich-sefydliad",
+      "title": "Enwau amgen eich sefydliad",
+      "components": [
+        {
+          "name": "XFvKwZ",
+          "options": {},
+          "type": "Html",
+          "content": "<fieldset class=\"govuk-fieldset\" id=\"XFvKwZ\"><legend class=\"govuk-label govuk-label--s\">Enwau amgen eich sefydliad</legend>",
+          "schema": {}
+        },
+        {
+          "name": "PHFkCs",
+          "options": {
+            "classes": "govuk-!-width-full",
+            "hideTitle": true
+          },
+          "type": "TextField",
+          "title": "Enwau amgen eich sefydliad",
+          "hint": "<label for=\"PHFkCs\" class=\"govuk-body\">Enw amgen 1</label>",
+          "schema": {}
+        },
+        {
+          "name": "QgNhXX",
+          "options": {
+            "hideTitle": true,
+            "required": false,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enwau amgen eich sefydliad - Enw amgen 2 ",
+          "hint": "<label for=\"QgNhXX\" class=\"govuk-body\">Enw amgen 2 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "XCcqae",
+          "options": {
+            "hideTitle": true,
+            "required": false,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enwau amgen eich sefydliad - Enw amgen 3 ",
+          "hint": "<label for=\"XCcqae\" class=\"govuk-body\">Enw amgen 3 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "yiAMdU",
+          "options": {},
+          "type": "Html",
+          "content": "</fieldset>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/diben-a-gweithgareddau"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/diben-a-gweithgareddau",
+      "title": "Diben a gweithgareddau",
+      "components": [
+        {
+          "name": "emVGxS",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Beth yw prif ddiben eich sefydliad?",
+          "schema": {},
+          "hint": "Dyma beth y sefydlwyd y sefydliad i'w gyflawni."
+        },
+        {
+          "name": "tgnZof",
+          "options": {},
+          "type": "Html",
+          "content": "<fieldset class=\"govuk-fieldset\" id=\"tgnZof\"><legend class=\"govuk-label govuk-label--s\">Dywedwch wrthym am brif weithgareddau eich sefydliad</legend>\n\n<div class=\"govuk-hint\">Cynhwyswch unrhyw weithgareddau yr ydych yn ymgymryd â nhw er mwyn cyflawni pwrpas y sefydliad.</div>\n\n<p class=\"govuk-hint\">Rhaid i chi restru o leiaf un, a gall gynnwys hyd at dri.</p>",
+          "schema": {}
+        },
+        {
+          "name": "btTtIb",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am brif weithgareddau eich sefydliad",
+          "hint": "<label for=\"btTtIb\" class=\"govuk-body\">Gweithgarwch 1</label>",
+          "schema": {}
+        },
+        {
+          "name": "SkocDi",
+          "options": {
+            "hideTitle": true,
+            "required": false,
+            "optionalText": false,
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am brif weithgareddau eich sefydliad - Gweithgarwch 2 ",
+          "hint": "<label for=\"SkocDi\" class=\"govuk-body\">Gweithgarwch 2 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "CNeeiC",
+          "options": {
+            "hideTitle": true,
+            "maxWords": "500",
+            "required": false
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am brif weithgareddau eich sefydliad - Gweithgarwch 3 ",
+          "hint": "<label for=\"CNeeiC\" class=\"govuk-body\">Gweithgarwch 3 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "DhpcVW",
+          "options": {},
+          "type": "Html",
+          "content": "</fieldset>",
+          "schema": {}
+        },
+        {
+          "name": "BBlCko",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A ydych chi wedi cyflawni prosiectau fel hwn o'r blaen?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/prosiectau-blaenorol-sy-n-debyg-i-r-prosiect-hwn",
+          "condition": "iUHNKI"
+        },
+        {
+          "path": "/sut-mae-eich-sefydliad-yn-cael-ei-ddosbarthu",
+          "condition": "RzrXoE"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/prosiectau-blaenorol-sy-n-debyg-i-r-prosiect-hwn",
+      "title": "Prosiectau blaenorol sy'n debyg i'r prosiect hwn",
+      "components": [
+        {
+          "name": "SXfYwl",
+          "options": {},
+          "type": "Html",
+          "content": "<fieldset class=\"govuk-fieldset\" id=\"SXfYwl\"><legend class=\"govuk-label govuk-label--s\">Disgrifiwch eich prosiectau blaenorol</legend>",
+          "schema": {}
+        },
+        {
+          "name": "wxCszQ",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch eich prosiectau blaenorol",
+          "hint": "<label for=\"wxCszQ\" class=\"govuk-body\">Prosiect 1</label>",
+          "schema": {}
+        },
+        {
+          "name": "QJFQgi",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true,
+            "required": false
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch eich prosiectau blaenorol - Prosiect 2 ",
+          "hint": "<label for=\"QJFQgi\" class=\"govuk-body\">Prosiect 2 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "DGNWqE",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true,
+            "required": false
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch eich prosiectau blaenorol - Prosiect 3 ",
+          "hint": "<label for=\"DGNWqE\" class=\"govuk-body\">Prosiect 3 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "lsKMnV",
+          "options": {},
+          "type": "Html",
+          "content": "</fieldset>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-mae-eich-sefydliad-yn-cael-ei-ddosbarthu"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/sut-mae-eich-sefydliad-yn-cael-ei-ddosbarthu",
+      "title": "Sut mae eich sefydliad yn cael ei ddosbarthu",
+      "components": [
+        {
+          "name": "lajFtB",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Math o sefydliad",
+          "hint": "Dewiswch un opsiwn",
+          "list": "ATpRJn",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-mae-eich-sefydliad-yn-cael-ei-ddosbarthu-arall",
+          "condition": "HkIMoI"
+        },
+        {
+          "path": "/manylion-cofrestru-r-cwmni",
+          "condition": "mNExjy"
+        },
+        {
+          "path": "/manylion-cofrestru-r-elusen",
+          "condition": "EfGsOh"
+        },
+        {
+          "path": "/is-gwmniau-masnachu",
+          "condition": "zZSerd"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/sut-mae-eich-sefydliad-yn-cael-ei-ddosbarthu-arall",
+      "title": "Sut mae eich sefydliad yn cael ei ddosbarthu",
+      "components": [
+        {
+          "name": "plmwJv",
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "title": "Math o sefydliad (Arall)",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/manylion-cofrestru"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/manylion-cofrestru",
+      "title": "Manylion cofrestru",
+      "components": [
+        {
+          "name": "GvPSna",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Gyda pha gorff rheoleiddio y mae eich cwmni wedi'i gofrestru?",
+          "hint": "Dewiswch un opsiwn",
+          "list": "jcNxEX",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/ynglyn-a-ch-sefydliad",
+          "condition": "BiTnsS"
+        },
+        {
+          "path": "/is-gwmniau-masnachu"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/manylion-cofrestru-r-elusen",
+      "title": "Manylion cofrestru'r elusen",
+      "components": [
+        {
+          "name": "aHIGbK",
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "NumberField",
+          "title": "Charity number ",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-gwmniau-masnachu"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/is-gwmniau-masnachu",
+      "title": "Is-gwmnïau masnachu",
+      "components": [
+        {
+          "name": "DwfHtk",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich sefydliad yn is-gwmni masnachol i riant-gwmni?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/manylion-rhiant-sefydliad",
+          "condition": "UlBxQv"
+        },
+        {
+          "path": "/cyfeiriad-y-sefydliad",
+          "condition": "kcWadF"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/manylion-rhiant-sefydliad",
+      "title": "Manylion rhiant-sefydliad",
+      "components": [
+        {
+          "name": "MPNlZx",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw'r rhiant-sefydliad",
+          "schema": {}
+        },
+        {
+          "name": "MyiYMw",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "Dyddiad y sefydlwyd y rhiant-sefydliad",
+          "hint": "Er enghraifft, 27 3 2007",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/cyfeiriad-y-sefydliad"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/cyfeiriad-y-sefydliad",
+      "title": "Cyfeiriad y sefydliad",
+      "components": [
+        {
+          "name": "ZQolYb",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "Cyfeiriad y sefydliad",
+          "schema": {}
+        },
+        {
+          "name": "zsoLdf",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich cyfeiriad gohebu yn wahanol i gyfeiriad y sefydliad?",
+          "schema": {}
+        },
+        {
+          "name": "zyWOmY",
+          "options": {},
+          "type": "Html",
+          "content": "<fieldset class=\"govuk-fieldset\" id=\"zyWOmY\"><legend class=\"govuk-label govuk-label--s\">Gwefan a chyfryngau cymdeithasol<span class=\"govuk-body\"></br><div class=\"govuk-hint\">Er enghraifft, cyfrifon Facebook, Instagram neu Twitter eich cwmni (os yw'n gymwys)</div></span></legend></br>",
+          "schema": {}
+        },
+        {
+          "name": "FhbaEy",
+          "options": {
+            "classes": "govuk-!-width-full",
+            "hideTitle": true
+          },
+          "type": "WebsiteField",
+          "title": "Gwefan a chyfryngau cymdeithasol",
+          "hint": "<label for=\"FhbaEy\" class=\"govuk-body\">Dolen 1</label>\n",
+          "schema": {}
+        },
+        {
+          "name": "FcdKlB",
+          "options": {
+            "hideTitle": true,
+            "required": false,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "WebsiteField",
+          "title": "Gwefan a chyfryngau cymdeithasol - Dolen 2",
+          "hint": "<label for=\"FcdKlB\" class=\"govuk-body\">Dolen 2 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "BzxgDA",
+          "options": {
+            "hideTitle": true,
+            "required": false,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "WebsiteField",
+          "title": "Gwefan a chyfryngau cymdeithasol - Dolen 3",
+          "hint": "<label for=\"BzxgDA\" class=\"govuk-body\">Dolen 3 (dewisol)</label>",
+          "schema": {}
+        },
+        {
+          "name": "vuutkz",
+          "options": {},
+          "type": "Html",
+          "content": "</fieldset>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/cyfeiriad-gohebu",
+          "condition": "fvQqsO"
+        },
+        {
+          "path": "/ceisiadau-ar-y-cyd",
+          "condition": "MnYndb"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/cyfeiriad-gohebu",
+      "title": "Cyfeiriad gohebu",
+      "components": [
+        {
+          "name": "VhkCbM",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "Cyfeiriad gohebu",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/ceisiadau-ar-y-cyd"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/ceisiadau-ar-y-cyd",
+      "title": "Ceisiadau ar y cyd",
+      "components": [
+        {
+          "name": "hnLurH",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich cais yn gynnig ar y cyd mewn partneriaeth â sefydliadau eraill",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/manylion-sefydliad-partner",
+          "condition": "gCTswV"
+        },
+        {
+          "path": "/summary",
+          "condition": "erqBEX"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/manylion-sefydliad-partner",
+      "title": "Manylion sefydliad partner",
+      "components": [
+        {
+          "name": "APSjeB",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw'r sefydliad partner",
+          "schema": {}
+        },
+        {
+          "name": "biTJjF",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "Cyfeiriad y sefydliad partner",
+          "schema": {}
+        },
+        {
+          "name": "IkmvEt",
+          "options": {
+            "maxWords": "500",
+            "hideTitle": true
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am eich partneriaeth a sut rydych chi'n bwriadu gweithio gyda'ch gilydd",
+          "schema": {},
+          "hint": "<span class=\"govuk-label govuk-label--s\">Dywedwch wrthym am eich partneriaeth a sut rydych chi'n bwriadu gweithio gyda'ch gilydd</span>Os ydych chi'n gweithio mewn partneriaeth â mwy nag un sefydliad, rhowch eu manylion yma"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebio",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/manylion-cofrestru-r-cwmni",
+      "title": "Manylion cofrestru'r cwmni",
+      "components": [
+        {
+          "name": "GlPmCX",
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "title": "Rhif cofrestru'r cwmni",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/manylion-cofrestru"
+        }
+      ],
+      "section": "JBqDtK"
+    },
+    {
+      "path": "/ynglyn-a-ch-sefydliad",
+      "title": "Ynglŷn â'ch sefydliad",
+      "components": [
+        {
+          "name": "nITyAP",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Manylion cofrestru</h2>",
+          "schema": {}
+        },
+        {
+          "name": "zsbmRx",
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "title": "Gyda pha gorff rheoleiddio y mae eich cwmni wedi'i gofrestru? (Arall)",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-gwmniau-masnachu"
+        }
+      ],
+      "section": "JBqDtK"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Math o sefydliad",
+      "name": "ATpRJn",
+      "type": "string",
+      "items": [
+        {
+          "text": "Sefydliad corfforedig elusennol (CIO)",
+          "value": "CIO"
+        },
+        {
+          "text": "Cwmni cydweithredol, fel cymdeithas budd cymunedol",
+          "value": "COOP"
+        },
+        {
+          "text": "Cwmni buddiannau cymunedol (CIC)",
+          "value": "CIC"
+        },
+        {
+          "text": "Company limited by guarantee",
+          "value": "CLG"
+        },
+        {
+          "text": "Sefydliad corfforedig elusennol yr Alban (SCIO)",
+          "value": "SCIO"
+        },
+        {
+          "text": "Parish, town or community council",
+          "value": "PTC"
+        },
+        {
+          "text": "Arall",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Which regulatory body is your company registered with",
+      "name": "jcNxEX",
+      "type": "string",
+      "items": [
+        {
+          "text": "Tŷ'r Cwmnïau",
+          "value": "House"
+        },
+        {
+          "text": "Arall",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Section as Complete",
+      "name": "dwPYuR",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ydw, rwyf wedi cwblhau'r adran hon",
+          "value": "Yes"
+        },
+        {
+          "text": "Nac ydw, byddaf yn mynd yn ôl ati nes ymlaen",
+          "value": "No"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "JBqDtK",
+      "title": "Gwybodaeth am y sefydliad"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "A yw eich sefydliad yn defnyddio unrhyw enwau eraill-yes",
+      "name": "RzJfsD",
+      "value": {
+        "name": "A yw eich sefydliad yn defnyddio unrhyw enwau eraill-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "iBCGxY",
+              "type": "YesNoField",
+              "display": "A yw eich sefydliad yn defnyddio unrhyw enwau eraill?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich sefydliad yn defnyddio unrhyw enwau eraill-no",
+      "name": "IshRJh",
+      "value": {
+        "name": "A yw eich sefydliad yn defnyddio unrhyw enwau eraill-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "iBCGxY",
+              "type": "YesNoField",
+              "display": "A yw eich sefydliad yn defnyddio unrhyw enwau eraill?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych chi wedi cyflawni prosiectau fel hwn o'r blaen-yes",
+      "name": "iUHNKI",
+      "value": {
+        "name": "A ydych chi wedi cyflawni prosiectau fel hwn o'r blaen-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "BBlCko",
+              "type": "YesNoField",
+              "display": "A ydych chi wedi cyflawni prosiectau fel hwn o'r blaen?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych chi wedi cyflawni prosiectau fel hwn o'r blaen-no",
+      "name": "RzrXoE",
+      "value": {
+        "name": "A ydych chi wedi cyflawni prosiectau fel hwn o'r blaen-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "BBlCko",
+              "type": "YesNoField",
+              "display": "A ydych chi wedi cyflawni prosiectau fel hwn o'r blaen?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Math o sefydliad-other",
+      "name": "HkIMoI",
+      "value": {
+        "name": "Math o sefydliad-other",
+        "conditions": [
+          {
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Other",
+              "display": "Arall"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich sefydliad yn is-gwmni masnachol i riant-gwmni-yes",
+      "name": "UlBxQv",
+      "value": {
+        "name": "A yw eich sefydliad yn is-gwmni masnachol i riant-gwmni-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "DwfHtk",
+              "type": "YesNoField",
+              "display": "A yw eich sefydliad yn is-gwmni masnachol i riant-gwmni?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich cyfeiriad gohebu yn wahanol i gyfeiriad y sefydliad-yes",
+      "name": "fvQqsO",
+      "value": {
+        "name": "A yw eich cyfeiriad gohebu yn wahanol i gyfeiriad y sefydliad-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "zsoLdf",
+              "type": "YesNoField",
+              "display": "A yw eich cyfeiriad gohebu yn wahanol i gyfeiriad y sefydliad?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich cyfeiriad gohebu yn wahanol i gyfeiriad y sefydliad-no",
+      "name": "MnYndb",
+      "value": {
+        "name": "A yw eich cyfeiriad gohebu yn wahanol i gyfeiriad y sefydliad-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "zsoLdf",
+              "type": "YesNoField",
+              "display": "A yw eich cyfeiriad gohebu yn wahanol i gyfeiriad y sefydliad?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich cais yn gais ar y cyd mewn partneriaeth â sefydliad arall-yes",
+      "name": "gCTswV",
+      "value": {
+        "name": "A yw eich cais yn gais ar y cyd mewn partneriaeth â sefydliad arall-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "hnLurH",
+              "type": "YesNoField",
+              "display": "A yw eich cais yn gais ar y cyd mewn partneriaeth â sefydliad arall?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich cais yn gais ar y cyd mewn partneriaeth â sefydliad arall-no",
+      "name": "erqBEX",
+      "value": {
+        "name": "A yw eich cais yn gais ar y cyd mewn partneriaeth â sefydliad arall-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "hnLurH",
+              "type": "YesNoField",
+              "display": "A yw eich cais yn gais ar y cyd mewn partneriaeth â sefydliad arall?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich sefydliad yn is-gwmni masnachol i riant-gwmni-no",
+      "name": "kcWadF",
+      "value": {
+        "name": "A yw eich sefydliad yn is-gwmni masnachol i riant-gwmni-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "DwfHtk",
+              "type": "YesNoField",
+              "display": "A yw eich sefydliad yn is-gwmni masnachol i riant-gwmni?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Math o sefydliad - opsiwn (dau, tri, pedwar)",
+      "name": "mNExjy",
+      "value": {
+        "name": "Math o sefydliad - opsiwn (dau, tri, pedwar)",
+        "conditions": [
+          {
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "COOP",
+              "display": "COOP"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "CIC",
+              "display": "CIC"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "CLG",
+              "display": "CLG"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Math o sefydliad - opsiwn (un, pump)",
+      "name": "EfGsOh",
+      "value": {
+        "name": "Math o sefydliad - opsiwn (un, pump)",
+        "conditions": [
+          {
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "CIO",
+              "display": "CIO"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "SCIO",
+              "display": "SCIO"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Gyda pha gorff rheoleiddio y mae eich cwmni wedi'i gofrestru-Arall",
+      "name": "BiTnsS",
+      "value": {
+        "name": "Gyda pha gorff rheoleiddio y mae eich cwmni wedi'i gofrestru-Arall",
+        "conditions": [
+          {
+            "field": {
+              "name": "GvPSna",
+              "type": "RadiosField",
+              "display": "Gyda pha gorff rheoleiddio y mae eich cwmni wedi'i gofrestru?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Other",
+              "display": "Arall"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Math o sefydliad - plwyf",
+      "name": "zZSerd",
+      "value": {
+        "name": "Math o sefydliad - plwyf",
+        "conditions": [
+          {
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "PTC",
+              "display": "PTC"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/sgiliau-ac-adnoddau",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Sgiliau ac adnoddau",
+      "path": "/sgiliau-ac-adnoddau",
+      "components": [
+        {
+          "name": "cNwNrt",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>profiad o reoli ased cymunedol</li>\n<li>rolau y byddwch yn eu recriwtio yn y dyfodol</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/eich-profiad-o-redeg-asedau-tebyg"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/eich-profiad-o-redeg-asedau-tebyg",
+      "title": "Eich profiad o redeg asedau tebyg",
+      "components": [
+        {
+          "name": "AfWrEq",
+          "options": {},
+          "type": "Details",
+          "title": "Help gyda sgiliau ac adnoddau",
+          "content": "<p>Byddwn yn asesu sut rydych wedi ystyried gofynion rheoli eich prosiect.</p>\n\n<p>Mae hyn yn cynnwys y camau rydych yn eu cymryd i wneud yn siŵr bod y capasiti a'r adnoddau iawn gan eich sefydliad i gynnal yr ased yn gynaliadwy.</p>\n\n<p>Mae angen i chi ddangos eich bod wedi ystyried cynllunio ar gyfer olyniaeth staff ac ymddiriedolwyr eich sefydliad.</p>\n\n<p>Os ydych chi'n bwriadu recriwtio staff i reoli a rhedeg yr ased a'i wasanaethau, darparwch drosolwg o'r cynlluniau hyn.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
+        },
+        {
+          "name": "XXGyzn",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch unrhyw brofiad perthnasol sydd gennych o gyflawni prosiectau tebyg neu redeg ased"
+        }
+      ],
+      "next": [
+        {
+          "path": "/cynlluniau-recriwtio"
+        }
+      ],
+      "section": "eLpYFr"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "eLpYFr"
+    },
+    {
+      "path": "/cynlluniau-recriwtio",
+      "title": "Cynlluniau recriwtio",
+      "components": [
+        {
+          "name": "hRxMbZ",
+          "options": {},
+          "type": "Details",
+          "content": "<p>Byddwn yn asesu sut rydych wedi ystyried gofynion rheoli eich prosiect.</p>\n\n<p>Mae hyn yn cynnwys y camau rydych yn eu cymryd i wneud yn siŵr bod y capasiti a'r adnoddau iawn gan eich sefydliad i gynnal yr ased yn gynaliadwy.</p>\n\n<p>Mae angen i chi ddangos eich bod wedi ystyried cynllunio ar gyfer olyniaeth staff ac ymddiriedolwyr eich sefydliad.</p>\n\n<p>Os ydych chi'n bwriadu recriwtio staff i reoli a chynnal yr ased a'i wasanaethau, darparwch drosolwg o'r cynlluniau hyn.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>",
+          "title": "Help gyda sgiliau ac adnoddau"
+        },
+        {
+          "name": "Uaeyae",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A oes gennych gynlluniau i recriwtio pobl i'ch helpu i redeg yr ased?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/rolau-y-byddwch-yn-recriwtio-iddynt-i-ch-helpu-i-redeg-yr-ased",
+          "condition": "PHzDof"
+        },
+        {
+          "path": "/summary",
+          "condition": "bppZmZ"
+        }
+      ],
+      "section": "eLpYFr"
+    },
+    {
+      "path": "/rolau-y-byddwch-yn-recriwtio-iddynt-i-ch-helpu-i-redeg-yr-ased",
+      "title": "Rolau y byddwch yn recriwtio iddynt i'ch helpu i redeg yr ased",
+      "components": [
+        {
+          "name": "DatnIF",
+          "options": {},
+          "type": "Details",
+          "content": "<p>Byddwn yn asesu sut rydych wedi ystyried gofynion rheoli eich prosiect.</p>\n\n<p>Mae hyn yn cynnwys y camau rydych yn eu cymryd i wneud yn siŵr bod y capasiti a'r adnoddau iawn gan eich sefydliad i gynnal yr ased yn gynaliadwy.</p>\n\n<p>Mae angen i chi ddangos eich bod wedi ystyried cynllunio ar gyfer olyniaeth staff ac ymddiriedolwyr eich sefydliad.</p>\n\n<p>Os ydych chi'n bwriadu recriwtio staff i reoli a chynnal yr ased a'i wasanaethau, darparwch drosolwg o'r cynlluniau hyn.</p>\n\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>",
+          "title": "Help gyda sgiliau ac adnoddau"
+        },
+        {
+          "name": "yHXVSA",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am y rolau y byddwch yn eu recriwtio",
+          "hint": "Dylai'r rhain fod yn swyddi a fydd yn eich helpu i reoli'r ased yn effeithiol yn ystod perchnogaeth gymunedol.\n\n<p>Cynhwyswch:\n<li>y rôl</li>\n<li>y prif gyfrifoldebau</li>\n</p>\n<p>Gallwch ddefnyddio'ch cynllun busnes i ddarparu gwybodaeth sy'n ategu'ch atebion.</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "eLpYFr"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "eLpYFr",
+      "title": "Sgiliau ac adnoddau"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "A oes gennych gynlluniau i recriwtio pobl i'ch helpu i redeg yr ased?",
+      "name": "PHzDof",
+      "value": {
+        "name": "A oes gennych gynlluniau i recriwtio pobl i'ch helpu i redeg yr ased?",
+        "conditions": [
+          {
+            "field": {
+              "name": "Uaeyae",
+              "type": "YesNoField",
+              "display": "A oes gennych gynlluniau i recriwtio pobl i'ch helpu i redeg yr ased?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A oes gennych gynlluniau i recriwtio pobl i'ch helpu i redeg yr ased-no",
+      "name": "bppZmZ",
+      "value": {
+        "name": "A oes gennych gynlluniau i recriwtio pobl i'ch helpu i redeg yr ased-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "Uaeyae",
+              "type": "YesNoField",
+              "display": "A oes gennych gynlluniau i recriwtio pobl i'ch helpu i redeg yr ased?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

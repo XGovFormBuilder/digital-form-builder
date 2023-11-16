@@ -1,0 +1,135 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/ymgysylltiad-cymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Ymgysylltiad cymunedol",
+      "path": "/ymgysylltiad-cymunedol",
+      "components": [
+        {
+          "name": "ImjRDZ",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>pwy rydych wedi ymgysylltu â nhw yn y gymuned</li>\n<li>gweithgareddau codi arian (os yw'n gymwys)</li>\n<li>sut mae eich prosiect yn cefnogi cynlluniau ehangach</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-ydych-chi-wedi-ymgysylltu-a-r-gymuned"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/sut-ydych-chi-wedi-ymgysylltu-a-r-gymuned",
+      "title": "Sut ydych chi wedi ymgysylltu â'r gymuned",
+      "components": [
+        {
+          "name": "azCutK",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym sut rydych wedi ymgysylltu â'r gymuned ynglŷn â'ch bwriad i gymryd perchnogaeth o'r ased",
+          "hint": "Rhowch enghreifftiau o'r gwahanol ffyrdd rydych chi wedi ymgysylltu â phobl, a sut mae hyn wedi llywio eich cynlluniau prosiect."
+        }
+      ],
+      "next": [
+        {
+          "path": "/eich-gweithgareddau-codi-arian"
+        }
+      ],
+      "section": "lmdhVN"
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "lmdhVN"
+    },
+    {
+      "path": "/eich-gweithgareddau-codi-arian",
+      "title": "Eich gweithgareddau codi arian",
+      "components": [
+        {
+          "name": "jAhuWN",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch eich gweithgareddau codi arian"
+        }
+      ],
+      "next": [
+        {
+          "path": "/partneriaethau-a-chynlluniau-lleol"
+        }
+      ],
+      "section": "lmdhVN"
+    },
+    {
+      "path": "/partneriaethau-a-chynlluniau-lleol",
+      "title": "Partneriaethau a chynlluniau lleol",
+      "components": [
+        {
+          "name": "HYsezC",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am unrhyw bartneriaethau rydych wedi'u ffurfio, a sut y byddant yn helpu'r prosiect i fod yn llwyddiannus",
+          "hint": "Er enghraifft, unrhyw gytundebau rydych chi wedi'u cyrraedd gyda busnesau lleol eraill neu sefydliadau cymunedol."
+        },
+        {
+          "name": "GGBgBY",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym sut mae eich prosiect yn cefnogi unrhyw gynlluniau lleol ehangach",
+          "hint": "Gallai'r rhain gynnwys cynlluniau sy'n cael eu harwain gan y cyngor, busnesau lleol neu'r gymuned."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "lmdhVN"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "lmdhVN",
+      "title": "Ymgysylltu â'r gymuned"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

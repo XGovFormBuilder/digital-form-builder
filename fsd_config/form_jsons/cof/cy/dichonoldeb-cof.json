@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/dichonoldeb",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Dichonoldeb",
+      "path": "/dichonoldeb",
+      "components": [
+        {
+          "name": "OarXHO",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>astudiaethau dichonoldeb a gynhaliwyd</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/astudiaethau-dichonoldeb-a-gynhalioch"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/astudiaethau-dichonoldeb-a-gynhalioch",
+      "title": "Astudiaethau dichonoldeb a gynhalioch",
+      "components": [
+        {
+          "name": "DOWJMG",
+          "options": {},
+          "type": "Details",
+          "content": "<p class=\"govuk-body\">Dadansoddiad yw hwn sy'n profi gallu eich prosiect i gyflawni ei amcanion.</p>\n<p class=\"govuk-body\"> Dylech ddefnyddio'ch astudiaethau dichonoldeb i:</p>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-body\">\n<li>brofi'r cyd-destun a'r adnoddau ar gyfer gweithredu'r prosiect, gan gynnwys dadansoddi marchnadoedd a phu'n a yw'r galluoedd ariannol, technegol a rheoli yn ddigon cryf i gyflawni'r ystod defnyddiau a gynlluniwyd ar gyfer yr ased</li>\n<li>profi hyfywedd a chynaliadwyedd y prosiect yn y tymor hir</li>\n<li>datblygu cynllun busnes cryf</li>\n</ul>\n\n<p class=\"govuk-body\">Gallwch ddefnyddio'ch cynllun busnes i ddarparu tystiolaeth i ategu'ch atebion.</p>",
+          "title": "Help gyda dichonoldeb"
+        },
+        {
+          "name": "iSbwDM",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym am yr astudiaethau dichonoldeb rydych wedi'u cynnal ar gyfer eich prosiect"
+        },
+        {
+          "name": "jFPlEJ",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A oes angen i chi ymgymryd ag unrhyw waith pellach yn ymwneud â dichonoldeb?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/waith-pellach-dichonoldeb",
+          "condition": "QVJYQZ"
+        },
+        {
+          "path": "/summary",
+          "condition": "XprEGH"
+        }
+      ],
+      "section": "bBGnkL"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "bBGnkL"
+    },
+    {
+      "path": "/waith-pellach-dichonoldeb",
+      "title": "waith pellach dichonoldeb",
+      "components": [
+        {
+          "name": "YqUokQ",
+          "options": {},
+          "type": "Details",
+          "content": "<p class=\"govuk-body\">Dadansoddiad yw hwn sy'n profi gallu eich prosiect i gyflawni ei amcanion.</p>\n<p class=\"govuk-body\"> Dylech ddefnyddio'ch astudiaethau dichonoldeb i:</p>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-body\">\n<li>brofi'r cyd-destun a'r adnoddau ar gyfer gweithredu'r prosiect, gan gynnwys dadansoddi marchnadoedd a phu'n a yw'r galluoedd ariannol, technegol a rheoli yn ddigon cryf i gyflawni'r ystod defnyddiau a gynlluniwyd ar gyfer yr ased</li>\n<li>profi hyfywedd a chynaliadwyedd y prosiect yn y tymor hir</li>\n<li>datblygu cynllun busnes cryf</li>\n</ul>\n\n<p class=\"govuk-body\">Gallwch ddefnyddio'ch cynllun busnes i ddarparu tystiolaeth i ategu'ch atebion.</p>",
+          "title": "Help gyda dichonoldeb"
+        },
+        {
+          "name": "WWdVTC",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch y gwaith dichonoldeb sydd angen i chi ei gwblhau o hyd",
+          "hint": "Cynhwyswch fanylion eich cynlluniau a phryd y disgwyliwch eu cwblhau."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "bBGnkL"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "bBGnkL",
+      "title": "Dichonoldeb"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Do you need to do any further feasibility work-yes",
+      "name": "QVJYQZ",
+      "value": {
+        "name": "Do you need to do any further feasibility work-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "jFPlEJ",
+              "type": "YesNoField",
+              "display": "A oes angen i chi ymgymryd ag unrhyw waith pellach yn ymwneud â dichonoldeb?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Do you need to do any further feasibility work-no",
+      "name": "XprEGH",
+      "value": {
+        "name": "Do you need to do any further feasibility work-no",
+        "conditions": [
+          {
+            "field": {
+              "name": "jFPlEJ",
+              "type": "YesNoField",
+              "display": "A oes angen i chi ymgymryd ag unrhyw waith pellach yn ymwneud â dichonoldeb?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

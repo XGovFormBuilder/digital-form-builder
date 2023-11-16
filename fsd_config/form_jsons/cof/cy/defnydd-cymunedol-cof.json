@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/defnydd-cymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Defnydd cymunedol",
+      "path": "/defnydd-cymunedol",
+      "components": [
+        {
+          "name": "xFVQZF",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>pwy sy'n defnyddio'r ased ac yn elwa ohono</li>\n<li>sut byddai colli'r ased yn effeithio ar y gymuned</li>\n<li>pam bydd yr ased yn cael ei golli heb ymyrryd</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/pwy-sy-n-defnyddio-r-ased"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/pwy-sy-n-defnyddio-r-ased",
+      "title": "Pwy sy'n defnyddio'r ased",
+      "components": [
+        {
+          "name": "zTcrYo",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Pwy yn y gymuned sy'n defnyddio'r ased ar hyn o bryd, neu sydd wedi'i ddefnyddio yn y gorffennol?",
+          "hint": "Cynhwyswch unrhyw ddefnyddiau penodol a faint o bobl sy'n cymryd rhan yn y gweithgareddau hyn.\n\n<p>Cyfeiriwch at unrhyw ystadegau sydd gennych i atgyfnerthu hyn. Er enghraifft, data ar nifer yr ymwelwyr.</p>"
+        },
+        {
+          "name": "whlRYS",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Dywedwch wrthym sut byddai colli'r ased yn effeithio ar bobl yn y gymuned, neu sut mae wedi effeithio arnynt yn barod",
+          "hint": "Lle bo modd, rhowch enghreifftiau o'r effeithiau hyn, megis gwasanaethau pwysig yn dod i ben neu'n gorfod teithio cryn bellter i ddefnyddio ased tebyg."
+        },
+        {
+          "name": "NGSXHE",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Pam bydd yr ased yn cael ei golli heb ymyrraeth gan y gymuned?",
+          "hint": "Cynhwyswch unrhyw dystiolaeth sydd gennych y bydd bygythiad i'w ddefnydd gan y gymuned.\n\n<p>Er enghraifft, trwy fwriad y perchennog neu werthiant sydd ar fin digwydd.</p>"
+        },
+        {
+          "name": "Ieudgn",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Eglurwch sut y bydd y gymuned yn cael ei gwasanaethu'n well gyda'r ased sydd o dan berchnogaeth gymunedol",
+          "hint": "Cynhwyswch pam fod hyn yn well nag unrhyw fath arall o berchnogaeth."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "GMkooI"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "GMkooI"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "GMkooI",
+      "title": "Defnydd cymunedol"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

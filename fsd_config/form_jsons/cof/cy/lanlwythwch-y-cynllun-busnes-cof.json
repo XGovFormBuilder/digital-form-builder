@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/lanlwythwch-y-cynllun-busnes",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
+  "pages": [
+    {
+      "title": "Lanlwythwch y cynllun busnes",
+      "path": "/lanlwythwch-y-cynllun-busnes",
+      "components": [
+        {
+          "name": "QwImGX",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cynllun busnes (lanlwytho dogfen)</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/eich-cynllun-busnes"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/eich-cynllun-busnes",
+      "title": "Eich cynllun busnes",
+      "components": [
+        {
+          "name": "lAdiPi",
+          "options": {},
+          "type": "Para",
+          "content": "<h3 class=\"govuk-heading-s\">Cynllun busnes ar gyfer eich prosiect (llwytho dogfen i fyny)</h3>\n\n\n<div class=\"govuk-caption-m\">\n\n<p>Lanlwythwch eich cynllun busnes.</p>\n\n<p>Cynhwyswch unrhyw wybodaeth sy'n ategu'r atebion yn eich cais. Mae'n rhaid i'r holl ffigurau gyfateb i'r rheiny rydych wedi'u rhoi yn yr adran achos rheoli.</p>\n\n<p>Dylai fod yn ffeil unigol nad yw'n fwy na 10MB ar unrhyw un o'r fformatau canlynol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n\n<p>Dylai eich cynllun busnes gynnwys (ond heb fod yn gyfyngedig i):</p>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m\">\n<li>Gwybodaeth am elfen gyfalaf eich prosiect. Gallai hyn gynnwys:\n<ul class=\"govuk-caption-m\">\n<li>gwybodaeth am eich astudiaethau dichonoldeb wedi'u cwblhau neu arfaethedig. Gallai hyn gynnwys unrhyw arolygon perthnasol</li>\n<li>rhaglen gyda cherrig milltir allweddol ar gyfer cwblhau eich prosiect</li>\n<li>eich sgiliau a'ch adnoddau i reoli'r prosiect cyfalaf, gan gynnwys arbenigedd rheoli prosiect perthnasol</li>\n</ul>\n</li>\n<li>Dadansoddiad ariannol o'ch prosiect. Dylai hyn gynnwys:</li>\n<ul class=\"govuk-caption-m\">\n<li>dadansoddiad clir o gyfanswm costau'r prosiect cyfalaf ac esboniad o sut y cyfrifwyd y rhain. Gallai hyn gynnwys unrhyw ddyfynbrisiau neu feincnodi costau</li>\n<li>a yw'r costau'n cynnwys TAW anadferadwy</li>\n<li>y cais am arian cyfalaf gan y Gronfa Perchnogaeth Gymunedol</li>\n<li>cyfanswm yr arian cyfatebol sydd ei angen</li>\n<li>ffynonellau arian cyfatebol wedi'u sicrhau hyd yma</li>\n<li>ffynonellau arian cyfatebol eto i'w sicrhau</li>\n<li>amserlenni a ffynonellau posibl ar gyfer sicrhau'r holl arian cyfatebol sy'n weddill</li>\n<li>eich sgiliau a'ch adnoddau i reoli'r prosiect cyfalaf, gan gynnwys arbenigedd rheoli prosiect perthnasol</li>\n</ul>\n<li>Gwybodaeth am sut bydd yr ased yn cael ei ddefnyddio a'i reoli yn y dyfodol. Dylai hyn gynnwys:\n<ul class=\"govuk-caption-m\">\n<li>trafodaeth am weithgareddau a/neu wasanaethau arfaethedig a fydd yn digwydd yn yr ased cymunedol</li>\n<li>eich rhagolygon ariannol llawn, gan gynnwys ffynonellau incwm a chostau gyda set o dybiaethau â thystiolaeth</li>\n<li>dadansoddiad clir o gostau'r prosiect refeniw ac esboniad o sut y cyfrifwyd y rhain</li>\n<li>eich llif arian a'ch cyllidebau refeniw</li>\n<li>unrhyw dystiolaeth ategol y byddwch yn sicrhau'r buddion i'r gymuned yr ydych wedi'i hamlinellu</li>\n</ul>\n</li>\n<li>Ystyried risgiau a mesurau lliniaru ar gyfer y gwaith/gwariant cyfalaf a gweithrediad parhaus yr ased</li>\n<li>Gwybodaeth sefydliadol a llywodraethu. Dylai hyn gynnwys:\n<ul class=\"govuk-caption-m\">\n<li>strwythurau llywodraethu ac aelodaeth eich sefydliad, gyda thystiolaeth ategol</li>\n<li>aelodau o'ch bwrdd, gan gynnwys eu rôl a'u prif gyfrifoldebau</li>\n<li>tystiolaeth ategol o sut y byddwch yn rheoli arian ac atal twyll. Er enghraifft, copïau o'ch dogfennau polisi</li>\n<li>tystiolaeth ategol o sut y byddwch yn rheoli perfformiad a risgiau. Er enghraifft, copïau o'ch dogfennau polisi</li>\n</ul>\n</li>"
+        },
+        {
+          "name": "ndpQJk",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Lanlwythwch y cynllun busnes"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "xtwqlH"
+    },
+    {
+      "title": "Gwiriwch eich atebio",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "xtwqlH",
+      "title": "Lanlwythwch y cynllun busnes"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "metadata": {},
+  "startPage": "/community-representation",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Community representation",
+      "path": "/community-representation",
+      "components": [
+        {
+          "name": "gwrwki",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>members of your board</li>\n<li>governance and membership structures</li>\n<li>how you'll consider the community's views</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-youll-run-the-asset"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/how-youll-run-the-asset",
+      "title": "How you’ll run the asset",
+      "components": [
+        {
+          "name": "ReomFo",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "List the members of your board",
+          "hint": "Please include their:\n<br> \n<ul class=\"govuk-list govuk-list--bullet govuk-caption-m govuk-!-padding-top-2\">\n<li>role</li>\n<li>main responsibilities</li>\n</ul>\n<p>You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "fjVmOt",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us about your governance and membership structures"
+        },
+        {
+          "name": "GETNxN",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Explain how you'll consider the views of the community in the running of the asset",
+          "hint": "Include how they'll be involved in decision making, and how you'll measure public support for your decisions"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "KbnmOO"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "KbnmOO"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "KbnmOO",
+      "title": "Community representation"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

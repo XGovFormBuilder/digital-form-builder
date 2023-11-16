@@ -1,0 +1,1130 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/gwybodaeth-am-ardal-eiddo",
+  "backLinkText": "Ewch yn ôl i amlwgwr cais",
+  "pages": [
+    {
+      "title": "Gwybodaeth am eiddo",
+      "path": "/gwybodaeth-am-ardal-eiddo",
+      "components": [
+        {
+          "name": "JGhnud",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn gofyn am:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>math eiddo</li>\n<li>beth rydych yn bwriadu ei wneud gyda'r eiddo</li>\n<li>statws meddu eiddo</li>\n<li>manylion meddu eiddo (os yn berthnasol)</li>\n<li>manylion meddu eiddo cyhoeddus (os yn berthnasol)</li>\n<li>rheswm pam mae'r eiddo mewn perygl</li>\n<li>manylion Hawswn Cymunedol eiddo (os yn berthnasol)</li>\n<li>manylion Trosglwyddiad Eiddo Cymunedol (os yn berthnasol)</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-mae-r-eiddo'n-ychwanegol"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/sut-mae-r-eiddo'n-ychwanegol",
+      "title": "Sut mae'r eiddo'n cael ei ddefnyddio yn y gymuned",
+      "section": "wxYZcT",
+      "components": [
+        {
+          "name": "oXGwlA",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Asset type",
+          "hint": "Dewiswch sut mae'r eiddo yn cael ei ddefnyddio yn bennaf. Er enghraifft, os yw'n theatr sydd â chaffi hefyd, dewiswch 'Theatr'",
+          "list": "jWXaBR"
+        }
+      ],
+      "next": [
+        {
+          "path": "/eiddo-mewn-meddiannu-cymunedol"
+        },
+        {
+          "path": "/sut-mae-r-eiddo'n-ychwanegol-BgwTSc",
+          "condition": "VxBLMN"
+        }
+      ]
+    },
+    {
+      "title": "Gwiriwch eich atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/eiddo-mewn-meddiannu-cymunedol",
+      "title": "Yr eiddo mewn meddiannu cymunedol",
+      "components": [
+        {
+          "name": "LaxeJN",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Sut ydych yn bwriadu meddu'r eiddo ar y gymuned?",
+          "list": "grEEzr"
+        }
+      ],
+      "next": [
+        {
+          "path": "/perygl-cau-KVISjF",
+          "condition": "FwscXH"
+        },
+        {
+          "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol"
+        },
+        {
+          "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol-pJQtXk",
+          "condition": "hWsHyx"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/sut-mae-r-eiddo'n-ychwanegol-BgwTSc",
+      "title": "Sut mae'r eiddo'n cael ei ddefnyddio yn y gymuned",
+      "components": [
+        {
+          "name": "aJGyCR",
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "title": "Math o eiddo (arall)"
+        }
+      ],
+      "next": [
+        {
+          "path": "/eiddo-mewn-meddiannu-cymunedol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/amodau-arthrog-ddenant-profiadol",
+      "title": "Amodau arthrog ddenant profiadwy",
+      "components": [
+        {
+          "name": "XPcbJx",
+          "options": {},
+          "type": "FreeTextField",
+          "title": "Disgrifiwch y broses werthu ddisgrifiwch, neu'r telerau arfaethedig o'ch denantiaeth os ydych yn bwriadu rhentu'r eiddo",
+          "hint": ""
+        },
+        {
+          "name": "jGjScT",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "Dyddiad disgwyliedig y gwerthiant neu'r trosglwyddiad",
+          "hint": "Er enghraifft, 27 3 2007\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/perchenogaeth-cyhoeddus"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/perchenogaeth-cyhoeddus",
+      "title": "Perchenogaeth gyhoeddus",
+      "components": [
+        {
+          "name": "VGXXyq",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/manylion-ac-hysbysiadau-perchenogaeth-cyhoeddus",
+          "condition": "oHpvvn"
+        },
+        {
+          "path": "/perygl-cau-JncvIu",
+          "condition": "ujYYpF"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/manylion-ac-hysbysiadau-perchenogaeth-cyhoeddus",
+      "title": "Manylion ac hysbysiadau perchenogaeth cyhoeddus",
+      "components": [
+        {
+          "name": "rNYmXq",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Dywedwch wrthym am y person rydych wedi siarad ag ef/hi yn y corff cyhoeddus perthnasol am yr eiddo",
+          "hint": "<label class=\"govuk-body\">Enw'r cyswllt</label>"
+        },
+        {
+          "name": "SiOmZn",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "hint": "Teitl swydd y cyswllt",
+          "title": "Teitl swydd y cyswllt"
+        },
+        {
+          "name": "XXVXuj",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Enw'r sefydliad",
+          "hint": "Enw'r sefydliad"
+        },
+        {
+          "name": "MIqglh",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pan fyddwch yn prynu neu'n rhyng-gontractu eiddo eiddo cyhoeddus, ni all yr awdurdod cyhoeddus drosglwyddo gwasanaethau statudol neu ddyletswyddau i'r grŵp cymunedol.",
+          "hint": "Mae hyn yn cynnwys pethau fel gofal cymdeithasol, casglu gwastraff a gwasanaethau cynllunio.\n\n<p>Nid ydym yn diffinio llyfrgelloedd unigol fel gwasanaethau statudol at ddibenion hyn.</p>",
+          "list": "OSzelY"
+        },
+        {
+          "name": "JdEmqn",
+          "options": {},
+          "type": "CheckboxesField",
+          "list": "OSzelY",
+          "title": "Ni all grantiau o'r gronfa hon cael eu defnyddio i brynu'r ior neu'r premiwm ar y pryd ar y lleiant yr eiddo cyhoeddus. Mae'n rhaid i'r arian gael ei ddefnyddio'n unig ar gyfer costau adnewyddu ac adnewyddu"
+        },
+        {
+          "name": "RFTloT",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Lanlwytho tystiolaeth i gadarnhau'r wybodaeth uchod a bod yr eiddo mewn perygl",
+          "hint": "Gall hyn fod o:\n<p>\n<ul class=\"govuk-hint\">\n<li>llythyr gan swyddog awdurdod cyhoeddus priodol neu aelod cabinet</li>\n<li>deunydd cabinet a gyhoeddwyd gan awdurdod lleol</li>\n</ul>\n</p>\n\n\n\n<p>Dylai fod yn ffeil unigol nid yn fwy na 10MB mewn fformat derbyniol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/perygl-cau-JncvIu"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/pwy-sy'n-meddu-ar-y-eiddo",
+      "title": "Pwy sy'n meddu ar yr eiddo",
+      "components": [
+        {
+          "name": "wAUFqr",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo ar hyn o bryd?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/pwy-sy'n-meddu-ar-eich-eiddo-ar-hyn-o-bryd",
+          "condition": "YBZKoC"
+        },
+        {
+          "path": "/statws-safle-presennol",
+          "condition": "oFfQbV"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/pwy-sy'n-meddu-ar-eich-eiddo-ar-hyn-o-bryd",
+      "title": "Pwy sy'n meddu ar eich eiddo ar hyn o bryd",
+      "components": [
+        {
+          "name": "FOURVe",
+          "options": {},
+          "type": "TextField",
+          "title": "Enw perchennog presennol yr eiddo"
+        }
+      ],
+      "next": [
+        {
+          "path": "/amodau-arthrog-ddenant-profiadol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/statws-safle-presennol",
+      "title": "Statws presennol y meddiant",
+      "components": [
+        {
+          "name": "XiHjDO",
+          "options": {},
+          "type": "TextField",
+          "title": "Dywedwch wrthym beth rydych yn ei wybod am werthiant neu lyniant yr eiddo"
+        }
+      ],
+      "next": [
+        {
+          "path": "/amodau-arthrog-ddenant-profiadol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/perygl-cau-JncvIu",
+      "title": "Perygl cau",
+      "components": [
+        {
+          "name": "qlqyUq",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pam mae'r eiddo mewn perygl cau?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
+          "list": "YNTnCC"
+        }
+      ],
+      "next": [
+        {
+          "path": "/manylion-rhestru-aseion",
+          "condition": "EQpfAl"
+        },
+        {
+          "path": "/trosiad-aseth-cymunedol",
+          "condition": "rrSKPO"
+        },
+        {
+          "path": "/asedau-o-werth-cymunedol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/asedau-o-werth-cymunedol",
+      "title": "Asedau o werth cymunedol",
+      "components": [
+        {
+          "name": "iqnlTk",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Ai hwn yw Ased Gymunedol Cofrestredig (ACV)?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/perygl-cau-KVISjF",
+      "title": "Perygl cau",
+      "components": [
+        {
+          "name": "LmOXLT",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Pam mae'r eiddo mewn perygl cau?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
+          "list": "IZlNBH"
+        }
+      ],
+      "next": [
+        {
+          "path": "/eiddo-gwerthu-trosglwyddiant-ardal-cymunedol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol",
+      "title": "Lanlwytho gwerthiant arâd eiddo neu gytundeb i fenthyg",
+      "components": [
+        {
+          "name": "tTOrEp",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Lanlwythwch dystiolaeth i gadarnhau'r wybodaeth uchod a bod yr eiddo mewn perygl",
+          "hint": "<label class=\"gov-uk-hint\">\nOs ydych yn prynu'r eiddo: gall hyn fod yn ddogfen swyddogol sy'n dangos gwerth yr eiddo gan syrfëwr annibynnol neu swyddog proffesiynol tebyg.\n\n<p>Os ydych yn llogi'r eiddo: gall hyn fod yn gopi o'ch cytundeb tenantiaeth, neu enghreifftiau o delerau a chytundebau cytunedig, sy'n dangos 15 mlynedd o denantiaeth gydag amodau toriadau rhesymol.</p>\n\n<p>Dylai fod yn ffeil unigol nid yn fwy na 10MB mewn fformat derbyniol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/telerau-eich-lysgenant",
+          "condition": "hWsHyx"
+        },
+        {
+          "path": "/pwy-sy'n-meddu-ar-y-eiddo"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/telerau-eich-lysgenant",
+      "title": "Telerau eich llynedd",
+      "components": [
+        {
+          "name": "apJIBm",
+          "options": {},
+          "type": "FreeTextField",
+          "title": "Disgrifiwch telerau eich llynedd os ydych wedi rhentu'r eiddo",
+          "hint": "Er enghraifft, hyd y llogi, amodau'r llogi neu agweddau toriadau"
+        }
+      ],
+      "next": [
+        {
+          "path": "/perchenogaeth-cyhoeddus"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/manylion-rhestru-aseion",
+      "title": "Manylion rhestru aseion",
+      "components": [
+        {
+          "name": "QPIPjx",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "Pryd cafodd yr ased ei restru?",
+          "hint": "Er enghraifft, 27 3 2007"
+        },
+        {
+          "name": "OJWGGr",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "WebsiteField",
+          "title": "Darparwch ddolen i'r rhestr"
+        }
+      ],
+      "next": [
+        {
+          "path": "/trosiad-aseth-cymunedol",
+          "condition": "rrSKPO"
+        },
+        {
+          "path": "/asedau-o-werth-cymunedol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/trosiad-aseth-cymunedol",
+      "title": "Trosiad aseth cymunedol",
+      "components": [
+        {
+          "name": "WKIGQE",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Disgrifiwch statws presennol y Trosiad Aseth Cymunedol"
+        }
+      ],
+      "next": [
+        {
+          "path": "/asedau-o-werth-cymunedol"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol-pJQtXk",
+      "title": "Lanlwythwch gwerthiant arâd eiddo neu gytundeb i fenthyg",
+      "components": [
+        {
+          "name": "TtOReP",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Lanlwythwch dystiolaeth sy'n profi bod yr eiddo eisoes yn cael ei denantio gan eich sefydliad.",
+          "hint": "<label class=\"gov-uk-hint\">\nGall hyn fod yn gopi o'ch cytundeb tenantiaeth, neu enghreifftiau o delerau a chytundebau cytunedig, sy'n dangos 15 mlynedd o tenanit gyda thoriadau rhesymol.\n\n<p>Dylai fod yn ffeil unigol nid yn fwy na 10MB mewn fformat derbyniol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/telerau-eich-lysgenant"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/local-service-provision",
+      "title": "Local service provision",
+      "components": [
+        {
+          "name": "mZwrmI",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Are there assets or services of a similar type available locally?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/local-service-provision-mmUOLb",
+          "condition": "yeEMBf"
+        },
+        {
+          "path": "/local-service-provision-bgqNrc"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/local-service-provision-mmUOLb",
+      "title": "Local service provision",
+      "components": [
+        {
+          "name": "BfgLCc",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Is your asset different from what is available locally?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/local-service-provision-cNfGYA",
+          "condition": "nlbrNc"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/local-service-provision-bgqNrc",
+      "title": "Local service provision",
+      "components": [
+        {
+          "name": "GEJNWF",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "How accessible is the closest asset or service?",
+          "hint": "For example, if you are applying to fund a swimming pool, where is the next closest swimming facility?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/local-service-provision-JcqzLI"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/local-service-provision-cNfGYA",
+      "title": "Local service provision",
+      "components": [
+        {
+          "name": "WTZoVD",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how and why your asset or the service is different"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/local-service-provision-JcqzLI",
+      "title": "Local service provision",
+      "components": [
+        {
+          "name": "CFFsxV",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Does part of your project include a commercial aspect?",
+          "hint": "For example, a community centre which also has a community café attached that helps to subsidise the activities of the centre"
+        }
+      ],
+      "next": [
+        {
+          "path": "/local-service-provision-ShxyWq",
+          "condition": "hJonvv"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "wxYZcT"
+    },
+    {
+      "path": "/local-service-provision-ShxyWq",
+      "title": "Local service provision",
+      "components": [
+        {
+          "name": "FDZQTQ",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Tell us how the commercial aspect relates to the other services you provide"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "wxYZcT"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Math eiddo",
+      "name": "jWXaBR",
+      "type": "string",
+      "items": [
+        {
+          "text": "Canolfan gymunedol",
+          "value": "community-centre"
+        },
+        {
+          "text": "Sinema",
+          "value": "cinema"
+        },
+        {
+          "text": "Oriel",
+          "value": "gallery"
+        },
+        {
+          "text": "Amgueddfa",
+          "value": "museum"
+        },
+        {
+          "text": "Lleoliad cerddoriaeth",
+          "value": "music-venue"
+        },
+        {
+          "text": "Parc",
+          "value": "park"
+        },
+        {
+          "text": "Adeilad swyddfa bost",
+          "value": "post-office"
+        },
+        {
+          "text": "Tafarn",
+          "value": "pub"
+        },
+        {
+          "text": "Siop",
+          "value": "shop"
+        },
+        {
+          "text": "Cyfleuster hamdden neu chwaraeon",
+          "value": "sporting"
+        },
+        {
+          "text": "Theatr",
+          "value": "theatre"
+        },
+        {
+          "text": "Arall",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "title": "Sut ydych yn bwriadu meddu ar yr eiddo ar y gymuned?",
+      "name": "grEEzr",
+      "type": "string",
+      "items": [
+        {
+          "text": "Prynu'r eiddo",
+          "value": "buy-the-asset"
+        },
+        {
+          "text": "Llogi'r eiddo",
+          "value": "lease-the-asset"
+        },
+        {
+          "text": "Eisoes yn eiddo i'w sefydliad",
+          "value": "already-owned-by-organisation"
+        },
+        {
+          "text": "Eisoes wedi'i llogi gan eich sefydliad",
+          "value": "already-leased-by-organisation"
+        }
+      ]
+    },
+    {
+      "title": "Rwy'n cadarnhau",
+      "name": "OSzelY",
+      "type": "string",
+      "items": [
+        {
+          "text": "Rwy'n cadarnhau",
+          "value": "confirm"
+        }
+      ]
+    },
+    {
+      "title": "Perygl cau",
+      "name": "RGVpbi",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ar werth neu wedi'i restru ar gyfer gwaredu",
+          "value": "for-sale-or-listed-for-disposal"
+        },
+        {
+          "text": "Nid yw'r defnydd yn y dyfodol wedi'i sicrhau",
+          "value": "future-use-not-secured"
+        },
+        {
+          "text": "Gwerth annyoneddol na thâl fel y mae'r model busnes presennol",
+          "value": "unprofitable-under-current-business-model"
+        },
+        {
+          "text": "Nid yw'r perchenogaeth gyfredol yn ddichonadwy",
+          "value": "current-ownership-not-tenable"
+        }
+      ]
+    },
+    {
+      "title": "Pam mae'r eiddo mewn perygl cau?",
+      "name": "YNTnCC",
+      "type": "string",
+      "items": [
+        {
+          "text": "Cau",
+          "value": "Closure"
+        },
+        {
+          "text": "Werthiant",
+          "value": "Sale"
+        },
+        {
+          "text": "Camddeall neu wanllyd",
+          "value": "Neglect or dereliction"
+        },
+        {
+          "text": "Model busnes presennol na ellir ei gynnal",
+          "value": "Unsustainable current business model"
+        },
+        {
+          "text": "Wedî'i restru ar gyfer gwaredu",
+          "value": "Listed for disposal"
+        },
+        {
+          "text": "Rhan o Trosglwyddiad Ased Cymunedol",
+          "value": "Part of a Community Asset Transfer"
+        }
+      ]
+    },
+    {
+      "title": "Pam mae'r eiddo mewn perygl cau? 2",
+      "name": "IZlNBH",
+      "type": "string",
+      "items": [
+        {
+          "text": "Cau",
+          "value": "Closure"
+        },
+        {
+          "text": "Camddeall neu wanllyd",
+          "value": "Neglect or dereliction"
+        },
+        {
+          "text": "Model busnes presennol na ellir ei gynnal",
+          "value": "Unsustainable current business model"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "wxYZcT",
+      "title": "Gwybodaeth am eiddo"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Sut mae'r eiddo'n cael ei ddefnyddio-arall",
+      "name": "VxBLMN",
+      "value": {
+        "name": "Sut mae'r eiddo'n cael ei ddefnyddio-arall",
+        "conditions": [
+          {
+            "field": {
+              "name": "oXGwlA",
+              "type": "RadiosField",
+              "display": "Math eiddo"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Ie",
+      "name": "KZLYTF",
+      "value": {
+        "name": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Ie",
+        "conditions": [
+          {
+            "field": {
+              "name": "hdmYjg",
+              "type": "YesNoField",
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Na",
+      "name": "GRGSGT",
+      "value": {
+        "name": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo - Na",
+        "conditions": [
+          {
+            "field": {
+              "name": "hdmYjg",
+              "type": "YesNoField",
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Ie",
+      "name": "oHpvvn",
+      "value": {
+        "name": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Ie",
+        "conditions": [
+          {
+            "field": {
+              "name": "VGXXyq",
+              "type": "YesNoField",
+              "display": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Na",
+      "name": "ujYYpF",
+      "value": {
+        "name": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd - Na",
+        "conditions": [
+          {
+            "field": {
+              "name": "VGXXyq",
+              "type": "YesNoField",
+              "display": "A yw eich eiddo'n cael ei berchen gan y cyhoedd ar hyn o bryd?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Ie",
+      "name": "pErRiw",
+      "value": {
+        "name": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Ie",
+        "conditions": [
+          {
+            "field": {
+              "name": "wjBFTf",
+              "type": "YesNoField",
+              "display": "Ai hwn yw Ased Gymunedol Cofrestredig (ACV)?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Ie",
+      "name": "XVOzZh",
+      "value": {
+        "name": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Ie",
+        "conditions": [
+          {
+            "field": {
+              "name": "HyWPwE",
+              "type": "YesNoField",
+              "display": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Na",
+      "name": "nxnCXz",
+      "value": {
+        "name": "A yw hwn yn Ased Gymunedol Cofrestredig (ACV) - Na",
+        "conditions": [
+          {
+            "field": {
+              "name": "wjBFTf",
+              "type": "YesNoField",
+              "display": "Ai hwn yw Ased Gymunedol Cofrestredig (ACV)?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Na",
+      "name": "lmmYts",
+      "value": {
+        "name": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol? - Na",
+        "conditions": [
+          {
+            "field": {
+              "name": "HyWPwE",
+              "type": "YesNoField",
+              "display": "A yw'r eiddo wedi'i restru ar gyfer gwaredu, neu'n rhan o Trosglwyddiad Ased Cymunedol?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Ie",
+      "name": "YBZKoC",
+      "value": {
+        "name": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Ie",
+        "conditions": [
+          {
+            "field": {
+              "name": "wAUFqr",
+              "type": "YesNoField",
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo ar hyn o bryd?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Na",
+      "name": "oFfQbV",
+      "value": {
+        "name": "A ydych yn gwybod pwy sy'n meddu ar yr eiddo - Na",
+        "conditions": [
+          {
+            "field": {
+              "name": "wAUFqr",
+              "type": "YesNoField",
+              "display": "A ydych yn gwybod pwy sy'n meddu ar eich eiddo ar hyn o bryd?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Eisoes yn eiddo i'w sefydliad - Ie",
+      "name": "FwscXH",
+      "value": {
+        "name": "Eisoes yn eiddo i'w sefydliad - Ie",
+        "conditions": [
+          {
+            "field": {
+              "name": "LaxeJN",
+              "type": "RadiosField",
+              "display": "Sut mae'r eiddo'n cael ei ddefnyddio-arall?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "already-owned-by-organisation",
+              "display": "Eisoes yn eiddo i'w sefydliad"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Eisoes wedi'i llogi gan eich sefydliad - Ie",
+      "name": "hWsHyx",
+      "value": {
+        "name": "Eisoes wedi'i llogi gan eich sefydliad - Ie",
+        "conditions": [
+          {
+            "field": {
+              "name": "LaxeJN",
+              "type": "RadiosField",
+              "display": "Sut mae'r eiddo'n cael ei ddefnyddio-arall?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "already-leased-by-organisation",
+              "display": "Eisoes wedi'i llogi gan eich sefydliad"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "listed-for-disposal",
+      "name": "EQpfAl",
+      "value": {
+        "name": "listed-for-disposal",
+        "conditions": [
+          {
+            "field": {
+              "name": "qlqyUq",
+              "type": "CheckboxesField",
+              "display": "Pam mae'r aseth yn beryglus o gau?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Listed for disposal",
+              "display": "Listed for disposal"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "part-of-a-community-asset-transfer",
+      "name": "rrSKPO",
+      "value": {
+        "name": "part-of-a-community-asset-transfer",
+        "conditions": [
+          {
+            "field": {
+              "name": "qlqyUq",
+              "type": "CheckboxesField",
+              "display": "Pam mae'r aseth yn beryglus o gau?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Part of a Community Asset Transfer",
+              "display": "Rhan o Brosiect Trosglwyddo Aseth Cymunedol"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

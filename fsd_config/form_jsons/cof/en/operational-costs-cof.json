@@ -1,0 +1,93 @@
+{
+  "metadata": {},
+  "startPage": "/operational-costs",
+  "backLinkText": "Go back to application overview",
+  "pages": [
+    {
+      "title": "Operational costs",
+      "path": "/operational-costs",
+      "components": [
+        {
+          "name": "KGaupX",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>forecasted income and operational costs to run the asset</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/forecasted-income-and-operational-costs-to-run-the-asset"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/forecasted-income-and-operational-costs-to-run-the-asset",
+      "title": "Forecasted income and operational costs to run the asset",
+      "components": [
+        {
+          "name": "gaWgrE",
+          "options": {},
+          "type": "Details",
+          "title": "Help with operational costs",
+          "content": "<p>We're looking to understand your full operational costs for running the asset once you take ownership.</p>\n\n<p>This includes your sources of income and regular costs, as well as a summary of your expected cash flow for the next few years.</p>\n\n<p>We also need to make sure you're confident you'll spend any money awarded by this fund within 12 months.</p>\n\n<p>You can use your business plan to provide information that supports your answers.</p>"
+        },
+        {
+          "name": "qXNkfr",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Summarise your income and operational costs for the running of the asset",
+          "hint": "Include how this will work over the next 3 years. You must use your business plan to provide a forecast of figures."
+        }
+      ],
+      "next": [
+        {
+          "path": "/income-to-run-the-asset"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "oSfXFZ"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "oSfXFZ"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "oSfXFZ",
+      "title": "Operational costs"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Apply for funding to save an asset in your community",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

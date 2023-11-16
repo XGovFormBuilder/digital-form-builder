@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/costau-gweithredol",
+  "backLinkText": "Ewch yn ôl i arolwg y cais",
+  "pages": [
+    {
+      "title": "Costau gweithredol",
+      "path": "/costau-gweithredol",
+      "components": [
+        {
+          "name": "KGaupX",
+          "options": {},
+          "type": "Para",
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn gofyn am:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>incwm rhagweladwy a chostau gweithredol i redeg yr ased</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/incwm-rhagweladwy-a-chostau-gweithredol-i-redeg-yr-ased"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/incwm-rhagweladwy-a-chostau-gweithredol-i-redeg-yr-ased",
+      "title": "Incwm rhagweladwy a chostau gweithredol i redeg yr ased",
+      "components": [
+        {
+          "name": "gaWgrE",
+          "options": {},
+          "type": "Details",
+          "title": "Cymorth gyda chostau gweithredol",
+          "content": "<p>Rydym yn ceisio deall eich costau gweithredol llawn i redeg yr ased unwaith rydych wedi cymryd perchnogaeth.</p>\n\n<p>Mae hyn yn cynnwys eich ffynonellau incwm a'ch costau rheolaidd, ynghyd â chrynodeb o'ch llif arian disgwyliedig am y blynyddoedd nesaf.</p>\n\n<p>Mae angen inni hefyd wneud yn siŵr eich bod yn hyderus y byddwch yn gwario unrhyw arian a ddyfernir gan y gronfa hon o fewn 12 mis.</p>\n\n<p>Gallwch ddefnyddio eich cynllun busnes i ddarparu gwybodaeth sy'n cefnogi'ch atebion.</p>"
+        },
+        {
+          "name": "qXNkfr",
+          "options": {
+            "maxWords": "500"
+          },
+          "type": "FreeTextField",
+          "title": "Crynodeb o'ch incwm a'ch costau gweithredol i redeg yr ased",
+          "hint": "Cynnwys sut y bydd hyn yn gweithio dros y 3 blynedd nesaf. Mae'n rhaid i chi ddefnyddio eich cynllun busnes i ddarparu rhagolygon o ffigurau."
+        }
+      ],
+      "next": [
+        {
+          "path": "/incwm-i-redeg-yr-ased"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "oSfXFZ"
+    },
+    {
+      "title": "Gwirio'ch atebion",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "section": "oSfXFZ"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "oSfXFZ",
+      "title": "Costau gweithredol"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Diweddaru'r ffurflen yn y cais",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Gwneud cais am gyllid i achub ased yn eich cymuned",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
