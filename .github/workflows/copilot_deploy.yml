@@ -1,0 +1,86 @@
+name: Deploy to AWS
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Which AWS Account to use
+        type: choice
+        required: true
+        options:
+          - dev
+          - test
+          - uat
+          - production
+  push:
+    paths: # Ignore README markdown and only deploy when something in the copilot folder has changed
+      - "!**/README.md"
+  pull_request:
+    types:
+      - closed # Further protection - only allow this workflow to run automatically on closed pull requests
+
+jobs:
+  copilot_environments_workflow_setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.copilot_env_matrix.outputs.env_list }}
+    steps:
+      - id: copilot_env_matrix
+        run: |
+          if [ "${{ inputs.environment }}" != '' ]; then
+            echo "env_list=[\"${{ inputs.environment }}\"]" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
+            echo "env_list=[\"dev\", \"test\", \"uat\", \"production\"]" >> $GITHUB_OUTPUT
+          else
+            echo "env_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
+          fi
+
+  copilot_env_deploy:
+    concurrency:
+      group: "${{ github.workflow }} @ ${{ github.ref }}"
+      cancel-in-progress: false
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
+    needs: [copilot_environments_workflow_setup]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      max-parallel: 1
+      matrix:
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix) }}
+      fail-fast: false
+    environment: ${{ matrix.value }}
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        shell: bash
+        id: currentdatetime
+        run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
+          role-session-name: FORMRUNNER_${{ matrix.value }}_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
+          aws-region: eu-west-2
+
+      - name: Install AWS Copilot CLI
+        shell: bash
+        run: |
+          curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
+
+      - name: Inject Git SHA into manifest
+        run: |
+          yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Inject replacement image into manifest
+        run: |
+          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Copilot ${{ matrix.value }} deploy
+        id: deploy_build
+        run: |
+          copilot svc deploy --env ${{ matrix.value }} --app pre-award
