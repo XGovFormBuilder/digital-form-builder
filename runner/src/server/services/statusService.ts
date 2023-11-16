@@ -1,4 +1,4 @@
-import { HapiRequest, HapiServer } from "../types";
+import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
 import {
   CacheService,
   NotifyService,
@@ -61,40 +61,50 @@ export class StatusService {
     this.notifyService = notifyService;
     this.payService = payService;
   }
-
-  async shouldRetryPay(request): Promise<boolean> {
+  async shouldShowPayErrorPage(request: HapiRequest): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
     if (!pay) {
       this.logger.info(
-        ["StatusService", "shouldRetryPay"],
+        ["StatusService", "shouldShowPayErrorPage"],
         "No pay state detected, skipping"
       );
       return false;
-    } else {
-      const { self, meta } = pay;
-      const { query } = request;
-      const { state } = await this.payService.payStatus(self, meta.payApiKey);
-      const userSkippedOrLimitReached =
-        query?.continue === "true" || meta?.attempts >= 3;
-
-      await this.cacheService.mergeState(request, {
-        pay: {
-          ...pay,
-          paymentSkipped: userSkippedOrLimitReached,
-          state,
-        },
-      });
-
-      const shouldRetry =
-        state.status === "failed" && !userSkippedOrLimitReached;
-
-      this.logger.info(
-        ["StatusService", "shouldRetryPay"],
-        `user ${request.yar.id} - shouldRetryPay: ${shouldRetry}`
-      );
-
-      return shouldRetry;
     }
+    const { self, meta } = pay;
+    const { query } = request;
+    const { state } = await this.payService.payStatus(self, meta.payApiKey);
+
+    const form: FormModel = request.server.app.forms[request.params.id];
+    const { maxAttempts, allowSubmissionWithoutPayment } = form.feeOptions;
+
+    this.logger.info(
+      ["StatusService", "shouldShowPayErrorPage"],
+      `user ${request.yar.id} - shouldShowPayErrorPage: User has failed ${meta.attempts} payments`
+    );
+
+    if (!allowSubmissionWithoutPayment) {
+      return true;
+    }
+
+    const userSkippedOrLimitReached =
+      query?.continue === "true" || meta?.attempts >= maxAttempts;
+
+    await this.cacheService.mergeState(request, {
+      pay: {
+        ...pay,
+        paymentSkipped: userSkippedOrLimitReached,
+        state,
+      },
+    });
+
+    const shouldRetry = state.status === "failed" && !userSkippedOrLimitReached;
+
+    this.logger.info(
+      ["StatusService", "shouldShowPayErrorPage"],
+      `user ${request.yar.id} - shouldShowPayErrorPage: ${shouldRetry}`
+    );
+
+    return shouldRetry;
   }
 
   async outputRequests(request: HapiRequest) {

@@ -17,7 +17,7 @@ const index = {
           pre: [
             {
               method: retryPay,
-              assign: "shouldRetryPay",
+              assign: "shouldShowPayErrorPage",
             },
             {
               method: handleUserWithConfirmationViewModel,
