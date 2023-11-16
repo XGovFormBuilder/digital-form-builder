@@ -20,6 +20,17 @@ const yar = {
   id: "session_id",
 };
 
+const app = {
+  forms: {
+    test: {
+      feeOptions: {
+        allowSubmissionWithoutPayment: true,
+        maxAttempts: 3,
+      },
+    },
+  },
+};
+
 const server = {
   services: () => ({
     cacheService,
@@ -31,22 +42,29 @@ const server = {
     info: () => {},
     trace: () => {},
   },
+  app,
 };
 
-suite("StatusService shouldRetryPay", () => {
+suite("StatusService shouldShowPayErrorPage", () => {
   afterEach(() => {
     sinon.restore();
   });
   test("returns false when no pay information is saved in the session", async () => {
     const statusService = new StatusService(server);
-    expect(await statusService.shouldRetryPay({ yar })).to.equal(false);
+    expect(await statusService.shouldShowPayErrorPage({ yar })).to.equal(false);
   });
 
   test("returns false when the continue query parameter is true", async () => {
     sinon.stub(cacheService, "getState").returns({ state: { pay: {} } });
     const statusService = new StatusService(server);
     expect(
-      await statusService.shouldRetryPay({ yar, query: { continue: "true" } })
+      await statusService.shouldShowPayErrorPage({
+        yar,
+        query: { continue: "true" },
+        params: {
+          id: "test",
+        },
+      })
     ).to.equal(false);
   });
 
@@ -56,7 +74,13 @@ suite("StatusService shouldRetryPay", () => {
       .returns({ state: { pay: { meta: 3 } } });
     const statusService = new StatusService(server);
 
-    expect(await statusService.shouldRetryPay({ yar })).to.equal(false);
+    expect(
+      await statusService.shouldShowPayErrorPage({
+        yar,
+        app,
+        params: { id: "test" },
+      })
+    ).to.equal(false);
   });
 
   test("returns true when <3 pay attempts have been made", async () => {
@@ -71,7 +95,45 @@ suite("StatusService shouldRetryPay", () => {
     });
 
     const statusService = new StatusService(server);
-    expect(await statusService.shouldRetryPay({ yar })).to.equal(true);
+    expect(
+      await statusService.shouldShowPayErrorPage({
+        yar,
+        app,
+        params: { id: "test" },
+        server,
+      })
+    ).to.equal(true);
+  });
+
+  test("returns true when >3 pay attempts have been made and form does not allow submissions without payment", async () => {
+    sinon
+      .stub(cacheService, "getState")
+      .returns({ pay: { meta: { attempts: 5 } } });
+
+    sinon.stub(payService, "payStatus").returns({
+      state: {
+        status: "failed",
+      },
+    });
+
+    sinon.stub(app, "forms").value({
+      test: {
+        feeOptions: {
+          allowSubmissionWithoutPayment: false,
+          maxAttempts: 3,
+        },
+      },
+    });
+
+    const statusService = new StatusService(server);
+    expect(
+      await statusService.shouldShowPayErrorPage({
+        yar,
+        app,
+        params: { id: "test" },
+        server,
+      })
+    ).to.equal(true);
   });
 
   test("returns true when <3 and the continue query is true", async () => {
@@ -87,7 +149,15 @@ suite("StatusService shouldRetryPay", () => {
 
     const statusService = new StatusService(server);
     expect(
-      await statusService.shouldRetryPay({ yar, query: { continue: "true" } })
+      await statusService.shouldShowPayErrorPage({
+        yar,
+        app,
+        params: {
+          id: "test",
+        },
+        query: { continue: "true" },
+        server,
+      })
     ).to.equal(false);
   });
 });
