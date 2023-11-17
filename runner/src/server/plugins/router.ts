@@ -78,7 +78,7 @@ export default {
                 usage: accept,
               },
               {
-                isHttpOnly: true,
+                isHttpOnly: false,
                 path: "/",
               }
             );
