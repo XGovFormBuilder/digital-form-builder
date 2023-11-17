@@ -157,6 +157,10 @@ button.govuk-link {
     height: 20px;
     border: solid 2px #000;
 
+    &.thick-top-border {
+      border-top: 8px solid lightsteelblue;
+    }
+
     &.tall {
       height: 50px;
     }

@@ -18,6 +18,7 @@ export const componentTypes = {
   DateTimePartsField,
   MonthYearField,
   MultilineTextField,
+  FreeTextField,
   RadiosField,
   CheckboxesField,
   AutocompleteField: SelectField,
@@ -82,6 +83,14 @@ function MultilineTextField() {
   return (
     <ComponentField>
       <span className="box tall" />
+    </ComponentField>
+  );
+}
+
+function FreeTextField() {
+  return (
+    <ComponentField>
+      <span className="box tall thick-top-border" />
     </ComponentField>
   );
 }

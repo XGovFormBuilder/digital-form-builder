@@ -225,6 +225,19 @@ exports[`ComponentCreateList should match snapshot 1`] = `
               class="govuk-link"
               href="#0"
             >
+              Free text
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A text box with basic formatting options (bold text, bullet points) for users to enter multiple lines of text into, for example as 'Additional info'
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
               Month year parts
             </a>
             <div

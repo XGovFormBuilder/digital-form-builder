@@ -44,15 +44,6 @@ export class FreeTextField extends FormComponent {
     }
     this.formSchema = this.formSchema.ruleset;
 
-    if (def.schema.max) {
-      this.formSchema = this.formSchema.max(def.schema.max);
-      this.isCharacterOrWordCount = true;
-    }
-
-    if (def.schema.min) {
-      this.formSchema = this.formSchema.min(def.schema.min);
-    }
-
     if (maxWords ?? false) {
       this.formSchema = this.formSchema.custom((value, helpers) => {
         if (inputIsOverWordCount(value, maxWords)) {
@@ -90,10 +81,6 @@ export class FreeTextField extends FormComponent {
       errors
     ) as FreeTextFieldViewModel;
     viewModel.isCharacterOrWordCount = this.isCharacterOrWordCount;
-
-    if (schema.max ?? false) {
-      viewModel.maxlength = schema.max;
-    }
 
     if (options.rows ?? false) {
       viewModel.rows = options.rows;

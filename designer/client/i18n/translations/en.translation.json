@@ -179,6 +179,8 @@
     "MonthYearField_info": "Allows users to manually enter a Month and Year",
     "MultilineTextField": "Multiline text",
     "MultilineTextField_info": "A text box for users to enter multiple lines of text into, for example as 'Additional info'",
+    "FreeTextField": "Free text",
+    "FreeTextField_info": "A text box with basic formatting options (bold text, bullet points) for users to enter multiple lines of text into, for example as 'Additional info'",
     "NumberField": "Number",
     "NumberField_info": "A text box that users can only enter numbers into",
     "Para": "Paragraph",

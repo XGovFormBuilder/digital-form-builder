@@ -194,6 +194,22 @@ suite("Inline condition operators", () => {
         },
       ],
     },
+    FreeTextField: {
+      cases: [
+        {
+          operators: {
+            "has length": (field, value) =>
+              `length(${field}) == ${value.value}`,
+            is: (field, value) => `${field} == '${value.value}'`,
+            "is longer than": (field, value) =>
+              `length(${field}) > ${value.value}`,
+            "is not": (field, value) => `${field} != '${value.value}'`,
+            "is shorter than": (field, value) =>
+              `length(${field}) < ${value.value}`,
+          },
+        },
+      ],
+    },
     EmailAddressField: {
       cases: [
         {

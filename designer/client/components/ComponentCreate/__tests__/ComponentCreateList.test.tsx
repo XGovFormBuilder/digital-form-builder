@@ -92,6 +92,7 @@ suite("ComponentCreateList", () => {
       "Date time parts",
       "Email address",
       "File upload",
+      "Free text",
       "Month year parts",
       "Multiline text",
       "Number",

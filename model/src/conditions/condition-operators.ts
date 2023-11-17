@@ -79,6 +79,7 @@ export const customOperators = {
   ),
   TextField: withDefaults(textBasedFieldCustomisations),
   MultilineTextField: withDefaults(textBasedFieldCustomisations),
+  FreeTextField: withDefaults(textBasedFieldCustomisations),
   EmailAddressField: withDefaults(textBasedFieldCustomisations),
 };
 
