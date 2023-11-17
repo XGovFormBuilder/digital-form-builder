@@ -113,6 +113,7 @@ export const configSchema = Joi.object({
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
+  allowUserTemplates: Joi.boolean().optional(),
 });
 
 export function buildConfig(config) {
