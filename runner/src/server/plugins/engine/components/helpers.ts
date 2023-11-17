@@ -1,6 +1,7 @@
 import joi from "joi";
 import { add, startOfToday, sub } from "date-fns";
 import { FormSubmissionState } from "server/plugins/engine/types";
+import nunjucks from "nunjucks";
 
 /**
  * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
@@ -92,12 +93,11 @@ export const addClassOptionIfNone = (
     options.classes = className;
   }
 };
-
 export function getCustomDateValidator(
   maxDaysInPast?: number,
   maxDaysInFuture?: number
 ) {
-  return (value: Date, helpers: Joi.CustomHelpers) => {
+  return (value: Date, helpers: joi.CustomHelpers) => {
     if (maxDaysInPast) {
       const minDate = sub(startOfToday(), { days: maxDaysInPast });
       if (value < minDate) {
@@ -118,33 +118,33 @@ export function getCustomDateValidator(
     }
     return value;
   };
-export function getVarsFromContent(content: string) {
+}
+export function getVarsForTemplate(
+  content: string,
+  state: FormSubmissionState
+) {
+  // This regex will match field names that are used explicitly in templates e.g. {{ contentToDisplay }}
   const fieldsUsedAtTopLevelRegex = new RegExp(
     /\{\{([a-zA-Z0-9\s_-]*)}}/,
     "gm"
   );
+  // This regex will match additional context variables e.g {{ additionalContexts.example[contentToDisplay].value }}
   const fieldsUsedByTemplateRegex = new RegExp(
-    /\{\{[a-zA-Z0-9]*\[([a-zA-Z0-9\s]*)\]\.[a-zA-Z0-9_-]*}}/,
+    /\{\{\s*[\.a-zA-Z0-9]*\[([a-zA-Z0-9\s]*)][\.a-zA-Z0-9_-]*\s*[\| a-zA-Z]*}}/,
     "gm"
   );
-  const topLevelVars = [...content.matchAll(fieldsUsedAtTopLevelRegex)].map(
-    (variable) => variable[1]
-  );
-  const fieldsUsedByTemplate = [
+  const matchResult = [
+    ...content.matchAll(fieldsUsedAtTopLevelRegex),
     ...content.matchAll(fieldsUsedByTemplateRegex),
-  ].map((variable) => variable[1]);
-  return [...new Set(topLevelVars.concat(fieldsUsedByTemplate))];
-}
-
-export function getTemplateVarsFromContentVars(
-  vars: string[],
-  state: FormSubmissionState
-) {
-  return vars.reduce(
-    (acc, curr) => ({
-      ...acc,
-      [curr]: state[curr],
-    }),
-    {}
-  );
+  ];
+  matchResult.forEach((match) => {
+    const templateVal = match[0];
+    const variableName = match[1];
+    const fieldValue = state[variableName] ?? "";
+    const renderedTemplate = nunjucks.renderString(templateVal, {
+      [variableName]: fieldValue,
+    });
+    content = content.replace(templateVal, renderedTemplate);
+  });
+  return content;
 }

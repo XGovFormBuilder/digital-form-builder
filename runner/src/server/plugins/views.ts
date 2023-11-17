@@ -44,14 +44,6 @@ export default {
           });
           environment.addGlobal("additionalContexts", additionalContexts);
           environment.addFilter("isArray", (x) => Array.isArray(x));
-          environment.addFilter("interpolate", function (str, component) {
-            const newContext = {
-              ...component.model,
-              ...this.ctx,
-            };
-            console.log("This is the context: ", newContext);
-            return nunjucks.renderString(str.val, newContext);
-          });
           options.compileOptions.environment = environment;
 
           return next();

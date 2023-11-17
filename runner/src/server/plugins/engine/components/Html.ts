@@ -1,9 +1,6 @@
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { ComponentBase } from "./ComponentBase";
-import {
-  getTemplateVarsFromContentVars,
-  getVarsFromContent,
-} from "server/plugins/engine/components/helpers";
+import { getVarsForTemplate } from "server/plugins/engine/components/helpers";
 
 export class Html extends ComponentBase {
   getViewModel(
@@ -12,15 +9,11 @@ export class Html extends ComponentBase {
     state: FormSubmissionState
   ) {
     const { options } = this;
-    const contentVars = getVarsFromContent(this.content);
-    const additionalTemplateVars = getTemplateVarsFromContentVars(
-      contentVars,
-      state
-    );
+
+    const content = getVarsForTemplate(this.content, state);
     const viewModel = {
       ...super.getViewModel(formData, errors),
-      content: this.content,
-      ...additionalTemplateVars,
+      content: content,
     };
 
     if ("condition" in options && options.condition) {
