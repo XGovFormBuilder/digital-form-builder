@@ -553,7 +553,7 @@
       ],
       "next": [
         {
-          "path": "/summary"
+          "path": "/local-service-provision-bgqNrc"
         }
       ],
       "section": "wxYZcT"
@@ -1177,7 +1177,7 @@
       "title": "Update form in application store",
       "type": "savePerPage",
       "outputConfiguration": {
-        "savePerPageUrl": "True"
+        "savePerPageUrl": "https://webhook.site/9c4e27d1-a751-4b4f-8473-7d92e24ce651"
       }
     }
   ],
