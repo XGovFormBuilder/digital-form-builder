@@ -1,6 +1,7 @@
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { ComponentBase } from "./ComponentBase";
 import { getVarsForTemplate } from "server/plugins/engine/components/helpers";
+import config from "../../../config";
 
 export class Html extends ComponentBase {
   getViewModel(
@@ -9,8 +10,10 @@ export class Html extends ComponentBase {
     state: FormSubmissionState
   ) {
     const { options } = this;
-
-    const content = getVarsForTemplate(this.content, state);
+    let content = this.content;
+    if (config.allowUserTemplates) {
+      content = getVarsForTemplate(this.content, state);
+    }
     const viewModel = {
       ...super.getViewModel(formData, errors),
       content: content,

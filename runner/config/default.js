@@ -135,4 +135,6 @@ module.exports = {
   enableQueueService: false,
   // queueDatabaseUrl: "mysql://root:root@localhost:3306/queue"
   queueServicePollingInterval: "500",
+
+  allowUserTemplates: false,
 };
