@@ -74,7 +74,6 @@
     "nodemailer": "~6.6.0",
     "notifications-node-client": "^5.2.0",
     "nunjucks": "^3.2.3",
-    "pdfmake": "0.1.65",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
     "tmp": "^0.2.1",
@@ -84,7 +83,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.4",
+    "@babel/core": "^7.23.3",
     "@babel/eslint-parser": "^7.21.3",
     "@babel/eslint-plugin": "^7.19.1",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
