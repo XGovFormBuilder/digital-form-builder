@@ -1,16 +1,16 @@
 # The manifest for the "form-runner" service.
 # Read the full specification for the "Load Balanced Web Service" type at:
 #  https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/
-name: 'fsd-form-runner'
-type: 'Load Balanced Web Service'
+name: "fsd-form-runner"
+type: "Load Balanced Web Service"
 
 # Distribute traffic to your service.
 http:
   # Requests to this path will be forwarded to your service.
   # To match all requests you can use the "/" path.
-  path: '/'
+  path: "/"
   # You can specify a custom health check path. The default is "/".
-  healthcheck: '/health-check'
+  healthcheck: "/health-check"
   alias: forms.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk
 
 # Configuration for your containers and service.
@@ -45,27 +45,27 @@ network:
   #     subnets: ["subnet-04851bdddcd8f5bbc", "subnet-0178ac1212c96b6c4"]
 
 # storage:
-  # readonly_fs: true       # Limit to read-only access to mounted root filesystems.
+# readonly_fs: true       # Limit to read-only access to mounted root filesystems.
 
 # Optional fields for more advanced use-cases.
 #
 # Pass environment variables as key value pairs.
 variables:
-  NODE_ENV: production
-  SERVICE_START_PAGE: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/account"
+  ACCESSIBILITY_STATEMENT_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/accessibility_statement"
+  AWS_BUCKET_NAME:
+    from_cfn: ${COPILOT_APPLICATION_NAME}-${COPILOT_ENVIRONMENT_NAME}-FormUploadsBucket
+  BASIC_AUTH_ON: true
+  CONTACT_US_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/contact_us"
+  COOKIE_POLICY_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/cookie_policy"
+  FEEDBACK_LINK: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/feedback"
   JWT_REDIRECT_TO_AUTHENTICATION_URL: "https://authenticator.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/sessions/sign-out"
   LOGOUT_URL: "https://authenticator.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/sessions/sign-out"
   MULTIFUND_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/account"
-  BASIC_AUTH_ON: true
-  SINGLE_REDIS: true
-  CONTACT_US_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/contact_us"
-  FEEDBACK_LINK: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/feedback"
+  NODE_CONFIG: '{"safelist": ["http://fsd-application-store:8080"]}'
+  NODE_ENV: production
   PRIVACY_POLICY_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/privacy"
-  COOKIE_POLICY_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/cookie_policy"
-  ACCESSIBILITY_STATEMENT_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/accessibility_statement"
-  NODE_CONFIG: "{\"safelist\": [\"http://fsd-application-store:8080\"]}"
-  AWS_BUCKET_NAME:
-    from_cfn: ${COPILOT_APPLICATION_NAME}-${COPILOT_ENVIRONMENT_NAME}-FormUploadsBucket
+  SERVICE_START_PAGE: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/account"
+  SINGLE_REDIS: true
 
 secrets:
   RSA256_PUBLIC_KEY_BASE64: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/RSA256_PUBLIC_KEY_BASE64
@@ -73,20 +73,42 @@ secrets:
 
 # You can override any of the values defined above by environment.
 environments:
-  # uat:
-    # http:
-    #   alias: frontend.uat.access-funding.test.levellingup.gov.uk
+  test:
+    deployment:
+      rolling: "recreate"
+  uat:
+    count:
+      range: 2-4
+      cooldown:
+        in: 60s
+        out: 30s
+      cpu_percentage:
+        value: 70
+      memory_percentage:
+        value: 80
+      requests: 30
+      response_time: 2s
   production:
     http:
-      alias: forms.access-funding.levellingup.gov.uk
+      alias: forms.production.access-funding.levellingup.gov.uk
     variables:
-      SERVICE_START_PAGE: "https://frontend.access-funding.levellingup.gov.uk/account"
-      JWT_REDIRECT_TO_AUTHENTICATION_URL: "https://authenticator.access-funding.levellingup.gov.uk/sessions/sign-out"
-      LOGOUT_URL: "https://authenticator.access-funding.levellingup.gov.uk/sessions/sign-out"
-      MULTIFUND_URL: "https://frontend.access-funding.levellingup.gov.uk/account"
+      ACCESSIBILITY_STATEMENT_URL: "https://frontend.production.access-funding.levellingup.gov.uk/accessibility_statement"
       BASIC_AUTH_ON: false
-      CONTACT_US_URL: "https://frontend.access-funding.levellingup.gov.uk/contact_us"
-      FEEDBACK_LINK: "https://frontend.access-funding.levellingup.gov.uk/feedback"
-      PRIVACY_POLICY_URL: "https://frontend.access-funding.levellingup.gov.uk/privacy"
-      COOKIE_POLICY_URL: "https://frontend.access-funding.levellingup.gov.uk/cookie_policy"
-      ACCESSIBILITY_STATEMENT_URL: "https://frontend.access-funding.levellingup.gov.uk/accessibility_statement"
+      CONTACT_US_URL: "https://frontend.production.access-funding.levellingup.gov.uk/contact_us"
+      COOKIE_POLICY_URL: "https://frontend.production.access-funding.levellingup.gov.uk/cookie_policy"
+      FEEDBACK_LINK: "https://frontend.production.access-funding.levellingup.gov.uk/feedback"
+      JWT_REDIRECT_TO_AUTHENTICATION_URL: "https://authenticator.production.access-funding.levellingup.gov.uk/sessions/sign-out"
+      LOGOUT_URL: "https://authenticator.production.access-funding.levellingup.gov.uk/sessions/sign-out"
+      MULTIFUND_URL: "https://frontend.production.access-funding.levellingup.gov.uk/account"
+      PRIVACY_POLICY_URL: "https://frontend.production.access-funding.levellingup.gov.uk/privacy"
+      SERVICE_START_PAGE: "https://frontend.production.access-funding.levellingup.gov.uk/account"
+    count:
+      range: 2-4
+      cooldown:
+        in: 60s
+        out: 30s
+      cpu_percentage:
+        value: 70
+      memory_percentage:
+        value: 80
+      requests: 30
