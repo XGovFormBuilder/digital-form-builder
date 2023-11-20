@@ -36,6 +36,7 @@ This is the default behaviour. Makes sure you check your organisations policy or
 
 When a user fails a payment, they will see the page [pay-error](./../../runner/src/server/views/pay-error.html).
 
+<<<<<<< HEAD
 When `allowSubmissionWithoutPayment` is true, the user will also see a link which allows them to skip payment. 
 
 
@@ -45,3 +46,12 @@ If your service does not allow submission without payment, set
 `allowSubmissionWithoutPayment: false`. `maxAttempts` will have no effect. The user will be able to retry as many times as they like.
 You can provide them with `customPayErrorMessage` to provide them with another route to payment.  
 
+=======
+When `allowSubmissionWithoutPayment` is true, the user will also see a link which allows them to skip payment.
+
+## Recommendations
+
+If your service does not allow submission without payment, set
+`allowSubmissionWithoutPayment: false`. `maxAttempts` will have no effect. The user will be able to retry as many times as they like.
+You can provide them with `customPayErrorMessage` to provide them with another route to payment.
+>>>>>>> e45704e (Squash commit of beta)

@@ -26,9 +26,7 @@ module.exports = {
     "@babel/plugin-transform-runtime",
     "@babel/plugin-proposal-export-default-from",
     "@babel/plugin-proposal-nullish-coalescing-operator",
-    "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-logical-assignment-operators",
-
     [
       "module-resolver",
       {

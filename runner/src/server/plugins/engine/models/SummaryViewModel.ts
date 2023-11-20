@@ -132,7 +132,10 @@ export class SummaryViewModel {
             case "webhook":
               return {
                 type: "webhook",
-                outputData: { url: output.outputConfiguration.url },
+                outputData: {
+                  url: output.outputConfiguration.url,
+                  allowRetry: output.outputConfiguration.allowRetry,
+                },
               };
             default:
               return {};

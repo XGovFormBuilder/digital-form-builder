@@ -37,11 +37,40 @@
             </tbody>
         </table>
 
+        {% if gtmId1 or gtmId2 %}
+        <h2 class="govuk-heading-l">Cookies that measure website use</h2>
+        <h3 class="govuk-heading-m">Measuring website usage (Google Analytics)</h3>
+        <p class="govuk-body">We use Google Analytics to measure how you use the website so we can improve it based on user needs. We do not allow Google to use or share the data about how you use this site.</p>
+        <table class="govuk-table">
+            <thead>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header" scope="col">Name</th>
+                <th class="govuk-table__header" scope="col">Purpose</th>
+                <th class="govuk-table__header" scope="col">Expires</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">_ga</td>
+                <td class="govuk-table__cell">Used to distinguish users</td>
+                <td class="govuk-table__cell">2 years</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">_ga_[id]</td>
+                <td class="govuk-table__cell">used to persist session state</td>
+                <td class="govuk-table__cell">2 years</td>
+            </tr>
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if matomoUrl and matomoId %}
         <h2 class="govuk-heading-l">Cookies that measure website use</h2>
         <h3 class="govuk-heading-m">Measuring website usage (Matomo)</h3>
         <p class="govuk-body">We use Matomo Analytics software to collect non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request.</p>
         <p class="govuk-body">We do this to better understand how applicants for overseas loans use the website. From time to time, the Foreign and Commonwealth Office may release non-personally-identifying information in the aggregate, eg, by publishing a report on trends in the usage of its website.</p>
         <p class="govuk-body">We don't use any cookies to do this.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

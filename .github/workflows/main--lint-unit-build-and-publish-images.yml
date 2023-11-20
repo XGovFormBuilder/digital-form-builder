@@ -47,7 +47,7 @@ jobs:
     name: Workspace
     strategy:
       matrix:
-        workspace: [ model, designer, runner ]
+        workspace: [model, designer, runner, submitter]
     uses: ./.github/workflows/lint-and-test.yml
     with:
       workspace: ${{ matrix.workspace }}
@@ -71,7 +71,7 @@ jobs:
     secrets: inherit
     strategy:
       matrix:
-        app: [ designer, runner ]
+        app: [designer, runner]
     with:
       app: ${{ matrix.app }}
       tag: ${{ needs.assign-semver.outputs.SEMVER }}

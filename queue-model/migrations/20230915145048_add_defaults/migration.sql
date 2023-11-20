@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `Submission` MODIFY `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `updated_at` DATETIME(3) NULL,
+    MODIFY `complete` BOOLEAN NOT NULL DEFAULT false;
