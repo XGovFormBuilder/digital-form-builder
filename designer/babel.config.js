@@ -20,13 +20,14 @@ module.exports = {
     ],
   ],
   plugins: [
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-private-methods",
+    "@babel/plugin-transform-class-properties",
+    "@babel/plugin-transform-private-methods",
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-runtime",
     "@babel/plugin-proposal-export-default-from",
-    "@babel/plugin-proposal-nullish-coalescing-operator",
-    "@babel/plugin-proposal-logical-assignment-operators",
+    "@babel/plugin-transform-nullish-coalescing-operator",
+    "@babel/plugin-transform-logical-assignment-operators",
+    "@babel/plugin-transform-optional-chaining",
     [
       "module-resolver",
       {
