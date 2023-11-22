@@ -161,6 +161,6 @@ export type FormDefinition = {
     payReturnUrl?: string;
     allowSubmissionWithoutPayment: boolean;
     maxAttempts: number;
-    customPayErrorMessage?: "";
+    customPayErrorMessage?: string;
   };
 };
