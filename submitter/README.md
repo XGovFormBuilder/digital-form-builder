@@ -10,10 +10,11 @@ The Submitter needs a running database instance to connect to in order to work p
 
 To connect a database instance, configure the following environment variables:
 
-| Variable name | Definition | Example |
-| QUEUE_DATABASE_URL | Used for configuring the endpoint of the database instance | mysql://username:password@endpoint/database |
-| QUEUE_DATABASE_USERNAME | Used for configuring the user being used to access the database | root |
-| QUEUE_DATABASE_PASSWORD | Used for configuring the password used for accessing the database | password |
+| Variable name           | Definition                                                        | Example                                     |
+| ----------------------- | ----------------------------------------------------------------- | ------------------------------------------- |
+| QUEUE_DATABASE_URL      | Used for configuring the endpoint of the database instance        | mysql://username:password@endpoint/database |
+| QUEUE_DATABASE_USERNAME | Used for configuring the user being used to access the database   | root                                        |
+| QUEUE_DATABASE_PASSWORD | Used for configuring the password used for accessing the database | password                                    |
 
 Once these variables are set, the submitter will run a series of migrations that will set up your chosen database.
 
