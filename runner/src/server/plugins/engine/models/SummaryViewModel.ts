@@ -73,7 +73,7 @@ export class SummaryViewModel {
     this.declaration = def.declaration;
     // @ts-ignore
     this.skipSummary = def.skipSummary;
-    this._payApiKey = def.payApiKey;
+    this._payApiKey = def.feeOptions?.payApiKey ?? def.payApiKey;
     this.endPage = endPage;
     this.feedbackLink =
       def.feedback?.url ??

@@ -15,6 +15,7 @@ import { FormSubmissionState } from "../types";
 import { PageControllerBase, getPageController } from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
+import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -50,9 +51,12 @@ export class FormModel {
   pages: any;
   startPage: any;
 
-  feeOptions?: {
+  feeOptions: {
     paymentReferenceFormat?: string;
     payReturnUrl?: string;
+    allowSubmissionWithoutPayment: boolean;
+    maxAttempts: number;
+    customPayErrorMessage?: "";
   };
 
   constructor(def, options) {
@@ -108,7 +112,7 @@ export class FormModel {
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
 
-    this.feeOptions = def.feeOptions;
+    this.feeOptions = { ...DEFAULT_FEE_OPTIONS, ...def.feeOptions };
   }
 
   /**

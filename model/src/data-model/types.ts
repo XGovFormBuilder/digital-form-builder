@@ -156,4 +156,11 @@ export type FormDefinition = {
   payApiKey?: string | MultipleApiKeys | undefined;
   specialPages?: SpecialPages;
   paymentReferenceFormat?: string;
+  feeOptions: {
+    paymentReferenceFormat?: string;
+    payReturnUrl?: string;
+    allowSubmissionWithoutPayment: boolean;
+    maxAttempts: number;
+    customPayErrorMessage?: string;
+  };
 };
