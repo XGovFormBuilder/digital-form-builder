@@ -12,7 +12,7 @@ To connect a database instance, configure the following environment variables:
 
 | Variable name           | Definition                                                        | Example                                     |
 | ----------------------- | ----------------------------------------------------------------- | ------------------------------------------- |
-| QUEUE_DATABASE_URL      | Used for configuring the endpoint of the database instance        | mysql://username:password@endpoint/database |
+| QUEUE_DATABASE_URL      | Used for configuring the endpoint of the database instance        | mysql://username:password@dbhost/database   |
 | QUEUE_DATABASE_USERNAME | Used for configuring the user being used to access the database   | root                                        |
 | QUEUE_DATABASE_PASSWORD | Used for configuring the password used for accessing the database | password                                    |
 
@@ -24,6 +24,12 @@ The submitter will poll the database for new submissions at regular intervals. T
 
 These intervals can be set using the following environment variables:
 
-| Variable name | Definition | Default |
-| QUEUE_POLLING_INTERVAL | The length of time, in milliseconds, between poll requests | 5000 |
-| QUEUE_RETENTION_PERIOD | The length of time, in days, that a submission will be kept for before being deleted | 365 |
+| Variable name          | Definition                                                                                      | Default |
+|------------------------|-------------------------------------------------------------------------------------------------|---------|
+| QUEUE_POLLING_INTERVAL | The length of time, in milliseconds, between poll requests                                      | 5000    |
+| QUEUE_RETENTION_PERIOD | The length of time, in days, that a successful submission will be kept for before being deleted | 365     |
+| MAX_RETRIES            | The maximum number of times to retry a failed request                                           | 1000    |
+
+If a submission should only be tried once, configure your webhook output with the option `"allowRetry": false`. [Check docs/runner/submission-queue.md](./../docs/runner/submission-queue.md) for a full example.
+
+
