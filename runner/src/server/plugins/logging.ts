@@ -11,9 +11,9 @@ export default {
         return { level: label };
       },
     },
-    debug: false,
-    logRequestStart: false,
-    logRequestComplete: false,
+    debug: config.isDev,
+    logRequestStart: config.isDev,
+    logRequestComplete: config.isDev,
     ignoreFunc: (_options, request) =>
       request.path.startsWith("/assets") || request.url.contains("assets"),
     redact: {
