@@ -5,10 +5,15 @@ import { Actions } from "./reducers/component/types";
 import { CssClasses } from "./components/CssClasses";
 import { i18n } from "./i18n";
 
+const defaultOptions = {
+  multiple: false,
+  imageQualityPlayback: false,
+};
+
 export function FileUploadFieldEdit() {
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent } = state;
-  const { options = {} } = selectedComponent;
+  const { options = defaultOptions } = selectedComponent;
 
   return (
     <details className="govuk-details">
@@ -22,15 +27,41 @@ export function FileUploadFieldEdit() {
         <div className="govuk-checkboxes__item">
           <input
             className="govuk-checkboxes__input"
-            id="field-options.multiple"
+            id="field-options-multiple"
             name="options.multiple"
             type="checkbox"
-            checked={options.multiple === false}
+            checked={options.multiple}
             onChange={(e) => {
-              e.preventDefault();
               dispatch({
                 type: Actions.EDIT_OPTIONS_FILE_UPLOAD_MULTIPLE,
-                payload: !options.multiple,
+                payload: e.target.checked,
+              });
+            }}
+          />
+          <label
+            className="govuk-label govuk-checkboxes__label"
+            htmlFor="field-options-multiple"
+          >
+            {i18n("fileUploadFieldEditPage.multipleFilesOption.title")}
+          </label>
+          <span className="govuk-hint govuk-checkboxes__hint">
+            {i18n("fileUploadFieldEditPage.multipleFilesOption.helpText")}
+          </span>
+        </div>
+      </div>
+
+      <div className="govuk-checkboxes govuk-form-group">
+        <div className="govuk-checkboxes__item">
+          <input
+            className="govuk-checkboxes__input"
+            id="field-options-imageQualityPlayback"
+            name="options.imageQualityPlayback"
+            type="checkbox"
+            checked={options.imageQualityPlayback}
+            onChange={(e) => {
+              dispatch({
+                type: Actions.EDIT_OPTIONS_IMAGE_QUALITY_PLAYBACK,
+                payload: e.target.checked,
               });
             }}
           />
@@ -38,10 +69,12 @@ export function FileUploadFieldEdit() {
             className="govuk-label govuk-checkboxes__label"
             htmlFor="field-options.multiple"
           >
-            {i18n("fileUploadFieldEditPage.multipleFilesOption.title")}
+            {i18n("fileUploadFieldEditPage.imageQualityPlaybackOption.title")}
           </label>
           <span className="govuk-hint govuk-checkboxes__hint">
-            {i18n("fileUploadFieldEditPage.multipleFilesOption.helpText")}
+            {i18n(
+              "fileUploadFieldEditPage.imageQualityPlaybackOption.helpText"
+            )}
           </span>
         </div>
       </div>

@@ -208,6 +208,10 @@
     "multipleFilesOption": {
       "helpText": "Tick this box to enable users to upload multiple files",
       "title": "Allow multiple file upload"
+    },
+    "imageQualityPlaybackOption": {
+      "helpText": "If your document upload API assesses the quality of uploaded images, and you want to inform the user but don't want to stop them from continuing, check this box.",
+      "title": "Enable playback page for image quality checking"
     }
   },
   "formDetails": {
