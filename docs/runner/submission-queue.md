@@ -23,8 +23,8 @@ Webhooks can be configured so that the submitter only attempts to post to the we
 {
   "outputs": [
     {
-      "type": “webhook”,
-      "name": “api”,
+      "type": "webhook",
+      "name": "api",
       "outputConfiguration": {
         "url":"“https://api:9000",
         "allowRetry": false
