@@ -21,13 +21,13 @@ Webhooks can be configured so that the submitter only attempts to post to the we
 
 ```.json
 {
-  “outputs”: [
+  "outputs": [
     {
-      “type”: “webhook”,
-      “name”: “api”,
-      “outputConfiguration”: {
-        “url”: “https://api:9000”,
-        “allowRetry”: false
+      "type": “webhook”,
+      "name": “api”,
+      "outputConfiguration": {
+        "url":"“https://api:9000",
+        "allowRetry": false
       }
     }
   ]
