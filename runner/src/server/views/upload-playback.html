@@ -1,0 +1,57 @@
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "details/macro.njk" import govukDetails %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+
+{% extends "layout.html" %}
+
+{% set infoHtml %}
+  <p class="govuk-heading-s">
+    It looks like your birth certificate image is too blurred. Check your image and upload another one if needed.
+  </p>
+{% endset %}
+
+{% set takePhotoHtml %}
+  <p class="govuk-body"></p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>lay it flat on a table or for better results against a wall</li>
+    <li>make sure all information is readable</li>
+    <li>position the phone parallel to the document</li>
+    <li>use both hands to keep your phone steady</li>
+  </ul>
+{% endset %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        Check your {{ fieldName }}
+      </h1>
+      {% if uploadErrors %}
+        {{ govukErrorSummary(uploadErrors) }}
+      {% endif %}
+
+      {% include "partials/heading.html" %}
+      <form method="post" enctype="multipart/form-data" autocomplete="on">
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
+        {{ govukNotificationBanner({
+            html: infoHtml
+          })
+        }}
+
+        <p class="govuk-body">All the information in the image must be readable. If not, you may be asked to send another copy, which could delay your application.</p>
+
+        {{ govukDetails({
+            summaryText: "How to take a good photograph",
+            html: takePhotoHtml
+          })
+        }}
+
+        {{ govukRadios(radios) }}
+        {{ govukButton({ attributes: { id: "submit" }, text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
