@@ -7,9 +7,8 @@ import {
   HapiRequest,
   HapiResponseToolkit,
 } from "server/types";
-import { FormData } from "../types";
 
-export class SummaryUploadPageController extends PageController {
+export class PlaybackUploadPageController extends PageController {
   inputComponent: FormComponent;
   private getRoute!: HapiLifecycleMethod;
   private postRoute!: HapiLifecycleMethod;
@@ -106,7 +105,7 @@ export class SummaryUploadPageController extends PageController {
 
       delete payload.retryUpload;
 
-      return h.redirect(this.getNext(payload));
+      return super.makePostRouteHandler()(request, h);
     };
   }
 }
