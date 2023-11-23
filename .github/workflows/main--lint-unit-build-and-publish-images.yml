@@ -57,7 +57,7 @@ jobs:
     needs: [calculate-version, assign-semver, lint-and-test]
     strategy:
       matrix:
-        app: [designer, runner]
+        app: [designer, runner, submitter]
     uses: ./.github/workflows/build.yml
     secrets: inherit
     with:
