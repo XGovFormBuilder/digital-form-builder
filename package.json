@@ -13,12 +13,14 @@
     "model",
     "runner",
     "designer",
-    "e2e"
+    "e2e",
+    "queue-model",
+    "submitter"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
     "build": "yarn workspaces foreach run build",
-    "build:dependencies": "yarn model build",
+    "build:dependencies": "yarn model build && yarn queue-model build",
     "lint": "yarn workspaces foreach run lint",
     "test": "yarn workspaces foreach run test",
     "fix-lint": "yarn workspaces foreach run fix-lint",
@@ -27,6 +29,8 @@
     "designer": "yarn workspace @xgovformbuilder/designer",
     "model": "yarn workspace @xgovformbuilder/model",
     "e2e": "yarn workspace e2e",
+    "queue-model": "yarn workspace @xgovformbuilder/queue-model",
+    "submitter": "yarn workspace @xgovformbuilder/submitter",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
@@ -34,15 +38,14 @@
     "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.4",
-    "@babel/eslint-parser": "^7.21.3",
-    "@babel/eslint-plugin": "^7.19.1",
-    "@babel/preset-env": "^7.21.4",
-    "@babel/preset-typescript": "^7.21.4",
+    "@babel/cli": "^7.23.3",
+    "@babel/core": "^7.23.3",
+    "@babel/eslint-parser": "^7.23.3",
+    "@babel/eslint-plugin": "^7.22.10",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
-    "babel-eslint": "^11.0.0-beta.2",
     "concurrently": "^5.3.0",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^8.5.0",
@@ -57,6 +60,7 @@
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "prettier": "2.1.2",
+    "prisma": "^5.1.1",
     "typedoc": "~0.23.17",
     "typescript": "4.9.5"
   },
@@ -66,6 +70,8 @@
     "hmpo-components": "^5.2.1"
   },
   "resolutions": {
+    "@babel/core": "^7.23.3",
+    "@babel/traverse": "^7.23.3",
     "braces": "2.3.1",
     "pathval": "1.1.1",
     "y18n": "4.0.1",
@@ -84,7 +90,9 @@
     "json-schema": "0.4.0",
     "glob-parent": "5.1.2",
     "follow-redirects": "~1.14.1",
-    "@xmldom/xmldom": "0.8.6"
+    "@xmldom/xmldom": "0.8.6",
+    "@cypress/request": "3.x.x",
+    "@adobe/css-tools": "4.3.1"
   },
   "husky": {
     "hooks": {

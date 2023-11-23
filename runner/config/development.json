@@ -2,5 +2,7 @@
   "isTest": true,
   "previewMode": true,
   "enforceCsrf": false,
-  "env": "development"
+  "env": "development",
+  "enableQueueService": true,
+  "queueDatabaseUrl": "mysql://root:root@localhost:3306/queue"
 }
