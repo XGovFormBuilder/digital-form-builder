@@ -21,7 +21,7 @@ import {
   FormSubmissionErrors,
   FormSubmissionState,
 } from "../types";
-import { ComponentCollectionViewModel } from "../components/types";
+import { ComponentCollectionViewModel, ViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
@@ -506,37 +506,29 @@ export class PageControllerBase {
     };
   }
 
-  /**
-   * deals with parsing errors and saving answers to state
-   */
-  async handlePostRequest(
+  processUploads(
+    state: FormSubmissionState,
     request: HapiRequest,
-    h: HapiResponseToolkit,
-    mergeOptions: {
-      nullOverride?: boolean;
-      arrayMerge?: boolean;
-      /**
-       * if you wish to modify the value just before it is added to the user's session (i.e. after validation and error parsing), use the modifyUpdate method.
-       * pass in a function, that takes in the update value. Make sure that this returns the modified value.
-       */
-      modifyUpdate?: <T>(value: T) => any;
-    } = {}
+    formResult: any
   ) {
-    const { cacheService } = request.services([]);
-    const hasFilesizeError = request.payload === null;
-    const preHandlerErrors = request.pre.errors;
-    const payload = (request.payload || {}) as FormData;
-    const formResult: any = this.validateForm(payload);
-    const state = await cacheService.getState(request);
     const originalFilenames = (state || {}).originalFilenames || {};
     const fileFields = this.getViewModel(formResult)
       .components.filter((component) => component.type === "FileUploadField")
       .map((component) => component.model);
-    const progress = state.progress || [];
-    const { num } = request.query;
+    formResult = this.validateUploads(request, fileFields, formResult);
+    if (formResult.errors) {
+      return formResult;
+    }
+    this.replaceFilenames(request.payload, originalFilenames);
+    return formResult;
+  }
 
-    // TODO:- Refactor this into a validation method
-    if (hasFilesizeError) {
+  validateUploads(
+    request: HapiRequest,
+    fileFields: ViewModel[],
+    formResult: any
+  ) {
+    if (request.payload === null) {
       const reformattedErrors = fileFields.map((field) => {
         return {
           path: field.name,
@@ -551,7 +543,7 @@ export class PageControllerBase {
         : formResult.errors;
       formResult.errors.errorList = reformattedErrors;
     }
-
+    const preHandlerErrors = request.pre.errors;
     /**
      * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
      */
@@ -578,12 +570,41 @@ export class PageControllerBase {
         : formResult.errors;
       formResult.errors.errorList = reformattedErrors;
     }
+    return formResult;
+  }
 
+  replaceFilenames(payload: object, originalFilenames: string[]) {
     Object.entries(payload).forEach(([key, value]) => {
       if (value && value === (originalFilenames[key] || {}).location) {
         payload[key] = originalFilenames[key].originalFilename;
       }
     });
+  }
+
+  /**
+   * deals with parsing errors and saving answers to state
+   */
+  async handlePostRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    mergeOptions: {
+      nullOverride?: boolean;
+      arrayMerge?: boolean;
+      /**
+       * if you wish to modify the value just before it is added to the user's session (i.e. after validation and error parsing), use the modifyUpdate method.
+       * pass in a function, that takes in the update value. Make sure that this returns the modified value.
+       */
+      modifyUpdate?: <T>(value: T) => any;
+    } = {}
+  ) {
+    const { cacheService } = request.services([]);
+    const payload = (request.payload || {}) as FormData;
+    let formResult: any = this.validateForm(payload);
+    const state = await cacheService.getState(request);
+    const progress = state.progress || [];
+    const { num } = request.query;
+
+    formResult = this.processUploads(state, request, formResult);
 
     /**
      * If there are any errors, render the page with the parsed errors

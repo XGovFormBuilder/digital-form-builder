@@ -1,7 +1,7 @@
 import { PageController } from "server/plugins/engine/pageControllers/PageController";
 import { FormModel } from "server/plugins/engine/models";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
-import { SummaryUploadPageController } from "server/plugins/engine/pageControllers/SummaryUploadPageController";
+import { PlaybackUploadPageController } from "server/plugins/engine/pageControllers/PlaybackUploadPageController";
 import { FormComponent } from "server/plugins/engine/components";
 
 function isUploadField(component: FormComponent) {
@@ -9,7 +9,7 @@ function isUploadField(component: FormComponent) {
 }
 
 export class UploadPageController extends PageController {
-  summary: SummaryUploadPageController;
+  playback: PlaybackUploadPageController;
   inputComponent: FormComponent;
   constructor(model: FormModel, pageDef: any) {
     super(model, pageDef);
@@ -19,7 +19,7 @@ export class UploadPageController extends PageController {
         "UploadPageController initialisation failed, no file upload component was found"
       );
     }
-    this.summary = new SummaryUploadPageController(
+    this.playback = new PlaybackUploadPageController(
       model,
       pageDef,
       inputComponent as FormComponent
@@ -32,8 +32,8 @@ export class UploadPageController extends PageController {
       const { query } = request;
       const { view } = query;
 
-      if (view === "summary") {
-        return this.summary.getRouteHandler(request, h);
+      if (view === "playback") {
+        return this.playback.getRouteHandler(request, h);
       }
 
       return super.makeGetRouteHandler()(request, h);
@@ -44,19 +44,27 @@ export class UploadPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
 
-      if (query.view === "summary") {
-        return this.summary.postRouteHandler(request, h);
-      }
-      if (request?.pre?.errors) {
-        if (
-          request?.pre?.errorCode === "qualityError" &&
-          this.inputComponent.options?.imageQualityPlayback
-        ) {
-          return h.redirect(`?view=summary`);
-        }
+      if (query.view === "playback") {
+        return this.playback.postRouteHandler(request, h);
       }
 
-      return super.makePostRouteHandler()(request, h);
+      const response = await this.handlePostRequest(request, h);
+      if (response?.source?.context?.errors) {
+        return response;
+      }
+      const { cacheService } = request.services([]);
+      const savedState = await cacheService.getState(request);
+      //This is required to ensure we don't navigate to an incorrect page based on stale state values
+      let relevantState = this.getConditionEvaluationContext(
+        this.model,
+        savedState
+      );
+
+      if (request?.pre?.warningFromApi === "qualityWarning") {
+        return h.redirect(`?view=playback`);
+      }
+
+      return this.proceed(request, h, relevantState);
     };
   }
 }
