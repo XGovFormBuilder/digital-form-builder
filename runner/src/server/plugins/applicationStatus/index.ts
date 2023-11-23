@@ -38,6 +38,20 @@ const index = {
               reference: newReference,
             } = await statusService.outputRequests(request);
 
+            if (state.callback?.skipSummary?.redirectUrl) {
+              const { redirectUrl } = state.callback?.skipSummary;
+              request.logger.info(
+                ["applicationStatus"],
+                `Callback skipSummary detected, redirecting ${request.yar.id} to ${redirectUrl} and clearing state`
+              );
+              await cacheService.setConfirmationState(request, {
+                redirectUrl,
+              });
+              await cacheService.clearState(request);
+
+              return h.redirect(redirectUrl);
+            }
+
             if (
               !!request.pre.confirmationViewModel?.confirmation &&
               !state.callback?.returnUrl

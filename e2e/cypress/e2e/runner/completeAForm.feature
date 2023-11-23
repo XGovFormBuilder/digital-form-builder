@@ -3,25 +3,6 @@ Feature: Complete a form
   I want to complete a form
   So that I submit my form successfully
 
-  Scenario: Complete the report a Terrorist form
-    Given I navigate to the "report-a-terrorist" form
-    When I choose "Yes, I do have a link"
-    And I continue
-    * I enter "link-to-the-material.co"
-    * I continue
-    * I choose "No, I don't have evidence"
-    * I continue
-    * I enter "the additional info" for "Additional Info (optional)"
-    * I continue
-    Then I see a summary list with the values
-      | title                               | value                     |
-      | Do you have a link to the material? | Yes, I do have a link     |
-      | Link to the material                | link-to-the-material.co   |
-      | Do you have any evidence?           | No, I don't have evidence |
-      | Additional Info                     | the additional info       |
-    When I save the form
-    Then I see "Application complete"
-
 
   Scenario: Testing condition - User does not have a link
     Given I navigate to the "report-a-terrorist" form
@@ -94,4 +75,23 @@ Feature: Complete a form
     Given I navigate to the "report-a-terrorist" form
     When I continue
     Then I see the error "Do you have a link to the material? is required" for "Do you have a link to the material?"
+
+  Scenario: Complete the report a Terrorist form
+    Given I navigate to the "report-a-terrorist" form
+    When I choose "Yes, I do have a link"
+    And I continue
+    * I enter "link-to-the-material.co"
+    * I continue
+    * I choose "No, I don't have evidence"
+    * I continue
+    * I enter "the additional info" for "Additional Info (optional)"
+    * I continue
+    Then I see a summary list with the values
+      | title                               | value                     |
+      | Do you have a link to the material? | Yes, I do have a link     |
+      | Link to the material                | link-to-the-material.co   |
+      | Do you have any evidence?           | No, I don't have evidence |
+      | Additional Info                     | the additional info       |
+    When I save the form
+    Then I see "Application complete"
 
