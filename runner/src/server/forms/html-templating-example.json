@@ -8,7 +8,9 @@
       "components": [
         {
           "name": "contentToDisplay",
-          "options": {},
+          "options": {
+            "exposeToContext": true
+          },
           "type": "RadiosField",
           "title": "Content to display",
           "list": "vYTQRu",

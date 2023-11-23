@@ -275,12 +275,20 @@ export class PageControllerBase {
         ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
         : {};
 
-      return this.components.getFormDataFromState(
-        newState as FormSubmissionState
-      );
+      return {
+        ...this.components.getFormDataFromState(
+          newState as FormSubmissionState
+        ),
+        ...this.model.fieldsForContext?.getFormDataFromState(
+          newState as FormSubmissionState
+        ),
+      };
     }
 
-    return this.components.getFormDataFromState(pageState || {});
+    return {
+      ...this.components.getFormDataFromState(pageState || {}),
+      ...this.model.fieldsForContext?.getFormDataFromState(pageState || {}),
+    };
   }
 
   getStateFromValidForm(formData: FormPayload) {

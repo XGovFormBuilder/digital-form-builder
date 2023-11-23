@@ -16,6 +16,7 @@ import { PageControllerBase, getPageController } from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
 import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
+import { ComponentCollection } from "server/plugins/engine/components";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -48,6 +49,7 @@ export class FormModel {
   /** the id of the form used for the first url parameter eg localhost:3009/test */
   basePath: string;
   conditions: Record<string, ExecutableCondition> | {};
+  fieldsForContext: ComponentCollection;
   pages: any;
   startPage: any;
 
@@ -107,6 +109,13 @@ export class FormModel {
       const condition = this.makeCondition(conditionDef);
       this.conditions[condition.name] = condition;
     });
+
+    const exposedComponentDefs = def.pages.flatMap((page) => {
+      return page.components.filter(
+        (component) => component.options?.exposeToContext
+      );
+    });
+    this.fieldsForContext = new ComponentCollection(exposedComponentDefs, this);
 
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
