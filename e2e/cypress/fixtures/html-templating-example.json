@@ -8,7 +8,9 @@
       "components": [
         {
           "name": "contentToDisplay",
-          "options": {},
+          "options": {
+            "exposeToContext": true
+          },
           "type": "RadiosField",
           "title": "Content to display",
           "list": "vYTQRu",
@@ -20,7 +22,7 @@
     },
     {
       "path": "/second-page",
-      "title": "Second page",
+      "title": "Dynamic page based on your answers: {{ contentToDisplay }}",
       "components": [
         {
           "name": "azSyOn",
