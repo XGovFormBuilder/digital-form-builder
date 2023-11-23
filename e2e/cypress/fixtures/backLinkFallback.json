@@ -1,0 +1,53 @@
+{
+  "startPage": "/start",
+  "pages": [
+    {
+      "backLinkFallback": "/help/cookies",
+      "title": "start page",
+      "path": "/start",
+      "components": [],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "backLinkFallback": "/help/terms-and-conditions",
+      "title": "second page",
+      "path": "/second-page",
+      "components": [],
+      "next": [
+        {
+          "path": "/third-page"
+        }
+      ]
+    },
+    {
+      "title": "third page",
+      "path": "/third-page",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "phaseBanner": {},
+  "fees": [],
+  "payApiKey": "",
+  "outputs": [],
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
+  "version": 2,
+  "conditions": []
+}

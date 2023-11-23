@@ -7,64 +7,65 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
+      - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
+          node-version: "16.x"
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - name: Configure yarn caching
-        uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-e2e-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-yarn-e2e
 
-      - name: Install smoke tests dependencies
-        run: yarn install --cwd "smoke-tests/designer"
-
-      - name: Smoke Test
-        run: |
-          yarn smoke-tests/designer smoke-test-heroku
-          ls -lah smoke-tests/designer/reports/
-
-      - name: "Tar files"
-        if: ${{ success() || failure() }}
-        run: tar -cvf smoke-tests-nightly-heroku.tar smoke-tests/designer/reports
-
-      - uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: smoke-tests-nightly-heroku
-          path: smoke-tests-nightly-heroku.tar
-          retention-days: 14
-
-      - uses: rtCamp/action-slack-notify@v2
-        if: ${{failure()}}
+      - name: Run smoke tests against heroku
+        run: yarn e2e cypress run
         env:
-          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
-          SLACK_COLOR: '#990000'
-          SLACK_MESSAGE: 'Nightly - Smoke Test, job for heroku failed'
-          SLACK_TITLE: Smoke Test failure
-          SLACK_USERNAME: forms-nightly-bot
-          SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          cypress_DESIGNER_URL: https://digital-form-builder-designer.herokuapp.com
+          cypress_RUNNER_URL: https://digital-form-builder-runner.herokuapp.com
+
+      - name: Send slack CI alert
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # For posting a rich message using Block Kit
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": ":rotating_light: Nightly smoke tests failed",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action CI result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
       - uses: rtCamp/action-slack-notify@v2
         if: ${{failure()}}
         env:
           SLACK_CHANNEL: ${{ secrets.CYB_SLACK_CHANNEL }}
-          SLACK_COLOR: '#990000'
-          SLACK_MESSAGE: 'Nightly - Smoke Test, job for heroku failed'
+          SLACK_COLOR: "#990000"
+          SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"
           SLACK_TITLE: Smoke Test failure
           SLACK_USERNAME: forms-nightly-bot
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png

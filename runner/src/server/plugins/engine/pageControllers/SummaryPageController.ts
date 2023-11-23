@@ -337,13 +337,26 @@ export class SummaryPageController extends PageController {
             "declarationError",
             "You must declare to be able to submit this application"
           );
+          const url = request.headers.referer ?? request.path;
+          return redirectTo(request, h, `${url}#declaration`);
+        }
+        summaryViewModel.addDeclarationAsQuestion();
+      }
+
+      if (summaryViewModel.markAsCompleteComponent) {
+        const { markAsComplete } = request.payload as { markAsComplete?: any };
+
+        if (!markAsComplete) {
+          request.yar.flash("markAsCompleteError", "You must select yes or no");
           return redirectTo(
             request,
             h,
-            `${request.headers.referer}#declaration`
+            `${request.headers.referer}#markAsComplete`
           );
         }
-        summaryViewModel.addDeclarationAsQuestion();
+        summaryViewModel.addMarkAsCompleteAsQuestion(
+          markAsComplete.toLowerCase() === "true"
+        );
       }
 
       if (summaryViewModel.markAsCompleteComponent) {
@@ -366,6 +379,12 @@ export class SummaryPageController extends PageController {
         outputs: summaryViewModel.outputs,
         userCompletedSummary: true,
       });
+
+      request.logger.info(
+        ["Webhook data", "before send", request.yar.id],
+        JSON.stringify(summaryViewModel.validatedWebhookData)
+      );
+
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,
       });
@@ -380,10 +399,17 @@ export class SummaryPageController extends PageController {
         return redirectTo(request, h, `/${request.params.id}/status`);
       }
 
+      const payReturnUrl =
+        this.model.feeOptions?.payReturnUrl ?? config.payReturnUrl;
+
+      request.logger.info(
+        `payReturnUrl has been configured to ${payReturnUrl}`
+      );
+
       // user must pay for service
       const description = payService.descriptionFromFees(summaryViewModel.fees);
       const url = new URL(
-        `${config.payReturnUrl}/${request.params.id}/status`
+        `${payReturnUrl}/${request.params.id}/status`
       ).toString();
       const res = await payService.payRequest(
         summaryViewModel.fees,
@@ -398,7 +424,7 @@ export class SummaryPageController extends PageController {
           reference: res.reference,
           self: res._links.self.href,
           returnUrl: new URL(
-            `${config.payReturnUrl}/${request.params.id}/status`
+            `${payReturnUrl}/${request.params.id}/status`
           ).toString(),
           meta: {
             amount: summaryViewModel.fees.total,

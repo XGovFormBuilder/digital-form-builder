@@ -7,13 +7,13 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "workspaces": [
     "model",
     "runner",
     "designer",
-    "smoke-tests/designer"
+    "e2e"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
@@ -25,8 +25,8 @@
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
-    "smoke-test": "yarn workspace @xgovformbuilder/test",
     "model": "yarn workspace @xgovformbuilder/model",
+    "e2e": "yarn workspace e2e",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
@@ -34,42 +34,57 @@
     "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
-    "@babel/eslint-parser": "^7.11.3",
-    "@babel/eslint-plugin": "^7.11.3",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.12.7",
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/eslint-parser": "^7.21.3",
+    "@babel/eslint-plugin": "^7.19.1",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-typescript": "^7.21.4",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "babel-eslint": "^11.0.0-beta.2",
     "concurrently": "^5.3.0",
     "eslint": "^7.19.0",
-    "eslint-config-prettier": "^6.13.0",
-    "eslint-config-standard": "^14.1.1",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-workspaces": "^1.0.10",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "prettier": "2.1.2",
-    "typedoc": "^0.20.36",
-    "typescript": "^4.1.3"
+    "typedoc": "~0.23.17",
+    "typescript": "4.9.5"
   },
   "dependencies": {
-    "@babel/runtime": "^7.11.2",
-    "govuk-frontend": "^3.13.0",
-    "immutable": "^4.3.0"
+    "@babel/runtime": "^7.21.0",
+    "govuk-frontend": "^4.3.1",
+    "hmpo-components": "^5.2.1"
   },
   "resolutions": {
     "braces": "2.3.1",
     "pathval": "1.1.1",
-    "y18n": "4.0.1"
+    "y18n": "4.0.1",
+    "dot-prop": "^5.1.1",
+    "lodash": "~4.17.21",
+    "url-parse": "~1.5.0",
+    "css-what": "~6.0.1",
+    "elliptic": "~6.5.4",
+    "tmpl": "~1.0.5",
+    "underscore": "^1.12.1",
+    "tar": "^6.1.2",
+    "handlebars": "^4.7.7",
+    "moment": "^2.29.4",
+    "ssri": "~6.0.2",
+    "minimist": "~1.2.6",
+    "json-schema": "0.4.0",
+    "glob-parent": "5.1.2",
+    "follow-redirects": "~1.14.1",
+    "@xmldom/xmldom": "0.8.6"
   },
   "husky": {
     "hooks": {

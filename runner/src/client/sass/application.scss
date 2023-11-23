@@ -1,10 +1,8 @@
-@import "../node_modules/govuk-frontend/govuk/all";
-@import "../node_modules/accessible-autocomplete/src/autocomplete";
+@import "govuk";
+@import "node_modules/accessible-autocomplete/src/autocomplete";
 @import "hmpo";
 @import "modal-dialog";
 @import "upload-dialog";
-
-$govuk-global-styles: true;
 
 .flash-card {
   .govuk-button {

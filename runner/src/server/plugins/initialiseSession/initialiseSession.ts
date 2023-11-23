@@ -2,6 +2,7 @@ import { Plugin, Request } from "@hapi/hapi";
 import {
   callbackValidation,
   generateSessionTokenForForm,
+  verifyToken,
   webhookToSessionData,
 } from "./helpers";
 import { InitialiseSessionOptions, InitialiseSession } from "./types";
@@ -9,6 +10,7 @@ import path from "path";
 import { WebhookSchema } from "server/schemas/types";
 import Jwt from "@hapi/jwt";
 import { SpecialPages } from "@xgovformbuilder/model";
+import Boom from "boom";
 
 type ConfirmationPage = SpecialPages["confirmationPage"];
 
@@ -31,8 +33,15 @@ export const initialiseSession: Plugin<InitialiseSession> = {
       handler: async function (request, h) {
         const { cacheService } = request.services([]);
         const { token } = request.params;
-        const { decoded } = Jwt.token.decode(token);
-        const { payload } = decoded;
+        const tokenArtifacts = Jwt.token.decode(token);
+        const { isValid, error } = verifyToken(tokenArtifacts);
+
+        if (!isValid) {
+          request.logger.error([`GET /session/${token}`, "invalid JWT"], error);
+          throw Boom.badRequest();
+        }
+
+        const { payload } = tokenArtifacts.decoded;
         const { redirectPath } = await cacheService.activateSession(
           token,
           request
@@ -51,6 +60,12 @@ export const initialiseSession: Plugin<InitialiseSession> = {
     server.route({
       method: "POST",
       path: "/session/{formId}",
+      options: {
+        description: `Accepts JSON object conforming to type InitialiseSessionSchema. Creates a session and returns JSON containing a JWT Token {"token": "example.jwt.token"}. You must configure the callback safelist in runner/config/{environment}.json. ${safelist}`,
+        plugins: {
+          crumb: false,
+        },
+      },
       handler: async function (request, h) {
         const { payload, params } = request as InitialiseSessionRequest;
         const { cacheService } = request.services([]);
@@ -87,6 +102,15 @@ export const initialiseSession: Plugin<InitialiseSession> = {
             .code(403);
         }
 
+        if (options.htmlMessage && options.message) {
+          return h
+            .response({
+              message:
+                "Both htmlMessage and message were provided. Only one is allowed.",
+            })
+            .code(400);
+        }
+
         const token = generateSessionTokenForForm(callbackUrl, formId);
 
         await cacheService.createSession(token, {
@@ -96,12 +120,6 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         });
 
         return h.response({ token }).code(201);
-      },
-      options: {
-        description: `Accepts JSON object conforming to type InitialiseSessionSchema. Creates a session and returns JSON containing a JWT Token {"token": "example.jwt.token"}. You must configure the callback whitelist in runner/config/{environment}.json`,
-        plugins: {
-          crumb: false,
-        },
       },
     });
   },

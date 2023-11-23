@@ -214,16 +214,7 @@
   "phaseBanner": {},
   "metadata": {},
   "fees": [],
-  "outputs": [
-    {
-      "name": "q7mMOb6Eu6EauibjcTFT3",
-      "title": "powerapps",
-      "type": "webhook",
-      "outputConfiguration": {
-        "url": "https://prod-182.westeurope.logic.azure.com:443/workflows/cfa66b774dad40459bf36e334d860445/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4nNQTOYk5DnEByQSKMb5jzu_cXJ0NKJuH4KZGBiqvMk"
-      }
-    }
-  ],
+  "outputs": [],
   "version": 2,
   "conditions": [
     {

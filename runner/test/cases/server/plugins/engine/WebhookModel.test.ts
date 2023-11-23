@@ -15,12 +15,14 @@ const { afterEach, suite, test } = lab;
 
 const testDetails = [
   {
+    changeText: "Change",
     items: [
       {
         name: "approximate",
         path: "/first-page",
         label: "Approximate date of marriage",
         value: "January 2000",
+        prefix: undefined,
         rawValue: {
           approximate__month: 1,
           approximate__year: 2000,
@@ -37,6 +39,7 @@ const testDetails = [
         path: "/first-page",
         label: "caz zone",
         value: "Bath",
+        prefix: undefined,
         rawValue: "1",
         url: "/test/first-page?returnUrl=%2Ftest%2Fsummary",
         pageId: "/test/first-page",
@@ -62,6 +65,7 @@ const testDetails = [
         path: "/second-page",
         label: "full date (optional)",
         value: "11 December 2000",
+        prefix: undefined,
         rawValue: "2000-12-11T00:00:00.000Z",
         url: "/test/second-page?returnUrl=%2Ftest%2Fsummary",
         pageId: "/test/second-page",

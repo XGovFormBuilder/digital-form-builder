@@ -21,6 +21,8 @@ const {
   vcapServices,
   isSingleRedis,
   sessionTimeout,
+  confirmationSessionTimeout,
+  paymentSessionTimeout,
 } = config;
 let redisUri;
 const partition = "cache";
@@ -34,8 +36,8 @@ if (vcapServices) {
   if ("redis" in vcapJson) {
     redisUri = vcapJson.redis[0].credentials.uri;
   }
-} else if(process.env.REDIS_INSTANCE_URI) {
-  redisUri = process.env.REDIS_INSTANCE_URI
+} else if (process.env.REDIS_INSTANCE_URI) {
+  redisUri = process.env.REDIS_INSTANCE_URI;
 }
 
 export class CacheService {
@@ -63,8 +65,16 @@ export class CacheService {
   ) {
     const key = this.Key(request);
     const state = await this.getState(request);
+    let ttl = sessionTimeout;
     hoek.merge(state, value, nullOverride, arrayMerge);
-    await this.cache.set(key, state, sessionTimeout);
+    if (!!state.pay) {
+      this.logger.info(
+        ["cacheService", request.yar.id],
+        `Pay state detected setting session TTL to ${paymentSessionTimeout}.`
+      );
+      ttl = paymentSessionTimeout;
+    }
+    await this.cache.set(key, state, ttl);
     return this.cache.get(key);
   }
 
@@ -75,7 +85,7 @@ export class CacheService {
 
   async setConfirmationState(request: HapiRequest, viewModel) {
     const key = this.Key(request, ADDITIONAL_IDENTIFIER.Confirmation);
-    return this.cache.set(key, viewModel, sessionTimeout);
+    return this.cache.set(key, viewModel, confirmationSessionTimeout);
   }
 
   async createSession(

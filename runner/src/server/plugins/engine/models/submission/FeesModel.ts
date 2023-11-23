@@ -61,7 +61,10 @@ export function FeesModel(
       details,
       total: 0,
       prefixes: [],
-      referenceFormat: model.def.paymentReferenceFormat ?? "",
+      referenceFormat:
+        model.feeOptions?.paymentReferenceFormat ??
+        model.def.paymentReferenceFormat ??
+        "",
     }
   );
 }

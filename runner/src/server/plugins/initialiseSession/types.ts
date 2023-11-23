@@ -1,3 +1,5 @@
+import { ContentComponentsDef } from "@xgovformbuilder/model";
+
 export type InitialiseSession = {
   safelist: string[];
 };
@@ -7,6 +9,17 @@ export type InitialiseSessionOptions = {
   redirectPath?: string;
   message?: string;
   returnUrl?: string;
+  htmlMessage?: string;
+  title?: string;
+  skipSummary?: {
+    redirectUrl: string;
+  };
+  customText: {
+    title: string;
+    paymentSkipped?: false | string;
+    nextSteps?: false | string;
+  };
+  components: ContentComponentsDef[];
 };
 
 export type DecodedSessionToken = {

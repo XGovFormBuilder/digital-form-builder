@@ -47,6 +47,7 @@ export function ListItemEdit() {
         <Input
           id="title"
           data-testid="list-item-text"
+          name="list-item-text"
           label={{
             className: "govuk-label--s",
             children: [i18n("list.item.title")],
@@ -63,6 +64,8 @@ export function ListItemEdit() {
           hint={{ children: i18n("list.item.helpHint") }}
           value={hint}
           data-testid="list-item-hint"
+          name="list-item-hint"
+          id="hint"
           onChange={handleHintChange}
         />
         <Input
@@ -70,14 +73,14 @@ export function ListItemEdit() {
           hint={{ children: [i18n("list.item.valueHint")] }}
           id="value"
           data-testid="list-item-value"
+          name="list-item-value"
           value={value}
           errorMessage={
             errors?.value ? { children: errors?.value.children } : undefined
           }
           onChange={handleValueChange}
         />
-
-        <Label>{i18n("list.item.conditions")}</Label>
+        <Label for="options.condition">{i18n("list.item.conditions")}</Label>
         <Hint>{i18n("list.item.conditionsHint")}</Hint>
         <select
           className="govuk-select"
@@ -100,7 +103,12 @@ export function ListItemEdit() {
         </select>
         <hr />
         <div className={"govuk-form-group"}>
-          <button className="govuk-button" type="submit" onClick={handleSubmit}>
+          <button
+            data-testid="save-list-item"
+            className="govuk-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
             {i18n("save")}
           </button>
         </div>

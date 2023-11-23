@@ -158,10 +158,6 @@ export class StatusService {
     if (callback) {
       this.logger.info(
         ["StatusService", "outputRequests"],
-        `Callback detected for ${request.yar.id}`
-      );
-      this.logger.info(
-        ["StatusService", "outputRequests"],
         `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`
       );
       try {
@@ -171,7 +167,7 @@ export class StatusService {
           "PUT"
         );
       } catch (e) {
-        throw Boom.badRequest();
+        throw Boom.badRequest(e);
       }
     }
 

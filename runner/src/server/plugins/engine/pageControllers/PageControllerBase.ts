@@ -61,6 +61,7 @@ export class PageControllerBase {
   hasConditionalFormComponents: boolean;
   saveAndContinueText: string;
   continueText: string;
+  backLinkFallback?: string;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -76,6 +77,7 @@ export class PageControllerBase {
     this.title = pageDef.title;
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
+    this.backLinkFallback = pageDef.backLinkFallback;
 
     // Resolve section
     this.section = model.sections?.find(
@@ -943,6 +945,10 @@ export class PageControllerBase {
 
   set stateSchema(value) {
     this[STATE_SCHEMA] = value;
+  }
+
+  get additionalValidationFunctions() {
+    return this[ADDITIONAL_VALIDATION_FUNCTIONS];
   }
 
   private objLength(object: {}) {

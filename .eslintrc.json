@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "prettier",
-    "plugin:json/recommended"
-  ],
+  "extends": ["plugin:json/recommended", "plugin:prettier/recommended"],
   "plugins": ["@babel", "prettier"],
   "parser": "babel-eslint",
   "env": {
@@ -38,7 +35,12 @@
     {
       "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
-      "plugins": ["@babel", "prettier", "@typescript-eslint", "eslint-plugin-tsdoc"],
+      "plugins": [
+        "@babel",
+        "prettier",
+        "@typescript-eslint",
+        "eslint-plugin-tsdoc"
+      ],
       "parserOptions": {
         "ecmaFeatures": { "jsx": true }
       }

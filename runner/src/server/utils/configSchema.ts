@@ -21,7 +21,7 @@ export const configSchema = Joi.object({
     .optional()
     .allow("trace", "debug", "info", "warn", "error"),
   logPrettyPrint: Joi.boolean().optional(),
-  logRedactPaths: Joi.array().items(Joi.string()),
+  logRedactPaths: Joi.array().items(Joi.string()).default([]),
   ordnanceSurveyKey: Joi.string().optional(),
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string(),
@@ -82,6 +82,29 @@ export const configSchema = Joi.object({
   safelist: Joi.array().items(Joi.string()),
   initialisedSessionTimeout: Joi.number(),
   initialisedSessionKey: Joi.string(),
+  initialisedSessionAlgorithm: Joi.string()
+    .allow(
+      "RS256",
+      "RS384",
+      "RS512",
+      "PS256",
+      "PS384",
+      "PS512",
+      "ES256",
+      "ES384",
+      "ES512",
+      "EdDSA",
+      "RS256",
+      "RS384",
+      "RS512",
+      "PS256",
+      "PS384",
+      "PS512",
+      "HS256",
+      "HS384",
+      "HS512"
+    )
+    .default("HS512"),
   savePerPage: Joi.boolean().optional(),
   awsBucketName: Joi.string().optional(),
   awsRegion: Joi.string().optional(),

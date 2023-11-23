@@ -1,8 +1,4 @@
-@import "../../../../node_modules/govuk-frontend/govuk/settings/all";
-@import "../../../../node_modules/govuk-frontend/govuk/helpers/all";
-@import "../../../../node_modules/govuk-frontend/govuk/core/typography";
-@import "../../../../node_modules/govuk-frontend/govuk/components/button/button";
-
+@import "node_modules/govuk-frontend/govuk/all";
 .modal-dialog {
   // Don't display modal if user doesn't have js. Can be overriden with .modal-dialog--no-js-persistent
   display: none;

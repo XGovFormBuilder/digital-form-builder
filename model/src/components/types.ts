@@ -392,7 +392,9 @@ export type ContentComponentsDef =
   | ParaComponent
   | DetailsComponent
   | HtmlComponent
-  | InsetTextComponent;
+  | InsetTextComponent
+  | ListComponent
+  | FlashCardComponent;
 
 // Components that render Lists
 export type ListComponentsDef =

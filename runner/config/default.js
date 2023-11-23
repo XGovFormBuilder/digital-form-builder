@@ -11,9 +11,9 @@ module.exports = {
    * Initialised sessions
    * Allows a user's state to be pre-populated.
    */
-  safelist: [], // Array of hostnames you want to accept when using a session callback. eg "gov.uk".
-  initialisedSessionTimeout: minute * 60 * 24 * 28, // Defaults to 28 days. Set the TTL for the initialised session
-  initialisedSessionKey: `${nanoid.random(16)}`, // This should be set if you are deploying replicas
+  initialisedSessionTimeout: minute * 60 * 24 * 28, // Defaults to 28 days. Set the TTL for the initialised session in ms.
+  initialisedSessionKey: `${nanoid.random(16)}`, // This should be set if you are deploying replicas, otherwise the key will be different per replica
+  initialisedSessionAlgorithm: "HS512", // allowed algorithms: "RS256", "RS384", "RS512","PS256", "PS384", "PS512", "ES256", "ES384", "ES512", "EdDSA", "RS256", "RS384", "RS512", "PS256", "PS384", "PS512", "HS256", "HS384", "HS512"
 
   /**
    * Server
@@ -35,6 +35,9 @@ module.exports = {
   }),
   isTest: deferConfig(function () {
     return this.env === "test";
+  }),
+  isSingleRedis: deferConfig(function () {
+    return this.singleRedis === true || this.singleRedis === "true";
   }),
   isSingleRedis: deferConfig(function () {
     return this.singleRedis === true || this.singleRedis === "true";
@@ -66,6 +69,8 @@ module.exports = {
    * Redis integration is optional, but recommended for production environments.
    */
   sessionTimeout: 20 * minute,
+  confirmationSessionTimeout: 20 * minute,
+  paymentSessionTimeout: 90 * minute, // GOV.UK Pay sessions are 90 minutes. It is possible a user takes longer than 20 minutes to complete a payment.
   // sessionCookiePassword: "",
   // redisHost: "http://localhost",
   // redisPort: 6379,
@@ -128,8 +133,10 @@ module.exports = {
   logLevel: "info", // Accepts "trace" | "debug" | "info" | "warn" |"error"
   logPrettyPrint: true,
   logRedactPaths: ["req.headers['x-forwarded-for']"], // You should check your privacy policy before disabling this. Check https://getpino.io/#/docs/redaction on how to configure redaction paths
-  savePerPage: true, // For activation of the save per page feature
 
+  safelist: ["61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"],
+
+  savePerPage: true,
   awsBucketName: "paas-s3-broker-prod-lon-443b9fc2-55ff-4c2f-9ac3-d3ebfb18ef5a", // For uploading files to a aws bucket
   awsRegion: "eu-west-2", // The aws buckets region
 };

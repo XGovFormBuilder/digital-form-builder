@@ -1,0 +1,68 @@
+name: Lint and test workflow
+
+on:
+  workflow_call:
+    inputs:
+      workspace:
+        required: true
+        description: the workspace to run the linting and tests for. Input one of "runner", "designer", or "model"
+        type: string
+
+jobs:
+  lint-and-test:
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
+    runs-on: ubuntu-latest
+    name: lint and test ${{inputs.workspace}}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{inputs.workspace}}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{inputs.workspace}}
+
+      - name: Install project deps
+        run: yarn
+
+      - name: Install dependencies
+        run: yarn ${{inputs.workspace}} install
+
+      - name: Check existing forms
+        if: ${{ inputs.workspace == 'runner' }}
+        run: yarn runner check-forms
+
+      - name: Build dependencies
+        run: yarn build:dependencies
+
+      - name: Lint
+        run: yarn ${{inputs.workspace}} lint
+
+      - name: Test
+        run: yarn ${{inputs.workspace}} test-cov
+
+      - name: Upload test results artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-results-${{inputs.workspace}}
+          path: ${{inputs.workspace}}/test-results
+          retention-days: 14
+
+      - name: Upload test coverage artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-coverage-${{inputs.workspace}}
+          path: ${{inputs.workspace}}/test-coverage
+          retention-days: 14

@@ -90,6 +90,9 @@ export type NotifyOutputConfiguration = {
   templateId: string;
   emailField: string;
   personalisation: string[];
+  personalisationFieldCustomisation?: {
+    [personalisationName: string]: string[];
+  };
   addReferencesToPersonalisation?: boolean;
   emailReplyToIdConfiguration?: {
     emailReplyToId: string;

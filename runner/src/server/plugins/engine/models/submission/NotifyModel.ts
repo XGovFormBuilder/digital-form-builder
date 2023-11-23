@@ -1,7 +1,7 @@
 import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { reach } from "hoek";
-import { NotifyOutputConfiguration } from "@xgovformbuilder/model";
+import { NotifyOutputConfiguration, List } from "@xgovformbuilder/model";
 
 export type NotifyModel = Omit<
   NotifyOutputConfiguration,
@@ -13,6 +13,23 @@ export type NotifyModel = Omit<
     [key: string]: string | boolean;
   };
 };
+
+const parseListAsNotifyTemplate = (
+  list: List,
+  model: FormModel,
+  state: FormSubmissionState
+) => {
+  return `${list.items
+    .filter((item) => checkItemIsValid(model, state, item.condition))
+    .map((item) => `* ${item.value}\n`)
+    .join("")}`;
+};
+
+const checkItemIsValid = (
+  model: FormModel,
+  state: FormSubmissionState,
+  conditionName
+) => model.conditions[conditionName]?.fn?.(state) ?? true;
 
 /**
  * returns an object used for sending GOV.UK notify requests Used by {@link SummaryViewModel} {@link NotifyService}
@@ -27,6 +44,7 @@ export function NotifyModel(
     apiKey,
     emailField,
     personalisation: personalisationConfiguration,
+    personalisationFieldCustomisation = {},
     emailReplyToIdConfiguration,
     templateId,
   } = outputConfiguration;
@@ -34,10 +52,36 @@ export function NotifyModel(
   // @ts-ignore - eslint does not report this as an error, only tsc
   const personalisation: NotifyModel["personalisation"] = personalisationConfiguration.reduce(
     (acc, curr) => {
-      const condition = model.conditions[curr];
+      let value, listValue, condition;
+
+      const possibleFields = [
+        curr,
+        ...(personalisationFieldCustomisation?.[curr] ?? []),
+      ];
+      //iterate through each field to find the value to use
+      possibleFields.forEach((field) => {
+        value ??= reach(state, field);
+        listValue ??= model.lists.find((list) => list.name === field);
+        condition ??= model.conditions[curr];
+      });
+
+      let personalisationValue;
+
+      if (condition) {
+        personalisationValue ??= condition.fn?.(state);
+      }
+      if (listValue) {
+        personalisationValue ??= parseListAsNotifyTemplate(
+          listValue,
+          model,
+          state
+        );
+      }
+      personalisationValue ??= value;
+
       return {
         ...acc,
-        [curr]: condition ? condition.fn(state) : reach(state, curr),
+        [curr]: personalisationValue,
       };
     },
     {}

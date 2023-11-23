@@ -1,0 +1,98 @@
+name: build app
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        description: the app to build "designer" or "runner"
+        required: true
+        type: string
+      publish:
+        description: Set to true to publish to GHCR. Defaults to false
+        type: boolean
+        required: false
+      semver:
+        description: The semantic version you wish to publish with
+        required: false
+        type: string
+    outputs:
+      tag:
+        description: tag used for docker caching
+        value: ${{ jobs.build-app.outputs.tag }}
+      hash:
+        description: hash used for docker caching
+        value: ${{ jobs.build-app.outputs.hash }}
+
+jobs:
+  build-app:
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
+    runs-on: ubuntu-latest
+    name: Docker build
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: yarn
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{inputs.app}}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{inputs.app}}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          config-inline: |
+            [registry."ghcr.io"]
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+        # The hash is a function of the Dockerfile and the yarn.lock Packages take up the bulk of the time during a docker build. The hash is used to cache the docker builds.
+        # As long as the yarn.lock and dockerfiles are the same, you will be able to share this cache with another commit/branch.
+      - id: hashFile
+        env:
+          HASH_TARGET: "${{inputs.app}}/Dockerfile"
+        run: |
+          echo "::set-output name=hash::${{hashFiles(env.HASH_TARGET, 'yarn.lock')}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles(env.HASH_TARGET)}}"
+
+      - name: Build ${{inputs.app}}
+        if: ${{inputs.publish != true }}
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{inputs.app}}/Dockerfile
+          push: false
+          context: .
+          tags: ${{ steps.hashFile.outputs.tag }}
+          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
+
+      - name: Build ${{inputs.app}} and push
+        if: ${{inputs.semver && inputs.publish == true }}
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{inputs.app}}/Dockerfile
+          push: false
+          context: .
+          tags: |
+            ghcr.io/xgovformbuilder/digital-form-builder-${{inputs.app}}:${{inputs.semver}}
+            ghcr.io/xgovformbuilder/digital-form-builder-${{inputs.app}}:latest
+          build-args: |
+            LAST_TAG_GH=${{inputs.semver}}
+            LAST_COMMIT=${{github.sha}}

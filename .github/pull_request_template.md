@@ -20,21 +20,12 @@ Please delete options that are not relevant.
 Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce
 the testing if necessary.
 
-Before PR's can be merged they will need to be tested by QA and approved where
-applicable. To flag the change to QA assign **@XGovFormBuilder/qa** as one of the reviewers.
-
 - [ ] Test A
 - [ ] Test B
 
 # Checklist:
 
-- [ ] My changes do not introduce any new linting errors
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation and versioning
-- [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
-- [ ] I have rebased onto main and there are no code conflicts
-- [ ] I have checked deployments are working in all environments
-- [ ] I have updated the architecture diagrams as per Contribute.md
+- [ ] I have updated the architecture diagrams as per Contribute.md OR added an architectural decision record entry

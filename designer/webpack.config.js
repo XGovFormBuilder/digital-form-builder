@@ -37,7 +37,12 @@ const client = {
     rules: [
       {
         test: /\.(js|jsx|tsx|ts)$/,
-        exclude: /node_modules/,
+        exclude: [
+          {
+            test: /node_modules/,
+            exclude: /pino/,
+          },
+        ],
         loader: "babel-loader",
       },
       {

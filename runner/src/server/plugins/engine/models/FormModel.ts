@@ -50,6 +50,11 @@ export class FormModel {
   pages: any;
   startPage: any;
 
+  feeOptions?: {
+    paymentReferenceFormat?: string;
+    payReturnUrl?: string;
+  };
+
   constructor(def, options) {
     let result = Schema.validate(def, { abortEarly: false });
 
@@ -105,6 +110,8 @@ export class FormModel {
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
+
+    this.feeOptions = def.feeOptions;
   }
 
   /**
@@ -195,9 +202,12 @@ export class FormModel {
     });
 
     parser.functions.dateForComparison = function (timePeriod, timeUnit) {
-      return add(Number(timePeriod), timeUnit).toISOString();
+      return add(new Date(), { [timeUnit]: timePeriod }).toISOString();
     };
 
+    /**
+     * TODO:- this is most definitely broken.
+     */
     parser.functions.timeForComparison = function (timePeriod, timeUnit) {
       const offsetTime = add(Number(timePeriod), timeUnit);
       return `${offsetTime.getHours()}:${offsetTime.getMinutes()}`;

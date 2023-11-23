@@ -1,0 +1,59 @@
+name: Dependabot
+
+on:
+  workflow_call:
+    secrets:
+      DEPENDABOT_PAT:
+        description: "PAT to commit changes"
+        required: false
+
+jobs:
+  update-branch:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Using a Personal Access Token here is required to trigger workflows on our new commit.
+          # The default GitHub token doesn't trigger any workflows.
+          # See: https://github.community/t/push-from-action-does-not-trigger-subsequent-action/16854/2
+          token: ${{ secrets.DEPENDABOT_PAT }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 2
+
+      - run: git lfs pull --include .yarn/
+
+      - name: Setup node
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: 16.x
+
+      - name: Restore cache
+        uses: actions/cache@v2.1.4
+        with:
+          path: .yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+
+      - run: git checkout HEAD~1 yarn.lock
+      - run: yarn config set -H enableImmutableInstalls false
+      - run: yarn install --mode=skip-build
+
+      - run: yarn dedupe
+
+      - name: Commit yarn.lock
+        run: |
+          git config user.name "dependabot-fix"
+          git config user.email "dependabot-fix@example.com"
+          git add yarn.lock
+          git commit -m '[dependabot skip] Fix yarn.lock'
+          git push
+
+  skip-update-branch:
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    steps:
+      - name: dependabot update skipped
+        run: |
+          echo "skipped"

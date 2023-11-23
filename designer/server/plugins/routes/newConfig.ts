@@ -36,8 +36,6 @@ export const registerNewFormWithRunner: ServerRoute = {
             `${selected.Key}`,
             newName
           );
-          const copied = await persistenceService.getConfiguration(newName);
-          await publish(newName, copied);
         }
       } catch (e) {
         request.logger.error(e);
@@ -47,11 +45,10 @@ export const registerNewFormWithRunner: ServerRoute = {
           .code(401);
       }
 
-      const response = {
+      const response = JSON.stringify({
         id: `${newName}`,
         previewUrl: config.previewUrl,
-      };
-
+      });
       return h.response(response).type("application/json").code(200);
     },
   },

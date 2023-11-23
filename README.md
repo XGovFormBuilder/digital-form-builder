@@ -11,6 +11,7 @@ This repository is a mono repo for
 - @xgovformbuilder/[runner](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner) - Hapi server which can 'run' a form from a JSON file
 - @xgovformbuilder/[designer](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/designer) - A React app to aide in form building
 - @xgovformbuilder/[model](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model) - Serves the data model and other helpers
+- @xgovformbuilder/[e2e](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model) - end to end tests
 
 The repos are forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
 
@@ -24,12 +25,13 @@ Also see the individual repo README files for additional info:
 - [runner README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner/README.md)
 - [designer README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/designer/README.md)
 - [model README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model/README.md)
+- [e2e (smoke tests) README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/e2e/README.md)
 
 ## Setup
 
 **Always run scripts from the root directory.**
 
-1. Make sure you are using node >=12. upto 14. `node --version`.
+1. Make sure you are using node 16 `node --version`.
 2. Make sure you have yarn 1.22+ installed. You do not need to install yarn 2.4+, yarn will detect the yarn 2 binary within [.yarn](./.yarn) and that will be used.
 3. If using the designer:
    - Note that the designer requires the runner to be running with the default `NODE_ENV=development` settings (see [runner/config/development.json](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner/config/development.json)) to enable posting and previewing of forms during design.
@@ -114,27 +116,9 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 A suite of smoke tests are run against all PRs. There is a Cron Job that executes smoke tests against the Heroku deployments and is scheduled to run at midnight every day.
 
-To run the smoke tests locally, you start the containers up using the command
+A legacy suite of smoke tests can be found in this [repository](https://github.com/XGovFormBuilder/digital-form-builder-legacy-smoke-tests). They have been removed so that the project can run on node 16.
 
-```
-docker-compose up --build
-```
-
-Then smoke test can be executed using command
-
-```
-yarn smoke-tests/designer smoke-test-headless
-```
-
-Pre-requite for running smoke test are:
-
-1.  Yarn
-2.  JVM
-3.  a browser like chrome
-4.  Node version 12+ upto 14
-5.  yarn install
-
-More details are on [Smoke Tests](./smoke-tests/README.md)
+Smoke tests will be migrated to use [cypress.io](https://cypress.io) in the coming months.
 
 ## Copilot Initialisation
 

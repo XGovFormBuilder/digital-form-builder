@@ -1,7 +1,8 @@
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import createServer from "src/server";
-
+import sinon from "sinon";
+import config from "src/server/config";
 const {
   before,
   after,
@@ -9,6 +10,7 @@ const {
   suite,
   it,
   test,
+  beforeEach,
 } = (exports.lab = Lab.script());
 
 let server;
@@ -102,6 +104,7 @@ suite("InitialiseSession", () => {
 
   after(async () => {
     await server.stop();
+    sinon.restore();
   });
   describe("POST /session/{id}", () => {
     test(" responds with token if file exists", async () => {
@@ -152,7 +155,6 @@ suite("InitialiseSession", () => {
 
       postResponse = await server.inject(serverRequestOptions);
       token = JSON.parse(postResponse.payload).token;
-      console.log(token, postResponse.payload);
 
       getResponse = await server.inject({
         url: `/session/${token}`,
@@ -205,6 +207,47 @@ suite("InitialiseSession", () => {
       expect(getResponse.headers.location).to.equal(
         "/test/summary?form_session_identifier=abc=123"
       );
+    });
+  });
+
+  describe("token verification", function () {
+    let serverRequestOptions;
+
+    beforeEach(() => {
+      serverRequestOptions = {
+        method: "POST",
+        url: `/session/test`,
+        payload: {
+          ...baseRequest,
+          options: { ...options, callbackUrl: "https://webho.ok" },
+        },
+      };
+    });
+    test("When token is valid", async () => {
+      const response = await server.inject(serverRequestOptions);
+      const payload = JSON.parse(response.payload);
+      const token = payload.token;
+      const getResponse = await server.inject({
+        method: "GET",
+        url: `/session/${token}`,
+      });
+
+      expect(getResponse.statusCode).to.equal(302);
+    });
+
+    test("When token is invalid", async () => {
+      const response = await server.inject(serverRequestOptions);
+      const payload = JSON.parse(response.payload);
+      const token = payload.token;
+
+      sinon.stub(config, "initialisedSessionKey").value("incorrect key");
+
+      const getResponse = await server.inject({
+        method: "GET",
+        url: `/session/${token}`,
+      });
+
+      expect(getResponse.statusCode).to.equal(400);
     });
   });
 });
