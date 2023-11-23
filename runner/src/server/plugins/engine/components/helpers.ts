@@ -1,4 +1,6 @@
 import joi from "joi";
+import Joi from "joi";
+import { add, startOfToday, sub } from "date-fns";
 
 /**
  * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
@@ -90,3 +92,30 @@ export const addClassOptionIfNone = (
     options.classes = className;
   }
 };
+
+export function getCustomDateValidator(
+  maxDaysInPast?: number,
+  maxDaysInFuture?: number
+) {
+  return (value: Date, helpers: Joi.CustomHelpers) => {
+    if (maxDaysInPast) {
+      const minDate = sub(startOfToday(), { days: maxDaysInPast });
+      if (value < minDate) {
+        return helpers.error("date.min", {
+          label: helpers.state.key,
+          limit: minDate,
+        });
+      }
+    }
+    if (maxDaysInFuture) {
+      const maxDate = add(startOfToday(), { days: maxDaysInFuture });
+      if (value > maxDate) {
+        return helpers.error("date.max", {
+          label: helpers.state.key,
+          limit: maxDate,
+        });
+      }
+    }
+    return value;
+  };
+}

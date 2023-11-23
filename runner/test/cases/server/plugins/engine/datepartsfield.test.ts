@@ -90,3 +90,5 @@ function dateComponent(name, width) {
     attributes: {},
   };
 }
+
+// TODO: write test to make sure maxDaysInPast and maxDaysInFuture work as expected (based on current date instead of server initialisation date)
