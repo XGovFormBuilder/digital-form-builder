@@ -23,6 +23,8 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
+import nunjucks from "nunjucks";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -114,6 +116,11 @@ export class PageControllerBase {
   } {
     let showTitle = true;
     let pageTitle = this.title;
+    if (config.allowUserTemplates) {
+      pageTitle = nunjucks.renderString(pageTitle, {
+        ...formData,
+      });
+    }
     let sectionTitle = this.section?.title;
     if (sectionTitle && iteration !== undefined) {
       sectionTitle = `${sectionTitle} ${iteration}`;

@@ -22,7 +22,7 @@
     },
     {
       "path": "/second-page",
-      "title": "Second page",
+      "title": "Dynamic page based on your answers: {{ contentToDisplay }}",
       "components": [
         {
           "name": "azSyOn",
