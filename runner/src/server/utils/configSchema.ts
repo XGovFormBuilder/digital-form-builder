@@ -104,18 +104,12 @@ export const configSchema = Joi.object({
 
   enableQueueService: Joi.boolean().optional(),
   queueDatabaseUrl: Joi.string().when("enableQueueService", {
+    is: true,
     then: Joi.required(),
-    otherwise: Joi.optional(),
-  }),
-  queueDatabaseUsername: Joi.string().when("enableQueueService", {
-    then: Joi.required(),
-    otherwise: Joi.optional(),
-  }),
-  queueDatabasePassword: Joi.string().when("enableQueueService", {
-    then: Joi.required(),
-    otherwise: Joi.optional(),
+    otherwise: Joi.optional().allow(""),
   }),
   queueServicePollingInterval: Joi.number().when("enableQueueService", {
+    is: true,
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),

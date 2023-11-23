@@ -36,7 +36,10 @@ export const prisma: PrismaClient = new PrismaClient({
 if (config.enableQueueService) {
   prismaLogger.info("ENABLE_QUEUE_SERVICE is true, connecting to Prisma");
   prisma.$connect().catch((error) => {
-    prismaLogger.error(`Prisma Connect Error ${error.message}`);
+    prismaLogger.fatal(
+      `ENABLE_QUEUE_SERVICE is set to true, but Prisma failed to connect ${error}, exiting with status 1`
+    );
+    process.exit(1);
   });
 
   process.on("query", (e: Prisma.QueryEvent) => {
