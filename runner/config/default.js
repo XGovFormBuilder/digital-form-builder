@@ -37,7 +37,7 @@ module.exports = {
     return this.env === "test";
   }),
   isSandbox: deferConfig(function () {
-    return evalBooleanEnvVar(this.sandbox);
+    return this.sandbox === true || this.sandbox === "true";
   }),
 
   /**
