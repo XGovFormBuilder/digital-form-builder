@@ -6,7 +6,9 @@ With this in mind, templating may be a good solution for you.
 
 ## How it works
 
-By putting your content in an html component, you can reference other values in the form by using standard Nunjucks templating syntax, `{{ fieldName }}`.
+You can allow fields to be exposed to the additional context by adding an `exposeToContext` flag to the component's options. This can be done manually, or through the "expose to context" field in the designer.
+
+Once your field is exposed, the field can be used with additional context by adding the field in titles and html components, using nunjucks templating syntax, `{{ fieldName }}`.
 
 You can also access additional values (such as custom html) using the additional context file. This will allow you to populate different variables based of the same user input, and these can be accessed using the format `{{ additionalContexts.contextName[fieldName].variableName }}`.
 
