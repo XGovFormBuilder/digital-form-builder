@@ -71,7 +71,7 @@ jobs:
     secrets: inherit
     strategy:
       matrix:
-        app: [designer, runner, submitter]
+        app: [designer, runner]
     with:
       app: ${{ matrix.app }}
       tag: ${{ needs.assign-semver.outputs.SEMVER }}
