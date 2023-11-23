@@ -7,5 +7,6 @@
   "previewMode": true,
   "enforceCsrf": false,
   "initialisedSessionKey": "predictable-key",
-  "env": "test"
+  "env": "test",
+  "overwriteInitialisedSession": false
 }
