@@ -291,10 +291,9 @@ export class PageControllerBase {
         ),
       };
     }
-
     return {
       ...this.components.getFormDataFromState(pageState || {}),
-      ...this.model.fieldsForContext?.getFormDataFromState(pageState || {}),
+      ...this.model.getContextState(state),
     };
   }
 

@@ -92,11 +92,13 @@ export class SummaryViewModel {
       this.processErrors(result, details);
     } else {
       this.fees = FeesModel(model, state);
+
       this._webhookData = WebhookModel(
         relevantPages,
         details,
         model,
-        this.fees
+        this.fees,
+        model.getContextState(state)
       );
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,

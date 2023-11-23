@@ -1,6 +1,7 @@
 import { DetailItem } from "../types";
 import { format } from "date-fns";
 import config from "server/config";
+import nunjucks from "nunjucks";
 
 function answerFromDetailItem(item) {
   switch (item.dataType) {
@@ -25,7 +26,13 @@ function detailItemToField(item: DetailItem) {
   };
 }
 
-export function WebhookModel(relevantPages, details, model, fees) {
+export function WebhookModel(
+  relevantPages,
+  details,
+  model,
+  fees,
+  contextState
+) {
   const questions = relevantPages?.map((page) => {
     const isRepeatable = !!page.repeatField;
 
@@ -52,12 +59,18 @@ export function WebhookModel(relevantPages, details, model, fees) {
       return fields;
     });
 
+    let pageTitle = page.title;
+
+    if (pageTitle) {
+      pageTitle = nunjucks.renderString(page.title.en ?? page.title, {
+        ...contextState,
+      });
+    }
+
     return {
       category: page.section?.name,
       question:
-        page.title?.en ??
-        page.title ??
-        page.components.formItems.map((item) => item.title),
+        pageTitle ?? page.components.formItems.map((item) => item.title),
       fields,
       index,
     };

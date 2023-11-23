@@ -259,4 +259,21 @@ export class FormModel {
   getList(name: string): List | [] {
     return this.lists.find((list) => list.name === name) ?? [];
   }
+
+  getContextState(state: FormSubmissionState) {
+    const contextState = Object.keys(state).reduce((acc, curr) => {
+      if (typeof state[curr] === "object") {
+        return {
+          ...acc,
+          ...state[curr],
+        };
+      }
+      return {
+        ...acc,
+        [curr]: state[curr],
+      };
+    }, {});
+
+    return this.fieldsForContext.getFormDataFromState(contextState);
+  }
 }

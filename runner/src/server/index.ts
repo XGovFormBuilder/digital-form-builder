@@ -114,7 +114,6 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     AddressService,
   ]);
-
   if (config.enableQueueService) {
     server.registerService([
       QueueService,
