@@ -8,7 +8,8 @@
 
 {% set infoHtml %}
   <p class="govuk-heading-s">
-    It looks like your birth certificate image is too blurred. Check your image and upload another one if needed.
+    It looks like your image is too blurred. Upload a new one or if you're happy with it you can still submit it.
+    It will be checked by consular staff. If they cannot read it they will contact you - this could delay your application.
   </p>
 {% endset %}
 
@@ -25,9 +26,6 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-l">
-        Check your {{ fieldName }}
-      </h1>
       {% if uploadErrors %}
         {{ govukErrorSummary(uploadErrors) }}
       {% endif %}
@@ -39,8 +37,6 @@
             html: infoHtml
           })
         }}
-
-        <p class="govuk-body">All the information in the image must be readable. If not, you may be asked to send another copy, which could delay your application.</p>
 
         {{ govukDetails({
             summaryText: "How to take a good photograph",
