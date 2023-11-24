@@ -33,7 +33,7 @@ export class UploadPageController extends PageController {
       const { view } = query;
 
       if (view === "playback") {
-        return this.playback.getRouteHandler(request, h);
+        return this.playback.makeGetRouteHandler()(request, h);
       }
 
       return super.makeGetRouteHandler()(request, h);
@@ -44,14 +44,18 @@ export class UploadPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
 
-      if (query.view === "playback") {
-        return this.playback.postRouteHandler(request, h);
+      if (query?.view === "playback") {
+        return this.playback.makePostRouteHandler()(request, h);
       }
 
       const response = await this.handlePostRequest(request, h);
       if (response?.source?.context?.errors) {
         return response;
       }
+      if (request?.pre?.warningFromApi === "qualityWarning") {
+        return h.redirect(`?view=playback`);
+      }
+
       const { cacheService } = request.services([]);
       const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
@@ -59,10 +63,6 @@ export class UploadPageController extends PageController {
         this.model,
         savedState
       );
-
-      if (request?.pre?.warningFromApi === "qualityWarning") {
-        return h.redirect(`?view=playback`);
-      }
 
       return this.proceed(request, h, relevantState);
     };
