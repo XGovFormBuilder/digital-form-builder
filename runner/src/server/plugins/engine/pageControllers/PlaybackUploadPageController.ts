@@ -2,29 +2,14 @@ import { PageController } from "server/plugins/engine/pageControllers/PageContro
 import { FormModel } from "server/plugins/engine/models";
 import { Page } from "@xgovformbuilder/model";
 import { FormComponent } from "server/plugins/engine/components";
-import {
-  HapiLifecycleMethod,
-  HapiRequest,
-  HapiResponseToolkit,
-} from "server/types";
+import { HapiRequest, HapiResponseToolkit } from "server/types";
 
 export class PlaybackUploadPageController extends PageController {
   inputComponent: FormComponent;
-  private getRoute!: HapiLifecycleMethod;
-  private postRoute!: HapiLifecycleMethod;
 
   constructor(model: FormModel, pageDef: Page, inputComponent: FormComponent) {
     super(model, pageDef);
     this.inputComponent = inputComponent;
-  }
-
-  get getRouteHandler() {
-    this.getRoute ??= this.makeGetRouteHandler();
-    return this.getRoute;
-  }
-  get postRouteHandler() {
-    this.postRoute ??= this.makePostRouteHandler();
-    return this.postRoute;
   }
 
   buildRadioViewModel(error?: string) {
