@@ -51,11 +51,10 @@ export class PlaybackUploadPageController extends PageController {
       const state = await cacheService.getState(request);
       const { progress = [] } = state;
       let sectionTitle = this.section?.title;
-      let pageTitle = `Check your ${this.inputComponent.title} image`;
       return h.view("upload-playback", {
         sectionTitle: sectionTitle,
         showTitle: true,
-        pageTitle: pageTitle,
+        pageTitle: "Check your image",
         backLink: progress[progress.length - 1] ?? this.backLinkFallback,
         radios: this.buildRadioViewModel(),
       });
@@ -81,15 +80,13 @@ export class PlaybackUploadPageController extends PageController {
           ],
         };
         let sectionTitle = this.section?.title;
-        let pageTitle = `Check your ${this.inputComponent.title} image`;
         return h.view("upload-playback", {
           sectionTitle: sectionTitle,
           showTitle: true,
-          pageTitle: pageTitle,
+          pageTitle: "Check your image",
           uploadErrors: errors,
           backLink: progress[progress.length - 2] ?? this.backLinkFallback,
           radios: this.buildRadioViewModel(errorText),
-          fieldName: this.inputComponent.title,
         });
       }
 
