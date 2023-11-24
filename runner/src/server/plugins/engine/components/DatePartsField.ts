@@ -80,13 +80,9 @@ export class DatePartsField extends FormComponent {
     const { maxDaysInPast, maxDaysInFuture } = options as any;
     let schema: any = this.stateSchema;
 
-    if (maxDaysInPast ?? false) {
-      schema = schema.min(sub(new Date(), { days: maxDaysInPast }));
-    }
-
-    if (maxDaysInFuture ?? false) {
-      schema = schema.max(add(new Date(), { days: maxDaysInFuture }));
-    }
+    schema = schema.custom(
+      helpers.getCustomDateValidator(maxDaysInPast, maxDaysInFuture)
+    );
 
     const returnValue = { [this.name]: schema };
     return returnValue;
