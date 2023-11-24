@@ -11,7 +11,7 @@
           "name": "JGhnud",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>asset type</li>\n<li>what you intend to do with the asset</li>\n<li>asset ownership status</li>\n<li>asset ownership details (if applicable)</li>\n<li>public ownership details (if applicable)</li>\n<li>reason asset is at risk</li>\n<li>Asset of Community Value details (if applicable)</li>\n<li>Community Asset Transfer details (if applicable)</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">In this section, we'll ask about:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>asset type</li>\n<li>what you intend to do with the asset</li>\n<li>asset ownership status</li>\n<li>asset ownership details (if applicable)</li>\n<li>public ownership details (if applicable)</li>\n<li>reason asset is at risk</li>\n<li>Asset of Community Value details (if applicable)</li>\n</ul>"
         }
       ],
       "next": [
@@ -415,30 +415,6 @@
           },
           "type": "WebsiteField",
           "title": "Provide a link to the listing"
-        }
-      ],
-      "next": [
-        {
-          "path": "/community-asset-transfer",
-          "condition": "rrSKPO"
-        },
-        {
-          "path": "/assets-of-community-value"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/community-asset-transfer",
-      "title": "Community asset transfer",
-      "components": [
-        {
-          "name": "WKIGQE",
-          "options": {
-            "maxWords": "500"
-          },
-          "type": "FreeTextField",
-          "title": "Describe the current status of the Community Asset Transfer"
         }
       ],
       "next": [

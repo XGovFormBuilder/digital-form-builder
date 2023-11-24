@@ -421,30 +421,6 @@
       ],
       "next": [
         {
-          "path": "/trosiad-aseth-cymunedol",
-          "condition": "rrSKPO"
-        },
-        {
-          "path": "/asedau-o-werth-cymunedol"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/trosiad-aseth-cymunedol",
-      "title": "Trosiad aseth cymunedol",
-      "components": [
-        {
-          "name": "WKIGQE",
-          "options": {
-            "maxWords": "500"
-          },
-          "type": "FreeTextField",
-          "title": "Disgrifiwch statws presennol y Trosiad Aseth Cymunedol"
-        }
-      ],
-      "next": [
-        {
           "path": "/asedau-o-werth-cymunedol"
         }
       ],
