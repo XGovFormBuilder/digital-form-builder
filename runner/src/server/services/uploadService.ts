@@ -104,7 +104,11 @@ export class UploadService {
     return h.continue;
   }
 
-  async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
+  async handleUploadRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    page: any
+  ) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
@@ -234,7 +238,10 @@ export class UploadService {
 
     await cacheService.mergeState(request, { originalFilenames });
 
-    if (request.pre?.warningFromApi) {
+    if (
+      request.pre?.warningFromApi &&
+      page?.controller === "UploadPageController"
+    ) {
       return h.redirect("?view=playback").takeover();
     }
 

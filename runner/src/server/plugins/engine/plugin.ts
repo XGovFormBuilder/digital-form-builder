@@ -229,7 +229,12 @@ export const plugin = {
     const { uploadService } = server.services([]);
 
     const handleFiles = (request: HapiRequest, h: HapiResponseToolkit) => {
-      return uploadService.handleUploadRequest(request, h);
+      const { path, id } = request.params;
+      const model = forms[id];
+      const page = model?.pages.find(
+        (page) => normalisePath(page.path) === normalisePath(path)
+      );
+      return uploadService.handleUploadRequest(request, h, page.pageDef);
     };
 
     const postHandler = async (
