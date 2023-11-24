@@ -74,6 +74,14 @@ export class StatusService {
     const { query } = request;
     const { state } = await this.payService.payStatus(self, meta.payApiKey);
 
+    if (state.status === "success") {
+      this.logger.info(
+        ["StatusService", "shouldShowPayErrorPage"],
+        `user ${request.yar.id} - shouldShowPayErrorPage: User has succeeded, continuing`
+      );
+      return false;
+    }
+
     const form: FormModel = request.server.app.forms[request.params.id];
     const { maxAttempts, allowSubmissionWithoutPayment } = form.feeOptions;
 
