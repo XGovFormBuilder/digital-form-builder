@@ -131,21 +131,16 @@
         <script>
           document.addEventListener("DOMContentLoaded", (event) => {
             const button = document.querySelector(".govuk-button");
-
-            button.addEventListener("click", function () {
+        
+            button.addEventListener("click", function (e) {
               this.style.opacity = "0.5";
               this.style.cursor = "not-allowed";
               this.innerHTML = "Submitting...";
-
-              // Prevent further clicks
-              this.addEventListener(
-                "click",
-                function (e) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                },
-                { once: true }
-              );
+        
+              // Disable the button to prevent further clicks
+              this.disabled = true;
+        
+              e.preventDefault();
             });
           });
         </script>
