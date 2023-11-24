@@ -13,7 +13,7 @@ const defaultOptions = {
 export function FileUploadFieldEdit() {
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent } = state;
-  const { options = defaultOptions } = selectedComponent;
+  const options = { ...defaultOptions, ...selectedComponent.options };
 
   return (
     <details className="govuk-details">
