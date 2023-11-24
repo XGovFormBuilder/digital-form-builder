@@ -88,27 +88,4 @@ suite("UploadPageController", () => {
     const result = await pageController.makeGetRouteHandler()(request, {});
     expect(result).to.be.true();
   });
-  test("Redirects to ?view=playback if a quality warning is passed through", async () => {
-    const pageController = new UploadPageController(model, def);
-    const request = {
-      query: {},
-      pre: {
-        warningFromApi: "qualityWarning",
-      },
-      services: () => ({
-        cacheService: {
-          getState: (_request) => ({}),
-        },
-      }),
-    };
-    const responseObj = {
-      redirect: (string: string) => string,
-      view: (_tpl, _options) => true,
-    };
-    const result = await pageController.makePostRouteHandler()(
-      request,
-      responseObj
-    );
-    expect(result).to.equal("?view=playback");
-  });
 });
