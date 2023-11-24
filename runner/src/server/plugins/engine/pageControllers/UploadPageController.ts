@@ -48,23 +48,7 @@ export class UploadPageController extends PageController {
         return this.playback.makePostRouteHandler()(request, h);
       }
 
-      const response = await this.handlePostRequest(request, h);
-      if (response?.source?.context?.errors) {
-        return response;
-      }
-      if (request?.pre?.warningFromApi === "qualityWarning") {
-        return h.redirect(`?view=playback`);
-      }
-
-      const { cacheService } = request.services([]);
-      const savedState = await cacheService.getState(request);
-      //This is required to ensure we don't navigate to an incorrect page based on stale state values
-      let relevantState = this.getConditionEvaluationContext(
-        this.model,
-        savedState
-      );
-
-      return this.proceed(request, h, relevantState);
+      return super.makePostRouteHandler()(request, h);
     };
   }
 }

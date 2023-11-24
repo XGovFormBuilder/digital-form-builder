@@ -234,6 +234,10 @@ export class UploadService {
 
     await cacheService.mergeState(request, { originalFilenames });
 
+    if (request.pre?.warningFromApi) {
+      return h.redirect("?view=playback").takeover();
+    }
+
     return h.continue;
   }
 
