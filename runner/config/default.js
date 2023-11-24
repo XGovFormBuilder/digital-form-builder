@@ -133,7 +133,6 @@ module.exports = {
    * Failure queue
    */
   enableQueueService: false,
-  queueDatabaseUrl: "",
-  queueDatabasePassword: "",
+  // queueDatabaseUrl: "mysql://root:root@localhost:3306/queue"
   queueServicePollingInterval: "500",
 };

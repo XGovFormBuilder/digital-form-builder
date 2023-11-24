@@ -101,6 +101,18 @@ export const configSchema = Joi.object({
       "HS512"
     )
     .default("HS512"),
+
+  enableQueueService: Joi.boolean().optional(),
+  queueDatabaseUrl: Joi.string().when("enableQueueService", {
+    is: true,
+    then: Joi.required(),
+    otherwise: Joi.optional().allow(""),
+  }),
+  queueServicePollingInterval: Joi.number().when("enableQueueService", {
+    is: true,
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
 });
 
 export function buildConfig(config) {
