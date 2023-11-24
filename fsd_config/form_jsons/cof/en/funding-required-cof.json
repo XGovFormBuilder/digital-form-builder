@@ -103,7 +103,13 @@
           "name": "qQLyXL",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Description", "Amount", "Action"],
+            "columnTitles": [
+              "Description",
+              "Amount",
+              "Money from COF grant",
+              "Match funding amount",
+              "Action"
+            ],
             "required": true
           },
           "type": "MultiInputField",
@@ -125,6 +131,28 @@
               },
               "type": "NumberField",
               "title": "Amount",
+              "hint": "",
+              "schema": {}
+            },
+            {
+              "name": "LeTLDo",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "How much money from the COF grant will you use to pay for this cost?",
+              "hint": "",
+              "schema": {}
+            },
+            {
+              "name": "pHZDWT",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "How much of the match funding will you use to pay for this cost?",
               "hint": "",
               "schema": {}
             }
