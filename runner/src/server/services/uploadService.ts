@@ -19,7 +19,6 @@ const ERRORS = {
   fileSizeError: 'The selected file for "%s" is too large',
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
   virusError: 'The selected file for "%s" contained a virus',
-  qualityError: 'The selected file for "%s" was too blurry',
   default: "There was an error uploading your file",
 };
 
@@ -72,9 +71,10 @@ export class UploadService {
   }
 
   parsedDocumentUploadResponse({ res, payload }) {
-    const errorCodeFromApi = payload?.toString?.();
+    const warningFromApi = payload?.toString?.();
     let error: string | undefined;
     let location: string | undefined;
+    console.log("This is the payload", warningFromApi);
     switch (res.statusCode) {
       case 201:
         location = res.headers.location;
@@ -86,7 +86,7 @@ export class UploadService {
         error = ERRORS.fileSizeError;
         break;
       case 422:
-        error = ERRORS[errorCodeFromApi] ?? ERRORS.virusError;
+        error = ERRORS.virusError;
         break;
       default:
         error = ERRORS.default;
@@ -95,6 +95,7 @@ export class UploadService {
     return {
       location,
       error,
+      warningFromApi,
     };
   }
 
@@ -181,10 +182,15 @@ export class UploadService {
 
       if (validFiles.length === values.length) {
         try {
-          const { error, location } = await this.uploadDocuments(validFiles);
+          const {
+            error,
+            location,
+            warningFromApi,
+          } = await this.uploadDocuments(validFiles);
           if (location) {
             originalFilenames[key] = { location };
             request.payload[key] = location;
+            request.pre.warningFromApi = warningFromApi;
           }
           if (error) {
             request.pre.errors = [
