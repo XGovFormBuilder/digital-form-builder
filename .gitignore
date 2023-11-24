@@ -31,3 +31,4 @@ docs/**/typedoc
 
 /e2e/cypress/screenshots/
 /runner/config/default.js
+runner/config/default.js
