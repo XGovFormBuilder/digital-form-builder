@@ -99,8 +99,7 @@ export class PageControllerBase {
   getViewModel(
     formData: FormData,
     iteration?: any, // TODO
-    errors?: any, // TODO
-    state?: FormSubmissionState
+    errors?: any // TODO
   ): {
     page: PageControllerBase;
     name: string;
@@ -125,12 +124,7 @@ export class PageControllerBase {
     if (sectionTitle && iteration !== undefined) {
       sectionTitle = `${sectionTitle} ${iteration}`;
     }
-    const components = this.components.getViewModel(
-      formData,
-      errors,
-      undefined,
-      state
-    );
+    const components = this.components.getViewModel(formData, errors);
 
     const formComponents = components.filter((c) => c.isFormComponent);
     const hasSingleFormComponent = formComponents.length === 1;
@@ -440,7 +434,7 @@ export class PageControllerBase {
           }
         });
       }
-      const viewModel = this.getViewModel(formData, num, undefined, state);
+      const viewModel = this.getViewModel(formData, num);
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);

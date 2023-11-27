@@ -6,7 +6,7 @@ import {
 } from "@xgovformbuilder/model";
 
 import { FormModel } from "../models";
-import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors } from "../types";
 import { DataType, ViewModel } from "./types";
 
 export class ComponentBase {
@@ -42,11 +42,7 @@ export class ComponentBase {
   /**
    * parses FormData and returns an object provided to a govuk-frontend template to render
    */
-  getViewModel(
-    _formData: FormData,
-    _errors?: FormSubmissionErrors,
-    _state?: FormSubmissionState
-  ): ViewModel {
+  getViewModel(_formData: FormData, _errors?: FormSubmissionErrors): ViewModel {
     return {
       attributes: {},
     };
