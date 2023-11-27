@@ -1,7 +1,5 @@
 import joi from "joi";
 import { add, startOfToday, sub } from "date-fns";
-import { FormSubmissionState } from "server/plugins/engine/types";
-import nunjucks from "nunjucks";
 
 /**
  * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
@@ -118,33 +116,4 @@ export function getCustomDateValidator(
     }
     return value;
   };
-}
-export function getVarsForTemplate(
-  content: string,
-  state: FormSubmissionState
-) {
-  // This regex will match field names that are used explicitly in templates e.g. {{ contentToDisplay }}
-  const fieldsUsedAtTopLevelRegex = new RegExp(
-    /\{\{([a-zA-Z0-9\s_-]*)}}/,
-    "gm"
-  );
-  // This regex will match additional context variables e.g {{ additionalContexts.example[contentToDisplay].value }}
-  const fieldsUsedByTemplateRegex = new RegExp(
-    /\{\{\s*[\.a-zA-Z0-9]*\[([a-zA-Z0-9\s]*)][\.a-zA-Z0-9_-]*\s*[\| a-zA-Z]*}}/,
-    "gm"
-  );
-  const matchResult = [
-    ...content.matchAll(fieldsUsedAtTopLevelRegex),
-    ...content.matchAll(fieldsUsedByTemplateRegex),
-  ];
-  matchResult.forEach((match) => {
-    const templateVal = match[0];
-    const variableName = match[1];
-    const fieldValue = state[variableName] ?? "";
-    const renderedTemplate = nunjucks.renderString(templateVal, {
-      [variableName]: fieldValue,
-    });
-    content = content.replace(templateVal, renderedTemplate);
-  });
-  return content;
 }
