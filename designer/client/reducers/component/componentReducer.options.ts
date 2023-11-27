@@ -128,5 +128,13 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, maxWords: payload },
         },
       };
+    case Options.EDIT_OPTIONS_EXPOSE_TO_CONTEXT:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, exposeToContext: payload },
+        },
+      };
   }
 }

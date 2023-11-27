@@ -36,6 +36,7 @@ services:
       - sandbox=true
       - PREVIEW_MODE=true
       - NODE_ENV=test
+      - ALLOW_USER_TEMPLATES=true
     command: yarn runner start
     depends_on:
       - redis

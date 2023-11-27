@@ -23,6 +23,8 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
+import nunjucks from "nunjucks";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -113,6 +115,11 @@ export class PageControllerBase {
   } {
     let showTitle = true;
     let pageTitle = this.title;
+    if (config.allowUserTemplates) {
+      pageTitle = nunjucks.renderString(pageTitle, {
+        ...formData,
+      });
+    }
     let sectionTitle = this.section?.title;
     if (sectionTitle && iteration !== undefined) {
       sectionTitle = `${sectionTitle} ${iteration}`;
@@ -269,12 +276,19 @@ export class PageControllerBase {
         ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
         : {};
 
-      return this.components.getFormDataFromState(
-        newState as FormSubmissionState
-      );
+      return {
+        ...this.components.getFormDataFromState(
+          newState as FormSubmissionState
+        ),
+        ...this.model.fieldsForContext?.getFormDataFromState(
+          newState as FormSubmissionState
+        ),
+      };
     }
-
-    return this.components.getFormDataFromState(pageState || {});
+    return {
+      ...this.components.getFormDataFromState(pageState || {}),
+      ...this.model.getContextState(state),
+    };
   }
 
   getStateFromValidForm(formData: FormPayload) {
@@ -420,7 +434,6 @@ export class PageControllerBase {
           }
         });
       }
-
       const viewModel = this.getViewModel(formData, num);
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)

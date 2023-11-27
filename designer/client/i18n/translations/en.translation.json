@@ -69,6 +69,10 @@
     "detailsLink": {
       "title": "Additional settings"
     },
+    "exposeToContextOption": {
+      "helpText": "If using additional context, choose this option to expose the field to be used by additional contexts",
+      "title": "Expose to context"
+    },
     "helpTextField": {
       "helpText": "Enter the description to show for this field",
       "title": "Help text (optional)"

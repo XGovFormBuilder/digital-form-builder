@@ -16,7 +16,12 @@ export function FieldEdit({ isContentField = false }: Props) {
   const { selectedComponent, errors } = state;
 
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
-  const { hideTitle = false, optionalText = false, required = true } = options;
+  const {
+    hideTitle = false,
+    optionalText = false,
+    required = true,
+    exposeToContext = false,
+  } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
   const fieldTitle =
     ComponentTypes.find((componentType) => componentType.name === type)
@@ -185,6 +190,35 @@ export function FieldEdit({ isContentField = false }: Props) {
             </label>
             <span className="govuk-hint govuk-checkboxes__hint">
               {i18n("common.hideOptionalTextOption.helpText")}
+            </span>
+          </div>
+        </div>
+        <div
+          className="govuk-checkboxes govuk-form-group"
+          data-test-id="field-options.exposeToContext-wrapper"
+        >
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-exposeToContext"
+              name="options.exposeToContext"
+              type="checkbox"
+              checked={exposeToContext}
+              onChange={(e) =>
+                dispatch({
+                  type: Actions.EDIT_OPTIONS_EXPOSE_TO_CONTEXT,
+                  payload: e.target.checked,
+                })
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-exposeToContext"
+            >
+              {i18n("common.exposeToContextOption.title")}
+            </label>
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("common.exposeToContextOption.helpText")}
             </span>
           </div>
         </div>

@@ -1,5 +1,4 @@
 import joi from "joi";
-import Joi from "joi";
 import { add, startOfToday, sub } from "date-fns";
 
 /**
@@ -92,12 +91,11 @@ export const addClassOptionIfNone = (
     options.classes = className;
   }
 };
-
 export function getCustomDateValidator(
   maxDaysInPast?: number,
   maxDaysInFuture?: number
 ) {
-  return (value: Date, helpers: Joi.CustomHelpers) => {
+  return (value: Date, helpers: joi.CustomHelpers) => {
     if (maxDaysInPast) {
       const minDate = sub(startOfToday(), { days: maxDaysInPast });
       if (value < minDate) {
