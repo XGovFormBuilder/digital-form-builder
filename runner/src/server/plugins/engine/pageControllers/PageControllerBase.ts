@@ -500,7 +500,6 @@ export class PageControllerBase {
 
       await cacheService.mergeState(request, { progress });
 
-      viewModel.backLink = progress[progress.length - 2];
       viewModel.backLink =
         progress[progress.length - 2] ?? this.backLinkFallback;
       return h.view(this.viewName, viewModel);

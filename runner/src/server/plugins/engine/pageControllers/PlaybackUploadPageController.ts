@@ -3,45 +3,44 @@ import { FormModel } from "server/plugins/engine/models";
 import { Page } from "@xgovformbuilder/model";
 import { FormComponent } from "server/plugins/engine/components";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
-
 export class PlaybackUploadPageController extends PageController {
   inputComponent: FormComponent;
+  standardViewModel = {
+    name: "retryUpload",
+    fieldset: {
+      legend: {
+        text: "Would you like to upload a new image?",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--s",
+      },
+    },
+    items: [
+      {
+        value: "true",
+        text: "Yes - I would like to upload a new image",
+      },
+      {
+        value: "false",
+        text: "No - I am happy with the image",
+      },
+    ],
+  };
 
   constructor(model: FormModel, pageDef: Page, inputComponent: FormComponent) {
     super(model, pageDef);
     this.inputComponent = inputComponent;
   }
 
-  buildRadioViewModel(error?: string) {
-    const standardViewModel = {
-      name: "retryUpload",
-      fieldset: {
-        legend: {
-          text: "Would you like to upload a new image?",
-          isPageHeading: false,
-          classes: "govuk-fieldset__legend--s",
-        },
-      },
-      items: [
-        {
-          value: "true",
-          text: "Yes - I would like to upload a new image",
-        },
-        {
-          value: "false",
-          text: "No - I am happy with the image",
-        },
-      ],
-    };
+  getRetryUploadViewModel(error?: string) {
     if (error) {
       return {
         errorMessage: {
           text: error,
         },
-        ...standardViewModel,
+        ...this.standardViewModel,
       };
     }
-    return standardViewModel;
+    return this.standardViewModel;
   }
 
   makeGetRouteHandler() {
@@ -56,7 +55,7 @@ export class PlaybackUploadPageController extends PageController {
         showTitle: true,
         pageTitle: "Check your image",
         backLink: progress[progress.length - 1] ?? this.backLinkFallback,
-        radios: this.buildRadioViewModel(),
+        radios: this.getRetryUploadViewModel(),
       });
     };
   }
@@ -86,7 +85,7 @@ export class PlaybackUploadPageController extends PageController {
           pageTitle: "Check your image",
           uploadErrors: errors,
           backLink: progress[progress.length - 2] ?? this.backLinkFallback,
-          radios: this.buildRadioViewModel(errorText),
+          radios: this.getRetryUploadViewModel(errorText),
         });
       }
 
