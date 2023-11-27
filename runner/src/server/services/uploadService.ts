@@ -71,7 +71,7 @@ export class UploadService {
   }
 
   parsedDocumentUploadResponse({ res, payload }) {
-    const warningFromApi = payload?.toString?.();
+    const warning = payload?.toString?.();
     let error: string | undefined;
     let location: string | undefined;
     switch (res.statusCode) {
@@ -94,7 +94,7 @@ export class UploadService {
     return {
       location,
       error,
-      warningFromApi,
+      warning,
     };
   }
 
@@ -185,15 +185,13 @@ export class UploadService {
 
       if (validFiles.length === values.length) {
         try {
-          const {
-            error,
-            location,
-            warningFromApi,
-          } = await this.uploadDocuments(validFiles);
+          const { error, location, warning } = await this.uploadDocuments(
+            validFiles
+          );
           if (location) {
             originalFilenames[key] = { location };
             request.payload[key] = location;
-            request.pre.warningFromApi = warningFromApi;
+            request.pre.warning = warning;
           }
           if (error) {
             request.pre.errors = [
@@ -237,10 +235,7 @@ export class UploadService {
 
     await cacheService.mergeState(request, { originalFilenames });
 
-    if (
-      request.pre?.warningFromApi &&
-      page?.controller === "UploadPageController"
-    ) {
+    if (request.pre?.warning && page?.controller === "UploadPageController") {
       return h.redirect("?view=playback").takeover();
     }
 
