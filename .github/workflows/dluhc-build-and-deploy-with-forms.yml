@@ -118,7 +118,8 @@ jobs:
       run_performance_tests: true
       run_e2e_tests: false
     secrets:
-      E2E_PAT: ${{secrets.E2E_PAT}}
+      FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
+      FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
 
   deploy-to-test:
     needs: deploy-and-test-dev
@@ -154,7 +155,8 @@ jobs:
       run_performance_tests: true
       run_e2e_tests: true
     secrets:
-      E2E_PAT: ${{secrets.E2E_PAT}}
+      FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
+      FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
 
   deploy-aws:
     if: ${{ github.event.inputs.copilot != 'false' }}
