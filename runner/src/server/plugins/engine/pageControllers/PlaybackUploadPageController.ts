@@ -31,6 +31,11 @@ export class PlaybackUploadPageController extends PageController {
     this.inputComponent = inputComponent;
   }
 
+  /**
+   * Gets the radio button view model for the "Would you like to upload a new image?" question
+   * @param error - if the user hasn't chosen an option and tries to continue, add the required field error to the field
+   * @returns the view model for the radio button component
+   * */
   getRetryUploadViewModel(error?: string) {
     if (error) {
       return {
