@@ -74,7 +74,6 @@ export class UploadService {
     const warningFromApi = payload?.toString?.();
     let error: string | undefined;
     let location: string | undefined;
-    console.log("This is the payload", warningFromApi);
     switch (res.statusCode) {
       case 201:
         location = res.headers.location;

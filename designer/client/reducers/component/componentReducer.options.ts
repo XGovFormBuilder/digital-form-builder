@@ -16,8 +16,6 @@ export function optionsReducer(state, action: OptionsActions) {
   const { type, payload } = action;
   const { selectedComponent } = state;
   const { options } = selectedComponent;
-  console.log("reducer type: ", type);
-  console.log("reducer payload: ", payload);
   switch (type) {
     case Options.EDIT_OPTIONS_HIDE_TITLE:
       return {
