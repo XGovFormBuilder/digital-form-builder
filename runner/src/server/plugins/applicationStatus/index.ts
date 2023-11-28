@@ -10,6 +10,21 @@ import {
   paymentSkippedWarning,
 } from "./paymentSkippedWarning";
 
+const preHandlers = {
+  retryPay: {
+    method: retryPay,
+    assign: "shouldShowPayErrorPage",
+  },
+  handleUserWithConfirmationViewModel: {
+    method: handleUserWithConfirmationViewModel,
+    assign: "confirmationViewModel",
+  },
+  checkUserCompletedSummary: {
+    method: checkUserCompletedSummary,
+    assign: "userCompletedSummary",
+  },
+};
+
 const index = {
   plugin: {
     name: "applicationStatus",
@@ -21,22 +36,13 @@ const index = {
         path: "/{id}/status",
         options: {
           pre: [
-            {
-              method: retryPay,
-              assign: "shouldShowPayErrorPage",
-            },
-            {
-              method: handleUserWithConfirmationViewModel,
-              assign: "confirmationViewModel",
-            },
-            {
-              method: checkUserCompletedSummary,
-              assign: "userCompletedSummary",
-            },
+            preHandlers.retryPay,
+            preHandlers.handleUserWithConfirmationViewModel,
+            preHandlers.checkUserCompletedSummary,
           ],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { statusService, cacheService } = request.services([]);
-
+            console.log(request.query);
             const { params } = request;
             const form = server.app.forms[params.id];
 
@@ -106,17 +112,22 @@ const index = {
       server.route({
         method: "get",
         path: "/{id}/status/payment-skip-warning",
-        handler: paymentSkippedWarning,
+        options: {
+          pre: [preHandlers.checkUserCompletedSummary],
+          handler: paymentSkippedWarning,
+        },
       });
 
       server.route({
         method: "post",
         path: "/{id}/status/payment-skip-warning",
-        handler: continueToPayAfterPaymentSkippedWarning,
-        rules: {
-          payload: {
-            action: Joi.string().valid("continue", "pay").required(),
-            crumb: Joi.string(),
+        options: {
+          handler: continueToPayAfterPaymentSkippedWarning,
+          validate: {
+            payload: Joi.object({
+              action: Joi.string().valid("pay").required(),
+              crumb: Joi.string(),
+            }),
           },
         },
       });
