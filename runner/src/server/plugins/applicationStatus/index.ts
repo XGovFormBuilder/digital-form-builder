@@ -3,7 +3,12 @@ import { HapiRequest, HapiResponseToolkit } from "../../types";
 import { retryPay } from "./retryPay";
 import { handleUserWithConfirmationViewModel } from "./handleUserWithConfirmationViewModel";
 import { checkUserCompletedSummary } from "./checkUserCompletedSummary";
-import config from "server/config";
+
+import Joi from "joi";
+import {
+  continueToPayAfterPaymentSkippedWarning,
+  paymentSkippedWarning,
+} from "./paymentSkippedWarning";
 
 const index = {
   plugin: {
@@ -95,6 +100,24 @@ const index = {
             },
           });
           return redirectTo(request, h, res._links.next_url.href);
+        },
+      });
+
+      server.route({
+        method: "get",
+        path: "/{id}/status/payment-skip-warning",
+        handler: paymentSkippedWarning,
+      });
+
+      server.route({
+        method: "post",
+        path: "/{id}/status/payment-skip-warning",
+        handler: continueToPayAfterPaymentSkippedWarning,
+        rules: {
+          payload: {
+            action: Joi.string().valid("continue", "pay").required(),
+            crumb: Joi.string(),
+          },
         },
       });
     },

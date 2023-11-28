@@ -1,4 +1,6 @@
-export const DEFAULT_FEE_OPTIONS = {
+import { FormDefinition } from "@xgovformbuilder/model";
+
+export const DEFAULT_FEE_OPTIONS: FormDefinition["feeOptions"] = {
   /**
    * If a payment is required, but the user fails, allow the user to skip payment
    * and submit the form. this is the default behaviour.
@@ -19,4 +21,11 @@ export const DEFAULT_FEE_OPTIONS = {
    * A supplementary error message (`customPayErrorMessage`) may also be configured if allowSubmissionWithoutPayment is false.
    */
   // customPayErrorMessage: "Custom error message",
+
+  /**
+   * Shows a link (button) below the "Submit and pay" button on the summary page. Clicking this will take the user to a page
+   * that provides additional messaging, you can warn the user that this may delay their application for example.
+   * allowSubmissionWithoutPayment must be true for this to be shown.
+   */
+  showPaymentSkippedWarningPage: false,
 };

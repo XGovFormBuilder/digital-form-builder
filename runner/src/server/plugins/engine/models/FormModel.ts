@@ -51,13 +51,8 @@ export class FormModel {
   pages: any;
   startPage: any;
 
-  feeOptions: {
-    paymentReferenceFormat?: string;
-    payReturnUrl?: string;
-    allowSubmissionWithoutPayment: boolean;
-    maxAttempts: number;
-    customPayErrorMessage?: "";
-  };
+  feeOptions: FormDefinition["feeOptions"];
+  specialPages: FormDefinition["specialPages"];
 
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
@@ -111,7 +106,7 @@ export class FormModel {
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
-
+    this.specialPages = def.specialPages;
     this.feeOptions = { ...DEFAULT_FEE_OPTIONS, ...def.feeOptions };
   }
 

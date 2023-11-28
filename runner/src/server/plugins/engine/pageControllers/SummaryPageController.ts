@@ -146,7 +146,9 @@ export class SummaryPageController extends PageController {
        * If the user does not agree to the declaration, the page will be rerendered with a warning.
        */
       if (summaryViewModel.declaration && !summaryViewModel.skipSummary) {
-        const { declaration } = request.payload as { declaration?: any };
+        const { declaration } = request.payload as {
+          declaration?: any;
+        };
 
         if (!declaration) {
           request.yar.flash(
@@ -173,13 +175,12 @@ export class SummaryPageController extends PageController {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
+      const { skipPayment } = request.payload;
+
       /**
        * If a user does not need to pay, redirect them to /status
        */
-      if (
-        !summaryViewModel.fees ||
-        (summaryViewModel.fees.details ?? []).length === 0
-      ) {
+      if ((summaryViewModel.fees?.details ?? [])?.length === 0) {
         return redirectTo(request, h, `/${request.params.id}/status`);
       }
 
@@ -201,15 +202,13 @@ export class SummaryPageController extends PageController {
         url
       );
 
-      request.yar.set("basePath", model.basePath);
-      await cacheService.mergeState(request, {
+      const payState = {
         pay: {
           payId: res.payment_id,
           reference: res.reference,
           self: res._links.self.href,
-          returnUrl: new URL(
-            `${payReturnUrl}/${request.params.id}/status`
-          ).toString(),
+          next_url: res._links.next_url.href,
+          returnUrl: url,
           meta: {
             amount: summaryViewModel.fees.total,
             description,
@@ -217,13 +216,35 @@ export class SummaryPageController extends PageController {
             payApiKey: summaryViewModel.payApiKey,
           },
         },
-      });
+      };
+
+      request.yar.set("basePath", model.basePath);
+      await cacheService.mergeState(request, payState);
       summaryViewModel.webhookDataPaymentReference = res.reference;
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
-      return redirectTo(request, h, res._links.next_url.href);
+      const payRedirectUrl = payState.pay.next_url;
+      const {
+        showPaymentSkippedWarningPage,
+        allowSubmissionWithoutPayment,
+      } = this.model.feeOptions;
+
+      if (
+        skipPayment === "true" &&
+        showPaymentSkippedWarningPage &&
+        allowSubmissionWithoutPayment
+      ) {
+        payState.pay.meta.attempts = 0;
+        await cacheService.mergeState(request, payState);
+        return h
+          .redirect(`/${request.params.id}/status/payment-skip-warning`)
+          .takeover();
+      }
+
+      await cacheService.mergeState(request, payState);
+      return h.redirect(payRedirectUrl);
     };
   }
 

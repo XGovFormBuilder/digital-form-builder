@@ -36,6 +36,7 @@
             {% endfor %}
           </ul>
           <p class="govuk-body">Total cost: £{{fees.total / 100 }}</p>
+          <p class="govuk-body">You should not be charged an exchange fee if you pay with a UK credit or debit card.</p>
         {% endif %}
 
         {% if not result.error  %}
@@ -69,6 +70,15 @@
                         Submit
                     {% endif %}
                 </button>
+
+                {% if showPaymentSkippedWarningPage %}
+                <div class="govuk-body">
+                  <button data-prevent-double-click="true" class="govuk-body govuk-button--link" name="skipPayment" value="true" data-module="govuk-button">
+                    Unable to pay online
+                  </button>
+                </div>
+              {% endif %}
+
             </form>
         {% endif %}
       </div>

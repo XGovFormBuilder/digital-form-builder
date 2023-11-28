@@ -86,13 +86,18 @@ export class PayService {
   }
 
   referenceFromFees(prefixes = [], referenceFormat = "") {
-    this.logger.info(
-      ["payService", "referenceFromFees"],
-      `requested pay reference format ${referenceFormat}`
-    );
     if (!referenceFormat) {
+      this.logger.info(
+        ["payService", "referenceFromFees"],
+        `no reference format provided, generating random reference`
+      );
       return nanoid(10);
     }
+
+    this.logger.info(
+      ["payService", "referenceFromFees"],
+      `requested pay reference format: "${referenceFormat}"`
+    );
 
     let reference = referenceFormat;
     reference = reference.replace(REFERENCE_TAG.PREFIX, prefixes.join("-"));

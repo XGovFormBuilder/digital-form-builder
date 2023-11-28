@@ -117,8 +117,17 @@ export type ConfirmationPage = {
   components: ComponentDef[];
 };
 
+export type PaymentSkippedWarningPage = {
+  customText: {
+    title: string;
+    caption: string;
+    body: string;
+  };
+};
+
 export type SpecialPages = {
   confirmationPage?: ConfirmationPage;
+  paymentSkippedWarningPage?: PaymentSkippedWarningPage;
 };
 
 export function isMultipleApiKey(
@@ -134,6 +143,15 @@ export type Fee = {
   multiplier?: string;
   condition?: string;
   prefix?: string;
+};
+
+export type FeeOptions = {
+  paymentReferenceFormat?: string;
+  payReturnUrl?: string;
+  allowSubmissionWithoutPayment: boolean;
+  maxAttempts: number;
+  customPayErrorMessage?: string;
+  showPaymentSkippedWarningPage?: boolean;
 };
 
 /**
@@ -156,11 +174,5 @@ export type FormDefinition = {
   payApiKey?: string | MultipleApiKeys | undefined;
   specialPages?: SpecialPages;
   paymentReferenceFormat?: string;
-  feeOptions: {
-    paymentReferenceFormat?: string;
-    payReturnUrl?: string;
-    allowSubmissionWithoutPayment: boolean;
-    maxAttempts: number;
-    customPayErrorMessage?: string;
-  };
+  feeOptions: FeeOptions;
 };

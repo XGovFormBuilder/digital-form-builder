@@ -58,7 +58,7 @@ export class SummaryViewModel {
   _payApiKey: FormDefinition["payApiKey"];
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
-
+  showPaymentSkippedWarningPage: boolean = false;
   constructor(
     pageTitle: string,
     model: FormModel,
@@ -149,6 +149,13 @@ export class SummaryViewModel {
     this.state = state;
     this.value = result.value;
     this.callback = state.callback;
+    const { feeOptions } = model;
+    const {
+      showPaymentSkippedWarningPage,
+      allowSubmissionWithoutPayment,
+    } = feeOptions;
+    this.showPaymentSkippedWarningPage =
+      showPaymentSkippedWarningPage && allowSubmissionWithoutPayment;
   }
 
   private processErrors(result, details) {
