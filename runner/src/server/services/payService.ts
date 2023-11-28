@@ -87,11 +87,12 @@ export class PayService {
 
   referenceFromFees(prefixes = [], referenceFormat = "") {
     if (!referenceFormat) {
+      const reference = nanoid(10);
       this.logger.info(
         ["payService", "referenceFromFees"],
-        `no reference format provided, generating random reference`
+        `no reference format provided, generated random reference: ${reference}`
       );
-      return nanoid(10);
+      return reference;
     }
 
     this.logger.info(

@@ -28,10 +28,6 @@ export async function continueToPayAfterPaymentSkippedWarning(
   const { cacheService } = request.services([]);
   const state = await cacheService.getState(request);
 
-  if (request.payload.action === "continue") {
-    return h.redirect(`./../status`);
-  }
-
   const payState = state.pay;
   payState.meta++;
   await cacheService.mergeState(request, payState);

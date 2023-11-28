@@ -87,6 +87,7 @@ describe("payment configuration", () => {
       maxAttempts: 10,
       paymentReferenceFormat: "EGGS-",
       payReturnUrl: "https://my.egg.service.scramble",
+      showPaymentSkippedWarningPage: false,
     });
   });
 
@@ -111,6 +112,7 @@ describe("payment configuration", () => {
       maxAttempts: 3,
       paymentReferenceFormat: "EGGS-",
       payReturnUrl: "https://my.egg.service.scramble",
+      showPaymentSkippedWarningPage: false,
     });
   });
 });
