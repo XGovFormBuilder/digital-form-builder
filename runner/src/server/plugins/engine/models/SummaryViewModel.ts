@@ -150,12 +150,8 @@ export class SummaryViewModel {
     this.value = result.value;
     this.callback = state.callback;
     const { feeOptions } = model;
-    const {
-      showPaymentSkippedWarningPage,
-      allowSubmissionWithoutPayment,
-    } = feeOptions;
     this.showPaymentSkippedWarningPage =
-      showPaymentSkippedWarningPage && allowSubmissionWithoutPayment;
+      feeOptions.showPaymentSkippedWarningPage ?? false;
   }
 
   private processErrors(result, details) {

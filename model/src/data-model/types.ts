@@ -151,7 +151,7 @@ export type FeeOptions = {
   allowSubmissionWithoutPayment: boolean;
   maxAttempts: number;
   customPayErrorMessage?: string;
-  showPaymentSkippedWarningPage?: boolean;
+  showPaymentSkippedWarningPage: boolean;
 };
 
 /**
