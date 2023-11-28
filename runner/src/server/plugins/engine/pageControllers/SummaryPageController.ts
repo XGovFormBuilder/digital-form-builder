@@ -175,8 +175,6 @@ export class SummaryPageController extends PageController {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
-      const { skipPayment } = request.payload;
-
       /**
        * If a user does not need to pay, redirect them to /status
        */
@@ -202,6 +200,7 @@ export class SummaryPageController extends PageController {
         url
       );
 
+      // TODO:- refactor - this is repeated in applicationStatus
       const payState = {
         pay: {
           payId: res.payment_id,
@@ -226,16 +225,10 @@ export class SummaryPageController extends PageController {
       });
 
       const payRedirectUrl = payState.pay.next_url;
-      const {
-        showPaymentSkippedWarningPage,
-        allowSubmissionWithoutPayment,
-      } = this.model.feeOptions;
+      const { showPaymentSkippedWarningPage } = this.model.feeOptions;
 
-      if (
-        skipPayment === "true" &&
-        showPaymentSkippedWarningPage &&
-        allowSubmissionWithoutPayment
-      ) {
+      const { skipPayment } = request.payload;
+      if (skipPayment === "true" && showPaymentSkippedWarningPage) {
         payState.pay.meta.attempts = 0;
         await cacheService.mergeState(request, payState);
         return h
