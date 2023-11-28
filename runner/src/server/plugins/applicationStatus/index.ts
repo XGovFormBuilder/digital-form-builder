@@ -42,7 +42,6 @@ const index = {
           ],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { statusService, cacheService } = request.services([]);
-            console.log(request.query);
             const { params } = request;
             const form = server.app.forms[params.id];
 
