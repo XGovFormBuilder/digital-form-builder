@@ -1,12 +1,20 @@
 import { PageController } from "server/plugins/engine/pageControllers/PageController";
 import { FormModel } from "server/plugins/engine/models";
 import { Page } from "@xgovformbuilder/model";
-import { FormComponent } from "server/plugins/engine/components";
+import {
+  ComponentCollection,
+  FormComponent,
+} from "server/plugins/engine/components";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
+import joi from "joi";
+import { FormSubmissionErrors } from "../types";
 export class PlaybackUploadPageController extends PageController {
   inputComponent: FormComponent;
-  standardViewModel = {
+  retryUploadViewModel = {
     name: "retryUpload",
+    type: "RadiosField",
+    options: {},
+    schema: {},
     fieldset: {
       legend: {
         text: "Would you like to upload a new image?",
@@ -16,11 +24,11 @@ export class PlaybackUploadPageController extends PageController {
     },
     items: [
       {
-        value: "true",
+        value: true,
         text: "Yes - I would like to upload a new image",
       },
       {
-        value: "false",
+        value: false,
         text: "No - I am happy with the image",
       },
     ],
@@ -29,6 +37,16 @@ export class PlaybackUploadPageController extends PageController {
   constructor(model: FormModel, pageDef: Page, inputComponent: FormComponent) {
     super(model, pageDef);
     this.inputComponent = inputComponent;
+    this.formSchema = joi.object({
+      crumb: joi.string(),
+      retryUpload: joi
+        .string()
+        .required()
+        .allow("true", "false")
+        .label("if you would like to upload a new image"),
+    });
+    this.stateSchema = joi.object();
+    this.components = new ComponentCollection([], this.model);
   }
 
   /**
@@ -36,16 +54,16 @@ export class PlaybackUploadPageController extends PageController {
    * @param error - if the user hasn't chosen an option and tries to continue, add the required field error to the field
    * @returns the view model for the radio button component
    * */
-  getRetryUploadViewModel(error?: string) {
-    if (error) {
-      return {
-        errorMessage: {
-          text: error,
-        },
-        ...this.standardViewModel,
-      };
-    }
-    return this.standardViewModel;
+  getRetryUploadViewModel(errors?: FormSubmissionErrors) {
+    let viewModel = { ...this.retryUploadViewModel };
+    errors?.errorList?.forEach((err) => {
+      if (err.name === viewModel.name) {
+        viewModel.errorMessage = {
+          text: err.text,
+        };
+      }
+    });
+    return viewModel;
   }
 
   makeGetRouteHandler() {
@@ -71,18 +89,10 @@ export class PlaybackUploadPageController extends PageController {
 
       const state = await cacheService.getState(request);
       const { progress = [] } = state;
-      const payload = request.payload;
-      if (!payload.retryUpload) {
-        const errorText = "Select if you would like to continue";
-        const errors = {
-          titleText: "Fix the following errors",
-          errorList: [
-            {
-              text: errorText,
-              href: "#retry-upload",
-            },
-          ],
-        };
+      const { payload } = request;
+      const result = this.formSchema.validate(payload, this.validationOptions);
+      if (result.error) {
+        const errors = this.getErrors(result);
         let sectionTitle = this.section?.title;
         return h.view("upload-playback", {
           sectionTitle: sectionTitle,
@@ -90,15 +100,13 @@ export class PlaybackUploadPageController extends PageController {
           pageTitle: "Check your image",
           uploadErrors: errors,
           backLink: progress[progress.length - 2] ?? this.backLinkFallback,
-          radios: this.getRetryUploadViewModel(errorText),
+          radios: this.getRetryUploadViewModel(errors),
         });
       }
 
       if (payload.retryUpload === "true") {
         return h.redirect(`/${this.model.basePath}${this.path}`);
       }
-
-      delete payload.retryUpload;
 
       return super.makePostRouteHandler()(request, h);
     };
