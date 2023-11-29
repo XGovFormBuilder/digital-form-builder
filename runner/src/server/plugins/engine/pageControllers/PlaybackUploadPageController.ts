@@ -1,10 +1,7 @@
 import { PageController } from "server/plugins/engine/pageControllers/PageController";
 import { FormModel } from "server/plugins/engine/models";
 import { Page } from "@xgovformbuilder/model";
-import {
-  ComponentCollection,
-  FormComponent,
-} from "server/plugins/engine/components";
+import { FormComponent } from "server/plugins/engine/components";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import joi from "joi";
 import { FormSubmissionErrors } from "../types";
@@ -45,8 +42,6 @@ export class PlaybackUploadPageController extends PageController {
         .allow("true", "false")
         .label("if you would like to upload a new image"),
     });
-    this.stateSchema = joi.object();
-    this.components = new ComponentCollection([], this.model);
   }
 
   /**
@@ -108,7 +103,7 @@ export class PlaybackUploadPageController extends PageController {
         return h.redirect(`/${this.model.basePath}${this.path}`);
       }
 
-      return super.makePostRouteHandler()(request, h);
+      return h.redirect(this.getNext(request.payload));
     };
   }
 }
