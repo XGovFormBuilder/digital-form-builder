@@ -800,7 +800,6 @@ export class PageControllerBase {
   private renderWithErrors(request, h, payload, num, progress, errors) {
     const viewModel = this.getViewModel(payload, num, errors);
 
-    viewModel.backLink = progress[progress.length - 2];
     viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
