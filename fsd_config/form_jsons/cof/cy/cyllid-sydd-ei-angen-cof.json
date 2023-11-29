@@ -129,6 +129,28 @@
               "title": "Swm",
               "hint": "",
               "schema": {}
+            },
+            {
+              "name": "LeTLDo",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "Faint o gyllid o’r grant COF y byddech yn ei ddefnyddio i dalu am y gost hon?",
+              "hint": "",
+              "schema": {}
+            },
+            {
+              "name": "pHZDWT",
+              "options": {
+                "prefix": "£",
+                "classes": "govuk-!-width-one-half"
+              },
+              "type": "NumberField",
+              "title": "Faint o’r arian cyfatebol fyddwch chi’n ei ddefnyddio i dalu am y gost hon?",
+              "hint": "",
+              "schema": {}
             }
           ]
         }
