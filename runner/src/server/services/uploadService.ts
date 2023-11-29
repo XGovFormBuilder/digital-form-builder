@@ -236,6 +236,17 @@ export class UploadService {
     await cacheService.mergeState(request, { originalFilenames });
 
     if (request.pre?.warning && page?.controller === "UploadPageController") {
+      const update = Object.entries(originalFilenames).reduce(
+        (acc, [key, value]) => {
+          return {
+            ...acc,
+            [key]: value.originalFilename,
+          };
+        },
+        {}
+      );
+      await cacheService.mergeState(request, update);
+
       return h.redirect("?view=playback").takeover();
     }
 
