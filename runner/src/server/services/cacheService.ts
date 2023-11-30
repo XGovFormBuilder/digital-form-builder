@@ -34,8 +34,8 @@ if (vcapServices) {
   if ("redis" in vcapJson) {
     redisUri = vcapJson.redis[0].credentials.uri;
   }
-} else if(process.env.REDIS_INSTANCE_URI) {
-  redisUri = process.env.REDIS_INSTANCE_URI
+} else if (process.env.REDIS_INSTANCE_URI) {
+  redisUri = process.env.REDIS_INSTANCE_URI;
 }
 
 export class CacheService {
@@ -94,25 +94,41 @@ export class CacheService {
   async activateSession(jwt, request) {
     const { decoded } = Jwt.token.decode(jwt);
     const { payload }: { payload: DecodedSessionToken } = decoded;
-
+    this.logger.info("SESSION_DEBUG JWT: " + JSON.stringify(jwt));
+    this.logger.info("SESSION_DEBUG decoded:" + decoded);
+    this.logger.info("SESSION_DEBUG payload: " + JSON.stringify(payload));
     const userSessionKey = {
       segment: partition,
       id: `${request.yar.id}:${payload.group}`,
     };
 
+    this.logger.info(
+      "SESSION_DEBUG About to initialise session - try and retrieve from cache"
+    );
     const initialisedSession = await this.cache.get(this.JWTKey(jwt));
+    this.logger.info("SESSION_DEBUG From cache: " + initialisedSession);
 
     const form_session_identifier =
       initialisedSession.metadata?.form_session_identifier;
+    this.logger.info(
+      "SESSION_DEBUG form_session_identifier: " + form_session_identifier
+    );
     let redirectPath = initialisedSession?.callback?.redirectPath ?? "";
+    this.logger.info("SESSION_DEBUG redirectPath: " + redirectPath);
 
     if (form_session_identifier) {
       userSessionKey.id = `${userSessionKey.id}:${form_session_identifier}`;
+      this.logger.info(
+        "SESSION_DEBUG userSessionKey.id set to: " + userSessionKey.id
+      );
       redirectPath = `${redirectPath}?form_session_identifier=${form_session_identifier}`;
+      this.logger.info("SESSION_DEBUG redirectPath: " + redirectPath);
     }
 
     if (config.overwriteInitialisedSession) {
-      request.logger.info("Replacing user session with initialisedSession");
+      request.logger.info(
+        "SESSION_DEBUG Replacing user session with initialisedSession"
+      );
       this.cache.set(userSessionKey, initialisedSession, sessionTimeout);
     } else {
       const currentSession = await this.cache.get(userSessionKey);
@@ -120,11 +136,15 @@ export class CacheService {
         ...currentSession,
         ...initialisedSession,
       };
-      request.logger.info("Merging user session with initialisedSession");
+      request.logger.info(
+        "SESSION_DEBUG Merging user session with initialisedSession"
+      );
       this.cache.set(userSessionKey, mergedSession, sessionTimeout);
     }
 
+    this.logger.info("SESSION_DEBUG About to request cache drop of jwt");
     await this.cache.drop(this.JWTKey(jwt));
+    this.logger.info("SESSION_DEBUG Cache drop completed");
     return {
       redirectPath: redirectPath,
     };
