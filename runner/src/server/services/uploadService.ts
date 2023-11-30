@@ -238,9 +238,17 @@ export class UploadService {
     if (request.pre?.warning && page?.controller === "UploadPageController") {
       const update = Object.entries(originalFilenames).reduce(
         (acc, [key, value]) => {
+          if (page?.section) {
+            return {
+              ...acc,
+              [page.section]: {
+                [key]: value.location,
+              },
+            };
+          }
           return {
             ...acc,
-            [key]: value.originalFilename,
+            [key]: value.location,
           };
         },
         {}
