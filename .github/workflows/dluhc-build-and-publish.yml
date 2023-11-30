@@ -14,6 +14,7 @@ on:
         ".github/workflows/increment-version.yml",
         "version",
       ]
+  workflow_call:
 
 env:
   IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
