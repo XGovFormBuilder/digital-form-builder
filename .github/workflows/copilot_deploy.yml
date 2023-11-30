@@ -17,9 +17,13 @@ on:
           - uat
           - production
   push:
-    paths: # Ignore README markdown and only deploy when something in the copilot folder has changed
+    paths:
       - "!**/README.md"
       - "!docs/**"
+      - "!fsd_config/**"
+      - "!.github/workflows/dluhc-build-and-deploy-with-forms.yml"
+      - "!.github/workflows/increment-version.yml"
+      - "!version"
       - "designer/**"
       - "runner/**"
       - ".github/workflows/copilot_deploy.yml"
@@ -30,9 +34,6 @@ env:
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
 jobs:
-  docker-build:
-    uses: ./.github/workflows/dluhc-build-and-publish.yml
-
   copilot_environments_workflow_setup:
     runs-on: ubuntu-latest
     outputs:
@@ -55,7 +56,7 @@ jobs:
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
-    needs: [docker-build, copilot_environments_workflow_setup]
+    needs: [copilot_environments_workflow_setup]
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
