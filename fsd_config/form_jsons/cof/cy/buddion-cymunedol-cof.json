@@ -60,7 +60,7 @@
           },
           "type": "FreeTextField",
           "title": "Dywedwch wrthym sut byddwch chi'n gwneud yn siŵr bod y gymuned gyfan yn elwa o'r ased",
-          "hint": "For example, people who have not used the asset in the past, and other people who live in the local area.\n\n<p>Lle bo modd, cyfeiriwch at unrhyw ddata sydd gennych ar nodweddion gwarchodedig ac effeithiau ar gydraddoldeb.</p>"
+          "hint": "Er enghraifft, pobl nad ydynt wedi defnyddio'r ased yn y gorffennol, a phobl eraill sy'n byw yn yr ardal leol.\n\n<p>Lle bo modd, cyfeiriwch at unrhyw ddata sydd gennych ar nodweddion gwarchodedig ac effeithiau ar gydraddoldeb.</p>"
         }
       ],
       "next": [
