@@ -76,6 +76,8 @@ environments:
   test:
     deployment:
       rolling: "recreate"
+    variables:
+      JWT_AUTH_COOKIE_NAME: "fsd_user_token"
   uat:
     count:
       range: 2-4
