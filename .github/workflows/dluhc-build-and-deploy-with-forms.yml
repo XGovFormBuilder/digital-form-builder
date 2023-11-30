@@ -7,19 +7,18 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description:  Which AWS Account to use
+        description: Which AWS Account to use
         type: choice
         required: true
         options:
-        - test
-        - uat
+          - test
+          - uat
         default: test
       copilot:
         description: Whether to deploy to AWS?
         type: boolean
         required: false
         default: false
-
 
 env:
   DOCKER_REGISTRY: ghcr.io
@@ -111,10 +110,10 @@ jobs:
       perf_test_target_url_application_store: https://funding-service-design-application-store-dev.london.cloudapps.digital
       perf_test_target_url_fund_store: https://funding-service-design-fund-store-dev.london.cloudapps.digital
       perf_test_target_url_assessment_store: https://funding-service-design-assessment-store-dev.london.cloudapps.digital
-      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.dev.gids.dev  # pragma: allowlist secret
-      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.dev.gids.dev  # pragma: allowlist secret
-      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.dev.gids.dev  # pragma: allowlist secret
-      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.dev.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.dev.gids.dev # pragma: allowlist secret
+      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.dev.gids.dev # pragma: allowlist secret
+      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.dev.gids.dev # pragma: allowlist secret
+      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.dev.gids.dev # pragma: allowlist secret
       run_performance_tests: true
       run_e2e_tests: false
     secrets:
@@ -148,55 +147,12 @@ jobs:
       perf_test_target_url_application_store: https://funding-service-design-application-store-test.london.cloudapps.digital
       perf_test_target_url_fund_store: https://funding-service-design-fund-store-test.london.cloudapps.digital
       perf_test_target_url_assessment_store: https://funding-service-design-assessment-store-test.london.cloudapps.digital
-      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.test.gids.dev  # pragma: allowlist secret
-      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.test.gids.dev  # pragma: allowlist secret
-      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.test.gids.dev  # pragma: allowlist secret
-      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.test.gids.dev  # pragma: allowlist secret
+      e2e_tests_target_url_frontend: https://fsd:fsd@frontend.test.gids.dev # pragma: allowlist secret
+      e2e_tests_target_url_authenticator: https://fsd:fsd@authenticator2.test.gids.dev # pragma: allowlist secret
+      e2e_tests_target_url_form_runner: https://fsd:fsd@forms.test.gids.dev # pragma: allowlist secret
+      e2e_tests_target_url_assessment: https://fsd:fsd@assessment.test.gids.dev # pragma: allowlist secret
       run_performance_tests: true
       run_e2e_tests: true
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
       FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
-
-  deploy-aws:
-    if: ${{ github.event.inputs.copilot != 'false' }}
-    needs: docker-build
-    concurrency: deploy-${{ inputs.environment || 'test' }}
-    permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read  # This is required for actions/checkout
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment || 'test' }}
-    steps:
-    - name: Git clone the repository
-      uses: actions/checkout@v3
-
-    - name: Get current date
-      id: currentdatetime
-      run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
-
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
-        role-session-name: FORMS_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
-        aws-region: eu-west-2
-
-    - name: Install AWS Copilot CLI
-      run: |
-        curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
-
-    - name: Inject Git SHA into manifest
-      run: |
-        yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
-
-    - name: Inject replacement image into manifest
-      run: |
-        yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:sha-${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
-
-#    - name: Run database migrations
-#      run: scripts/migration-task-script.py ${{ inputs.environment || 'test' }}
-
-    - name: Copilot deploy
-      run: |
-        copilot deploy --env ${{ inputs.environment || 'test' }}
