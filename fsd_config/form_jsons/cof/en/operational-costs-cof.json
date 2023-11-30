@@ -44,9 +44,6 @@
       ],
       "next": [
         {
-          "path": "/income-to-run-the-asset"
-        },
-        {
           "path": "/summary"
         }
       ],

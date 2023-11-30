@@ -299,10 +299,6 @@
           "condition": "EQpfAl"
         },
         {
-          "path": "/community-asset-transfer",
-          "condition": "rrSKPO"
-        },
-        {
           "path": "/assets-of-community-value"
         }
       ],

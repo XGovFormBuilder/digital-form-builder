@@ -6,14 +6,14 @@
   "backLinkText": "Ewch yn ôl i amlwgwr cais",
   "pages": [
     {
-      "title": "Gwybodaeth am eiddo",
+      "title": "Gwybodaeth am yr ased",
       "path": "/gwybodaeth-am-ardal-eiddo",
       "components": [
         {
           "name": "JGhnud",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn gofyn am:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>math eiddo</li>\n<li>beth rydych yn bwriadu ei wneud gyda'r eiddo</li>\n<li>statws meddu eiddo</li>\n<li>manylion meddu eiddo (os yn berthnasol)</li>\n<li>manylion meddu eiddo cyhoeddus (os yn berthnasol)</li>\n<li>rheswm pam mae'r eiddo mewn perygl</li>\n<li>manylion Hawswn Cymunedol eiddo (os yn berthnasol)</li>\n<li>manylion Trosglwyddiad Eiddo Cymunedol (os yn berthnasol)</li>\n</ul>"
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn gofyn am:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>math eiddo</li>\n<li>beth rydych yn bwriadu ei wneud gyda'r eiddo</li>\n<li>statws meddu eiddo</li>\n<li>manylion meddu eiddo (os yn berthnasol)</li>\n<li>manylion meddu eiddo cyhoeddus (os yn berthnasol)</li>\n<li>rheswm pam mae'r eiddo mewn perygl</li>\n<li>manylion Hawswn Cymunedol eiddo (os yn berthnasol)</li>\n</ul>"
         }
       ],
       "next": [
@@ -323,7 +323,7 @@
       ],
       "next": [
         {
-          "path": "/local-service-provision"
+          "path": "/darparu-gwasanaeth-lleol"
         }
       ],
       "section": "wxYZcT"
@@ -455,8 +455,8 @@
       "section": "wxYZcT"
     },
     {
-      "path": "/local-service-provision",
-      "title": "Local service provision",
+      "path": "/darparu-gwasanaeth-lleol",
+      "title": "Darparu gwasanaeth lleol",
       "components": [
         {
           "name": "mZwrmI",
@@ -467,37 +467,37 @@
       ],
       "next": [
         {
-          "path": "/local-service-provision-mmUOLb",
+          "path": "/darparu-gwasanaeth-lleol-mmUOLb",
           "condition": "yeEMBf"
         },
         {
-          "path": "/local-service-provision-bgqNrc"
+          "path": "/darparu-gwasanaeth-lleol-bgqNrc"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/local-service-provision-mmUOLb",
-      "title": "Local service provision",
+      "path": "/darparu-gwasanaeth-lleol-mmUOLb",
+      "title": "Darparu gwasanaeth lleol",
       "components": [
         {
           "name": "BfgLCc",
           "options": {},
           "type": "YesNoField",
-          "title": "Is your asset different from what is available locally?"
+          "title": "A yw'ch ased yn wahanol i'r hyn sydd ar gael yn lleol?"
         }
       ],
       "next": [
         {
-          "path": "/local-service-provision-cNfGYA",
+          "path": "/darparu-gwasanaeth-lleol-cNfGYA",
           "condition": "nlbrNc"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/local-service-provision-bgqNrc",
-      "title": "Local service provision",
+      "path": "/darparu-gwasanaeth-lleol-bgqNrc",
+      "title": "Darparu gwasanaeth lleol",
       "components": [
         {
           "name": "GEJNWF",
@@ -505,20 +505,20 @@
             "maxWords": "500"
           },
           "type": "FreeTextField",
-          "title": "How accessible is the closest asset or service?",
-          "hint": "For example, if you are applying to fund a swimming pool, where is the next closest swimming facility?"
+          "title": "Pa mor hygyrch yw'r ased neu'r gwasanaeth agosaf?",
+          "hint": "Er enghraifft, os ydych yn gwneud cais i ariannu pwll nofio, ble mae'r cyfleuster nofio agosaf nesaf?"
         }
       ],
       "next": [
         {
-          "path": "/local-service-provision-JcqzLI"
+          "path": "/darparu-gwasanaeth-lleol-JcqzLI"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/local-service-provision-cNfGYA",
-      "title": "Local service provision",
+      "path": "/darparu-gwasanaeth-lleol-cNfGYA",
+      "title": "Darparu gwasanaeth lleol",
       "components": [
         {
           "name": "WTZoVD",
@@ -526,31 +526,31 @@
             "maxWords": "500"
           },
           "type": "FreeTextField",
-          "title": "Tell us how and why your asset or the service is different"
+          "title": "Dywedwch wrthym sut mae'r agwedd fasnachol yn ymwneud â'r gwasanaethau eraill rydych chi'n eu darparu"
         }
       ],
       "next": [
         {
-          "path": "/local-service-provision-bgqNrc"
+          "path": "/darparu-gwasanaeth-lleol-bgqNrc"
         }
       ],
       "section": "wxYZcT"
     },
     {
-      "path": "/local-service-provision-JcqzLI",
-      "title": "Local service provision",
+      "path": "/darparu-gwasanaeth-lleol-JcqzLI",
+      "title": "Darparu gwasanaeth lleol",
       "components": [
         {
           "name": "CFFsxV",
           "options": {},
           "type": "YesNoField",
-          "title": "Does part of your project include a commercial aspect?",
-          "hint": "For example, a community centre which also has a community café attached that helps to subsidise the activities of the centre"
+          "title": "A yw rhan o'ch prosiect yn cynnwys agwedd fasnachol?",
+          "hint": "Er enghraifft, canolfan gymunedol sydd â chaffi cymunedol yn gysylltiedig sy'n helpu i gymorthdalu gweithgareddau'r ganolfan"
         }
       ],
       "next": [
         {
-          "path": "/local-service-provision-ShxyWq",
+          "path": "/darparu-gwasanaeth-lleol-ShxyWq",
           "condition": "hJonvv"
         },
         {
@@ -560,8 +560,8 @@
       "section": "wxYZcT"
     },
     {
-      "path": "/local-service-provision-ShxyWq",
-      "title": "Local service provision",
+      "path": "/darparu-gwasanaeth-lleol-ShxyWq",
+      "title": "Darparu gwasanaeth lleol",
       "components": [
         {
           "name": "FDZQTQ",
@@ -569,7 +569,7 @@
             "maxWords": "500"
           },
           "type": "FreeTextField",
-          "title": "Tell us how the commercial aspect relates to the other services you provide"
+          "title": "Dywedwch wrthym sut mae'r agwedd fasnachol yn ymwneud â'r gwasanaethau eraill rydych chi'n eu darparu"
         }
       ],
       "next": [
