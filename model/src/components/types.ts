@@ -217,6 +217,7 @@ export interface FileUploadFieldComponent {
     multiple?: boolean;
     classes?: string;
     exposeToContext?: boolean;
+    imageQualityPlayback?: boolean;
   };
   schema: {};
 }

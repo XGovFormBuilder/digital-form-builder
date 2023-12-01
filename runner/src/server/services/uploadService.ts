@@ -19,7 +19,6 @@ const ERRORS = {
   fileSizeError: 'The selected file for "%s" is too large',
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
   virusError: 'The selected file for "%s" contained a virus',
-  qualityError: 'The selected file for "%s" was too blurry',
   default: "There was an error uploading your file",
 };
 
@@ -72,7 +71,7 @@ export class UploadService {
   }
 
   parsedDocumentUploadResponse({ res, payload }) {
-    const errorCodeFromApi = payload?.toString?.();
+    const warning = payload?.toString?.();
     let error: string | undefined;
     let location: string | undefined;
     switch (res.statusCode) {
@@ -86,7 +85,7 @@ export class UploadService {
         error = ERRORS.fileSizeError;
         break;
       case 422:
-        error = ERRORS[errorCodeFromApi] ?? ERRORS.virusError;
+        error = ERRORS.virusError;
         break;
       default:
         error = ERRORS.default;
@@ -95,6 +94,7 @@ export class UploadService {
     return {
       location,
       error,
+      warning,
     };
   }
 
@@ -103,7 +103,11 @@ export class UploadService {
     return h.continue;
   }
 
-  async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
+  async handleUploadRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    page: any
+  ) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
@@ -181,10 +185,13 @@ export class UploadService {
 
       if (validFiles.length === values.length) {
         try {
-          const { error, location } = await this.uploadDocuments(validFiles);
+          const { error, location, warning } = await this.uploadDocuments(
+            validFiles
+          );
           if (location) {
             originalFilenames[key] = { location };
             request.payload[key] = location;
+            request.pre.warning = warning;
           }
           if (error) {
             request.pre.errors = [

@@ -53,6 +53,13 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, multiple: payload },
         },
       };
+    case Options.EDIT_OPTIONS_IMAGE_QUALITY_PLAYBACK:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, imageQualityPlayback: payload },
+        },
+      };
     case Options.EDIT_OPTIONS_CLASSES:
       return {
         selectedComponent: {

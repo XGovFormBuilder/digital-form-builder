@@ -1,0 +1,53 @@
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "details/macro.njk" import govukDetails %}
+{% from "radios/macro.njk" import govukRadios %}
+{% from "button/macro.njk" import govukButton %}
+
+{% extends "layout.html" %}
+
+{% set infoHtml %}
+  <p class="govuk-heading-s">
+    It looks like your image is too blurred. Upload a new one or if you're happy with it you can still submit it.
+    It will be checked by consular staff. If they cannot read it they will contact you - this could delay your application.
+  </p>
+{% endset %}
+
+{% set takePhotoHtml %}
+  <p class="govuk-body"></p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>lay it flat on a table or for better results against a wall</li>
+    <li>make sure all information is readable</li>
+    <li>position the phone parallel to the document</li>
+    <li>use both hands to keep your phone steady</li>
+  </ul>
+{% endset %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if uploadErrors %}
+        {{ govukErrorSummary(uploadErrors) }}
+      {% endif %}
+
+      {% include "partials/heading.html" %}
+      <form method="post" enctype="multipart/form-data" autocomplete="on">
+        <input type="hidden" name="crumb" value="{{crumb}}"/>
+        {{ govukNotificationBanner({
+            html: infoHtml
+          })
+        }}
+
+        {{ govukDetails({
+            summaryText: "How to take a good photograph",
+            html: takePhotoHtml
+          })
+        }}
+
+        {{ govukRadios(radios) }}
+        {{ govukButton({ attributes: { id: "submit" }, text: "Continue" }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+

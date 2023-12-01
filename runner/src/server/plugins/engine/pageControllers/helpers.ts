@@ -9,6 +9,7 @@ import { SummaryPageController } from "./SummaryPageController";
 import { PageControllerBase } from "./PageControllerBase";
 import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
 import { Page } from "@xgovformbuilder/model";
+import { UploadPageController } from "server/plugins/engine/pageControllers/UploadPageController";
 
 const PageControllers = {
   DobPageController,
@@ -19,6 +20,7 @@ const PageControllers = {
   SummaryPageController,
   PageControllerBase,
   RepeatingFieldPageController,
+  UploadPageController,
 };
 
 export const controllerNameFromPath = (filePath: string) => {
