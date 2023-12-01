@@ -7,6 +7,11 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
+      dluhc-runner-version:
+        description: docker tag for the dluhc-runner image
+        type: string
+        required: true
+        default: latest
       environment:
         description: Which AWS Account to use
         type: choice
@@ -16,17 +21,6 @@ on:
           - test
           - uat
           - production
-  push:
-    paths:
-      - "!**/README.md"
-      - "!docs/**"
-      - "!fsd_config/**"
-      - "!.github/workflows/dluhc-build-and-deploy-with-forms.yml"
-      - "!.github/workflows/increment-version.yml"
-      - "!version"
-      - "designer/**"
-      - "runner/**"
-      - ".github/workflows/copilot_deploy.yml"
 
 env:
   DOCKER_REGISTRY: ghcr.io
@@ -48,6 +42,41 @@ jobs:
           else
             echo "env_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
           fi
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Docker metadata
+        id: metadata
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}
+          tags: |
+            type=sha,format=long
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=ref,event=branch
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          tags: ${{ steps.metadata.outputs.tags}}
+          labels: ${{ steps.metadata.outputs.labels }}
+          push: true
+          file: ./fsd_config/Dockerfile
+          build-args: |
+            COMMIT_SHA=:${{ github.sha }}
+            BASE_IMAGE_TAG=${{ inputs.dluhc-runner-version }}
 
   copilot_env_deploy:
     concurrency:
