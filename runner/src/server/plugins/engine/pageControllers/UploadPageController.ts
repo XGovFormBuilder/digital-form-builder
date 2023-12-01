@@ -48,7 +48,13 @@ export class UploadPageController extends PageController {
         return this.playback.makePostRouteHandler()(request, h);
       }
 
-      return super.makePostRouteHandler()(request, h);
+      const defaultRes = super.makePostRouteHandler()(request, h);
+
+      if (request.pre?.warning) {
+        return h.redirect("?view=playback");
+      }
+
+      return defaultRes;
     };
   }
 }
