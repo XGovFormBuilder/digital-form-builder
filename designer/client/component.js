@@ -26,6 +26,7 @@ export const componentTypes = {
   YesNoField: YesNoField,
   UkAddressField,
   FileUploadField,
+  ClientSideFileUploadField,
   Para,
   Details,
   Html,
@@ -222,6 +223,16 @@ function YesNoField() {
 }
 
 function FileUploadField() {
+  return (
+    <ComponentField>
+      <div className="govuk-!-margin-bottom-1">
+        {"🗂"} <span className="line short" />
+      </div>
+    </ComponentField>
+  );
+}
+
+function ClientSideFileUploadField() {
   return (
     <ComponentField>
       <div className="govuk-!-margin-bottom-1">

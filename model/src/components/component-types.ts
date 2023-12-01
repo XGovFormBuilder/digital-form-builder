@@ -235,4 +235,20 @@ export const ComponentTypes: ComponentDef[] = [
     options: {},
     schema: {},
   },
+  {
+    name: "ClientSideFileUploadField",
+    type: "ClientSideFileUploadField",
+    title: "Client side file upload field",
+    subType: "field",
+    hint: "",
+    options: {
+      dropzoneConfig: {},
+      showNoScriptWarning: false,
+      minimumRequiredFiles: 0,
+      totalOverallFilesize: 0,
+      required: false,
+      optionalText: false,
+    },
+    schema: {},
+  },
 ];

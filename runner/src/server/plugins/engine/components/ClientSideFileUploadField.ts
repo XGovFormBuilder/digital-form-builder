@@ -130,6 +130,7 @@ export class ClientSideFileUploadField extends FormComponent {
       existingFiles: [], // this is populated afterwards.
       showNoScriptWarning: this.options.showNoScriptWarning || false,
       totalOverallFilesize: this.options.totalOverallFilesize,
+      minimumRequiredFiles: this.options.minimumRequiredFiles,
       hideTitle: this.options.hideTitle || false,
     } as ClientSideFileUploadFieldViewModel;
     viewModel.label = {
