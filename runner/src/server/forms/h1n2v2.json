@@ -5,43 +5,20 @@
         {
             "title": "Welcome",
             "path": "/welcome",
-            "components": [],
+            "components": [
+                {
+                    "name": "tiqFpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Welcome to the Day 1 Questionnaire for the H1N2 response. This questionnaire is for Cases."
+                }
+            ],
             "next": [
                 {
-                    "path": "/getting-started"
+                    "path": "/about-the-interviewer"
                 }
             ],
             "controller": "./pages/start.js"
-        },
-        {
-            "path": "/getting-started",
-            "title": "Getting Started",
-            "components": [
-                {
-                    "name": "tiqEpA",
-                    "options": {},
-                    "type": "Para",
-                    "content": "Please let us know if you are completing this report on behalf of someone else.",
-                    "schema": {}
-                },
-                {
-                    "name": "GSQ1",
-                    "options": {},
-                    "type": "YesNoField",
-                    "title": "Are you completing this form on behalf of someone else",
-                    "nameHasError": false,
-                    "schema": {}
-                }
-            ],
-            "next": [
-                {
-                    "path": "/about-the-interviewer",
-                    "condition": "JfZvXc"
-                },
-                {
-                    "path": "/about-the-respondent"
-                }
-            ]
         },
         {
             "path": "/about-the-interviewer",
@@ -51,32 +28,62 @@
                     "name": "P1Q1",
                     "options": {},
                     "type": "TextField",
-                    "title": "First Name",
+                    "title": "Interviewers First Name",
                     "schema": {}
                 },
                 {
                     "name": "P1Q2",
                     "options": {},
                     "type": "TextField",
-                    "title": "Last Name",
+                    "title": "Interviewers Last Name",
                     "schema": {}
                 },
                 {
                     "name": "P1Q3",
                     "options": {},
                     "type": "TelephoneNumberField",
-                    "title": "Telephone Number",
+                    "title": "Interviewers Telephone Number",
+                    "hint": "If not a UK phone number, please add the country code",
                     "schema": {}
                 },
                 {
                     "name": "P1Q4",
                     "options": {},
                     "type": "EmailAddressField",
-                    "title": "Email Address",
+                    "title": "Interviewers Email Address",
                     "schema": {}
                 }
             ],
             "next": [
+                {
+                    "path": "/identifying-the-respondent"
+                }
+            ]
+        },
+        {
+            "path": "/identifying-the-respondent",
+            "title": "Identifying The Case",
+            "components": [
+                {
+                    "name": "tiqGpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us if the respondent is the subject of this case report."
+                },
+                {
+                    "name": "P2Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Who are you interviewing",
+                    "list": "respondent-type",
+                    "nameHasError": false
+                }
+            ],
+            "next": [
+                {
+                    "path": "/case-details",
+                    "condition": "JfZvYc"
+                },
                 {
                     "path": "/about-the-respondent"
                 }
@@ -87,41 +94,26 @@
             "title": "About The Respondent",
             "components": [
                 {
-                    "name": "P2Q1",
-                    "options": {},
-                    "type": "SelectField",
-                    "title": "What type of respondent are you?",
-                    "list": "respondent-type",
-                    "schema": {}
-                },
-                {
-                    "name": "P2Q2",
+                    "name": "P2Q3",
                     "options": {
                         "required": false
                     },
                     "type": "TextField",
-                    "title": "If other, please describe",
-                    "schema": {}
-                },
-                {
-                    "name": "P2Q3",
-                    "options": {},
-                    "type": "TextField",
-                    "title": "Relationship with case",
+                    "title": "What is the respondents relationship to the case subject",
                     "schema": {}
                 },
                 {
                     "name": "P2Q4",
                     "options": {},
                     "type": "TextField",
-                    "title": "First Name",
+                    "title": "Respondent First Name",
                     "schema": {}
                 },
                 {
                     "name": "P2Q5",
                     "options": {},
                     "type": "TextField",
-                    "title": "Last Name",
+                    "title": "Respondent Last Name",
                     "schema": {}
                 },
                 {
@@ -130,7 +122,8 @@
                         "required": false
                     },
                     "type": "TextField",
-                    "title": "Employment Position (Medical Workers)",
+                    "title": "Respondent Employment Position ",
+                    "hint": "Only applicable for medical workers",
                     "schema": {}
                 },
                 {
@@ -139,21 +132,22 @@
                         "required": false
                     },
                     "type": "TextField",
-                    "title": "Employment Organisation (Medical Workers)",
+                    "title": "Respondent Employment Organisation",
+                    "hint": "Only applicable for medical workers",
                     "schema": {}
                 },
                 {
                     "name": "P2Q8",
                     "options": {},
                     "type": "TelephoneNumberField",
-                    "title": "Contact Number",
+                    "title": "Respondent Contact Number",
                     "schema": {}
                 },
                 {
                     "name": "P2Q9",
                     "options": {},
                     "type": "EmailAddressField",
-                    "title": "Email Address",
+                    "title": "Respondent Email Address",
                     "schema": {}
                 }
             ],
@@ -187,9 +181,11 @@
                 },
                 {
                     "name": "P3Q3",
-                    "options": {},
+                    "options": {
+                        "required": false
+                    },
                     "type": "SelectField",
-                    "title": "Contribution of Influenza AH1N2 to Death",
+                    "title": "If the case has died, was Influenza AH1N2 a contribution to Death",
                     "list": "contribution-to-death",
                     "schema": {}
                 },
@@ -212,21 +208,19 @@
                     "name": "P3Q6",
                     "options": {},
                     "type": "TextField",
-                    "title": "Forename of Case",
+                    "title": "First Name of Case",
                     "schema": {}
                 },
                 {
                     "name": "P3Q7",
                     "options": {},
                     "type": "TextField",
-                    "title": "Surname or Family Name of Case",
+                    "title": "Last Name of Case",
                     "schema": {}
                 },
                 {
                     "name": "P3Q8",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "NHS Number (If Known)",
                     "schema": {}
@@ -249,7 +243,7 @@
                     "name": "P3Q11",
                     "options": {},
                     "type": "SelectField",
-                    "title": "Sex",
+                    "title": "Gender",
                     "list": "sex",
                     "schema": {},
                     "values": {
@@ -265,9 +259,7 @@
                 },
                 {
                     "name": "P3Q13",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "SelectField",
                     "title": "Setting",
                     "list": "setting",
@@ -292,45 +284,35 @@
                 },
                 {
                     "name": "P3Q16",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "Main Country of Residence",
                     "schema": {}
                 },
                 {
                     "name": "P3Q17",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "GP Practice Name",
                     "schema": {}
                 },
                 {
                     "name": "P3Q18",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "GP Practice Postcode",
                     "schema": {}
                 },
                 {
                     "name": "P3Q19",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "Occupation of Case",
                     "schema": {}
                 },
                 {
                     "name": "P3Q20",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "Company of Occupation",
                     "schema": {}
@@ -353,53 +335,47 @@
                     "name": "P3Q23",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "Other Heatlth or Social Care or Laboratory Work Without Direct Patient Care",
+                    "title": "Other Health or Social Care or Laboratory Work Without Direct Patient Care",
                     "schema": {}
                 },
                 {
                     "name": "P3Q24",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "If Yes, Please Describe",
                     "schema": {}
                 },
                 {
                     "name": "P3Q25",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "YesNoField",
                     "title": "Does the case work with animals",
                     "schema": {}
                 },
                 {
                     "name": "P3Q26",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "If Yes, Please Describe",
                     "schema": {}
                 },
                 {
                     "name": "P3Q27",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "NumberField",
                     "title": "In the 7 days before symptom onset, or a positive test, how many times did you work or attend an educational setting outside the home (any occupation)",
                     "schema": {}
                 },
                 {
                     "name": "P3Q28",
-                    "options": {
-                        "required": false
-                    },
-                    "type": "TextField",
+                    "options": {},
+                    "type": "SelectField",
                     "title": "Ethnic Background",
-                    "schema": {}
+                    "list": "ethnicity",
+                    "schema": {},
+                    "values": {
+                        "type": "listRef"
+                    }
                 }
             ],
             "next": [
@@ -414,11 +390,9 @@
             "components": [
                 {
                     "name": "P4Q1",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "CheckboxesField",
-                    "title": "What was the reason for your test",
+                    "title": "What was the reason for the case to test for H1N2",
                     "hint": "Tick all that apply",
                     "list": "reason-for-test",
                     "schema": {}
@@ -434,19 +408,15 @@
                 },
                 {
                     "name": "P4Q3",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
-                    "title": "Do you know how you might have acquired your infection",
+                    "title": "Do you know how the case might have acquired the infection",
                     "hint": "Describe using your own words",
                     "schema": {}
                 },
                 {
                     "name": "P4Q4",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "RadiosField",
                     "title": "Is the case part of an institutional outbreak",
                     "list": "yes-no-unknown",
@@ -466,11 +436,9 @@
                 },
                 {
                     "name": "P4Q6",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "SelectField",
-                    "title": "Have you attended a mass gathering event in the 7 days before onset",
+                    "title": "Did the case attend a mass gathering event in the 7 days before onset",
                     "hint": "e.g. a festival",
                     "list": "yes-no-unknown",
                     "schema": {}
@@ -486,11 +454,9 @@
                 },
                 {
                     "name": "P4Q8",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "SelectField",
-                    "title": "Did you attend a healthcare facility in the 7 days before your symptoms started",
+                    "title": "Did the case attend a healthcare facility in the 7 days before your symptoms started",
                     "list": "healthcare-facility",
                     "values": {
                         "type": "listRef"
@@ -510,7 +476,7 @@
                     "name": "P4Q10",
                     "options": {},
                     "type": "SelectField",
-                    "title": "Have you had contact with a confirmed or suspected case in the 7 days before symptom onset or a positive test",
+                    "title": "Has the case had contact with a confirmed or suspected case in the 7 days before symptom onset or a positive test",
                     "list": "yes-no-unknown",
                     "schema": {}
                 },
@@ -543,7 +509,7 @@
                         "required": false
                     },
                     "type": "TextField",
-                    "title": "First name of case contact",
+                    "title": "First name of exposure contact",
                     "schema": {}
                 },
                 {
@@ -552,7 +518,7 @@
                         "required": false
                     },
                     "type": "TextField",
-                    "title": "Last name of case contact",
+                    "title": "Last name of caexposurese contact",
                     "schema": {}
                 },
                 {
@@ -742,6 +708,12 @@
             "title": "Symptoms",
             "components": [
                 {
+                    "name": "tiqGpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us if the case has shown any symptoms, we will capture further details on the next page."
+                },
+                {
                     "name": "P9Q1",
                     "options": {},
                     "type": "YesNoField",
@@ -762,13 +734,13 @@
         },
         {
             "path": "/about-your-symptoms",
-            "title": "About Your Symptoms",
+            "title": "About the case's Symptoms",
             "components": [
                 {
                     "name": "P10Q1",
                     "options": {},
                     "type": "DatePartsField",
-                    "title": "What date did your symptoms start",
+                    "title": "What date did the case first experience any symptoms",
                     "schema": {}
                 },
                 {
@@ -787,7 +759,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If yes, when did your symptoms start",
+                    "title": "If yes, when did that symptom start",
                     "schema": {}
                 },
                 {
@@ -806,7 +778,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If yes, when did your symptoms start",
+                    "title": "If yes, when did that symptom start",
                     "schema": {}
                 },
                 {
@@ -824,9 +796,9 @@
                     "options": {
                         "required": false
                     },
-                    "type": "SelectField",
+                    "type": "RadiosField",
                     "title": "If yes, dry or productive",
-                    "list": "zLSKNg",
+                    "list": "cough-type",
                     "schema": {}
                 },
                 {
@@ -835,7 +807,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If yes, when did your symptoms start",
+                    "title": "If yes, when did that symptom start",
                     "schema": {}
                 },
                 {
@@ -854,7 +826,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If yes, when did your symptoms start",
+                    "title": "If yes, when did that symptom start",
                     "schema": {}
                 },
                 {
@@ -873,7 +845,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If yes, when did your symptoms start",
+                    "title": "If yes, when did that symptom start",
                     "schema": {}
                 },
                 {
@@ -892,7 +864,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If yes, when did your symptoms start",
+                    "title": "If yes, when did that symptom start",
                     "schema": {}
                 },
                 {
@@ -921,7 +893,7 @@
                         "required": false
                     },
                     "type": "SelectField",
-                    "title": "Diarrhoea",
+                    "title": "Diarrhea",
                     "list": "yes-no-unknown",
                     "schema": {}
                 },
@@ -988,7 +960,7 @@
                     "name": "P10Q24",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "Do you still have any respiratory symptoms",
+                    "title": "Does the case still have any respiratory symptoms",
                     "hint": "Excluding post viral cough",
                     "values": {
                         "type": "listRef"
@@ -1001,7 +973,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If no, what date did you recover",
+                    "title": "If no, when did they recover",
                     "schema": {}
                 }
             ],
@@ -1021,7 +993,7 @@
                         "required": false
                     },
                     "type": "SelectField",
-                    "title": "Do you consider your infection to date to have been mild, moderate or severe",
+                    "title": "Does the case consider their infection to date to have been mild, moderate or severe",
                     "list": "severity",
                     "schema": {}
                 },
@@ -1029,7 +1001,7 @@
                     "name": "P11Q2",
                     "options": {},
                     "type": "InsetText",
-                    "content": "Have you accessed any healthcare services during your illness?",
+                    "content": "Has the case accessed any healthcare services during the illness",
                     "schema": {}
                 },
                 {
@@ -1229,13 +1201,17 @@
         },
         {
             "path": "/treatment-antivirals",
-            "title": "Treatment Antivirals",
+            "title": "Other Antivirals",
             "components": [
                 {
+                    "name": "tiqApA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the case has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
                     "name": "P13Q1",
-                    "options": {
-                        "required": false
-                    },
+                    "options": {},
                     "type": "TextField",
                     "title": "Please specify the name of the antiviral",
                     "schema": {}
@@ -1270,10 +1246,16 @@
             "title": "Medical History",
             "components": [
                 {
+                    "name": "tiqApA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us if the case has any medical history we should be aware of."
+                },
+                {
                     "name": "P14Q1",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "Do you have any medical conditions",
+                    "title": "Does the case have any medical conditions",
                     "values": {
                         "type": "listRef"
                     },
@@ -1467,7 +1449,7 @@
                     "name": "P16Q3",
                     "options": {},
                     "type": "SelectField",
-                    "title": "Currently pregnant",
+                    "title": "Is the case currently pregnant",
                     "list": "yes-no-unknown",
                     "schema": {}
                 },
@@ -1476,8 +1458,8 @@
                     "options": {
                         "required": false
                     },
-                    "type": "SelectField",
-                    "title": "If yes, which trimester are you in",
+                    "type": "RadiosField",
+                    "title": "If yes, which trimester are they in",
                     "list": "trimester",
                     "values": {
                         "type": "listRef"
@@ -1490,7 +1472,7 @@
                         "required": false
                     },
                     "type": "DatePartsField",
-                    "title": "If yes, what is your estimated delivery date",
+                    "title": "If yes, what is their estimated delivery date",
                     "schema": {}
                 }
             ],
@@ -1539,7 +1521,7 @@
                         "required": false
                     },
                     "type": "MultilineTextField",
-                    "title": "Is there anything else you would like to tell us about",
+                    "title": "Is there anything else they would like to tell us about",
                     "schema": {}
                 }
             ],
@@ -1564,11 +1546,11 @@
             "type": "string",
             "items": [
                 {
-                    "text": "Case",
+                    "text": "The case",
                     "value": "case"
                 },
                 {
-                    "text": "Other",
+                    "text": "A person on behalf of the case",
                     "value": "other"
                 }
             ]
@@ -1840,6 +1822,84 @@
                     "value": "3rd"
                 }
             ]
+        },
+        {
+            "title": "ethnicity",
+            "name": "ethnicity",
+            "type": "string",
+            "items": [
+                {
+                    "text": "African",
+                    "value": "a"
+                },
+                {
+                    "text": "Any other Asian background",
+                    "value": "aoab"
+                },
+                {
+                    "text": "Any other Black background",
+                    "value": "aobb"
+                },
+                {
+                    "text": "Bangladeshi or British Bangladeshi",
+                    "value": "bobb"
+                },
+                {
+                    "text": "British",
+                    "value": "b"
+                },
+                {
+                    "text": "Mixed British",
+                    "value": "mb"
+                },
+                {
+                    "text": "Caribbean",
+                    "value": "ca"
+                },
+                {
+                    "text": "Chinese",
+                    "value": "ch"
+                },
+                {
+                    "text": "Indian or British Indian",
+                    "value": "iobi"
+                },
+                {
+                    "text": "Irish",
+                    "value": "i"
+                },
+                {
+                    "text": "Pakistani or British Pakistani",
+                    "value": "pobp"
+                },
+                {
+                    "text": "White and Asian",
+                    "value": "wa"
+                },
+                {
+                    "text": "White and Black African",
+                    "value": "wba"
+                },
+                {
+                    "text": "White and Black Caribbean",
+                    "value": "wbc"
+                }
+            ]
+        },
+        {
+            "title": "cough-type",
+            "name": "cough-type",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Dry",
+                    "value": "dry"
+                },
+                {
+                    "text": "Productive",
+                    "value": "productive"
+                }
+            ]
         }
     ],
     "sections": [],
@@ -1861,6 +1921,28 @@
                             "type": "Value",
                             "value": "true",
                             "display": "true"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P2Q1:Yes",
+            "name": "JfZvYc",
+            "value": {
+                "name": "P2Q1:Yes",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P2Q1",
+                            "type": "SelectField",
+                            "display": "Who are you interviewing"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "case",
+                            "display": "A person on behalf of the case"
                         }
                     }
                 ]
