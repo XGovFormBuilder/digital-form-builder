@@ -5,7 +5,7 @@
     <h2 class="govuk-caption-l govuk-!-margin-top-0">
       {{customText.caption if customText.caption else 'Payment'}}</h2>
     <h1 class="govuk-heading-l">
-      {{customText.title}}
+      {{customText.title if customText.title else 'You are about to skip payment'}}
     </h1>
     <div class="govuk-body">
       {% if customText.body %}

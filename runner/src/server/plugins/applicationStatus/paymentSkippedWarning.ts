@@ -9,7 +9,7 @@ export async function paymentSkippedWarning(
   const { allowSubmissionWithoutPayment } = form.feeOptions;
 
   if (allowSubmissionWithoutPayment) {
-    const { customText } = form.specialPages.paymentSkippedWarningPage;
+    const { customText } = form.specialPages?.paymentSkippedWarningPage ?? {};
     return h
       .view("payment-skip-warning", {
         customText,
