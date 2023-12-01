@@ -1,33 +1,41 @@
-# Fee options
+# Fee options and Payment skipped warning page
 
-`feeOptions` is a top level property in a form json. Fee options are used to configure API keys for GOV.UK Pay, and the behaviour of retrying payments. 
+## Fee options
 
+`feeOptions` is a top level property in a form json. Fee options are used to configure API keys for GOV.UK Pay, and the behaviour of retrying payments.
 
-```.json5
+```json5
 {
   // pages, sections, conditions etc ..
-  "feeOptions": {
-  /**
-   * If a payment is required, but the user fails, allow the user to skip payment
-   * and submit the form. this is the default behaviour.
-   *
-   * Any versions AFTER (and not including) v3.25.68-rc.927 allows this behaviour
-   * to be configurable. If you do not want payment to be skippable, set
-   * `allowSubmissionWithoutPayment: false`
-   */
-  "allowSubmissionWithoutPayment": true,
+  feeOptions: {
+    /**
+     * If a payment is required, but the user fails, allow the user to skip payment
+     * and submit the form. this is the default behaviour.
+     *
+     * Any versions AFTER (and not including) v3.25.68-rc.927 allows this behaviour
+     * to be configurable. If you do not want payment to be skippable, set
+     * `allowSubmissionWithoutPayment: false`
+     */
+    allowSubmissionWithoutPayment: true,
 
-  /**
-   * The maximum number of times a user can attempt to pay before the form is auto submitted.
-   * There is no limit when allowSubmissionWithoutPayment is false. (The user can retry as many times as they like).
-   */
-  "maxAttempts": 3,
+    /**
+     * The maximum number of times a user can attempt to pay before the form is auto submitted.
+     * There is no limit when allowSubmissionWithoutPayment is false. (The user can retry as many times as they like).
+     */
+    maxAttempts: 3,
 
-  /**
-   * A supplementary error message (`customPayErrorMessage`)
-   */
-  "customPayErrorMessage": "Custom error message",
-  }
+    /**
+     * A supplementary error message (`customPayErrorMessage`)
+     */
+    customPayErrorMessage: "Custom error message",
+
+    /**
+     * Shows a link (button) below the "Submit and pay" button on the summary page. Clicking this will take the user to a page
+     * that provides additional messaging, you can warn the user that this may delay their application for example.
+     * allowSubmissionWithoutPayment must be true for this to be shown.
+     */
+    showPaymentSkippedWarningPage: false,
+  },
 }
 ```
 
@@ -36,12 +44,32 @@ This is the default behaviour. Makes sure you check your organisations policy or
 
 When a user fails a payment, they will see the page [pay-error](./../../runner/src/server/views/pay-error.html).
 
-When `allowSubmissionWithoutPayment` is true, the user will also see a link which allows them to skip payment. 
+When `allowSubmissionWithoutPayment` is true, the user will also see a link which allows them to skip payment.
 
+### Recommendations
 
-## Recommendations 
-
-If your service does not allow submission without payment, set 
+If your service does not allow submission without payment, set
 `allowSubmissionWithoutPayment: false`. `maxAttempts` will have no effect. The user will be able to retry as many times as they like.
-You can provide them with `customPayErrorMessage` to provide them with another route to payment.  
+You can provide them with `customPayErrorMessage` to provide them with another route to payment.
 
+## paymentSkippedWarningPage
+
+`paymentSkippedWarningPage` can be found on the `specialPages` top level property.
+
+If `feeOptions.showPaymentSkippedWarningPage` (and `feeOptions.allowSubmissionWithoutPayment`) is true,
+another page ([payment-skip-warning](./../../runner/src/server/views/payment-skip-warning.html)) will be presented to the user.
+Additional messaging can be provided to the user for alternative routes to payment, or may result in application delays.
+The can choose to continue or try online payment. This page will be shown only once.
+
+```json5
+{
+  // pages, sections, conditions etc ..
+  paymentSkippedWarningPage: {
+    customText: {
+      caption: "Payment",
+      title: "Pay at appointment",
+      body: '<p class="govuk-body">You have chosen to skip payment. You will not be able to submit your application until you have paid.</p><p class="govuk-body">If you are unable to pay online, you\'ll need to bring the equivalent of £50 in cash in the local currency to your appointment. You wil not be given any change. <a href="">Check current consular exchange rates</a></p>',
+    },
+  },
+}
+```

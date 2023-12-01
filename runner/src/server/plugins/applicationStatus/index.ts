@@ -3,7 +3,27 @@ import { HapiRequest, HapiResponseToolkit } from "../../types";
 import { retryPay } from "./retryPay";
 import { handleUserWithConfirmationViewModel } from "./handleUserWithConfirmationViewModel";
 import { checkUserCompletedSummary } from "./checkUserCompletedSummary";
-import config from "server/config";
+
+import Joi from "joi";
+import {
+  continueToPayAfterPaymentSkippedWarning,
+  paymentSkippedWarning,
+} from "./paymentSkippedWarning";
+
+const preHandlers = {
+  retryPay: {
+    method: retryPay,
+    assign: "shouldShowPayErrorPage",
+  },
+  handleUserWithConfirmationViewModel: {
+    method: handleUserWithConfirmationViewModel,
+    assign: "confirmationViewModel",
+  },
+  checkUserCompletedSummary: {
+    method: checkUserCompletedSummary,
+    assign: "userCompletedSummary",
+  },
+};
 
 const index = {
   plugin: {
@@ -16,22 +36,12 @@ const index = {
         path: "/{id}/status",
         options: {
           pre: [
-            {
-              method: retryPay,
-              assign: "shouldShowPayErrorPage",
-            },
-            {
-              method: handleUserWithConfirmationViewModel,
-              assign: "confirmationViewModel",
-            },
-            {
-              method: checkUserCompletedSummary,
-              assign: "userCompletedSummary",
-            },
+            preHandlers.retryPay,
+            preHandlers.handleUserWithConfirmationViewModel,
+            preHandlers.checkUserCompletedSummary,
           ],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { statusService, cacheService } = request.services([]);
-
             const { params } = request;
             const form = server.app.forms[params.id];
 
@@ -95,6 +105,29 @@ const index = {
             },
           });
           return redirectTo(request, h, res._links.next_url.href);
+        },
+      });
+
+      server.route({
+        method: "get",
+        path: "/{id}/status/payment-skip-warning",
+        options: {
+          pre: [preHandlers.checkUserCompletedSummary],
+          handler: paymentSkippedWarning,
+        },
+      });
+
+      server.route({
+        method: "post",
+        path: "/{id}/status/payment-skip-warning",
+        options: {
+          handler: continueToPayAfterPaymentSkippedWarning,
+          validate: {
+            payload: Joi.object({
+              action: Joi.string().valid("pay").required(),
+              crumb: Joi.string(),
+            }),
+          },
         },
       });
     },

@@ -132,8 +132,17 @@ const confirmationPageSchema = joi.object({
   components: joi.array().items(componentSchema),
 });
 
+const paymentSkippedWarningPage = joi.object({
+  customText: joi.object({
+    title: joi.string().default("Pay for your application").optional(),
+    caption: joi.string().default("Payment").optional(),
+    body: joi.string().default("").optional(),
+  }),
+});
+
 const specialPagesSchema = joi.object().keys({
-  confirmationPage: confirmationPageSchema,
+  confirmationPage: confirmationPageSchema.optional(),
+  paymentSkippedWarningPage: paymentSkippedWarningPage.optional(),
 });
 
 const listItemSchema = joi.object().keys({
@@ -239,6 +248,11 @@ const feeOptionSchema = joi
     allowSubmissionWithoutPayment: joi.boolean().optional().default(true),
     maxAttempts: joi.number().optional().default(3),
     customPayErrorMessage: joi.string().optional(),
+    showPaymentSkippedWarningPage: joi.when("allowSubmissionWithoutPayment", {
+      is: true,
+      then: joi.boolean().valid(true, false).default(false),
+      otherwise: joi.boolean().valid(false).default(false),
+    }),
   })
   .default(({ payApiKey, paymentReferenceFormat }) => {
     return {

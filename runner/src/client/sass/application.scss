@@ -4,7 +4,6 @@
 @import "modal-dialog";
 @import "upload-dialog";
 
-
 .flash-card {
   .govuk-button {
     background: #fff;
@@ -66,11 +65,23 @@
     &--hidden-titles {
       @extend .govuk-visually-hidden;
     }
-
   }
   &__key {
     &--hidden-titles {
       width: 100%;
+    }
+  }
+}
+
+.govuk-button {
+  &--link {
+    @extend .govuk-link;
+    border: none;
+    color: $govuk-link-colour;
+    cursor: pointer;
+    background-color: transparent;
+    &:hover {
+      color: $govuk-link-hover-colour;
     }
   }
 }
