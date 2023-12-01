@@ -1,0 +1,2493 @@
+{
+    "metadata": {},
+    "startPage": "/welcome",
+    "pages": [
+        {
+            "title": "Welcome",
+            "path": "/welcome",
+            "components": [
+                {
+                    "name": "tiqFpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Welcome to the Day 1 Questionnaire for the H1N2 response. This questionnaire is for Contacts."
+                }
+            ],
+            "next": [
+                {
+                    "path": "/about-the-interviewer"
+                }
+            ],
+            "controller": "./pages/start.js"
+        },
+        {
+            "path": "/about-the-interviewer",
+            "title": "About The Interviewer",
+            "components": [
+                {
+                    "name": "P1Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Interviewers First Name",
+                    "schema": {}
+                },
+                {
+                    "name": "P1Q2",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Interviewers Last Name",
+                    "schema": {}
+                },
+                {
+                    "name": "P1Q3",
+                    "options": {},
+                    "type": "TelephoneNumberField",
+                    "title": "Interviewers Telephone Number",
+                    "hint": "If not a UK phone number, please add the country code",
+                    "schema": {}
+                },
+                {
+                    "name": "P1Q4",
+                    "options": {},
+                    "type": "EmailAddressField",
+                    "title": "Interviewers Email Address",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/identifying-the-respondent"
+                }
+            ]
+        },
+        {
+            "path": "/identifying-the-respondent",
+            "title": "Identifying The Contact",
+            "components": [
+                {
+                    "name": "tiqGpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us if the respondent is the subject of this contact report."
+                },
+                {
+                    "name": "P2Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Who are you interviewing",
+                    "list": "respondent-type",
+                    "nameHasError": false
+                }
+            ],
+            "next": [
+                {
+                    "path": "/contact-details",
+                    "condition": "JfZvYc"
+                },
+                {
+                    "path": "/about-the-respondent"
+                }
+            ]
+        },
+        {
+            "path": "/about-the-respondent",
+            "title": "About The Respondent",
+            "components": [
+                {
+                    "name": "P2Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "What is the respondents relationship to the contact subject",
+                    "schema": {}
+                },
+                {
+                    "name": "P2Q4",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Respondent First Name",
+                    "schema": {}
+                },
+                {
+                    "name": "P2Q5",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Respondent Last Name",
+                    "schema": {}
+                },
+                {
+                    "name": "P2Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Respondent Employment Position ",
+                    "hint": "Only applicable for medical workers",
+                    "schema": {}
+                },
+                {
+                    "name": "P2Q7",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Respondent Employment Organisation",
+                    "hint": "Only applicable for medical workers",
+                    "schema": {}
+                },
+                {
+                    "name": "P2Q8",
+                    "options": {},
+                    "type": "TelephoneNumberField",
+                    "title": "Respondent Contact Number",
+                    "schema": {}
+                },
+                {
+                    "name": "P2Q9",
+                    "options": {},
+                    "type": "EmailAddressField",
+                    "title": "Respondent Email Address",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/contact-details"
+                }
+            ]
+        },
+        {
+            "path": "/contact-details",
+            "title": "Contact Details",
+            "components": [
+                {
+                    "name": "P3Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Current Status",
+                    "list": "current-status",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DateTimePartsField",
+                    "title": "Date of Death",
+                    "hint": "If the contact has died, please enter the date of death",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "If the contact has died, was Influenza AH1N2 a contribution to Death",
+                    "list": "contribution-to-death",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q6",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "First Name of Contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q7",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Last Name of Contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q8",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "NHS Number (If Known)",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q9",
+                    "options": {},
+                    "type": "DatePartsField",
+                    "title": "Date of Birth",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q10",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "Age",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q11",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Gender",
+                    "list": "sex",
+                    "schema": {},
+                    "values": {
+                        "type": "listRef"
+                    }
+                },
+                {
+                    "name": "P3Q12",
+                    "options": {},
+                    "type": "UkAddressField",
+                    "title": "Address",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q13",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Setting",
+                    "list": "setting",
+                    "schema": {},
+                    "values": {
+                        "type": "listRef"
+                    }
+                },
+                {
+                    "name": "P3Q14",
+                    "options": {},
+                    "type": "TelephoneNumberField",
+                    "title": "Phone Number",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q15",
+                    "options": {},
+                    "type": "EmailAddressField",
+                    "title": "Email Address",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q16",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Main Country of Residence",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q17",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "GP Practice Name",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q18",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "GP Practice Postcode",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q19",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Occupation of Contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q20",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Company of Occupation",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q21",
+                    "options": {},
+                    "type": "UkAddressField",
+                    "title": "Address of Occupation",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q22",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Healthcare Worker with Direct Patient Care",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q23",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Other Health or Social Care or Laboratory Work Without Direct Patient Care",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q24",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "If Yes, Please Describe",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q25",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Does the contact work with animals",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q26",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "If Yes, Please Describe",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q27",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "In the 7 days before symptom onset, or a positive test, how many times did you work or attend an educational setting outside the home (any occupation)",
+                    "schema": {}
+                },
+                {
+                    "name": "P3Q28",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Ethnic Background",
+                    "list": "ethnicity",
+                    "schema": {},
+                    "values": {
+                        "type": "listRef"
+                    }
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposures"
+                }
+            ]
+        },
+        {
+            "path": "/exposures",
+            "title": "Exposures",
+            "section": "exposures",
+            "components": [
+                {
+                    "name": "P4Q4",
+                    "options": {},
+                    "type": "RadiosField",
+                    "title": "Is the contact part of an institutional outbreak",
+                    "list": "yes-no-unknown",
+                    "schema": {},
+                    "values": {
+                        "type": "listRef"
+                    }
+                },
+                {
+                    "name": "P4Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P4Q6",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Did the contact attend a mass gathering event in the 7 days before onset",
+                    "hint": "e.g. a festival",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P4Q7",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P4Q8",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Did the contact attend a healthcare facility in the 7 days before your symptoms started",
+                    "list": "healthcare-facility",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P4Q9",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P4Q10",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Has the contact had contact with a confirmed or suspected contact in the 7 days before symptom onset or a positive test",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P4Q11",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "If yes, how many?",
+                    "schema": {
+                        "min": 0,
+                        "max": 5
+                    },
+                    "nameHasError": false
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-locations"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-locations",
+            "title": "Exposure Locations",
+            "section": "exposureLocations",
+            "components": [
+                {
+                    "name": "P6Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "In the 10 days before before symptom onset or a positive test did the contact travel",
+                    "list": "yes-no-unknown",
+                    "schema": {},
+                    "values": {
+                        "type": "listRef"
+                    }
+                },
+                {
+                    "name": "P6Q2",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "If so, how many places did you visit",
+                    "schema": {
+                        "min": 0,
+                        "max": 5
+                    }
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-one"
+                },
+                {
+                    "path": "/exposure-animal-contact",
+                    "condition": "avTpEZ"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-one",
+            "title": "Exposure Location 1",
+            "components": [
+                {
+                    "name": "P7L1Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L1Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L1Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L1Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L1Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-two",
+                    "condition": "moreThanOneExposureLocation"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-two",
+            "title": "Exposure Location 2",
+            "components": [
+                {
+                    "name": "P7L2Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-three",
+                    "condition": "moreThanTwoExposureLocations"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-three",
+            "title": "Exposure Location 3",
+            "components": [
+                {
+                    "name": "P7L3Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-four",
+                    "condition": "moreThanThreeExposureLocations"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-four",
+            "title": "Exposure Location 4",
+            "components": [
+                {
+                    "name": "P7L4Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-five",
+                    "condition": "moreThanFourExposureLocations"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-five",
+            "title": "Exposure Location 5",
+            "components": [
+                {
+                    "name": "P7L5Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-animal-contact",
+            "title": "Exposure Animal Contact",
+            "components": [
+                {
+                    "name": "P8Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "In the 7 days before onset or a positive test did the contact have close contact with pigs (live or dead)",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P8Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, what was the location of the contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P8Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Has the contact had contact with any other animals in the last 7 days",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P8Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, what was the location of the contact",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/symptoms"
+                }
+            ]
+        },
+        {
+            "path": "/symptoms",
+            "title": "Symptoms",
+            "components": [
+                {
+                    "name": "tiqGpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us if the contact has shown any symptoms."
+                },
+                {
+                    "name": "P9Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Have the contact previously tested positive for Flu A H1N2?",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P9Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, date of positive test",
+                    "schema": {}
+                },
+                {
+                    "name": "P9Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Has the contact experienced any fever or respiratory symptoms in the 14 days before symptom onset or date of test in the index contact",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P9Q4",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Has the contact experienced any fever or respiratory symptoms in the 14 days after symptom onset or date of test in the index contact",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P9Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If you have had any symptoms, what date did your symptoms start, or closest date if you can't remember",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Fever or history of fever or chills",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, when did that symptom start",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Runny nose",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, when did that symptom start",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Cough",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q7",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "RadiosField",
+                    "title": "If yes, dry or productive",
+                    "list": "cough-type",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, when did that symptom start",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q9",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Shortness of breath",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q10",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, when did that symptom start",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q11",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Wheezing",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q12",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, when did that symptom start",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q13",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Sore throat",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q14",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, when did that symptom start",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q15",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Loss of taste and/or smell",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q16",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Nausea",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q17",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Diarrhea",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q18",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Vomiting",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q19",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Headache",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q20",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Muscle/Body pain",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q21",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Fatigue",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q22",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Any other symptoms",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q23",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q24",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Does the contact still have any respiratory symptoms",
+                    "hint": "Excluding post viral cough",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P10Q25",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If no, when did they recover",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/severity"
+                }
+            ]
+        },
+        {
+            "path": "/severity",
+            "title": "Severity",
+            "components": [
+                {
+                    "name": "P11Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Does the contact consider their infection to date to have been mild, moderate or severe",
+                    "list": "severity",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q2",
+                    "options": {},
+                    "type": "InsetText",
+                    "content": "Has the contact accessed any healthcare services during the illness",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q3",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "GP",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q4",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "NHS 111",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q5",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "A&E Department",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q6",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Was the contact admitted to hospital",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q7",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what date were they admitted",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q8",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "If hospitalised, what was the reason for their hospital admission",
+                    "list": "hospitalisation-reason",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q9",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Is the contact still currently in hospital",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q10",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If no, what date were they discharged",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q11",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "NumberField",
+                    "title": "If you don't know your discharge date, how many days were you hospitalised for",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q12",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "SelectField",
+                    "title": "Did the contact receive oxygen in hospital",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q13",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Was the contact admitted to the Intensive Care Unit",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q14",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what was the date of their admission",
+                    "schema": {}
+                },
+                {
+                    "name": "P11Q15",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "YesNoField",
+                    "title": "Did the contact receive care involving a ventilator",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment"
+                }
+            ]
+        },
+        {
+            "path": "/treatment",
+            "title": "Treatment",
+            "section": "treatment",
+            "components": [
+                {
+                    "name": "P12Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Did the contact receive oseltamivir in the last 14 days",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P12Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what date was this started",
+                    "schema": {}
+                },
+                {
+                    "name": "P12Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what date was this finished",
+                    "schema": {}
+                },
+                {
+                    "name": "P12Q4",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Did the contact receive zanamivir in the last 14 days",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P12Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what date was this started",
+                    "schema": {}
+                },
+                {
+                    "name": "P12Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what date was this finished",
+                    "schema": {}
+                },
+                {
+                    "name": "P12Q7",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Did the contact receive other antivirals in the last 14 days",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P12Q8",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "If yes, how many antivirals were administered",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/medical-history",
+                    "condition": "nZAkgT"
+                },
+                {
+                    "path": "/treatment-antiviral-one"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-one",
+            "title": "Other Antiviral 1",
+            "components": [
+                {
+                    "name": "P13L1P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the contact has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L1Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L1Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L1Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-two",
+                    "condition": "moreThanOneOtherAntiviral"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-two",
+            "title": "Other Antiviral 2",
+            "components": [
+                {
+                    "name": "P13L2P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the contact has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L2Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L2Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L2Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-three",
+                    "condition": "moreThanTwoOtherAntivirals"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-three",
+            "title": "Other Antiviral 3",
+            "components": [
+                {
+                    "name": "P13L3P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the contact has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L3Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L3Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-four",
+                    "condition": "moreThanThreeOtherAntivirals"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-four",
+            "title": "Other Antiviral 4",
+            "components": [
+                {
+                    "name": "P13L4P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the contact has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L4Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L4Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L4Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-five",
+                    "condition": "moreThanFourOtherAntivirals"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-five",
+            "title": "Other Antiviral 5",
+            "components": [
+                {
+                    "name": "P13L5P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the contact has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L5Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L5Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L5Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/medical-history",
+            "title": "Medical History",
+            "components": [
+                {
+                    "name": "tiqApA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us if the contact has any medical history we should be aware of."
+                },
+                {
+                    "name": "P14Q1",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Does the contact have any medical conditions",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/other-health-information",
+                    "condition": "GcjSEj"
+                },
+                {
+                    "path": "/medical-conditions"
+                }
+            ]
+        },
+        {
+            "path": "/medical-conditions",
+            "title": "Medical Conditions",
+            "components": [
+                {
+                    "name": "P15Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Chronic Heart Disease",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q2",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Diabetes",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Chronic Kidney Disease",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q4",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Chronic Liver Disease",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q5",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Chronic Respiratory Disease",
+                    "hint": "Excluding asthma",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q6",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Asthma currently requiring medication",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q7",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Malignancy",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q8",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Organ or bone marrow transplant",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q9",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "HIV",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q10",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Immunosuppression due to medication",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q11",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, please give further details",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q12",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Other immunodeficiency",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q13",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If yes, please give further details",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q14",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Seizure disorder",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q15",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Chronic Neurological Disease",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q16",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Asplenia or dysfunction of the spleen",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P15Q17",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Do you have any other condition, if so please specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/other-health-information"
+                }
+            ]
+        },
+        {
+            "path": "/other-health-information",
+            "title": "Other Health Information",
+            "components": [
+                {
+                    "name": "P16Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "NumberField",
+                    "title": "Height in cm",
+                    "schema": {}
+                },
+                {
+                    "name": "P16Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "NumberField",
+                    "title": "Weight in kg",
+                    "schema": {}
+                },
+                {
+                    "name": "P16Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Is the contact currently pregnant",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P16Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "RadiosField",
+                    "title": "If yes, which trimester are they in",
+                    "list": "trimester",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P16Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what is their estimated delivery date",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/vaccination-status"
+                }
+            ]
+        },
+        {
+            "path": "/vaccination-status",
+            "title": "Vaccination Status",
+            "components": [
+                {
+                    "name": "P17Q1",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Has the contact received the flu vaccine this season",
+                    "hint": "Since September 2023",
+                    "list": "yes-no-unknown",
+                    "schema": {}
+                },
+                {
+                    "name": "P17Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "If yes, what date was the vaccination",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/other-information"
+                }
+            ]
+        },
+        {
+            "path": "/other-information",
+            "title": "Other Information",
+            "components": [
+                {
+                    "name": "P18Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "MultilineTextField",
+                    "title": "Is there anything else they would like to tell us about",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/summary-of-submission"
+                }
+            ]
+        },
+        {
+            "path": "/summary-of-submission",
+            "title": "Summary of Submission",
+            "components": [],
+            "next": [],
+            "controller": "./pages/summary.js"
+        }
+    ],
+    "lists": [
+        {
+            "title": "respondent-type",
+            "name": "respondent-type",
+            "type": "string",
+            "items": [
+                {
+                    "text": "The Contact",
+                    "value": "contact"
+                },
+                {
+                    "text": "A person on behalf of the contact",
+                    "value": "other"
+                }
+            ]
+        },
+        {
+            "title": "current-status",
+            "name": "current-status",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Alive",
+                    "value": "alive"
+                },
+                {
+                    "text": "Deceased",
+                    "value": "deceased"
+                },
+                {
+                    "text": "Lost to Follow Up",
+                    "value": "lost-contact"
+                },
+                {
+                    "text": "Unknown",
+                    "value": "unknown"
+                }
+            ]
+        },
+        {
+            "title": "contribution-to-death",
+            "name": "contribution-to-death",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Primary",
+                    "value": "primary"
+                },
+                {
+                    "text": "Secondary",
+                    "value": "secondary"
+                },
+                {
+                    "text": "Not Related",
+                    "value": "not-related"
+                },
+                {
+                    "text": "Unknown",
+                    "value": "unknown"
+                }
+            ]
+        },
+        {
+            "title": "contact-classification",
+            "name": "contact-classification",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Imported",
+                    "value": "imported"
+                },
+                {
+                    "text": "Secondary",
+                    "value": "secondary"
+                },
+                {
+                    "text": "Sporadic",
+                    "value": "sporadic"
+                }
+            ]
+        },
+        {
+            "title": "sex",
+            "name": "sex",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Male",
+                    "value": "M"
+                },
+                {
+                    "text": "Female",
+                    "value": "F"
+                },
+                {
+                    "text": "Other",
+                    "value": "O"
+                }
+            ]
+        },
+        {
+            "title": "setting",
+            "name": "setting",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Care Home",
+                    "value": "care-home"
+                },
+                {
+                    "text": "Boarding School",
+                    "value": "boarding-school"
+                },
+                {
+                    "text": "Prison",
+                    "value": "prison"
+                },
+                {
+                    "text": "Other",
+                    "value": "other"
+                },
+                {
+                    "text": "None",
+                    "value": "none"
+                }
+            ]
+        },
+        {
+            "title": "reason-for-test",
+            "name": "reason-for-test",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Symptoms",
+                    "value": "symptoms"
+                },
+                {
+                    "text": "Contact of Contact",
+                    "value": "contact-of-contact"
+                },
+                {
+                    "text": "Occupational Testing",
+                    "value": "occupational-testing"
+                },
+                {
+                    "text": "Border Testing",
+                    "value": "border-testing"
+                },
+                {
+                    "text": "Other",
+                    "value": "other"
+                }
+            ]
+        },
+        {
+            "title": "yes-no-unknown",
+            "name": "yes-no-unknown",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Yes",
+                    "value": "Y"
+                },
+                {
+                    "text": "No",
+                    "value": "N"
+                },
+                {
+                    "text": "Unknown",
+                    "value": "U"
+                }
+            ]
+        },
+        {
+            "title": "healthcare-facility",
+            "name": "healthcare-facility",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Yes, Outpatient",
+                    "value": "outpatient"
+                },
+                {
+                    "text": "Yes, Inpatient",
+                    "value": "inpatient"
+                },
+                {
+                    "text": "No",
+                    "value": "no"
+                },
+                {
+                    "text": "Unknown",
+                    "value": "unknown"
+                }
+            ]
+        },
+        {
+            "title": "settings",
+            "name": "settings",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Household",
+                    "value": "household"
+                },
+                {
+                    "text": "Healthcare",
+                    "value": "healthcare"
+                },
+                {
+                    "text": "School",
+                    "value": "school"
+                },
+                {
+                    "text": "Workplace",
+                    "value": "workplace"
+                },
+                {
+                    "text": "Aircraft",
+                    "value": "aircraft"
+                },
+                {
+                    "text": "Other",
+                    "value": "other"
+                }
+            ]
+        },
+        {
+            "title": "severity",
+            "name": "severity",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Mild",
+                    "value": "mild"
+                },
+                {
+                    "text": "Moderate",
+                    "value": "moderate"
+                },
+                {
+                    "text": "Severe",
+                    "value": "severe"
+                }
+            ]
+        },
+        {
+            "title": "hospitalisation-reason",
+            "name": "hospitalisation-reason",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Clinical management of this infection",
+                    "value": "clinical"
+                },
+                {
+                    "text": "Isolation",
+                    "value": "isolation"
+                },
+                {
+                    "text": "Unrelated",
+                    "value": "unrelated"
+                }
+            ]
+        },
+        {
+            "title": "trimester",
+            "name": "trimester",
+            "type": "string",
+            "items": [
+                {
+                    "text": "1st",
+                    "value": "1st"
+                },
+                {
+                    "text": "2nd",
+                    "value": "2nd"
+                },
+                {
+                    "text": "3rd",
+                    "value": "3rd"
+                }
+            ]
+        },
+        {
+            "title": "ethnicity",
+            "name": "ethnicity",
+            "type": "string",
+            "items": [
+                {
+                    "text": "African",
+                    "value": "a"
+                },
+                {
+                    "text": "Any other Asian background",
+                    "value": "aoab"
+                },
+                {
+                    "text": "Any other Black background",
+                    "value": "aobb"
+                },
+                {
+                    "text": "Bangladeshi or British Bangladeshi",
+                    "value": "bobb"
+                },
+                {
+                    "text": "British",
+                    "value": "b"
+                },
+                {
+                    "text": "Mixed British",
+                    "value": "mb"
+                },
+                {
+                    "text": "Caribbean",
+                    "value": "ca"
+                },
+                {
+                    "text": "Chinese",
+                    "value": "ch"
+                },
+                {
+                    "text": "Indian or British Indian",
+                    "value": "iobi"
+                },
+                {
+                    "text": "Irish",
+                    "value": "i"
+                },
+                {
+                    "text": "Pakistani or British Pakistani",
+                    "value": "pobp"
+                },
+                {
+                    "text": "White and Asian",
+                    "value": "wa"
+                },
+                {
+                    "text": "White and Black African",
+                    "value": "wba"
+                },
+                {
+                    "text": "White and Black Caribbean",
+                    "value": "wbc"
+                }
+            ]
+        },
+        {
+            "title": "cough-type",
+            "name": "cough-type",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Dry",
+                    "value": "dry"
+                },
+                {
+                    "text": "Productive",
+                    "value": "productive"
+                }
+            ]
+        }
+    ],
+    "sections": [
+        {
+            "name": "exposures",
+            "title": "Exposures"
+        },
+        {
+            "name": "exposureLocations",
+            "title": "Exposure Locations"
+        },
+        {
+            "name": "treatment",
+            "title": "Treatment"
+        }
+    ],
+    "conditions": [
+        {
+            "displayName": "GSQ1:Yes",
+            "name": "JfZvXc",
+            "value": {
+                "name": "GSQ1:Yes",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "GSQ1",
+                            "type": "YesNoField",
+                            "display": "Are you completing this form on behalf of someone else"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "true",
+                            "display": "true"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P2Q1:Yes",
+            "name": "JfZvYc",
+            "value": {
+                "name": "P2Q1:Yes",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P2Q1",
+                            "type": "SelectField",
+                            "display": "Who are you interviewing"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "contact",
+                            "display": "A person on behalf of the contact"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P4Q10:No",
+            "name": "IiIKVg",
+            "value": {
+                "name": "P4Q10:No",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P4Q10",
+                            "type": "SelectField",
+                            "display": "Have you had contact with a confirmed or suspected contact in the 7 days before symptom onset or a positive test"
+                        },
+                        "operator": "is not",
+                        "value": {
+                            "type": "Value",
+                            "value": "Y",
+                            "display": "Y"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P6Q1:No",
+            "name": "avTpEZ",
+            "value": {
+                "name": "P6Q1:No",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P6Q1",
+                            "type": "SelectField",
+                            "display": "In the 7 days before before symptom onset or a positive test did the contact travel"
+                        },
+                        "operator": "is not",
+                        "value": {
+                            "type": "Value",
+                            "value": "Y",
+                            "display": "Y"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P9Q1:No",
+            "name": "eoNgRC",
+            "value": {
+                "name": "P9Q1:No",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P9Q1",
+                            "type": "YesNoField",
+                            "display": "Has the contact shown any symptoms"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P12Q7:No",
+            "name": "nZAkgT",
+            "value": {
+                "name": "P12Q7:No",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P12Q7",
+                            "type": "SelectField",
+                            "display": "Did the contact receive other antivirals in the last 14 days"
+                        },
+                        "operator": "is not",
+                        "value": {
+                            "type": "Value",
+                            "value": "Y",
+                            "display": "Y"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P14Q1:No",
+            "name": "GcjSEj",
+            "value": {
+                "name": "P14Q1:No",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P14Q1",
+                            "type": "YesNoField",
+                            "display": "Do you have any medical conditions"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "moreThanOneExposureContact",
+            "displayName": "moreThanOneExposureContact",
+            "value": "exposures.P4Q11 > 1"
+        },
+        {
+            "name": "moreThanTwoExposureContacts",
+            "displayName": "moreThanTwoExposureContacts",
+            "value": "exposures.P4Q11 > 2"
+        },
+        {
+            "name": "moreThanThreeExposureContacts",
+            "displayName": "moreThanThreeExposureContacts",
+            "value": "exposures.P4Q11 > 3"
+        },
+        {
+            "name": "moreThanFourExposureContacts",
+            "displayName": "moreThanFourExposureContacts",
+            "value": "exposures.P4Q11 > 4"
+        },
+        {
+            "name": "moreThanOneExposureLocation",
+            "displayName": "moreThanOneExposureLocation",
+            "value": "exposureLocations.P6Q2 > 1"
+        },
+        {
+            "name": "moreThanTwoExposureLocations",
+            "displayName": "moreThanTwoExposureLocations",
+            "value": "exposureLocations.P6Q2 > 2"
+        },
+        {
+            "name": "moreThanThreeExposureLocations",
+            "displayName": "moreThanThreeExposureLocations",
+            "value": "exposureLocations.P6Q2 > 3"
+        },
+        {
+            "name": "moreThanFourExposureLocations",
+            "displayName": "moreThanFourExposureLocations",
+            "value": "exposureLocations.P6Q2 > 4"
+        },
+        {
+            "name": "moreThanOneOtherAntiviral",
+            "displayName": "moreThanOneOtherAntiviral",
+            "value": "treatment.P12Q8 > 1"
+        },
+        {
+            "name": "moreThanTwoOtherAntivirals",
+            "displayName": "moreThanTwoOtherAntivirals",
+            "value": "treatment.P12Q8 > 2"
+        },
+        {
+            "name": "moreThanThreeOtherAntivirals",
+            "displayName": "moreThanThreeOtherAntivirals",
+            "value": "treatment.P12Q8 > 3"
+        },
+        {
+            "name": "moreThanFourOtherAntivirals",
+            "displayName": "moreThanFourOtherAntivirals",
+            "value": "treatment.P12Q8 > 4"
+        }
+    ],
+    "fees": [],
+    "outputs": [
+        {
+            "name": "WEBHOOOK",
+            "title": "S3 Lambda",
+            "type": "webhook",
+            "outputConfiguration": {
+                "url": "${H1N2.Webhook.URL}"
+            }
+        }
+    ],
+    "version": 2,
+    "skipSummary": false,
+    "authCheck": false
+}
