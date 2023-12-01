@@ -387,6 +387,7 @@
         {
             "path": "/exposures",
             "title": "Exposures",
+            "section": "exposures",
             "components": [
                 {
                     "name": "P4Q1",
@@ -485,13 +486,16 @@
                     "options": {},
                     "type": "NumberField",
                     "title": "If yes, how many?",
-                    "schema": {},
+                    "schema": {
+                        "min": 0,
+                        "max": 5
+                    },
                     "nameHasError": false
                 }
             ],
             "next": [
                 {
-                    "path": "/exposure-contacts"
+                    "path": "/exposure-contact-one"
                 },
                 {
                     "path": "/exposure-locations",
@@ -500,11 +504,11 @@
             ]
         },
         {
-            "path": "/exposure-contacts",
-            "title": "Exposure Contacts",
+            "path": "/exposure-contact-one",
+            "title": "Exposure Contact 1",
             "components": [
                 {
-                    "name": "P5Q1",
+                    "name": "P5L1Q1",
                     "options": {
                         "required": false
                     },
@@ -513,7 +517,7 @@
                     "schema": {}
                 },
                 {
-                    "name": "P5Q2",
+                    "name": "P5L1Q2",
                     "options": {
                         "required": false
                     },
@@ -522,7 +526,7 @@
                     "schema": {}
                 },
                 {
-                    "name": "P5Q3",
+                    "name": "P5L1Q3",
                     "options": {
                         "required": false
                     },
@@ -531,7 +535,7 @@
                     "schema": {}
                 },
                 {
-                    "name": "P5Q4",
+                    "name": "P5L1Q4",
                     "options": {
                         "required": false
                     },
@@ -540,7 +544,7 @@
                     "schema": {}
                 },
                 {
-                    "name": "P5Q5",
+                    "name": "P5L1Q5",
                     "options": {},
                     "type": "CheckboxesField",
                     "title": "Setting of contact",
@@ -548,7 +552,279 @@
                     "schema": {}
                 },
                 {
-                    "name": "P5Q6",
+                    "name": "P5L1Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-contact-two",
+                    "condition": "moreThanOneExposureContact"
+                },
+                {
+                    "path": "/exposure-locations"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-contact-two",
+            "title": "Exposure Contact 2",
+            "components": [
+                {
+                    "name": "P5L2Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of exposure contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L2Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Last name of caexposurese contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L2Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L2Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L2Q5",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Setting of contact",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L2Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-contact-three",
+                    "condition": "moreThanTwoExposureContacts"
+                },
+                {
+                    "path": "/exposure-locations"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-contact-three",
+            "title": "Exposure Contact 3",
+            "components": [
+                {
+                    "name": "P5L3Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of exposure contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Last name of caexposurese contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L3Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L3Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L3Q5",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Setting of contact",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L3Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-contact-four",
+                    "condition": "moreThanThreeExposureContacts"
+                },
+                {
+                    "path": "/exposure-locations"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-contact-four",
+            "title": "Exposure Contact 4",
+            "components": [
+                {
+                    "name": "P5L4Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of exposure contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L4Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Last name of caexposurese contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L4Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L4Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L4Q5",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Setting of contact",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L4Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-contact-five",
+                    "condition": "moreThanFourExposureContacts"
+                },
+                {
+                    "path": "/exposure-locations"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-contact-five",
+            "title": "Exposure Contact 5",
+            "components": [
+                {
+                    "name": "P5L5Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of exposure contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L5Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Last name of caexposurese contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L5Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L5Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L5Q5",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Setting of contact",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P5L5Q6",
                     "options": {
                         "required": false
                     },
@@ -566,6 +842,7 @@
         {
             "path": "/exposure-locations",
             "title": "Exposure Locations",
+            "section": "exposureLocations",
             "components": [
                 {
                     "name": "P6Q1",
@@ -583,12 +860,15 @@
                     "options": {},
                     "type": "NumberField",
                     "title": "If so, how many places did you visit",
-                    "schema": {}
+                    "schema": {
+                        "min": 0,
+                        "max": 5
+                    }
                 }
             ],
             "next": [
                 {
-                    "path": "/exposure-location"
+                    "path": "/exposure-location-one"
                 },
                 {
                     "path": "/exposure-animal-contact",
@@ -597,11 +877,11 @@
             ]
         },
         {
-            "path": "/exposure-location",
-            "title": "Exposure Location",
+            "path": "/exposure-location-one",
+            "title": "Exposure Location 1",
             "components": [
                 {
-                    "name": "P7Q1",
+                    "name": "P7L1Q1",
                     "options": {
                         "required": false
                     },
@@ -610,7 +890,7 @@
                     "schema": {}
                 },
                 {
-                    "name": "P7Q2",
+                    "name": "P7L1Q2",
                     "options": {
                         "required": false
                     },
@@ -619,7 +899,7 @@
                     "schema": {}
                 },
                 {
-                    "name": "P7Q3",
+                    "name": "P7L1Q3",
                     "options": {
                         "required": false
                     },
@@ -628,7 +908,7 @@
                     "schema": {}
                 },
                 {
-                    "name": "P7Q4",
+                    "name": "P7L1Q4",
                     "options": {
                         "required": false
                     },
@@ -638,7 +918,255 @@
                     "schema": {}
                 },
                 {
-                    "name": "P7Q5",
+                    "name": "P7L1Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-two",
+                    "condition": "moreThanOneExposureLocation"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-two",
+            "title": "Exposure Location 2",
+            "components": [
+                {
+                    "name": "P7L2Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L2Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-three",
+                    "condition": "moreThanTwoExposureLocations"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-three",
+            "title": "Exposure Location 3",
+            "components": [
+                {
+                    "name": "P7L3Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L3Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-four",
+                    "condition": "moreThanThreeExposureLocations"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-four",
+            "title": "Exposure Location 4",
+            "components": [
+                {
+                    "name": "P7L4Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L4Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details from location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/exposure-location-five",
+                    "condition": "moreThanFourExposureLocations"
+                },
+                {
+                    "path": "/exposure-animal-contact"
+                }
+            ]
+        },
+        {
+            "path": "/exposure-location-five",
+            "title": "Exposure Location 5",
+            "components": [
+                {
+                    "name": "P7L5Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Location visited",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of arrival at location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of leaving location",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Travel details to location",
+                    "hint": "e.g. train journey or flight no",
+                    "schema": {}
+                },
+                {
+                    "name": "P7L5Q5",
                     "options": {
                         "required": false
                     },
@@ -1120,6 +1648,7 @@
         {
             "path": "/treatment",
             "title": "Treatment",
+            "section": "treatment",
             "components": [
                 {
                     "name": "P12Q1",
@@ -1195,29 +1724,29 @@
                     "condition": "nZAkgT"
                 },
                 {
-                    "path": "/treatment-antivirals"
+                    "path": "/treatment-antiviral-one"
                 }
             ]
         },
         {
-            "path": "/treatment-antivirals",
-            "title": "Other Antivirals",
+            "path": "/treatment-antiviral-one",
+            "title": "Other Antiviral 1",
             "components": [
                 {
-                    "name": "tiqApA",
+                    "name": "P13L1P1",
                     "options": {},
                     "type": "Para",
                     "content": "Tell us what other antivirals the case has taken excluding the previously mentioned oseltamivir and zanamivir."
                 },
                 {
-                    "name": "P13Q1",
+                    "name": "P13L1Q1",
                     "options": {},
                     "type": "TextField",
                     "title": "Please specify the name of the antiviral",
                     "schema": {}
                 },
                 {
-                    "name": "P13Q2",
+                    "name": "P13L1Q2",
                     "options": {
                         "required": false
                     },
@@ -1226,7 +1755,191 @@
                     "schema": {}
                 },
                 {
-                    "name": "P13Q3",
+                    "name": "P13L1Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-two",
+                    "condition": "moreThanOneOtherAntiviral"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-two",
+            "title": "Other Antiviral 2",
+            "components": [
+                {
+                    "name": "P13L2P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the case has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L2Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L2Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L2Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-three",
+                    "condition": "moreThanTwoOtherAntivirals"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-three",
+            "title": "Other Antiviral 3",
+            "components": [
+                {
+                    "name": "P13L3P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the case has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L3Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L3Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-four",
+                    "condition": "moreThanThreeOtherAntivirals"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-four",
+            "title": "Other Antiviral 4",
+            "components": [
+                {
+                    "name": "P13L4P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the case has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L4Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L4Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L4Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you finish taking the antiviral",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/treatment-antiviral-five",
+                    "condition": "moreThanFourOtherAntivirals"
+                },
+                {
+                    "path": "/medical-history"
+                }
+            ]
+        },
+        {
+            "path": "/treatment-antiviral-five",
+            "title": "Other Antiviral 5",
+            "components": [
+                {
+                    "name": "P13L5P1",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Tell us what other antivirals the case has taken excluding the previously mentioned oseltamivir and zanamivir."
+                },
+                {
+                    "name": "P13L5Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Please specify the name of the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L5Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "What date did you start taking the antiviral",
+                    "schema": {}
+                },
+                {
+                    "name": "P13L5Q3",
                     "options": {
                         "required": false
                     },
@@ -1902,7 +2615,20 @@
             ]
         }
     ],
-    "sections": [],
+    "sections": [
+        {
+            "name": "exposures",
+            "title": "Exposures"
+        },
+        {
+            "name": "exposureLocations",
+            "title": "Exposure Locations"
+        },
+        {
+            "name": "treatment",
+            "title": "Treatment"
+        }
+    ],
     "conditions": [
         {
             "displayName": "GSQ1:Yes",
@@ -2057,6 +2783,66 @@
                     }
                 ]
             }
+        },
+        {
+            "name": "moreThanOneExposureContact",
+            "displayName": "moreThanOneExposureContact",
+            "value": "exposures.P4Q11 > 1"
+        },
+        {
+            "name": "moreThanTwoExposureContacts",
+            "displayName": "moreThanTwoExposureContacts",
+            "value": "exposures.P4Q11 > 2"
+        },
+        {
+            "name": "moreThanThreeExposureContacts",
+            "displayName": "moreThanThreeExposureContacts",
+            "value": "exposures.P4Q11 > 3"
+        },
+        {
+            "name": "moreThanFourExposureContacts",
+            "displayName": "moreThanFourExposureContacts",
+            "value": "exposures.P4Q11 > 4"
+        },
+        {
+            "name": "moreThanOneExposureLocation",
+            "displayName": "moreThanOneExposureLocation",
+            "value": "exposureLocations.P6Q2 > 1"
+        },
+        {
+            "name": "moreThanTwoExposureLocations",
+            "displayName": "moreThanTwoExposureLocations",
+            "value": "exposureLocations.P6Q2 > 2"
+        },
+        {
+            "name": "moreThanThreeExposureLocations",
+            "displayName": "moreThanThreeExposureLocations",
+            "value": "exposureLocations.P6Q2 > 3"
+        },
+        {
+            "name": "moreThanFourExposureLocations",
+            "displayName": "moreThanFourExposureLocations",
+            "value": "exposureLocations.P6Q2 > 4"
+        },
+        {
+            "name": "moreThanOneOtherAntiviral",
+            "displayName": "moreThanOneOtherAntiviral",
+            "value": "treatment.P12Q8 > 1"
+        },
+        {
+            "name": "moreThanTwoOtherAntivirals",
+            "displayName": "moreThanTwoOtherAntivirals",
+            "value": "treatment.P12Q8 > 2"
+        },
+        {
+            "name": "moreThanThreeOtherAntivirals",
+            "displayName": "moreThanThreeOtherAntivirals",
+            "value": "treatment.P12Q8 > 3"
+        },
+        {
+            "name": "moreThanFourOtherAntivirals",
+            "displayName": "moreThanFourOtherAntivirals",
+            "value": "treatment.P12Q8 > 4"
         }
     ],
     "fees": [],
