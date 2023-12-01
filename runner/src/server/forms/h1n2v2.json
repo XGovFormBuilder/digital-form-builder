@@ -2060,7 +2060,16 @@
         }
     ],
     "fees": [],
-    "outputs": [],
+    "outputs": [
+        {
+            "name": "WEBHOOOK",
+            "title": "S3 Lambda",
+            "type": "webhook",
+            "outputConfiguration": {
+                "url": "${H1N2.Webhook.URL}"
+            }
+        }
+    ],
     "version": 2,
     "skipSummary": false,
     "authCheck": false
