@@ -846,10 +846,1249 @@
             ],
             "next": [
                 {
+                    "path": "/healthcare-worker-exposure"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-exposure",
+            "title": "Healthcare Worker Exposure",
+            "section": "healthcareWorkerExposure",
+            "components": [
+                {
+                    "name": "P20Q1",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "How many confirmed cases has the contact been exposed to as a healthcare worker in the last 10 days",
+                    "schema": {
+                        "min": 0,
+                        "max": 5
+                    }
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-exposure-one"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-exposure-one",
+            "title": "Healthcare Worker Exposure 1",
+            "components": [
+                {
+                    "name": "P21L1Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L1Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L1Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Surname of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L1Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L1Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L1Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L1Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "nature-of-contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L1Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Other - specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-exposure-two",
+                    "condition": "moreThanOneHealthcareWorkerExposure"
+                },
+                {
+                    "path": "/healthcare-worker-exposure-ppe"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-exposure-two",
+            "title": "Healthcare Worker Exposure 2",
+            "components": [
+                {
+                    "name": "P21L2Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L2Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L2Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Surname of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L2Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L2Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L2Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L2Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "nature-of-contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L2Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Other - specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-exposure-three",
+                    "condition": "moreThanTwoHealthcareWorkerExposures"
+                },
+                {
+                    "path": "/healthcare-worker-exposure-ppe"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-exposure-three",
+            "title": "Healthcare Worker Exposure 3",
+            "components": [
+                {
+                    "name": "P21L3Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L3Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Surname of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L3Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L3Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L3Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L3Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "nature-of-contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L3Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Other - specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-exposure-four",
+                    "condition": "moreThanThreeHealthcareWorkerExposures"
+                },
+                {
+                    "path": "/healthcare-worker-exposure-ppe"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-exposure-four",
+            "title": "Healthcare Worker Exposure 4",
+            "components": [
+                {
+                    "name": "P21L4Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L4Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L4Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Surname of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L4Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L4Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L4Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L4Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "nature-of-contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L4Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Other - specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-exposure-five",
+                    "condition": "moreThanFourHealthcareWorkerExposures"
+                },
+                {
+                    "path": "/healthcare-worker-exposure-ppe"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-exposure-five",
+            "title": "Healthcare Worker Exposure 5",
+            "components": [
+                {
+                    "name": "P21L5Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L5Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L5Q3",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Surname of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L5Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L5Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L5Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L5Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "nature-of-contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P21L5Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Other - specify",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-exposure-ppe"
+                }
+            ]
+        },
+
+
+
+        {
+            "path": "/healthcare-worker-exposure-ppe",
+            "title": "Healthcare Worker Exposure PPE",
+            "components": [
+                {
+                    "name": "tiqGpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Was the following PPE used during all contacts."
+                },
+                {
+                    "name": "P22Q1",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Gown",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P22Q2",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Gloves",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P22Q3",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Eye protection",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P22Q4",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Surgical mask",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P22Q5",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "N95/FFP2 mask",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P22Q6",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "FFP3 mask",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-procedures"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-procedures",
+            "title": "Healthcare Worker Procedures",
+            "section": "healthcareWorkerProcedures",
+            "components": [
+                {
+                    "name": "P23Q1",
+                    "options": {},
+                    "type": "YesNoField",
+                    "title": "Was the contact present during any aerosol-generating procedures",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "P23Q2",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "How many procdures was the contact present during",
+                    "schema": {
+                        "min": 0,
+                        "max": 5
+                    }
+                }
+            ],
+            "next": [
+                {
+                    "path": "/non-healthcare-worker-exposures",
+                    "condition": "GcjSEt"
+                },
+                {
+                    "path": "/healthcare-worker-procedure-one"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-procedure-one",
+            "title": "Healthcare Worker Procedure 1",
+            "components": [
+                {
+                    "name": "P24L1Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Specify procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L1Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L1Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Was the contact wearing any of the following masks during the procedure",
+                    "list": "mask-types",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-procedure-two",
+                    "condition": "moreThanOneHealthcareWorkerProcedure"
+                },
+                {
+                    "path": "/non-healthcare-worker-exposures"
+                }
+            ]
+        },
+
+        {
+            "path": "/healthcare-worker-procedure-two",
+            "title": "Healthcare Worker Procedure 2",
+            "components": [
+                {
+                    "name": "P24L2Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Specify procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L2Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L2Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Was the contact wearing any of the following masks during the procedure",
+                    "list": "mask-types",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-procedure-three",
+                    "condition": "moreThanTwoHealthcareWorkerProcedure"
+                },
+                {
+                    "path": "/non-healthcare-worker-exposures"
+                }
+            ]
+        },
+
+        {
+            "path": "/healthcare-worker-procedure-three",
+            "title": "Healthcare Worker Procedure 3",
+            "components": [
+                {
+                    "name": "P24L3Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Specify procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L3Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L3Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Was the contact wearing any of the following masks during the procedure",
+                    "list": "mask-types",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-procedure-four",
+                    "condition": "moreThanThreeHealthcareWorkerProcedure"
+                },
+                {
+                    "path": "/non-healthcare-worker-exposures"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-procedure-four",
+            "title": "Healthcare Worker Procedure 4",
+            "components": [
+                {
+                    "name": "P24L4Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Specify procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L4Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L4Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Was the contact wearing any of the following masks during the procedure",
+                    "list": "mask-types",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/healthcare-worker-procedure-five",
+                    "condition": "moreThanFourHealthcareWorkerProcedure"
+                },
+                {
+                    "path": "/non-healthcare-worker-exposures"
+                }
+            ]
+        },
+        {
+            "path": "/healthcare-worker-procedure-five",
+            "title": "Healthcare Worker Procedure 5",
+            "components": [
+                {
+                    "name": "P24L5Q1",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "Specify procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L5Q2",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of procedure",
+                    "schema": {}
+                },
+                {
+                    "name": "P24L5Q3",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Was the contact wearing any of the following masks during the procedure",
+                    "list": "mask-types",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/non-healthcare-worker-exposures"
+                }
+            ]
+        },
+        {
+            "path": "/non-healthcare-worker-exposures",
+            "title": "Non-Healthcare Worker Exposures",
+            "section": "nonHealthcareWorkerExposures",
+            "components": [
+                {
+                    "name": "P25Q1",
+                    "options": {},
+                    "type": "NumberField",
+                    "title": "How many confirmed cases has the contact been exposed to (non healthcare worker exposures) in the last 10 days",
+                    "schema": {
+                        "min": 0,
+                        "max": 5
+                    }
+                }
+            ],
+            "next": [
+                {
+                    "path": "/symptoms",
+                    "condition": "GcjSEu"
+                },
+                {
+                    "path": "/non-healthcare-worker-exposure-one"
+                }
+            ]
+        },
+
+
+        {
+            "path": "/non-healthcare-worker-exposure-one",
+            "title": "Non-Healthcare Worker Exposure 1",
+            "components": [
+                {
+                    "name": "P26L1Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q2",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q3",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Last name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L1Q9",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Duration of contact",
+                    "list": "contact-duration",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/non-healthcare-worker-exposure-two",
+                    "condition": "moreThanOneNonHealthcareWorkerExposure"
+                },
+                {
                     "path": "/symptoms"
                 }
             ]
         },
+        {
+            "path": "/non-healthcare-worker-exposure-two",
+            "title": "Non-Healthcare Worker Exposure 2",
+            "components": [
+                {
+                    "name": "P26L2Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q2",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q3",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Last name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L2Q9",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Duration of contact",
+                    "list": "contact-duration",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/non-healthcare-worker-exposure-three",
+                    "condition": "moreThanTwoNonHealthcareWorkerExposure"
+                },
+                {
+                    "path": "/symptoms"
+                }
+            ]
+        },
+        {
+            "path": "/non-healthcare-worker-exposure-three",
+            "title": "Non-Healthcare Worker Exposure 3",
+            "components": [
+                {
+                    "name": "P26L3Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q2",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q3",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Last name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L3Q9",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Duration of contact",
+                    "list": "contact-duration",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/non-healthcare-worker-exposure-four",
+                    "condition": "moreThanThreeNonHealthcareWorkerExposure"
+                },
+                {
+                    "path": "/symptoms"
+                }
+            ]
+        },
+        {
+            "path": "/non-healthcare-worker-exposure-four",
+            "title": "Non-Healthcare Worker Exposure 4",
+            "components": [
+                {
+                    "name": "P26L4Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q2",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q3",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Last name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L4Q9",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Duration of contact",
+                    "list": "contact-duration",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/non-healthcare-worker-exposure-five",
+                    "condition": "moreThanFourNonHealthcareWorkerExposure"
+                },
+                {
+                    "path": "/symptoms"
+                }
+            ]
+        },
+        {
+            "path": "/non-healthcare-worker-exposure-five",
+            "title": "Non-Healthcare Worker Exposure 5",
+            "components": [
+                {
+                    "name": "P26L5Q1",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "FFX ID of case (or specify if not recruited to FFX)",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q2",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "First name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q3",
+                    "options": {},
+                    "type": "TextField",
+                    "title": "Last name of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q4",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "DOB of case",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q5",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of first contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q6",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "DatePartsField",
+                    "title": "Date of last contact",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q7",
+                    "options": {},
+                    "type": "CheckboxesField",
+                    "title": "Nature of contact (tick all that apply)",
+                    "list": "settings",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q8",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If other, please specify",
+                    "schema": {}
+                },
+                {
+                    "name": "P26L5Q9",
+                    "options": {},
+                    "type": "SelectField",
+                    "title": "Duration of contact",
+                    "list": "contact-duration",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/symptoms"
+                }
+            ]
+        },
+
+
+
+
+
+
+
+
         {
             "path": "/symptoms",
             "title": "Symptoms",
@@ -2168,6 +3407,25 @@
             ]
         },
         {
+            "title": "nature-of-contact",
+            "name": "nature-of-contact",
+            "type": "string",
+            "items": [
+                {
+                    "text": "direct physical contact",
+                    "value": "direct-physical-contact"
+                },
+                {
+                    "text": "face-to-face contact >15 min",
+                    "value": "face-to-face-15-min"
+                },
+                {
+                    "text": "Other",
+                    "value": "other"
+                }
+            ]
+        },
+        {
             "title": "ethnicity",
             "name": "ethnicity",
             "type": "string",
@@ -2244,6 +3502,56 @@
                     "value": "productive"
                 }
             ]
+        },
+        {
+            "title": "mask-types",
+            "name": "mask-types",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Surgical mask",
+                    "value": "surgical-mask"
+                },
+                {
+                    "text": "N95/FFP2 mask",
+                    "value": "n95-ffp2-mask"
+                },
+                {
+                    "text": "FFP3 mask",
+                    "value": "ffp3-mask"
+                }
+            ]
+        },
+        {
+            "title": "contact-duration",
+            "name": "contact-duration",
+            "type": "string",
+            "items": [
+                {
+                    "text": "<1 minute",
+                    "value": "under-1-minute"
+                },
+                {
+                    "text": "1-<5",
+                    "value": "one-to-five-minutes"
+                },
+                {
+                    "text": "5-<15",
+                    "value": "five-to-fifteen-minutes"
+                },
+                {
+                    "text": "15-<30",
+                    "value": "fifteen-to-thirty-minutes"
+                },
+                {
+                    "text": "30-<60",
+                    "value": "thirty-to-sixty-minutes"
+                },
+                {
+                    "text": "60+ minutes",
+                    "value": "over-sixty-minutes"
+                }
+            ]
         }
     ],
     "sections": [
@@ -2258,6 +3566,18 @@
         {
             "name": "treatment",
             "title": "Treatment"
+        },
+        {
+            "name": "healthcareWorkerExposure",
+            "title": "Healthcare Worker Exposure"
+        },
+        {
+            "name": "healthcareWorkerProcedures",
+            "title": "Healthcare Worker Procedures"
+        },
+        {
+            "name": "nonHealthcareWorkerExposures",
+            "title": "Non-Healthcare Worker Exposures"
         }
     ],
     "conditions": [
@@ -2416,6 +3736,50 @@
             }
         },
         {
+            "displayName": "P23Q1:No",
+            "name": "GcjSEt",
+            "value": {
+                "name": "P23Q1:No",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P23Q1",
+                            "type": "YesNoField",
+                            "display": "Was the contact present during any aerosol-generating procedures"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "P25Q1:0",
+            "name": "GcjSEu",
+            "value": {
+                "name": "P25Q1:0",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "P25Q1",
+                            "type": "NumberField",
+                            "display": "How many confirmed cases has the contact been exposed to (non healthcare worker exposures) in the last 10 days"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "0",
+                            "display": "0"
+                        }
+                    }
+                ]
+            }
+        },
+        {
             "name": "moreThanOneExposureContact",
             "displayName": "moreThanOneExposureContact",
             "value": "exposures.P4Q11 > 1"
@@ -2474,6 +3838,66 @@
             "name": "moreThanFourOtherAntivirals",
             "displayName": "moreThanFourOtherAntivirals",
             "value": "treatment.P12Q8 > 4"
+        },
+        {
+            "name": "moreThanOneHealthcareWorkerExposure",
+            "displayName": "moreThanOneHealthcareWorkerExposure",
+            "value": "healthcareWorkerExposure.P20Q1 > 1"
+        },
+        {
+            "name": "moreThanTwoHealthcareWorkerExposures",
+            "displayName": "moreThanTwoHealthcareWorkerExposures",
+            "value": "healthcareWorkerExposure.P20Q1 > 2"
+        },
+        {
+            "name": "moreThanThreeHealthcareWorkerExposures",
+            "displayName": "moreThanThreeHealthcareWorkerExposures",
+            "value": "healthcareWorkerExposure.P20Q1 > 3"
+        },
+        {
+            "name": "moreThanFourHealthcareWorkerExposures",
+            "displayName": "moreThanFourHealthcareWorkerExposures",
+            "value": "healthcareWorkerExposure.P20Q1 > 4"
+        },
+        {
+            "name": "moreThanOneHealthcareWorkerProcedure",
+            "displayName": "moreThanOneHealthcareWorkerProcedure",
+            "value": "healthcareWorkerProcedures.P23Q2 > 1"
+        },
+        {
+            "name": "moreThanTwoHealthcareWorkerProcedure",
+            "displayName": "moreThanTwoHealthcareWorkerProcedure",
+            "value": "healthcareWorkerProcedures.P23Q2 > 2"
+        },
+        {
+            "name": "moreThanThreeHealthcareWorkerProcedure",
+            "displayName": "moreThanThreeHealthcareWorkerProcedure",
+            "value": "healthcareWorkerProcedures.P23Q2 > 3"
+        },
+        {
+            "name": "moreThanFourHealthcareWorkerProcedure",
+            "displayName": "moreThanFourHealthcareWorkerProcedure",
+            "value": "healthcareWorkerProcedures.P23Q2 > 4"
+        },
+        {
+            "name": "moreThanOneNonHealthcareWorkerExposure",
+            "displayName": "moreThanOneNonHealthcareWorkerExposure",
+            "value": "nonHealthcareWorkerExposures.P25Q1 > 1"
+        },
+        {
+            "name": "moreThanTwoNonHealthcareWorkerExposure",
+            "displayName": "moreThanTwoNonHealthcareWorkerExposure",
+            "value": "nonHealthcareWorkerExposures.P25Q1 > 2"
+        },
+        {
+            "name": "moreThanThreeNonHealthcareWorkerExposure",
+            "displayName": "moreThanThreeNonHealthcareWorkerExposure",
+            "value": "nonHealthcareWorkerExposures.P25Q1 > 3"
+        },
+        {
+            "name": "moreThanFourNonHealthcareWorkerExposure",
+            "displayName": "moreThanFourNonHealthcareWorkerExposure",
+            "value": "nonHealthcareWorkerExposures.P25Q1 > 4"
         }
     ],
     "fees": [],
