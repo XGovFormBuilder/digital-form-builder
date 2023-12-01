@@ -24,7 +24,6 @@ env:
 jobs:
   check-tag-before-build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
 
@@ -43,7 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fail job if tag exists
-        if: ${{ steps.check_tag.outputs.exists == 'true' }}
+        if: ${{ steps.check_tag.outputs.exists == 'true' && github.ref == 'refs/heads/main'}}
         uses: actions/github-script@v6
         with:
           script: |
