@@ -236,24 +236,24 @@ export class UploadService {
     await cacheService.mergeState(request, { originalFilenames });
 
     if (request.pre?.warning && page?.controller === "UploadPageController") {
-      const update = Object.entries(originalFilenames).reduce(
-        (acc, [key, value]) => {
-          if (page?.section) {
-            return {
-              ...acc,
-              [page.section]: {
-                [key]: value.location,
-              },
-            };
-          }
-          return {
-            ...acc,
-            [key]: value.location,
-          };
-        },
+      let update;
+      const updatedFilenames = files.reduce(
+        (acc, [key, _file]) => ({
+          ...acc,
+          [key]: originalFilenames[key].location,
+        }),
         {}
       );
-      await cacheService.mergeState(request, update);
+      if (page?.section) {
+        update = {
+          [page.section]: {
+            ...(state[page.section] ?? {}),
+            ...updatedFilenames,
+          },
+        };
+      }
+
+      await cacheService.mergeState(request, update ?? updatedFilenames);
 
       return h.redirect("?view=playback").takeover();
     }
