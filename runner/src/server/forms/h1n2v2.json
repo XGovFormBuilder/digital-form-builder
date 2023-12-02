@@ -184,7 +184,7 @@
                     "options": {
                         "required": false
                     },
-                    "type": "SelectField",
+                    "type": "RadiosField",
                     "title": "If the case has died, was Influenza AH1N2 a contribution to Death",
                     "list": "contribution-to-death",
                     "schema": {}
@@ -260,7 +260,7 @@
                 {
                     "name": "P3Q13",
                     "options": {},
-                    "type": "SelectField",
+                    "type": "RadiosField",
                     "title": "Setting",
                     "list": "setting",
                     "schema": {},
@@ -483,7 +483,9 @@
                 },
                 {
                     "name": "P4Q11",
-                    "options": {},
+                    "options": {
+                        "required": false
+                    },
                     "type": "NumberField",
                     "title": "If yes, how many?",
                     "schema": {
@@ -857,7 +859,9 @@
                 },
                 {
                     "name": "P6Q2",
-                    "options": {},
+                    "options": {
+                        "required": false
+                    },
                     "type": "NumberField",
                     "title": "If so, how many places did you visit",
                     "schema": {
@@ -1191,7 +1195,7 @@
                     "options": {
                         "required": false
                     },
-                    "type": "SelectField",
+                    "type": "RadiosField",
                     "title": "In the 7 days before onset or a positive test did the case have close contact with pigs (live or dead)",
                     "list": "yes-no-unknown",
                     "schema": {}
@@ -1210,7 +1214,7 @@
                     "options": {
                         "required": false
                     },
-                    "type": "SelectField",
+                    "type": "RadiosField",
                     "title": "Has the case had contact with any other animals in the last 7 days",
                     "list": "yes-no-unknown",
                     "schema": {}
@@ -1273,9 +1277,6 @@
                 },
                 {
                     "name": "P10Q2",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Fever or history of fever or chills",
                     "list": "yes-no-unknown",
@@ -1292,9 +1293,6 @@
                 },
                 {
                     "name": "P10Q4",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Runny nose",
                     "list": "yes-no-unknown",
@@ -1311,9 +1309,6 @@
                 },
                 {
                     "name": "P10Q6",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Cough",
                     "list": "yes-no-unknown",
@@ -1340,9 +1335,6 @@
                 },
                 {
                     "name": "P10Q9",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Shortness of breath",
                     "list": "yes-no-unknown",
@@ -1359,9 +1351,6 @@
                 },
                 {
                     "name": "P10Q11",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Wheezing",
                     "list": "yes-no-unknown",
@@ -1378,9 +1367,6 @@
                 },
                 {
                     "name": "P10Q13",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Sore throat",
                     "list": "yes-no-unknown",
@@ -1397,9 +1383,6 @@
                 },
                 {
                     "name": "P10Q15",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Loss of taste and/or smell",
                     "list": "yes-no-unknown",
@@ -1407,9 +1390,6 @@
                 },
                 {
                     "name": "P10Q16",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Nausea",
                     "list": "yes-no-unknown",
@@ -1417,9 +1397,6 @@
                 },
                 {
                     "name": "P10Q17",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Diarrhea",
                     "list": "yes-no-unknown",
@@ -1427,9 +1404,6 @@
                 },
                 {
                     "name": "P10Q18",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Vomiting",
                     "list": "yes-no-unknown",
@@ -1437,9 +1411,6 @@
                 },
                 {
                     "name": "P10Q19",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Headache",
                     "list": "yes-no-unknown",
@@ -1447,9 +1418,6 @@
                 },
                 {
                     "name": "P10Q20",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Muscle/Body pain",
                     "list": "yes-no-unknown",
@@ -1457,9 +1425,6 @@
                 },
                 {
                     "name": "P10Q21",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Fatigue",
                     "list": "yes-no-unknown",
@@ -1467,9 +1432,6 @@
                 },
                 {
                     "name": "P10Q22",
-                    "options": {
-                        "required": false
-                    },
                     "type": "SelectField",
                     "title": "Any other symptoms",
                     "list": "yes-no-unknown",
@@ -1486,7 +1448,9 @@
                 },
                 {
                     "name": "P10Q24",
-                    "options": {},
+                    "options": {
+                        "required": false
+                    },
                     "type": "YesNoField",
                     "title": "Does the case still have any respiratory symptoms",
                     "hint": "Excluding post viral cough",
@@ -1520,7 +1484,7 @@
                     "options": {
                         "required": false
                     },
-                    "type": "SelectField",
+                    "type": "RadiosField",
                     "title": "Does the case consider their infection to date to have been mild, moderate or severe",
                     "list": "severity",
                     "schema": {}
@@ -1607,7 +1571,7 @@
                     "options": {
                         "required": false
                     },
-                    "type": "SelectField",
+                    "type": "RadiosField",
                     "title": "Did the case receive oxygen in hospital",
                     "list": "yes-no-unknown",
                     "schema": {}
