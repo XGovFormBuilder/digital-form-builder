@@ -487,11 +487,11 @@
             ],
             "next": [
                 {
-                    "path": "/exposure-location-one"
+                    "path": "/exposure-location-one",
+                    "condition": "moreThanZeroExposureLocation"
                 },
                 {
-                    "path": "/exposure-animal-contact",
-                    "condition": "avTpEZ"
+                    "path": "/exposure-animal-contact"
                 }
             ]
         },
@@ -856,6 +856,12 @@
             "section": "healthcareWorkerExposure",
             "components": [
                 {
+                    "name": "tiqFpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "For a healthcare worker, please tell us how many confirmed cases they have been in contact with."
+                },
+                {
                     "name": "P20Q1",
                     "options": {},
                     "type": "NumberField",
@@ -868,7 +874,11 @@
             ],
             "next": [
                 {
-                    "path": "/healthcare-worker-exposure-one"
+                    "path": "/healthcare-worker-exposure-one",
+                    "condition": "moreThanZeroHealthcareWorkerExposure"
+                },
+                {
+                    "path": "/healthcare-worker-exposure-ppe"
                 }
             ]
         },
@@ -1298,9 +1308,6 @@
                 }
             ]
         },
-
-
-
         {
             "path": "/healthcare-worker-exposure-ppe",
             "title": "Healthcare Worker Exposure PPE",
@@ -1406,11 +1413,11 @@
             ],
             "next": [
                 {
-                    "path": "/non-healthcare-worker-exposures",
-                    "condition": "GcjSEt"
+                    "path": "/non-healthcare-worker-exposures"
                 },
                 {
-                    "path": "/healthcare-worker-procedure-one"
+                    "path": "/healthcare-worker-procedure-one",
+                    "condition": "moreThanZeroHealthcareWorkerProcedure"
                 }
             ]
         },
@@ -1623,6 +1630,12 @@
             "section": "nonHealthcareWorkerExposures",
             "components": [
                 {
+                    "name": "tiqFpA",
+                    "options": {},
+                    "type": "Para",
+                    "content": "For a non-healthcare worker, please tell us how many confirmed cases they have been in contact with."
+                },
+                {
                     "name": "P25Q1",
                     "options": {},
                     "type": "NumberField",
@@ -1635,11 +1648,11 @@
             ],
             "next": [
                 {
-                    "path": "/symptoms",
-                    "condition": "GcjSEu"
+                    "path": "/symptoms"
                 },
                 {
-                    "path": "/non-healthcare-worker-exposure-one"
+                    "path": "/non-healthcare-worker-exposure-one",
+                    "condition": "moreThanZeroNonHealthcareWorkerExposure"
                 }
             ]
         },
@@ -2590,11 +2603,11 @@
             ],
             "next": [
                 {
-                    "path": "/medical-history",
-                    "condition": "nZAkgT"
+                    "path": "/medical-history"
                 },
                 {
-                    "path": "/treatment-antiviral-one"
+                    "path": "/treatment-antiviral-one",
+                    "condition": "moreThanZeroOtherAntiviral"
                 }
             ]
         },
@@ -3110,12 +3123,12 @@
             ],
             "next": [
                 {
-                    "path": "/summary-of-submission"
+                    "path": "/summary"
                 }
             ]
         },
         {
-            "path": "/summary-of-submission",
+            "path": "/summary",
             "title": "Summary of Submission",
             "components": [],
             "next": [],
@@ -3780,24 +3793,9 @@
             }
         },
         {
-            "name": "moreThanOneExposureContact",
-            "displayName": "moreThanOneExposureContact",
-            "value": "exposures.P4Q11 > 1"
-        },
-        {
-            "name": "moreThanTwoExposureContacts",
-            "displayName": "moreThanTwoExposureContacts",
-            "value": "exposures.P4Q11 > 2"
-        },
-        {
-            "name": "moreThanThreeExposureContacts",
-            "displayName": "moreThanThreeExposureContacts",
-            "value": "exposures.P4Q11 > 3"
-        },
-        {
-            "name": "moreThanFourExposureContacts",
-            "displayName": "moreThanFourExposureContacts",
-            "value": "exposures.P4Q11 > 4"
+            "name": "moreThanZeroExposureLocation",
+            "displayName": "moreThanZeroExposureLocation",
+            "value": "exposureLocations.P6Q2 > 0"
         },
         {
             "name": "moreThanOneExposureLocation",
@@ -3820,6 +3818,11 @@
             "value": "exposureLocations.P6Q2 > 4"
         },
         {
+            "name": "moreThanZeroOtherAntiviral",
+            "displayName": "moreThanZeroOtherAntiviral",
+            "value": "treatment.P12Q8 > 0"
+        },
+        {
             "name": "moreThanOneOtherAntiviral",
             "displayName": "moreThanOneOtherAntiviral",
             "value": "treatment.P12Q8 > 1"
@@ -3838,6 +3841,11 @@
             "name": "moreThanFourOtherAntivirals",
             "displayName": "moreThanFourOtherAntivirals",
             "value": "treatment.P12Q8 > 4"
+        },
+        {
+            "name": "moreThanZeroHealthcareWorkerExposure",
+            "displayName": "moreThanZeroHealthcareWorkerExposure",
+            "value": "healthcareWorkerExposure.P20Q1 > 0"
         },
         {
             "name": "moreThanOneHealthcareWorkerExposure",
@@ -3860,6 +3868,11 @@
             "value": "healthcareWorkerExposure.P20Q1 > 4"
         },
         {
+            "name": "moreThanZeroHealthcareWorkerProcedure",
+            "displayName": "moreThanZeroHealthcareWorkerProcedure",
+            "value": "healthcareWorkerProcedures.P23Q2 > 0"
+        },
+        {
             "name": "moreThanOneHealthcareWorkerProcedure",
             "displayName": "moreThanOneHealthcareWorkerProcedure",
             "value": "healthcareWorkerProcedures.P23Q2 > 1"
@@ -3878,6 +3891,11 @@
             "name": "moreThanFourHealthcareWorkerProcedure",
             "displayName": "moreThanFourHealthcareWorkerProcedure",
             "value": "healthcareWorkerProcedures.P23Q2 > 4"
+        },
+        {
+            "name": "moreThanZeroNonHealthcareWorkerExposure",
+            "displayName": "moreThanZeroNonHealthcareWorkerExposure",
+            "value": "nonHealthcareWorkerExposures.P25Q1 > 0"
         },
         {
             "name": "moreThanOneNonHealthcareWorkerExposure",
