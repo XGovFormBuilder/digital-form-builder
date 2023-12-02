@@ -178,7 +178,14 @@ export const ComponentTypes: ComponentDef[] = [
     title: "Client side file upload field",
     subType: "field",
     hint: "",
-    options: {},
+    options: {
+      dropzoneConfig: {},
+      showNoScriptWarning: false,
+      minimumRequiredFiles: 0,
+      totalOverallFilesize: 0,
+      required: false,
+      optionalText: false,
+    },
     schema: {},
   },
   {
