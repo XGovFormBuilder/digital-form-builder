@@ -231,6 +231,16 @@ function FileUploadField() {
   );
 }
 
+function ClientSideFileUploadField() {
+  return (
+    <ComponentField>
+      <div className="govuk-!-margin-bottom-1">
+        {"🗂"} <span className="line short" />
+      </div>
+    </ComponentField>
+  );
+}
+
 function Details() {
   return (
     <Base>
