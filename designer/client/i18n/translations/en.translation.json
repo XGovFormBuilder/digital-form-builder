@@ -208,6 +208,32 @@
       "title": "Allow multiple file upload"
     }
   },
+  "clientSideFileUploadFieldEditPage": {
+    "maxFiles": {
+      "helpText": "Specify the maximum number of files users can upload",
+      "title": "Maximum file upload limit"
+    },
+    "parallelUploads": {
+      "helpText": "Specify the number of files users can upload in parallel",
+      "title": "Parallel file upload amount"
+    },
+    "maxFilesize": {
+      "helpText": "Specify the maximum file size",
+      "title": "Max file size"
+    },
+    "showNoScriptWarning": {
+      "helpText": "Tick this box if you want to display the warning for not having Javascript",
+      "title": "Show No Javascript Warning"
+    },
+    "minimumRequiredFiles": {
+      "helpText": "Specify the minimum number of files to be uploaded",
+      "title": "Minimum required files"
+    },
+    "acceptedFiles": {
+      "helpText": "Specify the accepted file formats e.g: image/jpeg,image/png,application/pdf,text/plain,application/msword...",
+      "title": "Accepted Files"
+    }
+  },
   "formDetails": {
     "alpha": "Alpha",
     "beta": "Beta",
