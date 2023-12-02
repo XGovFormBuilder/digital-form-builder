@@ -173,6 +173,15 @@ export const ComponentTypes: ComponentDef[] = [
     schema: {},
   },
   {
+    name: "ClientSideFileUploadField",
+    type: "ClientSideFileUploadField",
+    title: "Client side file upload field",
+    subType: "field",
+    hint: "",
+    options: {},
+    schema: {},
+  },
+  {
     name: "Para",
     type: "Para",
     title: "Paragraph",
