@@ -15,12 +15,13 @@ export function ClientSideFileUploadFieldEdit({ context = ComponentContext }) {
   }, [showNoScriptWarning]);
 
   return (
-    <details className="govuk-details">
-      <summary className="govuk-details__summary">
-        <span className="govuk-details__summary-text">
-          {i18n("common.detailsLink.title")}
-        </span>
-      </summary>
+    // <details className="govuk-details">
+    //   <summary className="govuk-details__summary">
+    //     <span className="govuk-details__summary-text">
+    //       {i18n("common.detailsLink.title")}
+    //     </span>
+    //   </summary>
+    <div>
       <div className="govuk-form-group">
         <label
           className="govuk-label govuk-label--s"
@@ -205,6 +206,7 @@ export function ClientSideFileUploadFieldEdit({ context = ComponentContext }) {
           </span>
         </div>
       </div>
-    </details>
+    </div>
+    // </details>
   );
 }
