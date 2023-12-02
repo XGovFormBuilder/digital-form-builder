@@ -174,7 +174,7 @@
                     "options": {
                         "required": false
                     },
-                    "type": "DateTimePartsField",
+                    "type": "DatePartsField",
                     "title": "Date of Death",
                     "hint": "If the case has died, please enter the date of death",
                     "schema": {}
@@ -497,12 +497,12 @@
             ],
             "next": [
                 {
-                    "path": "/exposure-contact-one"
+                    "path": "/exposure-contact-one",
+                    "condition": "moreThanZeroExposureContact"
                 },
                 {
-                    "path": "/exposure-locations",
-                    "condition": "IiIKVg"
-                }
+                    "path": "/exposure-locations"
+                }            
             ]
         },
         {
@@ -872,11 +872,11 @@
             ],
             "next": [
                 {
-                    "path": "/exposure-location-one"
+                    "path": "/exposure-location-one",
+                    "condition": "moreThanZeroExposureLocation"
                 },
                 {
-                    "path": "/exposure-animal-contact",
-                    "condition": "avTpEZ"
+                    "path": "/exposure-animal-contact"
                 }
             ]
         },
@@ -1684,11 +1684,11 @@
             ],
             "next": [
                 {
-                    "path": "/medical-history",
-                    "condition": "nZAkgT"
+                    "path": "/medical-history"
                 },
                 {
-                    "path": "/treatment-antiviral-one"
+                    "path": "/treatment-antiviral-one",
+                    "condition": "moreThanZeroOtherAntiviral"
                 }
             ]
         },
@@ -2204,12 +2204,12 @@
             ],
             "next": [
                 {
-                    "path": "/summary-of-submission"
+                    "path": "/summary"
                 }
             ]
         },
         {
-            "path": "/summary-of-submission",
+            "path": "/summary",
             "title": "Summary of Submission",
             "components": [],
             "next": [],
@@ -2595,28 +2595,6 @@
     ],
     "conditions": [
         {
-            "displayName": "GSQ1:Yes",
-            "name": "JfZvXc",
-            "value": {
-                "name": "GSQ1:Yes",
-                "conditions": [
-                    {
-                        "field": {
-                            "name": "GSQ1",
-                            "type": "YesNoField",
-                            "display": "Are you completing this form on behalf of someone else"
-                        },
-                        "operator": "is",
-                        "value": {
-                            "type": "Value",
-                            "value": "true",
-                            "display": "true"
-                        }
-                    }
-                ]
-            }
-        },
-        {
             "displayName": "P2Q1:Yes",
             "name": "JfZvYc",
             "value": {
@@ -2749,6 +2727,11 @@
             }
         },
         {
+            "name": "moreThanZeroExposureContact",
+            "displayName": "moreThanZeroExposureContact",
+            "value": "exposures.P4Q11 > 0"
+        },
+        {
             "name": "moreThanOneExposureContact",
             "displayName": "moreThanOneExposureContact",
             "value": "exposures.P4Q11 > 1"
@@ -2769,6 +2752,11 @@
             "value": "exposures.P4Q11 > 4"
         },
         {
+            "name": "moreThanZeroExposureLocation",
+            "displayName": "moreThanZeroExposureLocation",
+            "value": "exposureLocations.P6Q2 > 0"
+        },
+        {
             "name": "moreThanOneExposureLocation",
             "displayName": "moreThanOneExposureLocation",
             "value": "exposureLocations.P6Q2 > 1"
@@ -2787,6 +2775,11 @@
             "name": "moreThanFourExposureLocations",
             "displayName": "moreThanFourExposureLocations",
             "value": "exposureLocations.P6Q2 > 4"
+        },
+        {
+            "name": "moreThanZeroOtherAntiviral",
+            "displayName": "moreThanZeroOtherAntiviral",
+            "value": "treatment.P12Q8 > 0"
         },
         {
             "name": "moreThanOneOtherAntiviral",
