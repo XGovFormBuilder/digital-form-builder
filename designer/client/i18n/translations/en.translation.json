@@ -153,6 +153,8 @@
     "AutocompleteField_info": "Sets a list of values to suggest to users as they complete this field",
     "CheckboxesField": "Checkboxes",
     "CheckboxesField_info": "A list for users to select multiple answers",
+    "ClientSideFileUploadField": "Client side file upload",
+    "ClientSideFileUploadField_info": "Allows users to upload files from the device they are using",
     "DateField": "Date",
     "DateField_info": "A calendar for users to specify a date",
     "DatePartsField": "Date parts",
