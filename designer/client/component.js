@@ -26,6 +26,7 @@ export const componentTypes = {
   YesNoField: YesNoField,
   UkAddressField,
   FileUploadField,
+  ClientSideFileUploadField,
   Para,
   Details,
   Html,

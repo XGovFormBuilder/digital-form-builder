@@ -12,7 +12,7 @@ import { NumberFieldEdit } from "./components/FieldEditors/number-field-edit";
 import { DateFieldEdit } from "./components/FieldEditors/date-field-edit";
 import { ParaEdit } from "./components/FieldEditors/para-edit";
 import DetailsEdit from "./components/FieldEditors/details-edit";
-import { ClientSideFileUploadFieldEdit } from "./client-side-upload-field.-edit";
+import { ClientSideFileUploadFieldEdit } from "./client-side-upload-field-edit";
 
 const componentTypeEditors = {
   TextField: TextFieldEdit,
