@@ -23,23 +23,23 @@
         titleText: "Application complete",
         html: tmpl
       }) }}
-
-      <h2 class="govuk-heading-m">What happens next</h2>
       {% if paymentSkipped %}
         <p class="govuk-body">
           Someone will be in touch to make a payment.
         </p>
-        {% else %}
+      {% else %}
         <p class="govuk-body">
           You will receive an email with details with the next steps.
         </p>
+      {% endif %}
+      {% if components.length > 0 %}
+      <h2 class="govuk-heading-m">What happens next</h2>
       {% endif %}
     {% else %}
       {{ govukPanel({
         titleText: customText.title,
         html: tmpl
       }) }}
-      <h2 class="govuk-heading-m">What happens next</h2>
       {% if paymentSkipped and customText.paymentSkipped %}
         <p class="govuk-body">
           {{ customText.paymentSkipped }}
@@ -50,6 +50,9 @@
             {{ customText.nextSteps }}
           </p>
         {% endif %}
+      {% endif %}
+      {% if components.length > 0 %}
+        <h2 class="govuk-heading-m">What happens next</h2>
       {% endif %}
     {% endif %}
 
