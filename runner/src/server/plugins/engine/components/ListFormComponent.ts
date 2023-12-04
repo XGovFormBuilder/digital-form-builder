@@ -28,14 +28,13 @@ export class ListFormComponent extends FormComponent {
     this.listType = this.list.type ?? "string";
     this.options = def.options;
 
-    /**
-     * Only allow a user to answer with values that have been defined in the list
-     /**
-     * Only allow a user to answer with values that have been defined in the list
-     */
     let schema = joi[this.listType]();
 
+    /**
+     * Only allow a user to answer with values that have been defined in the list
+     */
     if (def.options.required === false) {
+      // null or empty string is valid for optional fields
       schema = schema.empty(null).valid(...this.values, "");
     } else {
       schema = schema.valid(...this.values).required();
