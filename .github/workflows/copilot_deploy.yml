@@ -20,7 +20,7 @@ on:
           - dev
           - test
           - uat
-          - production
+          - prod
 
 env:
   DOCKER_REGISTRY: ghcr.io
@@ -78,7 +78,8 @@ jobs:
             COMMIT_SHA=:${{ github.sha }}
             BASE_IMAGE_TAG=${{ inputs.dluhc-runner-version }}
 
-  copilot_env_deploy:
+  individual_deploy:
+    if: inputs.environment != ''
     concurrency:
       group: "fsd-preaward-copilot-individual"
       cancel-in-progress: false
@@ -135,3 +136,239 @@ jobs:
         id: deploy_build
         run: |
           copilot svc deploy --env ${{ matrix.value }} --app pre-award
+
+  dev_deploy:
+    if: inputs.environment == ''
+    concurrency:
+      group: "fsd-preaward-copilot-dev"
+      cancel-in-progress: false
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
+    needs: [copilot_environments_workflow_setup, docker-build]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      max-parallel: 1
+      matrix:
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix) }}
+      fail-fast: false
+    environment: dev
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        shell: bash
+        id: currentdatetime
+        run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
+          role-session-name: FORMRUNNER_DEV_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
+          aws-region: eu-west-2
+
+      - name: Install AWS Copilot CLI
+        shell: bash
+        run: |
+          curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
+
+      - name: confirm copilot env
+        shell: bash
+        run: |
+          if [ $(copilot env ls) != "dev" ]; then
+            echo $(copilot env ls)
+            exit 1
+          fi
+
+      - name: Inject Git SHA into manifest
+        run: |
+          yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Inject replacement image into manifest
+        run: |
+          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Copilot dev deploy
+        id: deploy_build
+        run: |
+          copilot svc deploy --env dev --app pre-award
+
+  test_deploy:
+    if: inputs.environment == ''
+    concurrency:
+      group: "fsd-preaward-copilot-test"
+      cancel-in-progress: false
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
+    needs: [copilot_environments_workflow_setup, docker-build, dev_deploy]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      max-parallel: 1
+      matrix:
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix) }}
+      fail-fast: false
+    environment: test
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        shell: bash
+        id: currentdatetime
+        run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
+          role-session-name: FORMRUNNER_TEST_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
+          aws-region: eu-west-2
+
+      - name: Install AWS Copilot CLI
+        shell: bash
+        run: |
+          curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
+
+      - name: confirm copilot env
+        shell: bash
+        run: |
+          if [ $(copilot env ls) != "test" ]; then
+            echo $(copilot env ls)
+            exit 1
+          fi
+
+      - name: Inject Git SHA into manifest
+        run: |
+          yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Inject replacement image into manifest
+        run: |
+          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Copilot test deploy
+        id: deploy_build
+        run: |
+          copilot svc deploy --env test --app pre-award
+
+  uat_deploy:
+    if: inputs.environment == ''
+    concurrency:
+      group: "fsd-preaward-copilot-uat"
+      cancel-in-progress: false
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
+    needs: [copilot_environments_workflow_setup, docker-build, test_deploy]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      max-parallel: 1
+      matrix:
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix) }}
+      fail-fast: false
+    environment: uat
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        shell: bash
+        id: currentdatetime
+        run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
+          role-session-name: FORMRUNNER_UAT_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
+          aws-region: eu-west-2
+
+      - name: Install AWS Copilot CLI
+        shell: bash
+        run: |
+          curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
+
+      - name: confirm copilot env
+        shell: bash
+        run: |
+          if [ $(copilot env ls) != "uat" ]; then
+            echo $(copilot env ls)
+            exit 1
+          fi
+
+      - name: Inject Git SHA into manifest
+        run: |
+          yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Inject replacement image into manifest
+        run: |
+          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Copilot uat deploy
+        id: deploy_build
+        run: |
+          copilot svc deploy --env uat --app pre-award
+
+  prod_deploy:
+    if: inputs.environment == ''
+    concurrency:
+      group: "fsd-preaward-copilot-prod"
+      cancel-in-progress: false
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read # This is required for actions/checkout
+    needs: [copilot_environments_workflow_setup, docker-build, uat_deploy]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      max-parallel: 1
+      matrix:
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix) }}
+      fail-fast: false
+    environment: prod
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        shell: bash
+        id: currentdatetime
+        run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
+          role-session-name: FORMRUNNER_PROD_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
+          aws-region: eu-west-2
+
+      - name: Install AWS Copilot CLI
+        shell: bash
+        run: |
+          curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
+
+      - name: confirm copilot env
+        shell: bash
+        run: |
+          if [ $(copilot env ls) != "prod" ]; then
+            echo $(copilot env ls)
+            exit 1
+          fi
+
+      - name: Inject Git SHA into manifest
+        run: |
+          yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Inject replacement image into manifest
+        run: |
+          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+
+      - name: Copilot prod deploy
+        id: deploy_build
+        run: |
+          copilot svc deploy --env prod --app pre-award
