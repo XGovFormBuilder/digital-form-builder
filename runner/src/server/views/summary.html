@@ -105,12 +105,9 @@
           {% endif %}
           <button
             data-prevent-double-click="true"
-            {%
-            if
-            result.error
-            %}disabled{%
-            endif
-            %}
+            {% if result.error %}
+              disabled
+            {% endif %}
             class="govuk-button"
             data-module="govuk-button"
           >
@@ -131,16 +128,21 @@
         <script>
           document.addEventListener("DOMContentLoaded", (event) => {
             const button = document.querySelector(".govuk-button");
-        
+
             button.addEventListener("click", function (e) {
               this.style.opacity = "0.5";
               this.style.cursor = "not-allowed";
               this.innerHTML = "Submitting...";
-        
-              // Disable the button to prevent further clicks
-              this.disabled = true;
-        
-              e.preventDefault();
+          
+              // Prevent further clicks
+              this.addEventListener(
+                "click",
+                function (e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                },
+                { once: true }
+              );
             });
           });
         </script>
