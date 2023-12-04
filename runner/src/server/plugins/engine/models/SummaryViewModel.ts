@@ -67,7 +67,6 @@ export class SummaryViewModel {
   ) {
     this.pageTitle = pageTitle;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
-    const details = this.summaryDetails(request, model, state, relevantPages);
     const { def } = model;
     // @ts-ignore
     this.declaration = def.declaration;
@@ -82,6 +81,12 @@ export class SummaryViewModel {
 
     const schema = model.makeFilteredSchema(state, relevantPages);
     const collatedRepeatPagesState = gatherRepeatPages(state);
+    const details = this.summaryDetails(
+      request,
+      model,
+      collatedRepeatPagesState,
+      relevantPages
+    );
 
     const result = schema.validate(collatedRepeatPagesState, {
       abortEarly: false,
@@ -375,21 +380,44 @@ export class SummaryViewModel {
   }
 }
 
-function gatherRepeatPages(state) {
-  if (!!Object.values(state).find((section) => Array.isArray(section))) {
+function toSingleObject(acc, curr) {
+  return {
+    ...acc,
+    ...curr,
+  };
+}
+function withoutPageKeys(repeatedSection) {
+  return Object.values(repeatedSection).reduce(toSingleObject, {});
+}
+
+function toStateWithRemovedPageKeys(acc, curr) {
+  const [key, repeatedSection] = curr;
+
+  return {
+    ...acc,
+    [key]: repeatedSection.map(withoutPageKeys),
+  };
+}
+
+export function gatherRepeatPages(state) {
+  const { progress, ...stateWithoutProgress } = clone(state);
+  const entries = Object.entries(stateWithoutProgress);
+  const repeatSections = entries.filter(([_key, section]) =>
+    Array.isArray(section)
+  );
+
+  if (!repeatSections) {
     return state;
   }
-  const clonedState = clone(state);
-  Object.entries(state).forEach(([key, section]) => {
-    if (key === "progress") {
-      return;
-    }
-    if (Array.isArray(section)) {
-      clonedState[key] = section.map((pages) =>
-        Object.values(pages).reduce((acc: {}, p: any) => ({ ...acc, ...p }), {})
-      );
-    }
-  });
+
+  const repeatSectionStateWithoutPageKeys = repeatSections.reduce(
+    toStateWithRemovedPageKeys,
+    {}
+  );
+  return {
+    ...state,
+    ...repeatSectionStateWithoutPageKeys,
+  };
 }
 
 /**

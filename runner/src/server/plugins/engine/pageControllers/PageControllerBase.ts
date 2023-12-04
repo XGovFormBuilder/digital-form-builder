@@ -198,7 +198,7 @@ export class PageControllerBase {
       );
       const sectionState = state[this.section.name] || {};
       if (
-        Object.keys(sectionState[sectionState.length - 1]).length ===
+        Object.keys(sectionState[sectionState.length - 1] ?? []).length ===
         otherRepeatPagesInSection.length
       ) {
         // iterated all pages at least once
@@ -371,6 +371,8 @@ export class PageControllerBase {
 
     //While the current page isn't null
     while (nextPage != null) {
+      if (nextPage.repeatField) {
+      }
       //Either get the current state or the current state of the section if this page belongs to a section
       const currentState =
         (nextPage.section ? state[nextPage.section.name] : state) ?? {};
@@ -653,7 +655,7 @@ export class PageControllerBase {
         savedState
       );
 
-      return this.proceed(request, h, relevantState);
+      return this.proceed(request, h, savedState);
     };
   }
 
