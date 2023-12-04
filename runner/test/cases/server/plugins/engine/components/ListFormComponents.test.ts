@@ -34,9 +34,10 @@ let formModel = {
   getList: () => lists[0],
   makePage: () => sinon.stub(),
 };
-let component;
 
 suite("ListFormComponent", () => {
+  let component;
+
   beforeEach(() => {
     component = new ListFormComponent(componentDefinition, formModel);
   });
@@ -62,8 +63,8 @@ suite("ListFormComponent", () => {
   });
 });
 
-describe("ListFormComponent validation", () => {
-  component = new ListFormComponent(
+describe("ListFormComponent optional validation", () => {
+  const optionalComponent = new ListFormComponent(
     {
       ...componentDefinition,
       options: {
@@ -74,7 +75,7 @@ describe("ListFormComponent validation", () => {
   );
 
   it("schema validates correctly when the field is optional", () => {
-    const schema = component.formSchema;
+    const schema = optionalComponent.formSchema;
 
     expect(schema.validate("1").error).to.not.exist();
     expect(schema.validate("2").error).to.not.exist();
