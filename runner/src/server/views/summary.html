@@ -105,12 +105,9 @@
           {% endif %}
           <button
             data-prevent-double-click="true"
-            {%
-          if
-            result.error
-            %}disabled{%
-            endif
-            %}
+            {% if result.error %}
+              disabled
+            {% endif %}
             class="govuk-button"
             data-module="govuk-button"
           >
