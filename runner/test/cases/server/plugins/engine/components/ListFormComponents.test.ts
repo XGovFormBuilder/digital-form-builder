@@ -62,7 +62,7 @@ suite("ListFormComponent", () => {
   });
 });
 
-describe.only("ListFormComponent validation", () => {
+describe("ListFormComponent validation", () => {
   component = new ListFormComponent(
     {
       ...componentDefinition,
