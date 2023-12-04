@@ -50,91 +50,19 @@ https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/support
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
 
-  <!-- Google analytics -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"
-  ></script>
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "G-2275Q7ENJW");
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-2275Q7ENJW');
   </script>
 
-  {% if gtmId1 %}
-  <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-        "gtm.start": new Date().getTime(),
-        event: "gtm.js",
-      });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "{{ gtmId1 }}");
-  </script>
-  <!-- End Google Tag Manager -->
-  {% endif %} {% if gtmId2 %}
-  <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({
-        "gtm.start": new Date().getTime(),
-        event: "gtm.js",
-      });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "{{ gtmId2 }}");
-  </script>
-  <!-- End Google Tag Manager -->
-  {% endif %}
 
-  <!-- Matomo -->
-  {% if matomoUrl and matomoId %}
-  <script type="text/javascript">
-    var _paq = window._paq || [];
-    _paq.push(["disableCookies"]);
-    _paq.push(["trackPageView"]);
-    _paq.push(["enableLinkTracking"]);
-    (function () {
-      var u = "{{ matomoUrl }}/piwik/";
-      _paq.push(["setTrackerUrl", u + "piwik.php"]);
-      _paq.push(["setSiteId", "{{ matomoId }}"]);
-      var d = document,
-        g = d.createElement("script"),
-        s = d.getElementsByTagName("script")[0];
-      g.type = "text/javascript";
-      g.async = true;
-      g.defer = true;
-      g.src = u + "piwik.js";
-      s.parentNode.insertBefore(g, s);
-    })();
-  </script>
-  <noscript>
-    <p>
-      <img
-        src="{{ matomoUrl }}/piwik/piwik.php?idsite={{ matomoId }}&amp;rec=1"
-        style="border: 0"
-        alt=""
-      />
-    </p>
-  </noscript>
-  {% endif %}
-  <!-- End Matomo Code -->
+  
 
   <script src="{{ assetPath }}/accessible-autocomplete.min.js"></script>
   {% endblock %} {% block pageTitle %}
