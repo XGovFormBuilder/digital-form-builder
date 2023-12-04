@@ -153,6 +153,8 @@
     "AutocompleteField_info": "Sets a list of values to suggest to users as they complete this field",
     "CheckboxesField": "Checkboxes",
     "CheckboxesField_info": "A list for users to select multiple answers",
+    "ClientSideFileUploadField": "Client side file upload",
+    "ClientSideFileUploadField_info": "Allows users to upload files from the device they are using",
     "DateField": "Date",
     "DateField_info": "A calendar for users to specify a date",
     "DatePartsField": "Date parts",
@@ -206,6 +208,32 @@
     "multipleFilesOption": {
       "helpText": "Tick this box to enable users to upload multiple files",
       "title": "Allow multiple file upload"
+    }
+  },
+  "clientSideFileUploadFieldEditPage": {
+    "maxFiles": {
+      "helpText": "Specify the maximum number of files users can upload",
+      "title": "Maximum file upload limit"
+    },
+    "parallelUploads": {
+      "helpText": "Specify the number of files users can upload in parallel",
+      "title": "Parallel file upload amount"
+    },
+    "maxFilesize": {
+      "helpText": "Specify the maximum file size",
+      "title": "Max file size"
+    },
+    "showNoScriptWarning": {
+      "helpText": "Tick this box if you want to display the warning for not having Javascript",
+      "title": "Show No Javascript Warning"
+    },
+    "minimumRequiredFiles": {
+      "helpText": "Specify the minimum number of files to be uploaded",
+      "title": "Minimum required files"
+    },
+    "acceptedFiles": {
+      "helpText": "Specify the accepted file formats e.g: image/jpeg,image/png,application/pdf,text/plain,application/msword...",
+      "title": "Accepted Files"
     }
   },
   "formDetails": {

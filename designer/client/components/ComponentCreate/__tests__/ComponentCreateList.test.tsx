@@ -86,6 +86,7 @@ suite("ComponentCreateList", () => {
 
     expect(listItems).to.equal([
       "Autocomplete",
+      "Client side file upload",
       "Date",
       "Date parts",
       "Date time",

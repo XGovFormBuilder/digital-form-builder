@@ -242,12 +242,12 @@ export interface ClientSideFileUploadFieldComponent {
   title: string;
   hint: string;
   options: {
-    dropzoneConfig: object;
-    showNoScriptWarning: boolean;
-    minimumRequiredFiles: number;
-    totalOverallFilesize: number;
-    required: boolean; // these values are set dynamically based on
-    optionalText: boolean; // minimumRequiredFiles being > 0
+    dropzoneConfig?: object;
+    showNoScriptWarning?: boolean;
+    minimumRequiredFiles?: number;
+    totalOverallFilesize?: number;
+    required?: boolean; // these values are set dynamically based on
+    optionalText?: boolean; // minimumRequiredFiles being > 0
   };
   schema: {};
 }
