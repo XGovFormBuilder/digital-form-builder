@@ -1,5 +1,6 @@
 {% from "error-summary/macro.njk" import govukErrorSummary %}
 {% from "partials/components.html" import componentList %}
+{% from "partials/migration-banner.html" import migrationBanner %}
 
 {% extends 'layout.html' %}
 {% block content %}
@@ -9,6 +10,10 @@
     <div class="govuk-grid-column-{{gridSize}}">
       {% if errors %}
         {{ govukErrorSummary(errors) }}
+      {% endif %}
+
+      {% if migrationBannerEnabled %}
+        {{migrationBanner()}}
       {% endif %}
 
       {% include "partials/heading.html" %}

@@ -1,4 +1,5 @@
 {% from "partials/summary-detail.html" import summaryDetail %}
+{% from "partials/migration-banner.html" import migrationBanner %}
 {% from "components/checkboxes/macro.njk" import govukCheckboxes %}
 {% extends 'layout.html' %}
 
@@ -14,6 +15,9 @@
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
+        {% if migrationBannerEnabled %}
+          {{migrationBanner()}}
+        {% endif %}
         <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
         {% if callback and callback.message %}
         <div class="govuk-inset-text">

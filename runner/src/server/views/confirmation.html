@@ -3,6 +3,7 @@
 {% from "panel/macro.njk" import govukPanel %}
 {% extends 'layout.html' %}
 {% from "partials/components.html" import componentList %}
+{% from "partials/migration-banner.html" import migrationBanner %}
 
 {% block beforeContent %}
   {{ govukPhaseBanner({
@@ -17,6 +18,9 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      {% if migrationBannerEnabled %}
+        {{migrationBanner()}}
+      {% endif %}
     {% set tmpl = 'Your reference number<br><strong>' + reference + '</strong>' if reference else '' %}
     {% if not customText %}
       {{ govukPanel({

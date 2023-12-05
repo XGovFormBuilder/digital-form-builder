@@ -81,6 +81,7 @@ export default {
       cookiePolicyUrl: config.cookiePolicyUrl,
       accessibilityStatementUrl: config.accessibilityStatementUrl,
       phaseTag: config.phaseTag,
+      migrationBannerEnabled: config.migrationBannerEnabled,
       navigation: request?.auth.isAuthenticated
         ? [
             { text: "View all applications", href: config.multifundDashboard },
