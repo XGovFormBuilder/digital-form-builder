@@ -32,7 +32,7 @@
           "name": "oXGwlA",
           "options": {},
           "type": "RadiosField",
-          "title": "Asset type",
+          "title": "Math o ased",
           "hint": "Dewiswch sut mae'r eiddo yn cael ei ddefnyddio yn bennaf. Er enghraifft, os yw'n theatr sydd â chaffi hefyd, dewiswch 'Theatr'",
           "list": "jWXaBR"
         }
@@ -462,7 +462,7 @@
           "name": "mZwrmI",
           "options": {},
           "type": "YesNoField",
-          "title": "Are there assets or services of a similar type available locally?"
+          "title": "Oes mathau tebyg o asedau neu wasanaethau ar gael yn lleol?"
         }
       ],
       "next": [
