@@ -1,0 +1,7 @@
+{% from "notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% macro migrationBanner() %}
+    {{ govukNotificationBanner({
+        'html': '<p class="govuk-body" style="max-width: none;">You will be unable to access your funding applications or start new applications on the 18th December 2023 between 10:00am and 3:00pm. This is due to essential maintenance.</p>'
+    })}}
+{% endmacro %}
