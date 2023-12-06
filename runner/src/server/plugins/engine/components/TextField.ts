@@ -42,9 +42,9 @@ export class TextField extends FormComponent {
     }
 
     if (options.customValidationMessage) {
-      componentSchema = componentSchema.messages({
-        any: options.customValidationMessage,
-      });
+      componentSchema = componentSchema.message(
+        options.customValidationMessage
+      );
     }
 
     this.formSchema = componentSchema;
