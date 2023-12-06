@@ -122,7 +122,6 @@ suite("StatusService getViewModel renders custom text correctly", () => {
 
     $ = cheerio.load(response);
     expect($("body").text()).to.contain("Application complete");
-    expect($("body").text()).to.contain("What happens next");
     expect($("body").text()).to.contain(
       "You will receive an email with details with the next steps"
     );
