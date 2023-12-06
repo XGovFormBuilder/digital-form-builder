@@ -105,7 +105,13 @@
           "name": "qQLyXL",
           "options": {
             "prefix": "£",
-            "columnTitles": ["Disgrifiad", "Swm", "Gweithred"],
+            "columnTitles": [
+              "Disgrifiad",
+              "Swm",
+              "Cyllid gan y grant COF",
+              "Cyfanswm yr arian cyfatebol",
+              "Gweithred"
+            ],
             "required": true
           },
           "type": "MultiInputField",

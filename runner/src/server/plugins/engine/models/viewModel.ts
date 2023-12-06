@@ -402,10 +402,15 @@ function Item(
   let componentLabel = component.localisedString(component.title);
 
   if (
-    component.options.required == false &&
-    !componentLabel.toLowerCase().endsWith("(optional)")
+    component.options.required === false &&
+    !componentLabel.toLowerCase().endsWith("(optional)") &&
+    !componentLabel.toLowerCase().endsWith("(dewisol)")
   ) {
-    componentLabel += " (optional)";
+    if (model?.def?.metadata?.isWelsh) {
+      componentLabel += " (dewisol)";
+    } else {
+      componentLabel += " (optional)";
+    }
   }
 
   return {
