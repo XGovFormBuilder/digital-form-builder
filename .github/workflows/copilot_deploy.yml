@@ -88,7 +88,6 @@ jobs:
       contents: read # This is required for actions/checkout
     needs: [copilot_environments_workflow_setup, docker-build]
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       max-parallel: 1
       matrix:
@@ -147,7 +146,6 @@ jobs:
       contents: read # This is required for actions/checkout
     needs: [copilot_environments_workflow_setup, docker-build]
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       max-parallel: 1
       matrix:
@@ -206,7 +204,6 @@ jobs:
       contents: read # This is required for actions/checkout
     needs: [copilot_environments_workflow_setup, docker-build, dev_deploy]
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       max-parallel: 1
       matrix:
@@ -265,7 +262,6 @@ jobs:
       contents: read # This is required for actions/checkout
     needs: [copilot_environments_workflow_setup, docker-build, test_deploy]
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       max-parallel: 1
       matrix:
@@ -324,7 +320,6 @@ jobs:
       contents: read # This is required for actions/checkout
     needs: [copilot_environments_workflow_setup, docker-build, uat_deploy]
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       max-parallel: 1
       matrix:
