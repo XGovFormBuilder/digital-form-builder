@@ -6,7 +6,7 @@ import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 import joi, { Schema } from "joi";
 
-const PATTERN = /^[0-9\\\s+()-]*$/;
+const PATTERN = /^((\+\d{2})|(0)) ?\d{4} ?\d{6}$/;
 const DEFAULT_MESSAGE = "Enter a telephone number in the correct format";
 export class TelephoneNumberField extends FormComponent {
   constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
