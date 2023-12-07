@@ -66,7 +66,5 @@ RUN yarn runner build
 COPY --chown=appuser:appuser runner/boot-script.mjs runner/
 USER 1001
 EXPOSE 3009
-
-
 # CMD [ "bash", "-c", "node runner/boot-script.mjs 'yarn runner start'" ]
 CMD [ "yarn", "runner", "start" ]
