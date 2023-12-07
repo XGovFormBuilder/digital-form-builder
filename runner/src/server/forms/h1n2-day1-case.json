@@ -186,7 +186,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of Death",
-          "hint": "If the case has died, please enter the date of death",
+          "hint": "If the case has died, please enter the date of death. If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P3Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -212,6 +221,16 @@
           "options": {},
           "type": "DatePartsField",
           "title": "Sample Date of Positive Test",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P3Q5-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -244,6 +263,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of Birth",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P3Q9-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -920,6 +949,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L1Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -929,6 +968,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L1Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -982,6 +1031,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L2Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -991,6 +1050,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L2Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1044,6 +1113,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L3Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1053,6 +1132,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L3Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1106,6 +1195,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L4Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1115,6 +1214,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L4Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1168,6 +1277,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L5Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1177,6 +1296,16 @@
           },
           "type": "DatePartsField",
           "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L5Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1293,6 +1422,16 @@
           "options": {},
           "type": "DatePartsField",
           "title": "What date did the case first experience any symptoms",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P10Q1-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1312,6 +1451,15 @@
           "schema": {}
         },
         {
+          "name": "P10Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
           "name": "P10Q4",
           "type": "SelectField",
           "title": "Runny nose",
@@ -1325,6 +1473,15 @@
           },
           "type": "DatePartsField",
           "title": "If yes, when did that symptom start",
+          "schema": {}
+        },
+        {
+          "name": "P10Q5-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1354,6 +1511,15 @@
           "schema": {}
         },
         {
+          "name": "P10Q8-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
           "name": "P10Q9",
           "type": "SelectField",
           "title": "Shortness of breath",
@@ -1367,6 +1533,15 @@
           },
           "type": "DatePartsField",
           "title": "If yes, when did that symptom start",
+          "schema": {}
+        },
+        {
+          "name": "P10Q10-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1386,6 +1561,15 @@
           "schema": {}
         },
         {
+          "name": "P10Q12-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
           "name": "P10Q13",
           "type": "SelectField",
           "title": "Sore throat",
@@ -1399,6 +1583,15 @@
           },
           "type": "DatePartsField",
           "title": "If yes, when did that symptom start",
+          "schema": {}
+        },
+        {
+          "name": "P10Q14-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1487,6 +1680,15 @@
           "type": "DatePartsField",
           "title": "If no, when did they recover",
           "schema": {}
+        },
+        {
+          "name": "P10Q25-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
         }
       ],
       "next": [
@@ -1554,6 +1756,15 @@
           "schema": {}
         },
         {
+          "name": "P11Q7-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
           "name": "P11Q8",
           "options": {
             "required": false
@@ -1577,6 +1788,15 @@
           },
           "type": "DatePartsField",
           "title": "If no, what date were they discharged",
+          "schema": {}
+        },
+        {
+          "name": "P11Q10-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -1613,6 +1833,15 @@
           },
           "type": "DatePartsField",
           "title": "If yes, what was the date of their admission",
+          "schema": {}
+        },
+        {
+          "name": "P11Q14-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
@@ -2204,6 +2433,15 @@
           "type": "DatePartsField",
           "title": "If yes, what date was the vaccination",
           "hint": "If the exact day of vaccine not known please use 15th of month and select yes below to indicate this is an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P17Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
           "schema": {}
         },
         {
