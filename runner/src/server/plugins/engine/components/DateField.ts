@@ -22,12 +22,12 @@ export class DateField extends FormComponent {
     const { maxDaysInPast, maxDaysInFuture } = options;
 
     // Note: toString fixes the bug where a '0' days in future resolves to 'false' here
-    if (maxDaysInPast?.toString()) {
+    if (maxDaysInPast ?? false) {
       schema = schema.min(sub(new Date(), { days: maxDaysInPast }));
     }
 
     // Note: toString fixes the bug where a '0' days in future resolves to 'false' here
-    if (maxDaysInFuture?.toString()) {
+    if (maxDaysInFuture ?? false) {
       schema = schema.max(add(new Date(), { days: maxDaysInFuture }));
     }
 

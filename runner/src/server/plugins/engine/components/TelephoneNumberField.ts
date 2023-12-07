@@ -6,7 +6,14 @@ import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 import joi, { Schema } from "joi";
 
-const PATTERN = /^((\+\d{2})|(0)) ?\d{4} ?\d{6}$/;
+/**
+ * ^((\+\d{0,4})|(0))[0-9\s()+]{0,20}$
+ * ((\+\d{0,4})|(0)) - Matches country code or start with 0
+ * [0-9\s()+]{0,20}$ - Allows for up to 20 characters of number, space, brackets or plus
+ *   This should cater for interntional numbers without being too specific
+ */
+
+const PATTERN = /^((\+\d{0,4})|(0))[0-9\s()+]{0,20}$/;
 const DEFAULT_MESSAGE = "Enter a telephone number in the correct format";
 export class TelephoneNumberField extends FormComponent {
   constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
