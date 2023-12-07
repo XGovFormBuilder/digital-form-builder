@@ -22,15 +22,15 @@ image:
 
 # Valid values: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-cpu-memory-error.html
 # Number of CPU units for the task.
-cpu: 512
+cpu: 1024
 # Amount of memory in MiB used by the task.
-memory: 1024
+memory: 2048
 
 # See https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#platform
 platform: linux/x86_64
 
 # Number of tasks that should be running in your service.
-count: 1
+count: 2
 
 # Enable running commands in your container.
 exec: true
