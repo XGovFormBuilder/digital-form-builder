@@ -10,6 +10,7 @@ import joi from "joi";
 
 export class DateField extends FormComponent {
   dataType = "date" as DataType;
+
   constructor(def: DateFieldComponent, model: FormModel) {
     super(def, model);
     addClassOptionIfNone(this.options, "govuk-input--width-10");
@@ -20,11 +21,13 @@ export class DateField extends FormComponent {
     schema = schema.label(def.title);
     const { maxDaysInPast, maxDaysInFuture } = options;
 
-    if (maxDaysInPast ?? false) {
+    // Note: toString fixes the bug where a '0' days in future resolves to 'false' here
+    if (maxDaysInPast?.toString()) {
       schema = schema.min(sub(new Date(), { days: maxDaysInPast }));
     }
 
-    if (maxDaysInFuture ?? false) {
+    // Note: toString fixes the bug where a '0' days in future resolves to 'false' here
+    if (maxDaysInFuture?.toString()) {
       schema = schema.max(add(new Date(), { days: maxDaysInFuture }));
     }
 
