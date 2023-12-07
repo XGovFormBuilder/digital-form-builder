@@ -52,7 +52,6 @@ ARG LAST_COMMIT=""
 ARG LAST_TAG=""
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
-ENV NODE_ENV=./runner/config/runtime.json
 COPY --chown=appuser:appuser ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
 RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner \
     yarn workspaces focus @xgovformbuilder/runner
