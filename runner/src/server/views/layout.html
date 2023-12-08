@@ -51,16 +51,6 @@
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
 
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-2275Q7ENJW');
-  </script>
   <script src="{{ assetPath }}/accessible-autocomplete.min.js"></script>
   {% endblock %} 
 
@@ -88,6 +78,16 @@
   {% endblock %} 
 
   {% block bodyStart %} 
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-2275Q7ENJW');
+  </script>
+
     {% if not cookiesPolicy.isSet %} 
       {% include "partials/cookie-banner.html" %} 
     {% endif %} 
@@ -144,7 +144,7 @@
   {% block content %}
     <h1 class="govuk-heading-l">Default page template</h1>
   {% endblock %} 
-  
+
   {% block bodyEnd %} 
   {% include "partials/modal-dialog.html" %}
   <script src="{{ assetPath }}/jquery-3.5.1.min.js"></script>
