@@ -203,7 +203,7 @@
           "options": {
             "required": false
           },
-          "type": "RadiosField",
+          "type": "SelectField",
           "title": "If the case has died, was Influenza AH1N2 a contribution to Death",
           "list": "contribution-to-death",
           "schema": {}
@@ -2443,13 +2443,6 @@
           "type": "YesNoField",
           "title": "Is this date an estimate",
           "schema": {}
-        },
-        {
-          "name": "P17Q3",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Is this date an estimate",
-          "schema": {}
         }
       ],
       "next": [
@@ -2687,6 +2680,10 @@
         {
           "text": "Unknown",
           "value": "unknown"
+        },
+        {
+          "text": "Other",
+          "value": "other"
         }
       ]
     },
@@ -2779,6 +2776,10 @@
         {
           "text": "3rd",
           "value": "3rd"
+        },
+        {
+          "text": "Not pregnant",
+          "value": "0"
         }
       ]
     },
@@ -2804,6 +2805,10 @@
           "value": "aowb"
         },
         {
+          "text": "Arab",
+          "value": "arab"
+        },
+        {
           "text": "Bangladeshi or British Bangladeshi",
           "value": "bobb"
         },
@@ -2822,6 +2827,10 @@
         {
           "text": "Chinese",
           "value": "ch"
+        },
+        {
+          "text": "Gypsy or Irish Traveller",
+          "value": "goit"
         },
         {
           "text": "Indian or British Indian",
