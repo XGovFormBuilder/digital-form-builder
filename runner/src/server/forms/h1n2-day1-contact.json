@@ -2737,7 +2737,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -2853,7 +2853,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -2969,7 +2969,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -3085,7 +3085,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -3201,7 +3201,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
           "hint": "If the precise day is not known, please enter 15th of the month",
           "schema": {}
         },
@@ -4082,7 +4082,7 @@
           "value": "unknown"
         },
         {
-          "text": "Other",
+          "text": "Yes, other",
           "value": "other"
         }
       ]
