@@ -317,7 +317,7 @@
     {
       "title": "CAZ Location",
       "name": "O2uEB1",
-      "type": "string",
+      "type": "number",
       "items": [
         {
           "text": "Bath",
