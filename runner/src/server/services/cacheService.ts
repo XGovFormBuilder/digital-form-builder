@@ -34,8 +34,8 @@ if (vcapServices) {
   if ("redis" in vcapJson) {
     redisUri = vcapJson.redis[0].credentials.uri;
   }
-} else if(process.env.REDIS_INSTANCE_URI) {
-  redisUri = process.env.REDIS_INSTANCE_URI
+} else if (process.env.FORM_RUNNER_REDIS_INSTANCE_URI) {
+  redisUri = process.env.FORM_RUNNER_REDIS_INSTANCE_URI;
 }
 
 export class CacheService {
