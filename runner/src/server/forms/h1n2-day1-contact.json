@@ -387,7 +387,7 @@
           "name": "P3Q27",
           "options": {},
           "type": "NumberField",
-          "title": "In the 10 days before symptom onset, or a positive test, how many times did you work or attend an educational setting outside the home (any occupation)",
+          "title": "In the last 10 days, how many times did the contact go to work or attend an educational setting outside the home (any occupation)",
           "schema": {}
         },
         {
@@ -437,7 +437,7 @@
           "name": "P4Q6",
           "options": {},
           "type": "SelectField",
-          "title": "Did the contact attend a mass gathering event in the 10 days before onset",
+          "title": "In the last 10 days, did the contact attend a mass gathering",
           "hint": "e.g. a festival",
           "list": "yes-no-unknown",
           "schema": {}
@@ -455,7 +455,7 @@
           "name": "P4Q8",
           "options": {},
           "type": "SelectField",
-          "title": "Did the contact attend a healthcare facility in the 10 days before your symptoms started",
+          "title": "In the last 10 days, did the contact attend a healthcare facility",
           "list": "healthcare-facility",
           "values": {
             "type": "listRef"
@@ -487,7 +487,7 @@
           "name": "P6Q1",
           "options": {},
           "type": "SelectField",
-          "title": "In the 10 days before before symptom onset or a positive test did the contact travel",
+          "title": "In the last 10 days, did the contact travel (inside or outside the UK)",
           "list": "yes-no-unknown",
           "schema": {},
           "values": {
@@ -2258,6 +2258,7 @@
           "options": {},
           "type": "SelectField",
           "title": "Has the contact experienced any fever or respiratory symptoms in the 14 days before symptom onset or date of test in the index contact",
+          "hint": "Reminder; please look back at the date for the index case and ask the contact about the 14 days before and after this date.",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -2266,6 +2267,7 @@
           "options": {},
           "type": "SelectField",
           "title": "Has the contact experienced any fever or respiratory symptoms in the 14 days after symptom onset or date of test in the index contact",
+          "hint": "Reminder; please look back at the date for the index case and ask the contact about the 14 days before and after this date.",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -2681,7 +2683,7 @@
     },
     {
       "path": "/hospital-admission-1",
-      "title": "Hospital Admission",
+      "title": "Hospital Admission 1",
       "components": [
         {
           "name": "P27Q1L1",
@@ -2735,7 +2737,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If you don't know your discharge date, how many days were you hospitalised for",
+          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -2851,7 +2853,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If you don't know your discharge date, how many days were you hospitalised for",
+          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -2967,7 +2969,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If you don't know your discharge date, how many days were you hospitalised for",
+          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -3083,7 +3085,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If you don't know your discharge date, how many days were you hospitalised for",
+          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -3199,7 +3201,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If you don't know your discharge date, how many days were you hospitalised for",
+          "title": "If the contact doesn't know thei discharge date, how many days were they hospitalised for",
           "hint": "If the precise day is not known, please enter 15th of the month",
           "schema": {}
         },
@@ -4078,6 +4080,10 @@
         {
           "text": "Unknown",
           "value": "unknown"
+        },
+        {
+          "text": "Other",
+          "value": "other"
         }
       ]
     },
@@ -4174,6 +4180,10 @@
         {
           "text": "3rd",
           "value": "3rd"
+        },
+        {
+          "text": "Not pregnant",
+          "value": "0"
         }
       ]
     },
@@ -4218,6 +4228,10 @@
           "value": "aowb"
         },
         {
+          "text": "Arab",
+          "value": "arab"
+        },
+        {
           "text": "Bangladeshi or British Bangladeshi",
           "value": "bobb"
         },
@@ -4236,6 +4250,10 @@
         {
           "text": "Chinese",
           "value": "ch"
+        },
+        {
+          "text": "Gypsy or Irish Traveller",
+          "value": "goit"
         },
         {
           "text": "Indian or British Indian",
@@ -4298,6 +4316,10 @@
         {
           "text": "FFP3 mask",
           "value": "ffp3-mask"
+        },
+        {
+          "text": "None",
+          "value": "none"
         }
       ]
     },
