@@ -3875,6 +3875,23 @@
       ],
       "next": [
         {
+          "path": "/summary-intro"
+        }
+      ]
+    },
+    {
+      "path": "/summary-intro",
+      "title": "Before You Finish",
+      "components": [
+        {
+          "name": "tiqFpB",
+          "options": {},
+          "type": "Para",
+          "content": "When you proceed on to the next screen you will see a summary of all your responses with an option to submit your report. Before you press submit, press CTRL+P and Save to PDF to save a record of questionnaires and answers."
+        }
+      ],
+      "next": [
+        {
           "path": "/summary"
         }
       ]
