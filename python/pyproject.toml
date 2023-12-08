@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "funding-service-design-digital-form-builder-tools"
+version = "0.0.2" # please follow semver.org if you can!
+authors = [
+  { name="DLUHC", email="FundingServiceDesignTeam@levellingup.gov.uk" },
+]
+description = "Python tools for our fork of the digital-form-builder"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[dependencies]
+beautifulsoup4 = "4.12.2"
+
+[tool.setuptools.packages.find]
+exclude = ["docs*", "tests*"]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/communitiesuk/digital-form-builder/issues"
+"Homepage" = "https://github.com/communitiesuk/digital-form-builder/"

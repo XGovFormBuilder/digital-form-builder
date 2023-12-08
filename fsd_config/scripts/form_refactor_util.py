@@ -5,9 +5,7 @@ from typing import Sequence
 
 #  TODO make changes to the designer so that we do not need to run this script on every form
 
-FORMS_DIR = (  # assumes being ran from root/scripts directory
-    "../form_jsons/public"
-)
+FORMS_DIR = "../form_jsons/public"  # assumes being ran from root/scripts directory
 # FORMS_DIR = "../../digital-form-builder/runner/src/server/forms"
 
 
@@ -19,6 +17,7 @@ FORMS_DIR = (  # assumes being ran from root/scripts directory
 # This script will update the form jsons to use this new functionality,
 # by adding a "hideTitle" property to the component options and moving
 # the title into the hint.
+
 
 # Doing so allows screen readers to read the label and hint together,
 # which is the desired behaviour. The title styling is still applied.
@@ -91,9 +90,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
             if original != mutated:
                 with open(file_path, "w") as json_file:
-                    json.dump(
-                        migrated_json, json_file, indent=2, ensure_ascii=False
-                    )
+                    json.dump(migrated_json, json_file, indent=2, ensure_ascii=False)
                     print(f"Updated {file_path}")
 
     return 0

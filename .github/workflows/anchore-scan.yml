@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - master
+    paths-ignore:
+      - "python/**"
 
 env:
   IMAGE_NAME_STUB: "digital-form-builder-dluhc-"

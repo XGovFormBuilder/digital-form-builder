@@ -3,13 +3,10 @@ from scripts import form_refactor_util
 
 #  TODO make changes to the designer so that we do not need to run this script on every form
 
-@pytest.mark.parametrize(
-    "mutation_key", list(form_refactor_util._MUTATIONS.keys())
-)
+
+@pytest.mark.parametrize("mutation_key", list(form_refactor_util._MUTATIONS.keys()))
 def test_mutation_function(mutation_key, tmpdir):
-    input_json = open(
-        f"tests/form_refactor_util/{mutation_key}-input.json", "r"
-    ).read()
+    input_json = open(f"tests/form_refactor_util/{mutation_key}-input.json", "r").read()
     expected_json = open(
         f"tests/form_refactor_util/{mutation_key}-expected.json", "r"
     ).read()

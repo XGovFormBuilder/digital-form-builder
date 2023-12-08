@@ -1,0 +1,95 @@
+name: Test and Tag Python tools
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "python/**" # Trigger only on changes in the "python" directory
+
+jobs:
+  run-unit-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Change working directory to python
+        run: cd python
+
+      - name: Setup python
+        id: setup_python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run tests
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate && python -m pip install --upgrade pip && pip install -r python/requirements.txt
+          pytest python/tests
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: run-unit-tests
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup python
+        id: setup_python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Get package version
+        id: package_version
+        run: echo "app_version="$(cd python && python setup.py --version) >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        uses: mukunku/tag-exists-action@v1.0.0
+        id: check_tag
+        with:
+          tag: python-tools-${{ steps.package_version.outputs.app_version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ncipollo/release-action@v1
+        name: Create Release
+        id: create_release
+        if: ${{ steps.check_tag.outputs.exists == 'false' }}
+        with:
+          commit: main
+          tag: python-tools-${{ steps.package_version.outputs.app_version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-release:
+    runs-on: ubuntu-latest
+    needs: create-release
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup python
+        id: setup_python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Build for publish
+        id: build_dist
+        run: |
+          cd python
+          python -m pip install --upgrade pip && pip install build
+          python -m build
+          mkdir ../dist
+          mv dist/* ../dist
+          echo workspace dir $GITHUB_WORKSPACE
+
+      - name: Publish to PyPI
+        id: publish-to-pypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}

@@ -31,9 +31,7 @@ def are_strings_unique(string_one, string_two):
     return string_one != string_two
 
 
-def record_duplicate_field_id(
-    field_id, current_form_name, forms_using_field_id
-):
+def record_duplicate_field_id(field_id, current_form_name, forms_using_field_id):
     if field_id not in forms_using_field_id.keys():
         forms_using_field_id[field_id] = {current_form_name}
     else:
@@ -72,8 +70,7 @@ def check_for_duplicate_field_ids_across_form_jsons(
             )
 
     duplicate_field_ids = [
-        f'Duplicated field_id: "{field_id}" in multiple forms:'
-        f' {", ".join(forms)}.'
+        f'Duplicated field_id: "{field_id}" in multiple forms:' f' {", ".join(forms)}.'
         for field_id, forms in forms_using_field_id.items()
         if len(forms) > 0
     ]
@@ -89,15 +86,15 @@ form_languages = [
 
 @pytest.mark.parametrize("language", form_languages)
 def test_check_form_json_for_duplicate_field_ids(language):
-    test_path = f"{Path(__file__).parent.parent.absolute()}/form_jsons/cof_r2/{language}"
+    test_path = (
+        f"{Path(__file__).parent.parent.absolute()}/form_jsons/cof_r2/{language}"
+    )
     form_json_files = Path(test_path).glob("*")
     all_form_jsons_with_contained_field_ids = get_form_jsons_with_field_ids(
         form_json_files
     )
-    field_id_duplicates_across_forms = (
-        check_for_duplicate_field_ids_across_form_jsons(
-            all_form_jsons_with_contained_field_ids
-        )
+    field_id_duplicates_across_forms = check_for_duplicate_field_ids_across_form_jsons(
+        all_form_jsons_with_contained_field_ids
     )
     # Could add check here for duplicates within the same form_json file,
     # the form builder does not currently allow this field_id duplication
