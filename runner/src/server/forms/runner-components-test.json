@@ -243,47 +243,47 @@
       "items": [
         {
           "text": "Alfa Romeo",
-          "value": 1
+          "value": "alfa-romeo"
         },
         {
           "text": "BMW",
-          "value": 2
+          "value": "bmw"
         },
         {
           "text": "Ford",
-          "value": 3
+          "value": "ford"
         },
         {
           "text": "Citroen",
-          "value": 4
+          "value": "citroen"
         },
         {
           "text": "Nissan",
-          "value": 5
+          "value": "nissan"
         },
         {
           "text": "Honda",
-          "value": 6
+          "value": "honda"
         },
         {
           "text": "Mercedes",
-          "value": 8
+          "value": "mercedes"
         },
         {
           "text": "Audi",
-          "value": 9
+          "value": "audi"
         },
         {
           "text": "Toyota",
-          "value": 10
+          "value": "toyota"
         },
         {
           "text": "Hyundai",
-          "value": 11
+          "value": "hyundai"
         },
         {
           "text": "Kia",
-          "value": 12
+          "value": "kia"
         }
       ]
     },
@@ -294,58 +294,58 @@
       "items": [
         {
           "text": "Diesel",
-          "value": 1
+          "value": "diesel"
         },
         {
           "text": "Electric",
-          "value": 2
+          "value": "electric"
         },
         {
           "text": "Hydrogen",
-          "value": 3
+          "value": "hyrogen"
         },
         {
           "text": "Petrol",
-          "value": 4
+          "value": "petrol"
         },
         {
           "text": "Hybrid",
-          "value": 5
+          "value": "hybrid"
         }
       ]
     },
     {
       "title": "CAZ Location",
       "name": "O2uEB1",
-      "type": "number",
+      "type": "string",
       "items": [
         {
           "text": "Bath",
-          "value": 1
+          "value": "bath"
         },
         {
           "text": "Bristol",
-          "value": 2
+          "value": "bristol"
         },
         {
           "text": "Birmingham",
-          "value": 3
+          "value": "birmingham"
         },
         {
           "text": "Cardiff",
-          "value": 4
+          "value": "cardiff"
         },
         {
           "text": "Liverpool",
-          "value": 6
+          "value": "liverpool"
         },
         {
           "text": "Leeds",
-          "value": 7
+          "value": "leeds"
         },
         {
           "text": "Manchester",
-          "value": 8
+          "value": "manchester"
         }
       ]
     },
@@ -356,15 +356,15 @@
       "items": [
         {
           "text": "You are not a Robot",
-          "value": 1
+          "value": "not-robot"
         },
         {
           "text": "You have not previously claimed an exemption",
-          "value": 2
+          "value": "not-claimed-exemption"
         },
         {
           "text": "You have not omitted or purposely witheld information that might be detrimental to you claim",
-          "value": 3
+          "value": "not-a-liar"
         }
       ]
     }
