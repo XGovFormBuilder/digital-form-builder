@@ -73,12 +73,18 @@ export class StatusService {
     const { self, meta } = pay;
     const { query } = request;
     const { state } = await this.payService.payStatus(self, meta.payApiKey);
+    pay.state = state;
 
     if (state.status === "success") {
       this.logger.info(
         ["StatusService", "shouldShowPayErrorPage"],
-        `user ${request.yar.id} - shouldShowPayErrorPage: User has succeeded, continuing`
+        `user ${request.yar.id} - shouldShowPayErrorPage: User has succeeded, setting paymentSkipped to false and continuing`
       );
+
+      pay.paymentSkipped = false;
+      pay.state = state;
+      await this.cacheService.mergeState(request, { pay });
+
       return false;
     }
 
@@ -101,7 +107,6 @@ export class StatusService {
       pay: {
         ...pay,
         paymentSkipped: userSkippedOrLimitReached,
-        state,
       },
     });
 
