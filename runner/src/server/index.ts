@@ -31,6 +31,7 @@ import {
   PayService,
   StatusService,
   UploadService,
+  MockUploadService,
   WebhookService,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
@@ -109,7 +110,6 @@ async function createServer(routeConfig: RouteConfig) {
     CacheService,
     NotifyService,
     PayService,
-    UploadService,
     EmailService,
     WebhookService,
     AddressService,
@@ -120,7 +120,14 @@ async function createServer(routeConfig: RouteConfig) {
       Schmervice.withName("statusService", QueueStatusService),
     ]);
   } else {
-    server.registerService(StatusService);
+    server.registerService([StatusService]);
+  }
+  if (!config.documentUploadApiUrl) {
+    server.registerService([
+      Schmervice.withName("uploadService", MockUploadService),
+    ]);
+  } else {
+    server.registerService([UploadService]);
   }
 
   server.ext(
