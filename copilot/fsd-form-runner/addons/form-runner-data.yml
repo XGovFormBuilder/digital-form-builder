@@ -15,7 +15,8 @@ Resources:
     Type: AWS::ElastiCache::SubnetGroup
     Properties:
       Description: Group of subnets to place Redis into
-      SubnetIds: !Split [ ',', { 'Fn::ImportValue': !Sub '${App}-${Env}-PrivateSubnets' } ]
+      SubnetIds:
+        !Split [",", { "Fn::ImportValue": !Sub "${App}-${Env}-PrivateSubnets" }]
 
   # Security group to add the Redis cluster to the VPC,
   # and to allow the Fargate containers to talk to Redis on port 6379
@@ -24,29 +25,27 @@ Resources:
     Properties:
       GroupDescription: "Redis Security Group"
       VpcId:
-        Fn::ImportValue:
-          !Sub '${App}-${Env}-VpcId'
+        Fn::ImportValue: !Sub "${App}-${Env}-VpcId"
 
   # Enable ingress from other ECS services created within the environment.
   FormRunnerRedisIngress:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
       Description: Ingress from Fargate containers
-      GroupId: !Ref 'FormRunnerRedisSecurityGroup'
+      GroupId: !Ref "FormRunnerRedisSecurityGroup"
       IpProtocol: tcp
       FromPort: 6379
       ToPort: 6379
       SourceSecurityGroupId:
-        Fn::ImportValue:
-          !Sub '${App}-${Env}-EnvironmentSecurityGroup'
+        Fn::ImportValue: !Sub "${App}-${Env}-EnvironmentSecurityGroup"
 
   # Secret Storage of access credentials
   FormRunnerRedisSecret:
     Metadata:
-      'aws:copilot:description': 'A Secrets Manager secret to store your DB credentials'
+      "aws:copilot:description": "A Secrets Manager secret to store your DB credentials"
     Type: AWS::SecretsManager::Secret
     Properties:
-      Description: !Sub 'Redis main user secret for ${AWS::StackName}'
+      Description: !Sub "Redis main user secret for ${AWS::StackName}"
       GenerateSecretString:
         SecretStringTemplate: '{"username": "redis"}'
         GenerateStringKey: "password"
@@ -58,16 +57,16 @@ Resources:
   FormRunnerRedisReplicationGroup:
     Type: AWS::ElastiCache::ReplicationGroup
     Properties:
-      ReplicationGroupDescription: !Sub '${Env} Funding Service Form Runner'
+      ReplicationGroupDescription: !Sub "${Env} Funding Service Form Runner"
       AutomaticFailoverEnabled: true
       AtRestEncryptionEnabled: true
       TransitEncryptionEnabled: true
       AutoMinorVersionUpgrade: true
       MultiAZEnabled: true
       CacheNodeType: cache.t3.micro
-      CacheSubnetGroupName: !Ref 'FormRunnerRedisSubnetGroup'
+      CacheSubnetGroupName: !Ref "FormRunnerRedisSubnetGroup"
       SecurityGroupIds:
-        - !GetAtt 'FormRunnerRedisSecurityGroup.GroupId'
+        - !GetAtt "FormRunnerRedisSecurityGroup.GroupId"
       Engine: redis
       NumCacheClusters: 2
 
@@ -75,22 +74,47 @@ Resources:
   FormRunnerRedisEndpointAddressParam:
     Type: AWS::SSM::Parameter
     Properties:
-      Name: !Sub '/${App}/${Env}/${Name}/redis'   # Other services can retrieve the endpoint from this path.
+      Name: !Sub "/${App}/${Env}/${Name}/redis" # Other services can retrieve the endpoint from this path.
       Type: String
-      Value: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address'
+      Value: !GetAtt "FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address"
+
+  FormRunnerFormUploadsBucketAccessPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: S3FormUploadBucketActions
+            Effect: Allow
+            Action:
+              - s3:Get*
+              - s3:List*
+              - s3:Describe*
+              - s3:PutObject
+              - s3:PutObjectACL
+              - s3:DeleteObject
+              - s3:ReplicateObject
+            Resource:
+              - Fn::ImportValue: !Sub ${App}-${Env}-FormUploadsBucketARN
+              - !Sub
+                - "${FullBucketARN}/*"
+                - FullBucketARN:
+                    Fn::ImportValue: !Sub "${App}-${Env}-FormUploadsBucketARN"
 
 Outputs:
   FormRunnerRedisEndpoint:
     Description: The endpoint of the redis cluster
-    Value: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address'
+    Value: !GetAtt "FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address"
     Export:
       Name: !Sub ${App}-${Env}-FormRunnerRedisEndpoint
   FormRunnerRedisInstanceURI:
     Description: "The URI of the redis cluster."
-    Value:
-      !Sub
+    Value: !Sub
       - "rediss://${HOSTNAME}:${PORT}"
-      - HOSTNAME: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address'
-        PORT: !GetAtt 'FormRunnerRedisReplicationGroup.PrimaryEndPoint.Port'
+      - HOSTNAME: !GetAtt "FormRunnerRedisReplicationGroup.PrimaryEndPoint.Address"
+        PORT: !GetAtt "FormRunnerRedisReplicationGroup.PrimaryEndPoint.Port"
     Export:
       Name: !Sub ${App}-${Env}-FormRunnerRedisInstanceURI
+  FormRunnerFormUploadsBucketAccessPolicyArn:
+    Description: "The ARN of the ManagedPolicy to attach to the task role."
+    Value: !Ref FormRunnerFormUploadsBucketAccessPolicy
