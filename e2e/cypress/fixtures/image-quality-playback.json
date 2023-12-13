@@ -1,0 +1,35 @@
+{
+  "metadata": {},
+  "startPage": "/upload-a-file",
+  "pages": [
+    {
+      "title": "Upload a file",
+      "path": "/upload-a-file",
+      "components": [
+        {
+          "name": "zRpydv",
+          "options": {},
+          "type": "FileUploadField",
+          "title": "File upload"
+        }
+      ],
+      "next": [{ "path": "/summary" }],
+      "controller": "UploadPageController"
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
+}
