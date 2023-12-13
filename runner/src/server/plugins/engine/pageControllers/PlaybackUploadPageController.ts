@@ -26,7 +26,7 @@ export class PlaybackUploadPageController extends PageController {
       },
       {
         value: false,
-        text: "No - I am happy with the image",
+        text: "No - I'm happy with the image",
       },
     ],
   };
