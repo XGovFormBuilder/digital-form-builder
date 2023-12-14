@@ -114,9 +114,9 @@ async function createServer(routeConfig: RouteConfig) {
     AddressService,
   ]);
   if (config.documentUploadApiUrl === "") {
-    server.registerService(
-      Schmervice.withName("uploadService", MockUploadService)
-    );
+    server.registerService([
+      Schmervice.withName("uploadService", MockUploadService),
+    ]);
   } else {
     server.registerService([UploadService]);
   }
@@ -129,7 +129,7 @@ async function createServer(routeConfig: RouteConfig) {
       Schmervice.withName("statusService", QueueStatusService),
     ]);
   } else {
-    server.registerService([StatusService]);
+    server.registerService(StatusService);
   }
 
   server.ext(
