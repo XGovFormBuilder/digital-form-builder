@@ -912,7 +912,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If so, how many places did you visit",
+          "title": "If so, how many places did the case visit",
           "schema": {
             "min": 0,
             "max": 5
@@ -1496,7 +1496,7 @@
           "options": {
             "required": false
           },
-          "type": "RadiosField",
+          "type": "SelectField",
           "title": "If yes, dry or productive",
           "list": "cough-type",
           "schema": {}
@@ -1700,6 +1700,7 @@
     {
       "path": "/severity",
       "title": "Severity",
+      "section": "severity",
       "components": [
         {
           "name": "P11Q1",
@@ -1743,20 +1744,56 @@
           "name": "P11Q6",
           "options": {},
           "type": "YesNoField",
-          "title": "Was the case admitted to hospital",
+          "title": "Was the contact admitted to hospital",
           "schema": {}
         },
         {
-          "name": "P11Q7",
+          "name": "P11Q16",
+          "options": {
+            "min": 0,
+            "max": 5,
+            "required": false
+          },
+          "type": "NumberField",
+          "title": "If yes, how many times have they been admitted",
+          "schema": {}
+        },
+        {
+          "name": "P11Q9",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is the contact still currently in hospital",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/hospital-admission-1",
+          "condition": "moreThanZeroHospitalAdmissions"
+        },
+        {
+          "path": "/treatment"
+        }
+      ]
+    },
+    {
+      "path": "/hospital-admission-1",
+      "title": "Hospital Admission 1",
+      "components": [
+        {
+          "name": "P27Q1L1",
           "options": {
             "required": false
           },
           "type": "DatePartsField",
-          "title": "If yes, what date were they admitted",
+          "title": "What date were they admitted",
+          "hint": "If the precise day is not known, please enter 15th of the month",
           "schema": {}
         },
         {
-          "name": "P11Q7-Est",
+          "name": "P27Q1L1-Est",
           "options": {
             "required": false
           },
@@ -1765,33 +1802,25 @@
           "schema": {}
         },
         {
-          "name": "P11Q8",
-          "options": {
-            "required": false
-          },
+          "name": "P27Q2L1",
+          "options": {},
           "type": "SelectField",
           "title": "If hospitalised, what was the reason for their hospital admission",
           "list": "hospitalisation-reason",
           "schema": {}
         },
         {
-          "name": "P11Q9",
-          "options": {},
-          "type": "YesNoField",
-          "title": "Is the case still currently in hospital",
-          "schema": {}
-        },
-        {
-          "name": "P11Q10",
+          "name": "P27Q3L1",
           "options": {
             "required": false
           },
           "type": "DatePartsField",
-          "title": "If no, what date were they discharged",
+          "title": "What date were they discharged",
+          "hint": "If the precise day is not known, please enter 15th of the month",
           "schema": {}
         },
         {
-          "name": "P11Q10-Est",
+          "name": "P27Q3L1-Est",
           "options": {
             "required": false
           },
@@ -1800,43 +1829,44 @@
           "schema": {}
         },
         {
-          "name": "P11Q11",
+          "name": "P27Q4L1",
           "options": {
             "required": false
           },
           "type": "NumberField",
-          "title": "If you don't know your discharge date, how many days were you hospitalised for",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
-          "name": "P11Q12",
+          "name": "P27Q5L1",
           "options": {
             "required": false
           },
-          "type": "RadiosField",
-          "title": "Did the case receive oxygen in hospital",
+          "type": "SelectField",
+          "title": "Did the contact receive oxygen in hospital",
           "list": "yes-no-unknown",
           "schema": {}
         },
         {
-          "name": "P11Q13",
+          "name": "P27Q6L1",
           "options": {},
           "type": "SelectField",
-          "title": "Was the case admitted to the Intensive Care Unit",
+          "title": "Was the contact admitted to the Intensive Care Unit",
           "list": "yes-no-unknown",
           "schema": {}
         },
         {
-          "name": "P11Q14",
+          "name": "P27Q7L1",
           "options": {
             "required": false
           },
           "type": "DatePartsField",
           "title": "If yes, what was the date of their admission",
+          "hint": "If the precise day is not known, please enter 15th of the month",
           "schema": {}
         },
         {
-          "name": "P11Q14-Est",
+          "name": "P27Q7L1-Est",
           "options": {
             "required": false
           },
@@ -1845,12 +1875,486 @@
           "schema": {}
         },
         {
-          "name": "P11Q15",
+          "name": "P27Q8L1",
           "options": {
             "required": false
           },
           "type": "YesNoField",
-          "title": "Did the case receive care involving a ventilator",
+          "title": "Did the contact receive care involving a ventilator",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/hospital-admission-2",
+          "condition": "moreThanOneHospitalAdmission"
+        },
+        {
+          "path": "/treatment"
+        }
+      ]
+    },
+    {
+      "path": "/hospital-admission-2",
+      "title": "Hospital Admission 2",
+      "components": [
+        {
+          "name": "P27Q1L2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they admitted",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q1L2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q2L2",
+          "options": {},
+          "type": "SelectField",
+          "title": "If hospitalised, what was the reason for their hospital admission",
+          "list": "hospitalisation-reason",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they discharged",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q4L2",
+          "options": {
+            "required": false
+          },
+          "type": "NumberField",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "schema": {}
+        },
+        {
+          "name": "P27Q5L2",
+          "options": {
+            "required": false
+          },
+          "type": "SelectField",
+          "title": "Did the contact receive oxygen in hospital",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q6L2",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact admitted to the Intensive Care Unit",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "If yes, what was the date of their admission",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q8L2",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Did the contact receive care involving a ventilator",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/hospital-admission-3",
+          "condition": "moreThanTwoHospitalAdmissions"
+        },
+        {
+          "path": "/treatment"
+        }
+      ]
+    },
+    {
+      "path": "/hospital-admission-3",
+      "title": "Hospital Admission 3",
+      "components": [
+        {
+          "name": "P27Q1L3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they admitted",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q1L3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q2L3",
+          "options": {},
+          "type": "SelectField",
+          "title": "If hospitalised, what was the reason for their hospital admission",
+          "list": "hospitalisation-reason",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they discharged",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q4L3",
+          "options": {
+            "required": false
+          },
+          "type": "NumberField",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "schema": {}
+        },
+        {
+          "name": "P27Q5L3",
+          "options": {
+            "required": false
+          },
+          "type": "SelectField",
+          "title": "Did the contact receive oxygen in hospital",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q6L3",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact admitted to the Intensive Care Unit",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "If yes, what was the date of their admission",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q8L3",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Did the contact receive care involving a ventilator",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/hospital-admission-4",
+          "condition": "moreThanThreeHospitalAdmissions"
+        },
+        {
+          "path": "/treatment"
+        }
+      ]
+    },
+    {
+      "path": "/hospital-admission-4",
+      "title": "Hospital Admission 4",
+      "components": [
+        {
+          "name": "P27Q1L4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they admitted",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q1L4-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q2L4",
+          "options": {},
+          "type": "SelectField",
+          "title": "If hospitalised, what was the reason for their hospital admission",
+          "list": "hospitalisation-reason",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they discharged",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L4-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q4L4",
+          "options": {
+            "required": false
+          },
+          "type": "NumberField",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "schema": {}
+        },
+        {
+          "name": "P27Q5L4",
+          "options": {
+            "required": false
+          },
+          "type": "SelectField",
+          "title": "Did the contact receive oxygen in hospital",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q6L4",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact admitted to the Intensive Care Unit",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "If yes, what was the date of their admission",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L4-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q8L4",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Did the contact receive care involving a ventilator",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/hospital-admission-5",
+          "condition": "moreThanFourHospitalAdmissions"
+        },
+        {
+          "path": "/treatment"
+        }
+      ]
+    },
+    {
+      "path": "/hospital-admission-5",
+      "title": "Hospital Admission 5",
+      "components": [
+        {
+          "name": "P27Q1L5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they admitted",
+          "schema": {}
+        },
+        {
+          "name": "P27Q2L5",
+          "options": {},
+          "type": "SelectField",
+          "title": "If hospitalised, what was the reason for their hospital admission",
+          "list": "hospitalisation-reason",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q2L5-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "What date were they discharged",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q3L5-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q4L5",
+          "options": {
+            "required": false
+          },
+          "type": "NumberField",
+          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q4L5-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q5L5",
+          "options": {
+            "required": false
+          },
+          "type": "SelectField",
+          "title": "Did the contact receive oxygen in hospital",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q6L5",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact admitted to the Intensive Care Unit",
+          "list": "yes-no-unknown",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "If yes, what was the date of their admission",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P27Q7L5-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P27Q8L5",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Did the contact receive care involving a ventilator",
           "schema": {}
         }
       ],
@@ -2885,6 +3389,10 @@
       "type": "string",
       "items": [
         {
+          "text": "No Cough",
+          "value": "no-cough"
+        },
+        {
           "text": "Dry",
           "value": "dry"
         },
@@ -2907,6 +3415,10 @@
     {
       "name": "treatment",
       "title": "Treatment"
+    },
+    {
+      "name": "severity",
+      "title": "Severity"
     }
   ],
   "conditions": [
@@ -3116,6 +3628,31 @@
       "name": "moreThanFourOtherAntivirals",
       "displayName": "moreThanFourOtherAntivirals",
       "value": "treatment.P12Q8 > 4"
+    },
+    {
+      "name": "moreThanZeroHospitalAdmissions",
+      "displayName": "moreThanZeroHospitalAdmissions",
+      "value": "severity.P11Q16 > 0"
+    },
+    {
+      "name": "moreThanOneHospitalAdmission",
+      "displayName": "moreThanOneHospitalAdmission",
+      "value": "severity.P11Q16 > 1"
+    },
+    {
+      "name": "moreThanTwoHospitalAdmission",
+      "displayName": "moreThanTwoHospitalAdmission",
+      "value": "severity.P11Q16 > 2"
+    },
+    {
+      "name": "moreThanThreeHospitalAdmission",
+      "displayName": "moreThanThreeHospitalAdmission",
+      "value": "severity.P11Q16 > 3"
+    },
+    {
+      "name": "moreThanFourHospitalAdmission",
+      "displayName": "moreThanFourHospitalAdmission",
+      "value": "severity.P11Q16 > 4"
     }
   ],
   "fees": [],

@@ -2737,7 +2737,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "title": "If the case doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -2746,7 +2746,7 @@
             "required": false
           },
           "type": "SelectField",
-          "title": "Did the contact receive oxygen in hospital",
+          "title": "Did the case receive oxygen in hospital",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -2754,7 +2754,7 @@
           "name": "P27Q6L1",
           "options": {},
           "type": "SelectField",
-          "title": "Was the contact admitted to the Intensive Care Unit",
+          "title": "Was the case admitted to the Intensive Care Unit",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -2783,7 +2783,7 @@
             "required": false
           },
           "type": "YesNoField",
-          "title": "Did the contact receive care involving a ventilator",
+          "title": "Did the case receive care involving a ventilator",
           "schema": {}
         }
       ],
@@ -2853,7 +2853,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "title": "If the case doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -2862,7 +2862,7 @@
             "required": false
           },
           "type": "SelectField",
-          "title": "Did the contact receive oxygen in hospital",
+          "title": "Did the case receive oxygen in hospital",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -2870,7 +2870,7 @@
           "name": "P27Q6L2",
           "options": {},
           "type": "SelectField",
-          "title": "Was the contact admitted to the Intensive Care Unit",
+          "title": "Was the case admitted to the Intensive Care Unit",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -2899,7 +2899,7 @@
             "required": false
           },
           "type": "YesNoField",
-          "title": "Did the contact receive care involving a ventilator",
+          "title": "Did the case receive care involving a ventilator",
           "schema": {}
         }
       ],
@@ -2969,7 +2969,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "title": "If the case doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -2978,7 +2978,7 @@
             "required": false
           },
           "type": "SelectField",
-          "title": "Did the contact receive oxygen in hospital",
+          "title": "Did the case receive oxygen in hospital",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -2986,7 +2986,7 @@
           "name": "P27Q6L3",
           "options": {},
           "type": "SelectField",
-          "title": "Was the contact admitted to the Intensive Care Unit",
+          "title": "Was the case admitted to the Intensive Care Unit",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -3015,7 +3015,7 @@
             "required": false
           },
           "type": "YesNoField",
-          "title": "Did the contact receive care involving a ventilator",
+          "title": "Did the case receive care involving a ventilator",
           "schema": {}
         }
       ],
@@ -3085,7 +3085,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "title": "If the case doesn't know their discharge date, how many days were they hospitalised for",
           "schema": {}
         },
         {
@@ -3094,7 +3094,7 @@
             "required": false
           },
           "type": "SelectField",
-          "title": "Did the contact receive oxygen in hospital",
+          "title": "Did the case receive oxygen in hospital",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -3102,7 +3102,7 @@
           "name": "P27Q6L4",
           "options": {},
           "type": "SelectField",
-          "title": "Was the contact admitted to the Intensive Care Unit",
+          "title": "Was the case admitted to the Intensive Care Unit",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -3131,7 +3131,7 @@
             "required": false
           },
           "type": "YesNoField",
-          "title": "Did the contact receive care involving a ventilator",
+          "title": "Did the case receive care involving a ventilator",
           "schema": {}
         }
       ],
@@ -3201,7 +3201,7 @@
             "required": false
           },
           "type": "NumberField",
-          "title": "If the contact doesn't know their discharge date, how many days were they hospitalised for",
+          "title": "If the case doesn't know their discharge date, how many days were they hospitalised for",
           "hint": "If the precise day is not known, please enter 15th of the month",
           "schema": {}
         },
@@ -3220,7 +3220,7 @@
             "required": false
           },
           "type": "SelectField",
-          "title": "Did the contact receive oxygen in hospital",
+          "title": "Did the case receive oxygen in hospital",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -3228,7 +3228,7 @@
           "name": "P27Q6L5",
           "options": {},
           "type": "SelectField",
-          "title": "Was the contact admitted to the Intensive Care Unit",
+          "title": "Was the case admitted to the Intensive Care Unit",
           "list": "yes-no-unknown",
           "schema": {}
         },
@@ -3257,7 +3257,7 @@
             "required": false
           },
           "type": "YesNoField",
-          "title": "Did the contact receive care involving a ventilator",
+          "title": "Did the case receive care involving a ventilator",
           "schema": {}
         }
       ],
@@ -3267,7 +3267,6 @@
         }
       ]
     },
-
     {
       "path": "/treatment",
       "title": "Treatment",
