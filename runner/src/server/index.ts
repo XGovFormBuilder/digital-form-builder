@@ -110,10 +110,19 @@ async function createServer(routeConfig: RouteConfig) {
     CacheService,
     NotifyService,
     PayService,
-    EmailService,
     WebhookService,
     AddressService,
   ]);
+  if (config.documentUploadApiUrl === "") {
+    server.registerService(
+      Schmervice.withName("uploadService", MockUploadService)
+    );
+  } else {
+    server.registerService([UploadService]);
+  }
+
+  server.registerService([EmailService]);
+
   if (config.enableQueueService) {
     server.registerService([
       QueueService,
@@ -121,13 +130,6 @@ async function createServer(routeConfig: RouteConfig) {
     ]);
   } else {
     server.registerService([StatusService]);
-  }
-  if (!config.documentUploadApiUrl) {
-    server.registerService([
-      Schmervice.withName("uploadService", MockUploadService),
-    ]);
-  } else {
-    server.registerService([UploadService]);
   }
 
   server.ext(
