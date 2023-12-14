@@ -1,4 +1,6 @@
 name: smoke tests
+env:
+  DOCUMENT_UPLOAD_API_URL: ""
 
 on:
   workflow_call:
