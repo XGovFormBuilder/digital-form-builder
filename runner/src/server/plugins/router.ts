@@ -42,11 +42,8 @@ export default {
           path: "/help/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const cookiesPolicy = request.state.cookies_policy;
-            let analytics: string | undefined;
-            if (cookiesPolicy) {
-              analytics =
-                cookiesPolicy?.analytics === "on" ? "accept" : "reject";
-            }
+            let analytics =
+              cookiesPolicy?.analytics === "on" ? "accept" : "reject";
             return h.view("help/cookies", {
               analytics,
             });
@@ -58,8 +55,11 @@ export default {
             payload: {
               parse: true,
               multipart: true,
-              failAction: async (request: any, h: HapiResponseToolkit) => {
-                request.server?.plugins?.crumb?.generate?.(request, h);
+              failAction: async (
+                request: HapiRequest,
+                h: HapiResponseToolkit
+              ) => {
+                request.server.plugins.crumb.generate?.(request, h);
                 return h.continue;
               },
             },
