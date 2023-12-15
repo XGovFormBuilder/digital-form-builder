@@ -1,8 +1,8 @@
 import FormData from "form-data";
 
-import config from "../config";
-import { get, post } from "./httpService";
-import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
+import config from "../../config";
+import { get, post } from "../httpService";
+import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
 
 type Payload = HapiRequest["payload"];
 
