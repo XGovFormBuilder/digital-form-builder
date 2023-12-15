@@ -40,13 +40,29 @@ export default {
         {
           method: "get",
           path: "/help/cookies",
-          handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-            return h.view("help/cookies");
+          handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            const cookiesPolicy = request.state.cookies_policy;
+            let analytics =
+              cookiesPolicy?.analytics === "on" ? "accept" : "reject";
+            return h.view("help/cookies", {
+              analytics,
+            });
           },
         },
         {
           method: "post",
           options: {
+            payload: {
+              parse: true,
+              multipart: true,
+              failAction: async (
+                request: HapiRequest,
+                h: HapiResponseToolkit
+              ) => {
+                request.server.plugins.crumb.generate?.(request, h);
+                return h.continue;
+              },
+            },
             validate: {
               payload: Joi.object({
                 cookies: Joi.string()
