@@ -113,7 +113,7 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     AddressService,
   ]);
-  if (config.documentUploadApiUrl === "") {
+  if (!config.documentUploadApiUrl) {
     server.registerService([
       Schmervice.withName("uploadService", MockUploadService),
     ]);

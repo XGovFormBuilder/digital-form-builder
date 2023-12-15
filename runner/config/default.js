@@ -104,7 +104,7 @@ module.exports = {
   // Control which is used. Accepts "test" | "production" | "".
   apiEnv: "",
   payApiUrl: "https://publicapi.payments.service.gov.uk/v1",
-  documentUploadApiUrl: "",
+  documentUploadApiUrl: null,
   // ordnanceSurveyKey: "", // deprecated - this API is deprecated
   // browserRefreshUrl: "", // deprecated - idk what this does
 
