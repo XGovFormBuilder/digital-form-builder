@@ -37,7 +37,7 @@ services:
       - PREVIEW_MODE=true
       - NODE_ENV=test
       - ALLOW_USER_TEMPLATES=true
-      - DOCUMENT_UPLOAD_API_URL=
+      - NODE_CONFIG={"documentUploadApiUrl":null}
     command: yarn runner start
     depends_on:
       - redis
