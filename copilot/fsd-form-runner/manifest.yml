@@ -98,16 +98,16 @@ environments:
         ]
       hosted_zone: Z0686469NF3ZJTU9I02M
     variables:
-      ACCESSIBILITY_STATEMENT_URL: "https://frontend.prod.access-funding.levellingup.gov.uk/accessibility_statement"
+      ACCESSIBILITY_STATEMENT_URL: "https://frontend.access-funding.levellingup.gov.uk/accessibility_statement"
       BASIC_AUTH_ON: false
-      CONTACT_US_URL: "https://frontend.prod.access-funding.levellingup.gov.uk/contact_us"
-      COOKIE_POLICY_URL: "https://frontend.prod.access-funding.levellingup.gov.uk/cookie_policy"
-      FEEDBACK_LINK: "https://frontend.prod.access-funding.levellingup.gov.uk/feedback"
-      JWT_REDIRECT_TO_AUTHENTICATION_URL: "https://authenticator.prod.access-funding.levellingup.gov.uk/sessions/sign-out"
-      LOGOUT_URL: "https://authenticator.prod.access-funding.levellingup.gov.uk/sessions/sign-out"
-      MULTIFUND_URL: "https://frontend.prod.access-funding.levellingup.gov.uk/account"
-      PRIVACY_POLICY_URL: "https://frontend.prod.access-funding.levellingup.gov.uk/privacy"
-      SERVICE_START_PAGE: "https://frontend.prod.access-funding.levellingup.gov.uk/account"
+      CONTACT_US_URL: "https://frontend.access-funding.levellingup.gov.uk/contact_us"
+      COOKIE_POLICY_URL: "https://frontend.access-funding.levellingup.gov.uk/cookie_policy"
+      FEEDBACK_LINK: "https://frontend.access-funding.levellingup.gov.uk/feedback"
+      JWT_REDIRECT_TO_AUTHENTICATION_URL: "https://authenticator.access-funding.levellingup.gov.uk/sessions/sign-out"
+      LOGOUT_URL: "https://authenticator.access-funding.levellingup.gov.uk/sessions/sign-out"
+      MULTIFUND_URL: "https://frontend.access-funding.levellingup.gov.uk/account"
+      PRIVACY_POLICY_URL: "https://frontend.access-funding.levellingup.gov.uk/privacy"
+      SERVICE_START_PAGE: "https://frontend.access-funding.levellingup.gov.uk/account"
     count:
       range: 2-4
       cooldown:
