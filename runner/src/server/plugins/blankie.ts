@@ -56,6 +56,7 @@ export const configureBlankiePlugin = (
     );
     google.scriptSrc.push(
       "www.google-analytics.com",
+      "region1.google-analytics.com",
       "ssl.google-analytics.com",
       "stats.g.doubleclick.net",
       "www.googletagmanager.com",
