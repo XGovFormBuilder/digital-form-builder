@@ -10,17 +10,6 @@
 
 <meta name="google-site-verification" content="c4zpvzhELXCm0wB1rfvK87feYFn4S_pktlKDUyLoSSI" />
 <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com">
-<!-- Google Tag Manager -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2275Q7ENJW');
-</script>
-
 <!--[if !IE 8]><!-->
 <link
   rel="preload"
@@ -92,7 +81,16 @@
   {% endblock %} 
 
   {% block bodyStart %} 
-  <!-- Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2275Q7ENJW');
+</script>
 
 
     {% if not cookiesPolicy.isSet %} 
