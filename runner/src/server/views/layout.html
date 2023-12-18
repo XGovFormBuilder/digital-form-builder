@@ -7,15 +7,20 @@
 {% from "cookie-banner/macro.njk" import govukCookieBanner %} 
 
 {% block head %}
+
 <meta name="google-site-verification" content="c4zpvzhELXCm0wB1rfvK87feYFn4S_pktlKDUyLoSSI" />
 <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com">
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MM6VPCXX');</script>
-  <!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2275Q7ENJW');
+</script>
+
 <!--[if !IE 8]><!-->
 <link
   rel="preload"
@@ -88,42 +93,12 @@
 
   {% block bodyStart %} 
   <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MM6VPCXX" height="0" width="0" style="display:none;visibility:hidden">
-    </iframe>
-  </noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-2275Q7ENJW');
-  </script>
+
 
     {% if not cookiesPolicy.isSet %} 
       {% include "partials/cookie-banner.html" %} 
     {% endif %} 
-    {% if gtmId1 %}
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id={{ gtmId1 }}"
-          height="0"
-          width="0"
-          style="display: none; visibility: hidden"
-        ></iframe>
-      </noscript>
-    {% endif %} 
-    {% if gtmId2 %}
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id={{ gtmId2 }}"
-          height="0"
-          width="0"
-          style="display: none; visibility: hidden"
-        ></iframe>
-      </noscript>
-    {% endif %} 
+    
   {% endblock %} 
 
   {% block beforeContent %} 
