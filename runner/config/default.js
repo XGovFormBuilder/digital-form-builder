@@ -44,8 +44,8 @@ module.exports = {
    * Analytics
    */
   // Google Tag Manager - you must amend the privacy notice if you use GTM to load analytics scripts.
-  gtmId1: "G-2275Q7ENJW",
-  gtmId2: "GTM-MM6VPCXX",
+  gtmId1: "GTM-MM6VPCXX",
+  //gtmId2: "GTM-MM6VPCXX",
 
   // Matomo (aka Piwik)
   // matomoId: "",
