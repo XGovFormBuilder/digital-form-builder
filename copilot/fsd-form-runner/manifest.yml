@@ -91,7 +91,7 @@ environments:
       response_time: 2s
   prod:
     http:
-      alias: forms.prod.access-funding.levellingup.gov.uk
+      alias: ["forms.prod.access-funding.levellingup.gov.uk", "forms.access-funding.levellingup.gov.uk"]
     variables:
       ACCESSIBILITY_STATEMENT_URL: "https://frontend.prod.access-funding.levellingup.gov.uk/accessibility_statement"
       BASIC_AUTH_ON: false
