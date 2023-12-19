@@ -1,8 +1,12 @@
-{% extends "template.njk" %} {% from "back-link/macro.njk" import govukBackLink
-%} {% from "footer/macro.njk" import govukFooter -%} {% from
-"phase-banner/macro.njk" import govukPhaseBanner %} {% from
-"skip-link/macro.njk" import govukSkipLink -%} {% from "cookie-banner/macro.njk"
-import govukCookieBanner %} {% block head %}
+{% extends "template.njk" %} 
+
+{% from "back-link/macro.njk" import govukBackLink %} 
+{% from "footer/macro.njk" import govukFooter -%} 
+{% from "phase-banner/macro.njk" import govukPhaseBanner %} 
+{% from "skip-link/macro.njk" import govukSkipLink -%} 
+{% from "cookie-banner/macro.njk" import govukCookieBanner %} 
+
+{% block head %}
 <!--[if !IE 8]><!-->
 <link
   rel="preload"
@@ -36,108 +40,109 @@ import govukCookieBanner %} {% block head %}
 
 <!--<![endif]-->
 
-{# For Internet Explorer 8, you need to compile specific stylesheet #} {# see
-https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md
-#}
+{# For Internet Explorer 8, you need to compile specific stylesheet #} 
+{# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
 <!--[if IE 8]>
   <link href="/govuk-frontend/all-ie8.css" rel="stylesheet" />
 <![endif]-->
 
-{# For older browsers to allow them to recognise HTML5 elements such as `
-<header>
-  ` #}
+{# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
   <!--[if lt IE 9]>
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
-  <!-- Google Tag Manager -->
-  <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || [];
-      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-      var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s),
-        dl = l != "dataLayer" ? "&l=" + l : "";
-      j.async = true;
-      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-      f.parentNode.insertBefore(j, f);
-    })(window, document, "script", "dataLayer", "GTM-MM6VPCXX");
-  </script>
-  <!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MM6VPCXX');</script>
+<!-- End Google Tag Manager -->
   <script src="{{ assetPath }}/accessible-autocomplete.min.js"></script>
-  {% endblock %}
+  {% endblock %} 
 
-  <!-- Google tag (gtag.js) -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-2275Q7ENJW"
-  ></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "G-2275Q7ENJW");
-  </script>
   {% block pageTitle %}
-  {{ pageTitle }}
-  {% endblock %} {% block skipLink %}
-  {{
-    govukSkipLink({
-      href: "#main-content",
-      text: "Skip to main content"
-    })
-  }}
-  {% endblock %} {% block header %}
-  {{ govukHeader({
+    {{ pageTitle }}
+  {% endblock %} 
+
+  {% block skipLink %}
+    {{
+      govukSkipLink({
+        href: "#main-content",
+        text: "Skip to main content"
+      })
+    }}
+  {% endblock %} 
+
+  {% block header %}
+    {{ govukHeader({
     homepageUrl: "https://gov.uk",
     containerClasses: "govuk-width-container",
     serviceName: name if name else serviceName,
     serviceUrl: serviceStartPage,
     navigation: navigation
     }) }}
-  {% endblock %} {% block bodyStart %} {% if not cookiesPolicy.isSet %} {%
-  include "partials/cookie-banner.html" %} {% endif %} {% if gtmId1 %}
-  <noscript>
-    <iframe
-      src="https://www.googletagmanager.com/ns.html?id={{ gtmId1 }}"
-      height="0"
-      width="0"
-      style="display: none; visibility: hidden"
-    ></iframe>
-  </noscript>
-  {% endif %} {% if gtmId2 %}
-  <noscript>
-    <iframe
-      src="https://www.googletagmanager.com/ns.html?id={{ gtmId2 }}"
-      height="0"
-      width="0"
-      style="display: none; visibility: hidden"
-    ></iframe>
-  </noscript>
-  {% endif %} {% endblock %} {% block beforeContent %} {% if phaseTag %} {% if
-  feedbackLink %} {{ govukPhaseBanner({ tag: { text: phaseTag }, html: 'This is
-  a new service – your
-  <a class="govuk-link" href=" + feedbackLink + " target="_blank">feedback</a>
-  will help us to improve it.' }) }} {% else %}
-  {{
-    govukPhaseBanner({
-      tag: {
-        text: phaseTag
-      }
-    })
-  }}
-  {% endif %} {% endif %} {% if backLink %}
-  {{
-    govukBackLink({
-      href: backLink,
-      text: "Back"
-    })
-  }}
-  {% endif %} {% endblock %} {% block content %}
-  <h1 class="govuk-heading-l">Default page template</h1>
-  {% endblock %} {% block bodyEnd %} {% include "partials/modal-dialog.html" %}
+  {% endblock %} 
+
+  {% block bodyStart %} 
+    {% if not cookiesPolicy.isSet %} 
+      {% include "partials/cookie-banner.html" %} 
+    {% endif %} 
+    {% if gtmId1 %}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id={{ gtmId1 }}"
+          height="0"
+          width="0"
+          style="display: none; visibility: hidden"
+        ></iframe>
+      </noscript>
+    {% endif %} 
+    {% if gtmId2 %}
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id={{ gtmId2 }}"
+          height="0"
+          width="0"
+          style="display: none; visibility: hidden"
+        ></iframe>
+      </noscript>
+    {% endif %} 
+  {% endblock %} 
+
+  {% block beforeContent %} 
+    {% if phaseTag %} 
+      {% if feedbackLink %} 
+        {{ govukPhaseBanner({ tag: { text: phaseTag }, html: 'This is
+        a new service – your
+        <a class="govuk-link" href=" + feedbackLink + " target="_blank">feedback</a>
+        will help us to improve it.' }) }} 
+      {% else %}
+        {{
+          govukPhaseBanner({
+            tag: {
+              text: phaseTag
+            }
+          })
+        }}
+      {% endif %} 
+    {% endif %} 
+
+    {% if backLink %}
+      {{
+        govukBackLink({
+          href: backLink,
+          text: "Back"
+        })
+      }}
+    {% endif %} 
+  {% endblock %} 
+
+  {% block content %}
+    <h1 class="govuk-heading-l">Default page template</h1>
+  {% endblock %} 
+  
+  {% block bodyEnd %} 
+  {% include "partials/modal-dialog.html" %}
   <script src="{{ assetPath }}/jquery-3.5.1.min.js"></script>
   <script src="{{ assetPath }}/object-from-entries-polyfill.js"></script>
   <script src="{{ assetPath }}/all.js"></script>
@@ -161,7 +166,11 @@ https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/support
 
   {% if BROWSER_REFRESH_URL %}
   <script src="{{ BROWSER_REFRESH_URL }}"></script>
-  {% endif %} {% endblock %} {% block footer %}
+  {% endif %} 
+
+  {% endblock %} 
+
+  {% block footer %}
   {{
     govukFooter({
       meta: {
