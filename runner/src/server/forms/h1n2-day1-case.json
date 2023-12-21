@@ -55,12 +55,10 @@
         },
         {
           "name": "P1Q5",
-          "options": {
-            "required": false
-          },
+          "options": {},
           "type": "TextField",
           "title": "Case ID",
-          "hint": "Please enter the Case ID if known",
+          "hint": "Please enter the Case ID",
           "schema": {}
         }
       ],
@@ -539,7 +537,7 @@
           "title": "If yes, how many?",
           "schema": {
             "min": 0,
-            "max": 5
+            "max": 10
           },
           "nameHasError": false
         }
@@ -886,6 +884,351 @@
       ],
       "next": [
         {
+          "path": "/exposure-contact-six",
+          "condition": "moreThanFiveExposureContacts"
+        },
+        {
+          "path": "/exposure-locations"
+        }
+      ]
+    },
+
+    {
+      "path": "/exposure-contact-six",
+      "title": "Exposure Contact 6",
+      "components": [
+        {
+          "name": "P5L6Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of exposure contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L6Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Last name of caexposurese contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L6Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L6Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L6Q5",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Setting of contact",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P5L6Q6",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-contact-seven",
+          "condition": "moreThanSixExposureContacts"
+        },
+        {
+          "path": "/exposure-locations"
+        }
+      ]
+    },
+
+    {
+      "path": "/exposure-contact-seven",
+      "title": "Exposure Contact 7",
+      "components": [
+        {
+          "name": "P5L7Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of exposure contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L7Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Last name of caexposurese contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L7Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L7Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L7Q5",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Setting of contact",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P5L7Q6",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-contact-eight",
+          "condition": "moreThanSevenExposureContacts"
+        },
+        {
+          "path": "/exposure-locations"
+        }
+      ]
+    },
+
+    {
+      "path": "/exposure-contact-eight",
+      "title": "Exposure Contact 8",
+      "components": [
+        {
+          "name": "P5L8Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of exposure contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L8Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Last name of caexposurese contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L8Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L8Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L8Q5",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Setting of contact",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P5L8Q6",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-contact-nine",
+          "condition": "moreThanEightExposureContacts"
+        },
+        {
+          "path": "/exposure-locations"
+        }
+      ]
+    },
+
+    {
+      "path": "/exposure-contact-nine",
+      "title": "Exposure Contact 9",
+      "components": [
+        {
+          "name": "P5L9Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of exposure contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L9Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Last name of caexposurese contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L9Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L9Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L9Q5",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Setting of contact",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P5L9Q6",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-contact-ten",
+          "condition": "moreThanNineExposureContacts"
+        },
+        {
+          "path": "/exposure-locations"
+        }
+      ]
+    },
+
+    {
+      "path": "/exposure-contact-ten",
+      "title": "Exposure Contact 10",
+      "components": [
+        {
+          "name": "P5L10Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of exposure contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L10Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Last name of caexposurese contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L10Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L10Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P5L10Q5",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Setting of contact",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P5L10Q6",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
           "path": "/exposure-locations"
         }
       ]
@@ -915,7 +1258,7 @@
           "title": "If so, how many places did the case visit",
           "schema": {
             "min": 0,
-            "max": 5
+            "max": 10
           }
         }
       ],
@@ -1320,6 +1663,416 @@
         },
         {
           "name": "P7L5Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-six",
+          "condition": "moreThanFiveExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-six",
+      "title": "Exposure Location 6",
+      "components": [
+        {
+          "name": "P7L6Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-seven",
+          "condition": "moreThanSixExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-seven",
+      "title": "Exposure Location 7",
+      "components": [
+        {
+          "name": "P7L7Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-eight",
+          "condition": "moreThanSevenExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-eight",
+      "title": "Exposure Location 8",
+      "components": [
+        {
+          "name": "P7L8Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-nine",
+          "condition": "moreThanEightExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-nine",
+      "title": "Exposure Location 9",
+      "components": [
+        {
+          "name": "P7L9Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-ten",
+          "condition": "moreThanNineExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-ten",
+      "title": "Exposure Location 10",
+      "components": [
+        {
+          "name": "P7L10Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q5",
           "options": {
             "required": false
           },
@@ -3580,6 +4333,32 @@
       "value": "exposures.P4Q11 > 4"
     },
     {
+      "name": "moreThanFiveExposureContacts",
+      "displayName": "moreThanFiveExposureContacts",
+      "value": "exposures.P4Q11 > 5"
+    },
+    {
+      "name": "moreThanSixExposureContacts",
+      "displayName": "moreThanSixExposureContacts",
+      "value": "exposures.P4Q11 > 6"
+    },
+    {
+      "name": "moreThanSevenExposureContacts",
+      "displayName": "moreThanSevenExposureContacts",
+      "value": "exposures.P4Q11 > 7"
+    },
+    {
+      "name": "moreThanEightExposureContacts",
+      "displayName": "moreThanEightExposureContacts",
+      "value": "exposures.P4Q11 > 8"
+    },
+    {
+      "name": "moreThanNineExposureContacts",
+      "displayName": "moreThanNineExposureContacts",
+      "value": "exposures.P4Q11 > 9"
+    },
+
+    {
       "name": "moreThanZeroExposureLocation",
       "displayName": "moreThanZeroExposureLocation",
       "value": "exposureLocations.P6Q2 > 0"
@@ -3604,6 +4383,32 @@
       "displayName": "moreThanFourExposureLocations",
       "value": "exposureLocations.P6Q2 > 4"
     },
+    {
+      "name": "moreThanFiveExposureLocations",
+      "displayName": "moreThanFiveExposureLocations",
+      "value": "exposureLocations.P6Q2 > 5"
+    },
+    {
+      "name": "moreThanSixExposureLocations",
+      "displayName": "moreThanSixExposureLocations",
+      "value": "exposureLocations.P6Q2 > 6"
+    },
+    {
+      "name": "moreThanSevenExposureLocations",
+      "displayName": "moreThanSevenExposureLocations",
+      "value": "exposureLocations.P6Q2 > 7"
+    },
+    {
+      "name": "moreThanEightExposureLocations",
+      "displayName": "moreThanEightExposureLocations",
+      "value": "exposureLocations.P6Q2 > 8"
+    },
+    {
+      "name": "moreThanNineExposureLocations",
+      "displayName": "moreThanNineExposureLocations",
+      "value": "exposureLocations.P6Q2 > 9"
+    },
+
     {
       "name": "moreThanZeroOtherAntiviral",
       "displayName": "moreThanZeroOtherAntiviral",
