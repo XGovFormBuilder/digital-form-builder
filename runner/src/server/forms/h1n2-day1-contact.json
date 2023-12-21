@@ -918,6 +918,416 @@
       ],
       "next": [
         {
+          "path": "/exposure-location-six",
+          "condition": "moreThanFiveExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-six",
+      "title": "Exposure Location 6",
+      "components": [
+        {
+          "name": "P7L6Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L6Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-seven",
+          "condition": "moreThanSixExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-seven",
+      "title": "Exposure Location 7",
+      "components": [
+        {
+          "name": "P7L7Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L7Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-eight",
+          "condition": "moreThanSevenExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-eight",
+      "title": "Exposure Location 8",
+      "components": [
+        {
+          "name": "P7L8Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L8Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-nine",
+          "condition": "moreThanEightExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-nine",
+      "title": "Exposure Location 9",
+      "components": [
+        {
+          "name": "P7L9Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L9Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/exposure-location-ten",
+          "condition": "moreThanNineExposureLocations"
+        },
+        {
+          "path": "/exposure-animal-contact"
+        }
+      ]
+    },
+    {
+      "path": "/exposure-location-ten",
+      "title": "Exposure Location 10",
+      "components": [
+        {
+          "name": "P7L10Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Location visited",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of arrival at location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q2-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q3",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of leaving location",
+          "hint": "If the precise day is not known, please enter 15th of the month",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q3-Est",
+          "options": {
+            "required": false
+          },
+          "type": "YesNoField",
+          "title": "Is this date an estimate",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q4",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details to location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        },
+        {
+          "name": "P7L10Q5",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Travel details from location",
+          "hint": "e.g. train journey or flight no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
           "path": "/exposure-animal-contact"
         }
       ]
@@ -994,7 +1404,7 @@
           "title": "How many confirmed cases has the contact been exposed to as a healthcare worker in the last 10 days",
           "schema": {
             "min": 0,
-            "max": 5
+            "max": 10
           }
         }
       ],
@@ -1385,10 +1795,396 @@
       ],
       "next": [
         {
+          "path": "/healthcare-worker-exposure-six",
+          "condition": "moreThanFiveHealthcareWorkerExposures"
+        },
+        {
           "path": "/healthcare-worker-exposure-ppe"
         }
       ]
     },
+    {
+      "path": "/healthcare-worker-exposure-six",
+      "title": "Healthcare Worker Exposure 6",
+      "components": [
+        {
+          "name": "P21L6Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L6Q3",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Surname of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L6Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L6Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L6Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L6Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "nature-of-contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L6Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Other - specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-exposure-seven",
+          "condition": "moreThanSixHealthcareWorkerExposures"
+        },
+        {
+          "path": "/healthcare-worker-exposure-ppe"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-exposure-seven",
+      "title": "Healthcare Worker Exposure 7",
+      "components": [
+        {
+          "name": "P21L7Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L7Q3",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Surname of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L7Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L7Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L7Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L7Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "nature-of-contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L7Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Other - specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-exposure-eight",
+          "condition": "moreThanSevenHealthcareWorkerExposures"
+        },
+        {
+          "path": "/healthcare-worker-exposure-ppe"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-exposure-eight",
+      "title": "Healthcare Worker Exposure 8",
+      "components": [
+        {
+          "name": "P21L8Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L8Q3",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Surname of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L8Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L8Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L8Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L8Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "nature-of-contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L8Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Other - specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-exposure-nine",
+          "condition": "moreThanEightHealthcareWorkerExposures"
+        },
+        {
+          "path": "/healthcare-worker-exposure-ppe"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-exposure-nine",
+      "title": "Healthcare Worker Exposure 9",
+      "components": [
+        {
+          "name": "P21L9Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L9Q3",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Surname of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L9Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L9Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L9Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L9Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "nature-of-contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L9Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Other - specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-exposure-ten",
+          "condition": "moreThanNineHealthcareWorkerExposures"
+        },
+        {
+          "path": "/healthcare-worker-exposure-ppe"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-exposure-ten",
+      "title": "Healthcare Worker Exposure 10",
+      "components": [
+        {
+          "name": "P21L10Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "First name of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L10Q3",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Surname of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L10Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the healthcare worker has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P21L10Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L10Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L10Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "nature-of-contact",
+          "schema": {}
+        },
+        {
+          "name": "P21L10Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Other - specify",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-exposure-ppe"
+        }
+      ]
+    },
+
     {
       "path": "/healthcare-worker-exposure-ppe",
       "title": "Healthcare Worker Exposure PPE",
@@ -1490,7 +2286,7 @@
           "title": "How many procedures was the contact present during",
           "schema": {
             "min": 0,
-            "max": 5
+            "max": 10
           }
         }
       ],
@@ -1705,6 +2501,211 @@
       ],
       "next": [
         {
+          "path": "/healthcare-worker-procedure-six",
+          "condition": "moreThanFiveHealthcareWorkerProcedure"
+        },
+        {
+          "path": "/non-healthcare-worker-exposures"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-procedure-six",
+      "title": "Healthcare Worker Procedure 6",
+      "components": [
+        {
+          "name": "P24L6Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Specify procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L6Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L6Q3",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact wearing any of the following masks during the procedure",
+          "list": "mask-types",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-procedure-seven",
+          "condition": "moreThanSixHealthcareWorkerProcedure"
+        },
+        {
+          "path": "/non-healthcare-worker-exposures"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-procedure-seven",
+      "title": "Healthcare Worker Procedure 7",
+      "components": [
+        {
+          "name": "P24L7Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Specify procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L7Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L7Q3",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact wearing any of the following masks during the procedure",
+          "list": "mask-types",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-procedure-eight",
+          "condition": "moreThanSevenHealthcareWorkerProcedure"
+        },
+        {
+          "path": "/non-healthcare-worker-exposures"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-procedure-eight",
+      "title": "Healthcare Worker Procedure 8",
+      "components": [
+        {
+          "name": "P24L8Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Specify procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L8Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L8Q3",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact wearing any of the following masks during the procedure",
+          "list": "mask-types",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-procedure-nine",
+          "condition": "moreThanEightHealthcareWorkerProcedure"
+        },
+        {
+          "path": "/non-healthcare-worker-exposures"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-procedure-nine",
+      "title": "Healthcare Worker Procedure 9",
+      "components": [
+        {
+          "name": "P24L9Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Specify procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L9Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L9Q3",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact wearing any of the following masks during the procedure",
+          "list": "mask-types",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/healthcare-worker-procedure-ten",
+          "condition": "moreThanNineHealthcareWorkerProcedure"
+        },
+        {
+          "path": "/non-healthcare-worker-exposures"
+        }
+      ]
+    },
+    {
+      "path": "/healthcare-worker-procedure-ten",
+      "title": "Healthcare Worker Procedure 10",
+      "components": [
+        {
+          "name": "P24L10Q1",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Specify procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L10Q2",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of procedure",
+          "schema": {}
+        },
+        {
+          "name": "P24L10Q3",
+          "options": {},
+          "type": "SelectField",
+          "title": "Was the contact wearing any of the following masks during the procedure",
+          "list": "mask-types",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
           "path": "/non-healthcare-worker-exposures"
         }
       ]
@@ -1728,7 +2729,7 @@
           "title": "How many confirmed cases has the contact been exposed to (non healthcare worker exposures) in the last 10 days",
           "schema": {
             "min": 0,
-            "max": 5
+            "max": 10
           }
         }
       ],
@@ -2140,11 +3141,415 @@
       ],
       "next": [
         {
+          "path": "/non-healthcare-worker-exposure-six",
+          "condition": "moreThanFiveNonHealthcareWorkerExposure"
+        },
+        {
           "path": "/symptoms"
         }
       ]
     },
-
+    {
+      "path": "/non-healthcare-worker-exposure-six",
+      "title": "Non-Healthcare Worker Exposure 6",
+      "components": [
+        {
+          "name": "P26L6Q2",
+          "options": {},
+          "type": "TextField",
+          "title": "First name of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L6Q3",
+          "options": {},
+          "type": "TextField",
+          "title": "Surname of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L6Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L6Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L6Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L6Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P26L6Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        },
+        {
+          "name": "P26L6Q9",
+          "options": {},
+          "type": "SelectField",
+          "title": "Duration of contact",
+          "list": "contact-duration",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/non-healthcare-worker-exposure-seven",
+          "condition": "moreThanSixNonHealthcareWorkerExposure"
+        },
+        {
+          "path": "/symptoms"
+        }
+      ]
+    },
+    {
+      "path": "/non-healthcare-worker-exposure-seven",
+      "title": "Non-Healthcare Worker Exposure 7",
+      "components": [
+        {
+          "name": "P26L7Q2",
+          "options": {},
+          "type": "TextField",
+          "title": "First name of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L7Q3",
+          "options": {},
+          "type": "TextField",
+          "title": "Surname of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L7Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L7Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L7Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L7Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P26L7Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        },
+        {
+          "name": "P26L7Q9",
+          "options": {},
+          "type": "SelectField",
+          "title": "Duration of contact",
+          "list": "contact-duration",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/non-healthcare-worker-exposure-eight",
+          "condition": "moreThanSevenNonHealthcareWorkerExposure"
+        },
+        {
+          "path": "/symptoms"
+        }
+      ]
+    },
+    {
+      "path": "/non-healthcare-worker-exposure-eight",
+      "title": "Non-Healthcare Worker Exposure 8",
+      "components": [
+        {
+          "name": "P26L8Q2",
+          "options": {},
+          "type": "TextField",
+          "title": "First name of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L8Q3",
+          "options": {},
+          "type": "TextField",
+          "title": "Surname of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L8Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L8Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L8Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L8Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P26L8Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        },
+        {
+          "name": "P26L8Q9",
+          "options": {},
+          "type": "SelectField",
+          "title": "Duration of contact",
+          "list": "contact-duration",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/non-healthcare-worker-exposure-nine",
+          "condition": "moreThanEightNonHealthcareWorkerExposure"
+        },
+        {
+          "path": "/symptoms"
+        }
+      ]
+    },
+    {
+      "path": "/non-healthcare-worker-exposure-nine",
+      "title": "Non-Healthcare Worker Exposure 9",
+      "components": [
+        {
+          "name": "P26L9Q2",
+          "options": {},
+          "type": "TextField",
+          "title": "First name of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L9Q3",
+          "options": {},
+          "type": "TextField",
+          "title": "Surname of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L9Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L9Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L9Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L9Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P26L9Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        },
+        {
+          "name": "P26L9Q9",
+          "options": {},
+          "type": "SelectField",
+          "title": "Duration of contact",
+          "list": "contact-duration",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/non-healthcare-worker-exposure-ten",
+          "condition": "moreThanNineNonHealthcareWorkerExposure"
+        },
+        {
+          "path": "/symptoms"
+        }
+      ]
+    },
+    {
+      "path": "/non-healthcare-worker-exposure-ten",
+      "title": "Non-Healthcare Worker Exposure 10",
+      "components": [
+        {
+          "name": "P26L10Q2",
+          "options": {},
+          "type": "TextField",
+          "title": "First name of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L10Q3",
+          "options": {},
+          "type": "TextField",
+          "title": "Surname of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L10Q4",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "DOB of the confirmed case the contact has been exposed to",
+          "schema": {}
+        },
+        {
+          "name": "P26L10Q5",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of first contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L10Q6",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "Date of last contact",
+          "schema": {}
+        },
+        {
+          "name": "P26L10Q7",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Nature of contact (tick all that apply)",
+          "list": "settings",
+          "schema": {}
+        },
+        {
+          "name": "P26L10Q8",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If other, please specify",
+          "schema": {}
+        },
+        {
+          "name": "P26L10Q9",
+          "options": {},
+          "type": "SelectField",
+          "title": "Duration of contact",
+          "list": "contact-duration",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptoms"
+        }
+      ]
+    },
     {
       "path": "/symptoms",
       "title": "Symptoms",
@@ -4547,7 +5952,7 @@
             "field": {
               "name": "P3Q22",
               "type": "YesNoField",
-              "display": "How many confirmed cases has the contact been exposed to (non healthcare worker exposures) in the last 10 days"
+              "display": "Healthcare Worker with Direct Patient Care"
             },
             "operator": "is",
             "value": {
@@ -4583,6 +5988,31 @@
       "name": "moreThanFourExposureLocations",
       "displayName": "moreThanFourExposureLocations",
       "value": "exposureLocations.P6Q2 > 4"
+    },
+    {
+      "name": "moreThanFiveExposureLocations",
+      "displayName": "moreThanFiveExposureLocations",
+      "value": "exposureLocations.P6Q2 > 5"
+    },
+    {
+      "name": "moreThanSixExposureLocations",
+      "displayName": "moreThanSixExposureLocations",
+      "value": "exposureLocations.P6Q2 > 6"
+    },
+    {
+      "name": "moreThanSevenExposureLocations",
+      "displayName": "moreThanSevenExposureLocations",
+      "value": "exposureLocations.P6Q2 > 7"
+    },
+    {
+      "name": "moreThanEightExposureLocations",
+      "displayName": "moreThanEightExposureLocations",
+      "value": "exposureLocations.P6Q2 > 8"
+    },
+    {
+      "name": "moreThanNineExposureLocations",
+      "displayName": "moreThanNineExposureLocations",
+      "value": "exposureLocations.P6Q2 > 9"
     },
     {
       "name": "moreThanZeroOtherAntiviral",
@@ -4635,6 +6065,31 @@
       "value": "healthcareWorkerExposure.P20Q1 > 4"
     },
     {
+      "name": "moreThanFiveHealthcareWorkerExposures",
+      "displayName": "moreThanFiveHealthcareWorkerExposures",
+      "value": "healthcareWorkerExposure.P20Q1 > 5"
+    },
+    {
+      "name": "moreThanSixHealthcareWorkerExposures",
+      "displayName": "moreThanSixHealthcareWorkerExposures",
+      "value": "healthcareWorkerExposure.P20Q1 > 6"
+    },
+    {
+      "name": "moreThanSevenHealthcareWorkerExposures",
+      "displayName": "moreThanSevenHealthcareWorkerExposures",
+      "value": "healthcareWorkerExposure.P20Q1 > 7"
+    },
+    {
+      "name": "moreThanEightHealthcareWorkerExposures",
+      "displayName": "moreThanEightHealthcareWorkerExposures",
+      "value": "healthcareWorkerExposure.P20Q1 > 8"
+    },
+    {
+      "name": "moreThanNineHealthcareWorkerExposures",
+      "displayName": "moreThanNineHealthcareWorkerExposures",
+      "value": "healthcareWorkerExposure.P20Q1 > 9"
+    },
+    {
       "name": "moreThanZeroHealthcareWorkerProcedure",
       "displayName": "moreThanZeroHealthcareWorkerProcedure",
       "value": "healthcareWorkerProcedures.P23Q2 > 0"
@@ -4660,6 +6115,31 @@
       "value": "healthcareWorkerProcedures.P23Q2 > 4"
     },
     {
+      "name": "moreThanFiveHealthcareWorkerProcedure",
+      "displayName": "moreThanFiveHealthcareWorkerProcedure",
+      "value": "healthcareWorkerProcedures.P23Q2 > 5"
+    },
+    {
+      "name": "moreThanSixHealthcareWorkerProcedure",
+      "displayName": "moreThanSixHealthcareWorkerProcedure",
+      "value": "healthcareWorkerProcedures.P23Q2 > 6"
+    },
+    {
+      "name": "moreThanSevenHealthcareWorkerProcedure",
+      "displayName": "moreThanSevenHealthcareWorkerProcedure",
+      "value": "healthcareWorkerProcedures.P23Q2 > 7"
+    },
+    {
+      "name": "moreThanEightHealthcareWorkerProcedure",
+      "displayName": "moreThanEightHealthcareWorkerProcedure",
+      "value": "healthcareWorkerProcedures.P23Q2 > 8"
+    },
+    {
+      "name": "moreThanNineHealthcareWorkerProcedure",
+      "displayName": "moreThanNineHealthcareWorkerProcedure",
+      "value": "healthcareWorkerProcedures.P23Q2 > 9"
+    },
+    {
       "name": "moreThanZeroNonHealthcareWorkerExposure",
       "displayName": "moreThanZeroNonHealthcareWorkerExposure",
       "value": "nonHealthcareWorkerExposures.P25Q1 > 0"
@@ -4683,6 +6163,31 @@
       "name": "moreThanFourNonHealthcareWorkerExposure",
       "displayName": "moreThanFourNonHealthcareWorkerExposure",
       "value": "nonHealthcareWorkerExposures.P25Q1 > 4"
+    },
+    {
+      "name": "moreThanFiveNonHealthcareWorkerExposure",
+      "displayName": "moreThanFiveNonHealthcareWorkerExposure",
+      "value": "nonHealthcareWorkerExposures.P25Q1 > 5"
+    },
+    {
+      "name": "moreThanSixNonHealthcareWorkerExposure",
+      "displayName": "moreThanSixNonHealthcareWorkerExposure",
+      "value": "nonHealthcareWorkerExposures.P25Q1 > 6"
+    },
+    {
+      "name": "moreThanSevenNonHealthcareWorkerExposure",
+      "displayName": "moreThanSevenNonHealthcareWorkerExposure",
+      "value": "nonHealthcareWorkerExposures.P25Q1 > 7"
+    },
+    {
+      "name": "moreThanEightNonHealthcareWorkerExposure",
+      "displayName": "moreThanEightNonHealthcareWorkerExposure",
+      "value": "nonHealthcareWorkerExposures.P25Q1 > 8"
+    },
+    {
+      "name": "moreThanNineNonHealthcareWorkerExposure",
+      "displayName": "moreThanNineNonHealthcareWorkerExposure",
+      "value": "nonHealthcareWorkerExposures.P25Q1 > 9"
     },
     {
       "name": "moreThanZeroHospitalAdmissions",
