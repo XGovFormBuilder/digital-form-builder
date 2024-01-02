@@ -42,10 +42,22 @@ suite(`Server config validation`, () => {
     );
   });
 
-  test("it succeeds when PAY_RETURN_URL is insecure and the environment is test", () => {
+  test("it succeeds when PAY_RETURN_URL is insecure and the node environment is test", () => {
     const configWithInsecureUrl = {
       payReturnUrl: "http://insecure.url",
       env: "test",
+      apiEnv: "production",
+    };
+
+    const result = configSchema.validate(configWithInsecureUrl);
+
+    expect(Object.keys(result)).to.not.contain("error");
+  });
+
+  test("it succeeds when PAY_RETURN_URL is insecure and the api environment is test", () => {
+    const configWithInsecureUrl = {
+      payReturnUrl: "http://insecure.url",
+      env: "production",
       apiEnv: "test",
     };
 
