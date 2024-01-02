@@ -32,9 +32,13 @@ export const configSchema = Joi.object({
   matomoUrl: Joi.string().custom(secureUrl).optional(),
   payApiUrl: Joi.string().custom(secureUrl),
   payReturnUrl: Joi.when("env", {
-    is: Joi.valid("test"),
+    is: Joi.string().valid("development", "test"),
     then: Joi.string().default("http://localhost:3009"),
-    otherwise: Joi.string().custom(secureUrl),
+    otherwise: Joi.when("apiEnv", {
+      is: Joi.string().valid("test"),
+      then: Joi.string().default("http://localhost:3009"),
+      otherwise: Joi.string().custom(secureUrl),
+    }),
   }),
   serviceUrl: Joi.string().optional(),
   redisHost: Joi.string().optional(),
