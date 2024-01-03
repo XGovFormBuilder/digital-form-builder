@@ -35,6 +35,7 @@ export interface RepeatingFieldPage extends Page {
 export interface Section {
   name: string;
   title: string;
+  hideTitle: boolean;
 }
 
 export interface Item {
