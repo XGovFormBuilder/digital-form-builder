@@ -45,7 +45,7 @@ export const configureBlankiePlugin = (
   }
 
   if (gtmId1 || gtmId2) {
-    google.connectSrc.push("www.google-analytics.com");
+    google.connectSrc.push("www.google-analytics.com", "region1.google-analytics.com");
     google.fontSrc.push("fonts.gstatic.com");
     google.frameSrc.push("www.googletagmanager.com");
     google.imgSrc.push(
