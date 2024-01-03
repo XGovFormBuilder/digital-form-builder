@@ -400,7 +400,7 @@
       "title": "Section title"
     },
     "hideTitleField": {
-      "helpText": "If you do not want the section title displayed on any page that's part of this section, tick this box",
+      "helpText": "Tick this box if you do not want the section title to show on any pages in this section",
       "title": "Hide section title"
     }
   },
