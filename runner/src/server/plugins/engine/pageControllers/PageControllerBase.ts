@@ -120,7 +120,7 @@ export class PageControllerBase {
         ...formData,
       });
     }
-    let sectionTitle = this.section?.title;
+    let sectionTitle = !this.section?.hideTitle && this.section?.title;
     if (sectionTitle && iteration !== undefined) {
       sectionTitle = `${sectionTitle} ${iteration}`;
     }

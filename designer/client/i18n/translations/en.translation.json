@@ -398,6 +398,10 @@
     "titleField": {
       "helpText": "Appears above the page title. However, if these titles are the same, the form will only show the page title.",
       "title": "Section title"
+    },
+    "hideTitleField": {
+      "helpText": "Tick this box if you do not want the section title to show on any pages in this section",
+      "title": "Hide section title"
     }
   },
   "title": "Title",

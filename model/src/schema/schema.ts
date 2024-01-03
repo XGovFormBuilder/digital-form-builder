@@ -8,6 +8,7 @@ export const CURRENT_VERSION = 2;
 const sectionsSchema = joi.object().keys({
   name: joi.string().required(),
   title: joi.string().required(),
+  hideTitle: joi.boolean().default(false),
 });
 
 const conditionFieldSchema = joi.object().keys({
