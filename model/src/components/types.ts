@@ -122,6 +122,7 @@ interface ListFieldBase {
     classes?: string;
     bold?: boolean;
     exposeToContext?: boolean;
+    allowPrePopulation?: boolean;
   };
   list: string;
   schema: {};
