@@ -73,6 +73,10 @@
       "helpText": "If using additional context, choose this option to expose the field to be used by additional contexts",
       "title": "Expose to context"
     },
+    "allowPrePopulationOption": {
+      "helpText": "Tick this box if you want this field to be available to be pre-populated by query parameter",
+      "title": "Allow pre-population"
+    },
     "helpTextField": {
       "helpText": "Enter the description to show for this field",
       "title": "Help text (optional)"

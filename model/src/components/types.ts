@@ -110,7 +110,7 @@ interface NumberFieldBase {
 }
 
 interface ListFieldBase {
-  subType?: "field" | "content";
+  subType?: "listField" | "content";
   type: string;
   name: string;
   title: string;
@@ -276,10 +276,12 @@ export interface ListComponent extends ListFieldBase {
 
 export interface AutocompleteFieldComponent extends ListFieldBase {
   type: "AutocompleteField";
+  subType?: "listField";
 }
 
 export interface CheckboxesFieldComponent extends ListFieldBase {
   type: "CheckboxesField";
+  subType?: "listField";
 }
 
 export interface FlashCardComponent extends ListFieldBase {
@@ -288,11 +290,13 @@ export interface FlashCardComponent extends ListFieldBase {
 
 export interface RadiosFieldComponent extends ListFieldBase {
   type: "RadiosField";
+  subType?: "listField";
 }
 
 export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
   options: ListFieldBase["options"] & { autocomplete?: string };
+  subType?: "listField";
 }
 
 export type ComponentDef =

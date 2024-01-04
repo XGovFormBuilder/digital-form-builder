@@ -143,5 +143,13 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, exposeToContext: payload },
         },
       };
+    case Options.EDIT_OPTIONS_ALLOW_PRE_POPULATION:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, allowPrePopulation: payload },
+        },
+      };
   }
 }
