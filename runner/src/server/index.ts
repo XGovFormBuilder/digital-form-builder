@@ -123,7 +123,6 @@ async function createServer(routeConfig: RouteConfig) {
       }
 
       if ("header" in response && response.header) {
-        response.header("X-Robots-Tag", "noindex, nofollow");
 
         const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
         if (!WEBFONT_EXTENSIONS.test(request.url.toString())) {
