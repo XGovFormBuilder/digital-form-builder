@@ -44,7 +44,7 @@ export class ComponentCollection {
       .keys({ crumb: joi.string().optional().allow("") });
 
     this.stateSchema = joi.object().keys(this.getStateSchemaKeys()).required();
-    this.prePopulatedItems = this.getPrepopulatedItems();
+    this.prePopulatedItems = this.getPrePopulatedItems();
   }
 
   getFormSchemaKeys() {
@@ -67,7 +67,7 @@ export class ComponentCollection {
     return keys;
   }
 
-  getPrepopulatedItems() {
+  getPrePopulatedItems() {
     return this.formItems
       .filter((item) => item.options?.allowPrePopulation)
       .map((item) => ({ [item.name]: "" }));
