@@ -50,7 +50,7 @@ export class FormModel {
   basePath: string;
   conditions: Record<string, ExecutableCondition> | {};
   fieldsForContext: ComponentCollection;
-  fieldsForPrePopulation: string[];
+  fieldsForPrePopulation: Record<string, any>;
   pages: any;
   startPage: any;
 
@@ -112,19 +112,7 @@ export class FormModel {
       );
     });
     this.fieldsForContext = new ComponentCollection(exposedComponentDefs, this);
-    this.fieldsForPrePopulation = def.pages.flatMap((page) => {
-      const pageSection = page.section;
-      return page.components
-        .filter((component) => component.options?.allowPrePopulation)
-        .map((component) => {
-          if (pageSection) {
-            return `${pageSection}.${component.name}`;
-          }
-          return component.name;
-        });
-    });
-
-    console.log("Fields for pre-population: ", this.fieldsForPrePopulation);
+    this.fieldsForPrePopulation = {};
 
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
