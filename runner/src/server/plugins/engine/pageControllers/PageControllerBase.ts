@@ -84,6 +84,25 @@ export class PageControllerBase {
       (c: any) => c.conditionalComponents
     );
 
+    const fieldsForPrePopulation = components.formItems
+      .filter((component) => component.options?.allowPrePopulation)
+      .map((component) => ({ [component.name]: "" }))
+      .reduce((acc, curr) => Object.assign(acc, curr), {});
+
+    if (this.section) {
+      const sectionFieldsForPrePop =
+        this.model.fieldsForPrePopulation[this.section.name] ?? {};
+      this.model.fieldsForPrePopulation[this.section.name] = {
+        ...sectionFieldsForPrePop,
+        ...fieldsForPrePopulation,
+      };
+    } else {
+      this.model.fieldsForPrePopulation = {
+        ...this.model.fieldsForPrePopulation,
+        ...fieldsForPrePopulation,
+      };
+    }
+
     this.components = components;
     this.hasFormComponents = !!components.formItems.length;
     this.hasConditionalFormComponents = !!conditionalFormComponents.length;

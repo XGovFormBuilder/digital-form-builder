@@ -10,6 +10,7 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "../../config";
+import { reach } from "@hapi/hoek";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -220,37 +221,21 @@ export const plugin = {
 
               if (
                 Object.keys(query).length > 0 &&
-                model.fieldsForPrePopulation.length > 0
+                Object.keys(model.fieldsForPrePopulation).length > 0
               ) {
-                const newValues = model.fieldsForPrePopulation.reduce(
-                  (acc, currField) => {
-                    let incomingValue = { [currField]: query[currField] };
-                    if (incomingValue) {
-                      if (currField.includes(".")) {
-                        const [section, field] = currField.split(".");
-                        incomingValue = {
-                          [section]: {
-                            [field]: query[currField],
-                          },
-                        };
-                      }
-                      return {
-                        ...acc,
-                        ...incomingValue,
-                      };
+                let newValues = model.fieldsForPrePopulation;
+                Object.entries(query).forEach(([key, value]) => {
+                  if (reach(newValues, key) !== undefined) {
+                    const keySplit = key.split(".");
+                    if (keySplit.length === 1) {
+                      newValues[key] = value;
+                    } else {
+                      newValues[keySplit[0]][keySplit[1]] = value;
                     }
-                    return {
-                      ...acc,
-                    };
-                  },
-                  {}
-                );
-                const { cacheService } = request.services([]);
-                const state = cacheService.getState(request);
-                await cacheService.mergeState(request, {
-                  ...state,
-                  ...newValues,
+                  }
                 });
+                const { cacheService } = request.services([]);
+                await cacheService.mergeState(request, newValues);
               }
               return h.continue;
             },
