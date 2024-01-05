@@ -37,7 +37,12 @@ function getStartPageRedirect(
   if (startPage.startsWith("http")) {
     startPageRedirect = redirectTo(request, h, startPage);
   } else {
-    startPageRedirect = redirectTo(request, h, `/${id}/${startPage}`);
+    startPageRedirect = redirectTo(
+      request,
+      h,
+      `/${id}/${startPage}`,
+      request.query
+    );
   }
 
   return startPageRedirect;
@@ -202,6 +207,56 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
+      options: {
+        pre: [
+          {
+            method: async (request: HapiRequest, h: HapiResponseToolkit) => {
+              const { query } = request;
+              const { id } = request.params;
+              const model = forms[id];
+              if (!model) {
+                throw Boom.notFound("No form found for id");
+              }
+
+              if (
+                Object.keys(query).length > 0 &&
+                model.fieldsForPrePopulation.length > 0
+              ) {
+                const newValues = model.fieldsForPrePopulation.reduce(
+                  (acc, currField) => {
+                    let incomingValue = { [currField]: query[currField] };
+                    if (incomingValue) {
+                      if (currField.includes(".")) {
+                        const [section, field] = currField.split(".");
+                        incomingValue = {
+                          [section]: {
+                            [field]: query[currField],
+                          },
+                        };
+                      }
+                      return {
+                        ...acc,
+                        ...incomingValue,
+                      };
+                    }
+                    return {
+                      ...acc,
+                    };
+                  },
+                  {}
+                );
+                const { cacheService } = request.services([]);
+                const state = cacheService.getState(request);
+                await cacheService.mergeState(request, {
+                  ...state,
+                  ...newValues,
+                });
+              }
+              return h.continue;
+            },
+          },
+        ],
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
         const model = forms[id];
