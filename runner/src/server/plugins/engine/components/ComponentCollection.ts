@@ -16,6 +16,7 @@ import { FormComponent } from "./FormComponent";
 export class ComponentCollection {
   items: (ComponentBase | ComponentCollection | FormComponent)[];
   formItems: FormComponent /* | ConditionalFormComponent*/[];
+  prePopulatedItems: Record<string, any>[];
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
 
@@ -43,6 +44,7 @@ export class ComponentCollection {
       .keys({ crumb: joi.string().optional().allow("") });
 
     this.stateSchema = joi.object().keys(this.getStateSchemaKeys()).required();
+    this.prePopulatedItems = this.getPrepopulatedItems();
   }
 
   getFormSchemaKeys() {
@@ -63,6 +65,12 @@ export class ComponentCollection {
     });
 
     return keys;
+  }
+
+  getPrepopulatedItems() {
+    return this.formItems
+      .filter((item) => item.options?.allowPrePopulation)
+      .map((item) => ({ [item.name]: "" }));
   }
 
   getFormDataFromState(state: FormSubmissionState): any {
