@@ -38,12 +38,7 @@ function getStartPageRedirect(
   if (startPage.startsWith("http")) {
     startPageRedirect = redirectTo(request, h, startPage);
   } else {
-    startPageRedirect = redirectTo(
-      request,
-      h,
-      `/${id}/${startPage}`,
-      request.query
-    );
+    startPageRedirect = redirectTo(request, h, `/${id}/${startPage}`);
   }
 
   return startPageRedirect;
@@ -192,9 +187,61 @@ export const plugin = {
       },
     });
 
+    const queryParamPreHandler = async (
+      request: HapiRequest,
+      h: HapiResponseToolkit
+    ) => {
+      const { query } = request;
+      const { id } = request.params;
+      const model = forms[id];
+      if (!model) {
+        throw Boom.notFound("No form found for id");
+      }
+
+      const prePopFields = model.fieldsForPrePopulation;
+      if (
+        Object.keys(query).length > 0 &&
+        Object.keys(prePopFields).length > 0
+      ) {
+        let newValues = {};
+        Object.entries(query).forEach(([key, value]) => {
+          if (reach(prePopFields, key) !== undefined) {
+            const keySplit = key.split(".");
+            if (keySplit.length === 1) {
+              const result = prePopFields[key].validate({ [key]: value });
+              if (!result.error) {
+                newValues[key] = value;
+              }
+            } else {
+              const result = prePopFields[keySplit[0]][keySplit[1]].validate(
+                value
+              );
+              if (!result.error) {
+                newValues[keySplit[0]] = {
+                  ...(newValues[keySplit[0]] ?? {}),
+                  [keySplit[1]]: value,
+                };
+              }
+            }
+          }
+        });
+        const { cacheService } = request.services([]);
+        await cacheService.mergeState(request, newValues);
+        return h.redirect();
+      }
+      return h.continue;
+    };
+
     server.route({
       method: "get",
       path: "/{id}",
+      options: {
+        pre: [
+          {
+            method: queryParamPreHandler,
+          },
+        ],
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { id } = request.params;
         const model = forms[id];
@@ -211,34 +258,7 @@ export const plugin = {
       options: {
         pre: [
           {
-            method: async (request: HapiRequest, h: HapiResponseToolkit) => {
-              const { query } = request;
-              const { id } = request.params;
-              const model = forms[id];
-              if (!model) {
-                throw Boom.notFound("No form found for id");
-              }
-
-              if (
-                Object.keys(query).length > 0 &&
-                Object.keys(model.fieldsForPrePopulation).length > 0
-              ) {
-                let newValues = model.fieldsForPrePopulation;
-                Object.entries(query).forEach(([key, value]) => {
-                  if (reach(newValues, key) !== undefined) {
-                    const keySplit = key.split(".");
-                    if (keySplit.length === 1) {
-                      newValues[key] = value;
-                    } else {
-                      newValues[keySplit[0]][keySplit[1]] = value;
-                    }
-                  }
-                });
-                const { cacheService } = request.services([]);
-                await cacheService.mergeState(request, newValues);
-              }
-              return h.continue;
-            },
+            method: queryParamPreHandler,
           },
         ],
       },
