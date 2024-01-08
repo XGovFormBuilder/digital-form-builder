@@ -203,20 +203,22 @@ export const plugin = {
         Object.keys(query).length > 0 &&
         Object.keys(prePopFields).length > 0
       ) {
+        const { cacheService } = request.services([]);
+        const state = await cacheService.getState(request);
         let newValues = {};
         Object.entries(query).forEach(([key, value]) => {
           if (reach(prePopFields, key) !== undefined) {
             const keySplit = key.split(".");
             if (keySplit.length === 1) {
               const result = prePopFields[key].validate({ [key]: value });
-              if (!result.error) {
+              if (!result.error && !state[key]) {
                 newValues[key] = value;
               }
             } else {
               const result = prePopFields[keySplit[0]][keySplit[1]].validate(
                 value
               );
-              if (!result.error) {
+              if (!result.error && !state[keySplit[0]]?.[keySplit[1]]) {
                 newValues[keySplit[0]] = {
                   ...(newValues[keySplit[0]] ?? {}),
                   [keySplit[1]]: value,
@@ -225,7 +227,6 @@ export const plugin = {
             }
           }
         });
-        const { cacheService } = request.services([]);
         await cacheService.mergeState(request, newValues);
         return h.redirect();
       }
