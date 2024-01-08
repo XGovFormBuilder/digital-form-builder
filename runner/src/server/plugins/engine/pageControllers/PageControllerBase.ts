@@ -84,10 +84,7 @@ export class PageControllerBase {
       (c: any) => c.conditionalComponents
     );
 
-    const fieldsForPrePopulation = components.prePopulatedItems.reduce(
-      (acc, curr) => merge(acc, curr),
-      {}
-    );
+    const fieldsForPrePopulation = components.prePopulatedItems;
 
     if (this.section) {
       this.model.fieldsForPrePopulation[this.section.name] = {

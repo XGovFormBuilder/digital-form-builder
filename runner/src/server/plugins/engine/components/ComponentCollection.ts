@@ -12,11 +12,12 @@ import {
 import { ComponentCollectionViewModel } from "./types";
 import { ComponentBase } from "./ComponentBase";
 import { FormComponent } from "./FormComponent";
+import { merge } from "@hapi/hoek";
 
 export class ComponentCollection {
   items: (ComponentBase | ComponentCollection | FormComponent)[];
   formItems: FormComponent /* | ConditionalFormComponent*/[];
-  prePopulatedItems: Record<string, any>[];
+  prePopulatedItems: Record<string, JoiSchema>;
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
 
@@ -70,7 +71,8 @@ export class ComponentCollection {
   getPrePopulatedItems() {
     return this.formItems
       .filter((item) => item.options?.allowPrePopulation)
-      .map((item) => ({ [item.name]: "" }));
+      .map((item) => item.getStateSchemaKeys())
+      .reduce((acc, curr) => merge(acc, curr), {});
   }
 
   getFormDataFromState(state: FormSubmissionState): any {
