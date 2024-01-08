@@ -32,15 +32,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.copilot_env_matrix.outputs.env_list }}
+      pre_matrix: ${{ steps.copilot_env_matrix.outputs.pre_deploy_list }}
+      post_matrix: ${{ steps.copilot_env_matrix.outputs.post_deploy_list }}
     steps:
       - id: copilot_env_matrix
         run: |
           if [ "${{ inputs.environment }}" != '' ]; then
             echo "env_list=[\"${{ inputs.environment }}\"]" >> $GITHUB_OUTPUT
           elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
-            echo "env_list=[\"dev\", \"test\", \"uat\", \"production\"]" >> $GITHUB_OUTPUT
+            echo "pre_deploy_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
+            echo "post_deploy_list=[\"uat\", \"prod\"]" >> $GITHUB_OUTPUT
           else
-            echo "env_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
+            echo "pre_deploy_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
           fi
 
   docker-build:
@@ -137,7 +140,7 @@ jobs:
           copilot svc deploy --env ${{ matrix.value }} --app pre-award
 
   dev_deploy:
-    if: inputs.environment == ''
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.pre_matrix != '' && toJson(fromJson(needs.copilot_environments_workflow_setup.outputs.pre_matrix)) != '[]' }}
     concurrency:
       group: "fsd-preaward-copilot-dev"
       cancel-in-progress: false
@@ -195,7 +198,7 @@ jobs:
           copilot svc deploy --env dev --app pre-award
 
   test_deploy:
-    if: inputs.environment == ''
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.pre_matrix != '' && toJson(fromJson(needs.copilot_environments_workflow_setup.outputs.pre_matrix)) != '[]' }}
     concurrency:
       group: "fsd-preaward-copilot-test"
       cancel-in-progress: false
@@ -253,7 +256,7 @@ jobs:
           copilot svc deploy --env test --app pre-award
 
   uat_deploy:
-    if: inputs.environment == ''
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.post_matrix != '' && toJson(fromJson(needs.copilot_environments_workflow_setup.outputs.post_matrix)) != '[]' }}
     concurrency:
       group: "fsd-preaward-copilot-uat"
       cancel-in-progress: false
@@ -311,7 +314,7 @@ jobs:
           copilot svc deploy --env uat --app pre-award
 
   prod_deploy:
-    if: inputs.environment == ''
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.post_matrix != '' && toJson(fromJson(needs.copilot_environments_workflow_setup.outputs.post_matrix)) != '[]' }}
     concurrency:
       group: "fsd-preaward-copilot-prod"
       cancel-in-progress: false
