@@ -20,7 +20,6 @@ export function FieldEdit({
   const { selectedComponent, errors } = state;
 
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
-  console.log("Options: ", options);
   const {
     hideTitle = false,
     optionalText = false,
