@@ -207,10 +207,11 @@ export const plugin = {
         const state = await cacheService.getState(request);
         let newValues = {};
         Object.entries(query).forEach(([key, value]) => {
+          console.log("Value of the query param: ", value);
           if (reach(prePopFields, key) !== undefined) {
             const keySplit = key.split(".");
             if (keySplit.length === 1) {
-              const result = prePopFields[key].validate({ [key]: value });
+              const result = prePopFields[key].validate(value);
               if (!result.error && !state[key]) {
                 newValues[key] = value;
               }
