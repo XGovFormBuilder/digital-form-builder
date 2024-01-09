@@ -136,6 +136,7 @@ module.exports = {
    * Failure queue
    */
   enableQueueService: false,
+  // queueType: "pgboss", "mysql"
   // queueDatabaseUrl: "mysql://root:root@localhost:3306/queue"
   queueServicePollingInterval: "500",
 
