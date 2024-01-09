@@ -200,37 +200,35 @@ export const plugin = {
 
       const prePopFields = model.fieldsForPrePopulation;
       if (
-        Object.keys(query).length > 0 &&
-        Object.keys(prePopFields).length > 0
+        Object.keys(query).length === 0 ||
+        Object.keys(prePopFields).length === 0
       ) {
-        const { cacheService } = request.services([]);
-        const state = await cacheService.getState(request);
-        let newValues = {};
-        Object.entries(query).forEach(([key, value]) => {
-          console.log("Value of the query param: ", value);
-          if (reach(prePopFields, key) !== undefined) {
-            const keySplit = key.split(".");
-            if (keySplit.length === 1) {
-              const result = prePopFields[key].validate(value);
-              if (!result.error && !state[key]) {
-                newValues[key] = value;
-              }
-            } else {
-              const result = prePopFields[keySplit[0]][keySplit[1]].validate(
-                value
-              );
-              if (!result.error && !state[keySplit[0]]?.[keySplit[1]]) {
-                newValues[keySplit[0]] = {
-                  ...(newValues[keySplit[0]] ?? {}),
-                  [keySplit[1]]: value,
-                };
-              }
-            }
-          }
-        });
-        await cacheService.mergeState(request, newValues);
-        return h.redirect();
+        return h.continue;
       }
+      const { cacheService } = request.services([]);
+      const state = await cacheService.getState(request);
+      let newValues = {};
+      Object.entries(query).forEach(([key, value]) => {
+        if (reach(prePopFields, key) === undefined || reach(state, key)) {
+          return;
+        }
+
+        const result = reach(prePopFields, key).validate(value);
+        if (result.error) {
+          return;
+        }
+
+        const keySplit = key.split(".");
+        if (keySplit.length === 1) {
+          newValues[key] = value;
+          return;
+        }
+        newValues[keySplit[0]] = {
+          ...(newValues[keySplit[0]] ?? {}),
+          [keySplit[1]]: value,
+        };
+      });
+      await cacheService.mergeState(request, newValues);
       return h.continue;
     };
 
