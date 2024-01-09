@@ -11,6 +11,7 @@ import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "../../config";
 import { reach } from "@hapi/hoek";
+import _ from "lodash";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -217,16 +218,7 @@ export const plugin = {
         if (result.error) {
           return;
         }
-
-        const keySplit = key.split(".");
-        if (keySplit.length === 1) {
-          newValues[key] = value;
-          return;
-        }
-        newValues[keySplit[0]] = {
-          ...(newValues[keySplit[0]] ?? {}),
-          [keySplit[1]]: value,
-        };
+        _.set(newValues, key, value);
       });
       await cacheService.mergeState(request, newValues);
       return h.continue;
