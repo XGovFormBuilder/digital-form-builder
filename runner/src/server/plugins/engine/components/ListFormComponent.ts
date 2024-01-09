@@ -31,15 +31,13 @@ export class ListFormComponent extends FormComponent {
     /**
      * Only allow a user to answer with values that have been defined in the list
      */
-    let schema = joi[this.listType]();
+    let schema = joi[this.listType]()
+      .allow(...this.values)
+      .label(def.title);
 
-    if (def.options.required === false) {
-      schema = schema.empty(null).allow(...this.values, "");
-    } else {
-      schema = schema.allow(...this.values);
+    if (def.options.required !== false) {
+      schema = schema.required();
     }
-
-    schema = schema.label(def.title.toLowerCase());
 
     this.formSchema = schema;
     this.stateSchema = schema;
