@@ -38,7 +38,7 @@ import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
 import { pluginQueue } from "server/plugins/queue";
 import { QueueStatusService } from "server/services/queueStatusService";
-import { QueueService } from "server/services/queueService";
+import { MySqlQueueService } from "server/services/mySqlQueueService";
 import { PgBossQueueService } from "server/services/pgBossQueueService";
 
 const serverOptions = (): ServerOptions => {
@@ -127,7 +127,7 @@ async function createServer(routeConfig: RouteConfig) {
   if (config.enableQueueService) {
     const queueType = config.queueType;
     const queueService =
-      queueType === "PGBOSS" ? PgBossQueueService : QueueService;
+      queueType === "PGBOSS" ? PgBossQueueService : MySqlQueueService;
     server.registerService([
       queueService,
       Schmervice.withName("statusService", QueueStatusService),

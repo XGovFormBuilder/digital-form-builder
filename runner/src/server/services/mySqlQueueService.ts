@@ -4,7 +4,7 @@ import { prisma } from "../prismaClient";
 import config from "../config";
 
 type QueueResponse = [number, string | undefined];
-export class QueueService {
+export class MySqlQueueService {
   prisma: PrismaClient;
   logger: HapiServer["logger"];
   interval: number;
