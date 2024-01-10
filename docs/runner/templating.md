@@ -6,7 +6,9 @@ With this in mind, templating may be a good solution for you.
 
 ## How it works
 
-You can allow fields to be exposed to the additional context by adding an `exposeToContext` flag to the component's options. This can be done manually, or through the "expose to context" field in the designer.
+To enable templating on your form runner, you will need to set the environment variable `ALLOW_USER_TEMPLATES=true`.
+
+After this, you can allow fields to be exposed to the additional context by adding an `exposeToContext` flag to the component's options. This can be done manually, or through the "expose to context" field in the designer.
 
 Once your field is exposed, the field can be used with additional context by adding the field in titles and html components, using nunjucks templating syntax, `{{ fieldName }}`.
 

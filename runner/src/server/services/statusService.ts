@@ -12,6 +12,8 @@ import { ComponentCollection } from "server/plugins/engine/components/ComponentC
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
+import config from "server/config";
+import nunjucks from "nunjucks";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -289,6 +291,12 @@ export class StatusService {
 
     if (!customText && !callback?.customText) {
       return model;
+    }
+
+    if (customText?.nextSteps && config.allowUserTemplates) {
+      customText.nextSteps = nunjucks.renderString(customText.nextSteps, {
+        ...state,
+      });
     }
 
     model.customText = {
