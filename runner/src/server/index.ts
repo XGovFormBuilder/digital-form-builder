@@ -39,6 +39,7 @@ import getRequestInfo from "./utils/getRequestInfo";
 import { pluginQueue } from "server/plugins/queue";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { QueueService } from "server/services/queueService";
+import { PgBossQueueService } from "server/services/pgBossQueueService";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -124,8 +125,11 @@ async function createServer(routeConfig: RouteConfig) {
   server.registerService([EmailService]);
 
   if (config.enableQueueService) {
+    const queueType = config.queueType;
+    const queueService =
+      queueType === "PGBOSS" ? PgBossQueueService : QueueService;
     server.registerService([
-      QueueService,
+      queueService,
       Schmervice.withName("statusService", QueueStatusService),
     ]);
   } else {
