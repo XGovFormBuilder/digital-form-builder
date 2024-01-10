@@ -1,5 +1,5 @@
 import { QueueService } from "server/services/QueueService";
-import server from "src/server";
+type QueueResponse = [number | string, string | undefined];
 
 export class PgBossQueueService extends QueueService {
   constructor(server) {
@@ -7,7 +7,7 @@ export class PgBossQueueService extends QueueService {
     this.logger.info("Using PGBossQueueService");
   }
 
-  getReturnRef(rowId: number): Promise<string> {
+  getReturnRef(rowId: string): Promise<string> {
     return Promise.resolve("");
   }
 

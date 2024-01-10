@@ -22,7 +22,7 @@ export abstract class QueueService {
     allowRetry: boolean
   ): Promise<QueueResponse>;
 
-  abstract pollForRef(rowId: number): Promise<string | void>;
+  abstract pollForRef(rowId: number | string): Promise<string | void>;
 
-  abstract getReturnRef(rowId: number): Promise<string>;
+  abstract getReturnRef(rowId: number | string): Promise<string | null>;
 }

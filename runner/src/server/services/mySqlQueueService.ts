@@ -9,7 +9,6 @@ export class MySqlQueueService extends QueueService {
   prisma: PrismaClient;
   logger: HapiServer["logger"];
   interval: number;
-  // emitter: EventEmitter;
 
   constructor(server: HapiServer) {
     super(server);
@@ -82,7 +81,6 @@ export class MySqlQueueService extends QueueService {
       }, config.queueServicePollingInterval);
     });
   }
-
   async getReturnRef(rowId: number) {
     const row = await this.prisma.submission.findUnique({
       select: {
@@ -95,6 +93,6 @@ export class MySqlQueueService extends QueueService {
     if (!row) {
       throw new Error("Submission row not found");
     }
-    return row?.return_reference;
+    return row.return_reference;
   }
 }
