@@ -73,6 +73,7 @@
     "nodemailer": "~6.6.0",
     "notifications-node-client": "^7.0.4",
     "nunjucks": "^3.2.3",
+    "pg-boss": "^9.0.3",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
     "tmp": "^0.2.1",
