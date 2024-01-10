@@ -19,7 +19,7 @@ export abstract class QueueService {
   abstract sendToQueue(
     data: object,
     url: string,
-    allowRetry: boolean
+    allowRetry?: boolean
   ): Promise<QueueResponse>;
 
   abstract pollForRef(rowId: number | string): Promise<string | void>;

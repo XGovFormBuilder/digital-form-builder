@@ -18,7 +18,7 @@ export class PgBossQueueService extends QueueService {
   sendToQueue(
     data: object,
     url: string,
-    allowRetry: boolean
+    allowRetry?: boolean
   ): Promise<QueueResponse> {
     return Promise.resolve(undefined);
   }
