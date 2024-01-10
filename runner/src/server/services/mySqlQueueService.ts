@@ -2,17 +2,18 @@ import { HapiServer } from "server/types";
 import { PrismaClient } from "@xgovformbuilder/queue-model";
 import { prisma } from "../prismaClient";
 import config from "../config";
+import { QueueService } from "server/services/QueueService";
 
 type QueueResponse = [number, string | undefined];
-export class MySqlQueueService {
+export class MySqlQueueService extends QueueService {
   prisma: PrismaClient;
   logger: HapiServer["logger"];
   interval: number;
   // emitter: EventEmitter;
 
   constructor(server: HapiServer) {
+    super(server);
     this.prisma = prisma;
-    this.logger = server.logger;
     this.interval = parseInt(config.queueServicePollingInterval);
   }
 
