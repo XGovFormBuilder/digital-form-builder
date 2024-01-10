@@ -92,8 +92,7 @@
     "follow-redirects": "~1.14.1",
     "@xmldom/xmldom": "0.8.6",
     "@cypress/request": "3.x.x",
-    "@adobe/css-tools": "4.3.1",
-    "path-to-regexp": "1.8.0"
+    "@adobe/css-tools": "4.3.1"
   },
   "husky": {
     "hooks": {
