@@ -23,7 +23,7 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@hapi/hapi": "^20.2.2",
+    "@hapi/hapi": "^21.3.2",
     "config": "^3.3.7",
     "dotenv": "8.2.0",
     "hapi-cron": "^1.1.0",
