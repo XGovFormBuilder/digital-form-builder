@@ -126,6 +126,11 @@ export const configSchema = Joi.object({
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
+  queueReferenceApiUrl: Joi.string().when("queueType", {
+    is: "PGBOSS",
+    then: Joi.string().uri().required(),
+    otherwise: Joi.optional().allow(""),
+  }),
   allowUserTemplates: Joi.boolean().optional(),
 });
 

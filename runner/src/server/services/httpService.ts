@@ -25,7 +25,7 @@ export const request: Request = async (method, url, options = {}) => {
   }
 };
 
-export const get = <T = any>(url: string, options?: object) => {
+export const get = <T>(url: string, options?: object) => {
   return request<T>("get", url, options);
 };
 

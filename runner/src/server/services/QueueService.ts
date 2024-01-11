@@ -22,7 +22,5 @@ export abstract class QueueService {
     allowRetry?: boolean
   ): Promise<QueueResponse>;
 
-  abstract pollForRef(rowId: number | string): Promise<string | void>;
-
   abstract getReturnRef(rowId: number | string): Promise<string | null>;
 }

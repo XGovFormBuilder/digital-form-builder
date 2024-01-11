@@ -2,13 +2,20 @@ import { QueueService } from "server/services/QueueService";
 type QueueResponse = [number | string, string | undefined];
 import PgBoss from "pg-boss";
 import config from "server/config";
+import { get } from "./httpService";
+
+type QueueReferenceApiResponse = {
+  reference: string;
+};
 
 export class PgBossQueueService extends QueueService {
   queue: PgBoss;
-  queueName: "submission";
+  queueName: string = "submission";
+  queueReferenceApiUrl: string;
   constructor(server) {
     super(server);
     this.logger.info("Using PGBossQueueService");
+    this.queueReferenceApiUrl = config.queueReferenceApiUrl;
     const boss = new PgBoss(config.queueDatabaseUrl);
     this.queue = boss;
     boss.on("error", this.logger.error);
@@ -20,12 +27,30 @@ export class PgBossQueueService extends QueueService {
     });
   }
 
-  getReturnRef(rowId: string): Promise<string> {
-    return Promise.resolve("");
-  }
-
-  pollForRef(rowId: string): Promise<string | void> {
-    return Promise.resolve(undefined);
+  /**
+   * Fetches a reference number from `this.queueReferenceApiUrl/{jobId}`.
+   * If a reference number for `jobId` exists, the response body must be {@link QueueReferenceApiResponse}.
+   * This request will happen once, and timeout in 2s.
+   */
+  async getReturnRef(jobId: string): Promise<string> {
+    const url = new URL(jobId, this.queueReferenceApiUrl).toString();
+    const { res, payload, error } = await get(url, { timeout: 2000 });
+    this.logger.info(
+      ["PgBossQueueService", "getReturnRef"],
+      `GET to ${url} responded with ${res.statusCode}`
+    );
+    if (error) {
+      this.logger.error(error);
+      throw error;
+    }
+    const reference = payload.reference;
+    if (!reference) {
+      this.logger.info(
+        ["PgBossQueueService", "getReturnRef"],
+        `GET to ${url} was successful but the response body did not contain reference. Returning UNKNOWN`
+      );
+    }
+    return reference ?? "UNKNOWN";
   }
 
   async sendToQueue(
@@ -52,7 +77,7 @@ export class PgBossQueueService extends QueueService {
 
     this.logger.info(logMetadata, `success: ${jobId}`);
     try {
-      const newRowRef = await this.pollForRef(jobId);
+      const newRowRef = await this.getReturnRef(jobId);
       this.logger.info(
         logMetadata,
         `jobId: ${jobId} has reference number ${newRowRef}`
