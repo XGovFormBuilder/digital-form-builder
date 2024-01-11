@@ -33,8 +33,12 @@ export class PgBossQueueService extends QueueService {
    * This request will happen once, and timeout in 2s.
    */
   async getReturnRef(jobId: string): Promise<string> {
-    const url = new URL(jobId, this.queueReferenceApiUrl).toString();
-    const { res, payload, error } = await get(url, { timeout: 2000 });
+    const url = `${this.queueReferenceApiUrl}/${jobId}`;
+    const { res, payload, error } = await get(url, {
+      path: jobId,
+      timeout: 2000,
+      json: true,
+    });
     this.logger.info(
       ["PgBossQueueService", "getReturnRef"],
       `GET to ${url} responded with ${res.statusCode}`

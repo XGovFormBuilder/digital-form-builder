@@ -129,7 +129,7 @@ async function createServer(routeConfig: RouteConfig) {
     const queueService =
       queueType === "PGBOSS" ? PgBossQueueService : MySqlQueueService;
     server.registerService([
-      queueService,
+      Schmervice.withName("queueService", queueService),
       Schmervice.withName("statusService", QueueStatusService),
     ]);
   } else {
