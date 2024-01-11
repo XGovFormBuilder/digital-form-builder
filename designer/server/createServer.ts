@@ -29,7 +29,7 @@ const serverOptions = () => {
           includeSubDomains: true,
           preload: false,
         },
-        xss: "enabled",
+        xss: true,
         noSniff: true,
         xframe: true,
       },
