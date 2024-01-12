@@ -41,8 +41,9 @@ services:
       - LAST_COMMIT
       - LAST_TAG
     #      - ENABLE_QUEUE_SERVICE=true
-    #      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue
+    #      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue # or postgres://user:root@postgres:5432/queue
     #      - DEBUG="prisma*"
+    #      - QUEUE_TYPE="MYSQL"
     command: yarn runner start
     depends_on:
       redis:
@@ -54,32 +55,44 @@ services:
     command: redis-server --requirepass 123abc
     ports:
       - "6379:6379"
-  #  submitter:
-  #    image: digital-form-builder-submitter
-  #    build:
-  #      context: .
-  #      dockerfile: ./submitter/Dockerfile
-  #    ports:
-  #      - "9000:9000"
-  #    environment:
-  #      - PORT=9000
-  #      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue
-  #      - QUEUE_POLLING_INTERVAL=5000
-  #      - DEBUG="prisma*"
-  #    command: yarn submitter start
-  #    depends_on:
-  #      mysql:
-  #        condition: service_healthy
-  mysql:
-    container_name: mysql
-    image: "mysql:latest"
-    command: --default-authentication-plugin=mysql_native_password
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: queue
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+#  if using MYSQL, uncomment submitter
+#  submitter:
+#    image: digital-form-builder-submitter
+#    build:
+#      context: .
+#      dockerfile: ./submitter/Dockerfile
+#    ports:
+#      - "9000:9000"
+#    environment:
+#      - PORT=9000
+#      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue
+#      - QUEUE_POLLING_INTERVAL=5000
+#      - DEBUG="prisma*"
+#    command: yarn submitter start
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
+#  mysql:
+#    container_name: mysql
+#    image: "mysql:latest"
+#    command: --default-authentication-plugin=mysql_native_password
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: queue
+#    healthcheck:
+#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+#      timeout: 20s
+#      retries: 10
+
+# use psql if you want a PostgreSQL based queue (recommended)
+#  postgres:
+#    container_name: postgres
+#    image: "postgres:16"
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      POSTGRES_DB: queue
+#      POSTGRES_PASSWORD: root
+#      POSTGRES_USER: user
