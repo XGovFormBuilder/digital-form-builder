@@ -79,7 +79,7 @@ export class PgBossQueueService extends QueueService {
       throw Error("Job could not be created");
     }
 
-    this.logger.info(logMetadata, `success: ${jobId}`);
+    this.logger.info(logMetadata, `success job created with id: ${jobId}`);
     try {
       const newRowRef = await this.getReturnRef(jobId);
       this.logger.info(
