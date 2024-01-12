@@ -39,8 +39,8 @@ support that is required.
 - A worker process which can connect to the PostgreSQL database
 - An API endpoint with a GET request `${queueReferenceApiUrl}/${jobId}`,
   e.g. `localhost:9000/reference/d28a4e85-b7d4-4983-bf0d-9c93b05e342d`
-    - The `jobId` is generated when a users' submission is successfully inserted into the queue
-    - The API endpoint should respond with application/json `{ "reference": "FCDO-3252" }`
+  - The `jobId` is generated when a users' submission is successfully inserted into the queue
+  - The API endpoint should respond with application/json `{ "reference": "FCDO-3252" }`
 
 #### MYSQL Prerequisites
 
@@ -49,7 +49,7 @@ support that is required.
 ### Environment variables
 
 | Variable name                  | Definition                                                                                                 | Default | Example                                     |
-|--------------------------------|------------------------------------------------------------------------------------------------------------|---------|---------------------------------------------|
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------- |
 | ENABLE_QUEUE_SERVICE           | Whether the queue service is enabled or not                                                                | `false` |                                             |
 | QUEUE_DATABASE_TYPE            | PGBOSS or MYSQL                                                                                            |         |                                             |
 | QUEUE_DATABASE_URL             | Used for configuring the endpoint of the database instance                                                 |         | mysql://username:password@endpoint/database |
@@ -75,7 +75,6 @@ Webhooks can be configured so that the submitter only attempts to post to the we
 }
 ```
 
-
 ## Running locally
 
 To use the submission queue locally, you will need to have a running instance of a database, the runner, and the
@@ -88,6 +87,7 @@ In that file, you will see the following lines commented out:
 #      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue
 #      - DEBUG="prisma*"
 ```
+
 ```yaml
 #  if using MYSQL, uncomment submitter
 #  submitter:
@@ -149,6 +149,20 @@ If sending the form submission to the queue, or polling the database for the for
 following errors will be thrown:
 
 | Tags                                        | Example                                                           |
-|---------------------------------------------|-------------------------------------------------------------------|
+| ------------------------------------------- | ----------------------------------------------------------------- |
 | QueueStatusService, outputRequests          | There was an issue sending the submission to the submission queue |
 | QueueService, pollForRef, Row ref: [row_id] | Submission row not found                                          |
+
+## Migration guide
+
+If you are moving from MYSQL to PGBOSS, ensure you have a worker which will handle the jobs added to your queue. For "zero downtime",
+
+1. Set up any new infrastructure components if necessary (e.g. database and worker)
+1. Point the runner to the new components via `QUEUE_DATABASE_URL` and `QUEUE_REFERENCE_API_URL`
+1. Keep the MySQL database as well as the submitter running. Do not delete these yet
+1. Deploy new infrastructure components alongside the existing components
+
+Any submissions that have previously failed, or were submitted during deployment, can continue to run and submit to your webhook endpoints.
+Check the database to ensure that there are no more failed entries.
+
+You may then safely remove the submitter, and MySQL database (if it is not used for any other purpose).
