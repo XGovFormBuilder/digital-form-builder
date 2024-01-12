@@ -1,16 +1,16 @@
 {
 	"metadata": {},
-	"startPage": "/service_issue",
+	"startPage": "/service-unavailable",
 	"pages": [
 		{
-			"title": "There is a problem with this service",
-			"path": "/service_issue",
+			"title": "This service is unavailable",
+			"path": "/service-unavailable",
 			"components": [
 				{
 					"name": "gXTbsg",
 					"options": {},
 					"type": "Para",
-					"content": "<p>Please try again later.</p>\n<p>We have not saved your answers. When this service is available, you will have to start again.</p>\n<p>Telephone 119 for help with NHS Test and Trace related enquiries or complaints.</p>\n<p><b>Opening times:</b></p>\n<p>9am to 8am, Monday to Friday</p>\n<p>9am to pm, Saturday and Sunday</p>"
+					"content": "<p>You will be able to use this sservice later.</p>\n<p>We have not saved your answers. When this service is available, you will have to start again.</p>\n<p>Telephone 119 for help with NHS Test and Trace related enquiries or complaints.</p>\n<p><b>Opening times:</b></p>\n<p>9am to 8am, Monday to Friday</p>\n<p>9am to pm, Saturday and Sunday</p>"
 				}
 			],
 			"next": [],
