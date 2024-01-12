@@ -1,6 +1,6 @@
 import path from "path";
 import { configure } from "nunjucks";
-import { redirectTo } from "./helpers";
+import { getValidStateFromQueryParameters, redirectTo } from "./helpers";
 import { FormConfiguration } from "@xgovformbuilder/model";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "server/types";
 
@@ -10,8 +10,6 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "../../config";
-import { reach } from "@hapi/hoek";
-import _ from "lodash";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -208,18 +206,11 @@ export const plugin = {
       }
       const { cacheService } = request.services([]);
       const state = await cacheService.getState(request);
-      let newValues = {};
-      Object.entries(query).forEach(([key, value]) => {
-        if (reach(prePopFields, key) === undefined || reach(state, key)) {
-          return;
-        }
-
-        const result = reach(prePopFields, key).validate(value);
-        if (result.error) {
-          return;
-        }
-        _.set(newValues, key, value);
-      });
+      const newValues = getValidStateFromQueryParameters(
+        prePopFields,
+        query,
+        state
+      );
       await cacheService.mergeState(request, newValues);
       return h.continue;
     };
