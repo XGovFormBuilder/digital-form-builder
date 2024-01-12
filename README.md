@@ -31,7 +31,7 @@ Also see the individual repo README files for additional info:
 
 **Always run scripts from the root directory.**
 
-1. Make sure you are using node 16 `node --version`.
+1. Make sure you are using node 18 `node --version`.
 2. Make sure you have yarn 1.22+ installed. You do not need to install yarn 2.4+, yarn will detect the yarn 2 binary within [.yarn](./.yarn) and that will be used.
 3. If using the designer:
    - Note that the designer requires the runner to be running with the default `NODE_ENV=development` settings (see [runner/config/development.json](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner/config/development.json)) to enable posting and previewing of forms during design.
@@ -116,6 +116,6 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 A suite of smoke tests are run against all PRs. There is a Cron Job that executes smoke tests against the Heroku deployments and is scheduled to run at midnight every day.
 
-A legacy suite of smoke tests can be found in this [repository](https://github.com/XGovFormBuilder/digital-form-builder-legacy-smoke-tests). They have been removed so that the project can run on node 16.
+A legacy suite of smoke tests can be found in this [repository](https://github.com/XGovFormBuilder/digital-form-builder-legacy-smoke-tests). They have been removed so that the project can run on node 18.
 
 Smoke tests will be migrated to use [cypress.io](https://cypress.io) in the coming months.

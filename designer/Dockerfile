@@ -2,7 +2,7 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-FROM node:16-alpine AS base
+FROM node:18-alpine AS base
 RUN mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser && \
@@ -48,6 +48,7 @@ ARG LAST_COMMIT="NOT_DEFINED"
 ARG LAST_TAG="NOT_DEFINED"
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
+ENV NODE_OPTIONS="--openssl-legacy-provider"
 COPY --chown=appuser:appuser designer/package.json ./designer/
 RUN --mount=type=cache,target=.yarn/cache,id=designer,uid=1001,mode=0755 yarn workspaces focus @xgovformbuilder/designer
 COPY --chown=appuser:appuser ./designer ./designer/
