@@ -19,7 +19,7 @@ import {
   WebhookService,
 } from "./services";
 import { QueueStatusService } from "server/services/queueStatusService";
-import { MySqlQueueService } from "server/services/mySqlQueueService";
+import { QueueService } from "./services/QueueService";
 
 type Services = (
   services: string[]
@@ -31,7 +31,7 @@ type Services = (
   uploadService: UploadService;
   webhookService: WebhookService;
   statusService: StatusService;
-  queueService: MySqlQueueService;
+  queueService: QueueService;
   queueStatusService: QueueStatusService;
 };
 
