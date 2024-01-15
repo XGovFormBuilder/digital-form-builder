@@ -1,6 +1,6 @@
 import path from "path";
 import { configure } from "nunjucks";
-import { redirectTo } from "./helpers";
+import { getValidStateFromQueryParameters, redirectTo } from "./helpers";
 import { FormConfiguration } from "@xgovformbuilder/model";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "server/types";
 
@@ -186,9 +186,45 @@ export const plugin = {
       },
     });
 
+    const queryParamPreHandler = async (
+      request: HapiRequest,
+      h: HapiResponseToolkit
+    ) => {
+      const { query } = request;
+      const { id } = request.params;
+      const model = forms[id];
+      if (!model) {
+        throw Boom.notFound("No form found for id");
+      }
+
+      const prePopFields = model.fieldsForPrePopulation;
+      if (
+        Object.keys(query).length === 0 ||
+        Object.keys(prePopFields).length === 0
+      ) {
+        return h.continue;
+      }
+      const { cacheService } = request.services([]);
+      const state = await cacheService.getState(request);
+      const newValues = getValidStateFromQueryParameters(
+        prePopFields,
+        query,
+        state
+      );
+      await cacheService.mergeState(request, newValues);
+      return h.continue;
+    };
+
     server.route({
       method: "get",
       path: "/{id}",
+      options: {
+        pre: [
+          {
+            method: queryParamPreHandler,
+          },
+        ],
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { id } = request.params;
         const model = forms[id];
@@ -202,6 +238,13 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
+      options: {
+        pre: [
+          {
+            method: queryParamPreHandler,
+          },
+        ],
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
         const model = forms[id];

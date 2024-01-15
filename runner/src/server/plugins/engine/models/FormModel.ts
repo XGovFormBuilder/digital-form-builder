@@ -50,6 +50,7 @@ export class FormModel {
   basePath: string;
   conditions: Record<string, ExecutableCondition> | {};
   fieldsForContext: ComponentCollection;
+  fieldsForPrePopulation: Record<string, any>;
   pages: any;
   startPage: any;
 
@@ -111,6 +112,7 @@ export class FormModel {
       );
     });
     this.fieldsForContext = new ComponentCollection(exposedComponentDefs, this);
+    this.fieldsForPrePopulation = {};
 
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
