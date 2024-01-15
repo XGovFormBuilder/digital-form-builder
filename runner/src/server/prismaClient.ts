@@ -33,11 +33,13 @@ export const prisma: PrismaClient = new PrismaClient({
   log: logLevel,
 });
 
-if (config.enableQueueService) {
-  prismaLogger.info("ENABLE_QUEUE_SERVICE is true, connecting to Prisma");
+if (config.enableQueueService && config.queueType === "MYSQL") {
+  prismaLogger.info(
+    "ENABLE_QUEUE_SERVICE is true, and queueType is set to MYSQL connecting to Prisma"
+  );
   prisma.$connect().catch((error) => {
     prismaLogger.fatal(
-      `ENABLE_QUEUE_SERVICE is set to true, but Prisma failed to connect ${error}, exiting with status 1`
+      `ENABLE_QUEUE_SERVICE is set to true, and queueType is set to MYSQL but Prisma failed to connect ${error}, exiting with status 1`
     );
     process.exit(1);
   });

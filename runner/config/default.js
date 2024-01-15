@@ -136,7 +136,9 @@ module.exports = {
    * Failure queue
    */
   enableQueueService: false,
-  // queueDatabaseUrl: "mysql://root:root@localhost:3306/queue"
+  // queueType: "" // accepts "MYSQL" | "PGBOSS"
+  // queueDatabaseUrl: "mysql://root:root@localhost:3306/queue" | "postgresql://root:root@localhost:5432/queue
+  //queueReferenceApiUrl: // for PGBOSS (or future queue types), a get request will be done on ${queueReferenceApiUrl}/{jobId} to get the reference number you wish to display to the user.
   queueServicePollingInterval: "500",
 
   allowUserTemplates: false,

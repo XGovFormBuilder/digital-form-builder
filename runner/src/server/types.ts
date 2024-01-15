@@ -19,7 +19,7 @@ import {
   WebhookService,
 } from "./services";
 import { QueueStatusService } from "server/services/queueStatusService";
-import { QueueService } from "server/services/queueService";
+import { QueueService } from "./services/QueueService";
 
 type Services = (
   services: string[]

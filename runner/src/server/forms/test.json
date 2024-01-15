@@ -469,11 +469,11 @@
   "payApiKey": "",
   "outputs": [
     {
-      "name": "Ric43H5Ctwl4NBDC9x1_4",
-      "title": "email",
-      "type": "email",
+      "name": "LwQeVI",
+      "title": "Test webhook",
+      "type": "webhook",
       "outputConfiguration": {
-        "emailAddress": "jennifermyanh.duong@digital.homeoffice.gov.uk"
+        "url": "https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"
       }
     }
   ],

@@ -2,17 +2,17 @@ import { HapiServer } from "server/types";
 import { PrismaClient } from "@xgovformbuilder/queue-model";
 import { prisma } from "../prismaClient";
 import config from "../config";
+import { QueueService } from "server/services/QueueService";
 
 type QueueResponse = [number, string | undefined];
-export class QueueService {
+export class MySqlQueueService extends QueueService {
   prisma: PrismaClient;
   logger: HapiServer["logger"];
   interval: number;
-  // emitter: EventEmitter;
 
   constructor(server: HapiServer) {
+    super(server);
     this.prisma = prisma;
-    this.logger = server.logger;
     this.interval = parseInt(config.queueServicePollingInterval);
   }
 
@@ -81,7 +81,6 @@ export class QueueService {
       }, config.queueServicePollingInterval);
     });
   }
-
   async getReturnRef(rowId: number) {
     const row = await this.prisma.submission.findUnique({
       select: {
@@ -94,6 +93,6 @@ export class QueueService {
     if (!row) {
       throw new Error("Submission row not found");
     }
-    return row?.return_reference;
+    return row.return_reference;
   }
 }

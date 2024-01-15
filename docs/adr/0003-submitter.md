@@ -1,8 +1,8 @@
 # Submitter and DB queue
 
-- Status: [ accepted ]
+- Status: [ accepted ] | superseded by [ADR-0004](./0004-submitter.md)
 - Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/jenbutongit) [@superafroman](https://github.com/superafroman)
-- Date: [2023-07-14 when the decision was last updated]
+- Date: [2023-07-14]
 
 ## Context and Problem Statement
 
