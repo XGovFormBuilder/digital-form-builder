@@ -2706,6 +2706,5 @@
     },
     "phaseBanner": {
         "phase": "beta"
-    },
-    "feeOptions": {}    
+    }
 }
