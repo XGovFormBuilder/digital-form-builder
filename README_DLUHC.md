@@ -1,8 +1,12 @@
-This file describes the GitHub Actions workflow in use for the [DLUHC Fork](https://github.com/communitiesuk/digital-form-builder) of the [XGovFormBuilder](https://github.com/XGovFormBuilder/digital-form-builder).
+# DLUHC Fork of Digital Form Builder
 
-# Versioning
+This respository contains the [DLUHC Fork](https://github.com/communitiesuk/digital-form-builder) of the [XGovFormBuilder](https://github.com/XGovFormBuilder/digital-form-builder).
 
-The DLUHC workflow to build and push images uses a manual versioning approach. When merging to main, make sure to update the `VERSION` env var in [dluhc-build-and-publish.yml](https://github.com/communitiesuk/digital-form-builder/blob/fs-1263-publish-fork/.github/workflows/dluhc-build-and-publish.yml)
+General information for working with the form builder in DLUHC and getting your local workspace setup can be found [here](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/41124236/Working+with+the+form-builder)
+
+# Builds and Deploys
+
+Information on how the form-runner is built and deploy to AWS is contained [here](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Deploying-Form-Builder). Note the process is different to the other applications in Access Funding and requires manual steps - pushing to git alone will not deploy anything anywhere.
 
 # Using a new version of the DLUHC fork
 
@@ -35,6 +39,8 @@ If just updating the forms (no files within the runner itself) you can just do a
 
 # Workflow Files
 
+More detail on the workflow for deploying form runner to AWS is available [here](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Deploying-Form-Builder)
+
 ## .github/workflows/dluhc-build-and-publish.yml
 
 This is the main workflow file for changes made in the DLUHC fork. On every push to any branch it will:
@@ -46,20 +52,6 @@ This is the main workflow file for changes made in the DLUHC fork. On every push
   - Tag both images with `latest`
   - Tag the repo with the current version number, as defined by the `VERSION` env var in [this file](https://github.com/communitiesuk/digital-form-builder/blob/fs-1263-publish-fork/.github/workflows/dluhc-build-and-publish.yml).
 
-## .github/workflows/dluhc-build-and-deploy-with-forms.yml
-
-There are 2 docker images involved in creating our deployed image of the form runner.
-
-[Digital Form Builder DLUHC Runner](https://github.com/communitiesuk/digital-form-builder/pkgs/container/digital-form-builder-dluhc-runner)
-This is the image created from our fork of the form runner at https://github.com/communitiesuk/digital-form-builder. It is the base image of what is deployed to PaaS (see below) but does not contain our form_jsons.
-
-Every push of our fork creates a new image, tagged with the commit ID. Pushes to main of our fork create a new image tagged with `latest`. The github action trigger ignores pushes to [FSD configuration](./fsd_config/). Pushes of our fork do not automatically redeploy the form runner with our forms - to do this you must manually trigger [Build and Deploy with Forms](./.github/workflows/dluhc-build-and-deploy-with-forms.yml). The form runner base images can be used in fsd_config/Dockerfile to test branch changes.
-
-[Funding Service Design Frontend Runner](https://github.com/communitiesuk/digital-form-builder/pkgs/container/runner)
-This is the image we deploy to PaaS. It uses the [Dockerfile](./fsd_config/Dockerfile) to create the image, which takes the `Digital Form Builder DLUHC Runner` image as the base image, and imports the `form_jsons` from this repo over the top to produce our custom form runner image.
-
-This image is built, pushed and deployed by [Build and Deploy Forms](./.github/workflows/dluhc-build-and-deploy-with-forms.yml). That workflow is manually triggered, it does not automatically trigger on an update of the form runner base image.
-
 ## .github/workflows/main--lint-unit-build-and-publish-images.yml
 
 **Disabled** This is the workflow used on the main branch of the original XGovFormBuilder repo. It does not apply to our workflow.
@@ -68,22 +60,37 @@ This image is built, pushed and deployed by [Build and Deploy Forms](./.github/w
 
 Runs against a branch that has an open pull request against it. It will execute on every push to such a branch to build and run smoke tests. Unchanged from upstream repo.
 
-## Extras
+## ./github/workflows/increment-version.yml
 
-This repo comes with a .pre-commit-config.yaml, if you wish to use this do
-the following while in your virtual enviroment:
+- Triggered when a PR is opened (or re-opened)
+- Finds the latest tag in the repo, increments the patch version of this, then updates [version](./version) with that new version
+- eg. If the latest tag is `1.2.3`, `version` will be updated to `VERSION=1.2.4`
+- This version is then used to tag the built image, as explained [above](#githubworkflowsdluhc-build-and-publishyml) and [here](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Build-the-DLUHC-Runner-Image)
 
-    # set up virtual enviroment
-    python -m venv .venv
-    source .venv/Scripts/activate
+## ./github/workflows/copilot_deploy.yml
 
-    # Install pre-commit
-    pip install pre-commit
-    pre-commit install
+- Deploys the form runner to AWS as per [this wiki page](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Build-and-deploy-the-Runner-Image)
+- Uses the image build by [dluhc-build-and-publish](#githubworkflowsdluhc-build-and-publishyml) to create a deployable docker image, then pushes this to AWS.
 
-Once the above is done you will have autoformatting (trailing-whitespace, end-of-file-fixer and check-ast) built
-into your workflow. You will be notified of any errors during commits.
+# IDE Setup
 
-### `detect-secrets` hook
-We use this pre-commit hook to prevent new secrets from entering the code base.(For more info: https://github.com/Yelp/detect-secrets)
-- If the hook detects false positives, mark with an inline `pragma: allowlist secret` comment to ignore it.
+[pre-commit](https://github.com/communitiesuk/funding-service-design-workflows/blob/main/readmes/python-repos-ide-setup.md#pre-commit)
+
+# Copilot Initialisation
+
+Copilot is the deployment of the infrastructure configuration, which is all stored under the copilot folder. The manifest files have been pre-generated by running through various initialisation steps that create the manifest files by prompting a series of questions, but do not _deploy_ the infrastructure.
+
+For each AWS account, these commands will need to be run _once_ to initialise the environment:
+
+`copilot app init pre-award` - this links the pre-award app with the current service, and associates the next commands with the service. Essentially, this provides context for the service to run under
+
+```
+copilot init \
+    --name fsd-form-runner \
+    --app pre-award \
+    --type 'Load Balanced Web Service' \
+    --image "ghcr.io/${{github.repository_owner}}"/runner \
+    --port 80
+```
+
+This will initalise this service, using the current created image
