@@ -53,13 +53,13 @@ export class PgBossQueueService extends QueueService {
 
     if (job.state === "completed") {
       const jobOutput = job.output as JobOutput;
-      reference = jobOutput.reference;
+      reference = jobOutput?.reference;
     }
 
     if (!reference) {
       this.logger.info(
         ["PgBossQueueService", "getReturnRef"],
-        `${jobId} was completed but the job output did not contain reference. Returning UNKNOWN`
+        `${jobId} was ${job.state} but the job output did not contain reference. Returning UNKNOWN`
       );
     }
     return reference ?? "UNKNOWN";
@@ -71,17 +71,23 @@ export class PgBossQueueService extends QueueService {
     allowRetry = true
   ): Promise<QueueResponse> {
     const logMetadata = ["QueueService", "sendToQueue"];
-    const options: PgBoss.SendOptions = {};
+    const options: PgBoss.SendOptions = {
+      retryBackoff: true,
+    };
     if (!allowRetry) {
       options.retryLimit = 1;
     }
 
     let referenceNumber = "UNKNOWN";
 
-    const jobId = await this.queue.send(this.queueName, {
-      data,
-      webhook_url: url,
-    });
+    const jobId = await this.queue.send(
+      this.queueName,
+      {
+        data,
+        webhook_url: url,
+      },
+      options
+    );
 
     if (!jobId) {
       throw Error("Job could not be created");
@@ -117,7 +123,7 @@ export class PgBossQueueService extends QueueService {
       const pollInterval = setInterval(async () => {
         try {
           const reference = await this.getReturnRef(jobId);
-          if (reference) {
+          if (reference && reference !== "UNKNOWN") {
             clearInterval(pollInterval);
             resolve(reference);
           }

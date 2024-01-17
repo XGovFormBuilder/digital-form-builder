@@ -48,7 +48,6 @@
   "initialisedSessionAlgorithm": "INITIALISED_SESSION_ALGORITHM",
   "enableQueueService": "ENABLE_QUEUE_SERVICE",
   "queueType": "QUEUE_TYPE",
-  "queueReferenceApiUrl": "QUEUE_REFERENCE_API_URL",
   "queueDatabaseUrl": "QUEUE_DATABASE_URL",
   "queueDatabaseUsername": "QUEUE_DATABASE_USERNAME",
   "queueDatabasePassword": "QUEUE_DATABASE_PASSWORD",
