@@ -12,9 +12,8 @@ to the user.
 
 For `PGBOSS`, which handles events and queues as expected from event based architecture. The `PGBOSS` queue type
 uses [pg-boss](https://www.npmjs.com/package/pg-boss).
-You must have a postgres v11 database configured. The runner will add job to the queue. It will then
-request `${queueReferenceApiUrl}/${jobId}`
-for the reference number you wish to return to the user. You must implement this endpoint yourself.
+You must have a postgres >v11 database configured. The runner will add job to the queue. It will then
+poll `pgBoss.getJobById` for the reference number you wish to return to the user. You must implement this yourself.
 
 In future, we may add support for different types of queues, like SQS.
 
@@ -36,11 +35,44 @@ support that is required.
 #### PGBOSS Prerequisites
 
 - PostgreSQL database >=v11
-- A worker process which can connect to the PostgreSQL database
-- An API endpoint with a GET request `${queueReferenceApiUrl}/${jobId}`,
-  e.g. `localhost:9000/reference/d28a4e85-b7d4-4983-bf0d-9c93b05e342d`
-  - The `jobId` is generated when a users' submission is successfully inserted into the queue
-  - The API endpoint should respond with application/json `{ "reference": "FCDO-3252" }`
+- A worker process which can connect to the PostgreSQL database, via PgBoss. Your implementation should look something like this
+
+```ts
+export async function setupWorker() {
+  const pgboss = new PgBoss(config.get("Queue.url"));
+  await consumer.work(
+    "submission",
+    { newJobCheckInterval: 500 },
+    submitHandler
+  );
+}
+
+setupWorker();
+
+/**
+ * When a "submission" event is detected, this worker POSTs the data to `job.data.data.webhook_url`
+ * The source of this event is the runner, after a user has submitted a form.
+ */
+export async function submitHandler(job: Job<SubmitJob>) {
+  const { data } = job;
+  const requestBody = data.data;
+  const url = data.webhook_url;
+  try {
+    const res = await axios.post(url, requestBody);
+    const reference = res.data.reference;
+    if (reference) {
+      return { reference };
+    }
+  } catch (e: any) {
+    throw e;
+  }
+}
+```
+
+When using pgboss, it is important that successful work returns `{ reference }` so that the runner can retrieve the successful response. Thrown errors will be recorded in the database for you to investigate later. Logging has been omitted for brevity, but you should include it!
+
+- The `jobId` is generated when a users' submission is successfully inserted into the queue
+- The webhook endpoint should respond with application/json `{ "reference": "FCDO-3252" }`
 
 #### MYSQL Prerequisites
 
@@ -48,15 +80,14 @@ support that is required.
 
 ### Environment variables
 
-| Variable name                  | Definition                                                                                                 | Default | Example                                     |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------- |
-| ENABLE_QUEUE_SERVICE           | Whether the queue service is enabled or not                                                                | `false` |                                             |
-| QUEUE_DATABASE_TYPE            | PGBOSS or MYSQL                                                                                            |         |                                             |
-| QUEUE_DATABASE_URL             | Used for configuring the endpoint of the database instance                                                 |         | mysql://username:password@endpoint/database |
-| QUEUE_DATABASE_USERNAME        | Used for configuring the user being used to access the database                                            |         | root                                        |
-| QUEUE_DATABASE_PASSWORD        | Used for configuring the password used for accessing the database                                          |         | password                                    |
-| QUEUE_REFERENCE_API_URL        | Required if you are using the PGBOSS queue type. It must return a users' reference number, based on job id |         | password                                    |
-| QUEUE_SERVICE_POLLING_INTERVAL | The amount of time, in milliseconds, between poll requests for updates from the database                   | 500     |                                             |
+| Variable name                  | Definition                                                                               | Default | Example                                     |
+| ------------------------------ | ---------------------------------------------------------------------------------------- | ------- | ------------------------------------------- |
+| ENABLE_QUEUE_SERVICE           | Whether the queue service is enabled or not                                              | `false` |                                             |
+| QUEUE_DATABASE_TYPE            | PGBOSS or MYSQL                                                                          |         |                                             |
+| QUEUE_DATABASE_URL             | Used for configuring the endpoint of the database instance                               |         | mysql://username:password@endpoint/database |
+| QUEUE_DATABASE_USERNAME        | Used for configuring the user being used to access the database                          |         | root                                        |
+| QUEUE_DATABASE_PASSWORD        | Used for configuring the password used for accessing the database                        |         | password                                    |
+| QUEUE_SERVICE_POLLING_INTERVAL | The amount of time, in milliseconds, between poll requests for updates from the database | 500     |                                             |
 
 Webhooks can be configured so that the submitter only attempts to post to the webhook URL once.
 
@@ -158,7 +189,7 @@ following errors will be thrown:
 If you are moving from MYSQL to PGBOSS, ensure you have a worker which will handle the jobs added to your queue. For "zero downtime",
 
 1. Set up any new infrastructure components if necessary (e.g. database and worker)
-1. Point the runner to the new components via `QUEUE_DATABASE_URL` and `QUEUE_REFERENCE_API_URL`
+1. Point the runner to the new components via `QUEUE_DATABASE_URL`
 1. Keep the MySQL database as well as the submitter running. Do not delete these yet
 1. Deploy new infrastructure components alongside the existing components
 

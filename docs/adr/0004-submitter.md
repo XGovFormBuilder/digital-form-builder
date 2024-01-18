@@ -2,14 +2,15 @@
 
 - Status: [ accepted ]
 - Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/jenbutongit) [@superafroman](https://github.com/superafroman)
-- Date: 2024-01-12
+- Date: 2024-01-12, updated 2024-01-17
 
 ## Context and Problem Statement
 
 This is an addition to [0003-submitter.md](./0003-submitter.md). ADRs 0003-submitter and 0004-submitter aim to make your services more reliable and resilient.
 
 As stated in [0003-submitter.md](./0003-submitter.md), an upgrade to option 2 would be possible.
-Instead of polling a database for the reference number, it will make a GET request instead. This allows for better microservices architecture.
+~~Instead of polling a database for the reference number, it will make a GET request instead. This allows for better microservices architecture.~~
+To simplify architecture, for now, we will use the pg-boss utility method `getJobById`. Other queues do not typically implement this.
 
 ## Decision Drivers <!-- optional -->
 
