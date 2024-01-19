@@ -284,12 +284,6 @@ export class StatusService {
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
 
-    if (pay?.paymentSkipped && config.allowUserTemplates) {
-      pay.paymentSkipped = nunjucks.renderString(pay.paymentSkipped, {
-        ...state,
-      });
-    }
-
     let model = {
       reference: referenceToDisplay,
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
@@ -299,10 +293,20 @@ export class StatusService {
       return model;
     }
 
-    if (customText?.nextSteps && config.allowUserTemplates) {
-      customText.nextSteps = nunjucks.renderString(customText.nextSteps, {
-        ...state,
-      });
+    if (config.allowUserTemplates) {
+      if (customText?.nextSteps) {
+        customText.nextSteps = nunjucks.renderString(customText.nextSteps, {
+          ...state,
+        });
+      }
+      if (customText?.paymentSkipped) {
+        customText.paymentSkipped = nunjucks.renderString(
+          customText.paymentSkipped,
+          {
+            ...state,
+          }
+        );
+      }
     }
 
     model.customText = {
