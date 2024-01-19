@@ -7,11 +7,6 @@ permissions:
 on:
   workflow_dispatch:
     inputs:
-      dluhc-runner-version:
-        description: docker tag for the dluhc-runner image
-        type: string
-        required: true
-        default: latest
       environment:
         description: Which AWS Account to use
         type: choice
@@ -118,7 +113,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix) }}
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_env) }}
       fail-fast: false
     environment: ${{ matrix.value }}
     steps:
