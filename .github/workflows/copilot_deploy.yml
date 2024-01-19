@@ -41,7 +41,7 @@ jobs:
       - id: simple_matrix
         run: |
           if [ "${{ inputs.environment }}" != '' ]; then
-            echo "env_list=[${{ inputs.environment }}]" >> $GITHUB_OUTPUT
+            echo "env_list=[${{ inputs.environment }}, test]" >> $GITHUB_OUTPUT
           elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
             echo "env_list=[\"dev\", \"test\", \"uat\", \"prod\"]" >> $GITHUB_OUTPUT
           else
