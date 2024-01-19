@@ -41,7 +41,7 @@ jobs:
       - id: simple_matrix
         run: |
           if [ "${{ inputs.environment }}" != '' ]; then
-            echo "env_list=[\"${{ inputs.environment }}\"]" >> $GITHUB_OUTPUT
+            echo "env_list=[${{ inputs.environment }}]" >> $GITHUB_OUTPUT
           elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
             echo "env_list=[\"dev\", \"test\", \"uat\", \"prod\"]" >> $GITHUB_OUTPUT
           else
@@ -119,7 +119,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_env) }}
+        value: ${{ needs.copilot_environments_workflow_setup.outputs.matrix_env }}
       fail-fast: false
     environment: ${{ matrix.value }}
     steps:
