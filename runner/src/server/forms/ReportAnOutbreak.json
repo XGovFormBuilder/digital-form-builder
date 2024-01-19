@@ -814,7 +814,7 @@
                     "name": "S6Q1",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "S6Q1: Do you have two or more cases of ARI within your setting who have symptom onset dates within 5 days?  This includes ARI for which you do not know the infection/microorganism causing it OR you have had at least one person with a positive test for an ARI that isn't COVID-19 or Flu e.g. RSV parainfluenza, rhinovirus, human metapneumovirus etc and other/s with symptoms.  If you have already entered these ARI cases in the COVID-19 or Flu section, do NOT re-enter them in this section and click \"No\" below",
+                    "title": "S6Q1: Do you have two or more cases of ARI within your setting who have symptom onset dates within 5 days?  This includes: ARI for which you do not know the infection/microorganism causing it OR you have had at least one person with a positive test for an ARI that isn't COVID-19 or Flu e.g. RSV parainfluenza, rhinovirus, human metapneumovirus etc and other/s with symptoms.   If you have already entered these ARI cases in the COVID-19 or Flu section, do NOT re-enter them in this section and click \"No\" below",
                     "nameHasError": false,
                     "schema": {},
                     "values": {
@@ -1386,8 +1386,8 @@
                     "name": "S2Q1",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "S2Q1. Are you reporting two or more cases of acute respiratory infection (Flu, COVID-19 or unidentified bug) within your setting and with symptom onset dates within 14 days and that are POTENTIALLY LINKED to transmission within your setting? This includes  Flu, COVID-19, other respiratory viruses such as RSV, rhinovirus, parainfluenza etc, chest infections or acute respiratory infections for which you do not know the infection/microorganism causing it.",
-                    "hint": "If you are unsure whether the cases may be linked due to transmission in your setting, please tick yes.\nIf you are unsure about linkage, please see <a href=\"https://secure-web.cisco.com/1khcLarWRMMqy5nZD2z6WEMzx6Nm4e8SLOe_jIG_fKabeHNC90m_EJDN5TqesvHRjQpnFI937-ZnJLxVhm7dDgNY_fj_--zlowJnI6Ay_PjimOLSIA_43NHAOMulvXqTDOEN0SMkSAXvq_LWTH88MNVg_rlQ2iB4Cz7xRBm2BR_J2CbCuVqFIPCs7QYXM65UU7-CijjYipZaukR9QfcODBt95VRULEvqzYeExpc3MFIIp4UAPDeq1-u7VH9cG8-g8qGcNdN7fiG3OiF8Uyx9FHiZD6t3GhVbAabHPo2jn-SNlF6nREfhNKjeCjQzc5ykQpa6wFBIJ6-bXRHjvnruRIA/https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Fpublications%2Finfection-prevention-and-control-in-adult-social-care-covid-19-supplement\" target=\"_blank\">'Acute Respiratory Infection supplement to the infection prevention and control resource for adult social care – GOV.UK (www.gov.uk)'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"No\" if you are certain your cases are not linked to transmission within your setting.",
+                    "title": "S2Q1. Are you reporting two or more cases of acute respiratory infection (ARI)  within your setting who have symptom onset dates within 5 days and that are POTENTIALLY LINKED to transmission within your setting?  This includes  Flu, COVID-19, other respiratory viruses such as RSV, rhinovirus, parainfluenza etc, chest infections or acute respiratory infections for which you do not know the infection/microorganism causing it ",
+                    "hint": "If you are unsure whether the cases may be linked due to transmission in your setting, please tick yes.\nIf you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement\" target=\"_blank\">'Acute Respiratory Infection supplement to the infection prevention and control resource for adult social care – GOV.UK (www.gov.uk)'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"No\" if you are certain your cases are not linked to transmission within your setting.",
                     "nameHasError": false,
                     "values": {
                         "type": "listRef"
@@ -1421,8 +1421,8 @@
                     "name": "S2Q2",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "S2Q2. Are you reporting two or more cases of acute respiratory infection (ARI)  within your setting who have symptom onset dates within 5 days but they are DEFINTITELY NOT LINKED to transmission within your setting?  This includes  Flu, COVID-19, other respiratory viruses such as RSV, rhinovirus, parainfluenza etc, chest infections or acute respiratory infection for which you do not know the infection/microorganism causing it.",
-                    "hint": "If you are unsure about linkage, please see <a href=\"https://secure-web.cisco.com/1khcLarWRMMqy5nZD2z6WEMzx6Nm4e8SLOe_jIG_fKabeHNC90m_EJDN5TqesvHRjQpnFI937-ZnJLxVhm7dDgNY_fj_--zlowJnI6Ay_PjimOLSIA_43NHAOMulvXqTDOEN0SMkSAXvq_LWTH88MNVg_rlQ2iB4Cz7xRBm2BR_J2CbCuVqFIPCs7QYXM65UU7-CijjYipZaukR9QfcODBt95VRULEvqzYeExpc3MFIIp4UAPDeq1-u7VH9cG8-g8qGcNdN7fiG3OiF8Uyx9FHiZD6t3GhVbAabHPo2jn-SNlF6nREfhNKjeCjQzc5ykQpa6wFBIJ6-bXRHjvnruRIA/https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Fpublications%2Finfection-prevention-and-control-in-adult-social-care-covid-19-supplement\" target=\"_blank\">'Acute Respiratory Infection supplement to the infection prevention and control resource for adult social care – GOV.UK (www.gov.uk)'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"Yes\" if you are certain your cases are not linked to transmission within your setting.",
+                    "title": "S2Q2. Are you reporting two or more cases of acute respiratory infection (ARI)  within your setting who have symptom onset dates within 5 days but they are DEFINTITELY NOT LINKED to transmission within your setting?  This includes  Flu, COVID-19, other respiratory viruses such as RSV, rhinovirus, parainfluenza etc, chest infections or acute respiratory infection for which you do not know the infection/microorganism causing it",
+                    "hint": "If you are unsure about linkage, please see <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-covid-19-supplement\" target=\"_blank\">'Acute Respiratory Infection supplement to the infection prevention and control resource for adult social care – GOV.UK (www.gov.uk)'</a> section for guidance on whether cases can be considered as unlinked to transmission within the setting.\nOnly click \"Yes\" if you are certain your cases are not linked to transmission within your setting.",
                     "nameHasError": false,
                     "schema": {},
                     "values": {
@@ -2479,16 +2479,16 @@
             }
         },
         {
-            "displayName": "S8Q4 NO",
+            "displayName": "S8Q3 NO",
             "name": "ILbbEK",
             "value": {
-                "name": "S8Q4 NO",
+                "name": "S8Q3 NO",
                 "conditions": [
                     {
                         "field": {
-                            "name": "S8Q4",
+                            "name": "S8Q3",
                             "type": "YesNoField",
-                            "display": "S8Q4. Does your setting undertake Aerosol Generating Procedures (AGPs)?"
+                            "display": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?"
                         },
                         "operator": "is",
                         "value": {
