@@ -50,6 +50,7 @@ jobs:
 
   docker-build:
     runs-on: ubuntu-latest
+    needs: [copilot_environments_workflow_setup]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
