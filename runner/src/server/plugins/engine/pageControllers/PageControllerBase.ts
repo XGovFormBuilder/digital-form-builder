@@ -467,6 +467,7 @@ export class PageControllerBase {
           const pageAndForm = currentPath.includes("?")
             ? currentPath.split("?")[0]
             : currentPath;
+          comp.model.pageAndForm = pageAndForm;
           const folderPath = `${form_session_identifier}${pageAndForm}/${comp.model.id}`;
           const files = await uploadService.listFilesInBucketFolder(
             folderPath,

@@ -86,6 +86,7 @@ export type FreeTextFieldViewModel = {
 export type ClientSideFileUploadFieldViewModel = {
   dropzoneConfig: object;
   existingFiles: S3Object[];
+  pageAndForm: string;
   showNoScriptWarning?: boolean;
   totalOverallFilesize?: number;
   hideTitle?: boolean;

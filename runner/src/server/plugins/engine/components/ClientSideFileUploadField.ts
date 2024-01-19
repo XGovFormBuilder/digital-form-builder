@@ -128,6 +128,7 @@ export class ClientSideFileUploadField extends FormComponent {
       ...super.getViewModel(formData, errors),
       dropzoneConfig: this.options.dropzoneConfig,
       existingFiles: [], // this is populated afterwards.
+      pageAndForm: null, // this is also populated afterwards.
       showNoScriptWarning: this.options.showNoScriptWarning || false,
       totalOverallFilesize: this.options.totalOverallFilesize,
       hideTitle: this.options.hideTitle || false,

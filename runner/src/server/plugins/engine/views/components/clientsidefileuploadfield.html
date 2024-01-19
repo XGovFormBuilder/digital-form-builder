@@ -158,7 +158,7 @@
                     <div class="dz-template govuk-table__row dz-success">
                         <div class="govuk-table__cell dz-table__cell">
                             <a class="govuk-link govuk-link--no-underline"
-                               href="/s3/report-a-terrorist/yes-i-have-evidence/koE_ae/download-file?filename={{file.Key}}&form_session_identifier={{file.FormSessionId}}">
+                               href="/s3{{component.model.pageAndForm}}/{{component.model.id}}/download-file?filename={{file.Key}}&form_session_identifier={{file.FormSessionId}}">
                                 {{ file.Key }}
                             </a>
                         </div>
