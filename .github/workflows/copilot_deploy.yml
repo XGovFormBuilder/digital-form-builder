@@ -26,7 +26,7 @@ jobs:
   copilot_environments_workflow_setup:
     runs-on: ubuntu-latest
     outputs:
-      matrix_env: ${{ steps.copilot_env_matrix.outputs.env_list }}
+      matrix_env: ${{ steps.simple_matrix.outputs.env_list }}
     steps:
       # - id: copilot_env_matrix
       #   run: |
@@ -53,6 +53,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      - name: debug-matrix
+        env:
+          MATRIX_ENV: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_env) }}
+        run: |
+          echo $MATRIX_ENV
 
       - name: "Set version in env"
         id: set-version
