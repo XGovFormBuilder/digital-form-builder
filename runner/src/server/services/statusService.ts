@@ -284,6 +284,12 @@ export class StatusService {
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
 
+    if (pay?.paymentSkipped && config.allowUserTemplates) {
+      pay.paymentSkipped = nunjucks.renderString(pay.paymentSkipped, {
+        ...state,
+      });
+    }
+
     let model = {
       reference: referenceToDisplay,
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
