@@ -24,7 +24,7 @@ on:
 
 env:
   DOCKER_REGISTRY: ghcr.io
-  IMAGE_NAME: "runner"
+  IMAGE_NAME: "fsd-form-runner"
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
 jobs:
@@ -52,6 +52,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: "Set version in env"
+        id: set-version
+        run: |
+          source version
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Docker metadata
         id: metadata
         uses: docker/metadata-action@v4
@@ -60,6 +66,7 @@ jobs:
           tags: |
             type=sha,format=long
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,value=${{env.VERSION}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=ref,event=branch
 
       - name: Log in to the Container registry
@@ -69,6 +76,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create .env for runner workspace
+        run: |
+          touch ./runner/.env
+          echo LAST_TAG_GH=runner >> ./runner/.env
+          echo LAST_COMMIT_GH=runner >> ./runner/.env
+          cat ./runner/.env
+
       - name: Build and push docker image
         uses: docker/build-push-action@v4
         with:
@@ -76,10 +90,14 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags}}
           labels: ${{ steps.metadata.outputs.labels }}
           push: true
-          file: ./fsd_config/Dockerfile
+          file: ./fsd_config/Dockerfile_combined
+          # build-args: |
+          #   COMMIT_SHA=:${{ github.sha }}
+          #   BASE_IMAGE_TAG=${{ inputs.dluhc-runner-version }}
+
           build-args: |
-            COMMIT_SHA=:${{ github.sha }}
-            BASE_IMAGE_TAG=${{ inputs.dluhc-runner-version }}
+            LAST_TAG='${{env.VERSION}}'
+            LAST_COMMIT='${{ github.sha }}'
 
   individual_deploy:
     if: inputs.environment != ''
@@ -132,7 +150,7 @@ jobs:
 
       - name: Inject replacement image into manifest
         run: |
-          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+          yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
 
       - name: Copilot ${{ matrix.value }} deploy
         id: deploy_build
@@ -190,7 +208,7 @@ jobs:
 
       - name: Inject replacement image into manifest
         run: |
-          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+          yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
 
       - name: Copilot dev deploy
         id: deploy_build
@@ -248,7 +266,7 @@ jobs:
 
       - name: Inject replacement image into manifest
         run: |
-          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+          yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
 
       - name: Copilot test deploy
         id: deploy_build
@@ -306,7 +324,7 @@ jobs:
 
       - name: Inject replacement image into manifest
         run: |
-          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+          yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
 
       - name: Copilot uat deploy
         id: deploy_build
@@ -364,7 +382,7 @@ jobs:
 
       - name: Inject replacement image into manifest
         run: |
-          yq -i '.image.location = "ghcr.io/communitiesuk/runner:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
+          yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
 
       - name: Copilot prod deploy
         id: deploy_build
