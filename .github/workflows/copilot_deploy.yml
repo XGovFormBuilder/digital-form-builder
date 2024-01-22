@@ -5,10 +5,18 @@ permissions:
   contents: write
 
 on:
+  push:
+    paths-ignore:
+      [
+        "**/README.md",
+        ".github/workflows/increment-version.yml",
+        "version",
+        "python/**",
+      ]
   workflow_dispatch:
     inputs:
       environment:
-        description: Which AWS Account to use
+        description: Deploy to which environnment
         type: choice
         required: true
         options:
@@ -26,22 +34,18 @@ jobs:
   copilot_environments_workflow_setup:
     runs-on: ubuntu-latest
     outputs:
-      matrix_env: ${{ steps.simple_matrix.outputs.env_list }}
+      matrix_envs: ${{ steps.determine_envs.outputs.env_list }}
     steps:
-      - id: simple_matrix
+      - id: determine_envs
         run: |
-          export envs='["dev", "uat"]'
+          if [ "${{ inputs.environment }}" != '' ]; then          
+            export envs='["${{ inputs.environment }}"]'        
+          elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
+            export envs='["dev", "test", "uat", "prod"]'
+          else
+            export envs='["dev", "test"]'
+          fi
           echo "env_list=$(jq -cn --argjson keys "$envs" '$keys')" >> $GITHUB_OUTPUT
-      # - id: simple_matrix
-      #   run: |
-      #     if [ "${{ inputs.environment }}" != '' ]; then
-      #       export envs='["${{ inputs.environment }}"]'
-      #     elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
-      #       export envs='["dev", "test", "uat", "prod"]'
-      #     else
-      #       export envs='["dev", "test"]'
-      #     fi
-      #     echo "env_list=$(jq -cn --argjson keys "$envs" '$keys')" >> $GITHUB_OUTPUT
 
   docker-build:
     runs-on: ubuntu-latest
@@ -49,11 +53,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - name: debug-matrix
-        env:
-          MATRIX_ENV: ${{ needs.copilot_environments_workflow_setup.outputs.matrix_env }}
-        run: |
-          echo $MATRIX_ENV
 
       - name: "Set version in env"
         id: set-version
@@ -93,19 +92,15 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags}}
           labels: ${{ steps.metadata.outputs.labels }}
           push: true
-          file: ./fsd_config/Dockerfile_combined
-          # build-args: |
-          #   COMMIT_SHA=:${{ github.sha }}
-          #   BASE_IMAGE_TAG=${{ inputs.dluhc-runner-version }}
-
+          file: ./fsd_config/Dockerfile
           build-args: |
             LAST_TAG='${{env.VERSION}}'
             LAST_COMMIT='${{ github.sha }}'
 
   deploy:
-    # concurrency:
-    #   group: "fsd-preaward-copilot-deploy"
-    #   cancel-in-progress: false
+    concurrency:
+      group: "fsd-preaward-copilot-deploy"
+      cancel-in-progress: false
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
@@ -114,7 +109,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_env) }}
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_envs) }}
       fail-fast: false
     environment: ${{ matrix.value }}
     steps:
