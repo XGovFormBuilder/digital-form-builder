@@ -28,25 +28,16 @@ jobs:
     outputs:
       matrix_env: ${{ steps.simple_matrix.outputs.env_list }}
     steps:
-      # - id: copilot_env_matrix
-      #   run: |
-      #     if [ "${{ inputs.environment }}" != '' ]; then
-      #       echo "env_list=[\"${{ inputs.environment }}\"]" >> $GITHUB_OUTPUT
-      #     elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
-      #       echo "pre_deploy_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
-      #       echo "post_deploy_list=[\"uat\", \"prod\"]" >> $GITHUB_OUTPUT
-      #     else
-      #       echo "pre_deploy_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
-      #     fi
       - id: simple_matrix
         run: |
-          if [ "${{ inputs.environment }}" != '' ]; then
-            echo "env_list=[${{ inputs.environment }}, test]" >> $GITHUB_OUTPUT
+          if [ "${{ inputs.environment }}" != '' ]; then          
+            export envs='["${{ inputs.environment }}"]'        
           elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
-            echo "env_list=[\"dev\", \"test\", \"uat\", \"prod\"]" >> $GITHUB_OUTPUT
+            export envs='["dev", "test", "uat", "prod"]'
           else
-            echo "env_list=[\"dev\", \"test\"]" >> $GITHUB_OUTPUT
+            export envs='["dev", "test"]'
           fi
+          echo "env_list=$(jq -cn --argjson keys "$envs" '$keys')" >> $GITHUB_OUTPUT
 
   docker-build:
     runs-on: ubuntu-latest
@@ -119,7 +110,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        value: ${{ needs.copilot_environments_workflow_setup.outputs.matrix_env }}
+        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_env) }}
       fail-fast: false
     environment: ${{ matrix.value }}
     steps:
