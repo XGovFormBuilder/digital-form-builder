@@ -30,14 +30,18 @@ jobs:
     steps:
       - id: simple_matrix
         run: |
-          if [ "${{ inputs.environment }}" != '' ]; then          
-            export envs='["${{ inputs.environment }}"]'        
-          elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
-            export envs='["dev", "test", "uat", "prod"]'
-          else
-            export envs='["dev", "test"]'
-          fi
+          export envs='["dev", "uat"]'
           echo "env_list=$(jq -cn --argjson keys "$envs" '$keys')" >> $GITHUB_OUTPUT
+      # - id: simple_matrix
+      #   run: |
+      #     if [ "${{ inputs.environment }}" != '' ]; then
+      #       export envs='["${{ inputs.environment }}"]'
+      #     elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
+      #       export envs='["dev", "test", "uat", "prod"]'
+      #     else
+      #       export envs='["dev", "test"]'
+      #     fi
+      #     echo "env_list=$(jq -cn --argjson keys "$envs" '$keys')" >> $GITHUB_OUTPUT
 
   docker-build:
     runs-on: ubuntu-latest
@@ -99,16 +103,16 @@ jobs:
             LAST_COMMIT='${{ github.sha }}'
 
   deploy:
-    concurrency:
-      group: "fsd-preaward-copilot-deploy"
-      cancel-in-progress: false
+    # concurrency:
+    #   group: "fsd-preaward-copilot-deploy"
+    #   cancel-in-progress: false
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
     needs: [copilot_environments_workflow_setup, docker-build]
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_env) }}
       fail-fast: false
