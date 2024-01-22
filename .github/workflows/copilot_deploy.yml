@@ -38,8 +38,8 @@ jobs:
     steps:
       - id: determine_envs
         run: |
-          if [ "${{ inputs.environment }}" != '' ]; then          
-            export envs='["${{ inputs.environment }}"]'        
+          if [ "${{ inputs.environment }}" != '' ]; then
+            export envs='["${{ inputs.environment }}"]'
           elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
             export envs='["dev", "test", "uat", "prod"]'
           else
