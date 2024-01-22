@@ -814,7 +814,7 @@
                     "name": "S6Q1",
                     "options": {},
                     "type": "YesNoField",
-                    "title": "S6Q1: Do you have two or more cases of ARI within your setting who have symptom onset dates within 5 days?  This includes: ARI for which you do not know the infection/microorganism causing it OR you have had at least one person with a positive test for an ARI that isn't COVID-19 or Flu e.g. RSV parainfluenza, rhinovirus, human metapneumovirus etc and other/s with symptoms.   If you have already entered these ARI cases in the COVID-19 or Flu section, do NOT re-enter them in this section and click \"No\" below",
+                    "title": "S6Q1: Do you have two or more cases of ARI within your setting who have symptom onset dates within 5 days? This includes: ARI for which you do not know the infection/microorganism causing it OR you have had at least one person with a positive test for an ARI that isn't COVID-19 or Flu e.g. RSV parainfluenza, rhinovirus, human metapneumovirus etc and other/s with symptoms.   If you have already entered these ARI cases in the COVID-19 or Flu section, do NOT re-enter them in this section and click \"No\" below",
                     "nameHasError": false,
                     "schema": {},
                     "values": {
