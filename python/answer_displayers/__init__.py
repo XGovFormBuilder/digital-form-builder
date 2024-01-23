@@ -1,21 +1,21 @@
-from python.answer_displayers.CheckboxesField import CheckboxesFieldDisplayer
-from python.answer_displayers.ClientSideFileUploadField import (
+from .CheckboxesField import CheckboxesFieldDisplayer
+from .ClientSideFileUploadField import (
     ClientSideFileUploadFieldDisplayer,
 )
-from python.answer_displayers.DatePartsField import DatePartsFieldDisplayer
-from python.answer_displayers.EmailAddressField import EmailAddressFieldDisplayer
-from python.answer_displayers.FreeTextField import FreeTextFieldDisplayer
-from python.answer_displayers.MonthYearField import MonthYearFieldDisplayer
-from python.answer_displayers.MonthYearField import MonthYearFieldDisplayerMultiInput
-from python.answer_displayers.MultiInputField import MultiInputFieldDisplayer
-from python.answer_displayers.NumberField import NumberFieldDisplayer
-from python.answer_displayers.RadiosField import RadiosFieldDisplayer
-from python.answer_displayers.TelephoneNumberField import TelephoneNumberFieldDisplayer
-from python.answer_displayers.TextField import TextFieldDisplayer
-from python.answer_displayers.UkAddressField import UkAddressFieldDisplayer
-from python.answer_displayers.UkAddressField import UkAddressFieldDisplayerMultiInput
-from python.answer_displayers.WebsiteField import WebsiteFieldDisplayer
-from python.answer_displayers.YesNoField import YesNoFieldDisplayer
+from .DatePartsField import DatePartsFieldDisplayer
+from .EmailAddressField import EmailAddressFieldDisplayer
+from .FreeTextField import FreeTextFieldDisplayer
+from .MonthYearField import MonthYearFieldDisplayer
+from .MonthYearField import MonthYearFieldDisplayerMultiInput
+from .MultiInputField import MultiInputFieldDisplayer
+from .NumberField import NumberFieldDisplayer
+from .RadiosField import RadiosFieldDisplayer
+from .TelephoneNumberField import TelephoneNumberFieldDisplayer
+from .TextField import TextFieldDisplayer
+from .UkAddressField import UkAddressFieldDisplayer
+from .UkAddressField import UkAddressFieldDisplayerMultiInput
+from .WebsiteField import WebsiteFieldDisplayer
+from .YesNoField import YesNoFieldDisplayer
 
 __all__ = [
     "CheckboxesFieldDisplayer",

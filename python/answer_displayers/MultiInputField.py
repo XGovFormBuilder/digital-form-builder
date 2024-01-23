@@ -22,7 +22,7 @@ class MultiInputFieldDisplayer(AnswerDisplayer):
 
     @property
     def _parse_multi_input_component(self) -> list[dict[str, AnswerDisplayer]]:
-        from python.answer_displayers.shared.dictionaries import (
+        from .shared.dictionaries import (
             EXISTING_KEY_TO_TYPE_DICT,
             FIELD_TO_DISPLAYER_DICT_MULTI_INPUT,
         )
