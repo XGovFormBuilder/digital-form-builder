@@ -41,11 +41,17 @@ def test_as_pdf(answer, expected_result):
 _TEST_INPUTS = [
     [
         {
-            "gLqiyJ": "Test Value for Money CYP Form",
+            "gLqiyJ": "Test Value for Money CYP Form FIRST",
             "yuzbjT": 678,
             "HpLJyL": {"HpLJyL__month": 3, "HpLJyL__year": 2024},
             "MadvIr": "Capital",
-        }
+        },
+        {
+            "gLqiyJ": "Test Value for Money CYP Form SECOND",
+            "yuzbjT": 678,
+            "HpLJyL": {"HpLJyL__month": 4, "HpLJyL__year": 2024},
+            "MadvIr": "Capital",
+        },
     ],
     [
         {
@@ -66,14 +72,23 @@ _TEST_INPUTS = [
 
 _TEST_OUTPUTS_LENGTHS = [4, 5]
 
+_TEST_TEXT_OUTPUTS = [
+    "Multi-input item 1\nTest Value for Money CYP Form FIRST\n£678.00\nMarch 2024\nCapital\n\nMulti-input item 2\nTest Value for Money CYP Form SECOND\n£678.00\nApril 2024\nCapital\n\n",
+    "Multi-input item 1\nTest About your organisation CYP Form\n268 Schultz Fold, Upper Berge, W12 0HS\nhttps://twitter.com/luhc\nNone\nNone\n\n",
+]
 _TEST_OUTPUTS = [
-    ["Test Value for Money CYP Form", "£678.00", "March 2024", "Capital"],
     [
-        "Test About your organisation CYP Form",
-        "268 Schultz Fold, Upper Berge, W12 0HS",
-        "https://twitter.com/luhc",
-        None,
-        None,
+        ["Test Value for Money CYP Form FIRST", "£678.00", "March 2024", "Capital"],
+        ["Test Value for Money CYP Form SECOND", "£678.00", "April 2024", "Capital"],
+    ],
+    [
+        [
+            "Test About your organisation CYP Form",
+            "268 Schultz Fold, Upper Berge, W12 0HS",
+            "https://twitter.com/luhc",
+            None,
+            None,
+        ]
     ],
 ]
 
@@ -84,20 +99,18 @@ _TEST_OUTPUTS = [
 )
 def test_as_csv_multi_input(answer, expected_answers):
     answer_displayers = MultiInputFieldDisplayer(answer).as_csv
-    for answer_displayer_dict in answer_displayers:
-        for key, expected_answer in zip(answer_displayer_dict, expected_answers):
+    for index, answer_displayer_dict in enumerate(answer_displayers):
+        for key, expected_answer in zip(answer_displayer_dict, expected_answers[index]):
             assert answer_displayer_dict[key].as_csv == expected_answer
 
 
 @pytest.mark.parametrize(
     "answer, expected_answers",
-    zip(_TEST_INPUTS, _TEST_OUTPUTS),
+    zip(_TEST_INPUTS, _TEST_TEXT_OUTPUTS),
 )
 def test_as_txt_multi_input(answer, expected_answers):
-    answer_displayers = MultiInputFieldDisplayer(answer).as_txt
-    for answer_displayer_dict in answer_displayers:
-        for key, expected_answer in zip(answer_displayer_dict, expected_answers):
-            assert answer_displayer_dict[key].as_txt == expected_answer
+    multiinput_as_text = MultiInputFieldDisplayer(answer).as_txt
+    assert multiinput_as_text == expected_answers
 
 
 @pytest.mark.parametrize(
@@ -106,6 +119,6 @@ def test_as_txt_multi_input(answer, expected_answers):
 )
 def test_as_pdf_multi_input(answer, expected_answers):
     answer_displayers = MultiInputFieldDisplayer(answer).as_pdf
-    for answer_displayer_dict in answer_displayers:
-        for key, expected_answer in zip(answer_displayer_dict, expected_answers):
+    for index, answer_displayer_dict in enumerate(answer_displayers):
+        for key, expected_answer in zip(answer_displayer_dict, expected_answers[index]):
             assert answer_displayer_dict[key].as_pdf == expected_answer

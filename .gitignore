@@ -28,3 +28,5 @@ tsconfig.tsbuildinfo
 .yarn/install-state.gz
 docs/**/typedoc
 .venv
+
+__pycache__/

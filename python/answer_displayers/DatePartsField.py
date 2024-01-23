@@ -1,7 +1,7 @@
 import contextlib
 import datetime
 
-from python.answer_displayer import AnswerDisplayer
+from python.answer_displayers.shared.answer_displayer import AnswerDisplayer
 
 
 class DatePartsFieldDisplayer(AnswerDisplayer):

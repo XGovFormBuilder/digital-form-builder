@@ -1,6 +1,6 @@
 from typing import Any
 
-from python.answer_displayer import AnswerDisplayer
+from python.answer_displayers.shared.answer_displayer import AnswerDisplayer
 
 
 class MultiInputFieldDisplayer(AnswerDisplayer):
@@ -22,7 +22,7 @@ class MultiInputFieldDisplayer(AnswerDisplayer):
 
     @property
     def _parse_multi_input_component(self) -> list[dict[str, AnswerDisplayer]]:
-        from python.dictionaries import (
+        from python.answer_displayers.shared.dictionaries import (
             EXISTING_KEY_TO_TYPE_DICT,
             FIELD_TO_DISPLAYER_DICT_MULTI_INPUT,
         )
@@ -46,11 +46,30 @@ class MultiInputFieldDisplayer(AnswerDisplayer):
             return self._parse_multi_input_component
 
     @property
-    def as_txt(self) -> str | list[dict[str, AnswerDisplayer]]:
+    def as_txt(self) -> str:
         if self.legacy:
             return self._legacy_parsed_answer
         else:
-            return self._parse_multi_input_component
+            multi_input_rows_as_string = ""
+            for index, answer_displayers_for_each_item_in_row in enumerate(
+                self._parse_multi_input_component
+            ):
+                text_for_row = ""
+                for (
+                    key,
+                    answer_displayer,
+                ) in answer_displayers_for_each_item_in_row.items():
+                    text_for_row = text_for_row + str(answer_displayer.as_txt) + "\n"
+                multi_input_rows_as_string = (
+                    multi_input_rows_as_string
+                    + "Multi-input item "
+                    + str(index + 1)
+                    + "\n"
+                    + text_for_row
+                    + "\n"
+                )
+
+        return multi_input_rows_as_string
 
     @property
     def as_pdf(self) -> str | list[dict[str, AnswerDisplayer]]:
