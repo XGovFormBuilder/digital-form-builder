@@ -1,6 +1,6 @@
 from typing import Any
 
-from python.answer_displayers.shared.answer_displayer import AnswerDisplayer
+from .shared.answer_displayer import AnswerDisplayer
 
 
 class MultiInputFieldDisplayer(AnswerDisplayer):

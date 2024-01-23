@@ -73,8 +73,10 @@ _TEST_INPUTS = [
 _TEST_OUTPUTS_LENGTHS = [4, 5]
 
 _TEST_TEXT_OUTPUTS = [
-    "Multi-input item 1\nTest Value for Money CYP Form FIRST\n£678.00\nMarch 2024\nCapital\n\nMulti-input item 2\nTest Value for Money CYP Form SECOND\n£678.00\nApril 2024\nCapital\n\n",
-    "Multi-input item 1\nTest About your organisation CYP Form\n268 Schultz Fold, Upper Berge, W12 0HS\nhttps://twitter.com/luhc\nNone\nNone\n\n",
+    "Multi-input item 1\nTest Value for Money CYP Form FIRST\n£678.00\nMarch 2024\nCapital\n\n"
+    "Multi-input item 2\nTest Value for Money CYP Form SECOND\n£678.00\nApril 2024\nCapital\n\n",
+    "Multi-input item 1\nTest About your organisation CYP Form\n268 Schultz Fold, Upper Berge, W12 0HS\n"
+    "https://twitter.com/luhc\nNone\nNone\n\n",
 ]
 _TEST_OUTPUTS = [
     [

@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-from python.answer_displayers.shared.answer_displayer import AnswerDisplayer
+
+from .shared.answer_displayer import AnswerDisplayer
 
 
 class FreeTextFieldDisplayer(AnswerDisplayer):

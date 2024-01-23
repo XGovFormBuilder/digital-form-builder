@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "funding-service-design-digital-form-builder-tools"
-version = "1.0.0" # please follow semver.org if you can!
+version = "1.0.1" # please follow semver.org if you can!
 authors = [
   { name="DLUHC", email="FundingServiceDesignTeam@levellingup.gov.uk" },
 ]
