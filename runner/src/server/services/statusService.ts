@@ -295,16 +295,15 @@ export class StatusService {
 
     if (config.allowUserTemplates) {
       if (customText?.nextSteps) {
-        customText.nextSteps = nunjucks.renderString(customText.nextSteps, {
-          ...state,
-        });
+        customText.nextSteps = nunjucks.renderString(
+          customText.nextSteps,
+          state
+        );
       }
       if (customText?.paymentSkipped) {
         customText.paymentSkipped = nunjucks.renderString(
           customText.paymentSkipped,
-          {
-            ...state,
-          }
+          state
         );
       }
     }
