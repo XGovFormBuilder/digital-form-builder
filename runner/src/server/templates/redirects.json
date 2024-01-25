@@ -1,0 +1,4 @@
+{
+  "/redirects-example/first-page?goto=google": "https://google.co.uk",
+  "/redirects-example/first-page?goto=govuk": "https://gov.uk"
+}
