@@ -102,7 +102,7 @@ jobs:
       contents: read  # This is required for actions/checkout
     needs: docker-build
     if: ${{ inputs.environment != '' }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
     with:
@@ -116,7 +116,7 @@ jobs:
       contents: read  # This is required for actions/checkout
     needs: docker-build
     if: ${{ needs.copilot_environments_workflow_setup.outputs.test_deploy == 'yes' }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
     with:
@@ -130,7 +130,7 @@ jobs:
       contents: read  # This is required for actions/checkout
     needs: dev_deploy
     if: ${{ needs.copilot_environments_workflow_setup.outputs.test_deploy == 'yes' }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
     with:
@@ -144,7 +144,7 @@ jobs:
       contents: read  # This is required for actions/checkout
     needs: test_deploy
     if: ${{ needs.copilot_environments_workflow_setup.outputs.prod_deploy == 'yes' }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
     with:
@@ -158,7 +158,7 @@ jobs:
       contents: read  # This is required for actions/checkout
     needs: uat_deploy
     if: ${{ needs.copilot_environments_workflow_setup.outputs.prod_deploy == 'yes' }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
     with:
