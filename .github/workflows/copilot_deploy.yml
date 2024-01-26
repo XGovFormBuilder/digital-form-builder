@@ -46,11 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       jobs_to_run: ${{ steps.determine-jobs.outputs.job_list }}
-      version_to_tag: ${{ steps.create_tag.outputs.tag_value }}
     steps:
-      - id: create_tag
-        run: |
-          echo "tag_value=$(echo '${{ github.ref }}' | sed -e 's,.*/\(.*\),\1,')" >> $GITHUB_OUTPUT
       - id: determine-jobs
         run: |
           if [ "${{ inputs.environment }}" != '' ]; then
@@ -124,7 +120,7 @@ jobs:
     with:
       environment: dev
       app_name: "form-runner"
-      version: ${{ github.sha }}
+      version: sha-${{ github.sha }}
 
   post_dev_deploy_tests:
     needs: dev_deploy
@@ -149,7 +145,7 @@ jobs:
     with:
       environment: "test"
       app_name: "form-runner"
-      version: ${{ github.sha }}
+      version: sha-${{ github.sha }}
 
   post_test_deploy_tests:
     needs: test_deploy
@@ -174,7 +170,7 @@ jobs:
     with:
       environment: "uat"
       app_name: "form-runner"
-      version: ${{ github.sha }}
+      version: sha-${{ github.sha }}
 
   post_uat_deploy_tests:
     needs: uat_deploy
@@ -199,4 +195,4 @@ jobs:
     with:
       environment: "prod"
       app_name: "form-runner"
-      version: ${{ github.sha }}
+      version: sha-${{ github.sha }}
