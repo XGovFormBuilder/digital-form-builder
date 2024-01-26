@@ -138,7 +138,7 @@ jobs:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
     needs: [docker-build, post_dev_deploy_tests, setup]
-    if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'test') && (needs.post_dev_deploy_tests.result == 'success' || needs.post_dev_deploy_tests.result == 'skipped') }}
+    if: ${{ always() && success() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'test') && (needs.post_dev_deploy_tests.result == 'success' || needs.post_dev_deploy_tests.result == 'skipped') }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -163,7 +163,7 @@ jobs:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
     needs: [docker-build, post_test_deploy_tests, setup]
-    if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (needs.post_test_deploy_tests.result == 'success' || needs.post_test_deploy_tests.result == 'skipped') }}
+    if: ${{ always() && success() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (needs.post_test_deploy_tests.result == 'success' || needs.post_test_deploy_tests.result == 'skipped') }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -188,7 +188,7 @@ jobs:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
     needs: [docker-build, post_uat_deploy_tests, setup]
-    if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (needs.post_uat_deploy_tests.result == 'success' || needs.post_uat_deploy_tests.result == 'skipped') }}
+    if: ${{ always() && success() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (needs.post_uat_deploy_tests.result == 'success' || needs.post_uat_deploy_tests.result == 'skipped') }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
