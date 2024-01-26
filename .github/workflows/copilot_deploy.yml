@@ -27,25 +27,24 @@ on:
 
 env:
   DOCKER_REGISTRY: ghcr.io
-  IMAGE_NAME: "fsd-form-runner"
+  IMAGE_NAME: "funding-service-design-form-runner"
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
 jobs:
   copilot_environments_workflow_setup:
     runs-on: ubuntu-latest
     outputs:
-      matrix_envs: ${{ steps.determine_envs.outputs.env_list }}
+      test_deploy: ${{ steps.copilot_env_list.outputs.test_deploy }}
+      prod_deploy: ${{ steps.copilot_env_list.outputs.prod_deploy }}
     steps:
-      - id: determine_envs
+      - id: copilot_env_list
         run: |
-          if [ "${{ inputs.environment }}" != '' ]; then
-            export envs='["${{ inputs.environment }}"]'
-          elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
-            export envs='["dev", "test", "uat", "prod"]'
-          else
-            export envs='["dev", "test"]'
+          if [ "${{ github.ref }}" == 'refs/heads/main' ]; then
+            echo "test_deploy=yes">> $GITHUB_OUTPUT
+            echo "prod_deploy=yes">> $GITHUB_OUTPUT
+          elif [ "${{ inputs.environment }}" == "" ]; then
+            echo "test_deploy=yes">> $GITHUB_OUTPUT
           fi
-          echo "env_list=$(jq -cn --argjson keys "$envs" '$keys')" >> $GITHUB_OUTPUT
 
   docker-build:
     runs-on: ubuntu-latest
@@ -97,59 +96,57 @@ jobs:
             LAST_TAG='${{env.VERSION}}'
             LAST_COMMIT='${{ github.sha }}'
 
-  deploy:
-    concurrency:
-      group: "fsd-preaward-copilot-deploy"
-      cancel-in-progress: false
-    permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read # This is required for actions/checkout
-    needs: [copilot_environments_workflow_setup, docker-build]
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 2
-      matrix:
-        value: ${{ fromJSON(needs.copilot_environments_workflow_setup.outputs.matrix_envs) }}
-      fail-fast: false
-    environment: ${{ matrix.value }}
-    steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v4
+  ind_deploy:
+    needs: [ pre_deploy_tests, paketo_build, tag_version ]
+    if: ${{ inputs.environment != '' }}
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
+    secrets:
+      AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+    with:
+      environment: ${{ inputs.environment }}
+      app_name: 'notification'
+      version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
-      - name: Get current date
-        shell: bash
-        id: currentdatetime
-        run: echo "datetime=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+  dev_deploy:
+    needs: [ pre_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.test_deploy == 'yes' }}
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
+    secrets:
+      AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+    with:
+      environment: dev
+      app_name: 'form-runner'
+      version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/GithubCopilotDeploy
-          role-session-name: FORMRUNNER_${{ matrix.value }}_COPILOT_${{ steps.currentdatetime.outputs.datetime }}
-          aws-region: eu-west-2
+  test_deploy:
+    needs: [ post_dev_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.test_deploy == 'yes' }}
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
+    secrets:
+      AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+    with:
+      environment: 'test'
+      app_name: 'form-runner'
+      version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
-      - name: Install AWS Copilot CLI
-        shell: bash
-        run: |
-          curl -Lo aws-copilot https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux && chmod +x aws-copilot && sudo mv aws-copilot /usr/local/bin/copilot
+  uat_deploy:
+    needs: [ post_test_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.prod_deploy == 'yes' }}
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
+    secrets:
+      AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+    with:
+      environment: 'uat'
+      app_name: 'form-runner'
+      version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
-      - name: confirm copilot env
-        shell: bash
-        run: |
-          if [ $(copilot env ls) != "${{ matrix.value }}" ]; then
-            echo $(copilot env ls)
-            exit 1
-          fi
-
-      - name: Inject Git SHA into manifest
-        run: |
-          yq -i '.variables.GITHUB_SHA = "${{ github.sha }}"'  copilot/fsd-form-runner/manifest.yml
-
-      - name: Inject replacement image into manifest
-        run: |
-          yq -i '.image.location = "${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME}}:${{ github.ref_name == 'main' && 'latest' || format('sha-{0}', github.sha) }}"'  copilot/fsd-form-runner/manifest.yml
-
-      - name: Copilot ${{ matrix.value }} deploy
-        id: deploy_build
-        run: |
-          copilot svc deploy --env ${{ matrix.value }} --app pre-award
+  prod_deploy:
+    needs: [ post_uat_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    if: ${{ needs.copilot_environments_workflow_setup.outputs.prod_deploy == 'yes' }}
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
+    secrets:
+      AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
+    with:
+      environment: 'prod'
+      app_name: 'form-runner'
+      version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
