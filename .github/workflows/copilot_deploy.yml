@@ -107,7 +107,7 @@ jobs:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
     with:
       environment: ${{ inputs.environment }}
-      app_name: 'notification'
+      app_name: 'form-runner'
       version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
   dev_deploy:
