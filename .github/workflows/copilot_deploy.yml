@@ -97,7 +97,7 @@ jobs:
             LAST_COMMIT='${{ github.sha }}'
 
   ind_deploy:
-    needs: [ pre_deploy_tests, paketo_build, tag_version ]
+    needs: docker-build
     if: ${{ inputs.environment != '' }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
     secrets:
@@ -108,7 +108,7 @@ jobs:
       version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
   dev_deploy:
-    needs: [ pre_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    needs: docker-build
     if: ${{ needs.copilot_environments_workflow_setup.outputs.test_deploy == 'yes' }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
     secrets:
@@ -119,7 +119,7 @@ jobs:
       version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
   test_deploy:
-    needs: [ post_dev_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    needs: dev_deploy
     if: ${{ needs.copilot_environments_workflow_setup.outputs.test_deploy == 'yes' }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
     secrets:
@@ -130,7 +130,7 @@ jobs:
       version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
   uat_deploy:
-    needs: [ post_test_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    needs: test_deploy
     if: ${{ needs.copilot_environments_workflow_setup.outputs.prod_deploy == 'yes' }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
     secrets:
@@ -141,7 +141,7 @@ jobs:
       version: ${{ github.ref_name == 'main' && 'latest' || needs.tag_version.outputs.version_to_tag }}
 
   prod_deploy:
-    needs: [ post_uat_deploy_tests, paketo_build, tag_version, copilot_environments_workflow_setup ]
+    needs: uat_deploy
     if: ${{ needs.copilot_environments_workflow_setup.outputs.prod_deploy == 'yes' }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
     secrets:
