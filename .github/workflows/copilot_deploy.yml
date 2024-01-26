@@ -127,10 +127,11 @@ jobs:
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
       FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/run-shared-tests.yml@main
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@BAU_add_testing_flag
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
       run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
+      run_static_security: false
       environment: dev
 
   test_deploy:
@@ -152,10 +153,11 @@ jobs:
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
       FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/run-shared-tests.yml@main
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@BAU_add_testing_flag
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
       run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
+      run_static_security: false
       environment: test
 
   uat_deploy:
@@ -177,10 +179,11 @@ jobs:
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
       FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/run-shared-tests.yml@main
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@BAU_add_testing_flag
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
       run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
+      run_static_security: false
       environment: uat
 
   prod_deploy:
