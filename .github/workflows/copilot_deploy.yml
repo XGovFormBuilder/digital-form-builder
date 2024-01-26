@@ -97,6 +97,9 @@ jobs:
             LAST_COMMIT='${{ github.sha }}'
 
   ind_deploy:
+    permissions:
+      id-token: write # This is required for requesting the JWT
+      contents: read  # This is required for actions/checkout
     needs: docker-build
     if: ${{ inputs.environment != '' }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@BAU_standardise_deploy
