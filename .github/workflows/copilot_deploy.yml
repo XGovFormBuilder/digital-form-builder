@@ -157,7 +157,7 @@ jobs:
     #   version: sha-${{ github.sha }}
 
   post_test_deploy_tests:
-    needs: test_deploy
+    needs: [test_deploy]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
