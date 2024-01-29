@@ -1,5 +1,5 @@
 name: Deploy to AWS
-run-name: Deploy ${{ github.event.inputs.environment}}
+run-name: AWS Deploy ${{ github.event.inputs.environment}}
 
 permissions:
   packages: write
@@ -113,7 +113,7 @@ jobs:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
     needs: [docker-build, setup]
-    if: ${{ contains(fromJSON(needs.setup.outputs.jobs_to_run), 'dev') }}
+    if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'dev') && (! contains(needs.*.result, 'failure') ) && (! contains(needs.*.result, 'cancelled') ) }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -123,7 +123,7 @@ jobs:
       version: sha-${{ github.sha }}
 
   post_dev_deploy_tests:
-    needs: dev_deploy
+    needs: [dev_deploy]
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
       FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
@@ -131,15 +131,17 @@ jobs:
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
       run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
-      run_static_security: false
+      run_static_security_python: false
+      run_zap_scan: false
+      app_name: forms
       environment: dev
 
   test_deploy:
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
-    needs: [docker-build, post_dev_deploy_tests, setup]
-    if: ${{ always() && success() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'test') && (needs.post_dev_deploy_tests.result == 'success' || needs.post_dev_deploy_tests.result == 'skipped') }}
+    needs: [setup, docker-build, dev_deploy, post_dev_deploy_tests]
+    if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'test') && (! contains(needs.*.result, 'failure') ) && (! contains(needs.*.result, 'cancelled') ) }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -157,15 +159,25 @@ jobs:
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
       run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
-      run_static_security: false
+      run_static_security_python: false
+      run_zap_scan: false
+      app_name: forms
       environment: test
 
   uat_deploy:
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
-    needs: [docker-build, post_test_deploy_tests, setup]
-    if: ${{ always() && success() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (needs.post_test_deploy_tests.result == 'success' || needs.post_test_deploy_tests.result == 'skipped') }}
+    needs:
+      [
+        setup,
+        docker-build,
+        dev_deploy,
+        post_dev_deploy_tests,
+        test_deploy,
+        post_test_deploy_tests,
+      ]
+    if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (! contains(needs.*.result, 'failure') ) && (! contains(needs.*.result, 'cancelled') ) }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -183,15 +195,26 @@ jobs:
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
       run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
-      run_static_security: false
+      run_static_security_python: false
+      run_zap_scan: false
+      app_name: forms
       environment: uat
 
   prod_deploy:
     permissions:
       id-token: write # This is required for requesting the JWT
       contents: read # This is required for actions/checkout
-    needs: [docker-build, post_uat_deploy_tests, setup]
-    if: ${{ always() && success() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (needs.post_uat_deploy_tests.result == 'success' || needs.post_uat_deploy_tests.result == 'skipped') }}
+    needs:
+      [
+        setup,
+        docker-build,
+        dev_deploy,
+        post_dev_deploy_tests,
+        test_deploy,
+        post_test_deploy_tests,
+        post_uat_deploy_tests,
+      ]
+    if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'prod') && (! contains(needs.*.result, 'failure') ) && (! contains(needs.*.result, 'cancelled') ) }}
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     secrets:
       AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
