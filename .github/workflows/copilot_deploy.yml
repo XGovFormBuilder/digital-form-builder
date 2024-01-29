@@ -157,8 +157,8 @@ jobs:
     #   version: sha-${{ github.sha }}
 
   post_test_deploy_tests:
-    needs: [test_deploy]
-    if: ${{ always() }}
+    needs: [setup, test_deploy]
+    if: ${{ always()  && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'test') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
