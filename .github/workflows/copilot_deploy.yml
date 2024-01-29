@@ -192,7 +192,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
+    # uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     # secrets:
     #   AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
     # with:
