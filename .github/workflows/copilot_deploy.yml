@@ -63,7 +63,7 @@ jobs:
     needs: [setup]
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # - name: Docker metadata
       #   id: metadata
@@ -111,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
     # uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     # secrets:
     #   AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -125,7 +125,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
     # secrets:
     #   FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
     #   FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
@@ -147,7 +147,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
     # uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     # secrets:
     #   AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -158,10 +158,11 @@ jobs:
 
   post_test_deploy_tests:
     needs: [test_deploy]
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
     # secrets:
     #   FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
     #   FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
@@ -191,7 +192,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
     # uses: communitiesuk/funding-service-design-workflows/.github/workflows/standard-deploy.yml@main
     # secrets:
     #   AWS_ACCOUNT: ${{ secrets.AWS_ACCOUNT }}
@@ -205,7 +206,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
     # secrets:
     #   FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
     #   FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
