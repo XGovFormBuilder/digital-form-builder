@@ -1,9 +1,9 @@
 {
     "metadata": {},
-    "startPage": "/acute-respiratory-infections-ari---covid-19-flu-or-unknown-infection-in-adult-social-care-settings",
+    "startPage": "/care-outbreak-risk-assessment-care-obra-tool-for-acute-respiratory-infections",
     "pages": [
         {
-            "path": "/acute-respiratory-infections-ari---covid-19-flu-or-unknown-infection-in-adult-social-care-settings",
+            "path": "/care-outbreak-risk-assessment-care-obra-tool-for-acute-respiratory-infections",
             "title": "Care Outbreak Risk Assessment (Care OBRA) Tool for Acute Respiratory Infections",
             "components": [
                 {
@@ -1858,7 +1858,7 @@
                 },
                 {
                     "text": "Quick to complete",
-                    "value": "Quite to complete"
+                    "value": "Quick to complete"
                 },
                 {
                     "text": "Too time consuming",
