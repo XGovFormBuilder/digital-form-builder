@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      #  If you have overriden the version in the version file, eg. to do a non-patch release and want to
+      # If you have overriden the version in the version file, eg. to do a non-patch release and want to
       # take this version as the base, not the latest tag, then uncomment this step and comment out the
       # 'Get latest tag' step below. Then put them back!
       # - name: "Set version in env"
