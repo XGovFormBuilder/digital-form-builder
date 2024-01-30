@@ -148,7 +148,7 @@ jobs:
       version: sha-${{ github.sha }}
 
   post_test_deploy_tests:
-    needs: [setup, test_deploy]
+    needs: [setup, docker-build, dev_deploy, post_dev_deploy_tests, test_deploy]
     if: ${{ always()  && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'test') }}
 
     secrets:
@@ -187,7 +187,7 @@ jobs:
       version: sha-${{ github.sha }}
 
   post_uat_deploy_tests:
-    needs: [setup, uat_deploy]
+    needs: [setup, docker-build, dev_deploy, post_dev_deploy_tests, test_deploy, post_test_deploy_tests, uat_deploy]
     if: ${{ always()  && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') }}
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
@@ -213,6 +213,7 @@ jobs:
         post_dev_deploy_tests,
         test_deploy,
         post_test_deploy_tests,
+        uat_deploy,
         post_uat_deploy_tests,
       ]
     if: ${{ always() && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'prod') && (! contains(needs.*.result, 'failure') ) && (! contains(needs.*.result, 'cancelled') ) }}
