@@ -126,7 +126,7 @@ jobs:
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@main
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
-      run_e2e_tests: ${{ inputs.run_e2e_tests || true }}
+      run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
       run_static_security_python: false
       run_zap_scan: true
       app_name: forms
