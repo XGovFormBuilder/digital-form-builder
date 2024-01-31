@@ -212,6 +212,9 @@ export const plugin = {
         state
       );
       await cacheService.mergeState(request, newValues);
+      if (Object.keys(newValues).length > 0) {
+        h.request.pre.hasPrepopulatedSessionFromQueryParameter = true;
+      }
       return h.continue;
     };
 
