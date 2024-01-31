@@ -450,6 +450,7 @@ export class PageControllerBase {
       const shouldRedirectToStartPage =
         !this.model.options.previewMode &&
         progress.length === 0 &&
+        !request.pre.hasPrepopulatedSessionFromQueryParameter &&
         !isStartPage &&
         !isInitialisedSession;
 
