@@ -30,7 +30,12 @@ on:
         default: false
         type: boolean
         description: Run performance tests
-      run_e2e_tests:
+      run_e2e_tests_assessment:
+        required: false
+        default: false
+        type: boolean
+        description: Run e2e tests
+      run_e2e_tests_application:
         required: false
         default: true
         type: boolean
@@ -126,7 +131,8 @@ jobs:
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@main
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
-      run_e2e_tests: ${{ inputs.run_e2e_tests || false }}
+      run_e2e_tests_assessment: ${{ inputs.run_e2e_tests || false }}
+      run_e2e_tests_application: ${{ inputs.run_e2e_tests || false }}
       run_static_security_python: false
       run_zap_scan: true
       app_name: forms
@@ -157,7 +163,8 @@ jobs:
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@main
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
-      run_e2e_tests: ${{ inputs.run_e2e_tests || true }}
+      run_e2e_tests_assessment: ${{ inputs.run_e2e_tests || false }}
+      run_e2e_tests_application: ${{ inputs.run_e2e_tests || true }}
       run_static_security_python: false
       run_zap_scan: true
       app_name: forms
@@ -195,7 +202,8 @@ jobs:
     uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@main
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
-      run_e2e_tests: ${{ inputs.run_e2e_tests || true }}
+      run_e2e_tests_assessment: ${{ inputs.run_e2e_tests || false }}
+      run_e2e_tests_application: ${{ inputs.run_e2e_tests || true }}
       run_static_security_python: false
       run_zap_scan: true
       app_name: forms
