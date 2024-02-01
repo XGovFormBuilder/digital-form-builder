@@ -6,51 +6,26 @@ General information for working with the form builder in DLUHC and getting your 
 
 # Builds and Deploys
 
-Information on how the form-runner is built and deploy to AWS is contained [here](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Deploying-Form-Builder). Note the process is different to the other applications in Access Funding and requires manual steps - pushing to git alone will not deploy anything anywhere.
+Information on how the form-runner is built and deploy to AWS is contained [here](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Deploying-Form-Builder).
 
 # Using a new version of the DLUHC fork
 
 ## Github build
 
-Any push to any branch will build a docker image of the runner and tag it with the commit ID. See [.github/workflows/dluhc-build-and-publish.yml](#.github/workflows/dluhc-build-and-publish.yml). On main, it will also tag with latest.
+Any push to any branch will build a docker image of the runner and tag it with the commit ID. On main, it will also tag with latest.
 
-So to consume a docker image produced by this workflow, update the `Dockerfile` you are using (probably [this one](./fsd_config/Dockerfile) ) to pull the tag produced by this workflow.
+So to consume a docker image produced by this workflow, update the `Dockerfile` you are using to pull the tag produced by this workflow.
 
-## Local build
+## Docker Compose
 
-To skip the roundtrip of pushing up to github, you can build the docker image for the runner locally and consume in the docker-runner:
-
-    cd digital-form-builder
-    docker build -f runner/Dockerfile . -t local-form-runner
-
-Then update the [Dockerfile](./fsd_config/Dockerfile) used by the docker-runner to point to this tag:
-
-    ARG BASE_IMAGE_TAG="latest"
-    # FROM ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:$BASE_IMAGE_TAG as base
-    FROM local-form-runner:latest as base
-    ARG FORMS_DIR="forms-v3"
-
-Then build and run the form-runner through docker compose
+The form runner is part of the [fsd docker runner](https://github.com/communitiesuk/funding-service-design-docker-runner), so just build and run the form-runner through docker compose
 
     docker compose build form-runner
     docker compose up form-runner
 
-If just updating the forms (no files within the runner itself) you can just do a fresh `docker compose build form-runner`, you don't need to update the Dockerfile or do a `docker build...`
-
 # Workflow Files
 
 More detail on the workflow for deploying form runner to AWS is available [here](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Deploying-Form-Builder)
-
-## .github/workflows/dluhc-build-and-publish.yml
-
-This is the main workflow file for changes made in the DLUHC fork. On every push to any branch it will:
-
-- Run linting and unit tests against `model`, `runner`, `designer`.
-- Run `docker-compose build` for `runner`, `designer`
-- Tag both the above images with: `GIT_SHA`, `branch_name`
-- If we are on main, also:
-  - Tag both images with `latest`
-  - Tag the repo with the current version number, as defined by the `VERSION` env var in [this file](https://github.com/communitiesuk/digital-form-builder/blob/fs-1263-publish-fork/.github/workflows/dluhc-build-and-publish.yml).
 
 ## .github/workflows/main--lint-unit-build-and-publish-images.yml
 
@@ -70,7 +45,7 @@ Runs against a branch that has an open pull request against it. It will execute 
 ## ./github/workflows/copilot_deploy.yml
 
 - Deploys the form runner to AWS as per [this wiki page](https://dluhcdigital.atlassian.net/wiki/spaces/FS/pages/73695505/How+do+we+deploy+our+code+to+prod#Build-and-deploy-the-Runner-Image)
-- Uses the image build by [dluhc-build-and-publish](#githubworkflowsdluhc-build-and-publishyml) to create a deployable docker image, then pushes this to AWS.
+- Uses the [FSD Dockerfile](./fsd_config/Dockerfile) to create a deployable docker image, then pushes this to AWS.
 
 # IDE Setup
 
