@@ -15,10 +15,15 @@ export class PgBossQueueService extends QueueService {
   queue: PgBoss;
   queueName: string = "submission";
   queueReferenceApiUrl: string;
+  pollingInterval: number;
+  pollingTimeout: number;
+
   constructor(server) {
     super(server);
     this.logger.info("Using PGBossQueueService");
     this.queueReferenceApiUrl = config.queueReferenceApiUrl;
+    this.pollingInterval = config.queueServicePollingInterval;
+    this.pollingTimeout = config.queueServicePollingTimeout;
     const boss = new PgBoss(config.queueDatabaseUrl);
     this.queue = boss;
     boss.on("error", this.logger.error);
@@ -127,15 +132,18 @@ export class PgBossQueueService extends QueueService {
             clearInterval(pollInterval);
             resolve(reference);
           }
-          if (timeElapsed >= 2000) {
+          if (timeElapsed >= this.pollingTimeout) {
+            this.logger.info(
+              `jobId ${jobId} took ${timeElapsed}. Polling timeout has lapsed (${this.pollingTimeout})`
+            );
             clearInterval(pollInterval);
             resolve();
           }
-          timeElapsed += parseInt(config.queueServicePollingInterval);
+          timeElapsed += this.pollingInterval;
         } catch (err) {
           reject();
         }
-      }, config.queueServicePollingInterval);
+      }, this.pollingInterval);
     });
   }
 }

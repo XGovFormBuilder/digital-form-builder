@@ -88,6 +88,7 @@ When using pgboss, it is important that successful work returns `{ reference }` 
 | QUEUE_DATABASE_USERNAME        | Used for configuring the user being used to access the database                          |         | root                                        |
 | QUEUE_DATABASE_PASSWORD        | Used for configuring the password used for accessing the database                        |         | password                                    |
 | QUEUE_SERVICE_POLLING_INTERVAL | The amount of time, in milliseconds, between poll requests for updates from the database | 500     |                                             |
+| QUEUE_SERVICE_POLLING_TIMEOUT  | The total amount of time, in milliseconds, to poll requests for from the database        | 2000    |                                             |
 
 Webhooks can be configured so that the submitter only attempts to post to the webhook URL once.
 

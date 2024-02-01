@@ -126,6 +126,11 @@ export const configSchema = Joi.object({
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
+  queueServicePollingTimeout: Joi.number().when("enableQueueService", {
+    is: true,
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
   allowUserTemplates: Joi.boolean().optional(),
 });
 
