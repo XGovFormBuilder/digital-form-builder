@@ -138,8 +138,8 @@ module.exports = {
   enableQueueService: false,
   // queueType: "" // accepts "MYSQL" | "PGBOSS"
   // queueDatabaseUrl: "mysql://root:root@localhost:3306/queue" | "postgresql://root:root@localhost:5432/queue
-  queueServicePollingInterval: "500",
-  queueServicePollingTimeout: "2000",
+  queueServicePollingInterval: "500", // How frequently to check the queue for a reference number
+  queueServicePollingTimeout: "2000", // Total time to wait for a reference number
 
   allowUserTemplates: false,
 };
