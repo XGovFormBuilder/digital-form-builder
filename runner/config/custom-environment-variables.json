@@ -52,5 +52,6 @@
   "queueDatabaseUsername": "QUEUE_DATABASE_USERNAME",
   "queueDatabasePassword": "QUEUE_DATABASE_PASSWORD",
   "queueServicePollingInterval": "QUEUE_SERVICE_POLLING_INTERVAL",
+  "queueServicePollingTimeout": "QUEUE_SERVICE_POLLING_TIMEOUT",
   "allowUserTemplates": "ALLOW_USER_TEMPLATES"
 }
