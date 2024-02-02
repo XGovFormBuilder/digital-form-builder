@@ -1,10 +1,10 @@
 {
     "metadata": {},
-    "startPage": "/service_unavailable",
+    "startPage": "/acute-respiratory-infections-ari---covid-19-flu-or-unknown-infection-in-adult-social-care-settings",
     "pages": [
         {
             "title": "This service is unavailable",
-            "path": "/service_unavailable",
+            "path": "/acute-respiratory-infections-ari---covid-19-flu-or-unknown-infection-in-adult-social-care-settings",
             "components": [
                 {
                     "name": "gXTbsg",
