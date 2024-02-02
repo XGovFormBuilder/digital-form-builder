@@ -1,29 +1,32 @@
 {
-	"metadata": {},
-	"startPage": "/service_unavailable",
-	"pages": [
-		{
-			"title": "This service is unavailable",
-			"path": "/service_unavailable",
-			"components": [
-				{
-					"name": "gXTbsg",
-					"options": {},
-					"type": "Para",
-					"content": "<p>You will be able to use this sservice later.</p>\n<p>We have not saved your answers. When this service is available, you will have to start again.</p>\n<p>Telephone 119 for help with NHS Test and Trace related enquiries or complaints.</p>\n<p><b>Opening times:</b></p>\n<p>9am to 8am, Monday to Friday</p>\n<p>9am to pm, Saturday and Sunday</p>"
-				}
-			],
-			"next": [],
-			"controller": "./pages/start.js"
-		}
-	],
-	"lists": [],
-	"sections": [],
-	"conditions": [],
-	"fees": [],
-	"outputs": [],
-	"version": 2,
-	"name": "Report an outbreak",
-	"feedback": { "feedbackForm": false, "url": "" },
-	"phaseBanner": {}
+    "metadata": {},
+    "startPage": "/service_unavailable",
+    "pages": [
+        {
+            "title": "This service is unavailable",
+            "path": "/service_unavailable",
+            "components": [
+                {
+                    "name": "gXTbsg",
+                    "options": {},
+                    "type": "Para",
+                    "content": "<p>You will be able to use this service later.</p>\n<p>If you need urgent health protection advice please contact your local health protection team.</p>\n<p>Contact details for your local HPT (in and out of hours) can be found by visiting <a href=\"https://www.gov.uk/health-protection-team\" class=\"govuk-link\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a></p>"
+                }
+            ],
+            "next": [],
+            "controller": "./pages/start.js"
+        }
+    ],
+    "lists": [],
+    "sections": [],
+    "conditions": [],
+    "fees": [],
+    "outputs": [],
+    "version": 2,
+    "name": "Report an outbreak",
+    "feedback": {
+        "feedbackForm": false,
+        "url": ""
+    },
+    "phaseBanner": {}
 }
