@@ -123,12 +123,12 @@ export const configSchema = Joi.object({
   }),
   queueServicePollingInterval: Joi.number().when("enableQueueService", {
     is: true,
-    then: Joi.required(),
+    then: Joi.number().required(),
     otherwise: Joi.optional(),
   }),
   queueServicePollingTimeout: Joi.number().when("enableQueueService", {
     is: true,
-    then: Joi.required(),
+    then: Joi.number().required(),
     otherwise: Joi.optional(),
   }),
   allowUserTemplates: Joi.boolean().optional(),
