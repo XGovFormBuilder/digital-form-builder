@@ -87,8 +87,8 @@ export function ReportingColumns(
   }
 
   return reportingColumns.reduce((prev, curr) => {
-    if (curr.fieldValue) {
-      const stateValue = reach(state, curr.fieldValue);
+    if (curr.fieldPath) {
+      const stateValue = reach(state, curr.fieldPath);
       if (!stateValue) {
         return prev;
       }

@@ -260,7 +260,7 @@ const feeOptionSchema = joi
       .items(
         joi.object({
           columnName: joi.string().required(),
-          fieldValue: joi.string().optional(),
+          fieldPath: joi.string().optional(),
           staticValue: joi.string().optional(),
         })
       )

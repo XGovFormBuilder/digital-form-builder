@@ -148,7 +148,7 @@ export type Fee = {
 
 export type AdditionalReportingColumn = {
   columnName: string;
-  fieldValue?: string;
+  fieldPath?: string;
   staticValue?: string;
 };
 

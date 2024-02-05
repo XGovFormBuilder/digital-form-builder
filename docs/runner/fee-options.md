@@ -35,6 +35,24 @@
      * allowSubmissionWithoutPayment must be true for this to be shown.
      */
     showPaymentSkippedWarningPage: false,
+
+    /**
+     * Adds metadata to the GOV.UK Pay request. You may add static values, or values based on the user's answer.
+     */
+    additionalReportingColumns: [
+      {
+        columnName: "country",
+        fieldPath: "beforeYouStart.country", // the path in the state object to retrieve the value from. If the value is in a section, use the format {sectionName}.{fieldName}.
+      },
+      {
+        columnName: "post",
+        fieldPath: "post",
+      },
+      {
+        columnName: "service",
+        staticValue: "fee 11",
+      },
+    ],
   },
 }
 ```
@@ -73,3 +91,58 @@ The can choose to continue or try online payment. This page will be shown only o
   },
 }
 ```
+
+## Reporting columns
+
+[GOV.UK Pay allows additional reporting columns to be configured](https://docs.payments.service.gov.uk/api_reference/create_a_payment_reference/#json-body-parameters-for-39-create-a-payment-39).
+This is useful if you wish to filter payments in GOV.UK Pay. In FCDO's case, it is useful to filter by country selected by the user.
+
+You may add static values, or values based on the user's answer. You may only configure 10 reporting columns as per
+GOV.UK Pay's limits, and ensure that each columnName is <30 characters. The values may be 100 characters.
+
+```json5
+{
+  //..
+  additionalReportingColumns: [
+    {
+      columnName: "country",
+      fieldPath: "beforeYouStart.country", // the path in the state object to retrieve the value from. If the value is in a section, use the format {sectionName}.{fieldName}.
+    },
+    {
+      columnName: "post",
+      fieldPath: "post",
+    },
+    {
+      columnName: "service",
+      staticValue: "fee 11",
+    },
+  ],
+}
+```
+
+If the value at the fieldPath cannot be found, the column will not be added to the metadata.
+
+Given the user state looks like
+
+```.ts
+const state = {
+  beforeYouStart: {
+    country: "United Kingdom",
+  }
+}
+```
+
+This will be parsed and sent to GOV.UK Pay as:
+
+```.ts
+ const requestOptions = {
+  //.. GOV.UK Pay request
+  metadata: {
+    country: "United Kingdom",
+    // no post key since it's not present in the user's state,
+    service: "fee 11"
+  }
+ }
+```
+
+When viewing this payment in GOV.UK Pay, you can sort by these columns, and will appear as "metadata" in their interface.
