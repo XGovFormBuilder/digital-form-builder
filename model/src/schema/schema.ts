@@ -255,6 +255,16 @@ const feeOptionSchema = joi
       then: joi.boolean().valid(true, false).default(false),
       otherwise: joi.boolean().valid(false).default(false),
     }),
+    additionalReportingColumns: joi
+      .array()
+      .items(
+        joi.object({
+          columnName: joi.string().required(),
+          fieldValue: joi.string().optional(),
+          staticValue: joi.string().optional(),
+        })
+      )
+      .optional(),
   })
   .default(({ payApiKey, paymentReferenceFormat }) => {
     return {
