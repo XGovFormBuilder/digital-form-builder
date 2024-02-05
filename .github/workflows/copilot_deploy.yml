@@ -34,12 +34,12 @@ on:
         required: false
         default: false
         type: boolean
-        description: Run e2e tests
+        description: Run e2e tests (assessment)
       run_e2e_tests_application:
         required: false
         default: true
         type: boolean
-        description: Run e2e tests
+        description: Run e2e tests (application)
 
 env:
   DOCKER_REGISTRY: ghcr.io
