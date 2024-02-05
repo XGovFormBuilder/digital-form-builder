@@ -139,7 +139,14 @@ export class PayService {
   }
 
   async payRequestFromMeta(meta: FeeState["meta"]) {
-    const { payApiKey, amount, description, returnUrl, reference } = meta;
+    const {
+      payApiKey,
+      amount,
+      description,
+      returnUrl,
+      reference,
+      reportingColumns,
+    } = meta;
     const { payload } = await postJson(`${config.payApiUrl}/payments`, {
       ...this.options(payApiKey),
       payload: {
@@ -147,6 +154,7 @@ export class PayService {
         return_url: returnUrl,
         description,
         amount,
+        metadata: reportingColumns ?? {},
       },
     });
     return payload;
