@@ -11,7 +11,7 @@ export type FeesModel = {
   referenceFormat?: string;
   reportingColumns?: {
     [key: string]: any;
-  }[];
+  };
 };
 
 function feesAsFeeDetails(

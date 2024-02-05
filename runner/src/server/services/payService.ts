@@ -2,9 +2,9 @@ import config from "../config";
 import { get, postJson } from "./httpService";
 import { nanoid } from "nanoid";
 import { Fee } from "@xgovformbuilder/model";
-import { FeesModel } from "server/plugins/engine/models/submission";
 import { HapiServer } from "server/types";
 import { format } from "date-fns";
+import { FeesModel } from "server/plugins/engine/models/submission";
 
 export type FeeDetails = Fee & {
   multiplyBy?: number; // the value retrieved from multiplier field above (see summary page retrieveFees method)
@@ -24,6 +24,9 @@ export type FeeState = {
     attempts: number;
     payApiKey: string;
     description: string;
+    reportingColumns?: FeesModel["reportingColumns"];
+    returnUrl: string;
+    reference: string;
   };
   paymentSkipped: boolean;
   state?: {
@@ -75,6 +78,9 @@ export class PayService {
     };
   }
 
+  /**
+   * @deprecated in favour of this.createPayStateMeta and this.payRequestFromMeta.
+   */
   payRequestData(feesModel: FeesModel, returnUrl: string) {
     const { total, prefixes, referenceFormat } = feesModel;
     return {
@@ -119,23 +125,9 @@ export class PayService {
     return reference;
   }
 
-  async retryPayRequest(feeState: FeeState) {
-    const { reference, meta, returnUrl } = feeState;
-    const { payApiKey, amount, description } = meta;
-    let newReference = `${reference.slice(0, -11)}-${nanoid(10)}`;
-
-    const { payload } = await postJson(`${config.payApiUrl}/payments`, {
-      ...this.options(payApiKey),
-      payload: {
-        reference: newReference,
-        return_url: returnUrl,
-        description,
-        amount,
-      },
-    });
-    return payload;
-  }
-
+  /**
+   * @deprecated in favour of this.createPayStateMeta and this.payRequestFromMeta.
+   */
   async payRequest(feesModel: FeesModel, apiKey: string, returnUrl: string) {
     const data = {
       ...this.options(apiKey),
@@ -143,6 +135,20 @@ export class PayService {
     };
 
     const { payload } = await postJson(`${config.payApiUrl}/payments`, data);
+    return payload;
+  }
+
+  async payRequestFromMeta(meta: FeeState["meta"]) {
+    const { payApiKey, amount, description, returnUrl, reference } = meta;
+    const { payload } = await postJson(`${config.payApiUrl}/payments`, {
+      ...this.options(payApiKey),
+      payload: {
+        reference,
+        return_url: returnUrl,
+        description,
+        amount,
+      },
+    });
     return payload;
   }
 
@@ -174,5 +180,27 @@ export class PayService {
         )}`;
       })
       .join(", ");
+  }
+
+  /**
+   * Additional data to store to the users' state to easily recreate a payment request.
+   */
+  createPayStateMeta(params: {
+    feesModel: FeesModel;
+    payApiKey: string;
+    url: string;
+  }) {
+    const { feesModel, payApiKey, url } = params;
+    const { reportingColumns, prefixes, referenceFormat } = feesModel;
+
+    return {
+      reference: this.referenceFromFees(prefixes, referenceFormat),
+      amount: feesModel.total,
+      attempts: 1,
+      payApiKey,
+      description: this.descriptionFromFees(feesModel),
+      returnUrl: url,
+      ...(reportingColumns && { reportingColumns }),
+    };
   }
 }

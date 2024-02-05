@@ -89,7 +89,7 @@ const index = {
           const { pay } = await cacheService.getState(request);
           const { meta } = pay;
           meta.attempts++;
-          const res = await payService.retryPayRequest(pay);
+          const res = await payService.payRequestFromMeta(meta);
 
           await cacheService.mergeState(request, {
             webhookData: {
