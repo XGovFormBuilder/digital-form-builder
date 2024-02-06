@@ -1,10 +1,12 @@
 import config from "../config";
 import { get, postJson } from "./httpService";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import { Fee } from "@xgovformbuilder/model";
 import { HapiServer } from "server/types";
 import { format } from "date-fns";
 import { FeesModel } from "server/plugins/engine/models/submission";
+
+const nanoid = customAlphabet("1234567890ABCDEFGHIJKLMNPQRSTUVWXYZ-_", 10);
 
 export type FeeDetails = Fee & {
   multiplyBy?: number; // the value retrieved from multiplier field above (see summary page retrieveFees method)
