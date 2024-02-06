@@ -96,7 +96,11 @@ export const componentSchema = joi
   .unknown(true);
 
 const nextSchema = joi.object().keys({
-  path: joi.string().required(),
+  path: joi.string().when(joi.ref("redirect"), {
+    is: joi.exist(),
+    then: joi.string().optional(),
+    otherwise: joi.string().required(),
+  }),
   condition: joi.string().allow("").optional(),
   redirect: joi.string().uri().optional(),
 });
