@@ -56,7 +56,7 @@ suite("FeesModel", () => {
         additionalReportingColumns: [
           {
             columnName: "zone",
-            fieldValue: "caz",
+            fieldPath: "caz",
           },
         ],
       },
@@ -87,11 +87,11 @@ suite("ReportingColumns", () => {
   const additionalReportingColumns = [
     {
       columnName: "country",
-      fieldValue: "beforeYouStart.country",
+      fieldPath: "beforeYouStart.country",
     },
     {
       columnName: "post",
-      fieldValue: "post",
+      fieldPath: "post",
     },
     {
       columnName: "service",
