@@ -146,3 +146,16 @@ This will be parsed and sent to GOV.UK Pay as:
 ```
 
 When viewing this payment in GOV.UK Pay, you can sort by these columns, and will appear as "metadata" in their interface.
+
+## Other - Reference numbers
+
+Reference numbers are generated with the alphabet "1234567890ABCDEFGHIJKLMNPQRSTUVWXYZ-_". Note that the letter O is omitted.
+
+You may configure the length of the reference number by setting the environment variable `PAY_REFERENCE_LENGTH`. The default is 10 characters. 
+Use [Nano ID Collision Calculator](https://zelark.github.io/nano-id-cc/) to determine the right length for your service. 
+Since each user will "keep" their own reference number for multiple attempts, calculate the speed at unique users per hour. 
+
+e.g. If your service expects 100,000 users per annum, you should expect ~274 users per day, and 11 users per hour. 
+Using nano-id-cc, and a reference length of 10 characters it will take 102 years, or 9 million IDs generated for a 1% chance of collision.
+
+
