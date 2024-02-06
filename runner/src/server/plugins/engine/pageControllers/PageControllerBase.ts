@@ -181,9 +181,16 @@ export class PageControllerBase {
   }
 
   get next() {
-    return (this.pageDef.next || [])
-      .map((next: { path: string }) => {
+    const pageDefNext = this.pageDef.next ?? [];
+
+    return pageDefNext
+      .map((next: { path: string; redirect?: string }) => {
         const { path } = next;
+
+        if (next?.redirect) {
+          return next;
+        }
+
         const page = this.model.pages.find((page: PageControllerBase) => {
           return path === page.path;
         });
@@ -231,12 +238,20 @@ export class PageControllerBase {
     let defaultLink;
     const nextLink = this.next.find((link) => {
       const { condition } = link;
-      if (condition) {
-        return this.model.conditions[condition]?.fn?.(state);
+      if (!condition) {
+        defaultLink = link;
       }
-      defaultLink = link;
+      const conditionPassed = this.model.conditions[condition]?.fn?.(state);
+      if (conditionPassed) {
+        return link;
+      }
       return false;
     });
+
+    if (nextLink?.redirect) {
+      return nextLink;
+    }
+
     return nextLink?.page ?? defaultLink?.page;
   }
 
@@ -246,6 +261,9 @@ export class PageControllerBase {
    */
   getNext(state: any) {
     const nextPage = this.getNextPage(state);
+    if (nextPage?.redirect) {
+      return nextPage.redirect;
+    }
     const query = { num: 0 };
     let queryString = "";
     if (nextPage?.repeatField) {
@@ -403,7 +421,13 @@ export class PageControllerBase {
       relevantState = merge(relevantState, newValue);
 
       //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
-      nextPage = nextPage.getNextPage(relevantState);
+      const possibleNextPage = nextPage.getNextPage(relevantState);
+      if (possibleNextPage?.redirect) {
+        nextPage = null;
+      } else {
+        nextPage = possibleNextPage;
+      }
+
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
     }
 
@@ -426,6 +450,7 @@ export class PageControllerBase {
       const shouldRedirectToStartPage =
         !this.model.options.previewMode &&
         progress.length === 0 &&
+        !request.pre.hasPrepopulatedSessionFromQueryParameter &&
         !isStartPage &&
         !isInitialisedSession;
 
@@ -732,7 +757,11 @@ export class PageControllerBase {
    * TODO:- proceed is interfering with subclasses
    */
   proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
-    return proceed(request, h, this.getNext(state));
+    const nextPage = this.getNext(state);
+    if (nextPage?.redirect) {
+      return proceed(request, h, nextPage?.redirect);
+    }
+    return proceed(request, h, nextPage);
   }
 
   getPartialMergeState(value) {
