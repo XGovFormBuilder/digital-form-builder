@@ -104,6 +104,7 @@ module.exports = {
   // Control which is used. Accepts "test" | "production" | "".
   apiEnv: "",
   payApiUrl: "https://publicapi.payments.service.gov.uk/v1",
+  // payReferenceLength: "10" // The length of the string generated for GOV.UK Pay references.
   // If both the api env and node env are set to "production", the pay return url will need to be secure.
   // This is not the case if either are set to "test", or if the node env is set to "development"
   // payReturnUrl: "http://localhost:3009"

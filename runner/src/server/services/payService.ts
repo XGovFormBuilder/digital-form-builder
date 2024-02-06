@@ -6,7 +6,11 @@ import { HapiServer } from "server/types";
 import { format } from "date-fns";
 import { FeesModel } from "server/plugins/engine/models/submission";
 
-const nanoid = customAlphabet("1234567890ABCDEFGHIJKLMNPQRSTUVWXYZ-_", 10);
+const payReferenceLength = parseInt(config.payReferenceLength ?? 10);
+const nanoid = customAlphabet(
+  "1234567890ABCDEFGHIJKLMNPQRSTUVWXYZ-_",
+  payReferenceLength
+);
 
 export type FeeDetails = Fee & {
   multiplyBy?: number; // the value retrieved from multiplier field above (see summary page retrieveFees method)

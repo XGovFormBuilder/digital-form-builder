@@ -40,6 +40,7 @@ export const configSchema = Joi.object({
       otherwise: Joi.string().custom(secureUrl),
     }),
   }),
+  payReferenceLength: Joi.number().optional().default(10),
   serviceUrl: Joi.string().optional(),
   redisHost: Joi.string().optional(),
   redisPort: Joi.number().optional(),
