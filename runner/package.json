@@ -18,7 +18,7 @@
     "test": "yarn lint && yarn type-check && NODE_ENV=test yarn bin/run unit-test",
     "test-cov": "yarn run unit-test-cov",
     "test:dev": "lab -T test/.transform.js -P (test|src)/**/*.test.* -v test --coverage-exclude",
-    "unit-test": "lab -T test/.transform.js -P (test|src)/**/*.test.ts -v test -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
+    "unit-test": "lab -T test/.transform.js -P (test|src)/**/*.test.* -v test -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test-cov": "lab -T test/.transform.js -P (test|src)/**/*.test.* -v test -t 83 -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
