@@ -1,16 +1,10 @@
 import config from "../config";
 import { get, postJson } from "./httpService";
-import { customAlphabet } from "nanoid";
 import { Fee } from "@xgovformbuilder/model";
 import { HapiServer } from "server/types";
 import { format } from "date-fns";
 import { FeesModel } from "server/plugins/engine/models/submission";
-
-const payReferenceLength = parseInt(config.payReferenceLength ?? 10);
-const nanoid = customAlphabet(
-  "1234567890ABCDEFGHIJKLMNPQRSTUVWXYZ-_",
-  payReferenceLength
-);
+import { nanoid } from "./payService.nanoid";
 
 export type FeeDetails = Fee & {
   multiplyBy?: number; // the value retrieved from multiplier field above (see summary page retrieveFees method)
@@ -99,7 +93,7 @@ export class PayService {
 
   referenceFromFees(prefixes = [], referenceFormat = "") {
     if (!referenceFormat) {
-      const reference = nanoid(10);
+      const reference = nanoid();
       this.logger.info(
         ["payService", "referenceFromFees"],
         `no reference format provided, generated random reference: ${reference}`
@@ -122,7 +116,7 @@ export class PayService {
       reference = reference.replace(dateTag, format(new Date(), dateFormat));
     }
 
-    reference = `${reference}-${nanoid(10)}`;
+    reference = `${reference}-${nanoid()}`;
     this.logger.info(
       ["payService", "referenceFromFees"],
       `generated pay request format ${reference}`
