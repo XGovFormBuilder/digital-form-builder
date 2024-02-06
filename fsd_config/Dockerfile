@@ -21,6 +21,7 @@ COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 COPY --chown=appuser:appuser model/package.json ./model/
 COPY --chown=appuser:appuser runner/package.json ./runner/
+COPY --chown=appuser:appuser fsd_config ./fsd_config/
 USER 1001
 
 # ----------------------------
