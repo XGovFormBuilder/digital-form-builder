@@ -5,6 +5,7 @@
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "skip-link/macro.njk" import govukSkipLink -%}
 {% from "cookie-banner/macro.njk" import govukCookieBanner %}
+{% from "header/macro.njk" import govukHeader %}
 
 
 {% block head %}
@@ -88,7 +89,8 @@
     containerClasses: "govuk-width-container",
     serviceName: name if name else serviceName,
     serviceUrl: serviceStartPage,
-    navigation: navigation
+    navigation: navigation,
+    useTudorCrown: true
 }) }}
 
 {% endblock %}
