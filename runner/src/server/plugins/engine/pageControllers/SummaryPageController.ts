@@ -8,6 +8,7 @@ import {
   RelativeUrl,
 } from "../feedback";
 import config from "server/config";
+import { FeesModel } from "server/plugins/engine/models/submission";
 
 export class SummaryPageController extends PageController {
   /**
@@ -189,16 +190,19 @@ export class SummaryPageController extends PageController {
         `payReturnUrl has been configured to ${payReturnUrl}`
       );
 
-      // user must pay for service
-      const description = payService.descriptionFromFees(summaryViewModel.fees);
+      const feesModel = summaryViewModel.fees as FeesModel;
+
       const url = new URL(
         `${payReturnUrl}/${request.params.id}/status`
       ).toString();
-      const res = await payService.payRequest(
-        summaryViewModel.fees,
-        summaryViewModel.payApiKey || "",
-        url
-      );
+
+      const payStateMeta = payService.createPayStateMeta({
+        feesModel,
+        payApiKey: summaryViewModel.payApiKey!,
+        url,
+      });
+
+      const res = await payService.payRequestFromMeta(payStateMeta);
 
       // TODO:- refactor - this is repeated in applicationStatus
       const payState = {
@@ -208,12 +212,7 @@ export class SummaryPageController extends PageController {
           self: res._links.self.href,
           next_url: res._links.next_url.href,
           returnUrl: url,
-          meta: {
-            amount: summaryViewModel.fees.total,
-            description,
-            attempts: 1,
-            payApiKey: summaryViewModel.payApiKey,
-          },
+          meta: payStateMeta,
         },
       };
 

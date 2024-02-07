@@ -1,7 +1,7 @@
 import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { reach } from "hoek";
-import { Fee } from "@xgovformbuilder/model";
+import { Fee, AdditionalReportingColumn } from "@xgovformbuilder/model";
 import { FeeDetails } from "server/services/payService";
 
 export type FeesModel = {
@@ -9,6 +9,9 @@ export type FeesModel = {
   total: number;
   prefixes: string[];
   referenceFormat?: string;
+  reportingColumns?: {
+    [key: string]: any;
+  };
 };
 
 function feesAsFeeDetails(
@@ -46,16 +49,18 @@ export function FeesModel(
     return undefined;
   }
 
-  const details = feesAsFeeDetails(applicableFees, state);
+  const columnsConfig = model.feeOptions?.additionalReportingColumns;
+  const reportingColumns = ReportingColumns(columnsConfig, state);
 
+  const details = feesAsFeeDetails(applicableFees, state);
   return details.reduce(
-    (previous: FeesModel, fee: FeeDetails) => {
+    (acc: FeesModel, fee: FeeDetails) => {
       const { amount, multiplyBy = 1, prefix = "" } = fee;
-      return {
-        ...previous,
-        total: previous.total + amount * multiplyBy,
-        prefixes: [...previous.prefixes, prefix].filter((p) => p),
-      };
+
+      acc.total = acc.total + amount * multiplyBy;
+      acc.prefixes = [...acc.prefixes, prefix].filter((p) => p);
+
+      return acc;
     },
     {
       details,
@@ -65,6 +70,33 @@ export function FeesModel(
         model.feeOptions?.paymentReferenceFormat ??
         model.def.paymentReferenceFormat ??
         "",
+      ...(reportingColumns && { reportingColumns }),
     }
   );
+}
+
+/**
+ * Creates a GOV.UK metadata object (reporting columns) to send in the payment creation.
+ */
+export function ReportingColumns(
+  reportingColumns: FormModel["feeOptions"]["additionalReportingColumns"],
+  state: FormSubmissionState
+): FeesModel["reportingColumns"] {
+  if (!reportingColumns) {
+    return;
+  }
+
+  return reportingColumns.reduce((prev, curr) => {
+    if (curr.fieldPath) {
+      const stateValue = reach(state, curr.fieldPath);
+      if (!stateValue) {
+        return prev;
+      }
+      prev[curr.columnName] = stateValue;
+    }
+    if (curr.staticValue) {
+      prev[curr.columnName] = curr.staticValue;
+    }
+    return prev;
+  }, {});
 }

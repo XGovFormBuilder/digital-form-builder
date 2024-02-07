@@ -146,6 +146,12 @@ export type Fee = {
   prefix?: string;
 };
 
+export type AdditionalReportingColumn = {
+  columnName: string;
+  fieldPath?: string;
+  staticValue?: string;
+};
+
 export type FeeOptions = {
   paymentReferenceFormat?: string;
   payReturnUrl?: string;
@@ -153,6 +159,7 @@ export type FeeOptions = {
   maxAttempts: number;
   customPayErrorMessage?: string;
   showPaymentSkippedWarningPage: boolean;
+  additionalReportingColumns?: AdditionalReportingColumn[];
 };
 
 /**

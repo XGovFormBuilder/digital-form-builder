@@ -185,7 +185,7 @@ export class StatusService {
     const { pay = {}, webhookData } = state;
     const { paymentSkipped } = pay;
     const { metadata, fees, ...rest } = webhookData;
-    return {
+    const webhookArgs = {
       ...rest,
       ...(!paymentSkipped && { fees }),
       metadata: {
@@ -194,6 +194,16 @@ export class StatusService {
         paymentSkipped: paymentSkipped ?? false,
       },
     };
+
+    if (pay) {
+      webhookArgs.metadata.pay = {
+        payId: pay.payId,
+        reference: pay.reference,
+        state: pay.state ?? {},
+      };
+    }
+
+    return webhookArgs;
   }
 
   emailOutputsFromState(

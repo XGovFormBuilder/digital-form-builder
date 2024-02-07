@@ -13,6 +13,7 @@
   "matomoUrl": "MATOMO_URL",
   "payApiUrl": "PAY_API_URL",
   "payReturnUrl": "PAY_RETURN_URL",
+  "payReferenceLength": "PAY_REFERENCE_LENGTH",
   "serviceUrl": "SERVICE_URL",
   "redisHost": "REDIS_HOST",
   "redisPort": "REDIS_PORT",
