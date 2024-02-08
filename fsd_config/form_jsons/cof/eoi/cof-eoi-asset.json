@@ -249,9 +249,9 @@
           "options": {
             "hideTitle": true
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
           "title": "Does the asset belong to a public authority?",
-          "hint": "",
+          "list": "public-authority-list",
           "schema": {}
         }
       ],
@@ -292,6 +292,25 @@
     }
   ],
   "lists": [
+    {
+      "title": "Public Authority",
+      "name": "public-authority-list",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes, a parish or community council",
+          "value": "Yes, a parish or community council"
+        },
+        {
+          "text": "Yes, another type of public authority",
+          "value": "Yes, another type of public authority"
+        },
+        {
+          "text": "No, it does not belong to a public authority",
+          "value": "No, it does not belong to a public authority"
+        }
+      ]
+    },
     {
       "title": "Organisation classification",
       "name": "CCbnpc",
@@ -488,8 +507,8 @@
           "value": "Not yet started"
         },
         {
-          "text": "Early stage ",
-          "value": "Early stage "
+          "text": "Early stage",
+          "value": "Early stage"
         },
         {
           "text": "Late stage",

@@ -54,6 +54,9 @@ export class FormModel {
     let result = Schema.validate(def, { abortEarly: false });
 
     if (result.error) {
+      console.error(
+        "Error validating form " + options.basePath + ": " + result.error
+      );
       result = Schema.validate(def.values, { abortEarly: false });
       if (result.error) {
         throw result.error;
