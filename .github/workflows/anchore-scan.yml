@@ -7,6 +7,7 @@ on:
       - master
     paths-ignore:
       - "python/**"
+  workflow_dispatch:
 
 env:
   IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
