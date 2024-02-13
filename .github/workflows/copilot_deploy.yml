@@ -70,6 +70,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: "Set version in env"
+        id: set-version
+        run: |
+          source version
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Docker metadata
         id: metadata
         uses: docker/metadata-action@v4
