@@ -87,7 +87,7 @@
                     "values": {
                         "type": "listRef"
                     },
-                    "hint": "Please make sure you've selected the correct local health protection team (HPT) to guarantee you receive the appropriate support."
+                    "hint": "Please make sure you've selected the correct local health protection team (HPT) to guarantee you receive the appropriate support"
                 },
                 {
                     "name": "cstZQG",
@@ -139,7 +139,8 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "schema": {}
                 },
                 {
                     "name": "S1Q8",
@@ -197,7 +198,8 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "schema": {}
                 },
                 {
                     "name": "S1Q8",
@@ -259,7 +261,8 @@
                     "type": "TelephoneNumberField",
                     "title": "S1Q7. Telephone number/s of Key Contact Person",
                     "hint": "Please consider using a non-personal number.",
-                    "nameHasError": false
+                    "nameHasError": false,
+                    "schema": {}
                 },
                 {
                     "name": "S1Q8",
@@ -372,7 +375,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -558,7 +562,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -832,7 +837,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1202,7 +1208,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1275,7 +1282,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1358,7 +1366,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1404,7 +1413,8 @@
                         "condition": "tholUC"
                     },
                     "type": "Para",
-                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page."
+                    "content": "If you are currently changing your answer as part of the ‘Check your answers’ page, when you are re-directed back to the ‘Check your answers’ page, please ensure you have entered answers to all the mandatory questions that are newly visible on the page.",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1471,7 +1481,8 @@
                     "name": "bihqCt",
                     "options": {},
                     "type": "Para",
-                    "content": "You must click \"Yes\" for at least one of the three previous questions (unlinked cases should be reported and managed as single cases)."
+                    "content": "You must click \"Yes\" for at least one of the three previous questions (unlinked cases should be reported and managed as single cases).",
+                    "schema": {}
                 }
             ],
             "next": [
@@ -1492,7 +1503,8 @@
                     "name": "zTXeZb",
                     "options": {},
                     "type": "Para",
-                    "content": "Please provide your feedback."
+                    "content": "Please provide your feedback.",
+                    "schema": {}
                 },
                 {
                     "name": "S10Q1",
@@ -1536,7 +1548,8 @@
                     "name": "IxNCHf",
                     "options": {},
                     "type": "Para",
-                    "content": "<h3 class=\"govuk-heading-m\">Your Submission Could Not Be Completed</h3>\n<p class=\"govuk-body\">Thank you for your responses. However, based on your answers:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Yes to S2Q1: Reporting two or more cases of acute respiratory infection (ARI) potentially linked to transmission within your setting.</li>\n    <li>No to S4Q1: Having two or more cases of COVID-19 in the last specified days.</li>\n    <li>No to S5Q1: Reporting at least one case of confirmed Flu (Influenza).</li>\n    <li>No to S6Q1: Having two or more cases of ARI with symptom onset dates within the specified days.</li>\n</ul>\n<p class=\"govuk-body\">A risk assessment cannot be created, and no risk rating or advice email can be sent out due to the lack of identified risks based on the provided answers.</p>\n<p class=\"govuk-body\">Next Steps:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Review Your Responses: Please go back and review your answers to ensure they accurately reflect your current situation.</li>\n    <li>Resubmit: If your situation changes or you have additional information to report, please resubmit your assessment.</li>\n    <li>We appreciate your diligence in ensuring the safety and health of your setting. If you have any questions or need assistance, don't hesitate to reach out.</li>\n</ul>\n<p>\nFor further guidance and support, please find or contact your local health protection team at: <a href=\"https://www.gov.uk/health-protection-team\">https://www.gov.uk/health-protection-team</a>.\n</p>"
+                    "content": "<h3 class=\"govuk-heading-m\">Your Submission Could Not Be Completed</h3>\n<p class=\"govuk-body\">Thank you for your responses. However, based on your answers:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Yes to S2Q1: Reporting two or more cases of acute respiratory infection (ARI) potentially linked to transmission within your setting.</li>\n    <li>No to S4Q1: Having two or more cases of COVID-19 in the last specified days.</li>\n    <li>No to S5Q1: Reporting at least one case of confirmed Flu (Influenza).</li>\n    <li>No to S6Q1: Having two or more cases of ARI with symptom onset dates within the specified days.</li>\n</ul>\n<p class=\"govuk-body\">A risk assessment cannot be created, and no risk rating or advice email can be sent out due to the lack of identified risks based on the provided answers.</p>\n<p class=\"govuk-body\">Next Steps:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Review Your Responses: Please go back and review your answers to ensure they accurately reflect your current situation.</li>\n    <li>Resubmit: If your situation changes or you have additional information to report, please resubmit your assessment.</li>\n    <li>We appreciate your diligence in ensuring the safety and health of your setting. If you have any questions or need assistance, don't hesitate to reach out.</li>\n</ul>\n<p>\nFor further guidance and support, please find or contact your local health protection team at: <a href=\"https://www.gov.uk/health-protection-team\">https://www.gov.uk/health-protection-team</a>.\n</p>",
+                    "schema": {}
                 }
             ],
             "next": []
