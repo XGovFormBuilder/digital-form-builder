@@ -45,7 +45,9 @@
                 },
                 {
                     "name": "S0Q1",
-                    "options": {},
+                    "options": {
+                        "required": false
+                    },
                     "type": "NumberField",
                     "title": "Please enter your Unique Organisation Number (UON) ",
                     "nameHasError": false,
@@ -84,7 +86,8 @@
                     "schema": {},
                     "values": {
                         "type": "listRef"
-                    }
+                    },
+                    "hint": "Please make sure you've selected the correct local health protection team (HPT) to guarantee you receive the appropriate support."
                 },
                 {
                     "name": "cstZQG",
@@ -438,7 +441,8 @@
                     "name": "S4Q6",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": ""
+                        "maxDaysInFuture": "0",
+                        "maxDaysInPast": ""
                     },
                     "type": "DatePartsField",
                     "title": "S4Q6. Symptom onset date of first case",
@@ -1523,6 +1527,19 @@
                 }
             ],
             "next": []
+        },
+        {
+            "path": "/incomplete-risk-assessment-submission",
+            "title": "Incomplete Risk Assessment Submission",
+            "components": [
+                {
+                    "name": "IxNCHf",
+                    "options": {},
+                    "type": "Para",
+                    "content": "<h3 class=\"govuk-heading-m\">Your Submission Could Not Be Completed</h3>\n<p class=\"govuk-body\">Thank you for your responses. However, based on your answers:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Yes to S2Q1: Reporting two or more cases of acute respiratory infection (ARI) potentially linked to transmission within your setting.</li>\n    <li>No to S4Q1: Having two or more cases of COVID-19 in the last specified days.</li>\n    <li>No to S5Q1: Reporting at least one case of confirmed Flu (Influenza).</li>\n    <li>No to S6Q1: Having two or more cases of ARI with symptom onset dates within the specified days.</li>\n</ul>\n<p class=\"govuk-body\">A risk assessment cannot be created, and no risk rating or advice email can be sent out due to the lack of identified risks based on the provided answers.</p>\n<p class=\"govuk-body\">Next Steps:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Review Your Responses: Please go back and review your answers to ensure they accurately reflect your current situation.</li>\n    <li>Resubmit: If your situation changes or you have additional information to report, please resubmit your assessment.</li>\n    <li>We appreciate your diligence in ensuring the safety and health of your setting. If you have any questions or need assistance, don't hesitate to reach out.</li>\n</ul>\n<p>\nFor further guidance and support, please find or contact your local health protection team at: <a href=\"https://www.gov.uk/health-protection-team\">https://www.gov.uk/health-protection-team</a>.\n</p>"
+                }
+            ],
+            "next": []
         }
     ],
     "lists": [
@@ -2535,6 +2552,70 @@
                             "type": "Value",
                             "value": "true",
                             "display": "true"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "NoARIToReport",
+            "name": "XdNoNb",
+            "value": {
+                "name": "NoARIToReport",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "S2Q1",
+                            "type": "YesNoField",
+                            "display": "S2Q1. Are you reporting two or more cases of acute respiratory infection (ARI)  within your setting who have symptom onset dates within 5 days and that are POTENTIALLY LINKED to transmission within your setting?  This includes  Flu, COVID-19, other respiratory viruses such as RSV, rhinovirus, parainfluenza etc, chest infections or acute respiratory infections for which you do not know the infection/microorganism causing it "
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "true",
+                            "display": "true"
+                        }
+                    },
+                    {
+                        "coordinator": "and",
+                        "field": {
+                            "name": "S4Q1",
+                            "type": "YesNoField",
+                            "display": "S4Q1. Have you had two or more cases(s) of COVID-19 in the last 5 days (either two confirmed by LFD OR one confirmed by LFD and one suspected case)?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    },
+                    {
+                        "coordinator": "and",
+                        "field": {
+                            "name": "S5Q1",
+                            "type": "YesNoField",
+                            "display": "S5Q1. Are you reporting at least one case of confirmed Flu (Influenza)?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    },
+                    {
+                        "coordinator": "and",
+                        "field": {
+                            "name": "S6Q1",
+                            "type": "YesNoField",
+                            "display": "S6Q1: Do you have two or more cases of ARI within your setting who have symptom onset dates within 5 days? This includes: ARI for which you do not know the infection/microorganism causing it OR you have had at least one person with a positive test for an ARI that isn't COVID-19 or Flu e.g. RSV parainfluenza, rhinovirus, human metapneumovirus etc and other/s with symptoms. If you have already entered these ARI cases in the COVID-19 or Flu section, do NOT re-enter them in this section and click \"No\" below"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
                         }
                     }
                 ]
