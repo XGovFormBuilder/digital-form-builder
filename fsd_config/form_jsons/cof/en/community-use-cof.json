@@ -4,7 +4,7 @@
   "backLinkText": "Go back to application overview",
   "pages": [
     {
-      "title": "Community use",
+      "title": "Community use/significance",
       "path": "/community-use",
       "components": [
         {
@@ -82,7 +82,7 @@
   "sections": [
     {
       "name": "GMkooI",
-      "title": "Community use"
+      "title": "Community use/significance"
     }
   ],
   "conditions": [],
