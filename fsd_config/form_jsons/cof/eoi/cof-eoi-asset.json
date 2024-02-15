@@ -146,8 +146,7 @@
           "condition": "VcnVNa"
         },
         {
-          "path": "/has-the-asset-ever-been-used-by-or-had-significance-to-the-community",
-          "condition": ""
+          "path": "/has-the-asset-ever-been-used-by-or-had-significance-to-the-community"
         }
       ],
       "section": "McpePG"
@@ -226,7 +225,7 @@
           "condition": "TusZnm"
         },
         {
-          "path": "/check-your-answers",
+          "path": "/summary",
           "condition": ""
         }
       ],
@@ -277,13 +276,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "McpePG"
     },
     {
-      "path": "/check-your-answers",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],
