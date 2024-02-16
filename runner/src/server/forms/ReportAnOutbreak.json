@@ -458,7 +458,7 @@
                     "name": "S4Q7",
                     "options": {
                         "required": false,
-                        "maxDaysInFuture": ""
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S4Q7. Symptom onset date of second case",
@@ -470,7 +470,7 @@
                     "name": "S4Q8",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": ""
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S4Q8. Symptom onset date of most recent case",
@@ -719,7 +719,7 @@
                     "name": "S5Q12",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": ""
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S5Q12. Symptom onset date of first case (confirmed flu, suspected flu OR chest infections)",
@@ -743,7 +743,7 @@
                     "name": "S5Q14",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": ""
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S5Q14. Symptom onset date of most recent case (confirmed flu, suspected flu OR chest infections)",
@@ -848,6 +848,10 @@
                 },
                 {
                     "path": "/Section-7-Details-about-Vaccination-among-your-staff-and-the-people-you-care-for"
+                },
+                {
+                    "path": "/incomplete-risk-assessment-submission",
+                    "condition": "XdNoNb"
                 }
             ]
         },
@@ -883,7 +887,7 @@
                     "name": "S6Q4",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": ""
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S6Q4. Symptom onset date of first case",
@@ -907,7 +911,7 @@
                     "name": "S6Q6",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": ""
+                        "maxDaysInFuture": "0"
                     },
                     "type": "DatePartsField",
                     "title": "S6Q6. Symptom onset date of most recent case",
@@ -1548,7 +1552,7 @@
                     "name": "IxNCHf",
                     "options": {},
                     "type": "Para",
-                    "content": "<h3 class=\"govuk-heading-m\">Your Submission Could Not Be Completed</h3>\n<p class=\"govuk-body\">Thank you for your responses. However, based on your answers:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Yes to S2Q1: Reporting two or more cases of acute respiratory infection (ARI) potentially linked to transmission within your setting.</li>\n    <li>No to S4Q1: Having two or more cases of COVID-19 in the last specified days.</li>\n    <li>No to S5Q1: Reporting at least one case of confirmed Flu (Influenza).</li>\n    <li>No to S6Q1: Having two or more cases of ARI with symptom onset dates within the specified days.</li>\n</ul>\n<p class=\"govuk-body\">A risk assessment cannot be created, and no risk rating or advice email can be sent out due to the lack of identified risks based on the provided answers.</p>\n<p class=\"govuk-body\">Next Steps:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>Review Your Responses: Please go back and review your answers to ensure they accurately reflect your current situation.</li>\n    <li>Resubmit: If your situation changes or you have additional information to report, please resubmit your assessment.</li>\n    <li>We appreciate your diligence in ensuring the safety and health of your setting. If you have any questions or need assistance, don't hesitate to reach out.</li>\n</ul>\n<p>\nFor further guidance and support, please find or contact your local health protection team at: <a href=\"https://www.gov.uk/health-protection-team\">https://www.gov.uk/health-protection-team</a>.\n</p>",
+                    "content": "<h3 class=\"govuk-heading-m\">Your Submission Could Not Be Completed</h3>\n\n<p class=\"govuk-body\">Thank you for your responses. However, based on your answers, a risk assessment cannot be created, and no risk rating or advice email can be sent out. This is because:</p>\n<p class=\"govuk-body\">You answered <b>Yes</b> to S2Q1- indicating that you were: <b>Reporting two or more cases of Acute Respiratory Infection (ARI) potentially linked to transmission within your setting.</b> However, for subsequent questions you told us that you did not have cases of COVID, Influenza or other ARI.</p>\n\n<p class=\"govuk-body\"><b>Next Steps:</b></p>\n<p class=\"govuk-body\">Review Your Responses: Please go back and review your answers to ensure they accurately reflect your current situation. </p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>S2Q1- change your answer to No if you are reporting a single case or unlinked cases of (any) ARI (and you are not reporting 2 or more potentially linked ARI cases).</li>\n    <li>S4Q1- change your answer to Yes if you are reporting 2 or more potentially linked cases of COVID-19 (with at least one case confirmed by LFD testing).</li>\n    <li>S5Q1- change your answer to Yes- if are reporting least one confirmed influenza case.</li>\n    <li>S6Q1- change your answer to Yes – if you are reporting 2 or more cases of other ARI where you do not know the bug causing the infection (including if your concern is regarding residents diagnosed with chest infections) or the cause is known to be another ARI e.g., RSV.</li>\n</ul>\n<p>\n    Please contact your local health protection team at: <a href=\"https://www.gov.uk/health-protection-team\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">https://www.gov.uk/health-protection-team</a> or Community Infection Control Team (as per your usual arrangements) if:\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>You are still having difficulty reporting your Acute Respiratory Infection Outbreak.</li>\n        <li>You are trying to report a potential outbreak that is not ARI e.g., Diarrhoea and vomiting</li>\n    </ul>\n</p>",
                     "schema": {}
                 }
             ],
