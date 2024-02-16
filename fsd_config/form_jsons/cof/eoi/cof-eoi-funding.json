@@ -870,8 +870,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "yes",
-              "display": "yes"
+              "value": "Yes",
+              "display": "Yes"
             }
           }
         ]

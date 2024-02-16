@@ -10,7 +10,7 @@
           "name": "eadDjo",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>the organisation running the asset</li>\n  <li>type of asset</li>\n  <li>address of the asset</li>\n  <li>if the asset is at risk </li>\n  <li>what is the risk to the asset (if applicable)</li>\n  <li>if the asset has ever been used by or had significance to the community?</li>\n  <li>if you already own the asset </li>\n  <li>if the asset belongs to a public authority (if applicable)</li>\n  <li>the stage you are at in purchasing the asset (if applicable)</li>\n</ul>\n\n\n\n\n\n\n \n\n\n\n\n\n ",
+          "content": "<p class=\"govuk-body\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>the organisation running the asset</li>\n  <li>type of asset</li>\n  <li>if the asset is based in the UK</li>\n  <li>address of the asset</li>\n  <li>if the asset is at risk </li>\n  <li>what is the risk to the asset (if applicable)</li>\n  <li>if the asset has ever been used by or had significance to the community?</li>\n  <li>if you already own the asset </li>\n  <li>if the asset belongs to a public authority (if applicable)</li>\n  <li>the stage you are at in purchasing the asset (if applicable)</li>\n</ul>\n\n\n\n\n\n\n \n\n\n\n\n\n ",
           "schema": {}
         }
       ],
@@ -104,7 +104,9 @@
       "components": [
         {
           "name": "dnqIdW",
-          "options": {},
+          "options": {
+            "hideTitle": true
+          },
           "type": "UkAddressField",
           "title": "Address of the asset"
         }
@@ -146,8 +148,7 @@
           "condition": "VcnVNa"
         },
         {
-          "path": "/has-the-asset-ever-been-used-by-or-had-significance-to-the-community",
-          "condition": ""
+          "path": "/has-the-asset-ever-been-used-by-or-had-significance-to-the-community"
         }
       ],
       "section": "McpePG"
@@ -226,7 +227,7 @@
           "condition": "TusZnm"
         },
         {
-          "path": "/check-your-answers",
+          "path": "/summary",
           "condition": ""
         }
       ],
@@ -277,13 +278,13 @@
       ],
       "next": [
         {
-          "path": "/check-your-answers"
+          "path": "/summary"
         }
       ],
       "section": "McpePG"
     },
     {
-      "path": "/check-your-answers",
+      "path": "/summary",
       "title": "Check your answers",
       "components": [],
       "next": [],
