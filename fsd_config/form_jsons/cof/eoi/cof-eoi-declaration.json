@@ -7,23 +7,13 @@
       "path": "/declaration",
       "components": [
         {
-          "name": "MIqzyV",
-          "options": {},
-          "type": "Para",
-          "content": "By submitting this form, you confirm the information you have provided is correct.",
-          "schema": {}
-        },
-        {
-          "name": "YRDRQa",
+          "name": "oXFEkV",
           "options": {
             "hideTitle": true
           },
-          "type": "RadiosField",
-          "title": "I confirm",
-          "list": "LHtFaM",
-          "values": {
-            "type": "listRef"
-          }
+          "type": "CheckboxesField",
+          "title": "I confirm the information I've provided is correct",
+          "list": "nHHnuf"
         }
       ],
       "next": [
@@ -42,12 +32,12 @@
   ],
   "lists": [
     {
-      "title": "Confirm",
-      "name": "LHtFaM",
+      "title": "Declaration",
+      "name": "nHHnuf",
       "type": "string",
       "items": [
         {
-          "text": "I confirm",
+          "text": "I confirm the information I've provided is correct",
           "value": "confirm"
         }
       ]
