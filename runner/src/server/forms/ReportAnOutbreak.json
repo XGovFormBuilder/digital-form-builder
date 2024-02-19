@@ -445,7 +445,7 @@
                     "name": "S4Q6",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0",
+                        "maxDaysInFuture": "",
                         "maxDaysInPast": ""
                     },
                     "type": "DatePartsField",
@@ -458,7 +458,7 @@
                     "name": "S4Q7",
                     "options": {
                         "required": false,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S4Q7. Symptom onset date of second case",
@@ -470,7 +470,7 @@
                     "name": "S4Q8",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S4Q8. Symptom onset date of most recent case",
@@ -719,7 +719,7 @@
                     "name": "S5Q12",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S5Q12. Symptom onset date of first case (confirmed flu, suspected flu OR chest infections)",
@@ -743,7 +743,7 @@
                     "name": "S5Q14",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S5Q14. Symptom onset date of most recent case (confirmed flu, suspected flu OR chest infections)",
@@ -887,7 +887,7 @@
                     "name": "S6Q4",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S6Q4. Symptom onset date of first case",
@@ -911,7 +911,7 @@
                     "name": "S6Q6",
                     "options": {
                         "required": true,
-                        "maxDaysInFuture": "0"
+                        "maxDaysInFuture": ""
                     },
                     "type": "DatePartsField",
                     "title": "S6Q6. Symptom onset date of most recent case",
