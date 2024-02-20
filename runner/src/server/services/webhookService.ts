@@ -18,9 +18,9 @@ export class WebhookService {
   /**
    * Posts data to a webhook
    * @param url - url of the webhook
-   * @param sendAdditionalMetadata - whether to include additional metadata in the request
    * @param data - object to send to the webhook
    * @param method - POST or PUT request, defaults to POST
+   * @param sendAdditionalMetadata - whether to include additional metadata in the request
    * @returns object with the property `reference` webhook if the response returns with a reference number. If the call fails, the reference will be 'UNKNOWN'.
    */
   async postRequest(
