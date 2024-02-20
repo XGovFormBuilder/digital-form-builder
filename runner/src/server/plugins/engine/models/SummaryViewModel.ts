@@ -136,6 +136,8 @@ export class SummaryViewModel {
                 type: "webhook",
                 outputData: {
                   url: output.outputConfiguration.url,
+                  sendAdditionalMetadata:
+                    output.outputConfiguration.sendAdditionalMetadata,
                   allowRetry: output.outputConfiguration.allowRetry,
                 },
               };

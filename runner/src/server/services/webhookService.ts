@@ -18,6 +18,7 @@ export class WebhookService {
   /**
    * Posts data to a webhook
    * @param url - url of the webhook
+   * @param sendAdditionalMetadata - whether to include additional metadata in the request
    * @param data - object to send to the webhook
    * @param method - POST or PUT request, defaults to POST
    * @returns object with the property `reference` webhook if the response returns with a reference number. If the call fails, the reference will be 'UNKNOWN'.
@@ -25,7 +26,8 @@ export class WebhookService {
   async postRequest(
     url: string,
     data: object,
-    method: "POST" | "PUT" = "POST"
+    method: "POST" | "PUT" = "POST",
+    sendAdditionalMetadata: boolean = false
   ) {
     this.logger.info(
       ["WebhookService", "postRequest body"],
@@ -33,6 +35,9 @@ export class WebhookService {
     );
     let request = method === "POST" ? post : put;
     try {
+      if (!sendAdditionalMetadata) {
+        delete data.metadata.pay;
+      }
       const { payload } = await request(url, {
         ...DEFAULT_OPTIONS,
         payload: JSON.stringify(data),

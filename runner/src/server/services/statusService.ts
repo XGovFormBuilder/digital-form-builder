@@ -1,4 +1,4 @@
-import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
+import { HapiRequest, HapiServer } from "../types";
 import {
   CacheService,
   NotifyService,
@@ -151,7 +151,9 @@ export class StatusService {
     if (firstWebhook) {
       newReference = await this.webhookService.postRequest(
         firstWebhook.outputData.url,
-        formData
+        { ...formData },
+        "POST",
+        firstWebhook.outputData.sendAdditionalMetadata
       );
       await this.cacheService.mergeState(request, {
         reference: newReference,
@@ -167,8 +169,15 @@ export class StatusService {
 
     const requests = [
       ...notify.map((args) => this.notifyService.sendNotification(args)),
-      ...webhook.map(({ url, formData }) =>
-        this.webhookService.postRequest(url, formData)
+      ...webhook.map(({ url, sendAdditionalMetadata, formData }) =>
+        this.webhookService.postRequest(
+          url,
+          {
+            ...formData,
+          },
+          "POST",
+          sendAdditionalMetadata
+        )
       ),
     ];
 
@@ -261,11 +270,11 @@ export class StatusService {
           notify.push(args);
         }
         if (isWebhookModel(currentValue.outputData)) {
-          const { url } = currentValue.outputData;
-          webhook.push({ url, formData });
+          const { url, sendAdditionalMetadata } = currentValue.outputData;
+          webhook.push({ url, sendAdditionalMetadata, formData });
           this.logger.trace(
             ["StatusService", "outputArgs", "webhookArgs"],
-            JSON.stringify({ url, formData })
+            JSON.stringify({ url, sendAdditionalMetadata, formData })
           );
         }
 

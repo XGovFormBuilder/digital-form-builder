@@ -88,8 +88,13 @@ export class QueueStatusService extends StatusService {
 
     const requests = [
       ...notify.map((args) => this.notifyService.sendNotification(args)),
-      ...webhook.map(({ url, formData }) =>
-        this.webhookService.postRequest(url, formData)
+      ...webhook.map(({ url, sendAdditionalMetadata, formData }) =>
+        this.webhookService.postRequest(
+          url,
+          formData,
+          "POST",
+          sendAdditionalMetadata
+        )
       ),
     ];
 
