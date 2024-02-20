@@ -48,11 +48,11 @@
         {
           "name": "ObIBSx",
           "options": {
-            "maxWords": "250",
             "hideTitle": true
           },
-          "type": "FreeTextField",
+          "type": "CheckboxesField",
           "title": "What are the main things you feel you need support with to submit a good COF application?",
+          "list": "need-support-list",
           "schema": {}
         }
       ],
@@ -144,7 +144,39 @@
       "controller": "./pages/summary.js"
     }
   ],
-  "lists": [],
+  "lists": [
+    {
+      "title": "What are the main things you feel you need support with to submit a good COF application?",
+      "name": "need-support-list",
+      "type": "string",
+      "items": [
+        {
+          "text": "Writing a business plan",
+          "value": "Writing a business plan"
+        },
+        {
+          "text": "Technical",
+          "value": "Technical"
+        },
+        {
+          "text": "Financial forecasting",
+          "value": "Financial forecasting"
+        },
+        {
+          "text": "Legal",
+          "value": "Legal"
+        },
+        {
+          "text": "Housing",
+          "value": "Housing"
+        },
+        {
+          "text": "Governance support",
+          "value": "Governance support"
+        }
+      ]
+    }
+  ],
   "sections": [
     {
       "name": "eAEGhH",
