@@ -36,7 +36,7 @@ export class WebhookService {
     let request = method === "POST" ? post : put;
     try {
       if (!sendAdditionalMetadata) {
-        delete data.metadata.pay;
+        delete data?.metadata?.pay;
       }
       const { payload } = await request(url, {
         ...DEFAULT_OPTIONS,
