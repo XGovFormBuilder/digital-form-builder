@@ -95,6 +95,7 @@ export type NotifyOutputConfiguration = {
 
 export type WebhookOutputConfiguration = {
   url: string;
+  sendAdditionalMetadata?: boolean;
 };
 
 export type OutputConfiguration =
@@ -160,7 +161,6 @@ export type FeeOptions = {
   customPayErrorMessage?: string;
   showPaymentSkippedWarningPage: boolean;
   additionalReportingColumns?: AdditionalReportingColumn[];
-  sendAdditionalMetadata?: boolean;
 };
 
 /**

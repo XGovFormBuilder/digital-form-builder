@@ -213,6 +213,7 @@ const emailSchema = joi.object().keys({
 
 const webhookSchema = joi.object().keys({
   url: joi.string(),
+  sendAdditionalMetadata: joi.boolean().optional().default(true),
   allowRetry: joi.boolean().default(true),
 });
 
@@ -269,7 +270,6 @@ const feeOptionSchema = joi
         })
       )
       .optional(),
-    sendAdditionalMetadata: joi.boolean().optional().default(true),
   })
   .default(({ payApiKey, paymentReferenceFormat }) => {
     return {
