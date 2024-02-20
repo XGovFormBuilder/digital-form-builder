@@ -167,34 +167,15 @@
         {
           "name": "BykoQQ",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true,
+            "optionalText": false,
+            "divider": "or",
+            "behaviour": "exclusive",
+            "behaviourItemValue": "none"
           },
           "type": "CheckboxesField",
-          "title": "In-kind match funding",
+          "title": "In-kind and cash match funding",
           "list": "sLINJk",
-          "schema": {}
-        },
-        {
-          "name": "qgytim",
-          "options": {
-            "required": false,
-            "optionalText": true
-          },
-          "type": "CheckboxesField",
-          "title": "Cash match funding",
-          "list": "VwZuhC",
-          "schema": {}
-        },
-        {
-          "name": "daJkaD",
-          "options": {
-            "required": false,
-            "optionalText": true
-          },
-          "type": "CheckboxesField",
-          "title": "Or",
-          "list": "nbLaHH",
           "schema": {}
         }
       ],
@@ -521,7 +502,7 @@
       ]
     },
     {
-      "title": "In-kind match funding",
+      "title": "In-kind and cash match funding",
       "name": "sLINJk",
       "type": "string",
       "items": [
@@ -540,14 +521,7 @@
         {
           "text": "Discount on freehoid/leasehold",
           "value": "Discount on freehoid/leasehold"
-        }
-      ]
-    },
-    {
-      "title": "Cash match funding",
-      "name": "VwZuhC",
-      "type": "string",
-      "items": [
+        },
         {
           "text": "Fundraising in your community",
           "value": "Fundraising in your community"
@@ -587,6 +561,11 @@
         {
           "text": "Other Lenders",
           "value": "Other Lenders"
+        },
+        {
+          "text": "Not sure",
+          "value": "none",
+          "description": ""
         }
       ]
     },
@@ -614,17 +593,6 @@
         {
           "text": "Secured all match funding",
           "value": "Secured all match funding"
-        }
-      ]
-    },
-    {
-      "title": "Or ",
-      "name": "nbLaHH",
-      "type": "string",
-      "items": [
-        {
-          "text": "Not sure",
-          "value": "Not sure"
         }
       ]
     },
@@ -929,14 +897,14 @@
         "conditions": [
           {
             "field": {
-              "name": "daJkaD",
+              "name": "BykoQQ",
               "type": "CheckboxesField",
-              "display": "Or"
+              "display": "In-kind and cash match funding"
             },
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Not sure",
+              "value": "none",
               "display": "Not sure"
             }
           }
