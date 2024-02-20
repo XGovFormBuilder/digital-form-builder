@@ -53,6 +53,7 @@
           "type": "CheckboxesField",
           "title": "What are the main things you feel you need support with to submit a good COF application?",
           "list": "need-support-list",
+          "hint": "Select all that apply",
           "schema": {}
         }
       ],
