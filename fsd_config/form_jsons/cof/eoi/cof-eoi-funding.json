@@ -298,6 +298,10 @@
       "type": "string",
       "items": [
         {
+          "text": "Buy a leasehold",
+          "value": "Buy a leasehold"
+        },
+        {
           "text": "Renovate a leasehold",
           "value": "Renovate a leasehold"
         },
@@ -564,6 +568,20 @@
             "operator": "contains",
             "value": {
               "type": "Value",
+              "value": "Buy a leasehold",
+              "display": "Buy a leasehold"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "aocRmv",
+              "type": "CheckboxesField",
+              "display": "What do you plan to use COF's funding for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
               "value": "Renovate a leasehold",
               "display": "Renovate a leasehold"
             }
@@ -583,11 +601,25 @@
               "type": "CheckboxesField",
               "display": "What do you plan to use COF's funding for?"
             },
-            "operator": "does not contain",
+            "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Renovate a leasehold",
-              "display": "Renovate a leasehold"
+              "value": "Buy a freehold",
+              "display": "Buy a freehold"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "aocRmv",
+              "type": "CheckboxesField",
+              "display": "What do you plan to use COF's funding for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Renovate a freehold",
+              "display": "Renovate a freehold"
             }
           }
         ]
