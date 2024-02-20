@@ -95,7 +95,7 @@ export type NotifyOutputConfiguration = {
 
 export type WebhookOutputConfiguration = {
   url: string;
-  sendAdditionalMetadata?: boolean;
+  sendAdditionalPayMetadata?: boolean;
 };
 
 export type OutputConfiguration =

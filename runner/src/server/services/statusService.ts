@@ -153,7 +153,7 @@ export class StatusService {
         firstWebhook.outputData.url,
         { ...formData },
         "POST",
-        firstWebhook.outputData.sendAdditionalMetadata
+        firstWebhook.outputData.sendAdditionalPayMetadata
       );
       await this.cacheService.mergeState(request, {
         reference: newReference,
@@ -169,14 +169,14 @@ export class StatusService {
 
     const requests = [
       ...notify.map((args) => this.notifyService.sendNotification(args)),
-      ...webhook.map(({ url, sendAdditionalMetadata, formData }) =>
+      ...webhook.map(({ url, sendAdditionalPayMetadata, formData }) =>
         this.webhookService.postRequest(
           url,
           {
             ...formData,
           },
           "POST",
-          sendAdditionalMetadata
+          sendAdditionalPayMetadata
         )
       ),
     ];
@@ -270,11 +270,11 @@ export class StatusService {
           notify.push(args);
         }
         if (isWebhookModel(currentValue.outputData)) {
-          const { url, sendAdditionalMetadata } = currentValue.outputData;
-          webhook.push({ url, sendAdditionalMetadata, formData });
+          const { url, sendAdditionalPayMetadata } = currentValue.outputData;
+          webhook.push({ url, sendAdditionalPayMetadata, formData });
           this.logger.trace(
             ["StatusService", "outputArgs", "webhookArgs"],
-            JSON.stringify({ url, sendAdditionalMetadata, formData })
+            JSON.stringify({ url, sendAdditionalPayMetadata, formData })
           );
         }
 
