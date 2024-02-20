@@ -213,6 +213,7 @@ const emailSchema = joi.object().keys({
 
 const webhookSchema = joi.object().keys({
   url: joi.string(),
+  sendAdditionalPayMetadata: joi.boolean().optional().default(false),
   allowRetry: joi.boolean().default(true),
 });
 
