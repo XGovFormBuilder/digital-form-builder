@@ -269,6 +269,7 @@ const feeOptionSchema = joi
         })
       )
       .optional(),
+    sendAdditionalMetadata: joi.boolean().optional().default(true),
   })
   .default(({ payApiKey, paymentReferenceFormat }) => {
     return {
