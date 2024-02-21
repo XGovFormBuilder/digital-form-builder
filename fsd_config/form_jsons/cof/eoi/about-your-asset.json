@@ -126,7 +126,7 @@
           "name": "cSmbth",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">This means that the asset is at risk of being lost to the community from:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>closure or end of lease</li>\n  <li>neglect or dereliction</li>\n  <li>energy inefficiency that threatens the long-term sustainability of the asset, or</li>\n  <li>an unsustainable current business model</li>\n</ul>",
+          "content": "<p class=\"govuk-body\">This means that the asset is at risk of being lost to the community from:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>closure or end of lease</li>\n  <li>neglect or dereliction</li>\n  <li>an unsustainable current business model</li>\n  <li>being for sale</li>\n  <li>being listed for disposal</li>\n  <li>being part of a community asset transfer</li>\n</ul>",
           "schema": {}
         },
         {
@@ -184,7 +184,7 @@
           "name": "jxrAoy",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Community use/significance could relate to (but is not limited to):</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>community centres</li>\n<li>shops</li>\n<li>sporting and leisure facilities</li>\n<li>pubs and restaurants</li>\n<li>buildings</li>\n<li>heritage buildings</li>\n</ul>\n<p class=\"govuk-body\">There is no time limit on when the asset was last used by the community, and you can relocate or rebuild assets if appropriate.</p>\n",
+          "content": "<p class=\"govuk-body\">Community use/significance could relate to (but is not limited to):</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>community centres</li>\n<li>shops</li>\n<li>sporting and leisure facilities</li>\n<li>pubs and restaurants</li>\n<li>cultural buildings</li>\n<li>heritage buildings</li>\n</ul>\n<p class=\"govuk-body\">The asset could have been used by the community at any point in time.<br><br>Even if you plan to relocate or rebuild assets that were formerly used by the community, select 'yes'.</p>\n",
           "schema": {}
         },
         {
@@ -299,8 +299,8 @@
       "type": "string",
       "items": [
         {
-          "text": "Yes, a parish or community council",
-          "value": "Yes, a parish or community council"
+          "text": "Yes, a town, parish or community council",
+          "value": "Yes, a town, parish or community council"
         },
         {
           "text": "Yes, another type of public authority",
