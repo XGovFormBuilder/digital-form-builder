@@ -29,9 +29,9 @@
           "options": {
             "hideTitle": true
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
           "title": "Do you wish to be contacted by the development support provider, if eligible for in-depth support?",
-          "schema": {}
+          "list": "wmWKXS"
         }
       ],
       "next": [
@@ -174,6 +174,21 @@
         {
           "text": "Governance support",
           "value": "Governance support"
+        }
+      ]
+    },
+    {
+      "title": "Do you wish to be contacted by the development support provider, if eligible for in-depth support?",
+      "name": "wmWKXS",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes, I agree to be contacted if eligible",
+          "value": "Yes, I agree to be contacted if eligible"
+        },
+        {
+          "text": "No, I do not wish to be contacted",
+          "value": "No, I do not wish to be contacted"
         }
       ]
     }
