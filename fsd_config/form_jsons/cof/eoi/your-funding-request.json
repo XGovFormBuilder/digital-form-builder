@@ -169,13 +169,14 @@
           "name": "BykoQQ",
           "options": {
             "required": true,
-            "optionalText": false,
-            "divider": "or",
+            "hideTitle": true,
+            "divider": "Or",
             "behaviour": "exclusive",
             "behaviourItemValue": "none"
           },
           "type": "CheckboxesField",
-          "title": "Where do you plan to source match funding?",
+          "title": "This can include both in-kind and cash match funding",
+          "hint": "This can include both in-kind and cash match funding<br/><br/>Select all that apply",
           "list": "sLINJk",
           "schema": {}
         }
@@ -359,25 +360,21 @@
       ]
     },
     {
-      "title": "In-kind and cash match funding",
+      "title": "This can include both in-kind and cash match funding",
       "name": "sLINJk",
       "type": "string",
       "items": [
         {
-          "text": "Community share offer",
-          "value": "Community share offer"
-        },
-        {
-          "text": "Donation of services",
-          "value": "Donation of services"
+          "text": "Donation of professional services",
+          "value": "Donation of professional services"
         },
         {
           "text": "Donation of goods",
           "value": "Donation of goods"
         },
         {
-          "text": "Discount on freehoid/leasehold",
-          "value": "Discount on freehoid/leasehold"
+          "text": "Discount on freehold/leasehold",
+          "value": "Discount on freehold/leasehold"
         },
         {
           "text": "Fundraising in your community",
@@ -386,10 +383,6 @@
         {
           "text": "Your own financial resources",
           "value": "Your own financial resources"
-        },
-        {
-          "text": "My organisation's own funds",
-          "value": "My organisation's own funds"
         },
         {
           "text": "Public bodies",
