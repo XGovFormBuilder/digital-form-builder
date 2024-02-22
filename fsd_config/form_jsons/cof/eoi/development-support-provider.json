@@ -11,7 +11,7 @@
           "name": "hsyuiX",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">\n  The development support provider (DSP) provides webinars and application guidance for all COF applicants on the <a href=\"https://mycommunity.org.uk/\" class=\"govuk-link\">MyCommunity website</a>. They also offer targeted support to some eligible applicants.</p>\n<p class=\"govuk-body\">The development support provider may contact you to provide information and support that they offer to all eligible applicants. They will also use your answers in this section to determine whether you are eligible for in-depth support. <a href=\"https://www.gov.uk/guidance/community-ownership-fund-explanatory-note-on-the-assessment-and-decision-making-process#internal-decision-making\" class=\"govuk-link\">Read more about how the DSP determines which organizations receive support</a>.</p>\n</p>\n<p class=\"govuk-body\">\n  Your answers in this section will not be used to assess whether you meet the requirements to apply for COF.\n</p>\n\n<p class=\"govuk-body\">\n  In this section, we'll ask about:\n</p>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>The main things that feel you need support with to submit a good COF application</li>\n  <li>Your project and its aims</li>\n  <li>Lead contact details</li>\n</ul>\n\n\n",
+          "content": "<p class=\"govuk-body\">\n  The development support provider (DSP) provides webinars and application guidance for all COF applicants on the <a href=\"https://mycommunity.org.uk/\" class=\"govuk-link\">MyCommunity website</a>. They also offer targeted support to some eligible applicants.</p>\n<p class=\"govuk-body\">The development support provider may contact you to provide information and support that they offer to all eligible applicants. They will also use your answers in this section to determine whether you are eligible for in-depth support. <a href=\"https://www.gov.uk/guidance/community-ownership-fund-explanatory-note-on-the-assessment-and-decision-making-process#internal-decision-making\" class=\"govuk-link\">Read more about how the DSP determines which organisations receive support</a>.</p>\n</p>\n<p class=\"govuk-body\">\n  Your answers in this section will not be used to assess whether you meet the requirements to apply for COF.\n</p>\n\n<p class=\"govuk-body\">\n  <b>In this section, we'll ask about:</b>\n</p>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>The main things that feel you need support with to submit a good COF application</li>\n  <li>Your project and its aims</li>\n  <li>Lead contact details</li>\n</ul>\n\n\n",
           "schema": {}
         }
       ],
@@ -94,31 +94,34 @@
         {
           "name": "xWnVof",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
           },
           "type": "TextField",
           "title": "Name of lead contact",
-          "hint": "Name of lead contact",
+          "hint": "<label for=\"xWnVof\" class=\"govuk-label\">Name of lead contact</label>",
           "schema": {}
         },
         {
           "name": "NQoGIm",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
           },
           "type": "EmailAddressField",
           "title": "Lead contact email address",
-          "hint": "Lead contact email address",
+          "hint": "<label for=\"NQoGIm\" class=\"govuk-label\">Lead contact email address</label>",
           "schema": {}
         },
         {
           "name": "srxZmv",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
           },
           "type": "TelephoneNumberField",
           "title": "Lead contact telephone number",
-          "hint": "Lead contact telephone number",
+          "hint": "<label for=\"srxZmv\" class=\"govuk-label\">Lead contact telephone number</label>",
           "schema": {}
         }
       ],

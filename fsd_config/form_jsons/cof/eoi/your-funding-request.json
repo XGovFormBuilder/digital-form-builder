@@ -11,7 +11,7 @@
           "name": "WbRhdz",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">In this section, we'll ask:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>What you plan to use COF funding for</li>\n  <li>If the leasehold you are buying will have at least 15 years (if applicable)</li>\n  <li>How much capital funding you are requesting</li>\n  <li>If you plan to request any revenue funding</li>\n  <li>If you plan to secure match funding (either cash or in-kind)</li>\n  <li>Where you plan to source match funding (if applicable)</li>\n  <li>What progress you have made to secure this funding (if applicable)</li>\n  <li>If your project includes an element of housing</li>\n  <li>If you need planning permission for your project</li>\n  <li>What stage you are at in securing planning permission (if applicable)</li>\n</ul>",
+          "content": "<p class=\"govuk-body\"><b>In this section, we'll ask:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>What you plan to use COF funding for</li>\n  <li>If the leasehold you are buying will have at least 15 years (if applicable)</li>\n  <li>How much capital funding you are requesting</li>\n  <li>If you plan to request any revenue funding</li>\n  <li>If you plan to secure match funding (either cash or in-kind)</li>\n  <li>Where you plan to source match funding (if applicable)</li>\n  <li>What progress you have made to secure this funding (if applicable)</li>\n  <li>If your project includes an element of housing</li>\n  <li>If you need planning permission for your project</li>\n  <li>What stage you are at in securing planning permission (if applicable)</li>\n</ul>",
           "schema": {}
         }
       ],
@@ -175,8 +175,8 @@
             "behaviourItemValue": "none"
           },
           "type": "CheckboxesField",
-          "title": "This can include both in-kind and cash match funding",
-          "hint": "This can include both in-kind and cash match funding<br/><br/>Select all that apply",
+          "title": "Where do you plan to source match funding?",
+          "hint": "<p class=\"govuk-label\">This can include both in-kind and cash match funding<br/><br/>Select all that apply</p>",
           "list": "sLINJk",
           "schema": {}
         }

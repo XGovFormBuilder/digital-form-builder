@@ -11,7 +11,7 @@
           "name": "eadDjo",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>the organisation running the asset</li>\n  <li>type of asset</li>\n  <li>if the asset is based in the UK</li>\n  <li>address of the asset</li>\n  <li>if the asset is at risk </li>\n  <li>what is the risk to the asset (if applicable)</li>\n  <li>if the asset has ever been used by or had significance to the community?</li>\n  <li>if you already own the asset </li>\n  <li>if the asset belongs to a public authority (if applicable)</li>\n  <li>the stage you are at in purchasing the asset (if applicable)</li>\n</ul>\n\n\n\n\n\n\n \n\n\n\n\n\n ",
+          "content": "<p class=\"govuk-body\"><b>In this section, we'll ask about:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>the organisation running the asset</li>\n  <li>type of asset</li>\n  <li>if the asset is based in the UK</li>\n  <li>address of the asset</li>\n  <li>if the asset is at risk </li>\n  <li>what is the risk to the asset (if applicable)</li>\n  <li>if the asset has ever been used by or had significance to the community?</li>\n  <li>if you already own the asset </li>\n  <li>if the asset belongs to a public authority (if applicable)</li>\n  <li>the stage you are at in purchasing the asset (if applicable)</li>\n</ul>\n\n\n\n\n\n\n \n\n\n\n\n\n ",
           "schema": {}
         }
       ],
@@ -243,7 +243,7 @@
           "options": {},
           "type": "Details",
           "title": "Help with public authority",
-          "content": "<p class=\"govuk-body\">A public authority is a government organisation, such as a local council. <a href=\"https://www.gov.uk/government/publications/community-ownership-fund-prospectus/community-ownership-fund-prospectus--3#publiclyowned\">See section 8 of the prospectus for information on using COF funding for publicly owned assets.\n</p>",
+          "content": "<p class=\"govuk-body\">A public authority is a government organisation, such as a local council. <a aria-label=\"Prospectus\" href=\"https://www.gov.uk/government/publications/community-ownership-fund-prospectus/community-ownership-fund-prospectus--3#publiclyowned\">See section 8 of the prospectus for information on using COF funding for publicly owned assets.</a>\n</p>",
           "schema": {}
         },
         {
@@ -270,7 +270,9 @@
       "components": [
         {
           "name": "oDhZlw",
-          "options": {},
+          "options": {
+            "hideTitle": true
+          },
           "type": "RadiosField",
           "title": "Stage purchasing asset",
           "list": "VCaulN",

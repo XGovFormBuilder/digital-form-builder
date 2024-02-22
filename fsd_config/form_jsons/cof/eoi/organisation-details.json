@@ -11,7 +11,7 @@
           "name": "rclykK",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">In this section, we'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>organisation name</li>\n  <li>organisation address</li>\n  <li>how your organisation is classified</li>\n  <li>if your organisation is subject to any insolvency actions</li>\n</ul>",
+          "content": "<p class=\"govuk-body\"><b>In this section, we'll ask about:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>organisation name</li>\n  <li>organisation address</li>\n  <li>how your organisation is classified</li>\n  <li>if your organisation is subject to any insolvency actions</li>\n</ul>",
           "schema": {}
         }
       ],
@@ -90,7 +90,7 @@
         {
           "name": "uYiLsv",
           "options": {
-            "hideTitle": false
+            "hideTitle": true
           },
           "type": "RadiosField",
           "title": "Organisation classification",
