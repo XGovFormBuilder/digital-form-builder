@@ -94,7 +94,7 @@
           },
           "type": "RadiosField",
           "title": "Organisation classification",
-          "hint": "Select one option",
+          "hint": "Select one",
           "list": "CCbnpc",
           "schema": {},
           "values": {

@@ -11,7 +11,7 @@
           "name": "WbRhdz",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\"><b>In this section, we'll ask:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>What you plan to use COF funding for</li>\n  <li>If the leasehold you are buying will have at least 15 years (if applicable)</li>\n  <li>How much capital funding you are requesting</li>\n  <li>If you plan to request any revenue funding</li>\n  <li>If you plan to secure match funding (either cash or in-kind)</li>\n  <li>Where you plan to source match funding (if applicable)</li>\n  <li>What progress you have made to secure this funding (if applicable)</li>\n  <li>If your project includes an element of housing</li>\n  <li>If you need planning permission for your project</li>\n  <li>What stage you are at in securing planning permission (if applicable)</li>\n</ul>",
+          "content": "<p class=\"govuk-body\"><b>In this section, we'll ask:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>what you plan to use COF funding for</li>\n  <li>if the leasehold you are buying will have at least 15 years (if applicable)</li>\n  <li>how much capital funding you are requesting</li>\n  <li>if you plan to request any revenue funding</li>\n  <li>if you plan to secure match funding (either cash or in-kind)</li>\n  <li>where you plan to source match funding (if applicable)</li>\n  <li>what progress you have made to secure this funding (if applicable)</li>\n  <li>if your project includes an element of housing</li>\n  <li>if you need planning permission for your project</li>\n  <li>what stage you are at in securing planning permission (if applicable)</li>\n</ul>",
           "schema": {}
         }
       ],
@@ -102,7 +102,7 @@
           "name": "atlsbX",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Revenue costs go towards running the asset once you've taken ownership of it. This might include general costs, including for:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Utilities</li>\n  <li>Staffing</li>\n</ul>\n\n<p class=\"govuk-body\">You can apply for up to 20% of your capital funding request or £50,000, whichever is smaller.</p>",
+          "content": "<p class=\"govuk-body\">Revenue costs go towards running the asset once you've taken ownership of it. This might include general costs, including for:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>utilities</li>\n  <li>staffing</li>\n</ul>\n\n<p class=\"govuk-body\">You can apply for up to 20% of your capital funding request or £50,000, whichever is smaller.</p>",
           "schema": {}
         },
         {
@@ -176,7 +176,7 @@
           },
           "type": "CheckboxesField",
           "title": "Where do you plan to source match funding?",
-          "hint": "<p class=\"govuk-label\">This can include both in-kind and cash match funding<br/><br/>Select all that apply</p>",
+          "hint": "<p class=\"govuk-label\">This can include both in-kind and cash match funding.<br/><br/>Select all that apply</p>",
           "list": "sLINJk",
           "schema": {}
         }
@@ -219,7 +219,7 @@
       "components": [
         {
           "name": "UORyaF",
-          "options": {},
+          "options": { "hideTitle": true },
           "type": "RadiosField",
           "title": "Will you need planning permission for your project?",
           "list": "ZvqGVo",
