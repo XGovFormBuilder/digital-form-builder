@@ -104,6 +104,18 @@
       "title": "Address of the asset",
       "components": [
         {
+          "name": "xYnVof",
+          "options": {
+            "hideTitle": false,
+            "required": false,
+            "classes": "govuk-!-width-full",
+            "optionalText": true
+          },
+          "type": "TextField",
+          "title": "Name of the asset",
+          "schema": {}
+        },
+        {
           "name": "dnqIdW",
           "options": {
             "hideTitle": true
