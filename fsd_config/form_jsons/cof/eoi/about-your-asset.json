@@ -19,7 +19,8 @@
         {
           "path": "/does-your-organisation-plan-both-to-receive-the-funding-and-run-the-project"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/does-your-organisation-plan-both-to-receive-the-funding-and-run-the-project",

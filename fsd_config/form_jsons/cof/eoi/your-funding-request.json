@@ -19,7 +19,8 @@
         {
           "path": "/what-do-you-plan-to-use-cofs-funding-for"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/what-do-you-plan-to-use-cofs-funding-for",

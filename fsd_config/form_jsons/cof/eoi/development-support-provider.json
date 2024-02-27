@@ -19,7 +19,8 @@
         {
           "path": "/do-you-wish-to-be-contacted-by-the-development-support-provider-if-eligible-for-in-depth-support"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/do-you-wish-to-be-contacted-by-the-development-support-provider-if-eligible-for-in-depth-support",
