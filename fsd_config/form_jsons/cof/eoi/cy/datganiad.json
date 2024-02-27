@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/datganiad",
+  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "pages": [
+    {
+      "title": "Datganiad",
+      "path": "/datganiad",
+      "components": [
+        {
+          "name": "oXFEkV",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Cadarnhaf fod y wybodaeth rwyf wedi'i darparu yn gywir",
+          "list": "nHHnuf"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Datganiad",
+      "name": "nHHnuf",
+      "type": "string",
+      "items": [
+        {
+          "text": "Cadarnhaf fod y wybodaeth rwyf wedi'i darparu yn gywir",
+          "value": "cadarnhaf"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false
+}

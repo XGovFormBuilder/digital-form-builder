@@ -1,0 +1,681 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/eich-cais-am-gyllid",
+  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "pages": [
+    {
+      "path": "/eich-cais-am-gyllid",
+      "title": "Eich cais am gyllid",
+      "components": [
+        {
+          "name": "WbRhdz",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><b>Yn yr adran hon, byddwn yn eich holi am y canlynol:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>at ba ddiben rydych yn bwriadu defnyddio cyllid o'r Gronfa Perchnogaeth Gymunedol</li>\n  <li>a fydd gan y lesddaliad rydych yn ei brynu o leiaf 15 mlynedd (os yw'n gymwys)</li>\n  <li>faint o gyllid cyfalaf rydych yn gwneud cais amdano</li>\n  <li>a ydych yn bwriadu gwneud cais am unrhyw gyllid refeniw</li>\n  <li>a ydych yn bwriadu sicrhau arian cyfatebol (naill ai fel arian parod neu mewn nwyddau neu wasanaethau)</li>\n  <li>o ble rydych yn bwriadu cael arian cyfatebol (os yw'n gymwys)</li>\n  <li>pa gynnydd rydych wedi'i wneud i sicrhau'r arian hwn (os yw'n gymwys)</li>\n  <li>a yw eich prosiect yn cynnwys elfen dai</li>\n  <li>a oes angen caniatâd cynllunio ar gyfer eich prosiect</li>\n  <li>pa gam rydych wedi'i gyrraedd yn y broses o sicrhau caniatâd cynllunio (os yw'n gymwys)</li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/at-ba-ddiben-ydych-chin-bwriadu-defnyddio-cyllid-or-gronfa-perchnogaeth-gymunedol"
+        }
+      ]
+    },
+    {
+      "path": "/at-ba-ddiben-ydych-chin-bwriadu-defnyddio-cyllid-or-gronfa-perchnogaeth-gymunedol",
+      "title": "At ba ddiben ydych chi'n bwriadu defnyddio cyllid o'r Gronfa Perchnogaeth Gymunedol?",
+      "components": [
+        {
+          "name": "aocRmv",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "At ba ddiben ydych chi'n bwriadu defnyddio cyllid o'r Gronfa Perchnogaeth Gymunedol? ",
+          "list": "xMbcbn",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-fydd-gan-y-lesddaliad-o-leiaf-15-mlynedd-pan-fydd-eich-sefydliad-yn-cyflwyno-cais-llawn",
+          "condition": "zuMnTE"
+        },
+        {
+          "path": "/faint-o-gyllid-cyfalaf-ydych-chin-gwneud-cais-amdano-or-gronfa-perchnogaeth-gymunedol",
+          "condition": "xTzWDE"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/a-fydd-gan-y-lesddaliad-o-leiaf-15-mlynedd-pan-fydd-eich-sefydliad-yn-cyflwyno-cais-llawn",
+      "title": "A fydd gan y lesddaliad o leiaf 15 mlynedd pan fydd eich sefydliad yn cyflwyno cais llawn?",
+      "components": [
+        {
+          "name": "foQgiy",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A fydd gan y lesddaliad o leiaf 15 mlynedd pan fydd eich sefydliad yn cyflwyno cais llawn?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/faint-o-gyllid-cyfalaf-ydych-chin-gwneud-cais-amdano-or-gronfa-perchnogaeth-gymunedol"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/faint-o-gyllid-cyfalaf-ydych-chin-gwneud-cais-amdano-or-gronfa-perchnogaeth-gymunedol",
+      "title": "Faint o gyllid cyfalaf ydych chi'n gwneud cais amdano o'r Gronfa Perchnogaeth Gymunedol?",
+      "components": [
+        {
+          "name": "fZAMFv",
+          "options": {
+            "prefix": "£",
+            "hideTitle": true
+          },
+          "type": "NumberField",
+          "title": "Faint o gyllid cyfalaf ydych chi'n gwneud cais amdano o'r Gronfa Perchnogaeth Gymunedol?",
+          "hint": "<label for='fZAMFv'>Costau cyfalaf yw costau prynu neu lesio'ch ased a thalu am waith adnewyddu. Gallwch wneud cais am hyd at £2 filiwn (<span class='govuk-!-font-size-19'>£2000000</span>) mewn costau cyfalaf o'r Gronfa Perchnogaeth Gymunedol. <br><br>Enter the amount using only numerals, for example, 1500000</label>",
+          "schema": {
+            "max": 2000000
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-ydych-yn-bwriadu-gwneud-cais-am-unrhyw-gyllid-refeniw"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/a-ydych-yn-bwriadu-gwneud-cais-am-unrhyw-gyllid-refeniw",
+      "title": "A ydych yn bwriadu gwneud cais am unrhyw gyllid refeniw?",
+      "components": [
+        {
+          "name": "atlsbX",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Mae costau refeniw yn cyfrannu at weithredu'r ased pan fyddwch yn berchen arno. Gallai hyn gynnwys costau cyffredinol, gan gynnwys ar gyfer:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>cyfleustodau </li>\n  <li>staffio </li>\n</ul>\n\n<p class=\"govuk-body\">Gallwch wneud cais am hyd at 20% o'ch cais am gyllid cyfalaf, neu £50,000, pa un bynnag yw'r lleiaf.</p>",
+          "schema": {}
+        },
+        {
+          "name": "oblxxv",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A ydych yn bwriadu gwneud cais am unrhyw gyllid refeniw?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-ydych-yn-bwriadu-sicrhau-arian-cyfatebol-naill-ai-fel-arian-parod-neu-mewn-nwyddau-neu-wasanaethau"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/a-ydych-yn-bwriadu-sicrhau-arian-cyfatebol-naill-ai-fel-arian-parod-neu-mewn-nwyddau-neu-wasanaethau",
+      "title": "A ydych yn bwriadu sicrhau arian cyfatebol? (naill ai fel arian parod neu mewn nwyddau neu wasanaethau) ",
+      "components": [
+        {
+          "name": "sQFDwC",
+          "options": {},
+          "type": "Para",
+          "content": "Ystyr arian cyfatebol yw arian a ddarperir gennych chi neu gyllidwr arall. Gall hyn fod ar ffurf arian parod neu drwy roi nwyddau neu wasanaethau er enghraifft.",
+          "schema": {}
+        },
+        {
+          "name": "eOWKoO",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A ydych yn bwriadu sicrhau arian cyfatebol?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-yw-eich-prosiect-yn-cynnwys-elfen-dai"
+        },
+        {
+          "path": "/o-ble-rydych-yn-bwriadu-cael-arian-cyfatebol",
+          "condition": "OflYad"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/o-ble-rydych-yn-bwriadu-cael-arian-cyfatebol",
+      "title": "O ble rydych yn bwriadu cael arian cyfatebol?",
+      "components": [
+        {
+          "name": "YHpwEv",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><a href=\"https://www.gov.uk/government/publications/community-ownership-fund-prospectus/community-ownership-fund-prospectus--3#funding-available\" class=\"govuk-link\">Gweler Adran 9 o brosbectws y Gronfa Perchnogaeth Gymunedol i gael manylion am ofynion arian cyfatebol a mathau cymwys o arian cyfatebol</a>.</p>",
+          "schema": {}
+        },
+        {
+          "name": "BykoQQ",
+          "options": {
+            "required": true,
+            "hideTitle": true,
+            "divider": "Neu",
+            "behaviour": "exclusive",
+            "behaviourItemValue": "none"
+          },
+          "type": "CheckboxesField",
+          "title": "O ble rydych yn bwriadu cael arian cyfatebol? ",
+          "hint": "<p class=\"govuk-label\">This can include both in-kind and cash match funding.<br/><br/>Dewiswch bob un sy'n berthnasol</p>",
+          "list": "sLINJk",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/pa-gynnydd-ydych-chi-wedii-wneud-i-sicrhaur-arian-hwn"
+        },
+        {
+          "path": "/a-yw-eich-prosiect-yn-cynnwys-elfen-dai",
+          "condition": "KwIZMN"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/a-yw-eich-prosiect-yn-cynnwys-elfen-dai",
+      "title": "A yw eich prosiect yn cynnwys elfen dai?",
+      "components": [
+        {
+          "name": "yZxdeJ",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A yw eich prosiect yn cynnwys elfen dai?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-fydd-angen-caniatd-cynllunio-ar-gyfer-eich-prosiect"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/a-fydd-angen-caniatd-cynllunio-ar-gyfer-eich-prosiect",
+      "title": "A fydd angen caniatâd cynllunio ar gyfer eich prosiect?",
+      "components": [
+        {
+          "name": "UORyaF",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "A fydd angen caniatâd cynllunio ar gyfer eich prosiect?",
+          "list": "ZvqGVo",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/pa-gam-ydych-chi-wedii-gyrraedd-yn-y-broses-o-sicrhau-caniatd-cynllunio",
+          "condition": "CvABUZ"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/pa-gam-ydych-chi-wedii-gyrraedd-yn-y-broses-o-sicrhau-caniatd-cynllunio",
+      "title": "Pa gam ydych chi wedi'i gyrraedd yn y broses o sicrhau caniatâd cynllunio?",
+      "components": [
+        {
+          "name": "jICagT",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "Pa gam ydych chi wedi'i gyrraedd yn y broses o sicrhau caniatâd cynllunio?",
+          "list": "JlVYfQ",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "seZPbt"
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "section": "seZPbt",
+      "controller": "./pages/summary.js"
+    },
+    {
+      "path": "/pa-gynnydd-ydych-chi-wedii-wneud-i-sicrhaur-arian-hwn",
+      "title": "Pa gynnydd ydych chi wedi'i wneud i sicrhau'r arian hwn?",
+      "components": [
+        {
+          "name": "kWRuac",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "list": "RhIAgm",
+          "title": "Pa gynnydd ydych chi wedi'i wneud i sicrhau'r arian hwn? ",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-yw-eich-prosiect-yn-cynnwys-elfen-dai"
+        }
+      ],
+      "section": "seZPbt"
+    }
+  ],
+  "lists": [
+    {
+      "title": "COF funding for",
+      "name": "xMbcbn",
+      "type": "string",
+      "items": [
+        {
+          "text": "Buy a leasehold",
+          "value": "Buy a leasehold"
+        },
+        {
+          "text": "Adnewyddu lesddaliad",
+          "value": "Adnewyddu lesddaliad"
+        },
+        {
+          "text": "Prynu rhydd-ddaliad",
+          "value": "Prynu rhydd-ddaliad"
+        },
+        {
+          "text": "Adnewyddu rhydd-ddaliad",
+          "value": "Adnewyddu rhydd-ddaliad"
+        }
+      ]
+    },
+    {
+      "title": "Caniatâd cynllunio",
+      "name": "ZvqGVo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Oes",
+          "value": "Oes"
+        },
+        {
+          "text": "Nac oes",
+          "value": "Nac oes"
+        },
+        {
+          "text": "Ddim yn siŵr",
+          "value": "Ddim yn siŵr"
+        }
+      ]
+    },
+    {
+      "title": "Sicrhau cais cynllunio",
+      "name": "JlVYfQ",
+      "type": "string",
+      "items": [
+        {
+          "text": "Heb ddechrau eto",
+          "value": "Heb ddechrau eto"
+        },
+        {
+          "text": "Cam cynnar",
+          "value": "Cam cynnar"
+        },
+        {
+          "text": "Cam hwyr",
+          "value": "Cam hwyr"
+        },
+        {
+          "text": "Eisoes wedi'i sicrhau",
+          "value": "Eisoes wedi'i sicrhau"
+        }
+      ]
+    },
+    {
+      "title": "This can include both in-kind and cash match funding",
+      "name": "sLINJk",
+      "type": "string",
+      "items": [
+        {
+          "text": "Donation of professional services",
+          "value": "Donation of professional services"
+        },
+        {
+          "text": "Rhoi nwyddau",
+          "value": "Rhoi nwyddau"
+        },
+        {
+          "text": "Gostyngiad ar rydd-ddaliad/lesddaliad",
+          "value": "Gostyngiad ar rydd-ddaliad/lesddaliad"
+        },
+        {
+          "text": "Codi arian yn eich cymuned",
+          "value": "Codi arian yn eich cymuned"
+        },
+        {
+          "text": "Eich adnoddau ariannol eich hun",
+          "value": "Eich adnoddau ariannol eich hun"
+        },
+        {
+          "text": "Cyrff cyhoeddus",
+          "value": "Cyrff cyhoeddus"
+        },
+        {
+          "text": "Gweinyddiaethau datganoledig",
+          "value": "Gweinyddiaethau datganoledig"
+        },
+        {
+          "text": "Elusennau neu ymddiriedolaethau",
+          "value": "Elusennau neu ymddiriedolaethau"
+        },
+        {
+          "text": "Cyllidwyr y Loteri Genedlaethol",
+          "value": "Cyllidwyr y Loteri Genedlaethol"
+        },
+        {
+          "text": "Cyfranddaliadau cymunedol",
+          "value": "Cyfranddaliadau cymunedol"
+        },
+        {
+          "text": "Buddsoddwyr cymunedol",
+          "value": "Buddsoddwyr cymunedol"
+        },
+        {
+          "text": "Benthycwyr eraill",
+          "value": "Benthycwyr eraill"
+        },
+        {
+          "text": "Ddim yn siŵr",
+          "value": "none",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "title": "progress secure funding",
+      "name": "RhIAgm",
+      "type": "string",
+      "items": [
+        {
+          "text": "Heb gysylltu ag unrhyw gyllidwyr eto",
+          "value": "Heb gysylltu ag unrhyw gyllidwyr eto"
+        },
+        {
+          "text": "Wedi cysylltu â rhai cyllidwyr ond heb sicrhau cyllid eto",
+          "value": "Wedi cysylltu â rhai cyllidwyr ond heb sicrhau cyllid eto"
+        },
+        {
+          "text": "Wedi cysylltu â'r holl gyllidwyr ond heb sicrhau cyllid eto",
+          "value": "Wedi cysylltu â'r holl gyllidwyr ond heb sicrhau cyllid eto"
+        },
+        {
+          "text": "Wedi sicrhau rhywfaint o arian cyfatebol",
+          "value": "Wedi sicrhau rhywfaint o arian cyfatebol"
+        },
+        {
+          "text": "Wedi sicrhau'r holl arian cyfatebol",
+          "value": "Wedi sicrhau'r holl arian cyfatebol"
+        }
+      ]
+    },
+    {
+      "title": "Neu",
+      "name": "nbLaHH",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ddim yn siŵr",
+          "value": "Ddim yn siŵr"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "eAEGhH",
+      "title": "Organisation details"
+    },
+    {
+      "name": "McpePG",
+      "title": "About your asset"
+    },
+    {
+      "name": "seZPbt",
+      "title": "Eich cais am gyllid"
+    },
+    {
+      "name": "IEwDfr",
+      "title": "Development support provider"
+    },
+    {
+      "name": "mXKUVl",
+      "title": "Community Ownership Fund - Expression of interest"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "sourceMatchFunding",
+      "name": "MgZSLh",
+      "value": {
+        "name": "sourceMatchFunding",
+        "conditions": [
+          {
+            "field": {
+              "name": "eOWKoO",
+              "type": "YesNoField",
+              "display": "Do you plan to secure match funding?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "sourceMatchFundingTrue",
+      "name": "OflYad",
+      "value": {
+        "name": "sourceMatchFundingTrue",
+        "conditions": [
+          {
+            "field": {
+              "name": "eOWKoO",
+              "type": "YesNoField",
+              "display": "Do you plan to secure match funding?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "planningPermissionTrue",
+      "name": "CvABUZ",
+      "value": {
+        "name": "planningPermissionTrue",
+        "conditions": [
+          {
+            "field": {
+              "name": "UORyaF",
+              "type": "RadiosField",
+              "display": "Will you need planning permission for your project?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Oes",
+              "display": "Yes"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "fundingUse",
+      "name": "zuMnTE",
+      "value": {
+        "name": "fundingUse",
+        "conditions": [
+          {
+            "field": {
+              "name": "aocRmv",
+              "type": "CheckboxesField",
+              "display": "What do you plan to use COF's funding for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Buy a leasehold",
+              "display": "Buy a leasehold"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "aocRmv",
+              "type": "CheckboxesField",
+              "display": "What do you plan to use COF's funding for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Adnewyddu lesddaliad",
+              "display": "Adnewyddu lesddaliad"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "fundingUseFreehold",
+      "name": "xTzWDE",
+      "value": {
+        "name": "fundingUseFreehold",
+        "conditions": [
+          {
+            "field": {
+              "name": "aocRmv",
+              "type": "CheckboxesField",
+              "display": "What do you plan to use COF's funding for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Prynu rhydd-ddaliad",
+              "display": "Prynu rhydd-ddaliad"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "aocRmv",
+              "type": "CheckboxesField",
+              "display": "What do you plan to use COF's funding for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Adnewyddu rhydd-ddaliad",
+              "display": "Adnewyddu rhydd-ddaliad"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "sourceMatchFundingUnknown",
+      "name": "KwIZMN",
+      "value": {
+        "name": "sourceMatchFundingUnknown",
+        "conditions": [
+          {
+            "field": {
+              "name": "BykoQQ",
+              "type": "CheckboxesField",
+              "display": "In-kind and cash match funding"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "none",
+              "display": "Not sure"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false
+}
