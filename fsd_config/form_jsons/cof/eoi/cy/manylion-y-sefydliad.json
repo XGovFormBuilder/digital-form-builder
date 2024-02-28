@@ -1,0 +1,318 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/manylion-y-sefydliad",
+  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "pages": [
+    {
+      "title": "Manylion y sefydliad",
+      "path": "/manylion-y-sefydliad",
+      "components": [
+        {
+          "name": "rclykK",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><b>Yn yr adran hon, byddwn yn eich holi am y canlynol:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>enw'r sefydliad</li>\n  <li>cyfeiriad y sefydliad</li>\n  <li>sut y caiff eich sefydliad ei ddosbarthu</li>\n  <li>a yw eich sefydliad yn destun unrhyw gamau ansolfedd</li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/enwaur-sefydliad"
+        }
+      ]
+    },
+    {
+      "path": "/enwaur-sefydliad",
+      "title": "Enwau'r sefydliad",
+      "components": [
+        {
+          "name": "SMRWjl",
+          "options": {
+            "hideTitle": false
+          },
+          "type": "TextField",
+          "hint": "Mae'n rhaid i hwn gyfateb i enw cyfreithiol cofrestredig eich sefydliad.",
+          "title": "Enwau'r sefydliad",
+          "schema": {}
+        },
+        {
+          "name": "SxkwhF",
+          "options": {},
+          "type": "YesNoField",
+          "title": "A oes gan eich sefydliad unrhyw enwau amgen?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/cyfeiriad-y-sefydliad"
+        },
+        {
+          "path": "/enwau-amgen-eich-sefydliad",
+          "condition": "DaVyIg"
+        }
+      ],
+      "section": "eAEGhH"
+    },
+    {
+      "path": "/cyfeiriad-y-sefydliad",
+      "title": "Cyfeiriad y sefydliad",
+      "components": [
+        {
+          "name": "OpeSdM",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "UkAddressField",
+          "title": "Cyfeiriad y sefydliad",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/sut-y-caiff-eich-sefydliad-ei-ddosbarthu"
+        }
+      ],
+      "section": "eAEGhH"
+    },
+    {
+      "path": "/sut-y-caiff-eich-sefydliad-ei-ddosbarthu",
+      "title": "Sut y caiff eich sefydliad ei ddosbarthu",
+      "components": [
+        {
+          "name": "Fepkam",
+          "options": {},
+          "type": "Details",
+          "title": "Help gyda'r math o sefydliad",
+          "content": "<p><a href=\"https://www.gov.uk/government/publications/community-ownership-fund-prospectus/community-ownership-fund-prospectus--3#whocanapply\" class=\"govuk-link\">Gweler Adran 6 o brosbectws y Gronfa Perchnogaeth Gymunedol am restr o'r sefydliadau cymwys</a>. Os nad yw eich sefydliad wedi cofrestru fel cwmni neu elusen eto, dewiswch 'ddim yn gorfforedig eto'</p>",
+          "schema": {}
+        },
+        {
+          "name": "uYiLsv",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "Dosbarthiad y sefydliad",
+          "hint": "Select one",
+          "list": "CCbnpc",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-yw-eich-sefydliad-yn-destun-unrhyw-gamau-ansolfedd"
+        }
+      ],
+      "section": "eAEGhH"
+    },
+    {
+      "path": "/a-yw-eich-sefydliad-yn-destun-unrhyw-gamau-ansolfedd",
+      "title": "A yw eich sefydliad yn destun unrhyw gamau ansolfedd?",
+      "components": [
+        {
+          "name": "jGoBGp",
+          "options": {},
+          "type": "Details",
+          "title": "Help with insolvency",
+          "content": "<p class=\"govuk-body\">Bydd sefydliad yn ansolfent os na all dalu ei ddyledion. Gallai hyn olygu naill ai:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>nid yw'n gallu talu biliau pan fyddant yn ddyledus</li>\n  <li>mae ganddo fwy o rwymedigaethau nag asedau ar ei fantolen</li>\n</ul>",
+          "schema": {}
+        },
+        {
+          "name": "NcQSbU",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A yw eich sefydliad yn destun unrhyw gamau ansolfedd?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "eAEGhH"
+    },
+    {
+      "path": "/enwau-amgen-eich-sefydliad",
+      "title": "Enwau amgen eich sefydliad",
+      "components": [
+        {
+          "name": "qkNYMP",
+          "options": {},
+          "type": "TextField",
+          "title": "Enw amgen 1",
+          "schema": {}
+        },
+        {
+          "name": "mVxvon",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Enw amgen 2",
+          "schema": {}
+        },
+        {
+          "name": "DaIVVm",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Enw amgen 3",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/cyfeiriad-y-sefydliad"
+        }
+      ],
+      "section": "eAEGhH"
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "section": "eAEGhH",
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Dosbarthiad y sefydliad",
+      "name": "CCbnpc",
+      "type": "string",
+      "items": [
+        {
+          "text": "Sefydliad corfforedig elusennol",
+          "value": "Sefydliad corfforedig elusennol"
+        },
+        {
+          "text": "Cydweithrediaeth (er enghraifft, cymdeithas budd cymunedol)",
+          "value": "Cydweithrediaeth (er enghraifft, cymdeithas budd cymunedol)"
+        },
+        {
+          "text": "Cwmni buddiannau cymunedol",
+          "value": "Cwmni buddiannau cymunedol"
+        },
+        {
+          "text": "Cwmni cyfyngedig drwy warant",
+          "value": "Cwmni cyfyngedig drwy warant"
+        },
+        {
+          "text": "Sefydliad corfforedig elusennol yn yr Alban",
+          "value": "Sefydliad corfforedig elusennol yn yr Alban"
+        },
+        {
+          "text": "Cynghorau plwyf, tref a chymuned",
+          "value": "Cynghorau plwyf, tref a chymuned"
+        },
+        {
+          "text": "Porthladd ymddiriedolaeth",
+          "value": "Porthladd ymddiriedolaeth"
+        },
+        {
+          "text": "Ddim yn gorfforedig eto",
+          "value": "Ddim yn gorfforedig eto"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "eAEGhH",
+      "title": "Manylion y sefydliad"
+    },
+    {
+      "name": "McpePG",
+      "title": "About your asset"
+    },
+    {
+      "name": "seZPbt",
+      "title": "Your funding request"
+    },
+    {
+      "name": "IEwDfr",
+      "title": "Development support provider"
+    },
+    {
+      "name": "mXKUVl",
+      "title": "Community Ownership Fund - Expression of interest"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "orgNameAltTrue",
+      "name": "DaVyIg",
+      "value": {
+        "name": "orgNameAltTrue",
+        "conditions": [
+          {
+            "field": {
+              "name": "SxkwhF",
+              "type": "YesNoField",
+              "display": "Does your organisation have any alternative names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "orgNameAltFalse",
+      "name": "AlHCII",
+      "value": {
+        "name": "orgNameAltFalse",
+        "conditions": [
+          {
+            "field": {
+              "name": "SxkwhF",
+              "type": "YesNoField",
+              "display": "Does your organisation have any alternative names?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false
+}

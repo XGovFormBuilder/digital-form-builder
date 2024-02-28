@@ -1,0 +1,568 @@
+{
+  "metadata": {
+    "isWelsh": true
+  },
+  "startPage": "/about-your-asset",
+  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "pages": [
+    {
+      "path": "/about-your-asset",
+      "title": "About your asset",
+      "components": [
+        {
+          "name": "eadDjo",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\"><b>Yn yr adran hon, byddwn yn eich holi am y canlynol:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>y sefydliad sy'n rhedeg yr ased</li>\n  <li>y math o ased</li>\n  <li>if the asset is based in the UK</li>\n  <li>cyfeiriad yr ased</li>\n  <li>a yw'r ased mewn perygl</li>\n  <li>beth yw'r perygl i'r ased (os yw'n gymwys)</li>\n  <li>a yw'r ased erioed wedi cael ei ddefnyddio gan y gymuned neu wedi bod yn arwyddocaol iddi?</li>\n  <li>a ydych eisoes yn berchen ar yr ased</li>\n  <li>a yw'r ased yn perthyn i awdurdod cyhoeddus (os yw'n gymwys)</li>\n  <li>pa gam rydych wedi'i gyrraedd yn y broses o brynu'r ased (os yw'n gymwys)</li>\n</ul>\n\n\n\n\n\n\n \n\n\n\n\n\n ",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-yw-eich-sefydliad-yn-bwriadu-cael-y-cyllid-a-rhedeg-y-prosiect"
+        }
+      ]
+    },
+    {
+      "path": "/a-yw-eich-sefydliad-yn-bwriadu-cael-y-cyllid-a-rhedeg-y-prosiect",
+      "title": "A yw eich sefydliad yn bwriadu cael y cyllid a rhedeg y prosiect?",
+      "components": [
+        {
+          "name": "cjbAvi",
+          "options": {},
+          "type": "Para",
+          "content": "Rydym yn disgwyl i sefydliadau sy'n gwneud cais am gyllid o'r Gronfa Perchnogaeth Gymunedol reoli'r gwaith o redeg yr ased o ddydd i ddydd. Bydd hyn yn ein helpu i wybod y gall y sefydliad sy'n gwneud y cais redeg busnes cynaliadwy yn nwylo'r gymuned.",
+          "schema": {}
+        },
+        {
+          "name": "eEaDGz",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A yw eich sefydliad yn bwriadu cael y cyllid a rhedeg y prosiect?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/y-math-o-ased"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/y-math-o-ased",
+      "title": "Y math o ased",
+      "components": [
+        {
+          "name": "Ihjjyi",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "Y math o ased",
+          "hint": "Dewiswch y brif ffordd y caiff yr ased ei ddefnyddio. Er enghraifft, os mai theatr ydyw sydd â chaffi hefyd, dewiswch 'theatr'.",
+          "list": "dXSWRl",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-ywr-ased-yn-y-du"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/a-ywr-ased-yn-y-du",
+      "title": "A yw'r ased yn y DU? ",
+      "components": [
+        {
+          "name": "zurxox",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A yw'r ased yn y DU? ",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/cyfeiriad-yr-ased"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/cyfeiriad-yr-ased",
+      "title": "Cyfeiriad yr ased",
+      "components": [
+        {
+          "name": "dnqIdW",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "UkAddressField",
+          "title": "Cyfeiriad yr ased"
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-ywr-ased-mewn-perygl"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/a-ywr-ased-mewn-perygl",
+      "title": "A yw'r ased mewn perygl?",
+      "components": [
+        {
+          "name": "cSmbth",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Mae hyn yn golygu bod perygl y bydd y gymuned yn colli'r ased o ganlyniad i:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>benderfyniad i gau neu les yn dod i ben</li>\n  <li>esgeulustod neu gyflwr adfeiliedig</li>\n  <li>model busnes cyfredol anghynaliadwy</li>\n  <li>ar werth</li>\n  <li>wedi'i restru i'w waredu</li>\n  <li>yn rhan o broses trosglwyddo asedau cymunedol</li>\n</ul>",
+          "schema": {}
+        },
+        {
+          "name": "lLQmNb",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Is the asset at risk?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/beth-ywr-perygl-ir-ased",
+          "condition": "VcnVNa"
+        },
+        {
+          "path": "/a-ywr-ased-erioed-wedi-cael-ei-ddefnyddio-gan-y-gymuned-neu-wedi-bod-yn-arwyddocaol-iddi"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/beth-ywr-perygl-ir-ased",
+      "title": "Beth yw'r perygl i'r ased?",
+      "components": [
+        {
+          "name": "ilMbMH",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Beth yw'r perygl i'r ased?",
+          "hint": "Dewiswch bob un sy'n berthnasol",
+          "list": "ahxOlj",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-ywr-ased-erioed-wedi-cael-ei-ddefnyddio-gan-y-gymuned-neu-wedi-bod-yn-arwyddocaol-iddi"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/a-ywr-ased-erioed-wedi-cael-ei-ddefnyddio-gan-y-gymuned-neu-wedi-bod-yn-arwyddocaol-iddi",
+      "title": "A yw'r ased erioed wedi cael ei ddefnyddio gan y gymuned neu wedi bod yn arwyddocaol iddi?",
+      "components": [
+        {
+          "name": "jxrAoy",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Gallai defnydd/arwyddocâd cymunedol ymwneud â'r canlynol (ond heb fod yn gyfyngedig iddynt):</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>canolfannau cymunedol</li>\n<li>siopau</li>\n<li>cyfleusterau chwaraeon a hamdden</li>\n<li>tafarndai a bwytai</li>\n<li>adeiladau diwylliannol</li>\n<li>adeiladau treftadaeth</li>\n</ul>\n<p class=\"govuk-body\">Gallai'r ased fod wedi cael ei ddefnyddio gan y gymuned unrhyw bryd. <br><br>Hyd yn oed os ydych yn bwriadu adleoli neu ailadeiladu asedau a ddefnyddiwyd gan y gymuned yn flaenorol, dewiswch 'ydy'. </p>\n",
+          "schema": {}
+        },
+        {
+          "name": "fBhSNc",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A yw'r ased erioed wedi cael ei ddefnyddio gan y gymuned neu wedi bod yn arwyddocaol iddi?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-ydych-eisoes-yn-berchen-ar-yr-ased"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/a-ydych-eisoes-yn-berchen-ar-yr-ased",
+      "title": "A ydych eisoes yn berchen ar yr ased?",
+      "components": [
+        {
+          "name": "cPcZos",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "A ydych eisoes yn berchen ar yr ased?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/a-ywr-ased-yn-perthyn-i-awdurdod-cyhoeddus",
+          "condition": "TusZnm"
+        },
+        {
+          "path": "/summary",
+          "condition": ""
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/a-ywr-ased-yn-perthyn-i-awdurdod-cyhoeddus",
+      "title": "A yw'r ased yn perthyn i awdurdod cyhoeddus?",
+      "components": [
+        {
+          "name": "jOpXfi",
+          "options": {},
+          "type": "Details",
+          "title": "Help gydag awdurdod cyhoeddus",
+          "content": "<p class=\"govuk-body\">Sefydliad llywodraethol yw awdurdod cyhoeddus, megis cyngor lleol.<a aria-label=\"Prospectus\" href=\"https://www.gov.uk/government/publications/community-ownership-fund-prospectus/community-ownership-fund-prospectus--3#publiclyowned\">Gweler adran 8 o'r prosbectws i gael gwybodaeth am ddefnyddio cyllid o'r Gronfa Perchnogaeth Gymunedol ar gyfer asedau dan berchnogaeth gyhoeddus.</a>\n</p>",
+          "schema": {}
+        },
+        {
+          "name": "XuAyrs",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "A yw'r ased yn perthyn i awdurdod cyhoeddus?",
+          "list": "public-authority-list",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/dewiswch-yr-opsiwn-syn-cynrychiolir-cam-rydych-wedii-gyrraedd-yn-y-broses-o-brynur-ased-yn-y-ffordd-orau"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/dewiswch-yr-opsiwn-syn-cynrychiolir-cam-rydych-wedii-gyrraedd-yn-y-broses-o-brynur-ased-yn-y-ffordd-orau",
+      "title": "Dewiswch yr opsiwn sy'n cynrychioli'r cam rydych wedi'i gyrraedd yn y broses o brynu'r ased yn y ffordd orau",
+      "components": [
+        {
+          "name": "oDhZlw",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "title": "Cam prynu'r ased",
+          "list": "VCaulN",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "McpePG"
+    },
+    {
+      "path": "/summary",
+      "title": "Gwiriwch eich atebion",
+      "components": [],
+      "next": [],
+      "section": "McpePG",
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Awdurdod Cyhoeddus",
+      "name": "public-authority-list",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ydy, cyngor tref, plwyf neu gymuned",
+          "value": "Ydy, cyngor tref, plwyf neu gymuned"
+        },
+        {
+          "text": "Ydy, math arall o awdurdod cyhoeddus",
+          "value": "Ydy, math arall o awdurdod cyhoeddus"
+        },
+        {
+          "text": "Nac ydy, nid yw'n perthyn i awdurdod cyhoeddus",
+          "value": "Nac ydy, nid yw'n perthyn i awdurdod cyhoeddus"
+        }
+      ]
+    },
+    {
+      "title": "Y math o ased",
+      "name": "dXSWRl",
+      "type": "string",
+      "items": [
+        {
+          "text": "Canolfan gymunedol",
+          "value": "Canolfan gymunedol"
+        },
+        {
+          "text": "Sinema",
+          "value": "Sinema"
+        },
+        {
+          "text": "Oriel",
+          "value": "Oriel"
+        },
+        {
+          "text": "Amgueddfa",
+          "value": "Amgueddfa"
+        },
+        {
+          "text": "Lleoliad cerddoriaeth",
+          "value": "Lleoliad cerddoriaeth"
+        },
+        {
+          "text": "Parc",
+          "value": "Parc"
+        },
+        {
+          "text": "Adeilad swyddfa bost",
+          "value": "Adeilad swyddfa bost"
+        },
+        {
+          "text": "Tafarn",
+          "value": "Tafarn"
+        },
+        {
+          "text": "Siop",
+          "value": "Siop"
+        },
+        {
+          "text": "Cyfleuster chwaraeon neu hamdden",
+          "value": "Cyfleuster chwaraeon neu hamdden"
+        },
+        {
+          "text": "Theatr",
+          "value": "Theatr"
+        },
+        {
+          "text": "Arall",
+          "value": "Arall"
+        }
+      ]
+    },
+    {
+      "title": "Perygl i'r ased",
+      "name": "ahxOlj",
+      "type": "string",
+      "items": [
+        {
+          "text": "Penderfyniad i gau neu les yn dod i ben",
+          "value": "Penderfyniad i gau neu les yn dod i ben"
+        },
+        {
+          "text": "Esgeulustod neu gyflwr adfeiliedig",
+          "value": "Esgeulustod neu gyflwr adfeiliedig"
+        },
+        {
+          "text": "Model busnes cyfredol anghynaliadwy",
+          "value": "Model busnes cyfredol anghynaliadwy"
+        },
+        {
+          "text": "Gwerthu",
+          "value": "Gwerthu"
+        },
+        {
+          "text": "Wedi'i restru i'w waredu",
+          "value": "Wedi'i restru i'w waredu"
+        },
+        {
+          "text": "Rhan o broses trosglwyddo asedau cymunedol",
+          "value": "Rhan o broses trosglwyddo asedau cymunedol"
+        }
+      ]
+    },
+    {
+      "title": "Cam prynu'r ased",
+      "name": "VCaulN",
+      "type": "string",
+      "items": [
+        {
+          "text": "Ddim yn gwybod pwy yw'r perchennog",
+          "value": "Ddim yn gwybod pwy yw'r perchennog"
+        },
+        {
+          "text": "Yn gwybod pwy yw'r perchennog ond heb gysylltu",
+          "value": "Yn gwybod pwy yw'r perchennog ond heb gysylltu"
+        },
+        {
+          "text": "Trafodaethau ar gam cynnar",
+          "value": "Trafodaethau ar gam cynnar"
+        },
+        {
+          "text": "Trafodaethau ar gam datblygedig",
+          "value": "Trafodaethau ar gam datblygedig"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "eAEGhH",
+      "title": "Organisation details"
+    },
+    {
+      "name": "McpePG",
+      "title": "Ynglŷn â'ch ased"
+    },
+    {
+      "name": "seZPbt",
+      "title": "Your funding request"
+    },
+    {
+      "name": "IEwDfr",
+      "title": "Development support provider"
+    },
+    {
+      "name": "mXKUVl",
+      "title": "Community Ownership Fund - Expression of interest"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "assetRiskTrue",
+      "name": "VcnVNa",
+      "value": {
+        "name": "assetRiskTrue",
+        "conditions": [
+          {
+            "field": {
+              "name": "lLQmNb",
+              "type": "YesNoField",
+              "display": "Is the asset at risk?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "assestRiskFalse",
+      "name": "hfooRj",
+      "value": {
+        "name": "assestRiskFalse",
+        "conditions": [
+          {
+            "field": {
+              "name": "lLQmNb",
+              "type": "YesNoField",
+              "display": "Is the asset at risk?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "assetOwnershipTrue",
+      "name": "evRnmK",
+      "value": {
+        "name": "assetOwnershipTrue",
+        "conditions": [
+          {
+            "field": {
+              "name": "cPcZos",
+              "type": "YesNoField",
+              "display": "Do you already own the asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "assetOwnershipFalse",
+      "name": "TusZnm",
+      "value": {
+        "name": "assetOwnershipFalse",
+        "conditions": [
+          {
+            "field": {
+              "name": "cPcZos",
+              "type": "YesNoField",
+              "display": "Do you already own the asset?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "update-form",
+      "title": "Update form in application store",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false
+}
