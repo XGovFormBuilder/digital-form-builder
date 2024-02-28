@@ -173,7 +173,7 @@
             "hideTitle": true,
             "divider": "Or",
             "behaviour": "exclusive",
-            "behaviourItemValue": "none"
+            "behaviourItemValue": "Not sure"
           },
           "type": "CheckboxesField",
           "title": "Where do you plan to source match funding?",
@@ -415,7 +415,7 @@
         },
         {
           "text": "Not sure",
-          "value": "none",
+          "value": "Not sure",
           "description": ""
         }
       ]
@@ -635,7 +635,7 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "none",
+              "value": "Not sure",
               "display": "Not sure"
             }
           }
