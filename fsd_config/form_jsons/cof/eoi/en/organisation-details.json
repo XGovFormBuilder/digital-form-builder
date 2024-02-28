@@ -19,7 +19,8 @@
         {
           "path": "/organisation-names"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/organisation-names",
@@ -28,7 +29,7 @@
         {
           "name": "SMRWjl",
           "options": {
-            "hideTitle": false
+            "hideTitle": true
           },
           "type": "TextField",
           "hint": "This must match your registered legal organisation name.",
