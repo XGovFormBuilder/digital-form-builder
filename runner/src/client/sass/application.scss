@@ -85,3 +85,19 @@
     }
   }
 }
+
+.govuk-list {
+  &.multi-page li {
+    list-style-type: none;
+    padding-left: 25px;
+    padding-right: 25px;
+    position: relative;
+    &:before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      width: 20px;
+      overflow: hidden;
+    }
+  }
+}
