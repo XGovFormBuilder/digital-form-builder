@@ -121,6 +121,21 @@ const pageSchema = joi.object().keys({
   backLinkFallback: joi.string().optional(),
 });
 
+const startNavigationLinkSchema = joi.object().keys({
+  href: joi.string().required(),
+  labelText: joi.string().required(),
+});
+
+const multiPageSchema = pageSchema.keys({
+  controller: joi.string().valid(["MultiPageController"]),
+  showContinueButton: joi.boolean().default(false),
+  continueButtonText: joi.string().optional(),
+  startButtonNavigation: joi.object().keys({
+    next: startNavigationLinkSchema.optional(),
+    previous: startNavigationLinkSchema.optional(),
+  }),
+});
+
 const toggleableString = joi.alternatives().try(joi.boolean(), joi.string());
 
 const confirmationPageSchema = joi.object({
@@ -285,7 +300,11 @@ export const Schema = joi
     name: localisedString.optional(),
     feedback: feedbackSchema,
     startPage: joi.string().required(),
-    pages: joi.array().required().items(pageSchema).unique("path"),
+    pages: joi
+      .array()
+      .required()
+      .items(joi.alternatives().try(pageSchema, multiPageSchema))
+      .unique("path"),
     sections: joi.array().items(sectionsSchema).unique("name").required(),
     conditions: joi.array().items(conditionsSchema).unique("name"),
     lists: joi.array().items(listSchema).unique("name"),
