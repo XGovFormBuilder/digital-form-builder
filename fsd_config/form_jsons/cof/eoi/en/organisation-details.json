@@ -24,7 +24,7 @@
     },
     {
       "path": "/organisation-names",
-      "title": "Organisation names",
+      "title": "Organisation name",
       "components": [
         {
           "name": "SMRWjl",
