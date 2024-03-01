@@ -78,7 +78,8 @@
           "name": "fZAMFv",
           "options": {
             "prefix": "£",
-            "hideTitle": true
+            "hideTitle": true,
+            "customValidationMessage": "How much capital funding are you requesting from COF? must be 2000000 or less"
           },
           "type": "NumberField",
           "title": "How much capital funding are you requesting from COF?",
