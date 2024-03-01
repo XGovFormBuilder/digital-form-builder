@@ -119,6 +119,7 @@ const pageSchema = joi.object().keys({
   repeatField: joi.string().optional(),
   options: joi.object().optional(),
   backLinkFallback: joi.string().optional(),
+  continueButtonText: joi.string().optional(),
 });
 
 const startNavigationLinkSchema = joi.object().keys({
@@ -127,10 +128,9 @@ const startNavigationLinkSchema = joi.object().keys({
 });
 
 const multiPageSchema = pageSchema.keys({
-  controller: joi.string().valid(["MultiPageController"]),
+  controller: joi.string().valid("MultiPageController"),
   showContinueButton: joi.boolean().default(false),
-  continueButtonText: joi.string().optional(),
-  startButtonNavigation: joi.object().keys({
+  startPageNavigation: joi.object().keys({
     next: startNavigationLinkSchema.optional(),
     previous: startNavigationLinkSchema.optional(),
   }),

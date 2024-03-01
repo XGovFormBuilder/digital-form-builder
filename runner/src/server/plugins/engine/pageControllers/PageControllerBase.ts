@@ -126,6 +126,7 @@ export class PageControllerBase {
     startPage?: HapiResponseObject;
     backLink?: string;
     phaseTag?: string | undefined;
+    continueButtonText?: string;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -169,6 +170,7 @@ export class PageControllerBase {
       showTitle,
       components,
       errors,
+      continueButtonText: this.pageDef.continueButtontext,
       isStartPage: false,
     };
   }
