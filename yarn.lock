@@ -8602,7 +8602,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-tsdoc: ^0.2.14
-    govuk-frontend: ^4.3.1
+    govuk-frontend: ^5.2.0
     hmpo-components: ^5.2.1
     husky: ^4.3.0
     lint-staged: ^10.4.2
@@ -11359,6 +11359,13 @@ __metadata:
   version: 4.5.0
   resolution: "govuk-frontend@npm:4.5.0"
   checksum: 7a999ffb49c2f32f9dc3b0b743b698f8385d39cd0213d8aea1d7f2dfcc9f035f597030faac34659e8981d3c4a596379e99f5ea8c4d088cf486340eeaafdc800d
+  languageName: node
+  linkType: hard
+
+"govuk-frontend@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "govuk-frontend@npm:5.2.0"
+  checksum: aabf67174acdd77dea3033612999c99b501dce2bf20dd01a4d45c2de2e157694334c5c1fb2868dd9e0049f385deed824c96385898adfb5d11e2e3a55787f93fe
   languageName: node
   linkType: hard
 
