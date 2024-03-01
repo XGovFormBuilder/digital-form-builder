@@ -48,8 +48,12 @@ export class QueueStatusService extends StatusService {
     const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
     if (firstWebhook) {
       if (!queueReference) {
+        const data = { ...formData };
+        if (!firstWebhook.outputData.sendAdditionalPayMetadata) {
+          delete data?.metadata?.pay;
+        }
         const queueResults = await this.queueService?.sendToQueue(
-          formData,
+          data,
           firstWebhook.outputData.url,
           firstWebhook.outputData.allowRetry
         );
