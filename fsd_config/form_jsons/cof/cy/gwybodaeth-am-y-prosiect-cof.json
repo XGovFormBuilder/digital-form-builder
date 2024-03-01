@@ -13,7 +13,7 @@
           "name": "PuuaRA",
           "options": {},
           "type": "Para",
-          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cyllid blaenorol y Gronfa Perchnogaeth Gymunedol a dderbyniwyd (os yw'n gymwys)</li>\n<li>enw'r prosiect</li>\n<li>sut mae'r ased yn cael ei ddefnyddio</li>\n<li>crynodeb o'r prosiect    </li>\n<li>planned activities/services</li>\n<li>cyfeiriad yr ased</li>\n<li>etholaeth yr ased</li>\n<li>Ardal ased y cyngor</li>\n</ul>\n"
+          "content": "<label class=\"govuk-!-font-weight-bold\">Yn yr adran hon, byddwn yn holi ynghylch:\n</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>cyllid blaenorol y Gronfa Perchnogaeth Gymunedol a dderbyniwyd (os yw'n gymwys)</li>\n<li>enw'r prosiect</li>\n<li>sut mae'r ased yn cael ei ddefnyddio</li>\n<li>crynodeb o'r prosiect    </li>\n<li>gweithgareddau/gwasanaethau cynlluniedig</li>\n<li>cyfeiriad yr ased</li>\n<li>etholaeth yr ased</li>\n<li>Ardal ased y cyngor</li>\n</ul>\n"
         }
       ],
       "next": [
