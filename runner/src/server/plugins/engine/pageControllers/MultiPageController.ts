@@ -10,7 +10,7 @@ export class MultiPageController extends PageController {
     const { showContinueButton, startPageNavigation } = this.pageDef;
     return {
       ...viewModel,
-      continueButton: showContinueButton && this.pageDef.continueButtonText,
+      continueButtonText: showContinueButton && this.pageDef.continueButtonText,
       prevButton: startPageNavigation.previous,
       nextButton: startPageNavigation.next,
       isMultiPageController: true,
