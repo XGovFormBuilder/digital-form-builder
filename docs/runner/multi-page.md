@@ -34,7 +34,7 @@ These are the multi-page specific properties which are either required or can be
 
 `startPageNavigation` is a required property which is used to populate the pagination at the bottom of the page.
 
-It has a `prev` and `next` property which are used to populate each link, however both of these properties are optional in case a previous or next link cannot be specified.
+It has a `previous` and `next` property which are used to populate each link, however both of these properties are optional in case a previous or next link cannot be specified.
 
 #### showContinueButton - optional
 
