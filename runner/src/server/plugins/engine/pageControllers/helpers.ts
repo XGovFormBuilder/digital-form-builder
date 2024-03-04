@@ -10,7 +10,6 @@ import { PageControllerBase } from "./PageControllerBase";
 import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
 import { Page } from "@xgovformbuilder/model";
 import { UploadPageController } from "server/plugins/engine/pageControllers/UploadPageController";
-import { RedirectPageController } from "server/plugins/engine/pageControllers/RedirectPageController";
 import { MultiPageController } from "server/plugins/engine/pageControllers/MultiPageController";
 
 const PageControllers = {
@@ -23,7 +22,6 @@ const PageControllers = {
   PageControllerBase,
   RepeatingFieldPageController,
   UploadPageController,
-  RedirectPageController,
   MultiPageController,
 };
 
