@@ -1020,6 +1020,20 @@
               "value": "CLG",
               "display": "CLG"
             }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Type of organisation"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "trust-port",
+              "display": "trust-port"
+            }
           }
         ]
       }
