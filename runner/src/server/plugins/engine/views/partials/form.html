@@ -27,10 +27,7 @@
       {% if continueButtonText %}
         {{ govukButton({ attributes: { is: "submit" }, text: continueButtonText })}}
       {% endif %}
-        {{ govukPagination({
-          previous: prevButton,
-          next: nextButton
-        }) }}
+        {{ govukPagination(startPageNavigation) }}
     {% else %}
       {% if page.isRepeatingFieldPageController and page.isSamePageDisplayMode %}
         {% if details.rows.length %}

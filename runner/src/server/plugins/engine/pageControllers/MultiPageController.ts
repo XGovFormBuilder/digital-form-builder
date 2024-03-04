@@ -10,25 +10,10 @@ export class MultiPageController extends PageController {
   getViewModel(formData: FormData, errors?: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
     const { showContinueButton, startPageNavigation } = this.pageDef;
-    if (config.allowUserTemplates) {
-      if (startPageNavigation.previous) {
-        startPageNavigation.previous.labelText = nunjucks.renderString(
-          startPageNavigation.previous.labelText,
-          { ...formData }
-        );
-      }
-      if (startPageNavigation.next) {
-        startPageNavigation.next.labelText = nunjucks.renderString(
-          startPageNavigation.next.labelText,
-          { ...formData }
-        );
-      }
-    }
     return {
       ...viewModel,
       continueButtonText: showContinueButton && this.pageDef.continueButtonText,
-      prevButton: startPageNavigation.previous,
-      nextButton: startPageNavigation.next,
+      startPageNavigation,
       isMultiPageController: true,
     };
   }
