@@ -1,3 +1,5 @@
+{% from "pagination/macro.njk" import govukPagination %}
+{% from "button/macro.njk" import govukButton %}
 {% extends 'layout.html' %}
 
 {% block templateImports %}
@@ -18,15 +20,13 @@
 
     {% include "partials/heading.html" %}
 
-    {% if page.hasNext %}
-      {% include "partials/form.html" %}
-    {% else %}
-      {{ componentList(components) }}
-      {{ govukPagination({
-        previous: prevButton,
-        next: nextButton
-      }) }}
+    {{ componentList(components) }}
+
+    {% if continueButtonText %}
+      {{ govukButton({ attributes: { is: "submit" }, text: continueButtonText })}}
     {% endif %}
+
+    {{ govukPagination(startPageNavigation) }}
 
     <pre>{{ value | dump(2) | safe }}</pre>
   </div>

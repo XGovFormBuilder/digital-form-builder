@@ -43,7 +43,10 @@ suite(
         {},
         formModel
       );
-      response = await server.render("index", vmWithoutContinueButton);
+      response = await server.render(
+        "multi-start-page",
+        vmWithoutContinueButton
+      );
 
       $ = cheerio.load(response);
       expect($(".govuk-main-wrapper button.govuk-button").length).to.equal(0);
@@ -56,7 +59,7 @@ suite(
       let formModel = new FormModel(formDef, {});
       const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithContinueButton = pageController.getViewModel({}, formModel);
-      response = await server.render("index", vmWithContinueButton);
+      response = await server.render("multi-start-page", vmWithContinueButton);
 
       $ = cheerio.load(response);
       expect($(".govuk-main-wrapper .govuk-button")).to.exist();
@@ -70,7 +73,7 @@ suite(
       let formModel = new FormModel(formDef, {});
       const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithCustomButton = pageController.getViewModel({}, formModel);
-      response = await server.render("index", vmWithCustomButton);
+      response = await server.render("multi-start-page", vmWithCustomButton);
 
       $ = cheerio.load(response);
       expect($(".govuk-main-wrapper button.govuk-button").text()).to.contain(
@@ -91,7 +94,7 @@ suite(
       let formModel = new FormModel(formDef, {});
       const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithPrevLink = pageController.getViewModel({}, formModel);
-      response = await server.render("index", vmWithPrevLink);
+      response = await server.render("multi-start-page", vmWithPrevLink);
 
       $ = cheerio.load(response);
       expect(
@@ -117,7 +120,7 @@ suite(
       let formModel = new FormModel(formDef, {});
       const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithNextLink = pageController.getViewModel({}, formModel);
-      response = await server.render("index", vmWithNextLink);
+      response = await server.render("multi-start-page", vmWithNextLink);
 
       $ = cheerio.load(response);
       expect(

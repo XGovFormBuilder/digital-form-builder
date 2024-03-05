@@ -22,7 +22,7 @@ const PageControllers = {
   PageControllerBase,
   RepeatingFieldPageController,
   UploadPageController,
-  MultiStartPageController: MultiStartPageController,
+  MultiStartPageController,
 };
 
 export const controllerNameFromPath = (filePath: string) => {
