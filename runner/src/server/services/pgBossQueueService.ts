@@ -1,6 +1,6 @@
 import { QueueService } from "server/services/QueueService";
 type QueueResponse = [number | string, string | undefined];
-import PgBoss from "pg-boss";
+import PgBoss, { Job, JobWithMetadata } from "pg-boss";
 import config from "server/config";
 
 type QueueReferenceApiResponse = {
@@ -41,13 +41,25 @@ export class PgBossQueueService extends QueueService {
    * If a reference number for `jobId` exists, the response body must be {@link QueueReferenceApiResponse}.
    * This request will happen once, and timeout in 2s.
    */
-  async getReturnRef(jobId: string): Promise<string> {
+  async getReturnRef(
+    jobId: string
+  ): Promise<{
+    reference: string;
+    state: JobWithMetadata["state"] | "JOB_NOT_FOUND";
+  }> {
     let job;
 
     try {
       job = await this.queue.getJobById(jobId);
     } catch (e) {
-      return "UNKNOWN";
+      this.logger.error(
+        ["PgBossQueueService", "getReturnRef"],
+        `jobId: ${jobId} JOB_NOT_FOUND`
+      );
+      return {
+        reference: "UNKNOWN",
+        state: "JOB_NOT_FOUND",
+      };
     }
 
     this.logger.info(
@@ -55,11 +67,18 @@ export class PgBossQueueService extends QueueService {
       `found job ${job.id} with state ${job.state}`
     );
 
-    let reference;
+    let reference = "UNKNOWN";
 
     if (job.state === "completed") {
       const jobOutput = job.output as JobOutput;
       reference = jobOutput?.reference;
+    }
+
+    if (job.state === "failed") {
+      this.logger.info(
+        ["PgBossQueueService", "getReturnRef"],
+        `${jobId} failed to be processed by webhook. Returning UNKNOWN`
+      );
     }
 
     if (!reference) {
@@ -68,7 +87,11 @@ export class PgBossQueueService extends QueueService {
         `${jobId} was ${job.state} but the job output did not contain reference. Returning UNKNOWN`
       );
     }
-    return reference ?? "UNKNOWN";
+
+    return {
+      reference,
+      state: job.state,
+    };
   }
 
   async sendToQueue(
@@ -119,23 +142,26 @@ export class PgBossQueueService extends QueueService {
 
   async pollForRef(jobId: string): Promise<string | void> {
     let timeElapsed = 0;
-
     return new Promise(async (resolve, reject) => {
-      const reference = await this.getReturnRef(jobId);
-      if (reference && reference !== "UNKNOWN") {
-        resolve(reference);
+      const initialAttempt = await this.getReturnRef(jobId);
+      if (
+        initialAttempt.state === "completed" ||
+        initialAttempt.state === "failed"
+      ) {
+        resolve(initialAttempt.reference);
       }
 
       const pollInterval = setInterval(async () => {
         try {
-          const reference = await this.getReturnRef(jobId);
-          if (reference && reference !== "UNKNOWN") {
+          const { reference, state } = await this.getReturnRef(jobId);
+          if (state === "completed" || state === "failed") {
+            // resolve or "exit" this loop when the job has completed or failed (i.e. do not keep polling)
             clearInterval(pollInterval);
             resolve(reference);
           }
           if (timeElapsed >= this.pollingTimeout) {
             this.logger.info(
-              `jobId ${jobId} took ${timeElapsed}. Polling timeout has lapsed (${this.pollingTimeout})`
+              `jobId ${jobId} took ${timeElapsed} to reach completed or failed. Polling timeout has lapsed (${this.pollingTimeout})`
             );
             clearInterval(pollInterval);
             resolve();
