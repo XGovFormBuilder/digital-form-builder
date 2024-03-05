@@ -1,0 +1,48 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "sVKKuL",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">This is page 1</p>"
+        }
+      ],
+      "startPageNavigation": {},
+      "next": [{ "path": "/second-page" }],
+      "controller": "MultiStartPageController"
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [
+        {
+          "name": "HDgwZU",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">This is page 2</p>"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
+}

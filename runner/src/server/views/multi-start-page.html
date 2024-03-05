@@ -1,0 +1,34 @@
+{% from "pagination/macro.njk" import govukPagination %}
+{% from "button/macro.njk" import govukButton %}
+{% extends 'layout.html' %}
+
+{% block templateImports %}
+{{ super() }}
+{% endblock %}}
+
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "partials/components.html" import componentList with context %}
+
+{% block content %}
+
+{% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-{{gridSize}}">
+    {% if errors %}
+    {{ govukErrorSummary(errors) }}
+    {% endif %}
+
+    {% include "partials/heading.html" %}
+
+    {{ componentList(components) }}
+
+    {% if continueButtonText %}
+      {{ govukButton({ attributes: { is: "submit" }, text: continueButtonText })}}
+    {% endif %}
+
+    {{ govukPagination(startPageNavigation) }}
+
+    <pre>{{ value | dump(2) | safe }}</pre>
+  </div>
+</div>
+{% endblock %}
