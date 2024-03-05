@@ -1,3 +1,6 @@
 $govuk-global-styles: true;
-
-@import "../../../node_modules/govuk-frontend/dist/govuk/all.scss";
+$govuk-new-typography-scale: true;
+.govuk-header__logotype {
+    fill:white;
+}
+@import "../../../node_modules/govuk-frontend/dist/govuk/all";
