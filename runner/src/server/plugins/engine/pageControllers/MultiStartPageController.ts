@@ -3,7 +3,7 @@ import { PageController } from "./PageController";
 
 export class MultiStartPageController extends PageController {
   get viewName() {
-    return "multi-page";
+    return "multi-start-page";
   }
   getViewModel(formData: FormData, errors?: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);

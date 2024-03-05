@@ -6,7 +6,7 @@ import { FormModel } from "src/server/plugins/engine/models";
 import createServer from "src/server";
 import cheerio from "cheerio";
 import { MultiStartPageController } from "../../../../../../src/server/plugins/engine/pageControllers/MultiStartPageController";
-const form = require("./../../../multi-page.test.json");
+const form = require("../../../multi-start-page.test.json");
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -22,7 +22,7 @@ suite(
 
     before(async () => {
       server = await createServer({
-        formFileName: "multi-page.test.json",
+        formFileName: "multi-start-page.test.json",
         formFilePath: path.join(__dirname, "../../../"),
         enforceCsrf: false,
       });
