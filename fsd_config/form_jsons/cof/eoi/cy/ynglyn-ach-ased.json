@@ -111,6 +111,18 @@
       "title": "Cyfeiriad yr ased",
       "components": [
         {
+          "name": "xYnVof",
+          "options": {
+            "hideTitle": false,
+            "required": false,
+            "classes": "govuk-!-width-full",
+            "optionalText": true
+          },
+          "type": "TextField",
+          "title": "Enw'r ased",
+          "schema": {}
+        },
+        {
           "name": "dnqIdW",
           "options": {
             "hideTitle": true
