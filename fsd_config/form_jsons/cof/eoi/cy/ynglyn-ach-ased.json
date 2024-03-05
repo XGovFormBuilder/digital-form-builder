@@ -2,12 +2,13 @@
   "metadata": {
     "isWelsh": true
   },
-  "startPage": "/about-your-asset",
-  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "startPage": "/ynglyn-a-ch-ased",
+  "name": "Gwneud cais am ddatganiad o ddiddordeb mewn gwneud cais i'r Gronfa Perchnogaeth Gymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
     {
-      "path": "/about-your-asset",
-      "title": "About your asset",
+      "path": "/ynglyn-a-ch-ased",
+      "title": "Ynglŷn â'ch ased",
       "components": [
         {
           "name": "eadDjo",
@@ -21,7 +22,8 @@
         {
           "path": "/a-yw-eich-sefydliad-yn-bwriadu-cael-y-cyllid-a-rhedeg-y-prosiect"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/a-yw-eich-sefydliad-yn-bwriadu-cael-y-cyllid-a-rhedeg-y-prosiect",

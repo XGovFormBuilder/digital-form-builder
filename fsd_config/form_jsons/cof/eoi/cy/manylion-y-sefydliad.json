@@ -3,7 +3,8 @@
     "isWelsh": true
   },
   "startPage": "/manylion-y-sefydliad",
-  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "name": "Gwneud cais am ddatganiad o ddiddordeb mewn gwneud cais i'r Gronfa Perchnogaeth Gymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
     {
       "title": "Manylion y sefydliad",
@@ -21,7 +22,8 @@
         {
           "path": "/enwaur-sefydliad"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/enwaur-sefydliad",
@@ -99,7 +101,7 @@
           },
           "type": "RadiosField",
           "title": "Dosbarthiad y sefydliad",
-          "hint": "Select one",
+          "hint": "Dewiswch un opsiwn",
           "list": "CCbnpc",
           "schema": {},
           "values": {
@@ -122,7 +124,7 @@
           "name": "jGoBGp",
           "options": {},
           "type": "Details",
-          "title": "Help with insolvency",
+          "title": "Help gydag ansolfedd",
           "content": "<p class=\"govuk-body\">Bydd sefydliad yn ansolfent os na all dalu ei ddyledion. Gallai hyn olygu naill ai:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>nid yw'n gallu talu biliau pan fyddant yn ddyledus</li>\n  <li>mae ganddo fwy o rwymedigaethau nag asedau ar ei fantolen</li>\n</ul>",
           "schema": {}
         },
