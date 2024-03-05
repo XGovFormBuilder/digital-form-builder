@@ -15,7 +15,7 @@
       ],
       "startPageNavigation": {},
       "next": [{ "path": "/second-page" }],
-      "controller": "MultiPageController"
+      "controller": "MultiStartPageController"
     },
     {
       "path": "/second-page",

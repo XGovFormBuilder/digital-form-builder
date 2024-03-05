@@ -5,7 +5,7 @@ import * as path from "path";
 import { FormModel } from "src/server/plugins/engine/models";
 import createServer from "src/server";
 import cheerio from "cheerio";
-import { MultiPageController } from "../../../../../../src/server/plugins/engine/pageControllers/MultiPageController";
+import { MultiStartPageController } from "../../../../../../src/server/plugins/engine/pageControllers/MultiStartPageController";
 const form = require("./../../../multi-page.test.json");
 
 const { expect } = Code;
@@ -14,7 +14,7 @@ exports.lab = lab;
 const { suite, test, before, after } = lab;
 
 suite(
-  "MultiPageController getViewModel renders buttons and pagination correctly",
+  "MultiStartPageController getViewModel renders buttons and pagination correctly",
   () => {
     let server;
     let response;
@@ -38,7 +38,7 @@ suite(
       firstPage.showContinueButton = false;
       const formDef = { ...form, pages: [firstPage, ...pages] };
       let formModel = new FormModel(formDef, {});
-      const pageController = new MultiPageController(formModel, firstPage);
+      const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithoutContinueButton = pageController.getViewModel(
         {},
         formModel
@@ -54,7 +54,7 @@ suite(
       firstPage.showContinueButton = true;
       const formDef = { ...form, pages: [firstPage, ...pages] };
       let formModel = new FormModel(formDef, {});
-      const pageController = new MultiPageController(formModel, firstPage);
+      const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithContinueButton = pageController.getViewModel({}, formModel);
       response = await server.render("index", vmWithContinueButton);
 
@@ -68,7 +68,7 @@ suite(
       firstPage.continueButtonText = "Apply now";
       const formDef = { ...form, pages: [firstPage, ...pages] };
       let formModel = new FormModel(formDef, {});
-      const pageController = new MultiPageController(formModel, firstPage);
+      const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithCustomButton = pageController.getViewModel({}, formModel);
       response = await server.render("index", vmWithCustomButton);
 
@@ -89,7 +89,7 @@ suite(
       };
       const formDef = { ...form, pages: [firstPage, ...pages] };
       let formModel = new FormModel(formDef, {});
-      const pageController = new MultiPageController(formModel, firstPage);
+      const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithPrevLink = pageController.getViewModel({}, formModel);
       response = await server.render("index", vmWithPrevLink);
 
@@ -115,7 +115,7 @@ suite(
       };
       const formDef = { ...form, pages: [firstPage, ...pages] };
       let formModel = new FormModel(formDef, {});
-      const pageController = new MultiPageController(formModel, firstPage);
+      const pageController = new MultiStartPageController(formModel, firstPage);
       const vmWithNextLink = pageController.getViewModel({}, formModel);
       response = await server.render("index", vmWithNextLink);
 

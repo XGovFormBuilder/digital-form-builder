@@ -1,9 +1,7 @@
 import { FormData, FormSubmissionErrors } from "../types";
 import { PageController } from "./PageController";
-import config from "server/config";
-import nunjucks from "nunjucks";
 
-export class MultiPageController extends PageController {
+export class MultiStartPageController extends PageController {
   get viewName() {
     return "multi-page";
   }
@@ -14,7 +12,7 @@ export class MultiPageController extends PageController {
       ...viewModel,
       continueButtonText: showContinueButton && this.pageDef.continueButtonText,
       startPageNavigation,
-      isMultiPageController: true,
+      isMultiStartPageController: true,
     };
   }
 }

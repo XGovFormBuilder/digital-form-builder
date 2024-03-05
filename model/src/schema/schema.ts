@@ -119,7 +119,6 @@ const pageSchema = joi.object().keys({
   repeatField: joi.string().optional(),
   options: joi.object().optional(),
   backLinkFallback: joi.string().optional(),
-  continueButtonText: joi.string().optional(),
 });
 
 const startNavigationLinkSchema = joi.object().keys({
@@ -127,9 +126,10 @@ const startNavigationLinkSchema = joi.object().keys({
   labelText: joi.string().required(),
 });
 
-const multiPageSchema = pageSchema.keys({
-  controller: joi.string().valid("MultiPageController"),
+const multiStartPageSchema = pageSchema.keys({
+  controller: joi.string().valid("MultiStartPageController"),
   showContinueButton: joi.boolean().default(false),
+  continueButtonText: joi.string().optional(),
   startPageNavigation: joi.object().keys({
     next: startNavigationLinkSchema.optional(),
     previous: startNavigationLinkSchema.optional(),
@@ -303,7 +303,7 @@ export const Schema = joi
     pages: joi
       .array()
       .required()
-      .items(joi.alternatives().try(pageSchema, multiPageSchema))
+      .items(joi.alternatives().try(pageSchema, multiStartPageSchema))
       .unique("path"),
     sections: joi.array().items(sectionsSchema).unique("name").required(),
     conditions: joi.array().items(conditionsSchema).unique("name"),

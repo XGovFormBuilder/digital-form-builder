@@ -23,7 +23,7 @@
   {% if not (components[0].type == "FlashCard") %}
     {% if isStartPage %}
       {{ govukButton({ attributes: { id: "submit" }, text: "Start now", isStartButton: true }) }}
-    {% elseif isMultiPageController %}
+    {% elseif isMultiStartPageController %}
       {% if continueButtonText %}
         {{ govukButton({ attributes: { is: "submit" }, text: continueButtonText })}}
       {% endif %}

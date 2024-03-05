@@ -10,7 +10,7 @@ To convert a standard page into a multi-page start page, you will need to add th
 
 ```json5
 {
-  controller: "MultiPageController",
+  controller: "MultiStartPageController",
   startPageNavigation: {
     previous: {
       labelText: "Previous page",
