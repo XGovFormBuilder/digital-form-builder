@@ -3,7 +3,8 @@
     "isWelsh": true
   },
   "startPage": "/eich-cais-am-gyllid",
-  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "name": "Gwneud cais am ddatganiad o ddiddordeb mewn gwneud cais i'r Gronfa Perchnogaeth Gymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
     {
       "path": "/eich-cais-am-gyllid",
@@ -21,7 +22,8 @@
         {
           "path": "/at-ba-ddiben-ydych-chin-bwriadu-defnyddio-cyllid-or-gronfa-perchnogaeth-gymunedol"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/at-ba-ddiben-ydych-chin-bwriadu-defnyddio-cyllid-or-gronfa-perchnogaeth-gymunedol",
@@ -187,7 +189,7 @@
           },
           "type": "CheckboxesField",
           "title": "O ble rydych yn bwriadu cael arian cyfatebol? ",
-          "hint": "<p class=\"govuk-label\">This can include both in-kind and cash match funding.<br/><br/>Dewiswch bob un sy'n berthnasol</p>",
+          "hint": "<p class=\"govuk-label\">Gall hyn gynnwys mewn nwyddau neu wasanaethau ac arian cyfatebol fel arian parod.<br/><br/>Dewiswch bob un sy'n berthnasol</p>",
           "list": "sLINJk",
           "schema": {}
         }
@@ -322,8 +324,8 @@
       "type": "string",
       "items": [
         {
-          "text": "Buy a leasehold",
-          "value": "Buy a leasehold"
+          "text": "Prynu lesddaliad",
+          "value": "Prynu lesddaliad"
         },
         {
           "text": "Adnewyddu lesddaliad",
@@ -382,13 +384,13 @@
       ]
     },
     {
-      "title": "This can include both in-kind and cash match funding",
+      "title": "Gall hyn gynnwys mewn nwyddau neu wasanaethau ac arian cyfatebol fel arian parod",
       "name": "sLINJk",
       "type": "string",
       "items": [
         {
-          "text": "Donation of professional services",
-          "value": "Donation of professional services"
+          "text": "Rhoi gwasanaethau proffesiynol",
+          "value": "Rhoi gwasanaethau proffesiynol"
         },
         {
           "text": "Rhoi nwyddau",
@@ -584,8 +586,8 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Buy a leasehold",
-              "display": "Buy a leasehold"
+              "value": "Prynu lesddaliad",
+              "display": "Prynu lesddaliad"
             }
           },
           {

@@ -3,7 +3,8 @@
     "isWelsh": true
   },
   "startPage": "/darparwr-cymorth-datblygu",
-  "name": "Apply for expression of interest in applying for the Community Ownership Fund",
+  "name": "Gwneud cais am ddatganiad o ddiddordeb mewn gwneud cais i'r Gronfa Perchnogaeth Gymunedol",
+  "backLinkText": "Yn ôl i'r trosolwg o'r cais",
   "pages": [
     {
       "path": "/darparwr-cymorth-datblygu",
@@ -13,7 +14,7 @@
           "name": "hsyuiX",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\">\n  Mae'r darparwr cymorth datblygu yn darparu gweminarau a chanllawiau ar wneud cais i holl ymgeiswyr y Gronfa Perchnogaeth Gymunedol ar wefan <a href=\"https://mycommunity.org.uk/\" class=\"govuk-link\">MyCommunity.</a>. Mae hefyd yn cynnig cymorth wedi'i dargedu i rai ymgeiswyr cymwys.</p>\n<p class=\"govuk-body\">Gall y darparwr cymorth datblygu gysylltu â chi i ddarparu gwybodaeth a chymorth y mae'n eu cynnig i bob ymgeisydd cymwys. Bydd hefyd yn defnyddio eich atebion yn yr adran hon i bennu a ydych yn gymwys i gael cymorth manwl. <a href=\"https://www.gov.uk/guidance/community-ownership-fund-explanatory-note-on-the-assessment-and-decision-making-process#internal-decision-making\" class=\"govuk-link\">Darllenwch fwy am sut mae'r darparwr cymorth datblygu yn pennu pa sefydliadau sy'n cael cymorth.</a>.</p>\n</p>\n<p class=\"govuk-body\">\n  Ni chaiff eich atebion yn yr adran hon eu defnyddio i asesu a ydych yn bodloni'r gofynion i wneud cais i'r Gronfa Perchnogaeth Gymunedol.\n</p>\n\n<p class=\"govuk-body\">\n  <b>Yn yr adran hon, byddwn yn eich holi am y canlynol:</b>\n</p>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>y prif bethau y mae angen cymorth arnoch gyda nhw er mwyn cyflwyno cais da i'r Gronfa Perchnogaeth Gymunedol yn eich barn chi</li>\n  <li>eich prosiect a'i nodau</li>\n  <li>manylion y prif unigolyn cyswllt</li>\n</ul>\n\n\n",
+          "content": "<p class=\"govuk-body\">\n  Mae'r darparwr cymorth datblygu yn darparu gweminarau a chanllawiau ar wneud cais i holl ymgeiswyr y Gronfa Perchnogaeth Gymunedol ar wefan <a href=\"https://mycommunity.org.uk/\" class=\"govuk-link\">MyCommunity</a>. Mae hefyd yn cynnig cymorth wedi'i dargedu i rai ymgeiswyr cymwys.</p>\n<p class=\"govuk-body\">Gall y darparwr cymorth datblygu gysylltu â chi i ddarparu gwybodaeth a chymorth y mae'n eu cynnig i bob ymgeisydd cymwys. Bydd hefyd yn defnyddio eich atebion yn yr adran hon i bennu a ydych yn gymwys i gael cymorth manwl. <a href=\"https://www.gov.uk/guidance/community-ownership-fund-explanatory-note-on-the-assessment-and-decision-making-process#internal-decision-making\" class=\"govuk-link\">Darllenwch fwy am sut mae'r darparwr cymorth datblygu yn pennu pa sefydliadau sy'n cael cymorth.</a>.</p>\n</p>\n<p class=\"govuk-body\">\n  Ni chaiff eich atebion yn yr adran hon eu defnyddio i asesu a ydych yn bodloni'r gofynion i wneud cais i'r Gronfa Perchnogaeth Gymunedol.\n</p>\n\n<p class=\"govuk-body\">\n  <b>Yn yr adran hon, byddwn yn eich holi am y canlynol:</b>\n</p>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>y prif bethau y mae angen cymorth arnoch gyda nhw er mwyn cyflwyno cais da i'r Gronfa Perchnogaeth Gymunedol yn eich barn chi</li>\n  <li>eich prosiect a'i nodau</li>\n  <li>manylion y prif unigolyn cyswllt</li>\n</ul>\n\n\n",
           "schema": {}
         }
       ],
@@ -21,7 +22,8 @@
         {
           "path": "/a-hoffech-ir-darparwr-cymorth-datblygu-gysylltu-chi-os-ydych-yn-gymwys-i-gael-cymorth-manwl"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/a-hoffech-ir-darparwr-cymorth-datblygu-gysylltu-chi-os-ydych-yn-gymwys-i-gael-cymorth-manwl",
@@ -161,28 +163,28 @@
       "type": "string",
       "items": [
         {
-          "text": "Writing a business plan",
-          "value": "Writing a business plan"
+          "text": "Ysgrifennu cynllun busnes",
+          "value": "Ysgrifennu cynllun busnes"
         },
         {
-          "text": "Technical",
-          "value": "Technical"
+          "text": "Technegol",
+          "value": "Technegol"
         },
         {
-          "text": "Financial forecasting",
-          "value": "Financial forecasting"
+          "text": "Rhagolwg ariannol",
+          "value": "Rhagolwg ariannol"
         },
         {
-          "text": "Legal",
-          "value": "Legal"
+          "text": "Cyfreithiol",
+          "value": "Cyfreithiol"
         },
         {
-          "text": "Housing",
-          "value": "Housing"
+          "text": "Tai",
+          "value": "Tai"
         },
         {
-          "text": "Governance support",
-          "value": "Governance support"
+          "text": "Cymorth llywodraethu",
+          "value": "Cymorth llywodraethu"
         }
       ]
     },
@@ -192,12 +194,12 @@
       "type": "string",
       "items": [
         {
-          "text": "Yes, I agree to be contacted if eligible",
-          "value": "Yes, I agree to be contacted if eligible"
+          "text": "Rwy'n cytuno y gellir cysylltu â mi os wyf yn gymwys",
+          "value": "Rwy'n cytuno y gellir cysylltu â mi os wyf yn gymwys"
         },
         {
-          "text": "No, I do not wish to be contacted",
-          "value": "No, I do not wish to be contacted"
+          "text": "Nid wyf am i neb gysylltu â mi ",
+          "value": "Nid wyf am i neb gysylltu â mi "
         }
       ]
     }
