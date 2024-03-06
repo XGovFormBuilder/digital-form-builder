@@ -81,6 +81,7 @@ interface TextFieldBase {
     allow?: string;
     autocomplete?: string;
     exposeToContext?: boolean;
+    disableChangingFromSummary?: boolean;
   };
   schema: {
     max?: number;
@@ -101,6 +102,7 @@ interface NumberFieldBase {
     prefix?: string;
     suffix?: string;
     exposeToContext?: boolean;
+    disableChangingFromSummary?: boolean;
   };
   schema: {
     min?: number;
@@ -123,6 +125,7 @@ interface ListFieldBase {
     bold?: boolean;
     exposeToContext?: boolean;
     allowPrePopulation?: boolean;
+    disableChangingFromSummary?: boolean;
   };
   list: string;
   schema: {};
@@ -151,6 +154,7 @@ interface DateFieldBase {
     maxDaysInFuture?: number;
     maxDaysInPast?: number;
     exposeToContext?: boolean;
+    disableChangingFromSummary?: boolean;
   };
   schema: {};
 }
@@ -219,6 +223,7 @@ export interface FileUploadFieldComponent {
     classes?: string;
     exposeToContext?: boolean;
     imageQualityPlayback?: boolean;
+    disableChangingFromSummary?: boolean;
   };
   schema: {};
 }
