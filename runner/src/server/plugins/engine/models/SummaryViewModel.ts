@@ -437,5 +437,6 @@ function Item(
     type: component.type,
     title: component.title,
     dataType: component.dataType,
+    immutable: component.options.disableChangingFromSummary,
   };
 }

@@ -15,9 +15,11 @@
         {% endif %}
     </dd>
     <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="{{item.url}}">
-            Change<span class="govuk-visually-hidden"> {{item.label}}</span>
-        </a>
+        {% if item.immutable != true %}
+            <a class="govuk-link" href="{{item.url}}">
+                Change<span class="govuk-visually-hidden"> {{item.label}}</span>
+            </a>
+        {% endif %}
     </dd>
 </div>
 {% endmacro %}
