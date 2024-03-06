@@ -151,5 +151,13 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, allowPrePopulation: payload },
         },
       };
+    case Options.EDIT_OPTIONS_DISABLE_CHANGING_FROM_SUMMARY:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, disableChangingFromSummary: payload },
+        },
+      };
   }
 }

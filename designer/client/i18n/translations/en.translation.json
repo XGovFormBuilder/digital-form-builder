@@ -77,6 +77,10 @@
       "helpText": "Tick this box if you want this field to be available to be pre-populated by query parameter",
       "title": "Allow pre-population"
     },
+    "disableChangingFromSummaryOption": {
+      "helpText": "Tick this box if you want the change button to be removed for this field on the summary screen",
+      "title": "Disable changing from summary"
+    },
     "helpTextField": {
       "helpText": "Enter the description to show for this field",
       "title": "Help text (optional)"

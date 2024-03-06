@@ -26,6 +26,7 @@ export function FieldEdit({
     required = true,
     exposeToContext = false,
     allowPrePopulation = false,
+    disableChangingFromSummary = false,
   } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
   const fieldTitle =
@@ -259,8 +260,38 @@ export function FieldEdit({
             </div>
           </div>
         )}
+        <div
+          className="govuk-checkboxes govuk-form-group"
+          data-test-id="field-options.disableChangingFromSummary-wrapper"
+        >
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-disableChangingFromSummary"
+              name="options.disableChangingFromSummary"
+              type="checkbox"
+              checked={disableChangingFromSummary}
+              onChange={(e) =>
+                dispatch({
+                  type: Actions.EDIT_OPTIONS_DISABLE_CHANGING_FROM_SUMMARY,
+                  payload: e.target.checked,
+                })
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-disableChangingFromSummary"
+            >
+              {i18n("common.disableChangingFromSummaryOption.title")}
+            </label>
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("common.disableChangingFromSummaryOption.helpText")}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
 export default FieldEdit;
