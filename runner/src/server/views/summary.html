@@ -11,7 +11,8 @@
           <h2 class="govuk-error-summary__title">There is a problem</h2>
           <div class="govuk-error-summary__body">
             <label id="form-error" class="govuk-error-message">
-              <span class="govuk-visually-hidden">Error:</span> Please complete all required questions
+              <span class="govuk-visually-hidden">Error:</span> Please complete
+              all required questions
             </label>
             <!-- <ul class="govuk-list govuk-error-summary__list" style="padding: 0">
               {% for error in errors %}
@@ -66,7 +67,7 @@
         <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
         {{ declaration | safe }}
         <div
-          class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}"
+          class="govuk-grid-column-two-thirds {{ 'govuk-form-group--error' if declarationError }}"
         >
           {% if declarationError %}
           <span id="nationality-error" class="govuk-error-message">
@@ -100,29 +101,32 @@
         </div>
         {% endif %}
 
-        <div class="govuk-button-group">
-          {% if result.error %}
-          {% endif %}
+        <div class="govuk-grid-column-two-thirds">
+          {% if result.error %} {% endif %}
           <button
             data-prevent-double-click="true"
-            {% if result.error %}
-              disabled
-            {% endif %}
+            {%
+            if
+            result.error
+            %}
+            disabled
+            {%
+            endif
+            %}
             class="govuk-button"
             data-module="govuk-button"
           >
-            {% if fees and fees.details|length %} Submit and pay {% else %} Submit
-            {% endif %}
+            {% if fees and fees.details|length %} Submit and pay {% else %}
+            Submit {% endif %}
           </button>
 
           {% if result.error %}
           <label id="form-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> You must enter all required questions before submitting.
+            <span class="govuk-visually-hidden">Error:</span> You must enter all
+            required questions before submitting.
           </label>
           {% endif %}
         </div>
-        
-
 
         <!-- Handle greying out of the button and preventing further clicks -->
         <script>
@@ -133,7 +137,7 @@
               this.style.opacity = "0.5";
               this.style.cursor = "not-allowed";
               this.innerHTML = "Submitting...";
-          
+
               // Prevent further clicks
               this.addEventListener(
                 "click",
