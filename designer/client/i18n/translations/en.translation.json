@@ -185,6 +185,8 @@
     "Html_info": "A block of text that you can apply basic HTML to, such as text formatting and hyperlinks",
     "InsetText": "Inset text",
     "InsetText_info": "A block of text that differentiates it from surrounding content, for example for quotes",
+    "InternationalTelephoneNumberField": "International telephone number",
+    "InternationalTelephoneNumberField_info": "A field that separates the user's registered phone number from their dialing code",
     "List": "List",
     "List_info": "A series of bullet points",
     "MonthYearField": "Month year parts",

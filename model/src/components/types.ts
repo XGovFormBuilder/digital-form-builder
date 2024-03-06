@@ -15,6 +15,7 @@ export enum ComponentTypeEnum {
   NumberField = "NumberField",
   UkAddressField = "UkAddressField",
   TelephoneNumberField = "TelephoneNumberField",
+  InternationalTelephoneNumberField = "InternationalTelephoneNumberField",
   EmailAddressField = "EmailAddressField",
   FileUploadField = "FileUploadField",
   Para = "Para",
@@ -42,6 +43,7 @@ export type ComponentType =
   | "NumberField"
   | "UkAddressField"
   | "TelephoneNumberField"
+  | "InternationalTelephoneNumberField"
   | "EmailAddressField"
   | "FileUploadField"
   | "Para"
@@ -193,6 +195,11 @@ export interface TelephoneNumberFieldComponent extends TextFieldBase {
   };
 }
 
+export interface InternationalTelephoneNumberFieldComponent
+  extends TextFieldBase {
+  type: "InternationalTelephoneNumberField";
+}
+
 export interface YesNoFieldComponent extends TextFieldBase {
   type: "YesNoField";
 }
@@ -325,6 +332,7 @@ export type ComponentDef =
   | RadiosFieldComponent
   | SelectFieldComponent
   | TelephoneNumberFieldComponent
+  | InternationalTelephoneNumberFieldComponent
   | TextFieldComponent
   | TimeFieldComponent
   | UkAddressFieldComponent
@@ -338,6 +346,7 @@ export type InputFieldsComponentsDef =
   | NumberFieldComponent
   | MultilineTextFieldComponent
   | TelephoneNumberFieldComponent
+  | InternationalTelephoneNumberFieldComponent
   | YesNoFieldComponent
   | FileUploadFieldComponent
   | DateFieldComponent

@@ -146,6 +146,15 @@ export const ComponentTypes: ComponentDef[] = [
     schema: {},
   },
   {
+    name: "InternationalTelephoneNumberField",
+    type: "InternationalTelephoneNumberField",
+    title: "International telephone number field",
+    subType: "field",
+    hint: "",
+    options: {},
+    schema: {},
+  },
+  {
     name: "EmailAddressField",
     type: "EmailAddressField",
     title: "Email address field",
