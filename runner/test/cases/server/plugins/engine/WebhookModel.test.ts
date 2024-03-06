@@ -29,6 +29,7 @@ const testDetails = [
         type: "MonthYearField",
         title: "Approximate date of marriage",
         dataType: "monthYear",
+        immutable: undefined,
       },
       {
         name: "caz",
@@ -41,6 +42,7 @@ const testDetails = [
         type: "SelectField",
         title: "caz zone",
         dataType: "list",
+        immutable: undefined,
       },
     ],
     name: undefined,
@@ -61,6 +63,7 @@ const testDetails = [
         type: "DatePartsField",
         title: "full date",
         dataType: "date",
+        immutable: undefined,
       },
     ],
   },
