@@ -1,5 +1,5 @@
 @import "govuk";
-@import "../../../node_modules/accessible-autocomplete/src/autocomplete";
+@import "node_modules/accessible-autocomplete/src/autocomplete";
 @import "hmpo";
 @import "modal-dialog";
 @import "upload-dialog";
@@ -77,6 +77,6 @@
   fill: white;
 }
 
-.govuk-phase-banner__content__tag {
-  text-transform: capitalize;
-}
+// .govuk-phase-banner__content__tag {
+//   text-transform: capitalize;
+// }
