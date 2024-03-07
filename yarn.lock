@@ -5131,7 +5131,7 @@ __metadata:
     expr-eval: ^2.0.2
     flat: 5.0.2
     form-data: ^4.0.0
-    govuk-frontend: ^5.2.0
+    govuk-frontend: ^4.3.1
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -8602,7 +8602,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-tsdoc: ^0.2.14
-    govuk-frontend: ^5.2.0
+    govuk-frontend: ^4.3.1
     hmpo-components: ^5.2.1
     husky: ^4.3.0
     lint-staged: ^10.4.2
@@ -11362,10 +11362,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "govuk-frontend@npm:5.2.0"
-  checksum: aabf67174acdd77dea3033612999c99b501dce2bf20dd01a4d45c2de2e157694334c5c1fb2868dd9e0049f385deed824c96385898adfb5d11e2e3a55787f93fe
+"govuk-frontend@npm:^4.3.1":
+  version: 4.8.0
+  resolution: "govuk-frontend@npm:4.8.0"
+  checksum: e255f924f399319e109347ec4993e0441fc5847a6a73ba44a465b1599c7d03e85c29212743b081ccd60e19224c6301143c77540b8e4bfe615fcb3e162b8663f4
   languageName: node
   linkType: hard
 
