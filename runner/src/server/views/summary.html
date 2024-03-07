@@ -101,24 +101,27 @@
         </div>
         {% endif %}
 
-        <div class="govuk-grid-column-two-thirds">
-          {% if result.error %} {% endif %}
-          <button
-            data-prevent-double-click="true"
-            {%
-            if
-            result.error
-            %}
-            disabled
-            {%
-            endif
-            %}
-            class="govuk-button"
-            data-module="govuk-button"
-          >
-            {% if fees and fees.details|length %} Submit and pay {% else %}
-            Submit {% endif %}
-          </button>
+        <div class="govuk-grid-column-two-thirds" style="margin-top: 20px;">
+          <div class="govuk-button-group">
+            {% if result.error %} {% endif %}
+            <button
+              data-prevent-double-click="true"
+              {%
+              if
+              result.error
+              %}
+              disabled
+              {%
+              endif
+              %}
+              class="govuk-button"
+              data-module="govuk-button"
+            >
+              {% if fees and fees.details|length %} Submit and pay {% else %}
+              Submit {% endif %}
+            </button>
+          </div>
+          
 
           {% if result.error %}
           <label id="form-error" class="govuk-error-message">
