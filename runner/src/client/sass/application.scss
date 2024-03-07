@@ -4,7 +4,6 @@
 @import "modal-dialog";
 @import "upload-dialog";
 
-
 .flash-card {
   .govuk-button {
     background: #fff;
@@ -66,7 +65,6 @@
     &--hidden-titles {
       @extend .govuk-visually-hidden;
     }
-
   }
   &__key {
     &--hidden-titles {
@@ -75,7 +73,10 @@
   }
 }
 
-
 .govuk-header__logotype {
-  fill:white;
+  fill: white;
+}
+
+.govuk-phase-banner__content__tag {
+  text-transform: capitalize;
 }
