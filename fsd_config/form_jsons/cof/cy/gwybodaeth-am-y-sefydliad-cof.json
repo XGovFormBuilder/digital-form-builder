@@ -34,8 +34,8 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
-          "title": "Eich rhif traciwr unigryw",
-          "hint": "Roedd hwn wedi'i gynnwys yn y llythyr yr anfonom i gadarnhau eich datganiad o ddiddordeb llwyddiannus.\n<p>Er enghraifft, ‘ANON-###-###-###’</p>",
+          "title": "Cyfeirnod eich ffurflen mynegi diddordeb (EOI).",
+          "hint": "Cafodd hyn ei gynnwys yn yr e-bost a anfonwyd atoch i gadarnhau eich EOI llwyddiannus.\n<p>Er Enghraifft, 'COF-EOI-##-#####'</p>",
           "schema": {}
         },
         {

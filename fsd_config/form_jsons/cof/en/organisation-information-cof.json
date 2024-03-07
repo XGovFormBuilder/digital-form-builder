@@ -32,8 +32,8 @@
             "classes": "govuk-!-width-full"
           },
           "type": "TextField",
-          "title": "Your unique tracker number",
-          "hint": "This was included in the letter we sent to confirm your successful expression of interest.\n<p>For example, ‘ANON-###-###-###’</p>",
+          "title": "Your expression of interest (EOI) application reference",
+          "hint": "This was included in the email we sent you to confirm your successful EOI.\n<p>For example, 'COF-EOI-##-######'</p>",
           "schema": {}
         },
         {
