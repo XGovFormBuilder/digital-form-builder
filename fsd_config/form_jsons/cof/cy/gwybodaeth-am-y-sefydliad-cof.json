@@ -687,6 +687,10 @@
           "value": "PTC"
         },
         {
+          "text": "Porthladd ymddiriedolaeth",
+          "value": "trust-port"
+        },
+        {
           "text": "Arall",
           "value": "Other"
         }
@@ -1017,6 +1021,20 @@
               "type": "Value",
               "value": "CLG",
               "display": "CLG"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "lajFtB",
+              "type": "RadiosField",
+              "display": "Math o sefydliad"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "trust-port",
+              "display": "trust-port"
             }
           }
         ]
