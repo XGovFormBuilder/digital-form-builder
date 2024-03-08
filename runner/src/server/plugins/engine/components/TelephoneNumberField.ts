@@ -2,7 +2,7 @@ import { TelephoneNumberFieldComponent } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
 import { FormModel } from "../models";
-import { addClassOptionIfNone } from "./helpers";
+import { addClassOptionIfNone, internationalPhoneValidator } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 import joi, { Schema } from "joi";
 
@@ -32,6 +32,9 @@ export class TelephoneNumberField extends FormComponent {
       componentSchema = componentSchema.min(schema.min);
     }
 
+    if (options.isInternational) {
+      componentSchema = componentSchema.custom(internationalPhoneValidator);
+    }
     this.schema = componentSchema;
 
     addClassOptionIfNone(this.options, "govuk-input--width-10");
