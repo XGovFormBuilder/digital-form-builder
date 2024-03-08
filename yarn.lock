@@ -4031,6 +4031,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/google-libphonenumber@npm:^7.4.30":
+  version: 7.4.30
+  resolution: "@types/google-libphonenumber@npm:7.4.30"
+  checksum: 09270ed030076a0e69965ad5bad564e672a110e1e83c9092f6d264c3e0355921631521cb9afd022018a51cddfd19ba52d0421f4682d7b68b836dbb52537320de
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.2, @types/graceful-fs@npm:^4.1.3":
   version: 4.1.9
   resolution: "@types/graceful-fs@npm:4.1.9"
@@ -5127,6 +5134,7 @@ __metadata:
     "@hapi/wreck": ^18.0.1
     "@hapi/yar": ^11.0.1
     "@oclif/core": ^1.19.0
+    "@types/google-libphonenumber": ^7.4.30
     "@types/hapi": ^18.0.7
     "@types/hapi__yar": ^10.1.1
     "@types/hoek": ^4.1.4
@@ -5161,6 +5169,7 @@ __metadata:
     expr-eval: ^2.0.2
     flat: 5.0.2
     form-data: ^4.0.0
+    google-libphonenumber: ^3.2.34
     govuk-frontend: ^4.8.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
@@ -11423,6 +11432,13 @@ __metadata:
     pify: ^2.0.0
     pinkie-promise: ^2.0.0
   checksum: 18109d6b9d55643d2b98b59c3cfae7073ccfe39829632f353d516cc124d836c2ddebe48a23f04af63d66a621b6d86dd4cbd7e6af906f2458a7fe510ffc4bd424
+  languageName: node
+  linkType: hard
+
+"google-libphonenumber@npm:^3.2.34":
+  version: 3.2.34
+  resolution: "google-libphonenumber@npm:3.2.34"
+  checksum: a14579bb8d4934dc6b9cfb33f818375ccdc67be12f13f842a4c16d7c3bd8ef9f2aacc30d368770f33a97ba8674e23b318cb59f26616c7fa2ce60fae52b2f6ebf
   languageName: node
   linkType: hard
 
