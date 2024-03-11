@@ -14,7 +14,7 @@
           "name": "eadDjo",
           "options": {},
           "type": "Html",
-          "content": "<p class=\"govuk-body\"><b>Yn yr adran hon, byddwn yn eich holi am y canlynol:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>y sefydliad sy'n rhedeg yr ased</li>\n  <li>y math o ased</li>\n  <li>if the asset is based in the UK</li>\n  <li>cyfeiriad yr ased</li>\n  <li>a yw'r ased mewn perygl</li>\n  <li>beth yw'r perygl i'r ased (os yw'n gymwys)</li>\n  <li>a yw'r ased erioed wedi cael ei ddefnyddio gan y gymuned neu wedi bod yn arwyddocaol iddi?</li>\n  <li>a ydych eisoes yn berchen ar yr ased</li>\n  <li>a yw'r ased yn perthyn i awdurdod cyhoeddus (os yw'n gymwys)</li>\n  <li>pa gam rydych wedi'i gyrraedd yn y broses o brynu'r ased (os yw'n gymwys)</li>\n</ul>\n\n\n\n\n\n\n \n\n\n\n\n\n ",
+          "content": "<p class=\"govuk-body\"><b>Yn yr adran hon, byddwn yn eich holi am y canlynol:</b></p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>y sefydliad sy'n rhedeg yr ased</li>\n  <li>y math o ased</li>\n  <li>Os yw'r ased wedi'i leoli yn y DU</li>\n  <li>cyfeiriad yr ased</li>\n  <li>a yw'r ased mewn perygl</li>\n  <li>beth yw'r perygl i'r ased (os yw'n gymwys)</li>\n  <li>a yw'r ased erioed wedi cael ei ddefnyddio gan y gymuned neu wedi bod yn arwyddocaol iddi?</li>\n  <li>a ydych eisoes yn berchen ar yr ased</li>\n  <li>a yw'r ased yn perthyn i awdurdod cyhoeddus (os yw'n gymwys)</li>\n  <li>pa gam rydych wedi'i gyrraedd yn y broses o brynu'r ased (os yw'n gymwys)</li>\n</ul>\n\n\n\n\n\n\n \n\n\n\n\n\n ",
           "schema": {}
         }
       ],
