@@ -20,13 +20,16 @@
 
     {% include "partials/heading.html" %}
 
-    {{ componentList(components) }}
+    <form method="post" enctype="multipart/form-data" autocomplete="on">
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      {{ componentList(components) }}
 
-    {% if continueButtonText %}
-      {{ govukButton({ attributes: { is: "submit" }, text: continueButtonText })}}
-    {% endif %}
+      {% if continueButtonText %}
+        {{ govukButton({ attributes: { id: "submit" }, text: continueButtonText })}}
+      {% endif %}
 
-    {{ govukPagination(startPageNavigation) }}
+      {{ govukPagination(startPageNavigation) }}
+    </form>
 
     <pre>{{ value | dump(2) | safe }}</pre>
   </div>
