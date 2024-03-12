@@ -88,7 +88,7 @@
           },
           "type": "NumberField",
           "title": "Faint o gyllid cyfalaf ydych chi'n gwneud cais amdano o'r Gronfa Perchnogaeth Gymunedol?",
-          "hint": "<label for='fZAMFv'>Costau cyfalaf yw costau prynu neu lesio'ch ased a thalu am waith adnewyddu. Gallwch wneud cais am hyd at £2 filiwn (<span class='govuk-!-font-size-19'>£2000000</span>) mewn costau cyfalaf o'r Gronfa Perchnogaeth Gymunedol. <br><br>Enter the amount using only numerals, for example, 1500000</label>",
+          "hint": "<label for='fZAMFv'>Costau cyfalaf yw costau prynu neu lesio'ch ased a thalu am waith adnewyddu. Gallwch wneud cais am hyd at £2 filiwn (<span class='govuk-!-font-size-19'>£2000000</span>) mewn costau cyfalaf o'r Gronfa Perchnogaeth Gymunedol. <br><br>Nodwch y swm gan ddefnyddio rhifau yn unig, er enghraifft, 1500000</label>",
           "schema": {
             "max": 2000000
           }
