@@ -72,10 +72,6 @@
         },
         {
           "path": "/upload-asset-valuation-or-lease-agreement"
-        },
-        {
-          "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
-          "condition": "hWsHyx"
         }
       ],
       "section": "wxYZcT"
@@ -416,34 +412,6 @@
       "next": [
         {
           "path": "/assets-of-community-value"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/upload-asset-valuation-or-lease-agreement-pJQtXk",
-      "title": "Upload asset valuation or lease agreement",
-      "components": [
-        {
-          "name": "tTOrEp",
-          "options": {
-            "dropzoneConfig": {
-              "maxFiles": 1,
-              "parallelUploads": 1,
-              "maxFilesize": 10,
-              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
-            },
-            "showNoScriptWarning": false,
-            "minimumRequiredFiles": 1
-          },
-          "type": "ClientSideFileUploadField",
-          "title": "Please upload evidence that shows the asset valuation (if you are buying the asset) or the lease agreement (if you are leasing the asset).",
-          "hint": "<label class=\"gov-uk-hint\">\nIf you are buying the asset: this could be an official document showing the asset's value from an independent surveyor or similar professional.\n\n<p>If you are leasing the asset: this could be a copy of your tenancy agreement, or agreed heads of terms, showing at least 15 years tenancy with reasonable break clauses.</p>\n\n<p>It should be a single file no bigger than 10MB in an accepted format (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
-        }
-      ],
-      "next": [
-        {
-          "path": "/terms-of-your-lease"
         }
       ],
       "section": "wxYZcT"

@@ -74,10 +74,6 @@
         },
         {
           "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol"
-        },
-        {
-          "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol-pJQtXk",
-          "condition": "hWsHyx"
         }
       ],
       "section": "wxYZcT"
@@ -422,34 +418,6 @@
       "next": [
         {
           "path": "/asedau-o-werth-cymunedol"
-        }
-      ],
-      "section": "wxYZcT"
-    },
-    {
-      "path": "/lanlwytho-arâd-gwerthiant-neu-gytundeb-leol-pJQtXk",
-      "title": "Lanlwythwch gwerthiant arâd eiddo neu gytundeb i fenthyg",
-      "components": [
-        {
-          "name": "TtOReP",
-          "options": {
-            "dropzoneConfig": {
-              "maxFiles": 1,
-              "parallelUploads": 1,
-              "maxFilesize": 10,
-              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
-            },
-            "showNoScriptWarning": false,
-            "minimumRequiredFiles": 1
-          },
-          "type": "ClientSideFileUploadField",
-          "title": "Lanlwythwch dystiolaeth sy'n profi bod yr eiddo eisoes yn cael ei denantio gan eich sefydliad.",
-          "hint": "<label class=\"gov-uk-hint\">\nGall hyn fod yn gopi o'ch cytundeb tenantiaeth, neu enghreifftiau o delerau a chytundebau cytunedig, sy'n dangos 15 mlynedd o tenanit gyda thoriadau rhesymol.\n\n<p>Dylai fod yn ffeil unigol nid yn fwy na 10MB mewn fformat derbyniol (jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx, ods).</p>\n</label>"
-        }
-      ],
-      "next": [
-        {
-          "path": "/telerau-eich-lysgenant"
         }
       ],
       "section": "wxYZcT"
