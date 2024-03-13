@@ -34,7 +34,7 @@
           },
           "type": "TextField",
           "title": "Enw'r cyswllt arweiniol",
-          "hint": "Bydd yn derbyn yr holl wybodaeth am y cais hwn.."
+          "hint": "Bydd yn derbyn yr holl wybodaeth am y cais hwn."
         },
         {
           "name": "qRDTUc",

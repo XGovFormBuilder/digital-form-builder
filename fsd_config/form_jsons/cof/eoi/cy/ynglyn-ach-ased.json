@@ -299,7 +299,7 @@
             "hideTitle": true
           },
           "type": "RadiosField",
-          "title": "Cam prynu'r ased",
+          "title": "Dewiswch yr opsiwn sy'n cynrychioli'r cam rydych wedi'i gyrraedd yn y broses o brynu'r ased yn y ffordd orau",
           "list": "VCaulN",
           "schema": {},
           "values": {

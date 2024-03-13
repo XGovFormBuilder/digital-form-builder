@@ -287,7 +287,7 @@
             "hideTitle": true
           },
           "type": "RadiosField",
-          "title": "Stage purchasing asset",
+          "title": "Select the option which best represents the stage you are at in purchasing the asset",
           "list": "VCaulN",
           "schema": {}
         }
