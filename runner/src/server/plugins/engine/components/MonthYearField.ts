@@ -59,7 +59,13 @@ export class MonthYearField extends FormComponent {
   }
 
   getFormDataFromState(state: FormSubmissionState) {
-    return this.children.getFormDataFromState(state);
+    const name = this.name;
+    const value = state[name];
+
+    return {
+      [`${name}__month`]: value && value[`${name}__month`],
+      [`${name}__year`]: value && value[`${name}__year`],
+    };
   }
 
   getStateValueFromValidForm(payload: FormPayload) {
