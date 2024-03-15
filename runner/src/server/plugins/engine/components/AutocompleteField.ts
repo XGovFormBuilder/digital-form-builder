@@ -8,6 +8,12 @@ import { FormSubmissionState } from "server/plugins/engine/types";
 export class AutocompleteField extends SelectField {
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
+    this.formSchema = this.formSchema.messages({
+      "any.only": "Enter {{#label}}",
+    });
+    this.stateSchema = this.stateSchema.messages({
+      "any.only": "Enter {{#label}}",
+    });
     addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
   getDisplayStringFromState(state: FormSubmissionState): string {

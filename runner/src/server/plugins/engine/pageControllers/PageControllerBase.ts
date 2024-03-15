@@ -335,24 +335,29 @@ export class PageControllerBase {
     if (validationResult && validationResult.error) {
       const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
 
+      const errorList = validationResult.error.details.map((err) => {
+        const name = err.path
+          .map((name: string, index: number) =>
+            index > 0 ? `__${name}` : name
+          )
+          .join("");
+
+        return {
+          path: err.path.join("."),
+          href: `#${name}`,
+          name: name,
+          text: err.message.replace(isoRegex, (text) => {
+            return format(parseISO(text), "d MMMM yyyy");
+          }),
+        };
+      });
+
       return {
         titleText: this.errorSummaryTitle,
-        errorList: validationResult.error.details.map((err) => {
-          const name = err.path
-            .map((name: string, index: number) =>
-              index > 0 ? `__${name}` : name
-            )
-            .join("");
-
-          return {
-            path: err.path.join("."),
-            href: `#${name}`,
-            name: name,
-            text: err.message.replace(isoRegex, (text) => {
-              return format(parseISO(text), "d MMMM yyyy");
-            }),
-          };
-        }),
+        errorList: errorList.filter(
+          ({ text }, index) =>
+            index === errorList.findIndex((err) => err.text === text)
+        ),
       };
     }
 
