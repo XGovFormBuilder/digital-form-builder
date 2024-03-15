@@ -55,7 +55,7 @@ suite("Date parts field", () => {
   });
   test("Error is displayed correctly", () => {
     const def = {
-      name: "myComponent",
+      name: "approximate",
       title: "My component",
       options: { required: false },
       schema: {},

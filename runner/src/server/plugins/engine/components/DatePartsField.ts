@@ -151,7 +151,8 @@ export class DatePartsField extends FormComponent {
     });
 
     const relevantErrors =
-      errors?.errorList?.filter((error) => error.path === this.name) ?? [];
+      errors?.errorList?.filter((error) => error.path.includes(this.name)) ??
+      [];
 
     const firstError = relevantErrors[0];
     const errorMessage = firstError && { text: firstError?.text };
