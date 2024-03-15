@@ -24,6 +24,12 @@ export class FileUploadField extends FormComponent {
       "string.empty": "Upload {{#label}}",
     });
 
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
+    }
+
     this.schema = componentSchema;
   }
   getFormSchemaKeys() {
