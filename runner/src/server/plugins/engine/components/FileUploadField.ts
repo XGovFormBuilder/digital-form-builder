@@ -1,17 +1,37 @@
 import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
-import * as helpers from "./helpers";
 
 import { DataType, ViewModel } from "./types";
+import { FileUploadFieldComponent } from "@xgovformbuilder/model";
+import { FormModel } from "server/plugins/engine/models";
+import joi, { Schema } from "joi";
 
 export class FileUploadField extends FormComponent {
   dataType = "file" as DataType;
+
+  constructor(def: FileUploadFieldComponent, model: FormModel) {
+    super(def, model);
+
+    const { options = {} } = def;
+
+    let componentSchema = joi.string().label(def.title.toLowerCase());
+
+    if (options.required === false) {
+      componentSchema = componentSchema.allow("").allow(null);
+    }
+
+    componentSchema = componentSchema.messages({
+      "string.empty": "Upload {{#label}}",
+    });
+
+    this.schema = componentSchema;
+  }
   getFormSchemaKeys() {
-    return helpers.getFormSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.schema as Schema };
   }
 
   getStateSchemaKeys() {
-    return helpers.getStateSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.schema as Schema };
   }
 
   get attributes() {
