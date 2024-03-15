@@ -30,7 +30,11 @@ export class MonthYearField extends FormComponent {
           options: {
             required: options.required,
             classes: "govuk-input--width-2",
-            customValidationMessage: "{{label}} must be between 1 and 12",
+            customValidationMessages: {
+              "number.min": "{{#label}} must be between 1 and 12",
+              "number.max": "{{#label}} must be between 1 and 12",
+              "number.base": `${def.title} must include a month`,
+            },
           },
         },
         {
@@ -41,6 +45,9 @@ export class MonthYearField extends FormComponent {
           options: {
             required: options.required,
             classes: "govuk-input--width-4",
+            customValidationMessages: {
+              "number.base": `${def.title} must include a year`,
+            },
           },
         },
       ] as any,
@@ -59,7 +66,13 @@ export class MonthYearField extends FormComponent {
   }
 
   getFormDataFromState(state: FormSubmissionState) {
-    return this.children.getFormDataFromState(state);
+    const name = this.name;
+    const value = state[name];
+
+    return {
+      [`${name}__month`]: value && value[`${name}__month`],
+      [`${name}__year`]: value && value[`${name}__year`],
+    };
   }
 
   getStateValueFromValidForm(payload: FormPayload) {

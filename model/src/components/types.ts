@@ -82,6 +82,7 @@ interface TextFieldBase {
     autocomplete?: string;
     exposeToContext?: boolean;
     disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   schema: {
     max?: number;
@@ -103,6 +104,7 @@ interface NumberFieldBase {
     suffix?: string;
     exposeToContext?: boolean;
     disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   schema: {
     min?: number;
@@ -126,6 +128,7 @@ interface ListFieldBase {
     exposeToContext?: boolean;
     allowPrePopulation?: boolean;
     disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   list: string;
   schema: {};
@@ -155,6 +158,7 @@ interface DateFieldBase {
     maxDaysInPast?: number;
     exposeToContext?: boolean;
     disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   schema: {};
 }

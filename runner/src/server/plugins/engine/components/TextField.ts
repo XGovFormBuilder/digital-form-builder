@@ -47,6 +47,12 @@ export class TextField extends FormComponent {
       });
     }
 
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
+    }
+
     this.formSchema = componentSchema;
   }
 

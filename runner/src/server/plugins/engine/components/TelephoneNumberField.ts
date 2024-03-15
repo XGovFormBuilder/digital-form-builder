@@ -35,6 +35,12 @@ export class TelephoneNumberField extends FormComponent {
     if (options.isInternational) {
       componentSchema = componentSchema.custom(internationalPhoneValidator);
     }
+
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
+    }
     this.schema = componentSchema;
 
     addClassOptionIfNone(this.options, "govuk-input--width-10");

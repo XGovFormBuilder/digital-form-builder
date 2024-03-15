@@ -8,9 +8,11 @@ export class CheckboxesField extends SelectionControlField {
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
 
+    const { options } = def;
+
     let schema = joi.array().single().label(def.title.toLowerCase());
 
-    if (def.options.required === false) {
+    if (options.required === false) {
       // null or empty string is valid for optional fields
       schema = schema
         .empty(null)
@@ -19,6 +21,10 @@ export class CheckboxesField extends SelectionControlField {
       schema = schema
         .items(joi[this.listType]().allow(...this.values))
         .required();
+    }
+
+    if (options.customValidationMessages) {
+      schema = schema.messages(options.customValidationMessages);
     }
 
     this.formSchema = schema;

@@ -23,27 +23,34 @@ export class ListFormComponent extends FormComponent {
 
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
+    const { options } = def;
     // @ts-ignore
     this.list = model.getList(def.list);
     this.listType = this.list.type ?? "string";
-    this.options = def.options;
+    this.options = options;
 
-    let schema = joi[this.listType]();
+    let componentSchema = joi[this.listType]();
 
     /**
      * Only allow a user to answer with values that have been defined in the list
      */
-    if (def.options.required === false) {
+    if (options.required === false) {
       // null or empty string is valid for optional fields
-      schema = schema.empty(null).valid(...this.values, "");
+      componentSchema = componentSchema.empty(null).valid(...this.values, "");
     } else {
-      schema = schema.valid(...this.values).required();
+      componentSchema = componentSchema.valid(...this.values).required();
     }
 
-    schema = schema.label(def.title.toLowerCase());
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
+    }
 
-    this.formSchema = schema;
-    this.stateSchema = schema;
+    componentSchema = componentSchema.label(def.title.toLowerCase());
+
+    this.formSchema = componentSchema;
+    this.stateSchema = componentSchema;
   }
 
   getFormSchemaKeys() {
