@@ -48,20 +48,9 @@ env:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
-    outputs:
-      jobs_to_run: ${{ steps.determine-jobs.outputs.job_list }}
-    steps:
-      - id: determine-jobs
-        run: |
-          if [ "${{ inputs.environment }}" != '' ]; then
-            export jobs='["${{ inputs.environment }}"]'
-          elif [ "${{ github.ref }}" == 'refs/heads/main' ]; then
-            export jobs='["dev", "test", "uat", "prod"]'
-          else
-            export jobs='["dev", "test"]'
-          fi
-          echo "job_list=$(jq -cn --argjson keys "$jobs" '$keys')" >> $GITHUB_OUTPUT
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/determine-jobs.yml@main
+    with:
+      environment: ${{ inputs.environment }}
 
   docker-build:
     runs-on: ubuntu-latest
@@ -200,7 +189,16 @@ jobs:
       version: sha-${{ github.sha }}
 
   post_uat_deploy_tests:
-    needs: [setup, docker-build, dev_deploy, post_dev_deploy_tests, test_deploy, post_test_deploy_tests, uat_deploy]
+    needs:
+      [
+        setup,
+        docker-build,
+        dev_deploy,
+        post_dev_deploy_tests,
+        test_deploy,
+        post_test_deploy_tests,
+        uat_deploy,
+      ]
     if: ${{ always()  && contains(fromJSON(needs.setup.outputs.jobs_to_run), 'uat') && (! contains(needs.*.result, 'failure') ) && (! contains(needs.*.result, 'cancelled') )  }}
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
