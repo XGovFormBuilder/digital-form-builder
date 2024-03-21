@@ -664,35 +664,35 @@
       "items": [
         {
           "text": "Sefydliad corfforedig elusennol (CIO)",
-          "value": "CIO"
+          "value": "Sefydliad corfforedig elusennol (CIO)"
         },
         {
           "text": "Cwmni cydweithredol, fel cymdeithas budd cymunedol",
-          "value": "COOP"
+          "value": "Cwmni cydweithredol, fel cymdeithas budd cymunedol"
         },
         {
           "text": "Cwmni buddiannau cymunedol (CIC)",
-          "value": "CIC"
+          "value": "Cwmni buddiannau cymunedol (CIC)"
         },
         {
           "text": "Cwmni cyfyngedig drwy warant",
-          "value": "CLG"
+          "value": "Cwmni cyfyngedig drwy warant"
         },
         {
           "text": "Sefydliad corfforedig elusennol yr Alban (SCIO)",
-          "value": "SCIO"
+          "value": "Sefydliad corfforedig elusennol yr Alban (SCIO)"
         },
         {
           "text": "Cyngor plwyf, tref neu gymuned",
-          "value": "PTC"
+          "value": "Cyngor plwyf, tref neu gymuned"
         },
         {
           "text": "Porthladd ymddiriedolaeth",
-          "value": "trust-port"
+          "value": "Porthladd ymddiriedolaeth"
         },
         {
           "text": "Arall",
-          "value": "Other"
+          "value": "Arall"
         }
       ]
     },
@@ -703,11 +703,11 @@
       "items": [
         {
           "text": "Tŷ'r Cwmnïau",
-          "value": "House"
+          "value": "Tŷ'r Cwmnïau"
         },
         {
           "text": "Arall",
-          "value": "Other"
+          "value": "Arall"
         }
       ]
     },
@@ -837,7 +837,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Other",
+              "value": "Arall",
               "display": "Arall"
             }
           }
@@ -991,8 +991,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "COOP",
-              "display": "COOP"
+              "value": "Cwmni cydweithredol, fel cymdeithas budd cymunedol",
+              "display": "Cwmni cydweithredol, fel cymdeithas budd cymunedol"
             }
           },
           {
@@ -1005,8 +1005,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "CIC",
-              "display": "CIC"
+              "value": "Cwmni buddiannau cymunedol (CIC)",
+              "display": "Cwmni buddiannau cymunedol (CIC)"
             }
           },
           {
@@ -1019,8 +1019,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "CLG",
-              "display": "CLG"
+              "value": "Cwmni cyfyngedig drwy warant",
+              "display": "Cwmni cyfyngedig drwy warant"
             }
           },
           {
@@ -1033,8 +1033,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "trust-port",
-              "display": "trust-port"
+              "value": "Porthladd ymddiriedolaeth",
+              "display": "Porthladd ymddiriedolaeth"
             }
           }
         ]
@@ -1055,8 +1055,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "CIO",
-              "display": "CIO"
+              "value": "Sefydliad corfforedig elusennol (CIO)",
+              "display": "Sefydliad corfforedig elusennol (CIO)"
             }
           },
           {
@@ -1069,8 +1069,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "SCIO",
-              "display": "SCIO"
+              "value": "Sefydliad corfforedig elusennol yr Alban (SCIO)",
+              "display": "Sefydliad corfforedig elusennol yr Alban (SCIO)"
             }
           }
         ]
@@ -1091,7 +1091,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Other",
+              "value": "Arall",
               "display": "Arall"
             }
           }
@@ -1113,8 +1113,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "PTC",
-              "display": "PTC"
+              "value": "Cyngor plwyf, tref neu gymuned",
+              "display": "Cyngor plwyf, tref neu gymuned"
             }
           }
         ]

@@ -559,51 +559,51 @@
       "items": [
         {
           "text": "Canolfan gymunedol",
-          "value": "community-centre"
+          "value": "Canolfan gymunedol"
         },
         {
           "text": "Sinema",
-          "value": "cinema"
+          "value": "Sinema"
         },
         {
           "text": "Oriel",
-          "value": "gallery"
+          "value": "Oriel"
         },
         {
           "text": "Amgueddfa",
-          "value": "museum"
+          "value": "Amgueddfa"
         },
         {
           "text": "Lleoliad cerddoriaeth",
-          "value": "music-venue"
+          "value": "Lleoliad cerddoriaeth"
         },
         {
           "text": "Parc",
-          "value": "park"
+          "value": "Parc"
         },
         {
           "text": "Adeilad swyddfa bost",
-          "value": "post-office"
+          "value": "Adeilad swyddfa bost"
         },
         {
           "text": "Tafarn",
-          "value": "pub"
+          "value": "Tafarn"
         },
         {
           "text": "Siop",
-          "value": "shop"
+          "value": "Siop"
         },
         {
           "text": "Cyfleuster hamdden neu chwaraeon",
-          "value": "sporting"
+          "value": "Cyfleuster hamdden neu chwaraeon"
         },
         {
           "text": "Theatr",
-          "value": "theatre"
+          "value": "Theatr"
         },
         {
           "text": "Arall",
-          "value": "other"
+          "value": "Arall"
         }
       ]
     },
@@ -614,19 +614,19 @@
       "items": [
         {
           "text": "Prynu'r eiddo",
-          "value": "buy-the-asset"
+          "value": "Prynu'r eiddo"
         },
         {
           "text": "Llogi'r eiddo",
-          "value": "lease-the-asset"
+          "value": "Llogi'r eiddo"
         },
         {
           "text": "Eisoes yn eiddo i'w sefydliad",
-          "value": "already-owned-by-organisation"
+          "value": "Eisoes yn eiddo i'w sefydliad"
         },
         {
           "text": "Eisoes wedi'i llogi gan eich sefydliad",
-          "value": "already-leased-by-organisation"
+          "value": "Eisoes wedi'i llogi gan eich sefydliad"
         }
       ]
     },
@@ -648,19 +648,19 @@
       "items": [
         {
           "text": "Ar werth neu wedi'i restru ar gyfer gwaredu",
-          "value": "for-sale-or-listed-for-disposal"
+          "value": "Ar werth neu wedi'i restru ar gyfer gwaredu"
         },
         {
           "text": "Nid yw'r defnydd yn y dyfodol wedi'i sicrhau",
-          "value": "future-use-not-secured"
+          "value": "Nid yw'r defnydd yn y dyfodol wedi'i sicrhau"
         },
         {
           "text": "Gwerth annyoneddol na thâl fel y mae'r model busnes presennol",
-          "value": "unprofitable-under-current-business-model"
+          "value": "Gwerth annyoneddol na thâl fel y mae'r model busnes presennol"
         },
         {
           "text": "Nid yw'r perchenogaeth gyfredol yn ddichonadwy",
-          "value": "current-ownership-not-tenable"
+          "value": "Nid yw'r perchenogaeth gyfredol yn ddichonadwy"
         }
       ]
     },
@@ -671,27 +671,27 @@
       "items": [
         {
           "text": "Cau",
-          "value": "Closure"
+          "value": "Cau"
         },
         {
           "text": "Werthiant",
-          "value": "Sale"
+          "value": "Werthiant"
         },
         {
           "text": "Camddeall neu wanllyd",
-          "value": "Neglect or dereliction"
+          "value": "Camddeall neu wanllyd"
         },
         {
           "text": "Model busnes presennol na ellir ei gynnal",
-          "value": "Unsustainable current business model"
+          "value": "Model busnes presennol na ellir ei gynnal"
         },
         {
           "text": "Wedî'i restru ar gyfer gwaredu",
-          "value": "Listed for disposal"
+          "value": "Wedî'i restru ar gyfer gwaredu"
         },
         {
           "text": "Rhan o Trosglwyddiad Ased Cymunedol",
-          "value": "Part of a Community Asset Transfer"
+          "value": "Rhan o Trosglwyddiad Ased Cymunedol"
         }
       ]
     },
@@ -702,15 +702,15 @@
       "items": [
         {
           "text": "Cau",
-          "value": "Closure"
+          "value": "Cau"
         },
         {
           "text": "Camddeall neu wanllyd",
-          "value": "Neglect or dereliction"
+          "value": "Camddeall neu wanllyd"
         },
         {
           "text": "Model busnes presennol na ellir ei gynnal",
-          "value": "Unsustainable current business model"
+          "value": "Model busnes presennol na ellir ei gynnal"
         }
       ]
     }
@@ -737,8 +737,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "other",
-              "display": "other"
+              "value": "Arall",
+              "display": "Arall"
             }
           }
         ]
@@ -979,7 +979,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "already-owned-by-organisation",
+              "value": "Eisoes yn eiddo iw sefydliad",
               "display": "Eisoes yn eiddo i'w sefydliad"
             }
           }
@@ -1001,7 +1001,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "already-leased-by-organisation",
+              "value": "Eisoes wedii llogi gan eich sefydliad",
               "display": "Eisoes wedi'i llogi gan eich sefydliad"
             }
           }
@@ -1023,8 +1023,8 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Listed for disposal",
-              "display": "Listed for disposal"
+              "value": "Llogir eiddo",
+              "display": "Llogi'r eiddo"
             }
           }
         ]
@@ -1045,8 +1045,8 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Part of a Community Asset Transfer",
-              "display": "Rhan o Brosiect Trosglwyddo Aseth Cymunedol"
+              "value": "Rhan o Trosglwyddiad Ased Cymunedol",
+              "display": "Rhan o Trosglwyddiad Ased Cymunedol"
             }
           }
         ]
