@@ -155,7 +155,7 @@
             "hideTitle": true
           },
           "type": "YesNoField",
-          "title": "Is the asset at risk?",
+          "title": "A yw'r ased mewn perygl?",
           "schema": {},
           "values": {
             "type": "listRef"
