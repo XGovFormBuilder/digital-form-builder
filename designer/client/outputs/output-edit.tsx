@@ -83,6 +83,7 @@ class OutputEdit extends Component<Props, State> {
           emailField: formData.get("email-field") as string,
           addReferencesToPersonalisation:
             formData.get("add-references-to-personalisation") === "true",
+          escapeURLs: formData.get("escape-urls") === "true",
         };
         break;
       case OutputType.Webhook:

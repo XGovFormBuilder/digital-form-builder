@@ -139,6 +139,24 @@ class NotifyEdit extends Component<Props, State> {
             name="add-references-to-personalisation"
           />
         </div>
+        <div className="govuk-form-group">
+          <Checkboxes
+            items={[
+              {
+                children: (
+                  <strong>
+                    {i18n("outputEdit.notifyEdit.escapeURLsTitle")}
+                  </strong>
+                ),
+                hint: {
+                  children: i18n("outputEdit.notifyEdit.escapeURLsHint"),
+                },
+                value: true,
+              },
+            ]}
+            name="escape-urls"
+          />
+        </div>
       </div>
     );
   }

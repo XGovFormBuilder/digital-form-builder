@@ -220,6 +220,7 @@ const notifySchema = joi.object().keys({
     .optional(),
   addReferencesToPersonalisation: joi.boolean().optional(),
   emailReplyToIdConfiguration: joi.array().items(replyToConfigurationSchema),
+  escapeURLs: joi.boolean().default(false),
 });
 
 const emailSchema = joi.object().keys({

@@ -104,6 +104,7 @@ describe("OutputEdit", () => {
             templateId: "NewTemplateId",
             apiKey: "NewAPIKey",
             emailField: "9WH4EX",
+            escapeURLs: false,
             addReferencesToPersonalisation: true,
           },
         },

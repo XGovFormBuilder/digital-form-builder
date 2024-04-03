@@ -46,6 +46,7 @@ export function NotifyModel(
     personalisation: personalisationConfiguration,
     personalisationFieldCustomisation = {},
     emailReplyToIdConfiguration,
+    escapeURLs = false,
     templateId,
   } = outputConfiguration;
 
@@ -106,6 +107,7 @@ export function NotifyModel(
     emailAddress: reach(state, emailField) as string,
     apiKey: apiKey,
     addReferencesToPersonalisation,
+    escapeURLs,
     ...(emailReplyToId && { emailReplyToId }),
   };
 }
