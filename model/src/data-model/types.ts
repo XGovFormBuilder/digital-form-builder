@@ -91,6 +91,7 @@ export type NotifyOutputConfiguration = {
     emailReplyToId: string;
     condition?: string | undefined;
   }[];
+  escapeURLs?: boolean;
 };
 
 export type WebhookOutputConfiguration = {
