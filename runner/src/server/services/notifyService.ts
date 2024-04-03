@@ -32,14 +32,22 @@ export class NotifyService {
     this.logger = server.logger;
   }
 
+  /**
+   * Escapes markdown-formatted links. If a markdown-formatted link is passed
+   * through in personalisation, Notify will render it as a link. This could
+   * leave an opening to phishing attacks.
+   *
+   * @param value the personalisation value to be escaped
+   */
   escapeURLs(value: string): string {
     const specialCharactersPattern = new RegExp(/\[([^\[\]]*)]\(([^\(\)]*)\)/g);
-    const matches = [...value.matchAll(specialCharactersPattern)];
-    matches.forEach(([link, linkText, href]) => {
-      const newText = `\\[${linkText}\\]\\(${href})`;
-      value = value.replace(link, newText);
-    });
-    return value;
+
+    return value.replaceAll(
+      specialCharactersPattern,
+      (_match, linkText, href) => {
+        return `\\[${linkText}\\]\\(${href})`;
+      }
+    );
   }
 
   parsePersonalisations(
