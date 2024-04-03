@@ -342,7 +342,9 @@
   "outputEdit": {
     "notifyEdit": {
       "includeReferenceTitle": "Include webhook and payment references",
-      "includeReferenceHint": "If webhook or payment references are available, they will be included in Notify's personalisation object. The included fields are: hasWebhookReference (boolean), webhookReference: (string), hasPaymentReference: (boolean), paymentReference: string."
+      "includeReferenceHint": "If webhook or payment references are available, they will be included in Notify's personalisation object. The included fields are: hasWebhookReference (boolean), webhookReference: (string), hasPaymentReference: (boolean), paymentReference: string.",
+      "escapeURLsTitle": "Escape Notify encoded URLs",
+      "escapeURLsHint": "If you do not expect notify-encoded links to be passed through from your form, select this box to break this formatting. It is strongly recommended to enable this to prevent phishing attacks"
     }
   },
   "page": {
