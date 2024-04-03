@@ -19,7 +19,8 @@ export type SendNotificationArgs = {
   emailAddress: string;
   personalisation: Personalisation;
   reference: string;
-  replyToEmailId?: string;
+  emailReplyToId?: string;
+  escapeURLs?: boolean;
 };
 
 export class NotifyService {
@@ -31,11 +32,27 @@ export class NotifyService {
     this.logger = server.logger;
   }
 
-  parsePersonalisations(options: Personalisation): Personalisation {
+  escapeURLs(value: string): string {
+    const specialCharactersPattern = new RegExp(/\[([^\[\]]*)]\(([^\(\)]*)\)/g);
+    const matches = [...value.matchAll(specialCharactersPattern)];
+    matches.forEach(([link, linkText, href]) => {
+      const newText = `\\[${linkText}\\]\\(${href})`;
+      value = value.replace(link, newText);
+    });
+    return value;
+  }
+
+  parsePersonalisations(
+    options: Personalisation,
+    escapeURLs: boolean
+  ): Personalisation {
     const entriesWithReplacedBools = Object.entries(options).map(
       ([key, value]) => {
         if (typeof value === "boolean") {
           return [key, value ? "yes" : "no"];
+        }
+        if (typeof value === "string" && escapeURLs) {
+          value = this.escapeURLs(value);
         }
         return [key, value];
       }
@@ -51,6 +68,7 @@ export class NotifyService {
       personalisation,
       reference,
       emailReplyToId,
+      escapeURLs,
     } = args;
     let { apiKey } = args;
 
@@ -60,8 +78,10 @@ export class NotifyService {
         : apiKey.test ?? apiKey.production) as string;
     }
 
+    console.log("escape urls the level up: ", escapeURLs);
+
     const parsedOptions: SendEmailOptions = {
-      personalisation: this.parsePersonalisations(personalisation),
+      personalisation: this.parsePersonalisations(personalisation, escapeURLs),
       reference,
       emailReplyToId,
     };
