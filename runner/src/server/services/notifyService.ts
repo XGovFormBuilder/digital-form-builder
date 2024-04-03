@@ -78,8 +78,6 @@ export class NotifyService {
         : apiKey.test ?? apiKey.production) as string;
     }
 
-    console.log("escape urls the level up: ", escapeURLs);
-
     const parsedOptions: SendEmailOptions = {
       personalisation: this.parsePersonalisations(personalisation, escapeURLs),
       reference,

@@ -227,6 +227,7 @@ export class StatusService {
       personalisation = {},
       addReferencesToPersonalisation = false,
       emailReplyToId,
+      escapeURLs,
     } = outputData;
 
     return {
@@ -244,6 +245,7 @@ export class StatusService {
       templateId,
       emailAddress,
       emailReplyToId,
+      escapeURLs,
     };
   }
 
