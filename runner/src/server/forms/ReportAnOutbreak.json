@@ -1972,52 +1972,8 @@
                     "value": "East Midlands HPT"
                 },
                 {
-                    "text": "NE & NC London HPT",
-                    "value": "NE & NC London HPT"
-                },
-                {
-                    "text": "North West London HPT",
-                    "value": "North West London HPT"
-                },
-                {
-                    "text": "South London HPT",
-                    "value": "South London HPT"
-                },
-                {
-                    "text": "North East HPT",
-                    "value": "North East HPT"
-                },
-                {
-                    "text": "Cheshire & Merseyside HPT",
-                    "value": "Cheshire & Merseyside HPT"
-                },
-                {
-                    "text": "Greater Manchester HPT",
-                    "value": "Greater Manchester HPT"
-                },
-                {
-                    "text": "Cumbria & Lancashire HPT",
-                    "value": "Cumbria & Lancashire HPT"
-                },
-                {
                     "text": "South East HPT",
                     "value": "South East HPT"
-                },
-                {
-                    "text": "South West HPT",
-                    "value": "South West HPT"
-                },
-                {
-                    "text": "West Midlands HPT",
-                    "value": "West Midlands HPT"
-                },
-                {
-                    "text": "Yorkshire & the Humber HPT",
-                    "value": "Yorkshire & the Humber HPT"
-                },
-                {
-                    "text": "Not England",
-                    "value": "Not England"
                 }
             ]
         },
