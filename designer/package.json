@@ -37,7 +37,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
     "@hapi/inert": "^6.0.1",
-    "@hapi/scooter": "6.0.0",
+    "@hapi/scooter": "7.0.0",
     "@hapi/wreck": "17.0.0",
     "@xgovformbuilder/govuk-react-jsx": "7.1.2",
     "@xgovformbuilder/model": "3.0.0",
