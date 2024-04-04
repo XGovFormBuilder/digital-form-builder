@@ -2661,17 +2661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/scooter@npm:6.0.0":
-  version: 6.0.0
-  resolution: "@hapi/scooter@npm:6.0.0"
-  dependencies:
-    semver: 6.x.x
-    useragent: 2.x.x
-  checksum: 981880baec8497a96b64286ea9f64b26c150862f6caf20d9ca78eecd22d19c88d390cf0cf0cf84f77cd46c6bf8ea6529acc2c342b581f79fc55cf4d9523b59aa
-  languageName: node
-  linkType: hard
-
-"@hapi/scooter@npm:^7.0.0":
+"@hapi/scooter@npm:7.0.0, @hapi/scooter@npm:^7.0.0":
   version: 7.0.0
   resolution: "@hapi/scooter@npm:7.0.0"
   dependencies:
@@ -4925,7 +4915,7 @@ __metadata:
     "@hapi/hapi": ^20.2.2
     "@hapi/inert": ^6.0.1
     "@hapi/lab": ^24.5.1
-    "@hapi/scooter": 6.0.0
+    "@hapi/scooter": 7.0.0
     "@hapi/wreck": 17.0.0
     "@testing-library/jest-dom": ^5.16.2
     "@testing-library/react": ^12.1.3
@@ -21117,7 +21107,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"useragent@npm:2.x.x, useragent@npm:^2.3.0":
+"useragent@npm:^2.3.0":
   version: 2.3.0
   resolution: "useragent@npm:2.3.0"
   dependencies:
