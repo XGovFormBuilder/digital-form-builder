@@ -81,7 +81,9 @@ export class NotifyService {
     let { apiKey } = args;
 
     if (isMultipleApiKey(apiKey)) {
-      apiKey = apiKey[config.apiEnv] ?? (apiKey.test as string);
+      apiKey = (apiKey[config.apiEnv] ??
+        apiKey.test ??
+        apiKey.production) as string;
     }
 
     const parsedOptions: SendEmailOptions = {
