@@ -26,7 +26,6 @@ import {
   AddressService,
   CacheService,
   catboxProvider,
-  EmailService,
   NotifyService,
   PayService,
   StatusService,
@@ -121,8 +120,6 @@ async function createServer(routeConfig: RouteConfig) {
   } else {
     server.registerService([UploadService]);
   }
-
-  server.registerService([EmailService]);
 
   if (config.enableQueueService) {
     const queueType = config.queueType;

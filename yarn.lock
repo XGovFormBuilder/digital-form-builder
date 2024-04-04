@@ -5149,7 +5149,6 @@ __metadata:
     accessible-autocomplete: ^2.0.2
     acorn: ^8.7.0
     atob: ^2.1.2
-    aws-sdk: 2.1531.0
     babel-eslint: ^10.1.0
     babel-plugin-module-name-mapper: ^1.2.0
     blankie: 5.0.0
@@ -5181,7 +5180,6 @@ __metadata:
     lodash: ^4.17.21
     lodash-es: ^4.17.21
     nanoid: ^3.3.4
-    nodemailer: ~6.6.0
     nodemon: ^3.0.2
     notifications-node-client: ^7.0.4
     nunjucks: ^3.2.3
@@ -6046,24 +6044,6 @@ __metadata:
   version: 1.0.5
   resolution: "available-typed-arrays@npm:1.0.5"
   checksum: 20eb47b3cefd7db027b9bbb993c658abd36d4edd3fe1060e83699a03ee275b0c9b216cc076ff3f2db29073225fb70e7613987af14269ac1fe2a19803ccc97f1a
-  languageName: node
-  linkType: hard
-
-"aws-sdk@npm:2.1531.0":
-  version: 2.1531.0
-  resolution: "aws-sdk@npm:2.1531.0"
-  dependencies:
-    buffer: 4.9.2
-    events: 1.1.1
-    ieee754: 1.1.13
-    jmespath: 0.16.0
-    querystring: 0.2.0
-    sax: 1.2.1
-    url: 0.10.3
-    util: ^0.12.4
-    uuid: 8.0.0
-    xml2js: 0.5.0
-  checksum: 0322b0cf2685548a469b681cff4de3707e080d83690188938f34d021dc4ded8478d0a85c6d7680d85b8def4d5d36b3f3fc26a315cd02bc03037d04693f135bfc
   languageName: node
   linkType: hard
 
@@ -16053,13 +16033,6 @@ __metadata:
   version: 2.0.14
   resolution: "node-releases@npm:2.0.14"
   checksum: 59443a2f77acac854c42d321bf1b43dea0aef55cd544c6a686e9816a697300458d4e82239e2d794ea05f7bbbc8a94500332e2d3ac3f11f52e4b16cbe638b3c41
-  languageName: node
-  linkType: hard
-
-"nodemailer@npm:~6.6.0":
-  version: 6.6.5
-  resolution: "nodemailer@npm:6.6.5"
-  checksum: 17daaeced44e6cdf53527018986ed090e950448fbef89608220a236e1d3e081e76eb8264edbdf8b7bd5d26f096fb86044576015b5000c59dc83f3712282c46da
   languageName: node
   linkType: hard
 

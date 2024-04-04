@@ -11,7 +11,6 @@ import { Logger } from "pino";
 import { RateOptions } from "./plugins/rateLimit";
 import {
   CacheService,
-  EmailService,
   NotifyService,
   PayService,
   StatusService,
@@ -25,7 +24,6 @@ type Services = (
   services: string[]
 ) => {
   cacheService: CacheService;
-  emailService: EmailService;
   notifyService: NotifyService;
   payService: PayService;
   uploadService: UploadService;
