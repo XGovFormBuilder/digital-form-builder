@@ -2789,10 +2789,5 @@
     },
     "phaseBanner": {
         "phase": "beta"
-    },
-    "feeOptions": {
-        "allowSubmissionWithoutPayment": true,
-        "maxAttempts": 3,
-        "showPaymentSkippedWarningPage": false
     }
 }
