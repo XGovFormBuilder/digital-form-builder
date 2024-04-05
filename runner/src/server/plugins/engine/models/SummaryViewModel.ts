@@ -324,9 +324,11 @@ export class SummaryViewModel {
 
   get payApiKey() {
     if (isMultipleApiKey(this._payApiKey)) {
-      return config.apiEnv === "production"
-        ? this._payApiKey.production ?? this._payApiKey.test
-        : this._payApiKey.test ?? this._payApiKey.production;
+      return (
+        this._payApiKey[config.apiEnv] ??
+        this._payApiKey.test ??
+        this._payApiKey.production
+      );
     }
     return this._payApiKey;
   }

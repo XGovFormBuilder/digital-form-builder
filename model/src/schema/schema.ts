@@ -201,6 +201,7 @@ const feeSchema = joi.object().keys({
 
 const multiApiKeySchema = joi.object({
   test: joi.string().optional(),
+  smoke: joi.string().optional(),
   production: joi.string().optional(),
 });
 
