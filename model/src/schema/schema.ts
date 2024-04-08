@@ -102,7 +102,7 @@ const nextSchema = joi.object().keys({
     otherwise: joi.string().required(),
   }),
   condition: joi.string().allow("").optional(),
-  redirect: joi.string().uri().optional(),
+  redirect: joi.string().optional(),
 });
 
 /**
