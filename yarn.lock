@@ -3596,53 +3596,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^1.19.0":
-  version: 1.26.2
-  resolution: "@oclif/core@npm:1.26.2"
+"@oclif/core@npm:^3.26.2":
+  version: 3.26.2
+  resolution: "@oclif/core@npm:3.26.2"
   dependencies:
-    "@oclif/linewrap": ^1.0.0
-    "@oclif/screen": ^3.0.4
+    "@types/cli-progress": ^3.11.5
     ansi-escapes: ^4.3.2
     ansi-styles: ^4.3.0
     cardinal: ^2.1.1
     chalk: ^4.1.2
     clean-stack: ^3.0.1
-    cli-progress: ^3.10.0
+    cli-progress: ^3.12.0
+    color: ^4.2.3
     debug: ^4.3.4
-    ejs: ^3.1.6
-    fs-extra: ^9.1.0
+    ejs: ^3.1.9
     get-package-type: ^0.1.0
     globby: ^11.1.0
     hyperlinker: ^1.0.0
     indent-string: ^4.0.0
     is-wsl: ^2.2.0
     js-yaml: ^3.14.1
+    minimatch: ^9.0.4
     natural-orderby: ^2.0.3
     object-treeify: ^1.1.33
-    password-prompt: ^1.1.2
-    semver: ^7.3.7
+    password-prompt: ^1.1.3
+    slice-ansi: ^4.0.0
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     supports-color: ^8.1.1
     supports-hyperlinks: ^2.2.0
-    tslib: ^2.4.1
     widest-line: ^3.1.0
+    wordwrap: ^1.0.0
     wrap-ansi: ^7.0.0
-  checksum: 1da7f22fff1eb4bba10f17f07a97bad308d317a0b591561be7f1171edff2f40bf84830295965b26cfcb80d3c5df7958df35bbbba4ce030e14a68bbc8e3cedc82
-  languageName: node
-  linkType: hard
-
-"@oclif/linewrap@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@oclif/linewrap@npm:1.0.0"
-  checksum: a072016a58b5e1331bbc21303ad5100fcda846ac4b181e344aec88bb24c5da09c416651e51313ffcc846a83514b74b8b987dd965982900f3edbb42b4e87cc246
-  languageName: node
-  linkType: hard
-
-"@oclif/screen@npm:^3.0.4":
-  version: 3.0.8
-  resolution: "@oclif/screen@npm:3.0.8"
-  checksum: d287d5abf236e6564259a11f3942ad68a70ead2fe2ad3653c3730bce8519d21e49cabcc5be449fab769f4efc5ca74c6de98edc34e3464e60d2277119fb4796d2
+  checksum: 895439b0772b76be26ec711890079eb6adf8a527c7670f93d9d8cacd1d42505ce29aaaeab7d0fcaafecc39aa1efe0b5ea4cf2412cb9b4c826f200855b283c3b0
   languageName: node
   linkType: hard
 
@@ -3988,6 +3974,15 @@ __metadata:
   version: 10.0.9
   resolution: "@types/catbox@npm:10.0.9"
   checksum: d04629369ac4ad561b6f3dafbda658bdf25d6ebef67afa032a68540cb2bca84602347950ad4be65d2109e745d42e5ff2b8220398ff25a94f5a6facae3e16ba62
+  languageName: node
+  linkType: hard
+
+"@types/cli-progress@npm:^3.11.5":
+  version: 3.11.5
+  resolution: "@types/cli-progress@npm:3.11.5"
+  dependencies:
+    "@types/node": "*"
+  checksum: 571fb3b11646415ac49c90e8003b82f3ac58d75fde5952caf40b4a079517b6e25e79ab0a7455d0ab0398d0b2de062646dba075d3d1f8d147eed2ab4d41abbf64
   languageName: node
   linkType: hard
 
@@ -5133,7 +5128,7 @@ __metadata:
     "@hapi/vision": ^7.0.3
     "@hapi/wreck": ^18.0.1
     "@hapi/yar": ^11.0.1
-    "@oclif/core": ^1.19.0
+    "@oclif/core": ^3.26.2
     "@types/google-libphonenumber": ^7.4.30
     "@types/hapi": ^18.0.7
     "@types/hapi__yar": ^10.1.1
@@ -7275,7 +7270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-progress@npm:^3.10.0":
+"cli-progress@npm:^3.12.0":
   version: 3.12.0
   resolution: "cli-progress@npm:3.12.0"
   dependencies:
@@ -7489,10 +7484,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-name@npm:~1.1.4":
+"color-name@npm:^1.0.0, color-name@npm:~1.1.4":
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: b0445859521eb4021cd0fb0cc1a75cecf67fceecae89b63f62b201cca8d345baf8b952c966862a9d9a2632987d4f6581f0ec8d957dfacece86f0a7919316f610
+  languageName: node
+  linkType: hard
+
+"color-string@npm:^1.9.0":
+  version: 1.9.1
+  resolution: "color-string@npm:1.9.1"
+  dependencies:
+    color-name: ^1.0.0
+    simple-swizzle: ^0.2.2
+  checksum: c13fe7cff7885f603f49105827d621ce87f4571d78ba28ef4a3f1a104304748f620615e6bf065ecd2145d0d9dad83a3553f52bb25ede7239d18e9f81622f1cc5
+  languageName: node
+  linkType: hard
+
+"color@npm:^4.2.3":
+  version: 4.2.3
+  resolution: "color@npm:4.2.3"
+  dependencies:
+    color-convert: ^2.0.1
+    color-string: ^1.9.0
+  checksum: 0579629c02c631b426780038da929cca8e8d80a40158b09811a0112a107c62e10e4aad719843b791b1e658ab4e800558f2e87ca4522c8b32349d497ecb6adeb4
   languageName: node
   linkType: hard
 
@@ -8938,7 +8953,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ejs@npm:^3.1.6":
+"ejs@npm:^3.1.9":
   version: 3.1.9
   resolution: "ejs@npm:3.1.9"
   dependencies:
@@ -12580,6 +12595,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-arrayish@npm:^0.3.1":
+  version: 0.3.2
+  resolution: "is-arrayish@npm:0.3.2"
+  checksum: 977e64f54d91c8f169b59afcd80ff19227e9f5c791fa28fa2e5bce355cbaf6c2c356711b734656e80c9dd4a854dd7efcf7894402f1031dfc5de5d620775b4d5f
+  languageName: node
+  linkType: hard
+
 "is-async-function@npm:^2.0.0":
   version: 2.0.0
   resolution: "is-async-function@npm:2.0.0"
@@ -15483,6 +15505,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:^9.0.4":
+  version: 9.0.4
+  resolution: "minimatch@npm:9.0.4"
+  dependencies:
+    brace-expansion: ^2.0.1
+  checksum: cf717f597ec3eed7dabc33153482a2e8d49f4fd3c26e58fd9c71a94c5029a0838728841b93f46bf1263b65a8010e2ee800d0dc9b004ab8ba8b6d1ec07cc115b5
+  languageName: node
+  linkType: hard
+
 "minimist@npm:~1.2.6":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
@@ -16765,7 +16796,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"password-prompt@npm:^1.1.2":
+"password-prompt@npm:^1.1.3":
   version: 1.1.3
   resolution: "password-prompt@npm:1.1.3"
   dependencies:
@@ -19246,6 +19277,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"simple-swizzle@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "simple-swizzle@npm:0.2.2"
+  dependencies:
+    is-arrayish: ^0.3.1
+  checksum: a7f3f2ab5c76c4472d5c578df892e857323e452d9f392e1b5cf74b74db66e6294a1e1b8b390b519fa1b96b5b613f2a37db6cffef52c3f1f8f3c5ea64eb2d54c0
+  languageName: node
+  linkType: hard
+
 "simple-update-notifier@npm:^1.0.7":
   version: 1.1.0
   resolution: "simple-update-notifier@npm:1.1.0"
@@ -20615,7 +20655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.1":
+"tslib@npm:^2.0.3, tslib@npm:^2.1.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad

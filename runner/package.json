@@ -95,7 +95,7 @@
     "@babel/register": "^7.22.15",
     "@hapi/code": "8.0.1",
     "@hapi/lab": "24.0.0",
-    "@oclif/core": "^1.19.0",
+    "@oclif/core": "^3.26.2",
     "@types/hapi": "^18.0.7",
     "@types/hapi__yar": "^10.1.1",
     "@types/hoek": "^4.1.4",
