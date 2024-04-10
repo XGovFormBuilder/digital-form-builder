@@ -19,6 +19,12 @@
       max_words: Number('{{ component.model.maxWords }}'),
       iframe_aria_text: '{{ component.model.name }}',
       paste_data_images: false,
+      paste_preprocess: function (plugin, args) {
+        // despite `paste_data_images` being false, sometimes images get pasted.
+        // we use this function to replace them with a blank string incase this happens.
+        const imgTagPattern = /<img [^>]*src="[^"]*"[^>]*>/gi;
+        args.content = args.content.replace(imgTagPattern, '');
+      },
       content_style: "body { font-family: \"GDS Transport\",arial,sans-serif; font-size: 1.1875rem; }",
       dragover_callback: function (e) {
         // prevent dragover event from doing anything, images could be snuck in this way
