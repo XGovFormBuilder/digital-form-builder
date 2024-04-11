@@ -1,0 +1,131 @@
+{
+  "metadata": {},
+  "startPage": "/designated-area-details",
+  "pages": [
+    {
+      "title": "Designated area details",
+      "path": "/designated-area-details",
+      "components": [
+        {
+          "name": "ByrOzi",
+          "options": {},
+          "type": "Para",
+          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>the name of the designated area</li>\n<li>the webpage where you’ve published designation details</li>\n<li>the number of commercial properties and vacancies</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-designated-high-street-or-town-centre-is-the-vacant-property-in"
+        }
+      ]
+    },
+    {
+      "path": "/which-designated-high-street-or-town-centre-is-the-vacant-property-in",
+      "title": "Which designated high street or town centre is the vacant property in?",
+      "components": [
+        {
+          "name": "frDgtU",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "TextField",
+          "title": "Which designated high street or town centre is the vacant property in?",
+          "hint": "The official name of the designated area"
+        }
+      ],
+      "next": [
+        {
+          "path": "/where-have-you-published-the-designation-details"
+        }
+      ],
+      "section": "YFgsrH"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/where-have-you-published-the-designation-details",
+      "title": "Where have you published the designation details?",
+      "components": [
+        {
+          "name": "fmWgiF",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "WebsiteField",
+          "title": "Where have you published the designation details?",
+          "hint": "Enter the webpage link, for example ‘www.council.gov.uk/designations’. We’ll use this to check the property is within the designated area."
+        }
+      ],
+      "next": [
+        {
+          "path": "/number-of-commercial-properties"
+        }
+      ],
+      "section": "YFgsrH"
+    },
+    {
+      "path": "/number-of-commercial-properties",
+      "title": "Number of commercial properties",
+      "components": [
+        {
+          "name": "boXxzj",
+          "options": {
+            "classes": "govuk-!-width-one-quarter"
+          },
+          "type": "NumberField",
+          "title": "How many commercial properties are in the designated area?"
+        },
+        {
+          "name": "eBpXPM",
+          "options": {
+            "classes": "govuk-!-width-one-quarter"
+          },
+          "type": "NumberField",
+          "title": "How many of these are vacant?",
+          "hint": "This must be correct at the time you submit your application"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "YFgsrH"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "YFgsrH",
+      "title": "Designated area details"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "ExdtQi",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

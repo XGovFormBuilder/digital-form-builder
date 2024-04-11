@@ -1,0 +1,111 @@
+{
+  "metadata": {},
+  "startPage": "/auction-costs",
+  "pages": [
+    {
+      "title": "Auction costs",
+      "path": "/auction-costs",
+      "components": [
+        {
+          "name": "pRKcbO",
+          "options": {},
+          "type": "Para",
+          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>total expected auction costs</li>\n<li>quotes showing auction costs</li>\n</ul>\n\n<div class=\"govuk-label\">Auction costs could include:</div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>administering and managing the auction process</li>\n<li>preparing the legal pack</li>\n<li>marketing and promoting the auction and property for lease</li>\n<li>commissioning an independent survey to identify refurbishment needed to meet minimum stand </li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-is-the-total-expected-cost-of-the-auction-in-pounds"
+        }
+      ],
+      "section": "ebIBcm"
+    },
+    {
+      "path": "/what-is-the-total-expected-cost-of-the-auction-in-pounds",
+      "title": "What is the total expected cost of the auction, in pounds?",
+      "components": [
+        {
+          "name": "kNlEvn",
+          "options": {
+            "hideTitle": true,
+            "prefix": "£",
+            "classes": "govuk-!-width-one-quarter"
+          },
+          "type": "NumberField",
+          "title": "What is the total expected cost of the auction, in pounds?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-quotes-showing-auction-costs"
+        }
+      ],
+      "section": "ebIBcm"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/upload-quotes-showing-auction-costs",
+      "title": "Upload quotes showing auction costs",
+      "components": [
+        {
+          "name": "QXHlgU",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": "10",
+              "parallelUploads": "10",
+              "maxFilesize": "10",
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "minimumRequiredFiles": "1",
+            "hideTitle": true
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload quotes showing auction costs",
+          "hint": "Upload files"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "ebIBcm"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "ebIBcm",
+      "title": "Auction costs"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "eShGGh",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

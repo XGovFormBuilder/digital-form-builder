@@ -1,0 +1,137 @@
+{
+  "metadata": {},
+  "startPage": "/refurbishment-costs",
+  "pages": [
+    {
+      "title": "Refurbishment costs",
+      "path": "/refurbishment-costs",
+      "components": [
+        {
+          "name": "WlUEqI",
+          "options": {},
+          "type": "Para",
+          "content": "<label >Refurbishment costs include costs associated with bringing the property up to the minimum letting standard and Non-Domestic Minimum Energy Efficiency Standard (MEES). This could include:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>stripping out the property</li>\n<li>removing asbestos</li>\n<li>installing a new shop front</li>\n<li>getting the necessary certifications</li>\n</ul>\n\n<div class=\"govuk-label\">In this section, we'll ask about:</div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>total expected refurbishment cost</li>\n<li>the independent survey of works</li>\n<li>quotes showing refurbishment costs</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-is-the-total-expected-cost-of-refurbishment-in-pounds"
+        }
+      ]
+    },
+    {
+      "path": "/what-is-the-total-expected-cost-of-refurbishment-in-pounds",
+      "title": "What is the total expected cost of refurbishment, in pounds?",
+      "components": [
+        {
+          "name": "pfEHzn",
+          "options": {
+            "prefix": "£",
+            "classes": "govuk-!-width-one-quarter"
+          },
+          "type": "NumberField",
+          "title": "What is the total expected cost of refurbishment, in pounds?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-the-independent-survey-of-works"
+        }
+      ],
+      "section": "qvSwnW"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/upload-the-independent-survey-of-works",
+      "title": "Upload the independent survey of works",
+      "components": [
+        {
+          "name": "SMwXcK",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": "1",
+              "parallelUploads": "1",
+              "maxFilesize": "10",
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "minimumRequiredFiles": "1",
+            "hideTitle": true
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload the independent survey of works",
+          "hint": "Upload a file"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-quotes-showing-refurbishment-costs"
+        }
+      ],
+      "section": "qvSwnW"
+    },
+    {
+      "path": "/upload-quotes-showing-refurbishment-costs",
+      "title": "Upload quotes showing refurbishment costs",
+      "components": [
+        {
+          "name": "xUgKLI",
+          "options": {
+            "hideTitle": true,
+            "dropzoneConfig": {
+              "maxFiles": "10",
+              "parallelUploads": "10",
+              "maxFilesize": "10",
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "minimumRequiredFiles": "1"
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload quotes showing refurbishment costs",
+          "hint": "Upload files"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "qvSwnW"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "qvSwnW",
+      "title": "Refurbishment costs"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "DZdhtS",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
