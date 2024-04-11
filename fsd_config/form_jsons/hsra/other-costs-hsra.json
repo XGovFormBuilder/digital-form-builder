@@ -1,0 +1,89 @@
+{
+  "metadata": {},
+  "startPage": "/other-costs",
+  "pages": [
+    {
+      "title": "Other costs",
+      "path": "/other-costs",
+      "components": [
+        {
+          "name": "tguYic",
+          "options": {},
+          "type": "Para",
+          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>total expected other costs</li>\n<li>quotes showing other costs</li>\n</ul>\n\n<div class=\"govuk-label\">Other costs include:</div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>issuing legal notices</li>\n<li>gaining access to the property</li>\n<li>preparing the contract for tenancy and tenancy agreement</li>\n<li>conveyancing</li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/what-is-the-total-of-any-other-expected-costs-in-pounds" }
+      ]
+    },
+    {
+      "path": "/what-is-the-total-of-any-other-expected-costs-in-pounds",
+      "title": "What is the total of any other expected costs, in pounds?",
+      "components": [
+        {
+          "name": "uJIluf",
+          "options": {
+            "hideTitle": true,
+            "prefix": "£",
+            "classes": "govuk-!-width-one-quarter"
+          },
+          "type": "NumberField",
+          "title": "What is the total of any other expected costs, in pounds?",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/upload-quotes-showing-other-costs" }],
+      "section": "qavZyX"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/upload-quotes-showing-other-costs",
+      "title": "Upload quotes showing other costs",
+      "components": [
+        {
+          "name": "kRiNuO",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": "10",
+              "parallelUploads": "10",
+              "maxFilesize": "10",
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "minimumRequiredFiles": "1"
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload quotes showing other costs",
+          "hint": "Upload files"
+        }
+      ],
+      "next": [{ "path": "/summary" }],
+      "section": "qavZyX"
+    }
+  ],
+  "lists": [],
+  "sections": [{ "name": "qavZyX", "title": "Other costs" }],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "ASVWuY",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": { "savePerPageUrl": "True" }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": { "feedbackForm": false, "url": "" },
+  "phaseBanner": { "phase": "beta" }
+}

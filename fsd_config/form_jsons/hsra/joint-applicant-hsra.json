@@ -1,0 +1,152 @@
+{
+  "metadata": {},
+  "startPage": "/joint-applicant",
+  "pages": [
+    {
+      "title": "Joint applicant",
+      "path": "/joint-applicant",
+      "components": [
+        {
+          "name": "FflOeC",
+          "options": {},
+          "type": "Para",
+          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>if you’re making a joint application with another local authority</li>\n<li>local authority name (if applicable)</li>\n<li>local authority lead contact’s name (if applicable)</li>\n<li>local authority lead contact’s email address (if applicable)</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/are-you-making-a-joint-application-with-another-local-authority"
+        }
+      ]
+    },
+    {
+      "path": "/are-you-making-a-joint-application-with-another-local-authority",
+      "title": "Are you making a joint application with another local authority?",
+      "components": [
+        {
+          "name": "luWnQp",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Are you making a joint application with another local authority?",
+          "hint": "Your joint applicant must be a planning authority or a combined authority"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-local-authority-are-you-applying-with",
+          "condition": "PZUMwa"
+        },
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "vpxTQD"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/which-local-authority-are-you-applying-with",
+      "title": "Which local authority are you applying with?",
+      "components": [
+        {
+          "name": "cVDqxW",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "title": "Which local authority are you applying with?",
+          "hint": "The full legal name"
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-from-that-authority-should-we-contact-about-this-application"
+        }
+      ],
+      "section": "vpxTQD"
+    },
+    {
+      "path": "/who-from-that-authority-should-we-contact-about-this-application",
+      "title": "Who from that authority should we contact about this application?",
+      "components": [
+        {
+          "name": "CyfqVo",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "TextField",
+          "title": "Full name",
+          "hint": "Full name"
+        },
+        {
+          "name": "EvfEzH",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "hint": "Email address"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "vpxTQD"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "vpxTQD",
+      "title": "Joint applicant"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Are you making a joint application with another local authority-yes",
+      "name": "PZUMwa",
+      "value": {
+        "name": "Are you making a joint application with another local authority-yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "luWnQp",
+              "type": "YesNoField",
+              "display": "Are you making a joint application with another local authority?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "iwWRSp",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false
+}
