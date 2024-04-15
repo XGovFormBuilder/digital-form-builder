@@ -44,7 +44,12 @@
       ],
       "next": [
         {
-          "path": "/beth-ywr-prif-bethau-y-mae-angen-cymorth-arnoch-gyda-nhw-er-mwyn-cyflwyno-cais-da-ir-gronfa-perchnogaeth-gymunedol-yn-eich-barn-chi"
+          "path": "/beth-ywr-prif-bethau-y-mae-angen-cymorth-arnoch-gyda-nhw-er-mwyn-cyflwyno-cais-da-ir-gronfa-perchnogaeth-gymunedol-yn-eich-barn-chi",
+          "condition": "DFAbIm"
+        },
+        {
+          "path": "/disgrifiwch-eich-prosiect-ai-nodau",
+          "condition": "BXKKSX"
         }
       ],
       "section": "IEwDfr"
@@ -195,7 +200,7 @@
       "items": [
         {
           "text": "Rwy'n cytuno y gellir cysylltu â mi os wyf yn gymwys",
-          "value": "Rwy'n cytuno y gellir cysylltu â mi os wyf yn gymwys"
+          "value": "Rwyn cytuno y gellir cysylltu â mi os wyf yn gymwys"
         },
         {
           "text": "Nid wyf am i neb gysylltu â mi ",
@@ -226,7 +231,52 @@
       "title": "Community Ownership Fund - Expression of interest"
     }
   ],
-  "conditions": [],
+  "conditions": [
+    {
+      "displayName": "support_no",
+      "name": "BXKKSX",
+      "value": {
+        "name": "support_no",
+        "conditions": [
+          {
+            "field": {
+              "name": "iXmKyq",
+              "type": "RadiosField",
+              "display": "Do you wish to be contacted by the development support provider, if eligible for in-depth support?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Nid wyf am i neb gysylltu â mi ",
+              "display": "no"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "support_yes",
+      "name": "DFAbIm",
+      "value": {
+        "name": "support_yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "iXmKyq",
+              "type": "RadiosField",
+              "display": "Do you wish to be contacted by the development support provider, if eligible for in-depth support?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Rwyn cytuno y gellir cysylltu â mi os wyf yn gymwys",
+              "display": "yes"
+            }
+          }
+        ]
+      }
+    }
+  ],
   "fees": [],
   "outputs": [
     {

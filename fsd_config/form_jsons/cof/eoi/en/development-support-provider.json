@@ -38,7 +38,12 @@
       ],
       "next": [
         {
-          "path": "/what-are-the-main-things-you-feel-you-need-support-with-to-submit-a-good-cof-application"
+          "path": "/what-are-the-main-things-you-feel-you-need-support-with-to-submit-a-good-cof-application",
+          "condition": "DFAbIm"
+        },
+        {
+          "path": "/describe-your-project-and-its-aims",
+          "condition": "BXKKSX"
         }
       ],
       "section": "IEwDfr"
@@ -220,7 +225,52 @@
       "title": "Community Ownership Fund - Expression of interest"
     }
   ],
-  "conditions": [],
+  "conditions": [
+    {
+      "displayName": "support_no",
+      "name": "BXKKSX",
+      "value": {
+        "name": "support_no",
+        "conditions": [
+          {
+            "field": {
+              "name": "iXmKyq",
+              "type": "RadiosField",
+              "display": "Do you wish to be contacted by the development support provider, if eligible for in-depth support?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "No, I do not wish to be contacted",
+              "display": "no"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "support_yes",
+      "name": "DFAbIm",
+      "value": {
+        "name": "support_yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "iXmKyq",
+              "type": "RadiosField",
+              "display": "Do you wish to be contacted by the development support provider, if eligible for in-depth support?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Yes, I agree to be contacted if eligible",
+              "display": "yes"
+            }
+          }
+        ]
+      }
+    }
+  ],
   "fees": [],
   "outputs": [
     {
