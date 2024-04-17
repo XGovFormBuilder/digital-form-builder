@@ -1,0 +1,121 @@
+{
+  "metadata": {},
+  "startPage": "/about-your-organisation",
+  "pages": [
+    {
+      "title": "About your organisation",
+      "path": "/about-your-organisation",
+      "components": [
+        {
+          "name": "mcFbhg",
+          "options": {},
+          "type": "Para",
+          "content": "<label> In this section, we'll ask about:\n</label>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>local authority name</li>\n<li>section 151 officer’s name</li>\n<li>section 151 officer’s email address</li>\n<li>section 151 officer’s telephone number</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-local-authority-are-you-applying-from"
+        }
+      ]
+    },
+    {
+      "path": "/which-local-authority-are-you-applying-from",
+      "title": "Which local authority are you applying from?",
+      "components": [
+        {
+          "name": "WLddBt",
+          "options": {
+            "hideTitle": true,
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "Which local authority are you applying from?",
+          "hint": "<label class=\"gov-uk-hint\">The full legal name</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/who-is-your-section-151-officer"
+        }
+      ],
+      "section": "eaktoV"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/who-is-your-section-151-officer",
+      "title": "Who is your section 151 officer?",
+      "components": [
+        {
+          "name": "okHmBB",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "TextField",
+          "title": "Full name",
+          "hint": "Full name"
+        },
+        {
+          "name": "bQOXTi",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "hint": "<label class=\"govuk-label\">Email address</label>"
+        },
+        {
+          "name": "phaosT",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "TelephoneNumberField",
+          "title": "Telephone number",
+          "hint": "<label class=\"govuk-label\">Telephone number</label>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "eaktoV"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "eaktoV",
+      "title": "About your organisation"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "ycTUlj",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

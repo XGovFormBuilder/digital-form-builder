@@ -1,0 +1,185 @@
+{
+  "metadata": {},
+  "startPage": "/milestones",
+  "pages": [
+    {
+      "title": "Milestones",
+      "path": "/milestones",
+      "components": [
+        {
+          "name": "EGjyyU",
+          "options": {},
+          "type": "Para",
+          "content": "<label >In this section, we’ll ask about expected dates for:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>the auction taking place</li>\n<li>submitting your claim</li>\n<li>the tenant signing the tenancy agreement</li>\n<li>finishing the refurbishment works</li>\n<li>the tenant moving in</li>\n<li>submitting your post-payment verification (PPV)</li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/when-do-you-expect-the-auction-to-take-place"
+        }
+      ]
+    },
+    {
+      "path": "/when-do-you-expect-the-auction-to-take-place",
+      "title": "When do you expect the auction to take place?",
+      "components": [
+        {
+          "name": "yvpmIv",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "DatePartsField",
+          "title": "When do you expect the auction to take place?",
+          "hint": "For example, 27 10 2024",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/when-do-you-expect-to-submit-your-claim"
+        }
+      ],
+      "section": "wtecPW"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/when-do-you-expect-to-submit-your-claim",
+      "title": "When do you expect to submit your claim?",
+      "components": [
+        {
+          "name": "gzJqwe",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "DatePartsField",
+          "title": "When do you expect to submit your claim?",
+          "hint": "Aim to do this once the tenant has signed a contract for tenancy",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/when-do-you-expect-the-tenant-to-sign-the-tenancy-agreement"
+        }
+      ],
+      "section": "wtecPW"
+    },
+    {
+      "path": "/when-do-you-expect-the-tenant-to-sign-the-tenancy-agreement",
+      "title": "When do you expect the tenant to sign  the tenancy agreement?",
+      "components": [
+        {
+          "name": "ihfalZ",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "DatePartsField",
+          "title": "When do you expect the tenant to sign  the tenancy agreement?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/when-do-you-expect-to-finish-the-refurbishment-works"
+        }
+      ],
+      "section": "wtecPW"
+    },
+    {
+      "path": "/when-do-you-expect-to-finish-the-refurbishment-works",
+      "title": "When do you expect to finish the refurbishment works?",
+      "components": [
+        {
+          "name": "fIkkRN",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "DatePartsField",
+          "title": "When do you expect to finish the refurbishment works?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/when-do-you-expect-the-tenant-to-move-in"
+        }
+      ],
+      "section": "wtecPW"
+    },
+    {
+      "path": "/when-do-you-expect-the-tenant-to-move-in",
+      "title": "When do you expect the tenant to move in?",
+      "components": [
+        {
+          "name": "VoAANy",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "DatePartsField",
+          "title": "When do you expect the tenant to move in?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/when-do-you-expect-to-submit-your-post-payment-verification-ppv"
+        }
+      ],
+      "section": "wtecPW"
+    },
+    {
+      "path": "/when-do-you-expect-to-submit-your-post-payment-verification-ppv",
+      "title": "When do you expect to submit your post-payment verification (PPV)?",
+      "components": [
+        {
+          "name": "KFjxBs",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "DatePartsField",
+          "title": "When do you expect to submit your post-payment verification (PPV)?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "wtecPW"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "wtecPW",
+      "title": "Milestones"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "tOKiyv",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

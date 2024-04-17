@@ -1,0 +1,163 @@
+{
+  "metadata": {},
+  "startPage": "/vacant-property-details",
+  "pages": [
+    {
+      "title": "Vacant property details",
+      "path": "/vacant-property-details",
+      "components": [
+        {
+          "name": "rnzbvq",
+          "options": {},
+          "type": "Para",
+          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>the property’s address</li>\n<li>commercial floorspace</li>\n<li>term of vacancy</li>\n<li>the initial notice you served the landlord</li>\n<li>contact with the landlord about the property’s vacant status</li>\n</ul>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-is-the-vacant-propertys-address"
+        }
+      ]
+    },
+    {
+      "path": "/what-is-the-vacant-propertys-address",
+      "title": "What is the vacant property's address?",
+      "components": [
+        {
+          "name": "dwLpZU",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "UkAddressField",
+          "title": "What is the vacant property's address?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-is-the-total-commercial-floorspace-of-the-property-in-meters-squared"
+        }
+      ],
+      "section": "ISBazm"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/what-is-the-total-commercial-floorspace-of-the-property-in-meters-squared",
+      "title": "What is the total commercial floorspace of the property, in meters squared?",
+      "components": [
+        {
+          "name": "rFpLZQ",
+          "options": {
+            "suffix": "m2",
+            "hideTitle": true,
+            "classes": "govuk-input--width-5"
+          },
+          "type": "NumberField",
+          "title": "What is the total commercial floorspace of the property, in meters squared?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/term-of-vacancy"
+        }
+      ],
+      "section": "ISBazm"
+    },
+    {
+      "path": "/term-of-vacancy",
+      "title": "Term of vacancy",
+      "components": [
+        {
+          "name": "NnOqGc",
+          "options": {
+            "classes": "govuk-input--width-5"
+          },
+          "type": "NumberField",
+          "title": "How many days has the property been vacant?"
+        },
+        {
+          "name": "qYtKIg",
+          "options": {
+            "maxWords": "150"
+          },
+          "type": "FreeTextField",
+          "title": "How have you verified this?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-the-initial-notice-you-served-the-landlord"
+        }
+      ],
+      "section": "ISBazm"
+    },
+    {
+      "path": "/upload-the-initial-notice-you-served-the-landlord",
+      "title": "Upload the initial notice you served the landlord",
+      "components": [
+        {
+          "name": "ndpQJk",
+          "options": {
+            "dropzoneConfig": {
+              "maxFiles": 1,
+              "parallelUploads": 1,
+              "maxFilesize": 10,
+              "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
+            },
+            "showNoScriptWarning": false,
+            "minimumRequiredFiles": 1
+          },
+          "type": "ClientSideFileUploadField",
+          "title": "Upload the initial notice you served the landlord",
+          "hint": "Tell us about all attempts to make contact, even if they were unsuccessful"
+        }
+      ],
+      "next": [
+        {
+          "path": "/before-you-served-notice-what-contact-did-you-make-with-the-landlord-about-the-propertys-vacant-status"
+        }
+      ],
+      "section": "ISBazm"
+    },
+    {
+      "path": "/before-you-served-notice-what-contact-did-you-make-with-the-landlord-about-the-propertys-vacant-status",
+      "title": "Before you served notice, what contact did you make with the landlord about the property’s vacant status?",
+      "components": [
+        {
+          "name": "vAvGTE",
+          "options": {
+            "hideTitle": true,
+            "maxWords": "150"
+          },
+          "type": "FreeTextField",
+          "hint": "Tell us about all attempts to make contact, even if they were unsuccessful",
+          "title": "Before you served notice, what contact did you make with the landlord about the property’s vacant status?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "ISBazm"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "ISBazm",
+      "title": "Vacant property details"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false
+}

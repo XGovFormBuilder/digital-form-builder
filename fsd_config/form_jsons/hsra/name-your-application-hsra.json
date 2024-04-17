@@ -1,0 +1,64 @@
+{
+  "metadata": {},
+  "startPage": "/what-would-you-like-to-name-you-application",
+  "pages": [
+    {
+      "title": "What would you like to name you application?",
+      "path": "/what-would-you-like-to-name-you-application",
+      "components": [
+        {
+          "name": "qbBtUh",
+          "options": {
+            "classes": "govuk-!-width-full"
+          },
+          "type": "TextField",
+          "title": "What would you like to name you application?",
+          "hint": "Choose a unique and descriptive name. For example, the first line of the property’s address.\n<br>\n<br>\nThis will help you find your application if you save and return. We’ll also use this when we contact you about this application."
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "CiYZae"
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "CiYZae",
+      "title": "Name your application"
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "ONnFka",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}

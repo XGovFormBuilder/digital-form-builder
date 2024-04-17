@@ -1,0 +1,70 @@
+{
+  "metadata": {},
+  "startPage": "/declaration",
+  "pages": [
+    {
+      "title": "Declaration",
+      "path": "/declaration",
+      "components": [
+        {
+          "name": "QUaOGq",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "By submitting this application, you confirm that the information you have provided is correct.",
+          "list": "OkbBaj"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "By submitting this application, you confirm that the information you have provided is correct.",
+      "name": "OkbBaj",
+      "type": "string",
+      "items": [
+        {
+          "text": "By submitting this application, you confirm that the information you have provided is correct.",
+          "value": "By submitting this application, you confirm that the information you have provided is correct."
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "VzdTQC",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "savePerPageUrl": "True"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false,
+  "name": "Apply for funding to cover the cost of delivering a high street rental auction",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  }
+}
