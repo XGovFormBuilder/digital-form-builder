@@ -41,26 +41,11 @@ RUN yarn model build
 
 # ----------------------------
 # Stage 4
-# Base with queue model stage
-# In this layer we build the queue-model workspace.
-# It will re-run only if anything inside /queue-model changes, otherwise this stage is cached.
-# rsync is used to merge folders instead of individually copying files
-FROM model AS queue-model
-WORKDIR /usr/src/app
-COPY --chown=appuser:appuser ./queue-model/package.json ./queue-model/tsconfig.json ./queue-model/babel.config.json ./queue-model/schema.prisma ./queue-model/
-COPY --chown=appuser:appuser ./queue-model/src ./queue-model/src/
-COPY --chown=appuser:appuser ./queue-model/migrations ./queue-model/migrations/
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model \
-    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model yarn workspaces focus @xgovformbuilder/queue-model
-RUN yarn queue-model build
-
-# ----------------------------
-# Stage 5
 # Build stage
 # In this layer we build the runner workspace
 # It will re-run only if anything inside ./runner changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM queue-model AS build-runner
+FROM dependencies AS build-runner
 WORKDIR /usr/src/app
 ARG LAST_COMMIT=""
 ARG LAST_TAG=""
