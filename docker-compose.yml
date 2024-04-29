@@ -40,9 +40,9 @@ services:
       - PREVIEW_MODE=true
       - LAST_COMMIT
       - LAST_TAG
-      - ENABLE_QUEUE_SERVICE=true
-      - QUEUE_DATABASE_URL=postgres://user:root@postgres:5432/queue
-      - QUEUE_TYPE="PGBOSS"
+#      - ENABLE_QUEUE_SERVICE=true
+#      - QUEUE_DATABASE_URL=postgres://user:root@postgres:5432/queue
+#      - QUEUE_TYPE="PGBOSS"
     command: yarn runner start
     depends_on:
       redis:

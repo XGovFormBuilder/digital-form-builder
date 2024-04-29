@@ -1,6 +1,6 @@
 import { QueueService } from "server/services/QueueService";
 type QueueResponse = [number | string, string | undefined];
-import PgBoss, { Job, JobWithMetadata } from "pg-boss";
+import PgBoss, { JobWithMetadata } from "pg-boss";
 import config from "server/config";
 
 type QueueReferenceApiResponse = {
