@@ -24,7 +24,6 @@ export class PgBossQueueService extends QueueService {
     this.queueReferenceApiUrl = config.queueReferenceApiUrl;
     this.pollingInterval = parseInt(config.queueServicePollingInterval);
     this.pollingTimeout = parseInt(config.queueServicePollingTimeout);
-
     const boss = new PgBoss(config.queueDatabaseUrl);
     this.queue = boss;
     boss.on("error", this.logger.error);

@@ -14,8 +14,7 @@
     "runner",
     "designer",
     "e2e",
-    "queue-model",
-    "submitter"
+    "queue-model"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
@@ -30,7 +29,6 @@
     "model": "yarn workspace @xgovformbuilder/model",
     "e2e": "yarn workspace e2e",
     "queue-model": "yarn workspace @xgovformbuilder/queue-model",
-    "submitter": "yarn workspace @xgovformbuilder/submitter",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",

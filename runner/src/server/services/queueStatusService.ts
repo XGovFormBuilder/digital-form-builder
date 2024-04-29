@@ -1,11 +1,10 @@
 import { StatusService } from "server/services/statusService";
 import { HapiRequest, HapiServer } from "server/types";
 import Boom from "boom";
-import { MySqlQueueService } from "server/services/mySqlQueueService";
 import { PgBossQueueService } from "server/services/pgBossQueueService";
 
 export class QueueStatusService extends StatusService {
-  queueService: MySqlQueueService | PgBossQueueService;
+  queueService: PgBossQueueService;
   constructor(server: HapiServer) {
     super(server);
     const { queueService } = server.services([]);
