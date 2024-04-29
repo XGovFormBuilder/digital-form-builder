@@ -70,18 +70,6 @@ export class QueueStatusService extends StatusService {
       });
     }
 
-    if (!queueReference) {
-      const queueResults = await this.queueService?.sendToQueue(formData, "");
-      if (!queueResults) {
-        this.logQueueServiceError();
-      }
-      [queueReference, newReference] = queueResults;
-      this.logger.info(
-        ["QueueStatusService", "outputRequests"],
-        `Queue reference: ${queueReference}`
-      );
-    }
-
     const { notify = [], webhook = [] } = this.outputArgs(
       otherOutputs,
       formData,
@@ -92,6 +80,7 @@ export class QueueStatusService extends StatusService {
     const requests = [
       ...notify.map((args) => this.notifyService.sendNotification(args)),
       ...webhook.map(({ url, sendAdditionalPayMetadata, formData }) =>
+        // TODO: run these ase queue inserts instead
         this.webhookService.postRequest(
           url,
           formData,
