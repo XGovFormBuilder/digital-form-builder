@@ -40,23 +40,19 @@ services:
       - PREVIEW_MODE=true
       - LAST_COMMIT
       - LAST_TAG
-    #      - ENABLE_QUEUE_SERVICE=true
-    #      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue # or postgres://user:root@postgres:5432/queue
-    #      - DEBUG="prisma*"
-    #      - QUEUE_TYPE="MYSQL"
+      - ENABLE_QUEUE_SERVICE=true
+      - QUEUE_DATABASE_URL=postgres://user:root@postgres:5432/queue
+      - QUEUE_TYPE="PGBOSS"
     command: yarn runner start
     depends_on:
       redis:
         condition: service_started
-  #      mysql:
-  #        condition: service_healthy
   redis:
     image: "redis:alpine"
     command: redis-server --requirepass 123abc
     ports:
       - "6379:6379"
-#  if using MYSQL, uncomment submitter
-# use psql if you want a PostgreSQL based queue
+## use psql if you want a PostgreSQL based queue
 #  postgres:
 #    container_name: postgres
 #    image: "postgres:16"
@@ -66,3 +62,12 @@ services:
 #      POSTGRES_DB: queue
 #      POSTGRES_PASSWORD: root
 #      POSTGRES_USER: user
+#
+## uncomment worker if using PGBOSS queue
+#  worker:
+#    depends_on: [postgres]
+#    platform: linux/amd64
+#    container_name: worker
+#    image: ghcr.io/xgovformbuilder/forms-worker:latest
+#    environment:
+#      QUEUE_URL: "postgres://user:root@postgres:5432/queue"
