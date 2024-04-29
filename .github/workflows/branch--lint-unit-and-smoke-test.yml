@@ -19,7 +19,7 @@ jobs:
     name: Workspace
     strategy:
       matrix:
-        workspace: [model, designer, runner, submitter]
+        workspace: [model, designer, runner]
     uses: ./.github/workflows/lint-and-test.yml
     with:
       workspace: ${{ matrix.workspace }}
@@ -29,13 +29,6 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       app: designer
-    secrets: inherit
-
-  build-submitter:
-    name: Submitter
-    uses: ./.github/workflows/build.yml
-    with:
-      app: submitter
     secrets: inherit
 
   build-runner:
