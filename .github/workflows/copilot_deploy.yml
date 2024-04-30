@@ -123,7 +123,7 @@ jobs:
     secrets:
       FSD_GH_APP_ID: ${{ secrets.FSD_GH_APP_ID }}
       FSD_GH_APP_KEY: ${{ secrets.FSD_GH_APP_KEY }}
-    uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@main
+    uses: communitiesuk/funding-service-design-workflows/.github/workflows/post-deploy.yml@bau-bump-zap-version
     with:
       run_performance_tests: ${{ inputs.run_performance_tests || true }}
       run_e2e_tests_assessment: ${{ inputs.run_e2e_tests_assessment || false }}
