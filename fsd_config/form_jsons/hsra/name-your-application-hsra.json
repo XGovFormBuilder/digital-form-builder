@@ -1,18 +1,19 @@
 {
   "metadata": {},
-  "startPage": "/what-would-you-like-to-name-you-application",
+  "startPage": "/what-would-you-like-to-name-your-application",
   "pages": [
     {
-      "title": "What would you like to name you application?",
-      "path": "/what-would-you-like-to-name-you-application",
+      "title": "What would you like to name your application?",
+      "path": "/what-would-you-like-to-name-your-application",
       "components": [
         {
           "name": "qbBtUh",
           "options": {
-            "classes": "govuk-!-width-full"
+            "classes": "govuk-!-width-full",
+            "hideTitle": true
           },
           "type": "TextField",
-          "title": "What would you like to name you application?",
+          "title": "What would you like to name your application?",
           "hint": "Choose a unique and descriptive name. For example, the first line of the property’s address.\n<br>\n<br>\nThis will help you find your application if you save and return. We’ll also use this when we contact you about this application."
         }
       ],
