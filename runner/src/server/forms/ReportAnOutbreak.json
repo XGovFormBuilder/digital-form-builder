@@ -1500,6 +1500,10 @@
                 {
                     "path": "/incomplete-risk-assessment-submission-pgcbGD",
                     "condition": "oGTHEu"
+                },
+                {
+                    "path": "/incomplete-risk-assessment-submission-apveOG",
+                    "condition": "xOewAv"
                 }
             ]
         },
@@ -1557,6 +1561,20 @@
                     "options": {},
                     "type": "Para",
                     "content": "<h3 class=\"govuk-heading-m\">Your Submission Could Not Be Completed</h3>\n\n<p class=\"govuk-body\">Thank you for your responses. However, based on your answers, a risk assessment cannot be created, and no risk rating or advice email can be sent out. This is because:</p>\n<p class=\"govuk-body\">You answered <b>Yes</b> to S2Q1- indicating that you were: <b>Reporting two or more cases of Acute Respiratory Infection (ARI) potentially linked to transmission within your setting.</b> However, for subsequent questions you told us that you did not have cases of COVID, Influenza or other ARI.</p>\n\n<p class=\"govuk-body\"><b>Next Steps:</b></p>\n<p class=\"govuk-body\">Review Your Responses: Please go back and review your answers to ensure they accurately reflect your current situation. </p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>S2Q1- change your answer to No if you are reporting a single case or unlinked cases of (any) ARI (and you are not reporting 2 or more potentially linked ARI cases).</li>\n    <li>S4Q1- change your answer to Yes if you are reporting 2 or more potentially linked cases of COVID-19 (with at least one case confirmed by LFD testing).</li>\n    <li>S5Q1- change your answer to Yes- if are reporting least one confirmed influenza case.</li>\n    <li>S6Q1- change your answer to Yes – if you are reporting 2 or more cases of other ARI where you do not know the bug causing the infection (including if your concern is regarding residents diagnosed with chest infections) or the cause is known to be another ARI e.g., RSV.</li>\n</ul>\n<p>\n    Please contact your local health protection team at: <a href=\"https://www.gov.uk/health-protection-team\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">https://www.gov.uk/health-protection-team</a> or Community Infection Control Team (as per your usual arrangements) if:\n    <ul class=\"govuk-list govuk-list--bullet\">\n        <li>You are still having difficulty reporting your Acute Respiratory Infection Outbreak.</li>\n        <li>You are trying to report a potential outbreak that is not ARI e.g., Diarrhoea and vomiting</li>\n    </ul>\n</p>",
+                    "schema": {}
+                }
+            ],
+            "next": []
+        },
+        {
+            "path": "/incomplete-risk-assessment-submission-apveOG",
+            "title": "Incomplete Risk Assessment Submission",
+            "components": [
+                {
+                    "name": "lqCeoZ",
+                    "options": {},
+                    "type": "Para",
+                    "content": "<h3 class=\"govuk-heading-m\">Your Submission Could Not Be Completed</h3>\n\n<p class=\"govuk-body\">Thank you for your responses. However, based on your answers, a risk assessment cannot be created, and no risk rating or advice email can be sent out. This is because:</p>\n<p class=\"govuk-body\">You answered <b>No</b> to S2Q1- indicating that you were: <b>Reporting one case of Acute Respiratory Infection (ARI) potentially linked to transmission within your setting.</b> However, for subsequent questions you told us that you did not have cases of COVID, Influenza or other ARI.</p>\n\n<p class=\"govuk-body\"><b>Next Steps:</b></p>\n<p class=\"govuk-body\">Review Your Responses: Please go back and review your answers to ensure they accurately reflect your current situation. </p>\n<ul class=\"govuk-list govuk-list--bullet\">\n    <li>S2Q1- change your answer to Yes if you are reporting a single case or unlinked cases of (any) ARI (and you are not reporting 2 or more potentially linked ARI cases).</li>\n    <li>S4Q1- change your answer to Yes if you are reporting a single case of COVID-19 (or more than one case which are definitely unlinked).</li>\n    </ul>\n</p>",
                     "schema": {}
                 }
             ],
@@ -2748,6 +2766,84 @@
                             "type": "Value",
                             "value": "true",
                             "display": "true"
+                        }
+                    },
+                    {
+                        "coordinator": "and",
+                        "field": {
+                            "name": "S2Q5",
+                            "type": "YesNoField",
+                            "display": "S2Q5. Are you reporting a single case of confirmed influenza (flu) in a resident-client?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "S2 Q1/Q2/Q3/Q4/Q5 - No/Yes/No/No/No",
+            "name": "xOewAv",
+            "value": {
+                "name": "S2 Q1/Q2/Q3/Q4/Q5 - No/Yes/No/No/No",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "S2Q1",
+                            "type": "YesNoField",
+                            "display": "S2Q1. Are you reporting two or more cases of acute respiratory infection (ARI)  within your setting who have symptom onset dates within 5 days and that are POTENTIALLY LINKED to transmission within your setting?  This includes  Flu, COVID-19, other respiratory viruses such as RSV, rhinovirus, parainfluenza etc, chest infections or acute respiratory infections for which you do not know the infection/microorganism causing it "
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    },
+                    {
+                        "coordinator": "and",
+                        "field": {
+                            "name": "S2Q2",
+                            "type": "YesNoField",
+                            "display": "S2Q2. Are you reporting two or more cases of acute respiratory infection (ARI)  within your setting who have symptom onset dates within 5 days but they are DEFINTITELY NOT LINKED to transmission within your setting?  This includes  Flu, COVID-19, other respiratory viruses such as RSV, rhinovirus, parainfluenza etc, chest infections or acute respiratory infection for which you do not know the infection/microorganism causing it"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "true",
+                            "display": "true"
+                        }
+                    },
+                    {
+                        "coordinator": "and",
+                        "field": {
+                            "name": "S2Q3",
+                            "type": "YesNoField",
+                            "display": "S2Q3. Are you reporting a single case of COVID-19 (or more than one case which are definitely unlinked)?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
+                        }
+                    },
+                    {
+                        "coordinator": "and",
+                        "field": {
+                            "name": "S2Q4",
+                            "type": "YesNoField",
+                            "display": "S2Q4. Are you reporting a single case of confirmed influenza (flu) in a staff member (or more than one case which are definitely unlinked)?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "false",
+                            "display": "false"
                         }
                     },
                     {
