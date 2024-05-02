@@ -5119,7 +5119,7 @@ __metadata:
     hapi-rate-limit: 4.1.0
     hapi-require-https: 5.0.0
     hmpo-components: ^5.2.1
-    ioredis: 4.16.1
+    ioredis: 4.27.8
     joi: 17.2.1
     lodash: ^4.17.21
     lodash-es: ^4.17.21
@@ -12347,20 +12347,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:4.16.1":
-  version: 4.16.1
-  resolution: "ioredis@npm:4.16.1"
+"ioredis@npm:4.27.8":
+  version: 4.27.8
+  resolution: "ioredis@npm:4.27.8"
   dependencies:
     cluster-key-slot: ^1.1.0
-    debug: ^4.1.1
+    debug: ^4.3.1
     denque: ^1.1.0
     lodash.defaults: ^4.2.0
     lodash.flatten: ^4.4.0
-    redis-commands: 1.5.0
+    lodash.isarguments: ^3.1.0
+    p-map: ^2.1.0
+    redis-commands: 1.7.0
     redis-errors: ^1.2.0
     redis-parser: ^3.0.0
-    standard-as-callback: ^2.0.1
-  checksum: 9d52de4b5f58ed13b4e71e1e4690815fc289d6dcc499d6c191be799936a46dbb2cace2228a0c0fc1bcbc73fa48aab8ab1cf311d20a70164da405674ecd10a3da
+    standard-as-callback: ^2.1.0
+  checksum: 5c30e3c411fca10854e5804a98e5e05f34f5a52bd3226bce10d1f43c244a3705f6eebe0db21d7c7797c064da3ec0680b0c85a5f1e848fc6df970cb9133de656b
   languageName: node
   linkType: hard
 
@@ -16464,7 +16466,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-map@npm:^2.0.0":
+"p-map@npm:^2.0.0, p-map@npm:^2.1.0":
   version: 2.1.0
   resolution: "p-map@npm:2.1.0"
   checksum: 9e3ad3c9f6d75a5b5661bcad78c91f3a63849189737cd75e4f1225bf9ac205194e5c44aac2ef6f09562b1facdb9bd1425584d7ac375bfaa17b3f1a142dab936d
@@ -18026,10 +18028,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redis-commands@npm:1.5.0":
-  version: 1.5.0
-  resolution: "redis-commands@npm:1.5.0"
-  checksum: a0718ab8bf927894248b01fe7e58152bf063a30a2c808c356f7387bbd2f281f20d3a9ffe59ff8683aac82dec657e57f1ea230c2699873a14f4da47a74dd1e3fb
+"redis-commands@npm:1.7.0":
+  version: 1.7.0
+  resolution: "redis-commands@npm:1.7.0"
+  checksum: d1ff7fbcb5e54768c77f731f1d49679d2a62c3899522c28addb4e2e5813aea8bcac3f22519d71d330224c3f2937f935dfc3d8dc65e90db0f5fe22dc2c1515aa7
   languageName: node
   linkType: hard
 
@@ -19557,7 +19559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standard-as-callback@npm:^2.0.1, standard-as-callback@npm:^2.1.0":
+"standard-as-callback@npm:^2.1.0":
   version: 2.1.0
   resolution: "standard-as-callback@npm:2.1.0"
   checksum: 88bec83ee220687c72d94fd86a98d5272c91d37ec64b66d830dbc0d79b62bfa6e47f53b71646011835fc9ce7fae62739545d13124262b53be4fbb3e2ebad551c

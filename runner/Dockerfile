@@ -70,7 +70,6 @@ COPY --from=model /usr/src/app/model/dist/module ./model/dist/module/
 COPY --from=model /usr/src/app/model/package.json ./model
 
 COPY --from=build-runner /usr/src/app/runner/dist /usr/src/app/runner/dist/
-COPY --from=build-runner /usr/src/app/node_modules ./runner/node_modules/
 COPY --from=build-runner /usr/src/app/runner/config ./runner/config
 COPY --from=build-runner /usr/src/app/runner/bin ./runner/bin/
 COPY --from=build-runner /usr/src/app/runner/public ./runner/public/
