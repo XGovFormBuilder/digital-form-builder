@@ -11,3 +11,6 @@
 .yarn/install-state.gz
 *.jest.*
 jest
+**/__tests__
+**/test
+**/test-coverage
