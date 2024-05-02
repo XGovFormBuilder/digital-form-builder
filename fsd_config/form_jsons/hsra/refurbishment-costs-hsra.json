@@ -26,6 +26,7 @@
         {
           "name": "pfEHzn",
           "options": {
+            "hideTitle": true,
             "prefix": "£",
             "classes": "govuk-!-width-one-quarter"
           },
