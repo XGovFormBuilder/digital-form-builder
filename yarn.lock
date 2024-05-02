@@ -2368,13 +2368,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/hoek@npm:^6.1.2":
-  version: 6.2.4
-  resolution: "@hapi/hoek@npm:6.2.4"
-  checksum: 17e6e687509c20d3730dfb14b05536024d50253e96fcd0c7a4df8247e3a30568a8028b59208173f3e63dbab3eb6b71f07eff06b234dd5c2bd773d254af769e37
-  languageName: node
-  linkType: hard
-
 "@hapi/inert@npm:^6.0.1":
   version: 6.0.5
   resolution: "@hapi/inert@npm:6.0.5"
@@ -3667,31 +3660,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@prisma/client@npm:5.0.0"
-  dependencies:
-    "@prisma/engines-version": 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-  peerDependencies:
-    prisma: "*"
-  peerDependenciesMeta:
-    prisma:
-      optional: true
-  checksum: 332c2af44e880ffc9dd1223992bf6f45910094c7a3a540cbbfdda45d6caf3e82998376338abdf85e34a12f1082ae932f2385d6396c62fe4bba7ec6b84de54466
-  languageName: node
-  linkType: hard
-
 "@prisma/debug@npm:5.8.0":
   version: 5.8.0
   resolution: "@prisma/debug@npm:5.8.0"
   checksum: 43a600cab0160feb58da069074437e0f2eee61ed247788e5ed334dd50c0a8edccb5416d6446de2b7b4d68dad5f5faf65849a0c534dd43f6a29548b773fb7b2d7
-  languageName: node
-  linkType: hard
-
-"@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584":
-  version: 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-  resolution: "@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584"
-  checksum: 8fcbceef3b554ee7fa404bead50be5286412a097b21723272aff298b289caf2802b01b84bb85c4c9f3b592eeac114c8d6e79db083f271dc8c54f453b4a515233
   languageName: node
   linkType: hard
 
@@ -3991,13 +3963,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/config@npm:^3.3.0":
-  version: 3.3.3
-  resolution: "@types/config@npm:3.3.3"
-  checksum: 738c616fc385fa93e61b2236b43fbcfd93b1b53fc222fa14f2ebaef17ec7eaf03bf3d768fa8cb00df1b5173574893c020dc73eab11ddd6ea769dbf9ea113e8da
-  languageName: node
-  linkType: hard
-
 "@types/cookie@npm:^0.4.1":
   version: 0.4.1
   resolution: "@types/cookie@npm:0.4.1"
@@ -4217,7 +4182,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.4.6":
+"@types/node@npm:*":
   version: 20.10.8
   resolution: "@types/node@npm:20.10.8"
   dependencies:
@@ -5070,6 +5035,7 @@ __metadata:
     govuk-frontend: ^4.0.1
     hmpo-components: 5.2.1
     jest: ^29.2.0
+    jest-cli: ^29.7.0
     joi: 17.2.1
     nanoid: ^3.3.4
     nunjucks: ^3.2.3
@@ -5077,27 +5043,6 @@ __metadata:
     ts-jest: ^29.1.1
     typescript: 4.9.5
     wreck: 14.2.0
-  languageName: unknown
-  linkType: soft
-
-"@xgovformbuilder/queue-model@workspace:queue-model":
-  version: 0.0.0-use.local
-  resolution: "@xgovformbuilder/queue-model@workspace:queue-model"
-  dependencies:
-    "@babel/cli": ^7.23.3
-    "@babel/core": ^7.23.3
-    "@babel/eslint-parser": ^7.23.3
-    "@babel/eslint-plugin": ^7.22.10
-    "@babel/preset-env": ^7.23.3
-    "@babel/preset-typescript": ^7.23.3
-    "@prisma/client": 5.0.0
-    "@types/node": ^20.4.6
-    babel-eslint: ^10.1.0
-    eslint: ^8.10.0
-    eslint-plugin-import: ^2.25.4
-    eslint-plugin-tsdoc: ^0.2.14
-    prisma: ^5.1.1
-    typescript: 4.9.5
   languageName: unknown
   linkType: soft
 
@@ -5144,7 +5089,6 @@ __metadata:
     "@types/wreck": ^14.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": "workspace:model"
-    "@xgovformbuilder/queue-model": "workspace:queue-model"
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
     acorn: ^8.7.0
@@ -5160,7 +5104,7 @@ __metadata:
     code: 5.2.4
     concurrently: ^8.0.0
     config: ^3.3.7
-    date-fns: ^2.24.0
+    date-fns: ^3.6.0
     dotenv: 8.2.0
     eslint: ^8.11.0
     eslint-plugin-import: ^2.25.4
@@ -5175,7 +5119,7 @@ __metadata:
     hapi-rate-limit: 4.1.0
     hapi-require-https: 5.0.0
     hmpo-components: ^5.2.1
-    ioredis: 4.16.1
+    ioredis: 4.27.8
     joi: 17.2.1
     lodash: ^4.17.21
     lodash-es: ^4.17.21
@@ -5195,43 +5139,6 @@ __metadata:
     url-parse: ^1.5.10
     uuid: ^8.3.2
     yar: 9.1.0
-  languageName: unknown
-  linkType: soft
-
-"@xgovformbuilder/submitter@workspace:submitter":
-  version: 0.0.0-use.local
-  resolution: "@xgovformbuilder/submitter@workspace:submitter"
-  dependencies:
-    "@babel/cli": ^7.23.3
-    "@babel/core": ^7.23.3
-    "@babel/eslint-parser": ^7.23.3
-    "@babel/eslint-plugin": ^7.22.10
-    "@babel/plugin-proposal-export-default-from": ^7.23.3
-    "@babel/plugin-transform-classes": ^7.23.3
-    "@babel/plugin-transform-modules-commonjs": ^7.23.3
-    "@babel/plugin-transform-runtime": ^7.23.3
-    "@babel/preset-env": ^7.23.3
-    "@babel/preset-typescript": ^7.23.3
-    "@babel/register": ^7.22.15
-    "@hapi/hapi": ^21.3.2
-    "@types/config": ^3.3.0
-    "@types/hapi": ^18.0.7
-    "@xgovformbuilder/queue-model": "workspace:queue-model"
-    babel-jest: ^29.7.0
-    config: ^3.3.7
-    dotenv: 8.2.0
-    eslint: ^8.11.0
-    eslint-plugin-import: ^2.25.4
-    eslint-plugin-tsdoc: ^0.2.14
-    hapi-cron: ^1.1.0
-    hapi-pino: 8.0.0
-    jest: ^26.6.3
-    jest-mock-extended: ^3.0.5
-    nodemon: ^3.0.1
-    pino: 8.15.1
-    prisma: ^5.1.1
-    schmervice: ^1.6.0
-    typescript: 4.9.5
   languageName: unknown
   linkType: soft
 
@@ -7927,15 +7834,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cron@npm:^1.7.1":
-  version: 1.8.2
-  resolution: "cron@npm:1.8.2"
-  dependencies:
-    moment-timezone: ^0.5.x
-  checksum: 9df2d2e24684e1ebce37e3e29c183b1dfecf7adb5fb16f84435014e7205926fc9868e9bfacfa5f7b93c556c9f4a6fbcce5fde9bee1306d20bc848568bb587791
-  languageName: node
-  linkType: hard
-
 "cross-env@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-env@npm:7.0.3"
@@ -8226,12 +8124,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.24.0, date-fns@npm:^2.29.1, date-fns@npm:^2.30.0":
+"date-fns@npm:^2.29.1, date-fns@npm:^2.30.0":
   version: 2.30.0
   resolution: "date-fns@npm:2.30.0"
   dependencies:
     "@babel/runtime": ^7.21.0
   checksum: f7be01523282e9bb06c0cd2693d34f245247a29098527d4420628966a2d9aad154bd0e90a6b1cf66d37adcb769cd108cf8a7bd49d76db0fb119af5cdd13644f4
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "date-fns@npm:3.6.0"
+  checksum: 0daa1e9a436cf99f9f2ae9232b55e11f3dd46132bee10987164f3eebd29f245b2e066d7d7db40782627411ecf18551d8f4c9fcdf2226e48bb66545407d448ab7
   languageName: node
   linkType: hard
 
@@ -11525,16 +11430,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hapi-cron@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "hapi-cron@npm:1.1.0"
-  dependencies:
-    "@hapi/hoek": ^6.1.2
-    cron: ^1.7.1
-  checksum: 8e24bf17d9af49aa5f544d0464109f4c5b1d8c9a2cae3034d161e8a532d024d3d646c2be77e9dc2a16311205b4b75b8daecf29516f8750ac2c66367e6936bee3
-  languageName: node
-  linkType: hard
-
 "hapi-pino@npm:8.0.0":
   version: 8.0.0
   resolution: "hapi-pino@npm:8.0.0"
@@ -12452,20 +12347,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:4.16.1":
-  version: 4.16.1
-  resolution: "ioredis@npm:4.16.1"
+"ioredis@npm:4.27.8":
+  version: 4.27.8
+  resolution: "ioredis@npm:4.27.8"
   dependencies:
     cluster-key-slot: ^1.1.0
-    debug: ^4.1.1
+    debug: ^4.3.1
     denque: ^1.1.0
     lodash.defaults: ^4.2.0
     lodash.flatten: ^4.4.0
-    redis-commands: 1.5.0
+    lodash.isarguments: ^3.1.0
+    p-map: ^2.1.0
+    redis-commands: 1.7.0
     redis-errors: ^1.2.0
     redis-parser: ^3.0.0
-    standard-as-callback: ^2.0.1
-  checksum: 9d52de4b5f58ed13b4e71e1e4690815fc289d6dcc499d6c191be799936a46dbb2cace2228a0c0fc1bcbc73fa48aab8ab1cf311d20a70164da405674ecd10a3da
+    standard-as-callback: ^2.1.0
+  checksum: 5c30e3c411fca10854e5804a98e5e05f34f5a52bd3226bce10d1f43c244a3705f6eebe0db21d7c7797c064da3ec0680b0c85a5f1e848fc6df970cb9133de656b
   languageName: node
   linkType: hard
 
@@ -13768,18 +13665,6 @@ __metadata:
     slash: ^3.0.0
     stack-utils: ^2.0.3
   checksum: a9d025b1c6726a2ff17d54cc694de088b0489456c69106be6b615db7a51b7beb66788bea7a59991a019d924fbf20f67d085a445aedb9a4d6760363f4d7d09930
-  languageName: node
-  linkType: hard
-
-"jest-mock-extended@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "jest-mock-extended@npm:3.0.5"
-  dependencies:
-    ts-essentials: ^7.0.3
-  peerDependencies:
-    jest: ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0 || ^28.0.0 || ^29.0.0
-    typescript: ^3.0.0 || ^4.0.0 || ^5.0.0
-  checksum: 440c52f743af588493c2cd02fa7e4e42177748ac3f7ae720f414bd58a4a72fad4271878457bf8796b62abcf9cf32cde4dc5151caad0805037bd965cc9ef07ca8
   languageName: node
   linkType: hard
 
@@ -15654,15 +15539,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.x":
-  version: 0.5.44
-  resolution: "moment-timezone@npm:0.5.44"
-  dependencies:
-    moment: ^2.29.4
-  checksum: 2f1de58f145bb87896ca06afaebaea0904f24542a900208d6a56a54f2fb50b38d9d2b61c46039ed36d0ec575140ff9ba6a5824877551763dbf3db7bda0333781
-  languageName: node
-  linkType: hard
-
 "moment@npm:^2.29.4":
   version: 2.30.1
   resolution: "moment@npm:2.30.1"
@@ -16056,7 +15932,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:^3.0.1, nodemon@npm:^3.0.2":
+"nodemon@npm:^3.0.2":
   version: 3.0.2
   resolution: "nodemon@npm:3.0.2"
   dependencies:
@@ -16590,7 +16466,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-map@npm:^2.0.0":
+"p-map@npm:^2.0.0, p-map@npm:^2.1.0":
   version: 2.1.0
   resolution: "p-map@npm:2.1.0"
   checksum: 9e3ad3c9f6d75a5b5661bcad78c91f3a63849189737cd75e4f1225bf9ac205194e5c44aac2ef6f09562b1facdb9bd1425584d7ac375bfaa17b3f1a142dab936d
@@ -18152,10 +18028,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redis-commands@npm:1.5.0":
-  version: 1.5.0
-  resolution: "redis-commands@npm:1.5.0"
-  checksum: a0718ab8bf927894248b01fe7e58152bf063a30a2c808c356f7387bbd2f281f20d3a9ffe59ff8683aac82dec657e57f1ea230c2699873a14f4da47a74dd1e3fb
+"redis-commands@npm:1.7.0":
+  version: 1.7.0
+  resolution: "redis-commands@npm:1.7.0"
+  checksum: d1ff7fbcb5e54768c77f731f1d49679d2a62c3899522c28addb4e2e5813aea8bcac3f22519d71d330224c3f2937f935dfc3d8dc65e90db0f5fe22dc2c1515aa7
   languageName: node
   linkType: hard
 
@@ -19683,7 +19559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"standard-as-callback@npm:^2.0.1, standard-as-callback@npm:^2.1.0":
+"standard-as-callback@npm:^2.1.0":
   version: 2.1.0
   resolution: "standard-as-callback@npm:2.1.0"
   checksum: 88bec83ee220687c72d94fd86a98d5272c91d37ec64b66d830dbc0d79b62bfa6e47f53b71646011835fc9ce7fae62739545d13124262b53be4fbb3e2ebad551c
@@ -20480,15 +20356,6 @@ __metadata:
   bin:
     tree-kill: cli.js
   checksum: 49117f5f410d19c84b0464d29afb9642c863bc5ba40fcb9a245d474c6d5cc64d1b177a6e6713129eb346b40aebb9d4631d967517f9fbe8251c35b21b13cd96c7
-  languageName: node
-  linkType: hard
-
-"ts-essentials@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "ts-essentials@npm:7.0.3"
-  peerDependencies:
-    typescript: ">=3.7.0"
-  checksum: 74d75868acf7f8b95e447d8b3b7442ca21738c6894e576df9917a352423fde5eb43c5651da5f78997da6061458160ae1f6b279150b42f47ccc58b73e55acaa2f
   languageName: node
   linkType: hard
 

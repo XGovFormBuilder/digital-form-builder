@@ -3,12 +3,7 @@
 The runner can be configured to add new submissions to a queue and, if using the MYSQL queue type, for this queue to be
 processed by the submitter module.
 
-Two queue types are currently allowed, MYSQL and PGBOSS.
-
-For `MYSQL`, enabling the queue service this will change the webhook process, so that the runner will push the
-submission to a
-specified database, and will await a response from the submitter for a few seconds before returning the success screen
-to the user.
+`PGBOSS` is now the only allowed queue type to reduce maintenance burden. See the migration guide below for switching to PGBOSS.
 
 For `PGBOSS`, which handles events and queues as expected from event based architecture. The `PGBOSS` queue type
 uses [pg-boss](https://www.npmjs.com/package/pg-boss).
@@ -26,69 +21,23 @@ capability to support it in your organisation.
 You may need queuing if your service expects high volume of submissions, but your webhook endpoints or further
 downstream endpoints change frequently or have slow response times.
 
-You will need to set up a MySQL or PostgreSQL database.
+You will need to set up a PostgreSQL database.
 
 Use `PGBOSS` and PostgreSQL for higher availability and features like exponential backoff.
-It is highly recommended you use `PGBOSS` and PostgreSQL. MYSQL may be deprecated due to the additional overhead and
-support that is required.
+It is highly recommended you use `PGBOSS` and PostgreSQL. 
 
 #### PGBOSS Prerequisites
 
 - PostgreSQL database >=v11
-- A worker process which can connect to the PostgreSQL database, via PgBoss. Your implementation should look something like this
+- A worker process which can connect to the PostgreSQL database, via PgBoss. 
+  - You may use our [forms-worker](https://github.com/XGovFormBuilder/forms-worker), or implement your own.
 
-```ts
-export async function setupWorker() {
-  const pgboss = new PgBoss(config.get("Queue.url"));
-  await consumer.work(
-    "submission",
-    { newJobCheckInterval: 500 },
-    submitHandler
-  );
-}
-
-setupWorker();
-
-/**
- * When a "submission" event is detected, this worker POSTs the data to `job.data.data.webhook_url`
- * The source of this event is the runner, after a user has submitted a form.
- */
-export async function submitHandler(job: Job<SubmitJob>) {
-  const { data } = job;
-  const requestBody = data.data;
-  const url = data.webhook_url;
-  try {
-    const res = await axios.post(url, requestBody);
-    const reference = res.data.reference;
-    if (reference) {
-      return { reference };
-    }
-  } catch (e: any) {
-    throw e;
-  }
-}
-```
 
 When using pgboss, it is important that successful work returns `{ reference }` so that the runner can retrieve the successful response. Thrown errors will be recorded in the database for you to investigate later. Logging has been omitted for brevity, but you should include it!
 
 - The `jobId` is generated when a users' submission is successfully inserted into the queue
 - The webhook endpoint should respond with application/json `{ "reference": "FCDO-3252" }`
 
-#### MYSQL Prerequisites
-
-- MySQL database
-
-### Environment variables
-
-| Variable name                  | Definition                                                                               | Default | Example                                     |
-| ------------------------------ | ---------------------------------------------------------------------------------------- | ------- | ------------------------------------------- |
-| ENABLE_QUEUE_SERVICE           | Whether the queue service is enabled or not                                              | `false` |                                             |
-| QUEUE_DATABASE_TYPE            | PGBOSS or MYSQL                                                                          |         |                                             |
-| QUEUE_DATABASE_URL             | Used for configuring the endpoint of the database instance                               |         | mysql://username:password@endpoint/database |
-| QUEUE_DATABASE_USERNAME        | Used for configuring the user being used to access the database                          |         | root                                        |
-| QUEUE_DATABASE_PASSWORD        | Used for configuring the password used for accessing the database                        |         | password                                    |
-| QUEUE_SERVICE_POLLING_INTERVAL | The amount of time, in milliseconds, between poll requests for updates from the database | 500     |                                             |
-| QUEUE_SERVICE_POLLING_TIMEOUT  | The total amount of time, in milliseconds, to poll requests for from the database        | 2000    |                                             |
 
 Webhooks can be configured so that the submitter only attempts to post to the webhook URL once.
 
@@ -112,65 +61,53 @@ Webhooks can be configured so that the submitter only attempts to post to the we
 To use the submission queue locally, you will need to have a running instance of a database, the runner, and the
 submitter. The easiest way to do this is by using the provided `docker-compose.yml` file.
 
-In that file, you will see the following lines commented out:
+In that file, you will see the following lines commented out under the runner service:
+
 
 ```yaml
+  runner:
+    container_name: runner
+    image: digital-form-builder-runner
+    environment:
+# ...
 #      - ENABLE_QUEUE_SERVICE=true
-#      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue
-#      - DEBUG="prisma*"
+#      - QUEUE_DATABASE_URL=postgres://user:root@postgres:5432/queue
+#      - QUEUE_TYPE="PGBOSS"
 ```
+
+and two services commented out, `postgres` and `worker`.
 
 ```yaml
-#  if using MYSQL, uncomment submitter
-#  submitter:
-#    image: digital-form-builder-submitter
-#    build:
-#      context: .
-#      dockerfile: ./submitter/Dockerfile
-#    ports:
-#      - "9000:9000"
-#    environment:
-#      - PORT=9000
-#      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue
-#      - QUEUE_POLLING_INTERVAL=5000
-#      - DEBUG="prisma*"
-#    command: yarn submitter start
-#    depends_on:
-#      mysql:
-#        condition: service_healthy
-#  mysql:
-#    container_name: mysql
-#    image: "mysql:latest"
-#    command: --default-authentication-plugin=mysql_native_password
-#    ports:
-#      - "3306:3306"
-#    environment:
-#      MYSQL_ROOT_PASSWORD: root
-#      MYSQL_DATABASE: queue
-#    healthcheck:
-#      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-#      timeout: 20s
-#      retries: 10
+## use psql if you want a PostgreSQL based queue
+#postgres:
+#  container_name: postgres
+#  image: "postgres:16"
+#  ports:
+#    - "5432:5432"
+#  environment:
+#    POSTGRES_DB: queue
+#    POSTGRES_PASSWORD: root
+#    POSTGRES_USER: user
+#
+## uncomment worker if using PGBOSS queue
+#worker:
+#  depends_on: [postgres]
+#  platform: linux/amd64
+#  container_name: worker
+#  image: ghcr.io/xgovformbuilder/forms-worker:latest
+#  environment:
+#    QUEUE_URL: "postgres://user:root@postgres:5432/queue"
 
-# use psql if you want a PostgreSQL based queue (recommended)
-#  postgres:
-#    container_name: postgres
-#    image: "postgres:16"
-#    ports:
-#      - "5432:5432"
-#    environment:
-#      POSTGRES_DB: queue
-#      POSTGRES_PASSWORD: root
-#      POSTGRES_USER: user
 ```
 
-Uncommenting the environment variables under the runner configuration will enable the queue service, set the database
-url to the url of your mysql container, and turn on debug messages for prisma (the ORM used to communicate with the
-database).
-Uncommenting the mysql dependency will make sure the mysql server is started before prisma starts trying to connect to
-it.
-Uncommenting the submitter configuration will trigger the submitter to be created, exposed on port 9000, connecting to
-the mysql container, with a polling interval of 5 seconds.
+Uncommenting the environment variables under the runner configuration will enable the queue service and set the database
+url to the url of your postgres container.
+
+Uncommenting the postgres dependency will make sure the postgres server is started before worker connects to it.
+
+Uncommenting the worker configuration start up the [forms-worker](https://github.com/XGovFormBuilder/forms-worker). The 
+worker will poll the database every 2 seconds by default, but you may increase that by adding a new environment variable `NEW_JOB_CHECK_INTERVAL`, which is in ms.
+Other environment variables can be found in the [forms-worker README](https://github.com/XGovFormBuilder/forms-worker?tab=readme-ov-file#environment-variables).
 
 Once your docker-compose file is ready, start all of your containers by using the command `docker compose up`
 or `docker compose up -d` to run the containers in detached mode.

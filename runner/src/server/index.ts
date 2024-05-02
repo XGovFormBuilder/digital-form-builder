@@ -35,9 +35,7 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
-import { pluginQueue } from "server/plugins/queue";
 import { QueueStatusService } from "server/services/queueStatusService";
-import { MySqlQueueService } from "server/services/mySqlQueueService";
 import { PgBossQueueService } from "server/services/pgBossQueueService";
 
 const serverOptions = (): ServerOptions => {
@@ -122,11 +120,8 @@ async function createServer(routeConfig: RouteConfig) {
   }
 
   if (config.enableQueueService) {
-    const queueType = config.queueType;
-    const queueService =
-      queueType === "PGBOSS" ? PgBossQueueService : MySqlQueueService;
     server.registerService([
-      Schmervice.withName("queueService", queueService),
+      Schmervice.withName("queueService", PgBossQueueService),
       Schmervice.withName("statusService", QueueStatusService),
     ]);
   } else {
@@ -182,8 +177,6 @@ async function createServer(routeConfig: RouteConfig) {
   server.state("cookies_policy", {
     encoding: "base64json",
   });
-
-  await server.register(pluginQueue);
 
   return server;
 }
