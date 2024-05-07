@@ -153,3 +153,16 @@ suite("Website field", () => {
     expect(formSchema.validate(null).error).to.be.undefined();
   });
 });
+
+test("Prefix are passed to view model", () => {
+  const def = {
+    ...baseDef,
+    options: { prefix: "@£%" },
+  };
+  const websiteFieldPrefix = new WebsiteField(def);
+  const { schema } = websiteFieldPrefix;
+
+  expect(websiteFieldPrefix.getViewModel({})).to.contain({
+    prefix: { text: "@£%" },
+  });
+});

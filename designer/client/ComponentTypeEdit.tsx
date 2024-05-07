@@ -9,6 +9,7 @@ import { MultilineTextFieldEdit } from "./multiline-text-field-edit";
 import { FreeTextFieldEdit } from "./free-text-field-edit";
 import { FileUploadFieldEdit } from "./file-upload-field-edit";
 import { NumberFieldEdit } from "./components/FieldEditors/number-field-edit";
+import { WebsiteFieldEdit } from "./components/FieldEditors/website-field-edit";
 import { DateFieldEdit } from "./components/FieldEditors/date-field-edit";
 import { ParaEdit } from "./components/FieldEditors/para-edit";
 import DetailsEdit from "./components/FieldEditors/details-edit";
@@ -22,6 +23,7 @@ const componentTypeEditors = {
   FreeTextField: FreeTextFieldEdit,
   ClientSideFileUploadField: ClientSideFileUploadFieldEdit,
   NumberField: NumberFieldEdit,
+  WebsiteField: WebsiteFieldEdit,
   AutocompleteField: ListFieldEdit,
   SelectField: SelectFieldEdit,
   RadiosField: ListFieldEdit,
