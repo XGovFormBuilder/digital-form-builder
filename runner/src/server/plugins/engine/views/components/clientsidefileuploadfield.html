@@ -251,6 +251,7 @@
             };
         }
     };
+
     let eventListenerAdded = false;
     // Check whether file upload is in progress or not and if in progress prevent submitting the form to backend
     const handleFileUploadingStatus = () => {
@@ -307,7 +308,8 @@
         // Also we need to add the listner here since button is not rendered when this js is being executed in the UI
         if(!eventListenerAdded){
             const saveContinueBtn = document.querySelector('[data-module="govuk-button"]');
-            saveContinueBtn.addEventListener('click', function(event) {
+            if(saveContinueBtn){
+                saveContinueBtn.addEventListener('click', function(event) {
                 const fileProcessingInprogress = getAllFiles().filter(f => f.status === "added" || f.status === "uploading");
                 if ( fileProcessingInprogress && fileProcessingInprogress.length > 0 ) {
                     event.preventDefault();
@@ -316,7 +318,8 @@
                     handleErrorSummary(errorMessage);
                 }
             });
-        eventListenerAdded = true;
+            eventListenerAdded = true;
+            }
         }
 
         const fileSizeLimit = dropzoneBackendConfig.maxFilesize * _FILE_SIZE_BASE * _FILE_SIZE_BASE;
