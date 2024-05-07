@@ -43,9 +43,9 @@ suite("Website field", () => {
 
     const { formSchema } = new WebsiteField(def, model);
 
-    expect(formSchema.validate("www.gov.uk").error).to.be.undefined();
+    expect(formSchema.validate("https://www.gov.uk").error).to.be.undefined();
     expect(
-      formSchema.validate("http://www.gov.uk/test?id=ABC").error
+      formSchema.validate("www.gov.uk/test?id=ABC").error
     ).to.be.undefined();
     expect(formSchema.validate("1").error!.message).to.contain(
       `Enter website address in the correct format`
@@ -85,7 +85,7 @@ suite("Website field", () => {
 
     const { formSchema } = new WebsiteField(def, model);
 
-    expect(formSchema.validate("uk").error).to.be.undefined();
+    expect(formSchema.validate("www.gov.uk").error).to.be.undefined();
 
     expect(formSchema.validate("https://www.gov.uk").error?.message).to.contain(
       `"My component" length must be less than or equal to 17 characters long`
@@ -106,7 +106,9 @@ suite("Website field", () => {
 
     const { formSchema } = new WebsiteField(def, model);
 
-    expect(formSchema.validate("www.gov.uk").error).to.be.undefined();
+    expect(
+      formSchema.validate("www.legislation.gov.uk").error
+    ).to.be.undefined();
 
     expect(formSchema.validate("http://www.gov.uk").error?.message).to.contain(
       `"My component" length must be at least 18 characters long`
