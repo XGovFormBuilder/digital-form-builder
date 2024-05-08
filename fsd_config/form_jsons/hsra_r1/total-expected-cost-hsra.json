@@ -26,7 +26,9 @@
         {
           "name": "lfXuaP",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "prefix": "£",
+            "classes": "govuk-!-width-one-quarter"
           },
           "type": "NumberField",
           "hint": "This includes any costs you expect to recover from the tenant or through matched funding",
