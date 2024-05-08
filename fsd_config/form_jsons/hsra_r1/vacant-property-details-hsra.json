@@ -110,11 +110,12 @@
               "acceptedFiles": "image/jpeg,image/png,application/pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.text,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.oasis.opendocument.spreadsheet"
             },
             "showNoScriptWarning": false,
-            "minimumRequiredFiles": 1
+            "minimumRequiredFiles": 1,
+            "hideTitle": true
           },
           "type": "ClientSideFileUploadField",
           "title": "Upload the initial notice you served the landlord",
-          "hint": "Tell us about all attempts to make contact, even if they were unsuccessful"
+          "hint": "Upload a file"
         }
       ],
       "next": [
