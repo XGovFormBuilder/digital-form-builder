@@ -4,10 +4,11 @@ import { FormModel } from "../models";
 import { TextField } from "./TextField";
 import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
+import { tr } from "date-fns/locale";
 
 export class WebsiteField extends TextField {
   private defaultMessage =
-    "Enter website address in the correct format, starting with 'https://'";
+    "Enter website address in the correct format, e.g. 'www.gov.uk'";
 
   formSchema: StringSchema;
   options: WebsiteFieldComponent["options"];
@@ -31,7 +32,9 @@ export class WebsiteField extends TextField {
 
     this.formSchema = this.formSchema
       .label(def.title)
-      .uri()
+      .pattern(
+        /^(www\.)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/
+      )
       .message(def.options?.customValidationMessage ?? this.defaultMessage);
 
     if (schema.max) {
@@ -59,8 +62,16 @@ export class WebsiteField extends TextField {
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const options: any = this.options;
+    const { prefix } = options;
+    const viewModelPrefix = { prefix: { text: prefix } };
     const schema: any = this.schema;
-    const viewModel = super.getViewModel(formData, errors);
+    const viewModel = {
+      ...super.getViewModel(formData, errors),
+      type: "website",
+      // ...False returns nothing, so only adds content when
+      // the given options are present.
+      ...(options.prefix && viewModelPrefix),
+    };
 
     if (options.hideTitle) {
       viewModel.label = { text: "", html: viewModel.hint?.html!, classes: "" };

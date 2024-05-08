@@ -9,7 +9,7 @@
                 {% for itemValue in item.value%}
                     {{itemValue}}<br>
                 {% endfor %}
-            {% elif item.type == 'NumberField' %}
+            {% elif item.type == 'NumberField' or item.type == 'WebsiteField' %}
                 {{item.prefix}}{{item.value}}
             {% elif item.type == 'ClientSideFileUploadField' %}
                 {% if item.value.files|length == 0 %}

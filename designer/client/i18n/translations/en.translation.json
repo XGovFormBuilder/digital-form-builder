@@ -435,5 +435,11 @@
     "downloadCrashReport": "download your crash report",
     "createIssue": "create an issue on GitHub",
     "createIssueHint": "with details of what you were doing when this error occurred, and your crash report as an attachment"
+  },
+  "websiteFieldEditComponent": {
+    "prefixField": {
+      "helpText": "Specifies the prefix of the field.",
+      "title": "Prefix"
+    }
   }
 }

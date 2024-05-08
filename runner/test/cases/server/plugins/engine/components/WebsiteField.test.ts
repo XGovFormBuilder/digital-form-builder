@@ -43,9 +43,9 @@ suite("Website field", () => {
 
     const { formSchema } = new WebsiteField(def, model);
 
-    expect(formSchema.validate("https://www.gov.uk").error).to.be.undefined();
+    expect(formSchema.validate("www.gov.uk").error).to.be.undefined();
     expect(
-      formSchema.validate("http://www.gov.uk/test?id=ABC").error
+      formSchema.validate("www.gov.uk/test?id=ABC").error
     ).to.be.undefined();
     expect(formSchema.validate("1").error!.message).to.contain(
       `Enter website address in the correct format`
@@ -66,7 +66,7 @@ suite("Website field", () => {
 
     const { formSchema } = new WebsiteField(def, model);
 
-    expect(formSchema.validate("www.gov.uk").error?.message).to.contain(
+    expect(formSchema.validate("gov").error?.message).to.contain(
       "Invalid address entered"
     );
   });
@@ -85,9 +85,11 @@ suite("Website field", () => {
 
     const { formSchema } = new WebsiteField(def, model);
 
-    expect(formSchema.validate("http://www.gov.uk").error).to.be.undefined();
+    expect(formSchema.validate("www.gov.uk").error).to.be.undefined();
 
-    expect(formSchema.validate("https://www.gov.uk").error?.message).to.contain(
+    expect(
+      formSchema.validate("www.legislation.gov.uk").error?.message
+    ).to.contain(
       `"My component" length must be less than or equal to 17 characters long`
     );
   });
@@ -106,9 +108,11 @@ suite("Website field", () => {
 
     const { formSchema } = new WebsiteField(def, model);
 
-    expect(formSchema.validate("https://www.gov.uk").error).to.be.undefined();
+    expect(
+      formSchema.validate("www.legislation.gov.uk").error
+    ).to.be.undefined();
 
-    expect(formSchema.validate("http://www.gov.uk").error?.message).to.contain(
+    expect(formSchema.validate("www.gov.uk").error?.message).to.contain(
       `"My component" length must be at least 18 characters long`
     );
   });
@@ -151,5 +155,21 @@ suite("Website field", () => {
     expect(formSchema.validate("").error).to.be.undefined();
 
     expect(formSchema.validate(null).error).to.be.undefined();
+  });
+});
+
+test("Prefix are passed to view model", () => {
+  const def = {
+    name: "myComponent",
+    title: "My component",
+    schema: {},
+    type: "WebsiteField",
+    options: { prefix: "@£%" },
+  };
+  const websiteFieldPrefix = new WebsiteField(def);
+  const { schema } = websiteFieldPrefix;
+
+  expect(websiteFieldPrefix.getViewModel({})).to.contain({
+    prefix: { text: "@£%" },
   });
 });
