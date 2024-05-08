@@ -51,6 +51,7 @@
         {
           "name": "kRiNuO",
           "options": {
+            "hideTitle": true,
             "dropzoneConfig": {
               "maxFiles": "10",
               "parallelUploads": "10",
