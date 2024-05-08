@@ -4,6 +4,7 @@ import { FormModel } from "../models";
 import { TextField } from "./TextField";
 import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
+import { tr } from "date-fns/locale";
 
 export class WebsiteField extends TextField {
   private defaultMessage =
@@ -31,7 +32,9 @@ export class WebsiteField extends TextField {
 
     this.formSchema = this.formSchema
       .label(def.title)
-      .domain()
+      .pattern(
+        /^(www\.)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/
+      )
       .message(def.options?.customValidationMessage ?? this.defaultMessage);
 
     if (schema.max) {
