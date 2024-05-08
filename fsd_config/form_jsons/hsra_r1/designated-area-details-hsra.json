@@ -54,7 +54,9 @@
         {
           "name": "fmWgiF",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "prefix": "https://",
+            "classes": "govuk-input--width-20"
           },
           "type": "WebsiteField",
           "title": "Where have you published the designation details?",
