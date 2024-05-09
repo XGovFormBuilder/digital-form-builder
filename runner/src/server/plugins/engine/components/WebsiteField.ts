@@ -33,7 +33,7 @@ export class WebsiteField extends TextField {
     this.formSchema = this.formSchema
       .label(def.title)
       .pattern(
-        /^(www\.)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/
+        /^(https?:\/\/)?(www\.)?[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})(\.[a-zA-Z0-9]{2,})?/
       )
       .message(def.options?.customValidationMessage ?? this.defaultMessage);
 
