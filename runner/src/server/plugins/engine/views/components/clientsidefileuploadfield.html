@@ -239,7 +239,7 @@
             {% endif %}
 
             const url = await getPreSignedUrl(file);
-            this.options.url = url;
+            file.uploadUrl = url;
             done();
         },
         // https://github.com/dropzone/dropzone/issues/590
@@ -445,6 +445,25 @@
         });
         return response.ok && (await response.json()).url
     }
+
+    const getFileByXHR = (xhr) => {
+        return (myDropzone.files || []).find(f => f.xhr === xhr);
+    }
+
+    // Overrides XMLHttpRequest to inject a file-specific upload URL. This custom implementation enables Dropzone to
+    // upload to multiple URLs by linking an XHR instance to a file's pre-signed URL. The `open` method uses the
+    // pre-signed URL (set in `accept`) if available, ensuring each file has a unique upload destination. This
+    // workaround prevents race conditions from Dropzone's global URL configuration by associating each file with its
+    // XHR instance, avoiding mismatched or duplicate uploads across the event loop.
+    const OriginalXMLHttpRequest = window.XMLHttpRequest;
+    class CustomXMLHttpRequest extends OriginalXMLHttpRequest {
+      open(method, url, async = true, user = null, password = null) {
+        const file = getFileByXHR(this);
+        const openUrl = file && file.uploadUrl ? file.uploadUrl : url;
+        return super.open(method, openUrl, async, user, password);
+      }
+    }
+    window.XMLHttpRequest = CustomXMLHttpRequest;
 
 </script>
 
