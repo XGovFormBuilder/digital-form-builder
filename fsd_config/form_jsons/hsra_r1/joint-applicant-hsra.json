@@ -93,7 +93,7 @@
           },
           "type": "EmailAddressField",
           "title": "Email address",
-          "hint": "Email address"
+          "hint": "<label class=\"govuk-label\">Email address</label>"
         }
       ],
       "next": [
