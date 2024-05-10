@@ -605,10 +605,20 @@ export class PageControllerBase {
       viewModel
     );
     if (additionalValidationErrors.length > 0) {
-      formResult.errors = {
-        titleText: "There is a problem",
-        errorList: additionalValidationErrors,
-      };
+      if (
+        formResult.errors &&
+        "titleText" in formResult.errors &&
+        "errorList" in formResult.errors
+      ) {
+        formResult.errors.errorList = formResult.errors.errorList.concat(
+          additionalValidationErrors
+        );
+      } else {
+        formResult.errors = {
+          titleText: "There is a problem",
+          errorList: additionalValidationErrors,
+        };
+      }
     }
 
     if (state.metadata === undefined) {
