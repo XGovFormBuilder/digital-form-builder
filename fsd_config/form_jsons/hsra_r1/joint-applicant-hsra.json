@@ -63,7 +63,7 @@
           },
           "type": "TextField",
           "title": "Which local authority are you applying with?",
-          "hint": "The full legal name"
+          "hint": "<label class=\"govuk-hint\">The full legal name</label>"
         }
       ],
       "next": [

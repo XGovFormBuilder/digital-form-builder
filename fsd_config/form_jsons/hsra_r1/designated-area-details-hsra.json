@@ -30,7 +30,7 @@
           },
           "type": "TextField",
           "title": "Which designated high street or town centre is the vacant property in?",
-          "hint": "The official name of the designated area"
+          "hint": "<label class=\"govuk-hint\">The official name of the designated area</label>"
         }
       ],
       "next": [
