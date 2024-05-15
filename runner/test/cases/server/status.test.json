@@ -59,6 +59,9 @@
   ],
   "specialPages": {
     "confirmationPage": {
+      "customText": {
+        "nextSteps": "render {{whichConsulate}}"
+      },
       "components": [
         {
           "name": "cd",
@@ -145,8 +148,7 @@
       }
     }
   ],
-  "fees": [
-  ],
+  "fees": [],
   "outputs": [
     {
       "name": "webhook",
