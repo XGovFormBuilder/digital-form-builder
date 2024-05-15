@@ -2,7 +2,6 @@ Feature: Date validation
 
   Background:
     Given the form "date-validation" exists
-    Given I navigate to the "date-validation" form
 
   Scenario: Errors appear for missing date parts
 
