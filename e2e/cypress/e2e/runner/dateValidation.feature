@@ -1,11 +1,11 @@
-Feature: Complete a form
-  As a forms user
-  I want to complete a form
-  So that I submit my form successfully
+Feature: Date validation
 
-  Scenario: Errors appear for missing date parts
+  Background:
     Given the form "date-validation" exists
     Given I navigate to the "date-validation" form
+
+  Scenario: Errors appear for missing date parts
+
     When I enter the day "25" for "maxFiveDaysInFuture"
     And I continue
     Then I see the error "Enter a date at most 5 days in the future must include a month" for "Enter a date at most 5 days in the future"
@@ -17,8 +17,6 @@ Feature: Complete a form
     Then I don't see "Enter a date at most 5 days in the future must include a year"
 
   Scenario: Errors appear for invalid date parts
-    Given the form "date-validation" exists
-    Given I navigate to the "date-validation" form
     When I enter the day "50" for "maxFiveDaysInFuture"
     When I enter the month "30" for "maxFiveDaysInFuture"
     When I enter the year "1" for "maxFiveDaysInFuture"
@@ -29,8 +27,6 @@ Feature: Complete a form
 
 
   Scenario: Errors appear for max days in future and max days in past
-    Given the form "date-validation" exists
-    Given I navigate to the "date-validation" form
     When I enter a date 30 days in the future for "maxFiveDaysInFuture"
     When I enter a date 30 days in the past for "maxFiveDaysInPast"
 
