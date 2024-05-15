@@ -13,6 +13,8 @@ import {
 } from "../types";
 import { FormModel } from "../models";
 import { DataType } from "server/plugins/engine/components/types";
+import { addClassOptionIfNone } from "./helpers";
+import joi from "joi";
 
 export class DatePartsField extends FormComponent {
   children: ComponentCollection;
@@ -96,6 +98,7 @@ export class DatePartsField extends FormComponent {
       helpers.getCustomDateValidator(maxDaysInPast, maxDaysInFuture)
     );
 
+    this.schema = schema;
     return { [this.name]: schema };
   }
 
@@ -153,7 +156,6 @@ export class DatePartsField extends FormComponent {
     const relevantErrors =
       errors?.errorList?.filter((error) => error.path.includes(this.name)) ??
       [];
-
     const firstError = relevantErrors[0];
     const errorMessage = firstError && { text: firstError?.text };
 

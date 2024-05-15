@@ -1,0 +1,48 @@
+{
+  "conditions": [],
+  "startPage": "/start",
+  "pages": [
+    {
+      "path": "/start",
+      "components": [
+        {
+          "type": "DatePartsField",
+          "name": "maxFiveDaysInFuture",
+          "title": "Enter a date at most 5 days in the future",
+          "schema": {},
+          "options": {
+            "maxDaysInFuture": 5
+          }
+        },
+        {
+          "type": "DatePartsField",
+          "name": "maxFiveDaysInPast",
+          "title": "Enter a date at most 5 days in the past",
+          "schema": {},
+          "options": {
+            "maxDaysInPast": 5
+          }
+        }
+      ],
+      "section": "licenceDetails",
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "title": "Summary"
+    }
+  ],
+  "sections": [
+    {
+      "name": "licenceDetails",
+      "title": "Licence details"
+    }
+  ],
+  "lists": []
+}
