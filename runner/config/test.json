@@ -8,5 +8,6 @@
   "enforceCsrf": false,
   "initialisedSessionKey": "predictable-key",
   "env": "test",
-  "documentUploadApiUrl": "http://localhost:9000"
+  "documentUploadApiUrl": "http://localhost:9000",
+  "allowUserTemplates": true
 }
