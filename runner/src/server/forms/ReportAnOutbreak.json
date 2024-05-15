@@ -44,20 +44,6 @@
           "hint": "Please provide the postcode of the specific setting affected (i.e. not the overarching management company if applicable). If there is no one specific setting affected e.g. Domiciliary or Home Care, then please provide the postcode of the care provider company"
         },
         {
-          "name": "S0Q1",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "title": "Please enter your Unique Organisation Number (UON) ",
-          "nameHasError": false,
-          "schema": {
-            "max": 99999999,
-            "min": 10000000
-          },
-          "hint": "UON is an 8 digit number"
-        },
-        {
           "name": "S0Q2",
           "options": {
             "required": false
@@ -71,7 +57,7 @@
           "name": "VMOkqi",
           "options": {},
           "type": "Para",
-          "content": "If you can't find your Unique Organisation Number (UON) then please visit <a target=\"_blank\" id=\"org-lookup\" href=\"https://organisation-number-lookup.test-for-coronavirus.service.gov.uk/\">Organisation number lookup - GOV.UK (test-for-coronavirus.service.gov.uk)</a> (you will need your CQC Location ID).\n</br></br>\nIf you don’t know your CQC Location ID then please visit <a id=\"cqc number\" target=\"_blank\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about half way down the page to <b style=\"color:#1d70b8\">CQC care directory - csv</b>. You will find your CQC Location ID in this look up table.\n</br></br>",
+          "content": "If you don’t know your CQC Location ID then please visit <a id=\"cqc number\" target=\"_blank\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about half way down the page to <b style=\"color:#1d70b8\">CQC care directory - csv</b>. You will find your CQC Location ID in this look up table.\n</br></br>",
           "schema": {}
         },
         {
