@@ -1,8 +1,9 @@
 {
-  "conditions": [],
+  "metadata": {},
   "startPage": "/start",
   "pages": [
     {
+      "title": "Start",
       "path": "/start",
       "components": [
         {
@@ -24,27 +25,25 @@
           }
         }
       ],
-      "section": "licenceDetails",
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ]
+      "next": [{ "path": "/second-page" }]
     },
     {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
       "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
-      "title": "Summary"
-    }
-  ],
-  "sections": [
-    {
-      "name": "licenceDetails",
-      "title": "Licence details"
+      "next": []
     }
   ],
   "lists": [],
+  "sections": [],
+  "conditions": [],
   "fees": [],
   "outputs": [],
   "version": 2,
