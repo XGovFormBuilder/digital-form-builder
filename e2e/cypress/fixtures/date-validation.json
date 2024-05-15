@@ -44,5 +44,10 @@
       "title": "Licence details"
     }
   ],
-  "lists": []
+  "lists": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
 }
