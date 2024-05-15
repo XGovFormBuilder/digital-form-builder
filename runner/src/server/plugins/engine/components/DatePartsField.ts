@@ -95,6 +95,11 @@ export class DatePartsField extends FormComponent {
     schema = schema.custom(
       helpers.getCustomDateValidator(maxDaysInPast, maxDaysInFuture)
     );
+    if (options.customValidationMessages) {
+      schema = schema.messages(options.customValidationMessages);
+    }
+
+    this.schema = schema;
 
     return { [this.name]: schema };
   }
@@ -153,7 +158,6 @@ export class DatePartsField extends FormComponent {
     const relevantErrors =
       errors?.errorList?.filter((error) => error.path.includes(this.name)) ??
       [];
-
     const firstError = relevantErrors[0];
     const errorMessage = firstError && { text: firstError?.text };
 
