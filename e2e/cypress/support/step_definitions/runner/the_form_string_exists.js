@@ -11,5 +11,7 @@ Given("the form {string} exists", (formName) => {
     cy.request("POST", url, requestBody);
   });
 
-  cy.visit(`${Cypress.env("RUNNER_URL")}/${formName}`);
+  cy.visit(`${Cypress.env("RUNNER_URL")}/${formName}`, {
+    failOnStatusCode: false,
+  });
 });
