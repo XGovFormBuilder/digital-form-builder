@@ -300,10 +300,6 @@ export class StatusService {
       `generating viewModel for ${newReference ?? reference}`
     );
 
-    const confirmationPageDef = formModel.def.specialPages?.confirmationPage;
-    const components = confirmationPageDef?.components;
-    const customText = { ...confirmationPageDef?.customText };
-
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
 
@@ -312,9 +308,12 @@ export class StatusService {
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
     };
 
-    if (!customText && !callback?.customText) {
+    const confirmationPageDef = formModel.def.specialPages?.confirmationPage;
+    if (!confirmationPageDef?.customText && !callback?.customText) {
       return model;
     }
+
+    const customText = { ...confirmationPageDef?.customText };
 
     if (config.allowUserTemplates) {
       if (customText?.nextSteps) {
@@ -336,7 +335,8 @@ export class StatusService {
       ...(callback && callback.customText),
     };
 
-    const componentDefsToRender = callback?.components ?? components ?? [];
+    const componentDefsToRender =
+      callback?.components ?? confirmationPageDef?.components ?? [];
     const componentCollection = new ComponentCollection(
       componentDefsToRender,
       formModel
