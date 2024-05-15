@@ -27,7 +27,7 @@ Feature: Date validation
 
 
   Scenario: Errors appear for max days in future and max days in past
-    When I navigate to the "date-validation" form
+    When I navigate to the "date" form
     When I enter a date 30 days in the future for "maxFiveDaysInFuture"
     When I enter a date 30 days in the past for "maxFiveDaysInPast"
     And I continue
