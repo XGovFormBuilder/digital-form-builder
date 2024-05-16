@@ -33,7 +33,7 @@ export class UploadService {
   }
 
   get fileSizeLimit() {
-    return 5 * 1024 * 1024; // 5mb
+    return config.maxClientFileSize;
   }
 
   get validFiletypes(): ["jpg", "jpeg", "png", "pdf"] {

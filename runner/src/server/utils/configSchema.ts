@@ -133,6 +133,8 @@ export const configSchema = Joi.object({
     otherwise: Joi.optional(),
   }),
   allowUserTemplates: Joi.boolean().optional(),
+  maxClientFileSize: Joi.number().default("5242880"), // 5MB
+  maxFileSizeStringInMb: Joi.string().default("5"),
 });
 
 export function buildConfig(config) {

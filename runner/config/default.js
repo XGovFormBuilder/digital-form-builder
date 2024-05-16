@@ -143,4 +143,10 @@ module.exports = {
   queueServicePollingTimeout: "2000", // Total time to wait for a reference number
 
   allowUserTemplates: false,
+
+  /**
+   * File size errors
+   */
+  maxClientFileSize: 5 * 1024 * 1024, // 5MB
+  maxFileSizeStringInMb: "5", // The file size to render if the file is too large in MB
 };
