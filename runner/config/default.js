@@ -142,7 +142,7 @@ module.exports = {
   queueServicePollingInterval: "500", // How frequently to check the queue for a reference number
   queueServicePollingTimeout: "2000", // Total time to wait for a reference number
 
-  allowUserTemplates: true,
+  allowUserTemplates: false,
 
   /**
    * File size errors
