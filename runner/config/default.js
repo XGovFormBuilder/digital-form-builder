@@ -142,5 +142,11 @@ module.exports = {
   queueServicePollingInterval: "500", // How frequently to check the queue for a reference number
   queueServicePollingTimeout: "2000", // Total time to wait for a reference number
 
-  allowUserTemplates: false,
+  allowUserTemplates: true,
+
+  /**
+   * File size errors
+   */
+  maxClientFileSize: 5 * 1024 * 1024, // 5MB
+  maxApiFileSizeErrorMb: "4", // The file size to render if the file is too large in MB
 };
