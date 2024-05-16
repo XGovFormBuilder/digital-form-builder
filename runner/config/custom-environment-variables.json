@@ -56,5 +56,5 @@
   "queueServicePollingTimeout": "QUEUE_SERVICE_POLLING_TIMEOUT",
   "allowUserTemplates": "ALLOW_USER_TEMPLATES",
   "maxClientFileSize": "MAX_CLIENT_FILE_SIZE",
-  "maxApiFileSizeMb": "MAX_API_FILE_SIZE_MB"
+  "maxFileSizeStringInMb": "MAX_FILE_SIZE_STRING_IN_MB"
 }

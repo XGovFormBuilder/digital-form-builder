@@ -148,5 +148,5 @@ module.exports = {
    * File size errors
    */
   maxClientFileSize: 5 * 1024 * 1024, // 5MB
-  maxApiFileSizeErrorMb: "4", // The file size to render if the file is too large in MB
+  maxFileSizeStringInMb: "5", // The file size to render if the file is too large in MB
 };
