@@ -686,7 +686,7 @@
         },
         {
           "text": "Trust port",
-          "value": "trust-port"
+          "value": "Trust port"
         },
         {
           "text": "Other",
@@ -1031,8 +1031,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "trust-port",
-              "display": "trust-port"
+              "value": "Trust port",
+              "display": "Trust port"
             }
           }
         ]
