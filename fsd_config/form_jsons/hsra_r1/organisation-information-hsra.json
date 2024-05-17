@@ -17,7 +17,8 @@
         {
           "path": "/which-local-authority-are-you-applying-from"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/which-local-authority-are-you-applying-from",
