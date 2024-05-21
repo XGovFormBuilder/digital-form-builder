@@ -17,7 +17,8 @@
         {
           "path": "/are-you-making-a-joint-application-with-another-local-authority"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/are-you-making-a-joint-application-with-another-local-authority",

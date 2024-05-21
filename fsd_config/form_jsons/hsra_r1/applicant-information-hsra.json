@@ -17,7 +17,8 @@
         {
           "path": "/who-should-we-contact-about-this-application"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/who-should-we-contact-about-this-application",
