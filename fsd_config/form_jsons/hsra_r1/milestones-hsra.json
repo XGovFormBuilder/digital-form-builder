@@ -18,7 +18,8 @@
         {
           "path": "/when-do-you-expect-the-auction-to-take-place"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/when-do-you-expect-the-auction-to-take-place",

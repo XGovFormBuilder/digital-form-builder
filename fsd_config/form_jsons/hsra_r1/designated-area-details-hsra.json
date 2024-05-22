@@ -17,7 +17,8 @@
         {
           "path": "/which-designated-high-street-or-town-centre-is-the-vacant-property-in"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/which-designated-high-street-or-town-centre-is-the-vacant-property-in",

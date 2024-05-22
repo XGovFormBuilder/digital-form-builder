@@ -17,7 +17,8 @@
         {
           "path": "/what-is-the-vacant-propertys-address"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/what-is-the-vacant-propertys-address",
