@@ -16,7 +16,8 @@
       ],
       "next": [
         { "path": "/what-is-the-total-of-any-other-expected-costs-in-pounds" }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/what-is-the-total-of-any-other-expected-costs-in-pounds",

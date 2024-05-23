@@ -18,6 +18,7 @@
           "path": "/what-is-the-total-expected-cost-of-the-auction-in-pounds"
         }
       ],
+      "controller": "./pages/start.js",
       "section": "ebIBcm"
     },
     {

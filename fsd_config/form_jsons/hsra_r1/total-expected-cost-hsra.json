@@ -17,7 +17,8 @@
         {
           "path": "/what-is-the-total-expected-cost-of-delivering-the-hsra-in-pounds"
         }
-      ]
+      ],
+      "controller": "./pages/start.js"
     },
     {
       "path": "/what-is-the-total-expected-cost-of-delivering-the-hsra-in-pounds",
