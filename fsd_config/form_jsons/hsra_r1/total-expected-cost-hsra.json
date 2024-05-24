@@ -10,7 +10,7 @@
           "name": "dAopHX",
           "options": {},
           "type": "Para",
-          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>the total expected cost of delivering the HSRA</li>\n<li>why your costs are higher than £72,000 (if applicable)</li>\n<li>if you’ve secured match funding</li>\n<li>the amount of match funding (if applicable)</li>\n<li>who is providing the match funding (if applicable)</li>\n</ul>\n"
+          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>the total expected cost of delivering the HSRA</li>\n<li>why your costs are higher than the guided price.</li>\n<li>if you’ve secured match funding</li>\n<li>the amount of match funding (if applicable)</li>\n<li>who is providing the match funding (if applicable)</li>\n</ul>\n"
         }
       ],
       "next": [
@@ -38,7 +38,7 @@
       ],
       "next": [
         {
-          "path": "/costs-higher-than-72000",
+          "path": "/costs-are-higher-than-the-guided-price",
           "condition": "xuygbT"
         },
         {
@@ -55,14 +55,14 @@
       "next": []
     },
     {
-      "path": "/costs-higher-than-72000",
-      "title": "Costs higher than £72,000",
+      "path": "/costs-are-higher-than-the-guided-price",
+      "title": "Costs are higher than the guided price",
       "components": [
         {
           "name": "CwEWDh",
           "options": {},
           "type": "Para",
-          "content": "We’ve estimated that most HSRA projects should cost between £47,460 and £72,000.\n<br>\n<br>\nWe’ll consider costs above this range but need to understand why your costs are higher."
+          "content": "Guided price: We expect refurbishment to cost approximately:\n<ul><li>£40,000 for a property between 100 sqm and 200 sqm</li><li>£79,000 for a property between 201 sqm and 300 sqm</li></ul>\n<p class='govuk-body'>We’ll consider costs above this range but need to understand why your costs are higher.</p"
         },
         {
           "name": "OBXEXZ",
@@ -70,7 +70,7 @@
             "maxWords": "300"
           },
           "type": "FreeTextField",
-          "title": "Why are your costs higher than £72,000?"
+          "title": "Why are your costs higher than the guided price?"
         }
       ],
       "next": [
@@ -141,10 +141,10 @@
   ],
   "conditions": [
     {
-      "displayName": "Costs higher than £72,000",
+      "displayName": "Costs are higher than the guided price",
       "name": "xuygbT",
       "value": {
-        "name": "Costs higher than £72,000",
+        "name": "Costs are higher than the guided price",
         "conditions": [
           {
             "field": {

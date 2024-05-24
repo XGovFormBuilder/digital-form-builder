@@ -10,7 +10,7 @@
           "name": "tguYic",
           "options": {},
           "type": "Para",
-          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>total expected other costs</li>\n<li>quotes showing other costs</li>\n</ul>\n\n<div class=\"govuk-label\">Other costs include:</div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>issuing legal notices</li>\n<li>gaining access to the property</li>\n<li>preparing the contract for tenancy and tenancy agreement</li>\n<li>conveyancing</li>\n</ul>",
+          "content": "<label >In this section, we'll ask about:</label>\n\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>total expected other costs</li>\n<li>quotes showing other costs</li>\n</ul>\n\n<div class=\"govuk-label\">Other costs include:</div>\n<br>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>preparing the contract for tenancy and tenancy agreement</li>\n<li>conveyancing</li>\n<li>commissioning an independent survey to identify refurbishment needed to meet minimum standards</li>\n</ul>",
           "schema": {}
         }
       ],
