@@ -94,7 +94,7 @@
           },
           "type": "EmailAddressField",
           "title": "Email address",
-          "hint": "<label class=\"govuk-label\">Email address</label>"
+          "hint": "<label class=\"govuk-label\" for=\"EvfEzH\">Email address</label>"
         }
       ],
       "next": [
