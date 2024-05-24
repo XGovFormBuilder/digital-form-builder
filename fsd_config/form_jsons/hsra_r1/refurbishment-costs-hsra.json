@@ -72,14 +72,14 @@
       ],
       "next": [
         {
-          "path": "/upload-quotes-showing-refurbishment-costs"
+          "path": "/upload-quotes-showing-refurbishment-costs-and-if-applicable-project-management-costs-for-properties-exceeding-200-sqm."
         }
       ],
       "section": "qvSwnW"
     },
     {
-      "path": "/upload-quotes-showing-refurbishment-costs",
-      "title": "Upload quotes showing refurbishment costs",
+      "path": "/upload-quotes-showing-refurbishment-costs-and-if-applicable-project-management-costs-for-properties-exceeding-200-sqm.",
+      "title": "Upload quotes showing refurbishment costs and if applicable project management costs for properties exceeding 200 sqm.",
       "components": [
         {
           "name": "xUgKLI",
@@ -94,7 +94,7 @@
             "minimumRequiredFiles": "1"
           },
           "type": "ClientSideFileUploadField",
-          "title": "Upload quotes showing refurbishment costs",
+          "title": "Upload quotes showing refurbishment costs and if applicable project management costs for properties exceeding 200 sqm.",
           "hint": "Upload files"
         }
       ],
