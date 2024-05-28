@@ -30,7 +30,7 @@ memory: 2048
 platform: linux/x86_64
 
 # Number of tasks that should be running in your service.
-count: 2
+count: 1
 
 # Enable running commands in your container.
 exec: true
@@ -74,9 +74,14 @@ secrets:
 
 # You can override any of the values defined above by environment.
 environments:
+  dev:
+    count:
+      spot: 1
   test:
     deployment:
       rolling: "recreate"
+    count:
+      spot: 2
   uat:
     count:
       range: 2-4
