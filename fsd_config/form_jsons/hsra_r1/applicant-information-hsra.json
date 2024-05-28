@@ -31,7 +31,7 @@
           },
           "type": "TextField",
           "title": "Full name",
-          "hint": "Full name"
+          "hint": "<label class=\"govuk-label\" for=\"OkKkMd\">Full name</label>"
         },
         {
           "name": "Lwkcam",
@@ -39,7 +39,7 @@
             "hideTitle": true
           },
           "type": "TextField",
-          "hint": "<label class=\"govuk-label\">Job title</label>",
+          "hint": "<label class=\"govuk-label\" for=\"Lwkcam\">Job title</label>",
           "title": "Job title"
         },
         {
@@ -49,7 +49,7 @@
           },
           "type": "EmailAddressField",
           "title": "Email address",
-          "hint": "<label class=\"govuk-label\">Email address</label>"
+          "hint": "<label class=\"govuk-label\" for=\"XfiUqN\">Email address</label>"
         },
         {
           "name": "DlZjvr",
@@ -58,7 +58,7 @@
           },
           "type": "TelephoneNumberField",
           "title": "Telephone number",
-          "hint": "<label class=\"govuk-label\">Telephone number</label>"
+          "hint": "<label class=\"govuk-label\" for=\"DlZjvr\">Telephone number</label>"
         }
       ],
       "next": [
