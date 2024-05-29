@@ -9,6 +9,7 @@ const sectionsSchema = joi.object().keys({
   name: joi.string().required(),
   title: joi.string().required(),
   hideTitle: joi.boolean().default(false),
+  repeating: joi.boolean().default(false).optional(),
 });
 
 const conditionFieldSchema = joi.object().keys({

@@ -272,6 +272,28 @@ export const plugin = {
       },
     });
 
+    server.route({
+      method: "get",
+      path: "/{id}/{section}/summary",
+      options: {
+        pre: [
+          {
+            method: queryParamPreHandler,
+          },
+        ],
+      },
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+        const { id, section } = request.params;
+        const model = forms[id];
+        const s = model._SECTIONS.sections.get(section);
+        if (!s) {
+          throw Boom.notFound("No form or page found");
+        }
+
+        return s.summaryPage.getRouteHandler(request, h);
+      },
+    });
+
     const { uploadService } = server.services([]);
 
     const handleFiles = (request: HapiRequest, h: HapiResponseToolkit) => {

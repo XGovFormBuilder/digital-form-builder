@@ -9,13 +9,13 @@ export class SelectionControlField extends ListFormComponent {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, items } = this;
     const options: any = this.options;
-    const viewModel = super.getViewModel(formData, errors);
+    const viewModel: ViewModel = super.getViewModel(formData, errors);
 
     viewModel.fieldset = {
       legend: viewModel.label,
     };
 
-    viewModel.items = items.map((item) => {
+    viewModel.items = items.map((item: any) => {
       const itemModel: ListItem = {
         text: item.text,
         value: item.value,
@@ -35,9 +35,6 @@ export class SelectionControlField extends ListFormComponent {
       }
 
       return itemModel;
-
-      // FIXME:- add this back when GDS fix accessibility issues involving conditional reveal fields
-      //return super.addConditionalComponents(item, itemModel, formData, errors);
     });
     return viewModel;
   }

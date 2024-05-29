@@ -72,7 +72,6 @@ export class PageControllerBase {
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
     this.backLinkFallback = pageDef.backLinkFallback;
-
     // Resolve section
     this.section = model.sections?.find(
       (section) => section.name === pageDef.section
@@ -104,6 +103,9 @@ export class PageControllerBase {
 
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
+
+    model._PAGES.set(this.path, this);
+    // sectionClass?.addPage(this);
   }
 
   /**
@@ -211,30 +213,7 @@ export class PageControllerBase {
    * @param state - the values currently stored in a users session
    * @param suppressRepetition - cancels repetition logic
    */
-  getNextPage(state: FormSubmissionState, suppressRepetition = false) {
-    if (this.repeatField && !suppressRepetition) {
-      const requiredCount = reach(state, this.repeatField);
-      const otherRepeatPagesInSection = this.model.pages.filter(
-        (page) => page.section === this.section && page.repeatField
-      );
-      const sectionState = state[this.section.name] || {};
-      if (
-        Object.keys(sectionState[sectionState.length - 1]).length ===
-        otherRepeatPagesInSection.length
-      ) {
-        // iterated all pages at least once
-        const lastIteration = sectionState[sectionState.length - 1];
-        if (
-          otherRepeatPagesInSection.length === this.objLength(lastIteration)
-        ) {
-          // this iteration is 'complete'
-          if (sectionState.length < requiredCount) {
-            return this.findPageByPath(Object.keys(lastIteration)[0]);
-          }
-        }
-      }
-    }
-
+  getNextPage(state: FormSubmissionState) {
     let defaultLink;
     const nextLink = this.next.find((link) => {
       const { condition } = link;
@@ -252,7 +231,12 @@ export class PageControllerBase {
       return nextLink;
     }
 
-    return nextLink?.page ?? defaultLink?.page;
+    const nextPage = nextLink?.page ?? defaultLink?.page;
+
+    const isEndOfSection = this.section?.name !== nextPage?.section?.name;
+    if (isEndOfSection) {
+    }
+    return nextPage;
   }
 
   // TODO: type
