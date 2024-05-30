@@ -6,12 +6,14 @@
 
 
 {% block content %}
-Repeating section:
+
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">{{customText.separatePageTitle or pageTitle }}</h1>
-        {{ govukSummaryList(details) }}
+        {% for iteration in iterations %}
+          {{ govukSummaryList(iteration)}}
+        {% endfor %}
         <form action="?view=summary"  method="post" enctype="multipart/form-data">
           <div class="govuk-button-group">
             <input type="hidden" name="crumb" value="{{crumb}}"/>

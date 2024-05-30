@@ -64,7 +64,9 @@ export class CacheService {
       ttl = paymentSessionTimeout;
     }
     await this.cache.set(key, state, ttl);
-    return this.cache.get(key);
+    const newState = await this.cache.get(key);
+    console.log(newState);
+    return newState;
   }
 
   async getConfirmationState(request: HapiRequest) {

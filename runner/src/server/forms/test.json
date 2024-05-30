@@ -28,7 +28,7 @@
       "section": "checkBeforeYouStart",
       "next": [
         {
-          "path": "/applicant-one"
+          "path": "/passport"
         },
         {
           "path": "/no-uk-passport",
@@ -53,29 +53,7 @@
       "next": []
     },
     {
-      "path": "/how-many-people",
-      "section": "applicantDetails",
-      "components": [
-        {
-          "options": {
-            "classes": "govuk-input--width-10",
-            "required": true
-          },
-          "type": "SelectField",
-          "name": "numberOfApplicants",
-          "title": "How many applicants are there?",
-          "list": "numberOfApplicants"
-        }
-      ],
-      "next": [
-        {
-          "path": "/applicant-one"
-        }
-      ],
-      "title": "How many applicants are there?"
-    },
-    {
-      "path": "/applicant-one",
+      "path": "/passport",
       "title": "Applicant 1",
       "section": "applicantDetails",
       "components": [
@@ -119,12 +97,12 @@
       ],
       "next": [
         {
-          "path": "/applicant-one-address"
+          "path": "/address"
         }
       ]
     },
     {
-      "path": "/applicant-one-address",
+      "path": "/address",
       "section": "applicantDetails",
       "components": [
         {

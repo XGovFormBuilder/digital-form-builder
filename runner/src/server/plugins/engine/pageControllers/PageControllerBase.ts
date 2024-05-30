@@ -25,6 +25,7 @@ import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
+import { Section } from "server/plugins/engine/models/Section";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -56,6 +57,7 @@ export class PageControllerBase {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
   backLinkFallback?: string;
+  _SECTION?: Section;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -106,6 +108,10 @@ export class PageControllerBase {
 
     model._PAGES.set(this.path, this);
     // sectionClass?.addPage(this);
+  }
+
+  get sectionC() {
+    return this.model._SECTIONS.get(this.section?.name);
   }
 
   /**
@@ -250,25 +256,30 @@ export class PageControllerBase {
     }
     const query = { num: 0 };
     let queryString = "";
-    if (nextPage?.repeatField) {
-      const requiredCount = reach(state, nextPage.repeatField);
-      const otherRepeatPagesInSection = this.model.pages.filter(
-        (page) => page.section === this.section && page.repeatField
-      );
-      const sectionState = state[nextPage.section.name];
-      const lastInSection = sectionState?.[sectionState.length - 1] ?? {};
-      const isLastComplete =
-        Object.keys(lastInSection).length === otherRepeatPagesInSection.length;
-      query.num = sectionState
-        ? isLastComplete
-          ? this.objLength(sectionState) + 1
-          : this.objLength(sectionState)
-        : 1;
-
-      if (query.num <= requiredCount) {
-        queryString = `?${querystring.encode(query)}`;
-      }
+    const nextSectionIsDifferent =
+      nextPage.section?.name !== this.section?.name;
+    if (this.sectionC?.isRepeating && nextSectionIsDifferent) {
+      return `/${this.model.basePath}/${this.sectionC.sectionName}/summary`;
     }
+    // if (nextPage?.repeatField) {
+    //   const requiredCount = reach(state, nextPage.repeatField);
+    //   const otherRepeatPagesInSection = this.model.pages.filter(
+    //     (page) => page.section === this.section && page.repeatField
+    //   );
+    //   const sectionState = state[nextPage.section.name];
+    //   const lastInSection = sectionState?.[sectionState.length - 1] ?? {};
+    //   const isLastComplete =
+    //     Object.keys(lastInSection).length === otherRepeatPagesInSection.length;
+    //   query.num = sectionState
+    //     ? isLastComplete
+    //       ? this.objLength(sectionState) + 1
+    //       : this.objLength(sectionState)
+    //     : 1;
+    //
+    //   if (query.num <= requiredCount) {
+    //     queryString = `?${querystring.encode(query)}`;
+    //   }
+    // }
 
     if (nextPage) {
       return `/${this.model.basePath || ""}${nextPage.path}${queryString}`;
@@ -643,17 +654,28 @@ export class PageControllerBase {
     }
 
     let update = this.getPartialMergeState(stateResult.value);
-    if (this.repeatField) {
-      const updateValue = { [this.path]: update[this.section.name] };
-      const sectionState = state[this.section.name];
-      if (!sectionState) {
-        update = { [this.section.name]: [updateValue] };
-      } else if (!sectionState[num - 1]) {
-        sectionState.push(updateValue);
-        update = { [this.section.name]: sectionState };
+
+    if (this.sectionC?.isRepeating) {
+      console.log(update);
+      const currentIteration = (num ?? 1) - 1;
+      const sectionState = state[this.section.name] ?? [];
+      let currentIterationState = sectionState[currentIteration] ?? {};
+
+      // unnests the state
+      const pageUpdate = update[this.section.name];
+
+      if (sectionState.length === 0) {
+        update = { [this.section.name]: [pageUpdate] };
       } else {
-        sectionState[num - 1] = merge(sectionState[num - 1] ?? {}, updateValue);
+        sectionState[currentIteration] = {
+          ...currentIterationState,
+          ...pageUpdate,
+        };
         update = { [this.section.name]: sectionState };
+      }
+
+      if (num - sectionState.length <= 2) {
+        // num must be the same, or n-1 of sectionState.length.
       }
     }
 
