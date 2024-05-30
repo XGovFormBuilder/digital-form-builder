@@ -87,7 +87,7 @@ describe("FormDetails", () => {
       const noneRadio = screen.getByLabelText("None") as HTMLInputElement;
       expect(noneRadio.checked).toEqual(true);
 
-      const betaRadio = screen.getByLabelText("Beta") as HTMLInputElement;
+      const betaRadio = screen.getByLabelText("beta") as HTMLInputElement;
       expect(betaRadio.checked).toEqual(false);
 
       fireEvent.click(betaRadio, { target: { value: "beta" } });
@@ -97,7 +97,7 @@ describe("FormDetails", () => {
       fireEvent.click(saveButton);
       expect(providerProps.save.mock.calls[0][0]).toMatchObject({
         name: "Default Title",
-        phaseBanner: { phase: "beta" },
+        phaseBanner: { phase: "Beta" },
       });
     });
 

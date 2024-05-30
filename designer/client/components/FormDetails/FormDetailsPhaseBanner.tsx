@@ -45,8 +45,8 @@ export const FormDetailsPhaseBanner = (props: Props) => {
             value: "alpha",
           },
           {
-            children: [i18n("formDetails.beta")],
-            value: "beta",
+            children: [i18n("formDetails.Beta")],
+            value: "Beta",
           },
           {
             children: [i18n("formDetails.none")],

@@ -12,8 +12,8 @@ suite(`Phase banner`, () => {
     await server.stop();
   });
 
-  test("shows the beta tag by default", async () => {
-    // For backwards-compatibility, as the main layout template currently always shows 'beta'.
+  test("shows the Beta tag by default", async () => {
+    // For backwards-compatibility, as the main layout template currently always shows 'Beta'.
     // TODO: default to no phase banner? TBD
     server = await createServer({
       formFileName: `phase-default.json`,
@@ -32,7 +32,7 @@ suite(`Phase banner`, () => {
     const $ = cheerio.load(response.payload);
 
     expect($(".govuk-phase-banner__content__tag").text().trim()).to.equal(
-      "beta"
+      "Beta"
     );
   });
 

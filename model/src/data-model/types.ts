@@ -58,7 +58,7 @@ export interface Feedback {
 }
 
 export type PhaseBanner = {
-  phase?: "alpha" | "beta";
+  phase?: "alpha" | "Beta";
   feedbackUrl?: string;
 };
 
