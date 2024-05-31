@@ -17,7 +17,7 @@ import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
 import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
 import { ComponentCollection } from "server/plugins/engine/components";
-import { Sections } from "./Section";
+import { Sections, SuperGraph } from "./Section";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -121,10 +121,12 @@ export class FormModel {
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
     this._SECTIONS = new Sections(this);
-    this._SECTIONS.sections.forEach((section) => section.graph.logGraph());
-
+    // this._SECTIONS.sections.forEach((section) => section.graph.logGraph());
     this.specialPages = def.specialPages;
+
     this.feeOptions = { ...DEFAULT_FEE_OPTIONS, ...def.feeOptions };
+    this._SECTIONS.logGraph();
+    const superGraph = new SuperGraph(this);
   }
 
   /**

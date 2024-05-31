@@ -14,7 +14,7 @@
         {% for iteration in iterations %}
           {{ govukSummaryList(iteration)}}
         {% endfor %}
-        <form action="?view=summary"  method="post" enctype="multipart/form-data">
+        <form  method="post" enctype="multipart/form-data">
           <div class="govuk-button-group">
             <input type="hidden" name="crumb" value="{{crumb}}"/>
             <button name="next" value="continue" class="govuk-button">Continue</button>

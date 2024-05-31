@@ -120,7 +120,7 @@ export class PageControllerBase {
    */
   getViewModel(
     formData: FormData,
-    iteration?: any, // TODO
+    iteration?: number,
     errors?: any // TODO
   ): {
     page: PageControllerBase;
@@ -258,28 +258,29 @@ export class PageControllerBase {
     let queryString = "";
     const nextSectionIsDifferent =
       nextPage.section?.name !== this.section?.name;
+
     if (this.sectionC?.isRepeating && nextSectionIsDifferent) {
       return `/${this.model.basePath}/${this.sectionC.sectionName}/summary`;
     }
-    // if (nextPage?.repeatField) {
-    //   const requiredCount = reach(state, nextPage.repeatField);
-    //   const otherRepeatPagesInSection = this.model.pages.filter(
-    //     (page) => page.section === this.section && page.repeatField
-    //   );
-    //   const sectionState = state[nextPage.section.name];
-    //   const lastInSection = sectionState?.[sectionState.length - 1] ?? {};
-    //   const isLastComplete =
-    //     Object.keys(lastInSection).length === otherRepeatPagesInSection.length;
-    //   query.num = sectionState
-    //     ? isLastComplete
-    //       ? this.objLength(sectionState) + 1
-    //       : this.objLength(sectionState)
-    //     : 1;
-    //
-    //   if (query.num <= requiredCount) {
-    //     queryString = `?${querystring.encode(query)}`;
-    //   }
-    // }
+
+    console.log("PASSED STATE", state);
+
+    if (nextPage.sectionC?.isRepeating && nextSectionIsDifferent) {
+      console.log("NEXT PAGE IS REPEATING");
+      query.num = state[nextPage.sectionC.sectionName]?.length ?? 1;
+      queryString = `?${new URLSearchParams(query)}`;
+    }
+
+    if (this.sectionC?.isRepeating && !nextSectionIsDifferent) {
+      console.log("NEXT SECTION NOT DIFF");
+      console.log(
+        "STATE LENGTH FOR THIS SECTION IS",
+        state[this.sectionC.sectionName]?.length
+      );
+      console.log("STATE", state);
+      query.num = state[this.sectionC.sectionName]?.length ?? 1;
+      queryString = `?${new URLSearchParams(query)}`;
+    }
 
     if (nextPage) {
       return `/${this.model.basePath || ""}${nextPage.path}${queryString}`;
@@ -294,24 +295,14 @@ export class PageControllerBase {
   getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
 
-    if (this.repeatField) {
-      const repeatedPageState =
-        pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {};
-      const values = Object.values(repeatedPageState);
-
-      const newState = values.length
-        ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
-        : {};
-
+    if (this.sectionC?.isRepeating) {
+      const s = state[this.sectionC.sectionName]?.[atIndex] ?? {};
       return {
-        ...this.components.getFormDataFromState(
-          newState as FormSubmissionState
-        ),
-        ...this.model.fieldsForContext?.getFormDataFromState(
-          newState as FormSubmissionState
-        ),
+        ...this.components.getFormDataFromState(s || {}),
+        ...this.model.getContextState(s),
       };
     }
+
     return {
       ...this.components.getFormDataFromState(pageState || {}),
       ...this.model.getContextState(state),
@@ -404,17 +395,14 @@ export class PageControllerBase {
     //While the current page isn't null
     while (nextPage != null) {
       //Either get the current state or the current state of the section if this page belongs to a section
-      const currentState =
+      let currentState =
         (nextPage.section ? state[nextPage.section.name] : state) ?? {};
+
       let newValue = {};
 
       //Iterate all components on this page and pull out the saved values from the state
       for (const component of nextPage.components.items) {
         newValue[component.name] = currentState[component.name];
-      }
-
-      if (nextPage.section) {
-        newValue = { [nextPage.section.name]: newValue };
       }
 
       //Combine our stored values with the existing relevantState that we've been building up
@@ -430,7 +418,6 @@ export class PageControllerBase {
 
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
     }
-
     return relevantState;
   }
 
@@ -443,6 +430,7 @@ export class PageControllerBase {
       const { num } = request.query;
       const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
       const startPage = this.model.def.startPage;
+      console.log("NUM", num, num - 1);
       const formData = this.getFormDataFromState(state, num - 1);
 
       const isStartPage = this.path === `${startPage}`;
@@ -485,7 +473,11 @@ export class PageControllerBase {
        * Content components can be hidden based on a condition. If the condition evaluates to true, it is safe to be kept, otherwise discard it
        */
       //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
-      let relevantState = this.getConditionEvaluationContext(this.model, state);
+      let relevantState = this.getConditionEvaluationContext(
+        this.model,
+        state,
+        num
+      );
 
       //Filter our components based on their conditions using our calculated state
       viewModel.components = viewModel.components.filter((component) => {
@@ -698,11 +690,15 @@ export class PageControllerBase {
       const { cacheService } = request.services([]);
       const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
+
+      if (this.sectionC?.isRepeating) {
+        return this.proceed(request, h, savedState);
+      }
+
       let relevantState = this.getConditionEvaluationContext(
         this.model,
         savedState
       );
-
       return this.proceed(request, h, relevantState);
     };
   }

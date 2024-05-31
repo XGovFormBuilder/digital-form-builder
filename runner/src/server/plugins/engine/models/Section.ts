@@ -20,7 +20,7 @@ export class Graph {
 
   addEdge(origin: PageControllerBase, destination: PageControllerBase) {
     // console.log("adding edge to", this.name, origin.path, destination.path);
-    this.startPage = origin;
+    // this.startPage = origin;
     if (!this.adjacencyList.has(origin)) {
       this.addVertex(origin);
     }
@@ -30,11 +30,6 @@ export class Graph {
     this.adjacencyList.get(origin).push(destination);
   }
 
-  set startPage(startPage) {
-    if (!this.startPage) {
-      this._startPage = startPage;
-    }
-  }
   logGraph() {
     console.log(`start page: ${this._startPage?.path}`);
     for (let [vertex, edges] of this.adjacencyList.entries()) {
@@ -73,6 +68,12 @@ export class Section {
       this
     );
   }
+
+  set startPage(startPage) {
+    if (!this._startPage) {
+      this._startPage = startPage;
+    }
+  }
 }
 
 export class Sections {
@@ -103,6 +104,15 @@ export class Sections {
   addNodesRecursively(prev: PageControllerBase) {
     // console.log("ADDING FROM", prev.section?.name, prev.path);
     const prevSection = this.sections.get(prev.section?.name);
+    if (prevSection) {
+      console.log(
+        "SETTING START PAGE FOR",
+        prevSection.sectionName,
+        "TO",
+        prev.path
+      );
+      prevSection.startPage = prev;
+    }
     const nexts = prev.pageDef?.next.map((next) => {
       return this.form._PAGES.get(next.path);
     });
@@ -117,7 +127,9 @@ export class Sections {
       //   thisAndNextPageAreInSameSection,
       // });
       const section = this.sections.get(nextSection);
-
+      if (!section) {
+        return;
+      }
       if (thisAndNextPageAreInSameSection) {
         section?.graph.addEdge(prev, next);
       } else {
