@@ -195,5 +195,5 @@
   "declaration": "",
   "name": "updated-ukhsa-webform",
   "feedback": { "feedbackForm": false, "url": "/updated-feedback-form" },
-  "phaseBanner": { "phase": "beta" }
+  "phaseBanner": { "phase": "Beta" }
 }

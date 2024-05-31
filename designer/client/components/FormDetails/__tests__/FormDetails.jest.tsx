@@ -87,7 +87,7 @@ describe("FormDetails", () => {
       const noneRadio = screen.getByLabelText("None") as HTMLInputElement;
       expect(noneRadio.checked).toEqual(true);
 
-      const betaRadio = screen.getByLabelText("Beta") as HTMLInputElement;
+      const betaRadio = screen.getByLabelText("beta") as HTMLInputElement;
       expect(betaRadio.checked).toEqual(false);
 
       fireEvent.click(betaRadio, { target: { value: "beta" } });
