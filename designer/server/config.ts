@@ -13,7 +13,7 @@ export interface Config {
   persistentBackend: "s3" | "blob" | "preview";
   s3Bucket?: string;
   logLevel: "trace" | "info" | "debug" | "error";
-  phase?: "alpha" | "Beta";
+  phase?: "alpha" | "beta";
   footerText?: string;
   isProd: boolean;
   isDev: boolean;
@@ -43,7 +43,7 @@ const schema = joi.object({
     .string()
     .valid("trace", "info", "debug", "error")
     .default("debug"),
-  phase: joi.string().valid("alpha", "Beta").optional(),
+  phase: joi.string().valid("alpha", "beta").optional(),
   footerText: joi.string().optional(),
   lastCommit: joi.string().default("undefined"),
   lastTag: joi.string().default("undefined"),
