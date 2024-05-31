@@ -54,7 +54,7 @@
     },
     {
       "path": "/passport",
-      "title": "Applicant 1",
+      "title": "Applicant",
       "section": "applicantDetails",
       "components": [
         {
@@ -92,6 +92,16 @@
           "options": {
             "required": true
           },
+          "schema": {}
+        },
+        {
+          "type": "RadiosField",
+          "name": "country",
+          "title": "Country",
+          "options": {
+            "required": true
+          },
+          "list": "countries",
           "schema": {}
         }
       ],
@@ -162,6 +172,21 @@
     }
   ],
   "lists": [
+    {
+      "name": "countries",
+      "title": "countries",
+      "type": "string",
+      "items": [
+        {
+          "text": "United Kingdom",
+          "value": "United Kingdom"
+        },
+        {
+          "text": "France",
+          "value": "France"
+        }
+      ]
+    },
     {
       "name": "numberOfApplicants",
       "title": "Number of people",

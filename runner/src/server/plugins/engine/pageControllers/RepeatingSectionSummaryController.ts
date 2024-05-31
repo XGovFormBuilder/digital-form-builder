@@ -97,8 +97,8 @@ export class RepeatingSectionSummaryController {
         rows: items,
       };
     });
+
     return {
-      name: "testing",
       pageTitle: this.section.title,
       iterations: is,
     };
