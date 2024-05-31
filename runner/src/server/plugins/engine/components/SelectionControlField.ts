@@ -124,7 +124,7 @@ export class SelectionControlField extends ListFormComponent {
             is: key,
             then: conditionalSchemaKeys[key].optional(),
             otherwise: joi.optional(),
-            // TODO: modify for checkboxes
+            //TODO: Checkbox joi validation
           }),
         });
       });
