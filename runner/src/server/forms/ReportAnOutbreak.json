@@ -45,13 +45,22 @@
         },
         {
           "name": "S0Q2",
-          "options": {
-            "required": false
-          },
-          "type": "TextField",
-          "title": "Please enter your CQC Location ID",
+          "type": "RadiosField",
+          "title": "Is your setting CQC registered?",
+          "list": "YesNoDk",
           "nameHasError": false,
-          "schema": {}
+          "schema": {},
+          "options": {
+            "conditionallyRevealedComponents": {
+              "yes": {
+                "type": "TextField",
+                "name": "email",
+                "title": "Please enter your CQC Location ID",
+                "options": {},
+                "schema": {}
+              }
+            }
+          }
         },
         {
           "name": "VMOkqi",
@@ -2169,6 +2178,25 @@
         {
           "text": "5 or more",
           "value": "5 or more"
+        }
+      ]
+    },
+    {
+      "title": "s0q2 - cqc registered",
+      "name": "YesNoDk",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes"
+        },
+        {
+          "text": "No",
+          "value": "no"
+        },
+        {
+          "text": "Don't know",
+          "value": "Don't know"
         }
       ]
     }
