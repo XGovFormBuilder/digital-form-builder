@@ -25,10 +25,12 @@ export class SelectionControlField extends ListFormComponent {
         options.conditionallyRevealedComponents;
 
       items.map((item: any) => {
-        if (this.conditionallyRevealedComponents![item.value]) {
+        const conditionallyRevealedComponent = this
+          .conditionallyRevealedComponents![item.value];
+        if (conditionallyRevealedComponent) {
           item.hasConditionallyRevealedComponents = true;
           item.conditionallyRevealedComponents = new ComponentCollection(
-            [this.conditionallyRevealedComponents![item.value]],
+            [conditionallyRevealedComponent],
             item.model
           );
         }
@@ -64,23 +66,25 @@ export class SelectionControlField extends ListFormComponent {
         };
       }
 
-      if (options.conditionallyRevealedComponents[item.value]) {
-        // The gov.uk design system Nunjucks examples for conditional reveal reference variables from macros. There does not appear to
-        // to be a way to do this in JavaScript. As such, render the conditional components with Nunjucks before the main view is rendered.
-        // The conditional html tag used by the gov.uk design system macro will reference HTML rarther than one or more additional
-        // gov.uk design system macros.
+      if (options.conditionallyRevealedComponents) {
+        if (options.conditionallyRevealedComponents[item.value]) {
+          // The gov.uk design system Nunjucks examples for conditional reveal reference variables from macros. There does not appear to
+          // to be a way to do this in JavaScript. As such, render the conditional components with Nunjucks before the main view is rendered.
+          // The conditional html tag used by the gov.uk design system macro will reference HTML rarther than one or more additional
+          // gov.uk design system macros.
 
-        itemModel.conditional = {
-          html: nunjucks.render(
-            "../views/partials/conditional-components.html",
-            {
-              components: item.conditionallyRevealedComponents.getViewModel(
-                formData,
-                errors
-              ),
-            }
-          ),
-        };
+          itemModel.conditional = {
+            html: nunjucks.render(
+              "../views/partials/conditional-components.html",
+              {
+                components: item.conditionallyRevealedComponents.getViewModel(
+                  formData,
+                  errors
+                ),
+              }
+            ),
+          };
+        }
       }
 
       return itemModel;
