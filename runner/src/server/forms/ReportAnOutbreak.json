@@ -44,7 +44,7 @@
           "hint": "Please provide the postcode of the specific setting affected (i.e. not the overarching management company if applicable). If there is no one specific setting affected e.g. Domiciliary or Home Care, then please provide the postcode of the care provider company"
         },
         {
-          "name": "S0Q2",
+          "name": "S0Q2a",
           "type": "RadiosField",
           "title": "Is your setting CQC registered?",
           "list": "YesNoDk",
@@ -54,7 +54,7 @@
             "conditionallyRevealedComponents": {
               "yes": {
                 "type": "TextField",
-                "name": "email",
+                "name": "SOQ2",
                 "title": "Please enter your CQC Location ID",
                 "options": {},
                 "schema": {}
