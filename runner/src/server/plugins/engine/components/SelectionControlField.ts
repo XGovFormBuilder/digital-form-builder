@@ -126,7 +126,7 @@ export class SelectionControlField extends ListFormComponent {
         Object.assign(schemaKeys, {
           [key]: joi.alternatives().conditional(joi.ref(conditionalName), {
             is: key,
-            then: conditionalSchemaKeys[key].optional(),
+            then: conditionalSchemaKeys[key].required(),
             otherwise: joi.optional(),
             //TODO: Checkbox joi validation
           }),
