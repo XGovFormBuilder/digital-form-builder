@@ -4,7 +4,10 @@ import config from "server/config";
 import nunjucks from "nunjucks";
 
 function answerFromDetailItem(item) {
-  switch (item.dataType) {
+  if (!item) {
+    return;
+  }
+  switch (item?.dataType) {
     case "list":
       return item.rawValue;
     case "date":
@@ -19,9 +22,9 @@ function answerFromDetailItem(item) {
 
 function detailItemToField(item: DetailItem) {
   return {
-    key: item.name,
-    title: item.title,
-    type: item.dataType,
+    key: item?.name,
+    title: item?.title,
+    type: item?.dataType,
     answer: answerFromDetailItem(item),
   };
 }
@@ -34,10 +37,10 @@ export function WebhookModel(
   contextState
 ) {
   const questions = relevantPages?.map((page) => {
-    const isRepeatable = !!page.repeatField;
+    const isRepeatable = !!page?.repeatField;
 
     const itemsForPage = details.flatMap((detail) =>
-      detail.items.filter((item) => item.path === page.path)
+      detail?.items?.filter((item) => item.path === page.path)
     );
 
     const detailItems = isRepeatable
@@ -46,7 +49,7 @@ export function WebhookModel(
 
     let index = 0;
     const fields = detailItems.flatMap((item, i) => {
-      item.isRepeatable ? (index = i) : 0;
+      item?.isRepeatable ? (index = i) : 0;
       const fields = [detailItemToField(item)];
 
       /**

@@ -1,6 +1,7 @@
 import { PageControllerBase } from "server/plugins/engine/pageControllers";
 import { FormModel } from "server/plugins/engine/models/FormModel";
 import { RepeatingSectionSummaryController } from "server/plugins/engine/pageControllers/RepeatingSectionSummaryController";
+import { Component, FormComponent } from "server/plugins/engine/components";
 
 export class Graph {
   adjacencyList: Map<any, any[]>;
@@ -48,6 +49,10 @@ export class Section {
   _startPage?: PageControllerBase;
   isRepeating: Boolean = false;
   pages: Map<string, PageControllerBase> = new Map();
+  components: Map<
+    string,
+    { component: Component; Page: PageControllerBase }
+  > = new Map();
 
   constructor(formModel: FormModel, sectionDef: any) {
     this.sectionName = sectionDef.name;
@@ -62,6 +67,12 @@ export class Section {
 
     pagesInSection.forEach((page) => this.pages.set(page.path, page));
 
+    for (let [_path, page] of this.pages) {
+      for (const component of page.components.formItems) {
+        this.components.set(component.name, { component, page });
+      }
+    }
+
     this.summaryPage = new RepeatingSectionSummaryController(
       formModel,
       sectionDef,
@@ -74,6 +85,90 @@ export class Section {
       this._startPage = startPage;
     }
   }
+
+  getSummaryViewModel(sectionStates) {
+    const is = sectionStates?.map((sectionState, i) => {
+      const items = [];
+      const entriesForIteration = Object.entries(sectionState);
+      entriesForIteration.forEach(([key, value]) => {
+        // @ts-ignore
+        const { component, page } = this.components.get(key);
+        const item = Item(component, sectionState, page);
+        items.push(item);
+        if (component.items) {
+          return;
+        }
+        const selectedValue = value;
+        const selectedItem = component.items?.filter(
+          (i) => i.value === selectedValue
+        )[0];
+        if (selectedItem && selectedItem.childrenCollection) {
+          for (const cc of selectedItem.childrenCollection.formItems) {
+            const cItem = Item(cc, sectionState, page);
+            items.push(cItem);
+          }
+        }
+      });
+
+      return {
+        card: {
+          title: {
+            text: `${this.title} ${i + 1}`,
+          },
+          actions: {
+            items: [
+              {
+                href: `?delete=${i}`,
+                text: "Delete",
+                visuallyHiddenText: `${this.title} ${i + 1}`,
+              },
+            ],
+          },
+        },
+        rows: items,
+      };
+    });
+
+    return {
+      pageTitle: this.title,
+      iterations: is,
+    };
+  }
+}
+
+function Item(
+  component: FormComponent,
+  sectionState: any,
+  page: PageControllerBase,
+  num = 1
+) {
+  const model = page.model;
+  const returnUrl = `/${model.basePath}/summary`;
+  const params = {
+    num,
+    returnUrl,
+  };
+  const url = `/${model.basePath}${page.path}?${new URLSearchParams(
+    params
+  ).toString()}`;
+
+  return {
+    key: {
+      text: component.title,
+    },
+    value: {
+      text: component.getDisplayStringFromState(sectionState),
+    },
+    actions: {
+      items: [
+        {
+          text: "change",
+          visuallyHiddenText: `${component.title} ${num}`,
+          href: url,
+        },
+      ],
+    },
+  };
 }
 
 export class Sections {
@@ -85,8 +180,6 @@ export class Sections {
     this.pages = formModel._PAGES;
     const startPage = formModel.startPage;
     formModel.sections?.forEach((section) => {
-      console.log("setting new section:", section.name);
-
       this.sections.set(section.name, new Section(formModel, section));
     });
 
@@ -105,12 +198,6 @@ export class Sections {
     // console.log("ADDING FROM", prev.section?.name, prev.path);
     const prevSection = this.sections.get(prev.section?.name);
     if (prevSection) {
-      console.log(
-        "SETTING START PAGE FOR",
-        prevSection.sectionName,
-        "TO",
-        prev.path
-      );
       prevSection.startPage = prev;
     }
     const nexts = prev.pageDef?.next.map((next) => {
@@ -121,11 +208,6 @@ export class Sections {
       const nextSection = next.section?.name;
       const thisAndNextPageAreInSameSection =
         nextSection && nextSection === prevSection?.sectionName;
-      // console.table({
-      //   thisSection: section?.sectionName,
-      //   nextSection: next.section?.name,
-      //   thisAndNextPageAreInSameSection,
-      // });
       const section = this.sections.get(nextSection);
       if (!section) {
         return;

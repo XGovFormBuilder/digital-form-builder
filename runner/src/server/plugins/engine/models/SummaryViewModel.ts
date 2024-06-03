@@ -206,25 +206,6 @@ export class SummaryViewModel {
         (page) => page.section === section
       );
 
-      const repeatablePage = sectionPages.find((page) => !!page.repeatField);
-      // Currently can't handle repeatable page outside a section.
-      // In fact currently if any page in a section is repeatable it's expected that all pages in that section will be
-      // repeatable
-      if (section && repeatablePage) {
-        if (!state[section.name]) {
-          state[section.name] = sectionState = [];
-        }
-        // Make sure the right number of items
-        const requiredIterations = reach(state, repeatablePage.repeatField);
-        if (requiredIterations < sectionState.length) {
-          state[section.name] = sectionState.slice(0, requiredIterations);
-        } else {
-          for (let i = sectionState.length; i < requiredIterations; i++) {
-            sectionState.push({});
-          }
-        }
-      }
-
       sectionPages.forEach((page) => {
         for (const component of page.components.formItems) {
           const item = Item(request, component, sectionState, page, model);
@@ -244,25 +225,17 @@ export class SummaryViewModel {
           }
         }
       });
+      const sectionC = model._SECTIONS.get(section?.name);
 
-      if (items.length > 0) {
-        if (Array.isArray(sectionState)) {
-          details.push({
-            name: section?.name,
-            title: section?.title,
-            items: [...Array(reach(state, repeatablePage.repeatField))].map(
-              (_x, i) => {
-                return items.map((item) => item[i]);
-              }
-            ),
-          });
-        } else {
-          details.push({
-            name: section?.name,
-            title: section?.title,
-            items,
-          });
-        }
+      if (sectionC?.isRepeating && Array.isArray(sectionState)) {
+        const summaryVM = sectionC.getSummaryViewModel(sectionState);
+        details.push(summaryVM);
+      } else {
+        details.push({
+          name: section?.name,
+          title: section?.title,
+          items,
+        });
       }
     });
 
