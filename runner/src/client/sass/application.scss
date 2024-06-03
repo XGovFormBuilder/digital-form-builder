@@ -80,3 +80,11 @@
 // .govuk-phase-banner__content__tag {
 //   text-transform: capitalize;
 // }
+
+.govuk-radios__conditional--hidden {
+  display: none;
+}
+
+.govuk-checkboxes__conditional--hidden {
+  display: none;
+}
