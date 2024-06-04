@@ -12,8 +12,8 @@ const messageTemplate = {
   dateMin: "{{#label}} must be on or after {{#limit}}",
   dateMax: "{{#label}} must be on or before {{#limit}}",
   number: "{{#label}} must be a number",
-  numberMin: "{{#label}} must be {{#limit}} or higher",
-  numberMax: "{{#label}} must be {{#limit}} or lower",
+  numberMin: "{{#label}} must be {{#limit}} or more",
+  numberMax: "{{#label}} must be {{#limit}} or less",
   format: "Enter a valid {{#label}}",
   maxWords: "{{#label}} must be {{#limit}} words or fewer",
 };
