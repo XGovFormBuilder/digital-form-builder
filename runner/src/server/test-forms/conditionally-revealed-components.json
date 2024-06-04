@@ -1,0 +1,117 @@
+{
+  "startPage": "/start",
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Start",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "radiosField",
+          "title": "How would you prefer to be contacted?",
+          "list": "contactTypes",
+          "options": {
+            "conditionallyRevealedComponents": {
+              "email": {
+                "type": "EmailAddressField",
+                "name": "email",
+                "title": "Your email address",
+                "options": {},
+                "schema": {}
+              },
+              "phoneNumber": {
+                "type": "TelephoneNumberField",
+                "name": "phoneNumber",
+                "title": "Your phone number",
+                "options": {},
+                "schema": {}
+              },
+              "text": {
+                "type": "TextField",
+                "name": "text",
+                "title": "Some text",
+                "options": {},
+                "schema": {}
+              },
+              "number": {
+                "type": "NumberField",
+                "name": "number",
+                "title": "A number",
+                "options": {},
+                "schema": {}
+              },
+              "date": {
+                "type": "DateField",
+                "name": "date",
+                "title": "Date of birth",
+                "options": {},
+                "schema": {}
+              }
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/page-two"
+        }
+      ]
+    },
+    {
+      "path": "/page-two",
+      "title": "Data submitted",
+      "components": [
+        {
+          "name": "koE_ae",
+          "options": {
+            "required": false
+          },
+          "type": "Para",
+          "title": "Submitted data",
+          "schema": {}
+        }
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "name": "contactTypes",
+      "title": "Contact Types",
+      "type": "string",
+      "items": [
+        {
+          "text": "Email",
+          "value": "email"
+        },
+        {
+          "text": "Phone",
+          "value": "phoneNumber"
+        },
+        {
+          "text": "Text",
+          "value": "text"
+        },
+        {
+          "text": "Number",
+          "value": "number"
+        },
+        {
+          "text": "Date",
+          "value": "date"
+        },
+        {
+          "text": "Don't contact me",
+          "value": "doNotContact"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "phaseBanner": {},
+  "fees": [],
+  "payApiKey": "",
+  "outputs": [],
+  "declaration": "",
+  "version": 2,
+  "conditions": []
+}

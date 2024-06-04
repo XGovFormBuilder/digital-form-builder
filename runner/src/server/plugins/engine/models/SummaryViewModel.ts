@@ -66,6 +66,7 @@ export class SummaryViewModel {
     request: HapiRequest
   ) {
     this.pageTitle = pageTitle;
+    this.name = model.name;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
     const { def } = model;

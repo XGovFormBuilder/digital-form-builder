@@ -221,7 +221,7 @@ const feedbackSchema = joi.object().keys({
 });
 
 const phaseBannerSchema = joi.object().keys({
-  phase: joi.string().valid("alpha", "beta"),
+  phase: joi.string().valid("alpha", "Beta"),
 });
 
 export const Schema = joi

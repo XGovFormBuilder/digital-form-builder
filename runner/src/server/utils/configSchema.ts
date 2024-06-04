@@ -25,7 +25,7 @@ export const configSchema = Joi.object({
   ordnanceSurveyKey: Joi.string().optional(),
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string(),
-  phaseTag: Joi.string().optional().valid("", "alpha", "beta"),
+  phaseTag: Joi.string().optional().valid("", "alpha", "Beta"),
   gtmId1: Joi.string().optional(),
   gtmId2: Joi.string().optional(),
   matomoId: Joi.string().optional(),
