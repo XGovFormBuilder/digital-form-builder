@@ -445,8 +445,7 @@
           "name": "S4Q6",
           "options": {
             "required": true,
-            "maxDaysInFuture": "0",
-            "maxDaysInPast": ""
+            "maxDaysInFuture": "0"
           },
           "type": "DatePartsField",
           "title": "S4Q6. Symptom onset date of first case",

@@ -1,4 +1,4 @@
-import { add, sub, parseISO, format } from "date-fns";
+import { parseISO, format } from "date-fns";
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
@@ -21,11 +21,10 @@ export class DatePartsField extends FormComponent {
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
 
-    const { name, options, title } = this;
+    const { name, options } = this;
     const isRequired =
       "required" in options && options.required === false ? false : true;
     const optionalText = "optionalText" in options && options.optionalText;
-
     this.children = new ComponentCollection(
       [
         {
@@ -84,8 +83,9 @@ export class DatePartsField extends FormComponent {
       helpers.getCustomDateValidator(maxDaysInPast, maxDaysInFuture)
     );
 
-    const returnValue = { [this.name]: schema };
-    return returnValue;
+    this.schema = schema;
+
+    return { [this.name]: schema };
   }
 
   getFormDataFromState(state: FormSubmissionState) {
@@ -102,14 +102,21 @@ export class DatePartsField extends FormComponent {
 
   getStateValueFromValidForm(payload: FormPayload) {
     const name = this.name;
+    const day = payload[`${name}__day`];
+    const month = payload[`${name}__month`];
+    const year = payload[`${name}__year`];
 
-    return payload[`${name}__year`]
-      ? new Date(
-          payload[`${name}__year`],
-          payload[`${name}__month`] - 1,
-          payload[`${name}__day`]
-        )
-      : null;
+    if (day || month || year) {
+      const indexedMonth = month - 1; // Adjust month for zero-based index
+      const parsedDate = new Date(year, indexedMonth, day);
+
+      if (month - 1 === parsedDate.getMonth()) {
+        return parsedDate;
+      } else {
+        return new Date(0, 0, 0); // Invalid date fallback
+      }
+    }
+    return null;
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
@@ -120,10 +127,6 @@ export class DatePartsField extends FormComponent {
 
   // @ts-ignore - eslint does not report this as an error, only tsc
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const isRequired =
-      "required" in this.options && this.options.required === false
-        ? false
-        : true;
     const viewModel = super.getViewModel(formData, errors);
 
     // Use the component collection to generate the subitems
@@ -137,54 +140,20 @@ export class DatePartsField extends FormComponent {
         optionalText,
         ""
       ) as any;
-      //componentViewModel.label = `DATE: ${new Date()}` as any;
 
       if (componentViewModel.errorMessage) {
         componentViewModel.classes += " govuk-input--error";
       }
     });
 
-    const firstError = errors?.errorList?.[0];
-    //const errorMessage = isRequired && firstError && { text: firstError?.text };
+    const relevantErrors =
+      errors?.errorList?.filter((error) => error.path.includes(this.name)) ??
+      [];
+    const firstError = relevantErrors[0];
+    const errorMessage = firstError && { text: firstError?.text };
 
-    let text = "";
-
-    let missingParts: any = [];
-
-    if (formData[`${this.name}__day`] === "") {
-      missingParts.push("day");
-    }
-    if (formData[`${this.name}__month`] === "") {
-      missingParts.push("month");
-    }
-    if (formData[`${this.name}__year`] === "") {
-      missingParts.push("year");
-    }
-
-    if (missingParts.length === 3) {
-      text = `${this.title} is required.`;
-    } else if (missingParts.length > 0) {
-      text = `${this.title} must have a ${missingParts.join(", ")}.`;
-    }
-
-    if (errors?.errorList?.length === 1) {
-      text = errors?.errorList?.[0].text;
-    }
-
-    //if(formData[`${this.name}__day`])
-
-    if (errors?.errorList?.length === 1) {
-      text = errors?.errorList?.[0].text;
-    }
-
-    if (!text.includes(this.title)) {
-      text = "";
-    }
-
-    const errorMessage = isRequired && firstError && { text };
     return {
       ...viewModel,
-      title: this.title,
       errorMessage,
       fieldset: {
         legend: viewModel.label,
