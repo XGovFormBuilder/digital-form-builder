@@ -32,10 +32,7 @@ export class Graph {
   }
 
   logGraph() {
-    console.log(`start page: ${this._startPage?.path}`);
     for (let [vertex, edges] of this.adjacencyList.entries()) {
-      console.log(`${this.name} VERTEX: ${vertex.path}`);
-      console.log(`Edges: ${edges.map((edge) => edge.path).join(", ")}`);
     }
   }
 }
@@ -47,6 +44,7 @@ export class Section {
   formModel: FormModel;
   summaryPage: RepeatingSectionSummaryController;
   _startPage?: PageControllerBase;
+  _lastPage?: PageControllerBase;
   isRepeating: Boolean = false;
   pages: Map<string, PageControllerBase> = new Map();
   components: Map<
@@ -84,6 +82,16 @@ export class Section {
     if (!this._startPage) {
       this._startPage = startPage;
     }
+  }
+
+  set lastPage(lastPage) {
+    if (!this._lastPage && lastPage) {
+      this._lastPage = lastPage;
+    }
+  }
+
+  get lastPage() {
+    return this._lastPage;
   }
 
   getSummaryViewModel(sectionStates) {
@@ -209,13 +217,14 @@ export class Sections {
       const thisAndNextPageAreInSameSection =
         nextSection && nextSection === prevSection?.sectionName;
       const section = this.sections.get(nextSection);
-      if (!section) {
-        return;
-      }
+
       if (thisAndNextPageAreInSameSection) {
         section?.graph.addEdge(prev, next);
       } else {
         prevSection?.graph.addVertex(next);
+        if (prevSection) {
+          prevSection.lastPage = prev;
+        }
       }
       this.addNodesRecursively(next);
     });

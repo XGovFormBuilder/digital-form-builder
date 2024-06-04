@@ -30,15 +30,20 @@ export class RepeatingSectionSummaryController {
     const state = await cacheService.getState(request);
     const sectionState = state[this.section.sectionName];
     const params = new URLSearchParams({
-      num: sectionState.length + 1,
+      num: (sectionState?.length ?? 0) + 1,
     });
-    console.log(payload);
     if (payload.next === "increment") {
-      console.log(this.section._startPage);
       return h.redirect(
         `/${this.model.basePath}${this.section._startPage?.path}?${params}`
       );
     }
+
+    if (payload.next === "continue") {
+      const lastPage = this.section.lastPage;
+      const nextPage = lastPage.getNextPage(state);
+      return h.redirect(`/${this.model.basePath}${nextPage.path}`);
+    }
+    //TODO: add default behaviour
   }
 
   async getRouteHandler(request, h) {
