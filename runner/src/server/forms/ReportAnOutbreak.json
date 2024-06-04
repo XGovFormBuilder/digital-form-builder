@@ -34,7 +34,7 @@
       "components": [
         {
           "name": "S0Q4",
-          "options": {},
+          "options": { "customValidationMessage": "Enter a full UK postcode" },
           "type": "TextField",
           "title": "Please enter your setting Postcode",
           "schema": {
