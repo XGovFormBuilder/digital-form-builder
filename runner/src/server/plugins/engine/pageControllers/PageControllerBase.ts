@@ -326,7 +326,7 @@ export class PageControllerBase {
             href: `#${name}`,
             name: name.split("__")[0],
             title: title,
-            text: `${title} is required.`,
+            text: `${title} must be a valid date.`,
           });
         }
       } else {
