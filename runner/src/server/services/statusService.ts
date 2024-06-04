@@ -266,6 +266,7 @@ export class StatusService {
     let model = {
       reference: referenceToDisplay,
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
+      name: formModel.name,
     };
 
     if (!customText && !callback?.customText) {
