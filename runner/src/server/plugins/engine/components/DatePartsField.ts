@@ -128,7 +128,7 @@ export class DatePartsField extends FormComponent {
   // @ts-ignore - eslint does not report this as an error, only tsc
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
-
+    viewModel.label!.classes = "govuk-fieldset__legend--s";
     // Use the component collection to generate the subitems
     const componentViewModels = this.children
       .getViewModel(formData, errors)
