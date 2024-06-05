@@ -77,8 +77,8 @@ export class ComponentCollection {
         return {
           [schemaMapping[0]]: {
             schema: schemaMapping[1],
-            allowOverwriteFromQueryParam:
-              item.options.allowOverwriteFromQueryParam,
+            allowPrePopulationOverwrite:
+              item.options.allowPrePopulationOverwrite,
           },
         };
       })

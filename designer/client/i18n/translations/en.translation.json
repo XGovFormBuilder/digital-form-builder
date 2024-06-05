@@ -77,7 +77,7 @@
       "helpText": "Tick this box if you want this field to be available to be pre-populated by query parameter",
       "title": "Allow pre-population"
     },
-    "allowOverwriteFromQueryParamOption": {
+    "allowPrePopulationOverwriteOption": {
       "helpText": "Tick this box if you want query parameters to override state values for this field when passed in. This will only have an effect if 'Allow pre-population' is also ticked",
       "title": "Allow overwriting from query parameter"
     },

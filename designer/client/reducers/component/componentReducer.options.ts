@@ -151,12 +151,12 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, allowPrePopulation: payload },
         },
       };
-    case Options.EDIT_OPTIONS_ALLOW_OVERWRITE_FROM_QUERY_PARAM:
+    case Options.EDIT_OPTIONS_ALLOW_PRE_POPULATION_OVERWRITE:
       return {
         ...state,
         selectedComponent: {
           ...selectedComponent,
-          options: { ...options, allowOverwriteFromQueryParam: payload },
+          options: { ...options, allowPrePopulationOverwrite: payload },
         },
       };
     case Options.EDIT_OPTIONS_DISABLE_CHANGING_FROM_SUMMARY:

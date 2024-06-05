@@ -93,7 +93,7 @@ export function getValidStateFromQueryParameters(
       const stateValue = reach(state, key);
       if (
         !prePopField ||
-        (stateValue && !prePopField.allowOverwriteFromQueryParam)
+        (stateValue && !prePopField.allowPrePopulationOverwrite)
       ) {
         return acc;
       }

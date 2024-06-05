@@ -127,7 +127,7 @@ interface ListFieldBase {
     bold?: boolean;
     exposeToContext?: boolean;
     allowPrePopulation?: boolean;
-    allowOverwriteFromQueryParam?: boolean;
+    allowPrePopulationOverwrite?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
   };

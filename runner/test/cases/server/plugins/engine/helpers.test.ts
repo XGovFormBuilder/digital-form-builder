@@ -338,14 +338,14 @@ suite("Helpers", () => {
       ).to.equal(0);
     });
 
-    test("Should allow the value to be overwritten if allowOverwriteFromQueryParam is true", () => {
+    test("Should allow the value to be overwritten if allowPrePopulationOverwrite is true", () => {
       const query = {
         eggType: "Hard boiled",
       };
       const prePopFields = {
         eggType: {
           schema: Joi.string().required(),
-          allowOverwriteFromQueryParam: true,
+          allowPrePopulationOverwrite: true,
         },
       };
       const state = {

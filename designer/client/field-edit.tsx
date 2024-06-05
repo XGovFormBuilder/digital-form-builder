@@ -26,7 +26,7 @@ export function FieldEdit({
     required = true,
     exposeToContext = false,
     allowPrePopulation = false,
-    allowOverwriteFromQueryParam = false,
+    allowPrePopulationOverwrite = false,
     disableChangingFromSummary = false,
   } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
@@ -267,8 +267,8 @@ export function FieldEdit({
                   type="checkbox"
                   id="field-options-allow-overwrite-from-query-param"
                   className={`govuk-checkboxes__input`}
-                  name="options.allowOverwriteFromQueryParam"
-                  checked={allowOverwriteFromQueryParam}
+                  name="options.allowPrePopulationOverwrite"
+                  checked={allowPrePopulationOverwrite}
                   onChange={(e) =>
                     dispatch({
                       type:
@@ -281,7 +281,7 @@ export function FieldEdit({
                   className="govuk-label govuk-checkboxes__label"
                   htmlFor="field-options-allow-pre-population"
                 >
-                  {i18n("common.allowOverwriteFromQueryParamOption.title", {
+                  {i18n("common.allowPrePopulationOverwriteOption.title", {
                     component:
                       ComponentTypes.find(
                         (componentType) => componentType.name === type
@@ -289,7 +289,7 @@ export function FieldEdit({
                   })}
                 </label>
                 <span className="govuk-hint govuk-checkboxes__hint">
-                  {i18n("common.allowOverwriteFromQueryParamOption.helpText")}
+                  {i18n("common.allowPrePopulationOverwriteOption.helpText")}
                 </span>
               </div>
             </div>
