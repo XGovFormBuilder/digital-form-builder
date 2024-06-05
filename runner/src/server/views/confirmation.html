@@ -42,12 +42,12 @@
       }) }}
       {% if paymentSkipped and customText.paymentSkipped %}
         <p class="govuk-body">
-          {{ customText.paymentSkipped }}
+          {{ customText.paymentSkipped | safe }}
         </p>
       {% else %}
         {% if customText.nextSteps %}
           <p class="govuk-body">
-            {{ customText.nextSteps }}
+            {{ customText.nextSteps | safe }}
           </p>
         {% endif %}
       {% endif %}
