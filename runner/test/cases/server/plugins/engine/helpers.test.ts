@@ -307,7 +307,9 @@ suite("Helpers", () => {
         aBadQueryParam: "A value",
       };
       const prePopFields = {
-        eggType: Joi.string().required(),
+        eggType: {
+          schema: Joi.string().required(),
+        },
       };
       expect(
         Object.keys(getValidStateFromQueryParameters(prePopFields, query))
@@ -321,7 +323,9 @@ suite("Helpers", () => {
         eggType: "Hard boiled",
       };
       const prePopFields = {
-        eggType: Joi.string().required(),
+        eggType: {
+          schema: Joi.string().required(),
+        },
       };
       const state = {
         eggType: "Fried",
@@ -334,13 +338,34 @@ suite("Helpers", () => {
       ).to.equal(0);
     });
 
+    test("Should allow the value to be overwritten if allowOverwriteFromQueryParam is true", () => {
+      const query = {
+        eggType: "Hard boiled",
+      };
+      const prePopFields = {
+        eggType: {
+          schema: Joi.string().required(),
+          allowOverwriteFromQueryParam: true,
+        },
+      };
+      const state = {
+        eggType: "Fried",
+      };
+
+      expect(
+        getValidStateFromQueryParameters(prePopFields, query, state)
+      ).to.equal({ eggType: "Hard boiled" });
+    });
+
     test("Should be able to update nested object values", () => {
       const query = {
         "yourEggs.eggType": "Fried egg",
       };
       const prePopFields = {
         yourEggs: {
-          eggType: Joi.string().required(),
+          eggType: {
+            schema: Joi.string().required(),
+          },
         },
       };
       expect(
@@ -354,7 +379,9 @@ suite("Helpers", () => {
       };
       const prePopFields = {
         yourEggs: {
-          eggType: Joi.string().valid("boiled", "fried", "poached"),
+          eggType: {
+            schema: Joi.string().valid("boiled", "fried", "poached"),
+          },
         },
       };
       expect(
