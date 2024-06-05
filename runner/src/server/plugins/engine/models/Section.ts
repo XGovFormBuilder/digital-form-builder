@@ -2,6 +2,7 @@ import { PageControllerBase } from "server/plugins/engine/pageControllers";
 import { FormModel } from "server/plugins/engine/models/FormModel";
 import { RepeatingSectionSummaryController } from "server/plugins/engine/pageControllers/RepeatingSectionSummaryController";
 import { Component, FormComponent } from "server/plugins/engine/components";
+import { redirectUrl } from "server/plugins/engine";
 
 export class Graph {
   adjacencyList: Map<any, any[]>;
@@ -123,15 +124,6 @@ export class Section {
           title: {
             text: `${this.title} ${i + 1}`,
           },
-          actions: {
-            items: [
-              {
-                href: `?delete=${i}`,
-                text: "Delete",
-                visuallyHiddenText: `${this.title} ${i + 1}`,
-              },
-            ],
-          },
         },
         rows: items,
       };
@@ -208,7 +200,7 @@ export class Sections {
     if (prevSection) {
       prevSection.startPage = prev;
     }
-    const nexts = prev.pageDef?.next.map((next) => {
+    const nexts = prev?.pageDef?.next?.map((next) => {
       return this.form._PAGES.get(next.path);
     });
 
@@ -252,7 +244,7 @@ export class SuperGraph {
 
   addNodesRecursively(prev: PageControllerBase) {
     // console.log("ADDING FROM", prev.section?.name, prev.path);
-    const nexts = prev.pageDef?.next.map((next) => {
+    const nexts = prev.pageDef?.next?.map?.((next) => {
       return this.form._PAGES.get(next.path);
     });
 
@@ -269,4 +261,31 @@ export class SuperGraph {
   logGraph() {
     this.graph.logGraph();
   }
+}
+
+function DetailItem(
+  request,
+  component,
+  sectionState,
+  page,
+  model: FormModel,
+  params: { num?: number; returnUrl: string } = {
+    returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
+  }
+) {
+  const isRepeatable = !!page.repeatField;
+
+  return {
+    name: component.name,
+    path: page.path,
+    label: component.localisedString(component.title),
+    value: component.getDisplayStringFromState(sectionState),
+    rawValue: sectionState[component.name],
+    url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
+    pageId: `/${model.basePath}${page.path}`,
+    type: component.type,
+    title: component.title,
+    dataType: component.dataType,
+    immutable: component.options.disableChangingFromSummary,
+  };
 }

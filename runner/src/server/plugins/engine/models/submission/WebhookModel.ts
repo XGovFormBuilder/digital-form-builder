@@ -34,7 +34,8 @@ export function WebhookModel(
   details,
   model,
   fees,
-  contextState
+  contextState,
+  state
 ) {
   const questions = relevantPages?.map((page) => {
     const isRepeatable = !!page?.repeatField;

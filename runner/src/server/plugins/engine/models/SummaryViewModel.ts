@@ -17,6 +17,165 @@ import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
 import { HapiRequest } from "src/server/types";
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
 
+const d = [
+  {
+    items: [],
+  },
+  {
+    name: "checkBeforeYouStart",
+    title: "Check before you start",
+    items: [
+      {
+        name: "ukPassport",
+        path: "/uk-passport",
+        label: "Do you have a UK passport?",
+        value: "Yes",
+        rawValue: true,
+        url: "/test/uk-passport?returnUrl=%2Ftest%2Fsummary",
+        pageId: "/test/uk-passport",
+        type: "YesNoField",
+        title: "Do you have a UK passport?",
+        dataType: "list",
+      },
+    ],
+  },
+  {
+    pageTitle: "Applicant details",
+    iterations: [
+      {
+        card: {
+          title: {
+            text: "Applicant details 1",
+          },
+        },
+        rows: [
+          {
+            key: {
+              text: "First name",
+            },
+            value: {
+              text: "a",
+            },
+            actions: {
+              items: [
+                {
+                  text: "change",
+                  visuallyHiddenText: "First name 1",
+                  href: "/test/passport?num=1&returnUrl=%2Ftest%2Fsummary",
+                },
+              ],
+            },
+          },
+          {
+            key: {
+              text: "Middle name",
+            },
+            value: {
+              text: "b",
+            },
+            actions: {
+              items: [
+                {
+                  text: "change",
+                  visuallyHiddenText: "Middle name 1",
+                  href: "/test/passport?num=1&returnUrl=%2Ftest%2Fsummary",
+                },
+              ],
+            },
+          },
+          {
+            key: {
+              text: "Surname",
+            },
+            value: {
+              text: "c",
+            },
+            actions: {
+              items: [
+                {
+                  text: "change",
+                  visuallyHiddenText: "Surname 1",
+                  href: "/test/passport?num=1&returnUrl=%2Ftest%2Fsummary",
+                },
+              ],
+            },
+          },
+          {
+            key: {
+              text: "Country",
+            },
+            value: {
+              text: "United Kingdom",
+            },
+            actions: {
+              items: [
+                {
+                  text: "change",
+                  visuallyHiddenText: "Country 1",
+                  href: "/test/passport?num=1&returnUrl=%2Ftest%2Fsummary",
+                },
+              ],
+            },
+          },
+          {
+            key: {
+              text: "Address",
+            },
+            value: {
+              text: "ab, c, d, e",
+            },
+            actions: {
+              items: [
+                {
+                  text: "change",
+                  visuallyHiddenText: "Address 1",
+                  href: "/test/address?num=1&returnUrl=%2Ftest%2Fsummary",
+                },
+              ],
+            },
+          },
+          {
+            key: {
+              text: "Phone number",
+            },
+            value: {
+              text: "+123",
+            },
+            actions: {
+              items: [
+                {
+                  text: "change",
+                  visuallyHiddenText: "Phone number 1",
+                  href:
+                    "/test/contact-details?num=1&returnUrl=%2Ftest%2Fsummary",
+                },
+              ],
+            },
+          },
+          {
+            key: {
+              text: "Your email address",
+            },
+            value: {
+              text: "j@j",
+            },
+            actions: {
+              items: [
+                {
+                  text: "change",
+                  visuallyHiddenText: "Your email address 1",
+                  href:
+                    "/test/contact-details?num=1&returnUrl=%2Ftest%2Fsummary",
+                },
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+];
+
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
  * skipSummary (replace with reference to this.def.skipSummary?)
@@ -81,9 +240,8 @@ export class SummaryViewModel {
         config.feedbackLink);
 
     const schema = model.makeFilteredSchema(state, relevantPages);
-    const collatedRepeatPagesState = gatherRepeatPages(state);
 
-    const result = schema.validate(collatedRepeatPagesState, {
+    const result = schema.validate(state, {
       abortEarly: false,
       stripUnknown: true,
     });
@@ -95,10 +253,11 @@ export class SummaryViewModel {
 
       this._webhookData = WebhookModel(
         relevantPages,
-        details,
+        d,
         model,
         this.fees,
-        model.getContextState(state)
+        model.getContextState(state),
+        state
       );
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
@@ -239,7 +398,7 @@ export class SummaryViewModel {
       }
     });
 
-    return details;
+    return d;
   }
 
   private getRelevantPages(model: FormModel, state: FormSubmissionState) {
