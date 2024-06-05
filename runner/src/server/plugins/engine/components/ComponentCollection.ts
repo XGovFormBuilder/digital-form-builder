@@ -71,7 +71,18 @@ export class ComponentCollection {
   getPrePopulatedItems() {
     return this.formItems
       .filter((item) => item.options?.allowPrePopulation)
-      .map((item) => item.getStateSchemaKeys())
+      .map((item) => {
+        // to access the schema we need to use the component name to retrieve the value from getStateSchemaKeys
+        const schema = item.getStateSchemaKeys()[item.name];
+
+        return {
+          [item.name]: {
+            schema,
+            allowPrePopulationOverwrite:
+              item.options.allowPrePopulationOverwrite,
+          },
+        };
+      })
       .reduce((acc, curr) => merge(acc, curr), {});
   }
 
