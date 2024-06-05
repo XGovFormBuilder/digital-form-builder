@@ -73,10 +73,10 @@ export class ComponentCollection {
       .filter((item) => item.options?.allowPrePopulation)
       .map((item) => {
         const schema = item.getStateSchemaKeys();
-        const entry = Object.entries(schema)[0];
+        const schemaMapping = Object.entries(schema)[0];
         return {
-          [entry[0]]: {
-            schema: entry[1],
+          [schemaMapping[0]]: {
+            schema: schemaMapping[1],
             allowOverwriteFromQueryParam:
               item.options.allowOverwriteFromQueryParam,
           },
