@@ -26,6 +26,7 @@ export function FieldEdit({
     required = true,
     exposeToContext = false,
     allowPrePopulation = false,
+    allowOverwriteFromQueryParam = false,
     disableChangingFromSummary = false,
   } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
@@ -228,37 +229,71 @@ export function FieldEdit({
           </div>
         </div>
         {isListField && (
-          <div className="govuk-checkboxes govuk-form-group">
-            <div className="govuk-checkboxes__item">
-              <input
-                type="checkbox"
-                id="field-options-allow-pre-population"
-                className={`govuk-checkboxes__input`}
-                name="options.allowPrePopulation"
-                checked={allowPrePopulation}
-                onChange={(e) =>
-                  dispatch({
-                    type: Actions.EDIT_OPTIONS_ALLOW_PRE_POPULATION,
-                    payload: e.target.checked,
-                  })
-                }
-              />
-              <label
-                className="govuk-label govuk-checkboxes__label"
-                htmlFor="field-options-allow-pre-population"
-              >
-                {i18n("common.allowPrePopulationOption.title", {
-                  component:
-                    ComponentTypes.find(
-                      (componentType) => componentType.name === type
-                    )?.title ?? "",
-                })}
-              </label>
-              <span className="govuk-hint govuk-checkboxes__hint">
-                {i18n("common.allowPrePopulationOption.helpText")}
-              </span>
+          <>
+            <div className="govuk-checkboxes govuk-form-group">
+              <div className="govuk-checkboxes__item">
+                <input
+                  type="checkbox"
+                  id="field-options-allow-pre-population"
+                  className={`govuk-checkboxes__input`}
+                  name="options.allowPrePopulation"
+                  checked={allowPrePopulation}
+                  onChange={(e) =>
+                    dispatch({
+                      type: Actions.EDIT_OPTIONS_ALLOW_PRE_POPULATION,
+                      payload: e.target.checked,
+                    })
+                  }
+                />
+                <label
+                  className="govuk-label govuk-checkboxes__label"
+                  htmlFor="field-options-allow-pre-population"
+                >
+                  {i18n("common.allowPrePopulationOption.title", {
+                    component:
+                      ComponentTypes.find(
+                        (componentType) => componentType.name === type
+                      )?.title ?? "",
+                  })}
+                </label>
+                <span className="govuk-hint govuk-checkboxes__hint">
+                  {i18n("common.allowPrePopulationOption.helpText")}
+                </span>
+              </div>
             </div>
-          </div>
+            <div className="govuk-checkboxes govuk-form-group">
+              <div className="govuk-checkboxes__item">
+                <input
+                  type="checkbox"
+                  id="field-options-allow-overwrite-from-query-param"
+                  className={`govuk-checkboxes__input`}
+                  name="options.allowOverwriteFromQueryParam"
+                  checked={allowOverwriteFromQueryParam}
+                  onChange={(e) =>
+                    dispatch({
+                      type:
+                        Actions.EDIT_OPTIONS_ALLOW_OVERWRITE_FROM_QUERY_PARAM,
+                      payload: e.target.checked,
+                    })
+                  }
+                />
+                <label
+                  className="govuk-label govuk-checkboxes__label"
+                  htmlFor="field-options-allow-pre-population"
+                >
+                  {i18n("common.allowOverwriteFromQueryParamOption.title", {
+                    component:
+                      ComponentTypes.find(
+                        (componentType) => componentType.name === type
+                      )?.title ?? "",
+                  })}
+                </label>
+                <span className="govuk-hint govuk-checkboxes__hint">
+                  {i18n("common.allowOverwriteFromQueryParamOption.helpText")}
+                </span>
+              </div>
+            </div>
+          </>
         )}
         <div
           className="govuk-checkboxes govuk-form-group"
