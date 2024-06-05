@@ -89,11 +89,16 @@ export function getValidStateFromQueryParameters(
 ) {
   return Object.entries(queryParameters).reduce<Record<string, any>>(
     (acc, [key, value]) => {
-      if (reach(prePopFields, key) === undefined || reach(state, key)) {
+      const prePopField = reach(prePopFields, key);
+      const stateValue = reach(state, key);
+      if (
+        !prePopField ||
+        (stateValue && !prePopField.allowOverwriteFromQueryParam)
+      ) {
         return acc;
       }
 
-      const result = reach(prePopFields, key).validate(value);
+      const result = prePopField.schema.validate(value);
       if (result.error) {
         return acc;
       }

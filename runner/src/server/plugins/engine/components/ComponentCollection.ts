@@ -71,7 +71,17 @@ export class ComponentCollection {
   getPrePopulatedItems() {
     return this.formItems
       .filter((item) => item.options?.allowPrePopulation)
-      .map((item) => item.getStateSchemaKeys())
+      .map((item) => {
+        const schema = item.getStateSchemaKeys();
+        const entry = Object.entries(schema)[0];
+        return {
+          [entry[0]]: {
+            schema: entry[1],
+            allowOverwriteFromQueryParam:
+              item.options.allowOverwriteFromQueryParam,
+          },
+        };
+      })
       .reduce((acc, curr) => merge(acc, curr), {});
   }
 
