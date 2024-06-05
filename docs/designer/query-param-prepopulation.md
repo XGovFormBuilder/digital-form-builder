@@ -14,8 +14,13 @@ To allow a field to be pre-populated, tick the "allow query parameter pre-popula
 
 Once pre-population is allowed on a field, you can pre-populate that field by appending a query parameter with the component name to a form url e.g. `https://your-forms-url/your-form/target-page?firstName=Joe&lastName=Bloggs`.
 
+## allowPrePopulationOverwrite
+
+By default, if a field marked for pre-population already has state set in the user's session, the incoming value will be ignored.
+Sometimes you might want a query parameter to always overwrite the current state, for example, if there is a hidden field that the user will change through links with different query parameters.
+To allow this, you can pass a second option to the component, `allowPrePopulationOverwrite`.
+
 ## caveats
 
 - For the time being, due to complications with validation, this functionality is only available to list type components e.g. select fields or autocomplete fields.
-- If a field has pre-population enabled, but the user already has a form state with that field populated, then the incoming query parameter will be ignored.
 - If the field is in a section, then the query param will need to be passed with dot notation e.g. `yourDetails.firstName=Joe`.
