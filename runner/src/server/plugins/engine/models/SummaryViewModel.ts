@@ -53,6 +53,7 @@ export class SummaryViewModel {
         message: string;
       }[]
     | undefined;
+  backLink?: string;
 
   _outputs: any; // TODO
   _payApiKey: FormDefinition["payApiKey"];
@@ -67,6 +68,7 @@ export class SummaryViewModel {
   ) {
     this.pageTitle = pageTitle;
     this.name = model.name;
+    this.backLink = state?.progress?.[state?.progress.length - 1];
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
     const { def } = model;
@@ -147,7 +149,6 @@ export class SummaryViewModel {
     this.state = state;
     this.value = result.value;
     this.callback = state.callback;
-
   }
 
   private processErrors(result, details) {
@@ -163,7 +164,7 @@ export class SummaryViewModel {
       }
       return errorObject;
     }
-  
+
     this.errors = result.error.details.map((err) => {
       const name = err.path[err.path.length - 1];
       function extractContentBetweenQuotes(inputString) {
@@ -174,7 +175,7 @@ export class SummaryViewModel {
           return null; // Return null if no content is found between quotes
         }
       }
-      const path = extractContentBetweenQuotes(err.message)
+      const path = extractContentBetweenQuotes(err.message);
       const errorObject = {
         path: path,
         name: name,
@@ -183,20 +184,20 @@ export class SummaryViewModel {
       console.log("details", details);
       console.log("errorObject", errorObject);
       const error = replaceNameWithTitleIfInMessage(details, errorObject);
-  
+
       console.log("ERRORS LIST", error);
       return error;
     });
-  
+
     details.forEach((detail) => {
       const sectionErr = this.errors?.find((err) => err.path === detail.name);
-  
+
       detail.items.forEach((item) => {
         if (sectionErr) {
           item.inError = true;
           return;
         }
-  
+
         const err = this.errors?.find(
           (err) =>
             err.path ===
