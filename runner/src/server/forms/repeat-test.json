@@ -1,0 +1,255 @@
+{
+  "startPage": "/start",
+  "pages": [
+    {
+      "title": "Start",
+      "path": "/start",
+      "components": [],
+      "next": [
+        {
+          "path": "/uk-passport"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/uk-passport",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "ukPassport",
+          "title": "Do you have a UK passport?",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "section": "checkBeforeYouStart",
+      "next": [
+        {
+          "path": "/passport"
+        },
+        {
+          "path": "/no-uk-passport",
+          "condition": "doesntHaveUKPassport"
+        }
+      ],
+      "title": "Do you have a UK passport?"
+    },
+    {
+      "path": "/no-uk-passport",
+      "title": "You're not eligible for this service",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If you still think you're eligible please contact the Foreign and Commonwealth Office.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/passport",
+      "title": "Applicant",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "RadiosField",
+          "name": "country",
+          "title": "Country",
+          "options": {
+            "required": true
+          },
+          "list": "countries",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/address"
+        }
+      ]
+    },
+    {
+      "path": "/address",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/contact-details",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "type": "TelephoneNumberField",
+          "name": "phoneNumber",
+          "title": "Phone number",
+          "hint": "If you haven't got a UK phone number, include country code",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "EmailAddressField",
+          "name": "emailAddress",
+          "title": "Your email address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "title": "Applicant contact details"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "name": "countries",
+      "title": "countries",
+      "type": "string",
+      "items": [
+        {
+          "text": "United Kingdom",
+          "value": "United Kingdom"
+        },
+        {
+          "text": "France",
+          "value": "France"
+        }
+      ]
+    },
+    {
+      "name": "numberOfApplicants",
+      "title": "Number of people",
+      "type": "number",
+      "items": [
+        {
+          "text": "1",
+          "value": 1,
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "2",
+          "value": 2,
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "3",
+          "value": 3,
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "4",
+          "value": 4,
+          "description": "",
+          "condition": ""
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
+    },
+    {
+      "name": "applicantDetails",
+      "title": "Applicant details",
+      "repeating": true
+    }
+  ],
+  "phaseBanner": {},
+  "fees": [],
+  "payApiKey": "",
+  "outputs": [
+    {
+      "name": "LwQeVI",
+      "title": "Test webhook",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"
+      }
+    }
+  ],
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
+  "version": 2,
+  "conditions": [
+    {
+      "name": "hasUKPassport",
+      "displayName": "hasUKPassport",
+      "value": "checkBeforeYouStart.ukPassport==true"
+    }
+  ]
+}
