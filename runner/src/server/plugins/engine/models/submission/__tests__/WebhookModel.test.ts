@@ -1,0 +1,191 @@
+import * as Code from "@hapi/code";
+import * as Lab from "@hapi/lab";
+const { expect } = Code;
+const lab = Lab.script();
+exports.lab = lab;
+const { suite, test } = lab;
+import json from "./WebhookModel.test.json";
+import { FormModel, SummaryViewModel } from "server/plugins/engine/models";
+import { WebhookModel } from "server/plugins/engine/models/submission";
+const form = new FormModel(json, {});
+const state = {
+  progress: [],
+  checkBeforeYouStart: {
+    ukPassport: true,
+  },
+  applicantDetails: {
+    numberOfApplicants: 2,
+    phoneNumber: "123",
+    emailAddress: "a@b",
+  },
+  applicantOneDetails: {
+    firstName: "Winston",
+    lastName: "Smith",
+    address: {
+      addressLine1: "1 Street",
+      town: "London",
+      postcode: "ec2a4ps",
+    },
+  },
+  applicantTwoDetails: {
+    firstName: "big",
+    lastName: "brother",
+    address: {
+      addressLine1: "2 Street",
+      town: "London",
+      postcode: "ec2a4ps",
+    },
+  },
+};
+
+const summaryViewModel = new SummaryViewModel("summary", form, state, {
+  query: {},
+});
+
+suite("WebhookModel", () => {
+  test("SummaryViewModel returns correct WebhookModel", () => {
+    const webhookData = summaryViewModel._webhookData;
+    expect(webhookData).to.equal(expectedWebhookData);
+  });
+
+  test("WebhookModel returns correct webhook model", () => {
+    const { relevantPages } = summaryViewModel.getRelevantPages(form, state);
+    const details = summaryViewModel.details;
+    const webhookModel = WebhookModel(
+      relevantPages,
+      details,
+      form,
+      undefined,
+      {}
+    );
+    expect(webhookModel).to.equal(expectedWebhookData);
+  });
+});
+
+const expectedWebhookData = {
+  name: "Digital Form Builder - Runner undefined",
+  metadata: undefined,
+  questions: [
+    {
+      category: "checkBeforeYouStart",
+      question: "Do you have a UK passport?",
+      fields: [
+        {
+          key: "ukPassport",
+          title: "Do you have a UK passport?",
+          type: "list",
+          answer: true,
+        },
+      ],
+      index: 0,
+    },
+    {
+      category: "applicantDetails",
+      question: "How many applicants are there?",
+      fields: [
+        {
+          key: "numberOfApplicants",
+          title: "How many applicants are there?",
+          type: "list",
+          answer: 2,
+        },
+      ],
+      index: 0,
+    },
+    {
+      category: "applicantOneDetails",
+      question: "Applicant 1",
+      fields: [
+        {
+          key: "firstName",
+          title: "First name",
+          type: "text",
+          answer: "Winston",
+        },
+        {
+          key: "middleName",
+          answer: undefined,
+          title: "Middle name",
+          type: "text",
+        },
+        {
+          key: "lastName",
+          title: "Surname",
+          type: "text",
+          answer: "Smith",
+        },
+      ],
+      index: 0,
+    },
+    {
+      category: "applicantOneDetails",
+      question: "Address",
+      fields: [
+        {
+          key: "address",
+          title: "Address",
+          type: "text",
+          answer: "1 Street, London, ec2a4ps",
+        },
+      ],
+      index: 0,
+    },
+    {
+      category: "applicantTwoDetails",
+      question: "Applicant 2",
+      fields: [
+        {
+          key: "firstName",
+          title: "First name",
+          type: "text",
+          answer: "big",
+        },
+        {
+          key: "middleName",
+          answer: undefined,
+          title: "Middle name",
+          type: "text",
+        },
+        {
+          key: "lastName",
+          title: "Surname",
+          type: "text",
+          answer: "brother",
+        },
+      ],
+      index: 0,
+    },
+    {
+      category: "applicantTwoDetails",
+      question: "Address",
+      fields: [
+        {
+          key: "address",
+          title: "Address",
+          type: "text",
+          answer: "2 Street, London, ec2a4ps",
+        },
+      ],
+      index: 0,
+    },
+    {
+      category: "applicantDetails",
+      question: "Applicant contact details",
+      fields: [
+        {
+          key: "phoneNumber",
+          title: "Phone number",
+          type: "text",
+          answer: "123",
+        },
+        {
+          key: "emailAddress",
+          title: "Your email address",
+          type: "text",
+          answer: "a@b",
+        },
+      ],
+      index: 0,
+    },
+  ],
+};
