@@ -2,6 +2,9 @@ import { DetailItem } from "../types";
 import { format } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
+import { FeesModel } from "./FeesModel";
+import { PageControllerBase } from "server/plugins/engine/pageControllers";
+import { Component } from "server/plugins/engine/components";
 
 function answerFromDetailItem(item) {
   if (!item) {
@@ -34,8 +37,7 @@ export function WebhookModel(
   details,
   model,
   fees,
-  contextState,
-  state
+  contextState
 ) {
   const questions = relevantPages?.map((page) => {
     const isRepeatable = !!page?.repeatField;
@@ -91,4 +93,81 @@ export function WebhookModel(
     questions: questions,
     ...(!!fees && { fees }),
   };
+}
+
+export function newWebhookModel(
+  model,
+  relevantPages: PageControllerBase[],
+  state
+) {
+  let englishName = `${config.serviceName} ${model.basePath}`;
+  if (model.name) {
+    englishName = model.name.en ?? model.name;
+  }
+
+  let questions;
+
+  questions = relevantPages.map((page) => pagesToQuestions(page, state));
+
+  return {
+    metadata: model.def.metadata,
+    name: englishName,
+    questions: questions,
+    fees: FeesModel(model, state),
+  };
+}
+
+function createToFieldsMap(state) {
+  return function (component) {
+    return {
+      key: component.name,
+      title: component.title,
+      type: component.dataType,
+      answer: fieldAnswerFromComponent(component, state),
+    };
+  };
+}
+
+function pagesToQuestions(page: PageControllerBase, state, index = 0) {
+  let sectionState = state;
+  if (page.section) {
+    sectionState = state[page.section.name];
+  }
+
+  if (page.section?.repeating) {
+    //TODO: repeated
+    const isArray = Array.isArray(sectionState);
+    if (isArray) {
+      return sectionState.map(state, (i) => pagesToQuestions(page, state, i));
+    }
+  }
+
+  const toFields = createToFieldsMap(sectionState);
+  const components = page.components.formItems;
+
+  return {
+    category: page.section?.name,
+    question: page.title,
+    fields: components.map(toFields),
+    index,
+  };
+}
+
+function fieldAnswerFromComponent(component, state) {
+  if (!component) {
+    return;
+  }
+  const rawValue = state[component.name];
+
+  switch (component.dataType) {
+    case "list":
+      return rawValue;
+    case "date":
+      return format(new Date(rawValue), "yyyy-MM-dd");
+    case "monthYear":
+      const [month, year] = Object.values(rawValue);
+      return format(new Date(`${year}-${month}-1`), "yyyy-MM");
+    default:
+      return component.getDisplayStringFromState(state);
+  }
 }

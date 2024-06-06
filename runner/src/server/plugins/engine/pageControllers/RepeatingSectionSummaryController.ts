@@ -2,6 +2,7 @@ import { FormModel } from "server/plugins/engine/models";
 import { Section } from "server/plugins/engine/models/Section";
 import { Component, FormComponent } from "server/plugins/engine/components";
 import { PageControllerBase } from "server/plugins/engine/pageControllers/PageControllerBase";
+import { redirectUrl } from "server/plugins/engine";
 
 export class RepeatingSectionSummaryController {
   model: FormModel;
@@ -108,6 +109,56 @@ export class RepeatingSectionSummaryController {
       iterations: is,
     };
   }
+
+  getDetailItems(state) {
+    const iterations = state[this.section.sectionName] ?? [];
+    const is = iterations.map((sectionState, i) => {
+      const items = [];
+      const entriesForIteration = Object.entries(sectionState);
+      entriesForIteration.forEach(([key, value]) => {
+        // @ts-ignore
+        const { component, page } = this.components.get(key);
+        const item = DetailItem(component, sectionState, page);
+        items.push(item);
+        if (component.items) {
+          return;
+        }
+        const selectedValue = value;
+        const selectedItem = component.items?.filter(
+          (i) => i.value === selectedValue
+        )[0];
+        if (selectedItem && selectedItem.childrenCollection) {
+          for (const cc of selectedItem.childrenCollection.formItems) {
+            const cItem = Item(cc, sectionState, page);
+            items.push(cItem);
+          }
+        }
+      });
+
+      return {
+        card: {
+          title: {
+            text: `${this.section.title} ${i + 1}`,
+          },
+          actions: {
+            items: [
+              {
+                href: `?delete=${i}`,
+                text: "Delete",
+                visuallyHiddenText: `${this.section.title} ${i + 1}`,
+              },
+            ],
+          },
+        },
+        rows: items,
+      };
+    });
+
+    return {
+      pageTitle: this.section.title,
+      iterations: is,
+    };
+  }
 }
 function Item(
   component: FormComponent,
@@ -141,5 +192,26 @@ function Item(
         },
       ],
     },
+  };
+}
+
+function DetailItem(
+  component: FormComponent,
+  sectionState: any,
+  page: PageControllerBase,
+  num = 1
+) {
+  const model = page.model;
+  return {
+    name: component.name,
+    path: page.path,
+    label: component.localisedString(component.title),
+    value: component.getDisplayStringFromState(sectionState),
+    rawValue: sectionState[component.name],
+    url: `/${model.basePath}${page.path}`,
+    pageId: `/${model.basePath}${page.path}`,
+    type: component.type,
+    title: component.title,
+    dataType: component.dataType,
   };
 }

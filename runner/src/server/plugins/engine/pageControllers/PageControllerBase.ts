@@ -26,6 +26,7 @@ import { format, parseISO } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
 import { Section } from "server/plugins/engine/models/Section";
+import { FeesModel } from "server/plugins/engine/models/submission";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");

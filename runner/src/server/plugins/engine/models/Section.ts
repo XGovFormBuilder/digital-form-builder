@@ -61,7 +61,7 @@ export class Section {
     this.formModel = formModel;
     this.isRepeating = sectionDef.repeating === true;
     const pagesInSection = this.formModel.pages.filter(
-      (page) => page.section?.name === this.sectionName
+      (page) => page?.section?.name === this.sectionName
     );
 
     pagesInSection.forEach((page) => this.pages.set(page.path, page));
@@ -93,6 +93,51 @@ export class Section {
 
   get lastPage() {
     return this._lastPage;
+  }
+
+  getSummaryDetailItems(sectionStates) {
+    console.log(sectionStates);
+    const is = sectionStates?.map((sectionState, i) => {
+      const items = [];
+      const entriesForIteration = Object.entries(sectionState);
+      entriesForIteration.forEach(([key, value]) => {
+        // @ts-ignore
+        const { component, page } = this.components.get(key);
+        const item = DetailItem(component, sectionState, page, i);
+
+        items.push(item);
+        if (component.items) {
+          return;
+        }
+        const selectedValue = value;
+        const selectedItem = component.items?.filter(
+          (i) => i.value === selectedValue
+        )[0];
+        if (selectedItem && selectedItem.childrenCollection) {
+          for (const cc of selectedItem.childrenCollection.formItems) {
+            const cItem = Item(cc, sectionState, page);
+            items.push(cItem);
+          }
+        }
+      });
+
+      return {
+        card: {
+          title: {
+            text: `${this.title} ${i + 1}`,
+          },
+        },
+        rows: items,
+        detailItems: items,
+        isRepeated: true,
+      };
+    });
+
+    return {
+      name: this.sectionName,
+      title: this.title,
+      items: is,
+    };
   }
 
   getSummaryViewModel(sectionStates) {
@@ -196,7 +241,7 @@ export class Sections {
 
   addNodesRecursively(prev: PageControllerBase) {
     // console.log("ADDING FROM", prev.section?.name, prev.path);
-    const prevSection = this.sections.get(prev.section?.name);
+    const prevSection = this.sections.get(prev?.section?.name);
     if (prevSection) {
       prevSection.startPage = prev;
     }
@@ -205,7 +250,7 @@ export class Sections {
     });
 
     nexts?.forEach((next) => {
-      const nextSection = next.section?.name;
+      const nextSection = next?.section?.name;
       const thisAndNextPageAreInSameSection =
         nextSection && nextSection === prevSection?.sectionName;
       const section = this.sections.get(nextSection);
@@ -244,7 +289,7 @@ export class SuperGraph {
 
   addNodesRecursively(prev: PageControllerBase) {
     // console.log("ADDING FROM", prev.section?.name, prev.path);
-    const nexts = prev.pageDef?.next?.map?.((next) => {
+    const nexts = prev?.pageDef?.next?.map?.((next) => {
       return this.form._PAGES.get(next.path);
     });
 
@@ -263,29 +308,27 @@ export class SuperGraph {
   }
 }
 
-function DetailItem(
-  request,
-  component,
-  sectionState,
-  page,
-  model: FormModel,
-  params: { num?: number; returnUrl: string } = {
-    returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
-  }
-) {
-  const isRepeatable = !!page.repeatField;
-
+function DetailItem(component, sectionState, page, i) {
+  const model = page.model;
+  const returnUrl = `/${model.basePath}/summary`;
+  const params = {
+    i,
+    returnUrl,
+  };
+  const url = `/${model.basePath}${page.path}?${new URLSearchParams(
+    params
+  ).toString()}`;
   return {
     name: component.name,
     path: page.path,
     label: component.localisedString(component.title),
     value: component.getDisplayStringFromState(sectionState),
     rawValue: sectionState[component.name],
-    url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
+    url,
     pageId: `/${model.basePath}${page.path}`,
     type: component.type,
     title: component.title,
     dataType: component.dataType,
-    immutable: component.options.disableChangingFromSummary,
+    index: i,
   };
 }
