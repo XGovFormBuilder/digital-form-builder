@@ -8,6 +8,31 @@ import json from "./WebhookModel.test.json";
 import { FormModel, SummaryViewModel } from "server/plugins/engine/models";
 import { WebhookModel } from "server/plugins/engine/models/submission";
 const form = new FormModel(json, {});
+
+const summaryViewModel = new SummaryViewModel("summary", form, state, {
+  query: {},
+});
+
+suite("WebhookModel", () => {
+  test("SummaryViewModel returns correct WebhookModel", () => {
+    const webhookData = summaryViewModel._webhookData;
+    expect(webhookData).to.equal(expectedWebhookData);
+  });
+
+  test("WebhookModel returns correct webhook model", () => {
+    const { relevantPages } = summaryViewModel.getRelevantPages(form, state);
+    const details = summaryViewModel.details;
+    const webhookModel = WebhookModel(
+      relevantPages,
+      details,
+      form,
+      undefined,
+      {}
+    );
+    expect(webhookModel).to.equal(expectedWebhookData);
+  });
+});
+
 const state = {
   progress: [],
   checkBeforeYouStart: {
@@ -37,30 +62,6 @@ const state = {
     },
   },
 };
-
-const summaryViewModel = new SummaryViewModel("summary", form, state, {
-  query: {},
-});
-
-suite("WebhookModel", () => {
-  test("SummaryViewModel returns correct WebhookModel", () => {
-    const webhookData = summaryViewModel._webhookData;
-    expect(webhookData).to.equal(expectedWebhookData);
-  });
-
-  test("WebhookModel returns correct webhook model", () => {
-    const { relevantPages } = summaryViewModel.getRelevantPages(form, state);
-    const details = summaryViewModel.details;
-    const webhookModel = WebhookModel(
-      relevantPages,
-      details,
-      form,
-      undefined,
-      {}
-    );
-    expect(webhookModel).to.equal(expectedWebhookData);
-  });
-});
 
 const expectedWebhookData = {
   name: "Digital Form Builder - Runner undefined",
