@@ -102,6 +102,7 @@ export function getCustomDateValidator(
         });
       }
     }
+
     if (maxDaysInFuture) {
       const maxDate = add(startOfToday(), { days: maxDaysInFuture });
       if (value > maxDate) {
@@ -111,6 +112,13 @@ export function getCustomDateValidator(
         });
       }
     }
+
+    if (value.getFullYear() == 1899) {
+      return helpers.error("date.base", {
+        label: helpers.state.key,
+      });
+    }
+
     return value;
   };
 }

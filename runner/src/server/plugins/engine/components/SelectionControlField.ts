@@ -42,6 +42,7 @@ export class SelectionControlField extends ListFormComponent {
     const { name, items } = this;
     const options: any = this.options;
     const viewModel: ViewModel = super.getViewModel(formData, errors);
+    viewModel.label!.classes = "govuk-fieldset__legend--s";
 
     viewModel.fieldset = {
       legend: viewModel.label,
@@ -126,7 +127,7 @@ export class SelectionControlField extends ListFormComponent {
         Object.assign(schemaKeys, {
           [key]: joi.alternatives().conditional(joi.ref(conditionalName), {
             is: key,
-            then: conditionalSchemaKeys[key].optional(),
+            then: conditionalSchemaKeys[key].required(),
             otherwise: joi.optional(),
             //TODO: Checkbox joi validation
           }),
