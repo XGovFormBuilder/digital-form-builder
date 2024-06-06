@@ -2,46 +2,10 @@ import { PageControllerBase } from "server/plugins/engine/pageControllers";
 import { FormModel } from "server/plugins/engine/models/FormModel";
 import { RepeatingSectionSummaryController } from "server/plugins/engine/pageControllers/RepeatingSectionSummaryController";
 import { Component, FormComponent } from "server/plugins/engine/components";
-import { redirectUrl } from "server/plugins/engine";
-
-export class Graph {
-  adjacencyList: Map<any, any[]>;
-  name: string = "";
-  _startPage?: PageControllerBase;
-
-  constructor(options?: { name: string }) {
-    this.name = options?.name ?? "";
-    this.adjacencyList = new Map();
-  }
-
-  addVertex(vertex: PageControllerBase) {
-    if (!this.adjacencyList.has(vertex)) {
-      this.adjacencyList.set(vertex, []);
-    }
-  }
-
-  addEdge(origin: PageControllerBase, destination: PageControllerBase) {
-    // console.log("adding edge to", this.name, origin.path, destination.path);
-    // this.startPage = origin;
-    if (!this.adjacencyList.has(origin)) {
-      this.addVertex(origin);
-    }
-    if (!this.adjacencyList.has(destination)) {
-      this.addVertex(destination);
-    }
-    this.adjacencyList.get(origin).push(destination);
-  }
-
-  logGraph() {
-    for (let [vertex, edges] of this.adjacencyList.entries()) {
-    }
-  }
-}
 
 export class Section {
   sectionName: string;
   title: string;
-  graph: Graph;
   formModel: FormModel;
   summaryPage: RepeatingSectionSummaryController;
   _startPage?: PageControllerBase;
@@ -56,8 +20,6 @@ export class Section {
   constructor(formModel: FormModel, sectionDef: any) {
     this.sectionName = sectionDef.name;
     this.title = sectionDef.title;
-    const graph = new Graph({ name: this.sectionName });
-    this.graph = graph;
     this.formModel = formModel;
     this.isRepeating = sectionDef.repeating === true;
     const pagesInSection = this.formModel.pages.filter(
@@ -96,7 +58,6 @@ export class Section {
   }
 
   getSummaryDetailItems(sectionStates) {
-    console.log(sectionStates);
     const is = sectionStates?.map((sectionState, i) => {
       const items = [];
       const entriesForIteration = Object.entries(sectionState);
@@ -235,12 +196,10 @@ export class Sections {
   }
 
   get(section) {
-    console.log("getting section:", section);
     return this.sections.get(section);
   }
 
   addNodesRecursively(prev: PageControllerBase) {
-    // console.log("ADDING FROM", prev.section?.name, prev.path);
     const prevSection = this.sections.get(prev?.section?.name);
     if (prevSection) {
       prevSection.startPage = prev;
@@ -253,58 +212,15 @@ export class Sections {
       const nextSection = next?.section?.name;
       const thisAndNextPageAreInSameSection =
         nextSection && nextSection === prevSection?.sectionName;
-      const section = this.sections.get(nextSection);
 
       if (thisAndNextPageAreInSameSection) {
-        section?.graph.addEdge(prev, next);
       } else {
-        prevSection?.graph.addVertex(next);
         if (prevSection) {
           prevSection.lastPage = prev;
         }
       }
       this.addNodesRecursively(next);
     });
-  }
-  logGraph() {
-    this.sections.forEach((section) => section.graph.logGraph());
-  }
-}
-
-export class SuperGraph {
-  sections: Map<string, Section> = new Map();
-  form: FormModel;
-  pages: FormModel["_PAGES"];
-  graph: Graph = new Graph();
-  constructor(formModel: FormModel) {
-    this.form = formModel;
-    this.pages = formModel._PAGES;
-    const startPage = formModel.startPage;
-
-    if (!startPage) {
-      return;
-    }
-    this.addNodesRecursively(startPage);
-  }
-
-  addNodesRecursively(prev: PageControllerBase) {
-    // console.log("ADDING FROM", prev.section?.name, prev.path);
-    const nexts = prev?.pageDef?.next?.map?.((next) => {
-      return this.form._PAGES.get(next.path);
-    });
-
-    // console.table({
-    //   current: prev.path,
-    //   nexts: nexts.map((next) => next.path).join(", "),
-    // });
-
-    nexts?.forEach((next) => {
-      this.graph.addEdge(prev, next);
-      this.addNodesRecursively(next);
-    });
-  }
-  logGraph() {
-    this.graph.logGraph();
   }
 }
 

@@ -125,8 +125,6 @@ export class FormModel {
     this.specialPages = def.specialPages;
 
     this.feeOptions = { ...DEFAULT_FEE_OPTIONS, ...def.feeOptions };
-    this._SECTIONS.logGraph();
-    const superGraph = new SuperGraph(this);
   }
 
   /**

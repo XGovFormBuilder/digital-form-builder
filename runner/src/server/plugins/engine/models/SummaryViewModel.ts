@@ -101,7 +101,6 @@ export class SummaryViewModel {
         model.getContextState(state)
       );
 
-      console.log("WEBHOOK DATA", this._webhookData);
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
         model,
@@ -230,11 +229,8 @@ export class SummaryViewModel {
       const sectionC = model._SECTIONS.get(section?.name);
 
       if (sectionC?.isRepeating && Array.isArray(sectionState)) {
-        // const summaryVM = sectionC.getSummaryViewModel(sectionState);
-        // // details.push(summaryVM);
-        // const repeatedDetails = sectionC.getSummaryDetailItems(sectionState);
-        // console.log("repeatedDetails", repeatedDetails);
-        // details.push(repeatedDetails);
+        const summaryVM = sectionC.getSummaryViewModel(sectionState);
+        details.push(summaryVM);
       } else {
         details.push({
           name: section?.name,
@@ -244,7 +240,6 @@ export class SummaryViewModel {
       }
     });
 
-    console.log(details);
     return details;
   }
 

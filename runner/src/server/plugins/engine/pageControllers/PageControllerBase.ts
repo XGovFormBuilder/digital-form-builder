@@ -264,21 +264,12 @@ export class PageControllerBase {
       return `/${this.model.basePath}/${this.sectionC.sectionName}/summary`;
     }
 
-    console.log("PASSED STATE", state);
-
     if (nextPage.sectionC?.isRepeating && nextSectionIsDifferent) {
-      console.log("NEXT PAGE IS REPEATING");
       query.num = state[nextPage.sectionC.sectionName]?.length ?? 1;
       queryString = `?${new URLSearchParams(query)}`;
     }
 
     if (this.sectionC?.isRepeating && !nextSectionIsDifferent) {
-      console.log("NEXT SECTION NOT DIFF");
-      console.log(
-        "STATE LENGTH FOR THIS SECTION IS",
-        state[this.sectionC.sectionName]?.length
-      );
-      console.log("STATE", state);
       query.num = state[this.sectionC.sectionName]?.length ?? 1;
       queryString = `?${new URLSearchParams(query)}`;
     }
@@ -431,7 +422,6 @@ export class PageControllerBase {
       const { num } = request.query;
       const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
       const startPage = this.model.def.startPage;
-      console.log("NUM", num, num - 1);
       const formData = this.getFormDataFromState(state, num - 1);
 
       const isStartPage = this.path === `${startPage}`;
@@ -649,7 +639,6 @@ export class PageControllerBase {
     let update = this.getPartialMergeState(stateResult.value);
 
     if (this.sectionC?.isRepeating) {
-      console.log(update);
       const currentIteration = (num ?? 1) - 1;
       const sectionState = state[this.section.name] ?? [];
       let currentIterationState = sectionState[currentIteration] ?? {};

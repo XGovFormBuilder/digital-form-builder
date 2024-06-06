@@ -53,7 +53,6 @@ export class RepeatingSummaryPageController extends PageController {
       await cacheService.mergeState(request, { progress });
 
       const viewModel = this.getViewModel(state);
-      console.log(viewModel);
 
       return h.view("repeating-summary", viewModel);
     };
@@ -88,7 +87,6 @@ export class RepeatingSummaryPageController extends PageController {
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
     const answers = this.getPartialState(formData);
-    console.log("get rows", this.getRowsFromAnswers());
     return {
       ...baseViewModel,
       customText: this.options.customText,

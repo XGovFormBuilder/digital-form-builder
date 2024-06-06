@@ -65,7 +65,6 @@ export class CacheService {
     }
     await this.cache.set(key, state, ttl);
     const newState = await this.cache.get(key);
-    console.log(newState);
     return newState;
   }
 
