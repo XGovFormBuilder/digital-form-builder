@@ -87,12 +87,10 @@ export class RepeatingSummaryPageController extends PageController {
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
     const answers = this.getPartialState(formData);
-    const rows = this.getRowsFromAnswers(answers, "summary");
-
     return {
       ...baseViewModel,
       customText: this.options.customText,
-      details: { rows },
+      items: this.getRowsFromAnswers(),
     };
   }
 

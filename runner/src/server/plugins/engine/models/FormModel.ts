@@ -17,6 +17,7 @@ import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
 import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
 import { ComponentCollection } from "server/plugins/engine/components";
+import { Sections, SuperGraph } from "./Section";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -56,7 +57,8 @@ export class FormModel {
 
   feeOptions: FormDefinition["feeOptions"];
   specialPages: FormDefinition["specialPages"];
-
+  _PAGES: Map<string, PageControllerBase> = new Map();
+  _SECTIONS: Sections;
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
 
@@ -115,9 +117,13 @@ export class FormModel {
     this.fieldsForPrePopulation = {};
 
     // @ts-ignore
+
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
+    this._SECTIONS = new Sections(this);
+    // this._SECTIONS.sections.forEach((section) => section.graph.logGraph());
     this.specialPages = def.specialPages;
+
     this.feeOptions = { ...DEFAULT_FEE_OPTIONS, ...def.feeOptions };
   }
 
@@ -142,33 +148,27 @@ export class FormModel {
         (page) => page.section === section
       );
 
-      if (sectionPages.length > 0) {
-        if (section) {
-          const isRepeatable = sectionPages.find(
-            (page) => page.pageDef.repeatField
-          );
+      if (!sectionPages.length) {
+        return schema;
+      }
 
-          let sectionSchema:
-            | joi.ObjectSchema<any>
-            | joi.ArraySchema = joi.object().required();
+      if (!section) {
+        sectionPages.forEach((sectionPage) => {
+          schema = schema.concat(sectionPage.stateSchema);
+        });
+        return schema;
+      }
 
-          sectionPages.forEach((sectionPage) => {
-            sectionSchema = sectionSchema.concat(sectionPage.stateSchema);
-          });
+      if (section.repeating) {
+        const sectionSchema = joi.array().items(joi.object().required());
+        sectionPages.forEach((sectionPage) => {
+          sectionSchema.items(sectionPage.stateSchema);
+        });
 
-          if (isRepeatable) {
-            sectionSchema = joi.array().items(sectionSchema);
-          }
-
-          schema = schema.append({
-            // @ts-ignore
-            [section.name]: sectionSchema,
-          });
-        } else {
-          sectionPages.forEach((sectionPage) => {
-            schema = schema.concat(sectionPage.stateSchema);
-          });
-        }
+        schema = schema.append({
+          // @ts-ignore
+          [section.name]: sectionSchema,
+        });
       }
     });
 

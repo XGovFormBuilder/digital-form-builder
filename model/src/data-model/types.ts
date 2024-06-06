@@ -36,6 +36,7 @@ export interface Section {
   name: string;
   title: string;
   hideTitle: boolean;
+  repeating: boolean;
 }
 
 export interface Item {

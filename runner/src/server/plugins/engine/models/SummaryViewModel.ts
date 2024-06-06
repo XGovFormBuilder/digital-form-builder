@@ -16,6 +16,7 @@ import {
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
 import { HapiRequest } from "src/server/types";
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
+import { newWebhookModel } from "server/plugins/engine/models/submission/WebhookModel";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -81,9 +82,8 @@ export class SummaryViewModel {
         config.feedbackLink);
 
     const schema = model.makeFilteredSchema(state, relevantPages);
-    const collatedRepeatPagesState = gatherRepeatPages(state);
 
-    const result = schema.validate(collatedRepeatPagesState, {
+    const result = schema.validate(state, {
       abortEarly: false,
       stripUnknown: true,
     });
@@ -100,6 +100,7 @@ export class SummaryViewModel {
         this.fees,
         model.getContextState(state)
       );
+
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
         model,
@@ -206,25 +207,6 @@ export class SummaryViewModel {
         (page) => page.section === section
       );
 
-      const repeatablePage = sectionPages.find((page) => !!page.repeatField);
-      // Currently can't handle repeatable page outside a section.
-      // In fact currently if any page in a section is repeatable it's expected that all pages in that section will be
-      // repeatable
-      if (section && repeatablePage) {
-        if (!state[section.name]) {
-          state[section.name] = sectionState = [];
-        }
-        // Make sure the right number of items
-        const requiredIterations = reach(state, repeatablePage.repeatField);
-        if (requiredIterations < sectionState.length) {
-          state[section.name] = sectionState.slice(0, requiredIterations);
-        } else {
-          for (let i = sectionState.length; i < requiredIterations; i++) {
-            sectionState.push({});
-          }
-        }
-      }
-
       sectionPages.forEach((page) => {
         for (const component of page.components.formItems) {
           const item = Item(request, component, sectionState, page, model);
@@ -244,25 +226,17 @@ export class SummaryViewModel {
           }
         }
       });
+      const sectionC = model._SECTIONS.get(section?.name);
 
-      if (items.length > 0) {
-        if (Array.isArray(sectionState)) {
-          details.push({
-            name: section?.name,
-            title: section?.title,
-            items: [...Array(reach(state, repeatablePage.repeatField))].map(
-              (_x, i) => {
-                return items.map((item) => item[i]);
-              }
-            ),
-          });
-        } else {
-          details.push({
-            name: section?.name,
-            title: section?.title,
-            items,
-          });
-        }
+      if (sectionC?.isRepeating && Array.isArray(sectionState)) {
+        const summaryVM = sectionC.getSummaryViewModel(sectionState);
+        details.push(summaryVM);
+      } else {
+        details.push({
+          name: section?.name,
+          title: section?.title,
+          items,
+        });
       }
     });
 

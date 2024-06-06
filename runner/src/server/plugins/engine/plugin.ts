@@ -10,6 +10,7 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "../../config";
+import { cache } from "joi";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -51,9 +52,6 @@ type PluginOptions = {
 };
 
 export const plugin = {
-  name: "@xgovformbuilder/runner/engine",
-  dependencies: "@hapi/vision",
-  multiple: true,
   register: (server: HapiServer, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;
     server.app.forms = {};
@@ -272,6 +270,57 @@ export const plugin = {
       },
     });
 
+    server.route({
+      method: "get",
+      path: "/{id}/{section}/summary",
+      options: {
+        pre: [
+          {
+            method: queryParamPreHandler,
+          },
+        ],
+      },
+      handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+        const { id, section } = request.params;
+        const model = forms[id];
+        const s = model._SECTIONS.sections.get(section);
+        if (!s) {
+          throw Boom.notFound("No form or page found");
+        }
+        if (request.query.delete) {
+          const indexToDelete = request.query.delete;
+          const { cacheService } = request.services([]);
+          const state = await cacheService.getState(request);
+          state[s.sectionName].splice(indexToDelete, 1);
+          await cacheService.mergeState(request, state);
+          return h.redirect(request.path);
+        }
+
+        return s.summaryPage.getRouteHandler(request, h);
+      },
+    });
+
+    server.route({
+      method: "post",
+      path: "/{id}/{section}/summary",
+      options: {
+        payload: {
+          multipart: { output: "stream" },
+          parse: true,
+        },
+      },
+
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+        const { id, section } = request.params;
+        const model = forms[id];
+        const s = model._SECTIONS.sections.get(section);
+        if (!s) {
+          throw Boom.notFound("No form or page found");
+        }
+        return s.summaryPage.postRouteHandler(request, h);
+      },
+    });
+
     const { uploadService } = server.services([]);
 
     const handleFiles = (request: HapiRequest, h: HapiResponseToolkit) => {
@@ -327,4 +376,7 @@ export const plugin = {
       },
     });
   },
+  name: "@xgovformbuilder/runner/engine",
+  dependencies: "@hapi/vision",
+  multiple: true,
 };

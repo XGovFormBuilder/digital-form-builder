@@ -1,0 +1,173 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "Which city did you enter?",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "caz",
+          "type": "SelectField",
+          "options": {
+            "required": true
+          },
+          "list": "zone",
+          "title": "caz zone",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/registration"
+        }
+      ]
+    },
+    {
+      "title": "Registration details",
+      "path": "/registration",
+      "section": "registration",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "registrationNumber",
+          "title": "Registration number",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "registrationDate",
+          "title": "Registration date",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/car-colour"
+        }
+      ]
+    },
+    {
+      "title": "What is the colour of your car",
+      "path": "/car-colour",
+      "section": "registration",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "colour",
+          "title": "What is the colour of your car?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "CAZ Location",
+      "name": "zone",
+      "type": "string",
+      "items": [
+        {
+          "text": "Bath",
+          "value": "Bath"
+        },
+        {
+          "text": "Bristol",
+          "value": "Bristol"
+        },
+        {
+          "text": "Birmingham",
+          "value": "Birmingham"
+        },
+        {
+          "text": "Cardiff",
+          "value": "Cardiff"
+        },
+        {
+          "text": "Liverpool",
+          "value": "Liverpool"
+        },
+        {
+          "text": "Leeds",
+          "value": "Leeds"
+        },
+        {
+          "text": "Manchester",
+          "value": "Manchester"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "registration",
+      "title": "Tell us about your car registration"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Bristol tax",
+      "name": "dFQTyf",
+      "value": {
+        "name": "Bristol tax",
+        "conditions": [
+          {
+            "field": {
+              "name": "caz",
+              "type": "SelectField",
+              "display": "caz zone"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "2",
+              "display": "2"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [
+    {
+      "description": "Bristol tax",
+      "amount": "5000",
+      "condition": "dFQTyf"
+    },
+    {
+      "description": "car tax",
+      "amount": "5000"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "webhook",
+      "title": "webhook",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io"
+      }
+    }
+  ],
+  "version": 2,
+  "payApiKey": {
+    "test": "test_api_key",
+    "production": "production_api_key"
+  },
+  "skipSummary": false,
+  "paymentReferenceFormat": "FCDO-{{DATE}}"
+}
