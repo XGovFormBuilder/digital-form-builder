@@ -8243,15 +8243,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.2.0, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
-  version: 4.3.4
-  resolution: "debug@npm:4.3.4"
+"debug@npm:4, debug@npm:^4, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.2.0, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:^4.3.5":
+  version: 4.3.5
+  resolution: "debug@npm:4.3.5"
   dependencies:
     ms: 2.1.2
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 3dbad3f94ea64f34431a9cbf0bafb61853eda57bff2880036153438f50fb5a84f27683ba0d8e5426bf41a8c6ff03879488120cf5b3a761e77953169c0600a708
+  checksum: 7c002b51e256257f936dda09eb37167df952758c57badf6bf44bdc40b89a4bcb8e5a0a2e4c7b53f97c69e2970dd5272d33a757378a12c8f8e64ea7bf99e8e86e
   languageName: node
   linkType: hard
 
@@ -8261,18 +8261,6 @@ __metadata:
   dependencies:
     ms: ^2.1.1
   checksum: b3d8c5940799914d30314b7c3304a43305fd0715581a919dacb8b3176d024a782062368405b47491516d2091d6462d4d11f2f4974a405048094f8bfebfa3071c
-  languageName: node
-  linkType: hard
-
-"debug@npm:^4.3.5":
-  version: 4.3.5
-  resolution: "debug@npm:4.3.5"
-  dependencies:
-    ms: 2.1.2
-  peerDependenciesMeta:
-    supports-color:
-      optional: true
-  checksum: 7c002b51e256257f936dda09eb37167df952758c57badf6bf44bdc40b89a4bcb8e5a0a2e4c7b53f97c69e2970dd5272d33a757378a12c8f8e64ea7bf99e8e86e
   languageName: node
   linkType: hard
 
@@ -11414,14 +11402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^4.0.1":
-  version: 4.7.0
-  resolution: "govuk-frontend@npm:4.7.0"
-  checksum: 0e246dd2c724e51fd14dd40fc31c66627df7d07ebe89e1a19b1e7da7e7a5eb86bc6560229e18a13e40651e6c953a67422d54e77e240d82efff7b2cbefaa8b88d
-  languageName: node
-  linkType: hard
-
-"govuk-frontend@npm:^4.8.0":
+"govuk-frontend@npm:^4.0.1, govuk-frontend@npm:^4.8.0":
   version: 4.8.0
   resolution: "govuk-frontend@npm:4.8.0"
   checksum: e255f924f399319e109347ec4993e0441fc5847a6a73ba44a465b1599c7d03e85c29212743b081ccd60e19224c6301143c77540b8e4bfe615fcb3e162b8663f4
@@ -15450,16 +15431,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^9.0.1":
-  version: 9.0.3
-  resolution: "minimatch@npm:9.0.3"
-  dependencies:
-    brace-expansion: ^2.0.1
-  checksum: 253487976bf485b612f16bf57463520a14f512662e592e95c571afdab1442a6a6864b6c88f248ce6fc4ff0b6de04ac7aa6c8bb51e868e99d1d65eb0658a708b5
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^9.0.4":
+"minimatch@npm:^9.0.1, minimatch@npm:^9.0.4":
   version: 9.0.4
   resolution: "minimatch@npm:9.0.4"
   dependencies:
