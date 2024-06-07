@@ -1,6 +1,8 @@
 import path from "path";
 import { camelCase, upperFirst } from "lodash";
 import { DobPageController } from "./DobPageController";
+import { ConfirmPageController } from "./ConfirmPageController";
+import { ContinuePageController } from "./ContinuePageController";
 import { HomePageController } from "./HomePageController";
 import { PageController } from "./PageController";
 import { StartDatePageController } from "./StartDatePageController";
@@ -12,6 +14,8 @@ import { Page } from "@xgovformbuilder/model";
 
 const PageControllers = {
   DobPageController,
+  ConfirmPageController,
+  ContinuePageController,
   HomePageController,
   PageController,
   StartDatePageController,

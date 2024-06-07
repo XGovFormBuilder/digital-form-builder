@@ -43,16 +43,20 @@ export class WebhookService {
     }
 
     try {
-      const { reference } = JSON.parse(payload);
+      let { result } = JSON.parse(payload);
+      if (typeof result === "undefined") {
+        result = JSON.parse(payload.toString());
+      }
+
       this.logger.info(
         ["WebhookService", "postRequest"],
         `Webhook request to ${url} submitted OK`
       );
       this.logger.debug(
-        ["WebhookService", "postRequest", `REF: ${reference}`],
-        JSON.stringify(payload)
+        ["WebhookService", "postRequest", `REF: ${result}`],
+        JSON.stringify(result)
       );
-      return reference;
+      return result;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
       return "UNKNOWN";

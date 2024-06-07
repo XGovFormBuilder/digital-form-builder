@@ -1,0 +1,694 @@
+{
+  "metadata": {},
+  "startPage": "/before-you-start",
+  "pages": [
+    {
+      "title": "Before you start",
+      "path": "/before-you-start",
+      "components": [
+        {
+          "name": "GqJNNZ",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">We need to ask some questions to check you can apply for this funding.</p>\n<p class=\"govuk-body govuk-!\">We'll ask about:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>your organisation’s location and type </li>\n<li>the location of the vacant property</li>\n<li>how long the property has been vacant</li>\n<li>the vacancy rate of the high street</li>\n<li>when you expect us to defray your costs</li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/are-you-applying-from-a-local-authority-in-england"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/are-you-applying-from-a-local-authority-in-england",
+      "title": "Are you applying from a local authority in England?",
+      "components": [
+        {
+          "name": "lHTLBl",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Are you applying from a local authority in England?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-your-local-authority-a-planning-authority",
+          "condition": "bXSKqL"
+        },
+        {
+          "path": "/not-eliglible/not-england-local-authority",
+          "condition": "hwhjge"
+        }
+      ],
+      "section": "mwumLN",
+      "controller": "./pages/continue.js"
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/confirm.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/is-your-local-authority-a-planning-authority",
+      "title": "Is your local authority a planning authority?",
+      "components": [
+        {
+          "name": "uztZUm",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Is your local authority a planning authority?",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/not-eligible/not-a-planning-authority",
+          "condition": "QHGUAo"
+        },
+        {
+          "path": "/is-it-a-combined-authority-partnering-with-a-planning-authority",
+          "condition": "OxSDmx"
+        }
+      ],
+      "section": "mwumLN",
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/is-the-property-in-a-designated-high-street-or-town-centre",
+      "title": "Is the property in a designated high street or town centre?",
+      "components": [
+        {
+          "name": "VJrojB",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Is the property in a designated high street or town centre?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-the-vacancy-rate-in-the-designated-high-street-or-town-centre-8-or-higher",
+          "condition": "XgbLXU"
+        },
+        {
+          "path": "/not-eligible/not-in-a-designated-location",
+          "condition": "OKnwMX"
+        }
+      ],
+      "section": "mwumLN",
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/is-the-vacancy-rate-in-the-designated-high-street-or-town-centre-8-or-higher",
+      "title": "Is the vacancy rate in the designated high street or town centre 8% or higher?",
+      "components": [
+        {
+          "name": "Mhzypt",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Is the vacancy rate in the designated high street or town centre 8% or higher?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/in-the-last-2-years-has-the-property-been-vacant-for-365-days-or-more",
+          "condition": "Kkqowe"
+        },
+        {
+          "path": "/not-eligible/lower-vacancy-rate",
+          "condition": "jPvjPM"
+        }
+      ],
+      "section": "mwumLN",
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/in-the-last-2-years-has-the-property-been-vacant-for-365-days-or-more",
+      "title": "In the last 2 years, has the property been vacant for 365 days or more?",
+      "components": [
+        {
+          "name": "pPNbfh",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "In the last 2 years, has the property been vacant for 365 days or more?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-expect-us-to-defray-all-your-costs-by-31-march-2025",
+          "condition": "REqbHB"
+        },
+        {
+          "path": "/not-eligible/property-vacant-long-duration",
+          "condition": "zwwxkY"
+        }
+      ],
+      "section": "mwumLN",
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/do-you-expect-us-to-defray-all-your-costs-by-31-march-2025",
+      "title": "Do you expect us to defray all your costs by 31 March 2025?",
+      "components": [
+        {
+          "name": "WJoaFR",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Do you expect us to defray all your costs by 31 March 2025?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary",
+          "condition": "xIzxnn"
+        },
+        {
+          "path": "/you-cannot-apply-for-this-funding",
+          "condition": "gVEhwH"
+        }
+      ],
+      "section": "mwumLN",
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/not-eligible/not-a-planning-authority",
+      "title": "You cannot apply for this funding",
+      "components": [
+        {
+          "name": "OgFgQu",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">\nBased on your answer, you’re not eligible to apply for funding to cover the cost of delivering a high street rental auction.</p>\n",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/not-eligible/not-a-combined-authority",
+      "title": "You cannot apply for this funding",
+      "components": [
+        {
+          "name": "tVZzhB",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">\nBased on your answer, you’re not eligible to apply for funding to cover the cost of delivering a high street rental auction.</p>\n\n<p class=\"govuk-body govuk-!\">You must be applying from planning authority or combined authority partnering with a planning authority.</p>\n\nCheck who can apply in the High Street Rental Auctions Fund prospectus"
+        }
+      ],
+      "next": [],
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/not-eligible/not-in-a-designated-location",
+      "title": "You cannot apply for this funding",
+      "components": [
+        {
+          "name": "fXKWGw",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">\nBased on your answer, you’re not eligible to apply for funding to cover the cost of delivering a high street rental auction.</p>\n\n<p class=\"govuk-body govuk-!\">The property must be in a designated high street or town centre.</p>\n\nCheck who can apply in the High Street Rental Auctions Fund prospectus",
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/not-eligible/property-vacant-long-duration",
+      "title": "You cannot apply for this funding",
+      "components": [
+        {
+          "name": "oAnaAw",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">\nBased on your answer, you’re not eligible to apply for funding to cover the cost of delivering a high street rental auction.</p>\n\n<p class=\"govuk-body govuk-!\">The property must have been vacant for 365 days or more in the last 2 years.</p>\n\nCheck who can apply in the High Street Rental Auctions Fund prospectus",
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/not-eligible/lower-vacancy-rate",
+      "title": "You cannot apply for this funding",
+      "components": [
+        {
+          "name": "LpLRZy",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">\nBased on your answer, you’re not eligible to apply for funding to cover the cost of delivering a high street rental auction.</p>\n\n<p class=\"govuk-body govuk-!\">The property must be in a designated high street with a vacancy rate of 8% or higher.</p>\n\nCheck who can apply in the High Street Rental Auctions Fund prospectus",
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "controller": "./pages/continue.js"
+    },
+    {
+      "path": "/you-cannot-apply-for-this-funding",
+      "title": "You cannot apply for this funding",
+      "components": [
+        {
+          "name": "LNXmKd",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">\nBased on your answer, you’re not eligible to apply for funding to cover the cost of delivering a high street rental auction.</p>\n\n<p class=\"govuk-body govuk-!\">We must defray all costs by 31 March 2025.</p>\n\nCheck who can apply in the High Street Rental Auctions Fund prospectus",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/not-eliglible/not-england-local-authority",
+      "title": "You cannot apply for this funding",
+      "components": [
+        {
+          "name": "GuqDsJ",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!\">\nBased on your answer, you’re not eligible to apply for funding to cover the cost of delivering a high street rental auction.</p>\n\n<p class=\"govuk-body govuk-!\">You must be applying from local authority in England.</p>\n\nCheck who can apply in the High Street Rental Auctions Fund prospectus",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/is-it-a-combined-authority-partnering-with-a-planning-authority",
+      "title": "Is it a combined authority partnering with a planning authority?",
+      "components": [
+        {
+          "name": "nzFRGc",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "YesNoField",
+          "title": "Is it a combined authority partnering with a planning authority?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-the-property-in-a-designated-high-street-or-town-centre",
+          "condition": "HJMgWM"
+        },
+        {
+          "path": "/not-eligible/not-a-combined-authority",
+          "condition": "vyEYUT"
+        }
+      ],
+      "section": "mwumLN",
+      "controller": "./pages/continue.js"
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "mwumLN",
+      "title": "Before you start"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "Applying from local authority in england-No",
+      "name": "hwhjge",
+      "value": {
+        "name": "Applying from a local authority in england-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "lHTLBl",
+              "type": "YesNoField",
+              "display": "Are you applying from a local authority in England?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Applying from local authority in England",
+      "name": "bXSKqL",
+      "value": {
+        "name": "Applying from local authority in England",
+        "conditions": [
+          {
+            "field": {
+              "name": "lHTLBl",
+              "type": "YesNoField",
+              "display": "Are you applying from a local authority in England?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Is authority is planning authority",
+      "name": "OxSDmx",
+      "value": {
+        "name": "Is authority is planning authority",
+        "conditions": [
+          {
+            "field": {
+              "name": "uztZUm",
+              "type": "YesNoField",
+              "display": "Is your local authority a planning authority?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "combined authority partnering with a planning authority",
+      "name": "bAaXko",
+      "value": {
+        "name": "combined authority partnering with a planning authority",
+        "conditions": [
+          {
+            "field": {
+              "name": "KaMFvv",
+              "type": "YesNoField",
+              "display": "Is it a combined authority partnering with a planning authority?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "property in a designated high street or town centre",
+      "name": "XgbLXU",
+      "value": {
+        "name": "property in a designated high street or town centre",
+        "conditions": [
+          {
+            "field": {
+              "name": "VJrojB",
+              "type": "YesNoField",
+              "display": "Is the property in a designated high street or town centre?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "vacancy rate in designated high street 8% or higher",
+      "name": "Kkqowe",
+      "value": {
+        "name": "vacancy rate in designated high street 8% or higher",
+        "conditions": [
+          {
+            "field": {
+              "name": "Mhzypt",
+              "type": "YesNoField",
+              "display": "Is the vacancy rate in the designated high street or town centre 8% or higher?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "has the proper been vacant for 365 days or more",
+      "name": "REqbHB",
+      "value": {
+        "name": "has the proper been vacant for 365 days or more",
+        "conditions": [
+          {
+            "field": {
+              "name": "pPNbfh",
+              "type": "YesNoField",
+              "display": "In the last 2 years, has the property been vacant for 365 days or more?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "defray all cost by March 2015",
+      "name": "xIzxnn",
+      "value": {
+        "name": "defray all cost by March 2015",
+        "conditions": [
+          {
+            "field": {
+              "name": "WJoaFR",
+              "type": "YesNoField",
+              "display": "Do you expect us to defray all your costs by 31 March 2025?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "local authority a planning authority-No",
+      "name": "QHGUAo",
+      "value": {
+        "name": "local authority a planning authority-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "uztZUm",
+              "type": "YesNoField",
+              "display": "Is your local authority a planning authority?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "combined authority parterning with planning authority-No",
+      "name": "vJFLLV",
+      "value": {
+        "name": "combined authority parterning with planning authority-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "KaMFvv",
+              "type": "YesNoField",
+              "display": "Is it a combined authority partnering with a planning authority?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "property in a designated high street or town centre-No",
+      "name": "OKnwMX",
+      "value": {
+        "name": "property in a designated high street or town centre-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "VJrojB",
+              "type": "YesNoField",
+              "display": "Is the property in a designated high street or town centre?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "is the property vacant for 365 days or more-No",
+      "name": "zwwxkY",
+      "value": {
+        "name": "is the property vacant for 365 days or more-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "pPNbfh",
+              "type": "YesNoField",
+              "display": "In the last 2 years, has the property been vacant for 365 days or more?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "vacancy rate in the designated high street 8% or higher-No",
+      "name": "jPvjPM",
+      "value": {
+        "name": "vacancy rate in the designated high street 8% or higher-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "Mhzypt",
+              "type": "YesNoField",
+              "display": "Is the vacancy rate in the designated high street or town centre 8% or higher?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "defray all cost by 31 March 2025-No",
+      "name": "gVEhwH",
+      "value": {
+        "name": "defray all cost by 31 March 2025-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "WJoaFR",
+              "type": "YesNoField",
+              "display": "Do you expect us to defray all your costs by 31 March 2025?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Combined authority partnering with local authority",
+      "name": "HJMgWM",
+      "value": {
+        "name": "Combined authority partnering with local authority",
+        "conditions": [
+          {
+            "field": {
+              "name": "nzFRGc",
+              "type": "YesNoField",
+              "display": "Is it a combined authority partnering with a planning authority?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "combined authority partnering with a planning authority-No",
+      "name": "vyEYUT",
+      "value": {
+        "name": "combined authority partnering with a planning authority-No",
+        "conditions": [
+          {
+            "field": {
+              "name": "nzFRGc",
+              "type": "YesNoField",
+              "display": "Is it a combined authority partnering with a planning authority?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "markAsComplete": false
+}

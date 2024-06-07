@@ -62,8 +62,12 @@
 				{% endif %}
 			{% elif page.isRepeatingFieldPageController and not page.isSamePageDisplayMode %}
 			{{ govukButton({ attributes: { id: "submit" }, text: "Add and continue", classes: "govuk-button--secondary" }) }}
-			{% else %}
-				{{ govukButton({ attributes: { id: "submit" }, text: page.saveAndContinueText }) }}
+            {% elif page.isContinuePageController %}
+                {{ govukButton({ attributes: { id: "submit" }, text: page.continueText}) }}
+			{% elif page.isConfirmPageControllerRequest %}
+                {{ govukButton({ attributes: { id: "submit" }, text: page.confirmAndContinueText }) }}
+            {% else %}
+                {{ govukButton({ attributes: { id: "submit" }, text: page.saveAndContinueText }) }}
 			{% endif %}
 		{% endif %}
 	{% endif %}

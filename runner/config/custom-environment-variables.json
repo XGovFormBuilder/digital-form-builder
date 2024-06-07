@@ -54,6 +54,7 @@
   "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64",
   "logoutUrl": "LOGOUT_URL",
   "multifundDashboard": "MULTIFUND_URL",
+  "eligibilityResultUrl": "ELIGIBILITY_RESULT_URL",
   "basicAuthOn": {
     "__name": "BASIC_AUTH_ON",
     "__format": "boolean"

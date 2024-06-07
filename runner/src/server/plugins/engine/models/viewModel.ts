@@ -53,6 +53,8 @@ export class ViewModel {
   backLinkText?: string | undefined;
   containsFileType?: boolean;
   saveAndContinueText: string;
+  confirmAndContinueText?: string;
+  isConfirmPageControllerRequest?: boolean;
   continueText: string;
   footer?: any;
 
@@ -80,9 +82,11 @@ export class ViewModel {
     this.privacyPolicyUrl = config.privacyPolicyUrl;
 
     this.saveAndContinueText = "Save and continue";
+    this.confirmAndContinueText = "Confirm and continue";
 
     if (model?.def?.metadata?.isWelsh) {
       this.saveAndContinueText = "Cadw a pharhau";
+      this.confirmAndContinueText = "cadarnhau a pharhau";
     }
 
     /**

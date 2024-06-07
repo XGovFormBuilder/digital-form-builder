@@ -67,6 +67,7 @@ variables:
   SERVICE_START_PAGE: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/account"
   SINGLE_REDIS: true
   JWT_AUTH_COOKIE_NAME: "fsd_user_token"
+  ELIGIBILITY_RESULT_URL: "https://frontend.${COPILOT_ENVIRONMENT_NAME}.access-funding.test.levellingup.gov.uk/eligibility-result"
 
 secrets:
   RSA256_PUBLIC_KEY_BASE64: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/RSA256_PUBLIC_KEY_BASE64
@@ -113,6 +114,7 @@ environments:
       MULTIFUND_URL: "https://frontend.access-funding.levellingup.gov.uk/account"
       PRIVACY_POLICY_URL: "https://frontend.access-funding.levellingup.gov.uk/privacy"
       SERVICE_START_PAGE: "https://frontend.access-funding.levellingup.gov.uk/account"
+      ELIGIBILITY_RESULT_URL: "https://frontend.access-funding.levellingup.gov.uk/eligibility-result"
     count:
       range: 2-4
       cooldown:

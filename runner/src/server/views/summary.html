@@ -10,6 +10,12 @@
     },
     html: "This is a new service."
   }) }}
+    {% if isConfirmPageControllerRequest %}
+        {{ govukBackLink({
+                href: backLink,
+                text: backLinkText
+            }) }}
+    {% endif %}
 {% endblock %}
 {% block content %}
   <div class="govuk-main-wrapper">
@@ -102,7 +108,11 @@
                     {% if fees and fees.details|length %}
                         Submit and pay
                     {% else %}
-                        {{saveAndContinueText}}
+                        {% if isConfirmPageControllerRequest %}
+                            {{confirmAndContinueText}}
+                        {% else %}
+                            {{saveAndContinueText}}
+                        {% endif %}
                     {% endif %}
                 </button>
             </form>

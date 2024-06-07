@@ -25,6 +25,7 @@ import {
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
 import config from "server/config";
+import { UtilHelper } from "server/plugins/engine/utils/UtilHelper";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -60,6 +61,7 @@ export class PageControllerBase {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
   saveAndContinueText: string;
+  confirmAndContinueText: string;
   continueText: string;
 
   // TODO: pageDef type
@@ -99,10 +101,12 @@ export class PageControllerBase {
     ] = this.components.additionalValidationFunctions;
 
     this.saveAndContinueText = "Save and continue";
+    this.confirmAndContinueText = "Confirm and continue";
     this.continueText = "Continue";
 
     if (model?.def?.metadata?.isWelsh) {
       this.saveAndContinueText = "Cadw a pharhau";
+      this.confirmAndContinueText = "cadarnhau a pharhau";
       this.continueText = "Parhau";
     }
   }
@@ -555,8 +559,16 @@ export class PageControllerBase {
 
       viewModel.backLink =
         state.callback?.returnUrl ?? progress[progress.length - 2];
-      viewModel.backLinkText =
-        this.model.def?.backLinkText ?? "Go back to application overview";
+      if (state["metadata"]["has_eligibility"]) {
+        viewModel.backLinkText = UtilHelper.getBackLinkText(
+          true,
+          this.model.def?.metadata?.isWelsh
+        );
+      } else {
+        viewModel.backLinkText =
+          this.model.def?.backLinkText ??
+          UtilHelper.getBackLinkText(false, this.model.def?.metadata?.isWelsh);
+      }
       return h.view(this.viewName, viewModel);
     };
   }
@@ -1003,7 +1015,8 @@ export class PageControllerBase {
 
     viewModel.backLink = returnUrl ?? progress[progress.length - 2];
     viewModel.backLinkText =
-      this.model.def?.backLinkText ?? "Go back to application overview";
+      this.model.def?.backLinkText ??
+      UtilHelper.getBackLinkText(false, this.model.def?.metadata?.isWelsh);
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
     this.setContactUsDetails(viewModel, request);

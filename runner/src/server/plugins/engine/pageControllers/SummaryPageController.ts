@@ -8,6 +8,7 @@ import {
   RelativeUrl,
 } from "../feedback";
 import config from "server/config";
+import { UtilHelper } from "server/plugins/engine/utils/UtilHelper";
 
 export class SummaryPageController extends PageController {
   /**
@@ -191,7 +192,15 @@ export class SummaryPageController extends PageController {
           }
         }
       });
-
+      if (state["metadata"]["has_eligibility"]) {
+        viewModel.isConfirmPageControllerRequest =
+          state["metadata"]["has_eligibility"];
+        viewModel.backLinkText = UtilHelper.getBackLinkText(
+          true,
+          this.model.def?.metadata?.isWelsh
+        );
+        viewModel.backLink = state.callback?.returnUrl;
+      }
       return h.view("summary", viewModel);
     };
   }

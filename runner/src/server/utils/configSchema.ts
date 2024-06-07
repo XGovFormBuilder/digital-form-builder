@@ -92,6 +92,7 @@ export const configSchema = Joi.object({
   multifundDashboard: Joi.string(),
   basicAuthOn: Joi.boolean().optional(),
   overwriteInitialisedSession: Joi.boolean().optional(),
+  eligibilityResultUrl: Joi.string().optional().allow(""),
 });
 
 export function buildConfig(config) {

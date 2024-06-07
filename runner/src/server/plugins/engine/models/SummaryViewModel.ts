@@ -65,6 +65,7 @@ export class SummaryViewModel extends ViewModel {
     this.markAsCompleteComponent = state.callback?.markAsCompleteComponent;
     this.markAsComplete = state.markAsComplete;
   }
+  backLink?: string;
 
   private processErrors(result, details) {
     this.errors = result.error.details.map((err) => {
