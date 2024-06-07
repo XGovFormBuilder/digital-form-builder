@@ -16,9 +16,6 @@ export class SummaryPageController extends PageController {
     request: HapiRequest,
     h: HapiResponseToolkit
   ) {
-
-
-
     if (viewModel.errors) {
       const errorToFix = viewModel.errors[0];
       const { path } = errorToFix;
@@ -30,7 +27,6 @@ export class SummaryPageController extends PageController {
       const pageWithError = this.model.pages.filter((page) => {
         // Existing error filtering logic
       })[0];
-
 
       if (pageWithError) {
         const params = {
@@ -55,8 +51,6 @@ export class SummaryPageController extends PageController {
    * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`,
    */
   makeGetRouteHandler() {
-
-
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       this.langFromRequest(request);
 
@@ -68,7 +62,22 @@ export class SummaryPageController extends PageController {
         return this.makePostRouteHandler()(request, h);
       }
       const state = await cacheService.getState(request);
+      const progress = state.progress || [];
+      const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
+
       const viewModel = new SummaryViewModel(this.title, model, state, request);
+
+      /**
+       * used for when a user clicks the "back" link. Progress is stored in the state. This is a safer alternative to running javascript that pops the history `onclick`.
+       */
+      const lastVisited = progress[progress.length - 1];
+      if (!lastVisited || !lastVisited.startsWith(currentPath)) {
+        if (progress[progress.length - 2] === currentPath) {
+          progress.pop();
+        } else {
+          progress.push(currentPath);
+        }
+      }
 
       if (viewModel.endPage) {
         return redirectTo(
