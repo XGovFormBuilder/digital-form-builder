@@ -16,6 +16,7 @@ import {
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
 import { HapiRequest } from "src/server/types";
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
+import { Outputs } from "server/plugins/engine/models/submission/Outputs";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -111,40 +112,8 @@ export class SummaryViewModel {
        * Skip outputs if this is a callback
        */
       if (def.outputs && !state.callback) {
-        this._outputs = def.outputs.map((output) => {
-          switch (output.type) {
-            case "notify":
-              return {
-                type: "notify",
-                outputData: NotifyModel(
-                  model,
-                  output.outputConfiguration,
-                  state
-                ),
-              };
-            case "email":
-              return {
-                type: "email",
-                outputData: EmailModel(
-                  model,
-                  output.outputConfiguration,
-                  this._webhookData
-                ),
-              };
-            case "webhook":
-              return {
-                type: "webhook",
-                outputData: {
-                  url: output.outputConfiguration.url,
-                  sendAdditionalPayMetadata:
-                    output.outputConfiguration.sendAdditionalPayMetadata,
-                  allowRetry: output.outputConfiguration.allowRetry,
-                },
-              };
-            default:
-              return {};
-          }
-        });
+        const outputs = new Outputs(model, state);
+        this._outputs = outputs.outputs;
       }
     }
 
