@@ -7,6 +7,7 @@ const { suite, test } = lab;
 import json from "./WebhookModel.test.json";
 import { FormModel, SummaryViewModel } from "server/plugins/engine/models";
 import { WebhookModel } from "server/plugins/engine/models/submission";
+import { newWebhookModel } from "server/plugins/engine/models/submission/WebhookModel";
 const form = new FormModel(json, {});
 
 const state = {
@@ -19,6 +20,7 @@ const state = {
     phoneNumber: "123",
     emailAddress: "a@b",
     languagesProvided: ["fr", "it"],
+    contactDate: "2024-12-25T00:00:00.000Z",
   },
   applicantOneDetails: {
     firstName: "Winston",
@@ -66,6 +68,10 @@ suite("WebhookModel", () => {
       state
     );
     expect(webhookModel).to.equal(expectedWebhookData);
+  });
+
+  test("newWebhookModel returns correct webhook model", () => {
+    expect(newWebhookModel(form, state)).to.equal(expectedWebhookData);
   });
 });
 
@@ -203,6 +209,12 @@ const expectedWebhookData = {
           title: "Your email address",
           type: "text",
           answer: "a@b",
+        },
+        {
+          answer: "2024-12-25",
+          key: "contactDate",
+          title: "Contact date",
+          type: "date",
         },
       ],
       index: 0,

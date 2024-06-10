@@ -422,6 +422,16 @@
             "required": true
           },
           "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "contactDate",
+          "title": "Contact date",
+          "hint": "Tell us when we should contact you",
+          "options": {
+            "required": true
+          },
+          "schema": {}
         }
       ],
       "next": [
