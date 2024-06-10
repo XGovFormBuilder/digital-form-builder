@@ -66,7 +66,7 @@ export class SummaryViewModel {
     request: HapiRequest
   ) {
     this.pageTitle = pageTitle;
-    const { relevantPages, endPage } = this.getRelevantPages(model, state);
+    const { relevantPages, endPage } = model.getRelevantPages(state);
     const details = this.summaryDetails(request, model, state, relevantPages);
     const { def } = model;
     // @ts-ignore
@@ -267,26 +267,6 @@ export class SummaryViewModel {
     });
 
     return details;
-  }
-
-  private getRelevantPages(model: FormModel, state: FormSubmissionState) {
-    let nextPage = model.startPage;
-    const relevantPages: any[] = [];
-    let endPage = null;
-
-    while (nextPage != null) {
-      if (nextPage.hasFormComponents) {
-        relevantPages.push(nextPage);
-      } else if (
-        !nextPage.hasNext &&
-        !(nextPage instanceof SummaryPageController)
-      ) {
-        endPage = nextPage;
-      }
-      nextPage = nextPage.getNextPage(state, true);
-    }
-
-    return { relevantPages, endPage };
   }
 
   get validatedWebhookData() {
