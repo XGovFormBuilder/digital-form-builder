@@ -18,6 +18,7 @@ const state = {
     numberOfApplicants: 2,
     phoneNumber: "123",
     emailAddress: "a@b",
+    languagesProvided: ["fr", "it"],
   },
   applicantOneDetails: {
     firstName: "Winston",
@@ -48,7 +49,7 @@ const summaryViewModel = new SummaryViewModel(
   }
 );
 
-suite.only("WebhookModel", () => {
+suite("WebhookModel", () => {
   test("SummaryViewModel returns correct WebhookModel", () => {
     const webhookData = summaryViewModel._webhookData;
     expect(webhookData).to.equal(expectedWebhookData);
@@ -173,6 +174,19 @@ const expectedWebhookData = {
         },
       ],
       index: 0,
+    },
+    {
+      category: "applicantDetails",
+      fields: [
+        {
+          answer: ["fr", "it"],
+          key: "languagesProvided",
+          title: "Language",
+          type: "list",
+        },
+      ],
+      index: 0,
+      question: "Which languages do you speak?",
     },
     {
       category: "applicantDetails",

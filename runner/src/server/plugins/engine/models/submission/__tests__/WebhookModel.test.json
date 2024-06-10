@@ -143,7 +143,7 @@
           "condition": "moreThanOneApplicant"
         },
         {
-          "path": "/contact-details"
+          "path": "/which-languages-do-you-speak"
         }
       ],
       "title": "Address"
@@ -217,7 +217,7 @@
           "condition": "moreThanTwoApplicants"
         },
         {
-          "path": "/contact-details"
+          "path": "/which-languages-do-you-speak"
         }
       ],
       "title": "Address"
@@ -291,7 +291,7 @@
           "condition": "moreThanThreeApplicants"
         },
         {
-          "path": "/contact-details"
+          "path": "/which-languages-do-you-speak"
         }
       ],
       "title": "Address"
@@ -361,10 +361,44 @@
       ],
       "next": [
         {
-          "path": "/contact-details"
+          "path": "/which-languages-do-you-speak"
         }
       ],
       "title": "Address"
+    },
+    {
+      "path": "/which-languages-do-you-speak",
+      "title": "Which languages do you speak?",
+      "section": "applicantDetails",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": true,
+          "hideRowTitles": true
+        },
+        "customText": {
+          "separatePageTitle": "You have selected these languages"
+        }
+      },
+      "components": [
+        {
+          "name": "languagesProvided",
+          "options": {
+            "hideTitle": true
+          },
+          "list": "languages",
+          "type": "AutocompleteField",
+          "title": "Language",
+          "hint": "Start typing and select a language. Add each language separately. Include all the languages you provide a service in, apart from English.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ]
     },
     {
       "path": "/contact-details",
