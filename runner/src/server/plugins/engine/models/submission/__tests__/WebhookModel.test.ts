@@ -7,7 +7,6 @@ const { suite, test } = lab;
 import json from "./WebhookModel.test.json";
 import { FormModel, SummaryViewModel } from "server/plugins/engine/models";
 import { WebhookModel } from "server/plugins/engine/models/submission";
-import { newWebhookModel } from "server/plugins/engine/models/submission/WebhookModel";
 const form = new FormModel(json, {});
 
 const state = {
@@ -57,21 +56,8 @@ suite("WebhookModel", () => {
     expect(webhookData).to.equal(expectedWebhookData);
   });
 
-  test("WebhookModel returns correct webhook model", () => {
-    const { relevantPages } = form.getRelevantPages({ ...state });
-    const details = summaryViewModel.details;
-    const webhookModel = WebhookModel(
-      relevantPages,
-      details,
-      form,
-      undefined,
-      state
-    );
-    expect(webhookModel).to.equal(expectedWebhookData);
-  });
-
   test("newWebhookModel returns correct webhook model", () => {
-    expect(newWebhookModel(form, state)).to.equal(expectedWebhookData);
+    expect(WebhookModel(form, state)).to.equal(expectedWebhookData);
   });
 });
 

@@ -3,7 +3,7 @@ import { FormSubmissionState } from "server/plugins/engine/types";
 import {
   EmailModel,
   FeesModel,
-  newWebhookModel,
+  WebhookModel,
   NotifyModel,
 } from "server/plugins/engine/models/submission";
 import { WebhookData } from "server/plugins/engine/models/types";
@@ -22,7 +22,7 @@ export class Outputs {
 
   constructor(model: FormModel, state: FormSubmissionState) {
     this.fees = FeesModel(model, state);
-    this.webhookData = newWebhookModel(model, state);
+    this.webhookData = WebhookModel(model, state);
 
     const outputDefs = model.def.outputs;
     this.outputs = outputDefs.map((output) => {

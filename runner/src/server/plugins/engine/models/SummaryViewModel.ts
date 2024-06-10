@@ -53,7 +53,6 @@ export class SummaryViewModel {
     | undefined;
 
   _outputs: any; // TODO
-  _payApiKey: FormDefinition["payApiKey"];
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
   showPaymentSkippedWarningPage: boolean = false;
@@ -71,7 +70,6 @@ export class SummaryViewModel {
     this.declaration = def.declaration;
     // @ts-ignore
     this.skipSummary = def.skipSummary;
-    this._payApiKey = def.feeOptions?.payApiKey ?? def.payApiKey;
     this.endPage = endPage;
     this.feedbackLink =
       def.feedback?.url ??
@@ -261,18 +259,6 @@ export class SummaryViewModel {
   set outputs(value) {
     this._outputs = value;
   }
-
-  get payApiKey() {
-    if (isMultipleApiKey(this._payApiKey)) {
-      return (
-        this._payApiKey[config.apiEnv] ??
-        this._payApiKey.test ??
-        this._payApiKey.production
-      );
-    }
-    return this._payApiKey;
-  }
-
   /**
    * If a declaration is defined, add this to {@link this._webhookData} as a question has answered `true` to
    */
