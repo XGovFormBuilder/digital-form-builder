@@ -559,7 +559,7 @@ export class PageControllerBase {
 
       viewModel.backLink =
         state.callback?.returnUrl ?? progress[progress.length - 2];
-      if (state["metadata"]["has_eligibility"]) {
+      if (state["metadata"] && state["metadata"]["has_eligibility"]) {
         viewModel.backLinkText = UtilHelper.getBackLinkText(
           true,
           this.model.def?.metadata?.isWelsh

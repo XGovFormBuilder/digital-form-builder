@@ -1,5 +1,5 @@
 {
-  "metadata": {},
+  "metadata": { "has_eligibility": false },
   "startPage": "/first-page",
   "pages": [
     {
@@ -103,10 +103,8 @@
       "title": "Named Section"
     }
   ],
-  "conditions": [
-  ],
-  "fees": [
-  ],
+  "conditions": [],
+  "fees": [],
   "outputs": [
     {
       "name": "webhook",
@@ -118,6 +116,6 @@
     }
   ],
   "version": 2,
-  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
+  "payApiKey": { "test": "test_api_key", "production": "production_api_key" },
   "skipSummary": false
 }

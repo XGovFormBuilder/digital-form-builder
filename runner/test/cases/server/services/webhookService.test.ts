@@ -30,7 +30,7 @@ suite("Server WebhookService Service", () => {
     const serverMock = { logger: loggerSpy };
     const webHookeService = new WebhookService(serverMock);
     const result = await webHookeService.postRequest("/url", {});
-    expect(result).to.equal("1234");
+    expect(result).to.equal({ reference: "1234" });
   });
 
   test("Webhook returns correct reference when payload is object", async () => {

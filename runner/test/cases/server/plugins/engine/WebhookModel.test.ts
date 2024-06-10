@@ -143,7 +143,7 @@ suite("WebhookModel", () => {
       formModel
     );
     expect(parsed).to.equal({
-      metadata: {},
+      metadata: { has_eligibility: false },
       name: "My Service",
       questions: [
         {

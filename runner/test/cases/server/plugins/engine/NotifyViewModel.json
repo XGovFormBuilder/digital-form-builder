@@ -1,5 +1,5 @@
 {
-  "metadata": {},
+  "metadata": { "has_eligibility": false },
   "startPage": "/first-page",
   "pages": [
     {
@@ -104,8 +104,7 @@
       "value": "aSection.caz==2"
     }
   ],
-  "fees": [
-  ],
+  "fees": [],
   "outputs": [
     {
       "name": "notify",
@@ -118,10 +117,7 @@
         "templateId": "some-template-id",
         "emailField": "aSection.emailAddress",
         "addReferencesToPersonalisation": true,
-        "personalisation": [
-          "aSection.name",
-          "nameIsJen"
-        ],
+        "personalisation": ["aSection.name", "nameIsJen"],
         "emailReplyToIdConfiguration": [
           {
             "emailReplyToId": "default-email-id"
@@ -135,6 +131,6 @@
     }
   ],
   "version": 2,
-  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
+  "payApiKey": { "test": "test_api_key", "production": "production_api_key" },
   "skipSummary": false
 }
