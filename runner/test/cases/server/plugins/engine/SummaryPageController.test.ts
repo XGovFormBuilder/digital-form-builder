@@ -12,7 +12,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { afterEach, suite, test } = lab;
 
-suite("SummaryViewModel", () => {
+suite("SummaryPageController", () => {
   afterEach(() => {
     sinon.restore();
   });
@@ -21,24 +21,12 @@ suite("SummaryViewModel", () => {
     sinon.stub(config, "apiEnv").value("test");
 
     const formModel = new FormModel(form, {});
-    const viewModel = new SummaryViewModel(
-      "summary",
-      formModel,
-      {
-        progress: [],
-      },
-      {
-        app: {
-          location: "/",
-        },
-        query: {},
-        state: {
-          cookie_policy: {},
-        },
-      }
+    const summaryPage = formModel.pages.find(
+      (page) => page.path === "/summary"
     );
-    expect(viewModel.payApiKey).to.equal("test_api_key");
+
+    expect(summaryPage.payApiKey).to.equal("test_api_key");
     sinon.stub(config, "apiEnv").value("production");
-    expect(viewModel.payApiKey).to.equal("production_api_key");
+    expect(summaryPage.payApiKey).to.equal("production_api_key");
   });
 });
