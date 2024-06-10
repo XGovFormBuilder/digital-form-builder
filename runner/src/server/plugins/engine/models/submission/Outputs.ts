@@ -16,12 +16,10 @@ import {
 import { OutputData } from "server/plugins/engine/models/submission/types";
 
 export class Outputs {
-  fees: FeesModel | undefined;
   webhookData: WebhookData;
   outputs: (OutputData | unknown)[];
 
   constructor(model: FormModel, state: FormSubmissionState) {
-    this.fees = FeesModel(model, state);
     this.webhookData = WebhookModel(model, state);
 
     const outputDefs = model.def.outputs;
