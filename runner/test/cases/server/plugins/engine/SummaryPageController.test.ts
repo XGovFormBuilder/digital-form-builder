@@ -1,10 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-import {
-  FormModel,
-  SummaryViewModel,
-} from "../../../../../src/server/plugins/engine/models";
+import { FormModel } from "../../../../../src/server/plugins/engine/models";
 import config from "../../../../../src/server/config";
 import form from "./SummaryViewModel.json";
 const { expect } = Code;

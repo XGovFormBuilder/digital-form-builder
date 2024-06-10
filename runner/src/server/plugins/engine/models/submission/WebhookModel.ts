@@ -56,6 +56,8 @@ function pagesToQuestions(
   state: FormSubmissionState,
   index = 0
 ) {
+  // TODO - index should come from the current iteration of the section.
+
   let sectionState = state;
   if (page.section) {
     sectionState = state[page.section.name];

@@ -2,7 +2,6 @@ import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import {
   EmailModel,
-  FeesModel,
   WebhookModel,
   NotifyModel,
 } from "server/plugins/engine/models/submission";
