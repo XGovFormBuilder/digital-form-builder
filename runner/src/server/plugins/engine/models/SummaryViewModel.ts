@@ -4,12 +4,12 @@ import { FormModel } from "./FormModel";
 import { feedbackReturnInfoKey, redirectUrl } from "../helpers";
 import { decodeFeedbackContextInfo } from "../feedback";
 import { webhookSchema } from "server/schemas/webhookSchema";
-import { SummaryPageController } from "../pageControllers";
 import { FormSubmissionState } from "../types";
 import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
 import {
   EmailModel,
   FeesModel,
+  webhookModel,
   NotifyModel,
   WebhookModel,
 } from "server/plugins/engine/models/submission";

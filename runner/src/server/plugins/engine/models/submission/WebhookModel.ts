@@ -8,6 +8,7 @@ import { FeesModel } from "server/plugins/engine/models/submission/FeesModel";
 import { FormComponent } from "server/plugins/engine/components";
 import { Field } from "server/schemas/types";
 import { PageControllerBase } from "server/plugins/engine/pageControllers";
+import { SelectionControlField } from "server/plugins/engine/components/SelectionControlField";
 
 function answerFromDetailItem(item) {
   switch (item.dataType) {
@@ -118,7 +119,18 @@ export function newWebhookModel(model: FormModel, state: FormSubmissionState) {
 }
 
 function createToFieldsMap(state: FormSubmissionState) {
-  return function (component: FormComponent): Field {
+  return function (component: FormComponent | SelectionControlField): Field {
+    if (component.items?.childrenCollection?.formItems) {
+      const toField = createToFieldsMap(state, component);
+
+      /**
+       * This is currently deprecated whilst GDS fix a known issue with accessibility and conditionally revealed fields
+       */
+      const nestedComponent = component?.items?.childrenCollection.formItems;
+      const nestedFields = nestedComponent?.map(toField);
+
+      return nestedFields;
+    }
     return {
       key: component.name,
       title: component.title,
@@ -144,7 +156,7 @@ function pagesToQuestions(
   return {
     category: page.section?.name,
     question: page.title,
-    fields: components.map(toFields),
+    fields: components.flatMap(toFields),
     index,
   };
 }
