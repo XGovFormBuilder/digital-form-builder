@@ -163,6 +163,7 @@ export type FeeOptions = {
   customPayErrorMessage?: string;
   showPaymentSkippedWarningPage: boolean;
   additionalReportingColumns?: AdditionalReportingColumn[];
+  payApiKey?: string | MultipleApiKeys | undefined;
 };
 
 /**

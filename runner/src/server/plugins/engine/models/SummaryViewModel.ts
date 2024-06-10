@@ -7,10 +7,7 @@ import { webhookSchema } from "server/schemas/webhookSchema";
 import { FormSubmissionState } from "../types";
 import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
 import {
-  EmailModel,
   FeesModel,
-  webhookModel,
-  NotifyModel,
   WebhookModel,
 } from "server/plugins/engine/models/submission";
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
@@ -94,26 +91,20 @@ export class SummaryViewModel {
     } else {
       this.fees = FeesModel(model, state);
 
-      this._webhookData = WebhookModel(
-        relevantPages,
-        details,
-        model,
-        this.fees,
-        model.getContextState(state)
-      );
-      this._webhookData = this.addFeedbackSourceDataToWebhook(
-        this._webhookData,
-        model,
-        request
-      );
-
       /**
        * If there outputs defined, parse the state data for the appropriate outputs.
        * Skip outputs if this is a callback
        */
       if (def.outputs && !state.callback) {
+        // TODO: move to controller
         const outputs = new Outputs(model, state);
         this._outputs = outputs.outputs;
+        this._webhookData = outputs.webhookData;
+        this._webhookData = this.addFeedbackSourceDataToWebhook(
+          this._webhookData,
+          model,
+          request
+        );
       }
     }
 
