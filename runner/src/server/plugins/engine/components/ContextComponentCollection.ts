@@ -34,13 +34,7 @@ export class ContextComponentCollection extends ComponentCollection {
     const formData = {};
 
     this.items.forEach((item: ContextComponent) => {
-      const path = `${item.section ?? ""}${item.section ? "." : ""}${
-        item.name
-      }`;
-      const value = reach(state, path);
-      if (value) {
-        _.set(formData, path, value);
-      }
+      Object.assign(formData, item.getFormDataFromState(state));
     });
 
     return formData;

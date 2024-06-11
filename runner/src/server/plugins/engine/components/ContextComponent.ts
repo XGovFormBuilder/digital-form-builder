@@ -2,6 +2,7 @@ import { FormComponent } from "server/plugins/engine/components/FormComponent";
 import { ComponentDef } from "@xgovformbuilder/model";
 import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
+import _ from "lodash";
 
 export class ContextComponent extends FormComponent {
   section: string;
@@ -14,6 +15,7 @@ export class ContextComponent extends FormComponent {
     const name = this.name;
     const section = this.section;
     let path = "";
+    const result = {};
 
     if (section && section in state) {
       path = `${section}.`;
@@ -23,9 +25,8 @@ export class ContextComponent extends FormComponent {
     }
 
     if (name in state) {
-      return {
-        [`${path}${name}`]: this.getFormValueFromState(state),
-      };
+      _.set(result, `${path}${name}`, this.getFormValueFromState(state));
+      return result;
     }
 
     return undefined;
