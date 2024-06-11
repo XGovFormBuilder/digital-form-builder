@@ -7,6 +7,7 @@ import { FormComponent } from "server/plugins/engine/components";
 import { Field } from "server/schemas/types";
 import { PageControllerBase } from "server/plugins/engine/pageControllers";
 import { SelectionControlField } from "server/plugins/engine/components/SelectionControlField";
+import nunjucks from "nunjucks";
 export function WebhookModel(model: FormModel, state: FormSubmissionState) {
   let englishName = `${config.serviceName} ${model.basePath}`;
 
@@ -66,9 +67,13 @@ function pagesToQuestions(
   const toFields = createToFieldsMap(sectionState);
   const components = page.components.formItems;
 
+  const pageTitle = nunjucks.renderString(page.title.en ?? page.title, {
+    ...state,
+  });
+
   return {
     category: page.section?.name,
-    question: page.title,
+    question: pageTitle,
     fields: components.flatMap(toFields),
     index,
   };

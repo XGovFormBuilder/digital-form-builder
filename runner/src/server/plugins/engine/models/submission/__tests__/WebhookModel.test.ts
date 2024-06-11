@@ -59,6 +59,20 @@ suite("WebhookModel", () => {
   test("returns correct webhook model", () => {
     expect(WebhookModel(form, state)).to.equal(expectedWebhookData);
   });
+
+  test("templated page titles can are rendered in question", () => {
+    const modifiedForm = new FormModel(json, {});
+    const page = modifiedForm.pages.find(
+      (page) => page.title === "Applicant 1"
+    );
+    page.title =
+      "Applicant 1 (has UK passport: {{ checkBeforeYouStart.ukPassport }})";
+    const webhookModel = WebhookModel(modifiedForm, state);
+    const modifiedQuestion = webhookModel.questions.find(
+      (question) => question.title === "Applicant 1 (has UK passport: true)"
+    );
+    expect(modifiedQuestion).exists();
+  });
 });
 
 const expectedWebhookData = {
