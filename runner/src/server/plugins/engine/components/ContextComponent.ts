@@ -5,7 +5,7 @@ import { FormSubmissionState } from "server/plugins/engine/types";
 import _ from "lodash";
 
 export class ContextComponent extends FormComponent {
-  section: string;
+  section: string | undefined;
   constructor(def: ComponentDef, model: FormModel) {
     super(def, model);
     this.section = def.section;
