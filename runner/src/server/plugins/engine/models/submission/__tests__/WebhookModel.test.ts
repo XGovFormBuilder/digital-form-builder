@@ -69,7 +69,7 @@ suite("WebhookModel", () => {
       "Applicant 1 (has UK passport: {{ checkBeforeYouStart.ukPassport }})";
     const webhookModel = WebhookModel(modifiedForm, state);
     const modifiedQuestion = webhookModel.questions.find(
-      (question) => question.title === "Applicant 1 (has UK passport: true)"
+      (question) => question.question === "Applicant 1 (has UK passport: true)"
     );
     expect(modifiedQuestion).exists();
   });
