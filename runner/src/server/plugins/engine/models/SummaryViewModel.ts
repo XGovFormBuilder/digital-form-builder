@@ -84,6 +84,15 @@ export class SummaryViewModel {
       this.processErrors(result, details);
     } else {
       this.fees = FeesModel(model, state);
+      const outputs = new Outputs(model, state);
+
+      // TODO: move to controller
+      this._webhookData = outputs.webhookData;
+      this._webhookData = this.addFeedbackSourceDataToWebhook(
+        this._webhookData,
+        model,
+        request
+      );
 
       /**
        * If there outputs defined, parse the state data for the appropriate outputs.
@@ -91,14 +100,7 @@ export class SummaryViewModel {
        */
       if (def.outputs && !state.callback) {
         // TODO: move to controller
-        const outputs = new Outputs(model, state);
         this._outputs = outputs.outputs;
-        this._webhookData = outputs.webhookData;
-        this._webhookData = this.addFeedbackSourceDataToWebhook(
-          this._webhookData,
-          model,
-          request
-        );
       }
     }
 
