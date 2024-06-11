@@ -1,11 +1,11 @@
 import { FormComponent } from "server/plugins/engine/components/FormComponent";
-import { ComponentDef } from "@xgovformbuilder/model";
+import { ComponentDef, Page } from "@xgovformbuilder/model";
 import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import _ from "lodash";
 
 export class ContextComponent extends FormComponent {
-  section: string | undefined;
+  section: Page["section"];
   constructor(def: ComponentDef, model: FormModel) {
     super(def, model);
     this.section = def.section;
