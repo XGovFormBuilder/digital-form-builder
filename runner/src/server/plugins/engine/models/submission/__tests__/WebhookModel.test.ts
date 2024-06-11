@@ -56,7 +56,7 @@ suite("WebhookModel", () => {
     expect(webhookData).to.equal(expectedWebhookData);
   });
 
-  test("newWebhookModel returns correct webhook model", () => {
+  test("returns correct webhook model", () => {
     expect(WebhookModel(form, state)).to.equal(expectedWebhookData);
   });
 });
