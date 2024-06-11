@@ -23,6 +23,7 @@ export enum ComponentTypeEnum {
   Details = "Details",
   FlashCard = "FlashCard",
   List = "List",
+  ContextComponent = "ContextComponent",
 }
 
 export type ComponentType =
@@ -50,7 +51,8 @@ export type ComponentType =
   | "Details"
   | "FlashCard"
   | "List"
-  | "WebsiteField";
+  | "WebsiteField"
+  | "ContextComponent";
 
 export type ComponentSubType = "field" | "content";
 
@@ -310,6 +312,12 @@ export interface SelectFieldComponent extends ListFieldBase {
   subType?: "listField";
 }
 
+export interface ContextComponent extends ListFieldBase {
+  type: "ContextComponent";
+  options: ListFieldBase["options"];
+  section?: string;
+}
+
 export type ComponentDef =
   | InsetTextComponent
   | AutocompleteFieldComponent
@@ -335,7 +343,8 @@ export type ComponentDef =
   | TimeFieldComponent
   | UkAddressFieldComponent
   | YesNoFieldComponent
-  | WebsiteFieldComponent;
+  | WebsiteFieldComponent
+  | ContextComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
