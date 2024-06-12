@@ -79,6 +79,8 @@ export class SummaryPageController extends PageController {
         }
       }
 
+      await cacheService.mergeState(request, { progress });
+
       if (viewModel.endPage) {
         return redirectTo(
           request,
