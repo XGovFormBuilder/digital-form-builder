@@ -62,22 +62,7 @@ export class SummaryPageController extends PageController {
         return this.makePostRouteHandler()(request, h);
       }
       const state = await cacheService.getState(request);
-      const progress = state.progress || [];
-      const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
-
       const viewModel = new SummaryViewModel(this.title, model, state, request);
-
-      /**
-       * used for when a user clicks the "back" link. Progress is stored in the state. This is a safer alternative to running javascript that pops the history `onclick`.
-       */
-      const lastVisited = progress[progress.length - 1];
-      if (!lastVisited || !lastVisited.startsWith(currentPath)) {
-        if (progress[progress.length - 2] === currentPath) {
-          progress.pop();
-        } else {
-          progress.push(currentPath);
-        }
-      }
 
       if (viewModel.endPage) {
         return redirectTo(
