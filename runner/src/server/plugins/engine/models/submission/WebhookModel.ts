@@ -32,12 +32,14 @@ export function WebhookModel(model: FormModel, state: FormSubmissionState) {
 
 function createToFieldsMap(state: FormSubmissionState) {
   return function (component: FormComponent | SelectionControlField): Field {
+    // @ts-ignore - This block of code should not be hit since childrenCollection no
     if (component.items?.childrenCollection?.formItems) {
-      const toField = createToFieldsMap(state, component);
+      const toField = createToFieldsMap(state);
 
       /**
        * This is currently deprecated whilst GDS fix a known issue with accessibility and conditionally revealed fields
        */
+      // @ts-ignore
       const nestedComponent = component?.items?.childrenCollection.formItems;
       const nestedFields = nestedComponent?.map(toField);
 
