@@ -53,6 +53,7 @@ export class SummaryViewModel {
         message: string;
       }[]
     | undefined;
+  backLink?: string;
 
   _outputs: any; // TODO
   _payApiKey: FormDefinition["payApiKey"];
@@ -67,6 +68,7 @@ export class SummaryViewModel {
   ) {
     this.pageTitle = pageTitle;
     this.name = model.name;
+    this.backLink = state?.progress?.[state?.progress.length - 1];
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
     const { def } = model;
