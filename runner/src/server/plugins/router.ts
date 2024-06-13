@@ -145,18 +145,23 @@ export default {
           }
 
           let startPage = "/";
+          let name = "";
 
           const { referer } = request.headers;
+          console.log("🚀 ~ referer", referer)
 
           if (referer) {
-            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
+            const match = referer.match(/https?:\/\/[^/]+\/([^/]+)(\/([^/]+))?.*/);
             if (match && match.length > 1) {
               startPage = `/${match[1]}`;
+              name = (match[1].split(/(?=[A-Z])/)).toString()
+              name = (name[0]+name.slice(1).toLowerCase()).replaceAll(",", " ")
             }
           }
-
+      
           return h.view("timeout", {
             startPage,
+            name
           });
         },
       });
