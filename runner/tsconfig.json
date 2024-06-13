@@ -15,7 +15,8 @@
       "dom",
       "ES2020.Promise",
       "ES2019.Object",
-      "ES2019.Array"
+      "ES2019.Array",
+      "ES2021.String"
     ],
     "skipLibCheck": true
   },
