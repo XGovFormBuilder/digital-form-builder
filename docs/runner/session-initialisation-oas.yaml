@@ -1,0 +1,143 @@
+openapi: 3.0.0
+info:
+  title: Runner - initialise session
+  version: 1.0.0
+servers:
+  - url: http://localhost:3009
+
+components:
+  schemas:
+    CallbackOptions:
+      type: object
+      properties:
+        callbackUrl:
+          description: The URL to send the PUT request to, after the user has completed the form
+          type: string
+        redirectPath:
+          description: Which page to send the user to, when after they've activated the session. Defaults to /{formId}/summary
+          type: string
+        message:
+          description: What to display at the top of the summary page
+          type: string
+        customText:
+          description: What to display on the application complete page. It mirrors the ConfirmationPage["customText"] schema.
+          type: object
+          properties:
+            paymentSkipped:
+              description: Setting to false disables this string from rendering on the application complete page.
+              oneOf:
+                - type: boolean
+                - type: string
+            nextSteps:
+              description: Setting to false disables this string from rendering on the application complete page.
+              oneOf:
+                - type: boolean
+                - type: string
+        components:
+          description: Any additional content components to display on the application complete page. It mirrors the ConfirmationPage["components"] schema.
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              options:
+                type: object
+              type:
+                type: string
+              content:
+                type: string
+              schema:
+                type: object
+      required:
+        - callbackUrl
+
+    Question:
+      type: object
+      properties:
+        question:
+          type: string
+        category:
+          type: string
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              answer:
+                oneOf:
+                  - type: string
+                  - type: boolean
+                  - type: number
+            required:
+              - key
+              - answer
+
+    Metadata:
+      type: object
+
+paths:
+  /sessions/{formId}:
+    post:
+      summary: Submit a session with options and questions
+      parameters:
+        - name: formId
+          in: path
+          description: This must match the form JSONs' filename
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                options:
+                  $ref: "#/components/schemas/CallbackOptions"
+                questions:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Question"
+                metadata:
+                  $ref: "#/components/schemas/Metadata"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "404":
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "403":
+          description: Callback URL not allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "400":
+          description: Both htmlMessage and message were provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
