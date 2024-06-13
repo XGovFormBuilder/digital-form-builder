@@ -1,5 +1,5 @@
 name: Deploy to AWS
-run-name: AWS Deploy ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || (github.ref == 'refs/heads/main' && 'Dev-Test-UAT-Prod' || 'Dev') }}
+run-name: ${{ github.event_name == 'workflow_dispatch' && format('Deploy to {0}', github.event.inputs.environment) || (github.ref == 'refs/heads/main' && 'Deploy to Test-UAT-Prod' || 'Build & Unit Test') }}
 
 permissions:
   packages: write
