@@ -12,7 +12,11 @@ import {
 } from "@xgovformbuilder/model";
 
 import { FormSubmissionState } from "../types";
-import { PageControllerBase, getPageController } from "../pageControllers";
+import {
+  PageControllerBase,
+  getPageController,
+  SummaryPageController,
+} from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
 import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
@@ -254,5 +258,25 @@ export class FormModel {
 
   getContextState(state: FormSubmissionState) {
     return this.fieldsForContext.getFormDataFromState(state);
+  }
+
+  getRelevantPages(state: FormSubmissionState) {
+    let nextPage = this.startPage;
+    const relevantPages: any[] = [];
+    let endPage = null;
+
+    while (nextPage != null) {
+      if (nextPage.hasFormComponents) {
+        relevantPages.push(nextPage);
+      } else if (
+        !nextPage.hasNext &&
+        !(nextPage instanceof SummaryPageController)
+      ) {
+        endPage = nextPage;
+      }
+      nextPage = nextPage.getNextPage(state, true);
+    }
+
+    return { relevantPages, endPage };
   }
 }

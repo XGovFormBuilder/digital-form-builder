@@ -1,90 +1,104 @@
-import { DetailItem } from "../types";
 import { format } from "date-fns";
 import config from "server/config";
+import { FormModel } from "server/plugins/engine/models";
+import { FormSubmissionState } from "server/plugins/engine/types";
+import { FeesModel } from "server/plugins/engine/models/submission/FeesModel";
+import { FormComponent } from "server/plugins/engine/components";
+import { Field } from "server/schemas/types";
+import { PageControllerBase } from "server/plugins/engine/pageControllers";
+import { SelectionControlField } from "server/plugins/engine/components/SelectionControlField";
 import nunjucks from "nunjucks";
-
-function answerFromDetailItem(item) {
-  switch (item.dataType) {
-    case "list":
-      return item.rawValue;
-    case "date":
-      return format(new Date(item.rawValue), "yyyy-MM-dd");
-    case "monthYear":
-      const [month, year] = Object.values(item.rawValue);
-      return format(new Date(`${year}-${month}-1`), "yyyy-MM");
-    default:
-      return item.value;
-  }
-}
-
-function detailItemToField(item: DetailItem) {
-  return {
-    key: item.name,
-    title: item.title,
-    type: item.dataType,
-    answer: answerFromDetailItem(item),
-  };
-}
-
-export function WebhookModel(
-  relevantPages,
-  details,
-  model,
-  fees,
-  contextState
-) {
-  const questions = relevantPages?.map((page) => {
-    const isRepeatable = !!page.repeatField;
-
-    const itemsForPage = details.flatMap((detail) =>
-      detail.items.filter((item) => item.path === page.path)
-    );
-
-    const detailItems = isRepeatable
-      ? [itemsForPage].map((item) => ({ ...item, isRepeatable }))
-      : itemsForPage;
-
-    let index = 0;
-    const fields = detailItems.flatMap((item, i) => {
-      item.isRepeatable ? (index = i) : 0;
-      const fields = [detailItemToField(item)];
-
-      /**
-       * This is currently deprecated whilst GDS fix a known issue with accessibility and conditionally revealed fields
-       */
-      const nestedItems = item?.items?.childrenCollection.formItems;
-      nestedItems &&
-        fields.push(nestedItems.map((item) => detailItemToField(item)));
-
-      return fields;
-    });
-
-    let pageTitle = page.title;
-
-    if (pageTitle) {
-      pageTitle = nunjucks.renderString(page.title.en ?? page.title, {
-        ...contextState,
-      });
-    }
-
-    return {
-      category: page.section?.name,
-      question:
-        pageTitle ?? page.components.formItems.map((item) => item.title),
-      fields,
-      index,
-    };
-  });
-
-  // default name if no name is provided
+export function WebhookModel(model: FormModel, state: FormSubmissionState) {
   let englishName = `${config.serviceName} ${model.basePath}`;
+
   if (model.name) {
     englishName = model.name.en ?? model.name;
   }
+
+  let questions;
+
+  const { relevantPages } = model.getRelevantPages(state);
+
+  questions = relevantPages.map((page) => pagesToQuestions(page, state));
+  const fees = FeesModel(model, state);
+
   return {
     metadata: model.def.metadata,
     name: englishName,
     questions: questions,
     ...(!!fees && { fees }),
   };
+}
+
+function createToFieldsMap(state: FormSubmissionState) {
+  return function (component: FormComponent | SelectionControlField): Field {
+    // @ts-ignore - This block of code should not be hit since childrenCollection no
+    if (component.items?.childrenCollection?.formItems) {
+      const toField = createToFieldsMap(state);
+
+      /**
+       * This is currently deprecated whilst GDS fix a known issue with accessibility and conditionally revealed fields
+       */
+      // @ts-ignore
+      const nestedComponent = component?.items?.childrenCollection.formItems;
+      const nestedFields = nestedComponent?.map(toField);
+
+      return nestedFields;
+    }
+    return {
+      key: component.name,
+      title: component.title,
+      type: component.dataType,
+      answer: fieldAnswerFromComponent(component, state),
+    };
+  };
+}
+
+function pagesToQuestions(
+  page: PageControllerBase,
+  state: FormSubmissionState,
+  index = 0
+) {
+  // TODO - index should come from the current iteration of the section.
+
+  let sectionState = state;
+  if (page.section) {
+    sectionState = state[page.section.name];
+  }
+
+  const toFields = createToFieldsMap(sectionState);
+  const components = page.components.formItems;
+
+  const pageTitle = nunjucks.renderString(page.title.en ?? page.title, {
+    ...state,
+  });
+
+  return {
+    category: page.section?.name,
+    question: pageTitle,
+    fields: components.flatMap(toFields),
+    index,
+  };
+}
+
+function fieldAnswerFromComponent(
+  component: FormComponent,
+  state: FormSubmissionState
+) {
+  if (!component) {
+    return;
+  }
+  const rawValue = state[component.name];
+
+  switch (component.dataType) {
+    case "list":
+      return rawValue;
+    case "date":
+      return format(new Date(rawValue), "yyyy-MM-dd");
+    case "monthYear":
+      const [month, year] = Object.values(rawValue);
+      return format(new Date(`${year}-${month}-1`), "yyyy-MM");
+    default:
+      return component.getDisplayStringFromState(state);
+  }
 }

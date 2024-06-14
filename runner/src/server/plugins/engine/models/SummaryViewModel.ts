@@ -4,18 +4,12 @@ import { FormModel } from "./FormModel";
 import { feedbackReturnInfoKey, redirectUrl } from "../helpers";
 import { decodeFeedbackContextInfo } from "../feedback";
 import { webhookSchema } from "server/schemas/webhookSchema";
-import { SummaryPageController } from "../pageControllers";
 import { FormSubmissionState } from "../types";
 import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
-import {
-  EmailModel,
-  FeesModel,
-  NotifyModel,
-  WebhookModel,
-} from "server/plugins/engine/models/submission";
-import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
+import { FeesModel } from "server/plugins/engine/models/submission";
 import { HapiRequest } from "src/server/types";
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
+import { Outputs } from "server/plugins/engine/models/submission/Outputs";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -55,7 +49,6 @@ export class SummaryViewModel {
     | undefined;
 
   _outputs: any; // TODO
-  _payApiKey: FormDefinition["payApiKey"];
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
   showPaymentSkippedWarningPage: boolean = false;
@@ -66,14 +59,13 @@ export class SummaryViewModel {
     request: HapiRequest
   ) {
     this.pageTitle = pageTitle;
-    const { relevantPages, endPage } = this.getRelevantPages(model, state);
+    const { relevantPages, endPage } = model.getRelevantPages(state);
     const details = this.summaryDetails(request, model, state, relevantPages);
     const { def } = model;
     // @ts-ignore
     this.declaration = def.declaration;
     // @ts-ignore
     this.skipSummary = def.skipSummary;
-    this._payApiKey = def.feeOptions?.payApiKey ?? def.payApiKey;
     this.endPage = endPage;
     this.feedbackLink =
       def.feedback?.url ??
@@ -92,14 +84,10 @@ export class SummaryViewModel {
       this.processErrors(result, details);
     } else {
       this.fees = FeesModel(model, state);
+      const outputs = new Outputs(model, state);
 
-      this._webhookData = WebhookModel(
-        relevantPages,
-        details,
-        model,
-        this.fees,
-        model.getContextState(state)
-      );
+      // TODO: move to controller
+      this._webhookData = outputs.webhookData;
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
         model,
@@ -111,40 +99,8 @@ export class SummaryViewModel {
        * Skip outputs if this is a callback
        */
       if (def.outputs && !state.callback) {
-        this._outputs = def.outputs.map((output) => {
-          switch (output.type) {
-            case "notify":
-              return {
-                type: "notify",
-                outputData: NotifyModel(
-                  model,
-                  output.outputConfiguration,
-                  state
-                ),
-              };
-            case "email":
-              return {
-                type: "email",
-                outputData: EmailModel(
-                  model,
-                  output.outputConfiguration,
-                  this._webhookData
-                ),
-              };
-            case "webhook":
-              return {
-                type: "webhook",
-                outputData: {
-                  url: output.outputConfiguration.url,
-                  sendAdditionalPayMetadata:
-                    output.outputConfiguration.sendAdditionalPayMetadata,
-                  allowRetry: output.outputConfiguration.allowRetry,
-                },
-              };
-            default:
-              return {};
-          }
-        });
+        // TODO: move to controller
+        this._outputs = outputs.outputs;
       }
     }
 
@@ -269,26 +225,6 @@ export class SummaryViewModel {
     return details;
   }
 
-  private getRelevantPages(model: FormModel, state: FormSubmissionState) {
-    let nextPage = model.startPage;
-    const relevantPages: any[] = [];
-    let endPage = null;
-
-    while (nextPage != null) {
-      if (nextPage.hasFormComponents) {
-        relevantPages.push(nextPage);
-      } else if (
-        !nextPage.hasNext &&
-        !(nextPage instanceof SummaryPageController)
-      ) {
-        endPage = nextPage;
-      }
-      nextPage = nextPage.getNextPage(state, true);
-    }
-
-    return { relevantPages, endPage };
-  }
-
   get validatedWebhookData() {
     const result = webhookSchema.validate(this._webhookData, {
       abortEarly: false,
@@ -321,18 +257,6 @@ export class SummaryViewModel {
   set outputs(value) {
     this._outputs = value;
   }
-
-  get payApiKey() {
-    if (isMultipleApiKey(this._payApiKey)) {
-      return (
-        this._payApiKey[config.apiEnv] ??
-        this._payApiKey.test ??
-        this._payApiKey.production
-      );
-    }
-    return this._payApiKey;
-  }
-
   /**
    * If a declaration is defined, add this to {@link this._webhookData} as a question has answered `true` to
    */

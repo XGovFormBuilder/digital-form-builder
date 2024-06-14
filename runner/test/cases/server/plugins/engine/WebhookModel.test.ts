@@ -103,12 +103,17 @@ suite("WebhookModel", () => {
 
   test("parses Details correctly", () => {
     expect(viewModel.details).to.equal(testDetails);
-
-    const parsed = WebhookModel(
-      formModel.pages.filter((page) => page.path !== "/summary"),
-      viewModel.details,
-      formModel
-    );
+    const parsed = WebhookModel(formModel, {
+      progress: ["/test/first-page", "/test/second-page"],
+      approximate: {
+        approximate__month: 1,
+        approximate__year: 2000,
+      },
+      caz: "1",
+      aSection: {
+        fullDate: "2000-12-11T00:00:00.000Z",
+      },
+    });
     expect(parsed).to.equal({
       metadata: {},
       name: "My Service",

@@ -11,7 +11,20 @@ When("the session is initialised with the options", (table) => {
         redirectUrl,
       },
     },
-    questions: [],
+    questions: [
+      {
+        question: "What is your name?",
+        fields: [
+          {
+            key: "firstName",
+            title: "What is your name?",
+            type: "text",
+            answer: "Jen",
+          },
+        ],
+        index: 0,
+      },
+    ],
   }).then((res) => {
     cy.wrap(res.body.token).as("token");
   });

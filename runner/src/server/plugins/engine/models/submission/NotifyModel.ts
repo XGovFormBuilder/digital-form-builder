@@ -2,17 +2,7 @@ import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { reach } from "hoek";
 import { NotifyOutputConfiguration, List } from "@xgovformbuilder/model";
-
-export type NotifyModel = Omit<
-  NotifyOutputConfiguration,
-  "emailField" | "replyToConfiguration" | "personalisation"
-> & {
-  emailAddress: string;
-  emailReplyToId?: string;
-  personalisation: {
-    [key: string]: string | boolean;
-  };
-};
+import { TNotifyModel } from "./types";
 
 const parseListAsNotifyTemplate = (
   list: List,
@@ -38,7 +28,7 @@ export function NotifyModel(
   model: FormModel,
   outputConfiguration: NotifyOutputConfiguration,
   state: FormSubmissionState
-): NotifyModel {
+): TNotifyModel {
   const {
     addReferencesToPersonalisation,
     apiKey,

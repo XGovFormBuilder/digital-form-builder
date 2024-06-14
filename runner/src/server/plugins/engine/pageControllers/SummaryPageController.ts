@@ -9,6 +9,7 @@ import {
 } from "../feedback";
 import config from "server/config";
 import { FeesModel } from "server/plugins/engine/models/submission";
+import { isMultipleApiKey } from "@xgovformbuilder/model";
 
 export class SummaryPageController extends PageController {
   /**
@@ -176,10 +177,12 @@ export class SummaryPageController extends PageController {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
+      const feesModel = FeesModel(model, state);
+
       /**
        * If a user does not need to pay, redirect them to /status
        */
-      if ((summaryViewModel.fees?.details ?? [])?.length === 0) {
+      if ((feesModel?.details ?? [])?.length === 0) {
         return redirectTo(request, h, `/${request.params.id}/status`);
       }
 
@@ -190,15 +193,13 @@ export class SummaryPageController extends PageController {
         `payReturnUrl has been configured to ${payReturnUrl}`
       );
 
-      const feesModel = summaryViewModel.fees as FeesModel;
-
       const url = new URL(
         `${payReturnUrl}/${request.params.id}/status`
       ).toString();
 
       const payStateMeta = payService.createPayStateMeta({
-        feesModel,
-        payApiKey: summaryViewModel.payApiKey!,
+        feesModel: feesModel!,
+        payApiKey: this.payApiKey,
         url,
       });
 
@@ -287,5 +288,15 @@ export class SummaryPageController extends PageController {
         },
       },
     };
+  }
+
+  get payApiKey(): string {
+    const modelDef = this.model.def;
+    const payApiKey = modelDef.feeOptions?.payApiKey ?? def.payApiKey;
+
+    if (isMultipleApiKey(payApiKey)) {
+      return payApiKey[config.apiEnv] ?? payApiKey.test ?? payApiKey.production;
+    }
+    return payApiKey;
   }
 }
