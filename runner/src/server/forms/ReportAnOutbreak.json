@@ -135,7 +135,7 @@
           "title": "S1Q7. Telephone number/s of Key Contact Person",
           "hint": "Please consider using a non-personal number.",
           "nameHasError": false,
-          "schema": {}
+          "schema": { "regex": "^(\\+44|0)(\\d\\s?){10,11}$" }
         },
         {
           "name": "S1Q8",
@@ -194,7 +194,7 @@
           "title": "S1Q7. Telephone number/s of Key Contact Person",
           "hint": "Please consider using a non-personal number.",
           "nameHasError": false,
-          "schema": {}
+          "schema": { "regex": "^(\\+44|0)(\\d\\s?){10,11}$" }
         },
         {
           "name": "S1Q8",
@@ -252,12 +252,12 @@
         },
         {
           "name": "S1Q7",
-          "options": {},
+          "options": { "required": "true" },
           "type": "TelephoneNumberField",
           "title": "S1Q7. Telephone number/s of Key Contact Person",
           "hint": "Please consider using a non-personal number.",
           "nameHasError": false,
-          "schema": {}
+          "schema": { "regex": "^(\\+44|0)(\\d\\s?){10,11}$" }
         },
         {
           "name": "S1Q8",

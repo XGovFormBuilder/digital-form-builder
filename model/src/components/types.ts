@@ -181,6 +181,7 @@ export interface TelephoneNumberFieldComponent extends TextFieldBase {
   type: "TelephoneNumberField";
   options: TextFieldBase["options"] & {
     customValidationMessage?: string;
+    requiredFieldValidationMessage?: string;
   };
 }
 
