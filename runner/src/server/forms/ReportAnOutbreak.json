@@ -252,7 +252,7 @@
         },
         {
           "name": "S1Q7",
-          "options": { "required": "true" },
+          "options": {},
           "type": "TelephoneNumberField",
           "title": "S1Q7. Telephone number/s of Key Contact Person",
           "hint": "Please consider using a non-personal number.",
