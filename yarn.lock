@@ -3667,17 +3667,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@prisma/client@npm:5.0.0"
-  dependencies:
-    "@prisma/engines-version": 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
+"@prisma/client@npm:5.15.1":
+  version: 5.15.1
+  resolution: "@prisma/client@npm:5.15.1"
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: 332c2af44e880ffc9dd1223992bf6f45910094c7a3a540cbbfdda45d6caf3e82998376338abdf85e34a12f1082ae932f2385d6396c62fe4bba7ec6b84de54466
+  checksum: a1592957926cd9eeb650e6383ed5ea8b1e39428264baf02107a1ada6d82d24892b9ffeb85c0f396565072468345f440695c8b786bef6fb74374c0c51e7814591
   languageName: node
   linkType: hard
 
@@ -3685,13 +3683,6 @@ __metadata:
   version: 5.8.0
   resolution: "@prisma/debug@npm:5.8.0"
   checksum: 43a600cab0160feb58da069074437e0f2eee61ed247788e5ed334dd50c0a8edccb5416d6446de2b7b4d68dad5f5faf65849a0c534dd43f6a29548b773fb7b2d7
-  languageName: node
-  linkType: hard
-
-"@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584":
-  version: 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-  resolution: "@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584"
-  checksum: 8fcbceef3b554ee7fa404bead50be5286412a097b21723272aff298b289caf2802b01b84bb85c4c9f3b592eeac114c8d6e79db083f271dc8c54f453b4a515233
   languageName: node
   linkType: hard
 
@@ -5090,7 +5081,7 @@ __metadata:
     "@babel/eslint-plugin": ^7.22.10
     "@babel/preset-env": ^7.23.3
     "@babel/preset-typescript": ^7.23.3
-    "@prisma/client": 5.0.0
+    "@prisma/client": 5.15.1
     "@types/node": ^20.4.6
     babel-eslint: ^10.1.0
     eslint: ^8.10.0
