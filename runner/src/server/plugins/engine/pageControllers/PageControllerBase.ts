@@ -511,7 +511,7 @@ export class PageControllerBase {
        * used for when a user clicks the "back" link. Progress is stored in the state. This is a safer alternative to running javascript that pops the history `onclick`.
        */
       const lastVisited = progress[progress.length - 1];
-      if (!lastVisited || !lastVisited.startsWith(currentPath)) {
+      if (!lastVisited || lastVisited !== currentPath) {
         if (progress[progress.length - 2] === currentPath) {
           progress.pop();
         } else {
