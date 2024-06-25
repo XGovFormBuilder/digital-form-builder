@@ -161,9 +161,15 @@ const paymentSkippedWarningPage = joi.object({
   }),
 });
 
+const exitConfirmationPage = joi.object().keys({
+  title: joi.string().optional(),
+  body: joi.string().optional(),
+});
+
 const specialPagesSchema = joi.object().keys({
   confirmationPage: confirmationPageSchema.optional(),
   paymentSkippedWarningPage: paymentSkippedWarningPage.optional(),
+  exitConfirmationPage: exitConfirmationPage,
 });
 
 const listItemSchema = joi.object().keys({
@@ -295,6 +301,11 @@ const feeOptionSchema = joi
     };
   });
 
+const exitSchema = joi.object().keys({
+  url: joi.string(),
+  redirectUrl: joi.string().optional(),
+});
+
 export const Schema = joi
   .object()
   .required()
@@ -321,6 +332,7 @@ export const Schema = joi
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
     feeOptions: feeOptionSchema,
+    exitOptions: exitSchema.optional(),
   });
 
 /**

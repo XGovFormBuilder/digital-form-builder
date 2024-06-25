@@ -17,7 +17,7 @@ export class ExitOptions {
     }
   }
 
-  private static validatedUrl(url, propName?: string) {
+  private static validatedUrl(url: string, propName?: string) {
     let urlHostname;
     try {
       urlHostname = new URL(url).hostname;
