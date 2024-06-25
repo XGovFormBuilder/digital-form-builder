@@ -166,6 +166,11 @@ export type FeeOptions = {
   payApiKey?: string | MultipleApiKeys | undefined;
 };
 
+export type ExitOptions = {
+  url: string;
+  redirectUrl?: string;
+};
+
 /**
  * `FormDefinition` is a typescript representation of `Schema`
  */
@@ -187,4 +192,5 @@ export type FormDefinition = {
   specialPages?: SpecialPages;
   paymentReferenceFormat?: string;
   feeOptions: FeeOptions;
+  exitOptions: ExitOptions;
 };
