@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% from "button/macro.njk" import govukButton %}
+{% from "input/macro.njk" import govukInput %}
+
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "partials/components.html" import componentList with context %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">
+      Your application to {{ name if name else serviceName }} has been saved
+    </h1>
+    <p class="govuk-body">
+      A link has been sent to {{ email }}.
+    </p>
+    {% if expiry %}
+      You have until {{ expiry }} to go back to your application and complete it.
+    {% endif %}
+
+    <p class="govuk-body">
+      If you don't go back to your application, it will be deleted and you will have to start again.
+    </p>
+
+  </div>
+</div>
+{% endblock %}
+
+

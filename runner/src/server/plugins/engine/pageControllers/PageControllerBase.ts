@@ -25,6 +25,7 @@ import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
+import Joi from "joi";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -104,6 +105,12 @@ export class PageControllerBase {
 
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
+
+    if (!this.model.allowExit) {
+      this[FORM_SCHEMA] = this[FORM_SCHEMA].append({
+        action: Joi.string().allow("exit"),
+      });
+    }
   }
 
   /**
@@ -377,11 +384,13 @@ export class PageControllerBase {
   }
 
   validateForm(payload) {
+    console.log(payload);
     return this.validate(payload, this.formSchema);
   }
 
   validateState(newState) {
-    return this.validate(newState, this.stateSchema);
+    const { action, ...state } = newState;
+    return this.validate(state, this.stateSchema);
   }
 
   /**
@@ -678,6 +687,8 @@ export class PageControllerBase {
       update = modifyUpdate(update);
     }
     await cacheService.mergeState(request, update, nullOverride, arrayMerge);
+    // const shouldGoToExitPage =
+    //   payload.action === "exit" && this.model.allowExit;
   }
 
   /**
@@ -688,6 +699,10 @@ export class PageControllerBase {
       const response = await this.handlePostRequest(request, h);
       if (response?.source?.context?.errors) {
         return response;
+      }
+      const shouldGoToExitPage = true;
+      if (shouldGoToExitPage) {
+        return h.redirect("exit/email");
       }
       const { cacheService } = request.services([]);
       const savedState = await cacheService.getState(request);
