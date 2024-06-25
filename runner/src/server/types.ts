@@ -5,6 +5,7 @@ import {
   Server,
   ResponseObject,
   Lifecycle,
+  ServerApplicationState,
 } from "@hapi/hapi";
 import { Logger } from "pino";
 
@@ -19,6 +20,7 @@ import {
 } from "./services";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { QueueService } from "./services/QueueService";
+import { FormModel } from "server/plugins/engine/models";
 
 type Services = (
   services: string[]
@@ -57,6 +59,10 @@ declare module "@hapi/hapi" {
   }
 
   interface Response {}
+
+  interface ServerApplicationState {
+    forms: { [key: string]: FormModel };
+  }
 
   interface Server {
     logger: Logger;

@@ -16,6 +16,7 @@
   {% endif %}
 
   {% if not (components[0].type == "FlashCard") %}
+  <div class="govuk-button-group">
     {% if isStartPage %}
       {{ govukButton({ attributes: { id: "submit" }, text: "Start now", isStartButton: true }) }}
     {% else %}
@@ -27,5 +28,11 @@
         {{ govukButton({ attributes: { id: "submit" }, text: "Continue" }) }}
       {% endif %}
     {% endif %}
+    {{ govukButton({ attributes: { name: "action", value: "exit" }, text: "Save and come back later" }) }}
+
+    {% if allowExit %}
+      {{ govukButton({ attributes: { name: "action", value: "exit", classes: "govuk-button--secondary" }, text: "Save and come back later" }) }}
+    {% endif %}
+  </div>
   {% endif %}
 </form>

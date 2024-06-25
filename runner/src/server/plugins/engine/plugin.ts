@@ -10,6 +10,7 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "../../config";
+import * as exit from "./pluginHandlers/exit";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -326,5 +327,11 @@ export const plugin = {
         handler: postHandler,
       },
     });
+
+    server.route(exit.emailGet);
+
+    server.route(exit.emailPost);
+
+    server.route(exit.statusGet);
   },
 };
