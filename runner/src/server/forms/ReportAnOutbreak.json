@@ -44,23 +44,14 @@
           "hint": "Please provide the postcode of the specific setting affected (i.e. not the overarching management company if applicable). If there is no one specific setting affected e.g. Domiciliary or Home Care, then please provide the postcode of the care provider company"
         },
         {
-          "name": "S0Q2a",
-          "type": "RadiosField",
-          "title": "Is your setting CQC registered?",
-          "list": "YesNoDk",
-          "nameHasError": false,
-          "schema": {},
+          "name": "S0Q2",
           "options": {
-            "conditionallyRevealedComponents": {
-              "yes": {
-                "type": "TextField",
-                "name": "SOQ2",
-                "title": "Please enter your CQC Location ID",
-                "options": {},
-                "schema": {}
-              }
-            }
-          }
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Please enter your CQC Location ID",
+          "nameHasError": false,
+          "schema": {}
         },
         {
           "name": "VMOkqi",
@@ -2177,25 +2168,6 @@
         {
           "text": "5 or more",
           "value": "5 or more"
-        }
-      ]
-    },
-    {
-      "title": "s0q2 - cqc registered",
-      "name": "YesNoDk",
-      "type": "string",
-      "items": [
-        {
-          "text": "Yes",
-          "value": "yes"
-        },
-        {
-          "text": "No",
-          "value": "no"
-        },
-        {
-          "text": "Don't know",
-          "value": "Don't know"
         }
       ]
     }
