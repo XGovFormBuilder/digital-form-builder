@@ -44,6 +44,23 @@
           "hint": "Please provide the postcode of the specific setting affected (i.e. not the overarching management company if applicable). If there is no one specific setting affected e.g. Domiciliary or Home Care, then please provide the postcode of the care provider company"
         },
         {
+          "name": "S0Q2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Please enter your CQC Location ID",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "name": "VMOkqi",
+          "options": {},
+          "type": "Para",
+          "content": "If you don’t know your CQC Location ID then please visit <a id=\"cqc number\" target=\"_blank\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about half way down the page to <b style=\"color:#1d70b8\">CQC care directory - csv</b>. You will find your CQC Location ID in this look up table.\n</br></br>",
+          "schema": {}
+        },
+        {
           "name": "S0Q3",
           "options": {
             "required": true
@@ -63,32 +80,6 @@
           "options": {},
           "type": "Para",
           "content": "Click on the link to <a target=\"_blank\" id=\"local-health-protection-team\" href=\"https://www.gov.uk/health-protection-team\">Find your local health protection team in England - GOV.UK</a> (www.gov.uk) [Enter the postcode of your care setting]",
-          "schema": {}
-        },
-        {
-          "name": "S0Q2a",
-          "type": "RadiosField",
-          "title": "Is your setting CQC registered?",
-          "list": "YesNoDk",
-          "nameHasError": false,
-          "schema": {},
-          "options": {
-            "conditionallyRevealedComponents": {
-              "yes": {
-                "type": "TextField",
-                "name": "yes",
-                "title": "Please enter your CQC Location ID (Mandatory)",
-                "options": {},
-                "schema": {}
-              }
-            }
-          }
-        },
-        {
-          "name": "VMOkqi",
-          "options": {},
-          "type": "Para",
-          "content": "If you don’t know your CQC Location ID then please visit <a id=\"cqc number\" target=\"_blank\" href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\">Using CQC data - Care Quality Commission</a> and scroll about half way down the page to <b style=\"color:#1d70b8\">CQC care directory - csv</b>. You will find your CQC Location ID in this look up table.\n</br></br>",
           "schema": {}
         }
       ],
@@ -2177,25 +2168,6 @@
         {
           "text": "5 or more",
           "value": "5 or more"
-        }
-      ]
-    },
-    {
-      "title": "s0q2 - cqc registered",
-      "name": "YesNoDk",
-      "type": "string",
-      "items": [
-        {
-          "text": "Yes",
-          "value": "yes"
-        },
-        {
-          "text": "No",
-          "value": "no"
-        },
-        {
-          "text": "Don't know",
-          "value": "Don't know"
         }
       ]
     }
