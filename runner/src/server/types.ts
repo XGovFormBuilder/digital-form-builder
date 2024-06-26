@@ -5,12 +5,14 @@ import {
   Server,
   ResponseObject,
   Lifecycle,
+  ServerApplicationState,
 } from "@hapi/hapi";
 import { Logger } from "pino";
 
 import { RateOptions } from "./plugins/rateLimit";
 import {
   CacheService,
+  ExitService,
   NotifyService,
   PayService,
   StatusService,
@@ -19,6 +21,7 @@ import {
 } from "./services";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { QueueService } from "./services/QueueService";
+import { FormModel } from "server/plugins/engine/models";
 
 type Services = (
   services: string[]
@@ -31,6 +34,7 @@ type Services = (
   statusService: StatusService;
   queueService: QueueService;
   queueStatusService: QueueStatusService;
+  exitService: ExitService;
 };
 
 export type RouteConfig = {
@@ -57,6 +61,10 @@ declare module "@hapi/hapi" {
   }
 
   interface Response {}
+
+  interface ServerApplicationState {
+    forms: { [key: string]: FormModel };
+  }
 
   interface Server {
     logger: Logger;
