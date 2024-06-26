@@ -555,6 +555,8 @@ export class PageControllerBase {
 
       viewModel.backLink =
         progress[progress.length - 2] ?? this.backLinkFallback;
+
+      viewModel.allowExit = this.model.allowExit;
       return h.view(this.viewName, viewModel);
     };
   }
@@ -700,7 +702,9 @@ export class PageControllerBase {
       if (response?.source?.context?.errors) {
         return response;
       }
-      const shouldGoToExitPage = true;
+
+      const shouldGoToExitPage =
+        this.model.allowExit && request.payload?.action === "exit";
       if (shouldGoToExitPage) {
         return h.redirect("exit/email");
       }

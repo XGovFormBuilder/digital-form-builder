@@ -6,6 +6,7 @@ const logger = pino().child({ class: "ExitOptions" });
 export class ExitOptions {
   url: string;
   redirectUrl?: string;
+  format?: "STATE" | "WEBHOOK";
   constructor(exitOptions: FormModel["exitOptions"]) {
     this.url = ExitOptions.validatedUrl(exitOptions.url, "url");
 
@@ -15,6 +16,8 @@ export class ExitOptions {
         "redirectUrl"
       );
     }
+
+    this.format = exitOptions.format;
   }
 
   private static validatedUrl(url: string, propName?: string) {
