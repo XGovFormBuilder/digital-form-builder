@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "baseUrl": "./src",
+  "compilerOptions": {
+    "outDir": "dist/module",
+    "rootDir": "src",
+    "composite": true,
+    "declaration": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src"],
+  "exclude": ["../node_modules", "node_modules", "./src/prisma"]
+}

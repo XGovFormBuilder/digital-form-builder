@@ -8,9 +8,10 @@ Given("the form {string} exists", (formName) => {
       id: formName,
       configuration: json,
     };
-    console.log(requestBody);
     cy.request("POST", url, requestBody);
   });
 
-  cy.visit(`${Cypress.env("RUNNER_URL")}/${formName}`);
+  cy.visit(`${Cypress.env("RUNNER_URL")}/${formName}`, {
+    failOnStatusCode: false,
+  });
 });

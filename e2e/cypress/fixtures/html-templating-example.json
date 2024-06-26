@@ -1,0 +1,63 @@
+{
+  "metadata": {},
+  "startPage": "/which-content-do-you-want-to-display",
+  "pages": [
+    {
+      "title": "Which content do you want to display?",
+      "path": "/which-content-do-you-want-to-display",
+      "components": [
+        {
+          "name": "contentToDisplay",
+          "options": { "exposeToContext": true },
+          "type": "RadiosField",
+          "title": "Content to display",
+          "list": "vYTQRu",
+          "nameHasError": false,
+          "values": { "type": "listRef" },
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/second-page" }],
+      "section": "gcdSFb"
+    },
+    {
+      "path": "/second-page",
+      "title": "Dynamic page based on your answers: {{ gcdSFb.contentToDisplay }}",
+      "components": [
+        {
+          "name": "azSyOn",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">This page demonstrates how templating works.</p>\n<p class=\"govuk-body\">Depending on the answer you chose for the first question, you should see different content displayed below.</p>\n<p class=\"govuk-body\">You chosen the option: {{gcdSFb.contentToDisplay}}</p>\n{{additionalContexts.example[gcdSFb.contentToDisplay].additionalInfo | safe}}\n<p class=\"govuk-body\">The following list will have different items</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n{{additionalContexts.example[gcdSFb.contentToDisplay].listItems | safe }}\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "Options",
+      "name": "vYTQRu",
+      "type": "string",
+      "items": [
+        { "text": "Answer 1", "value": "Answer 1" },
+        { "text": "Answer 2", "value": "Answer 2" }
+      ]
+    }
+  ],
+  "sections": [{ "name": "gcdSFb", "title": "section" }],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": { "allowSubmissionWithoutPayment": true, "maxAttempts": 3 }
+}

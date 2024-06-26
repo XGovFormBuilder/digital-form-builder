@@ -30,5 +30,8 @@ tsconfig.tsbuildinfo
 docs/**/typedoc
 
 /e2e/cypress/screenshots/
-/runner/config/default.js
+.env_mysql
+/queue-model/dist
+/queue-model/module
+/queue-model/src/prisma/generated/runner/config/default.js
 runner/config/default.js

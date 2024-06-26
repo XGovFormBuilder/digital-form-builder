@@ -1,5 +1,7 @@
 import { RelativeUrl } from "./feedback";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
+import { reach } from "@hapi/hoek";
+import _ from "lodash";
 
 export const feedbackReturnInfoKey = "f_t";
 
@@ -79,3 +81,30 @@ export function redirectTo(
 export const idFromFilename = (filename: string) => {
   return filename.replace(/govsite\.|\.json|/gi, "");
 };
+
+export function getValidStateFromQueryParameters(
+  prePopFields: Record<string, any>,
+  queryParameters: Record<string, string>,
+  state: Record<string, any> = {}
+) {
+  return Object.entries(queryParameters).reduce<Record<string, any>>(
+    (acc, [key, value]) => {
+      const prePopField = reach(prePopFields, key);
+      const stateValue = reach(state, key);
+      if (
+        !prePopField ||
+        (stateValue && !prePopField.allowPrePopulationOverwrite)
+      ) {
+        return acc;
+      }
+
+      const result = prePopField.schema.validate(value);
+      if (result.error) {
+        return acc;
+      }
+      _.set(acc, key, value);
+      return acc;
+    },
+    {}
+  );
+}

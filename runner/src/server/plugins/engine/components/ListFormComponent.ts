@@ -23,24 +23,34 @@ export class ListFormComponent extends FormComponent {
 
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
+    const { options } = def;
     // @ts-ignore
     this.list = model.getList(def.list);
     this.listType = this.list.type ?? "string";
-    this.options = def.options;
+    this.options = options;
+
+    let componentSchema = joi[this.listType]();
 
     /**
      * Only allow a user to answer with values that have been defined in the list
      */
-    let schema = joi[this.listType]()
-      .allow(...this.values)
-      .label(def.title);
-
-    if (def.options.required !== false) {
-      schema = schema.required();
+    if (options.required === false) {
+      // null or empty string is valid for optional fields
+      componentSchema = componentSchema.empty(null).allow(...this.values, "");
+    } else {
+      componentSchema = componentSchema.allow(...this.values).required();
     }
 
-    this.formSchema = schema;
-    this.stateSchema = schema;
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
+    }
+
+    componentSchema = componentSchema.label(def.title);
+
+    this.formSchema = componentSchema;
+    this.stateSchema = componentSchema;
   }
 
   getFormSchemaKeys() {
@@ -54,7 +64,9 @@ export class ListFormComponent extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState): string | string[] {
     const { name, items } = this;
     const value = state[name];
-    const item = items.find((item) => String(item.value) === String(value));
+    const item = items.find((item) => {
+      return String(item.value) === String(value);
+    });
     return `${item?.text ?? ""}`;
   }
 

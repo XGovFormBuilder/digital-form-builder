@@ -1,10 +1,14 @@
-import AWS from "aws-sdk";
-import MailComposer from "nodemailer/lib/mail-composer";
+// import AWS from "aws-sdk";
+// import MailComposer from "nodemailer/lib/mail-composer";
 import config from "../config";
 
 import { HapiServer } from "../types";
-import { UploadService } from "./uploadService";
+import { UploadService } from "./upload";
 
+/**
+ * @deprecated This service is not in use currently. If you would like to send emails to users, use
+ * the email or Notify output which both use the NotifyService
+ */
 export class EmailService {
   /**
    * This service is responsible for sending emails. It is currently only designed to work with AWS SES, which is not available in EU West 2. You must also have a verified domain for SES.
@@ -49,12 +53,12 @@ export class EmailService {
       );
     }
 
-    const mailComposer = new MailComposer(mailOptions);
-    const message = await mailComposer.compile().build();
+    // const mailComposer = new MailComposer(mailOptions);
+    // const message = await mailComposer.compile().build();
 
     // SES is not available in eu-west-2
-    return new AWS.SES({ apiVersion: "2010-12-01", region: "eu-west-1" })
-      .sendRawEmail({ RawMessage: { Data: message } })
-      .promise();
+    // return new AWS.SES({ apiVersion: "2010-12-01", region: "eu-west-1" })
+    //   .sendRawEmail({ RawMessage: { Data: message } })
+    //   .promise();
   }
 }

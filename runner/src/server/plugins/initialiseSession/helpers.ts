@@ -47,11 +47,27 @@ export function generateSessionTokenForForm(callback, formId) {
     },
     {
       key: config.initialisedSessionKey,
+      algorithm: config.initialisedSessionAlgorithm,
     },
     {
       ttlSec: config.initialisedSessionTimeout / 1000,
     }
   );
+}
+
+export function verifyToken(decodedToken) {
+  try {
+    Jwt.token.verify(decodedToken, {
+      key: config.initialisedSessionKey,
+      algorithm: config.initialisedSessionAlgorithm,
+    });
+    return { isValid: true };
+  } catch (err) {
+    return {
+      isValid: false,
+      error: `${err}`,
+    };
+  }
 }
 
 export const callbackValidation = (safelist = config.safelist) =>

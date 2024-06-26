@@ -1,7 +1,7 @@
-const nanoid = require("nanoid");
+import * as sinon from "sinon";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import * as sinon from "sinon";
+const nanoid = require("server/services/payService.nanoid");
 import { PayService } from "server/services/payService";
 import { format } from "date-fns";
 const { expect } = Code;

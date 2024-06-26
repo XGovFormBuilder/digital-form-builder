@@ -1,5 +1,8 @@
 import joi from "joi";
 import { add, startOfToday, sub } from "date-fns";
+import { PhoneNumberFormat, PhoneNumberUtil } from "google-libphonenumber";
+
+const phoneUtil = PhoneNumberUtil.getInstance();
 
 /**
  * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
@@ -28,7 +31,9 @@ export function buildFormSchema(schemaType, component, isRequired = true) {
 
   if (component.title) {
     schema = schema.label(
-      typeof component.title === "string" ? component.title : component.title.en
+      typeof component.title === "string"
+        ? component.title.toLowerCase()
+        : component.title.en.toLowerCase()
     );
   }
 
@@ -48,7 +53,9 @@ export function buildStateSchema(schemaType, component) {
 
   if (component.title) {
     schema = schema.label(
-      typeof component.title === "string" ? component.title : component.title.en
+      typeof component.title === "string"
+        ? component.title.toLowerCase()
+        : component.title.en.toLowerCase()
     );
   }
 
@@ -121,4 +128,12 @@ export function getCustomDateValidator(
 
     return value;
   };
+}
+
+export function internationalPhoneValidator(
+  value: string,
+  _helpers: joi.CustomHelpers
+) {
+  const phone = phoneUtil.parseAndKeepRawInput(value);
+  return phoneUtil.format(phone, PhoneNumberFormat.INTERNATIONAL);
 }

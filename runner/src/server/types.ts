@@ -11,24 +11,26 @@ import { Logger } from "pino";
 import { RateOptions } from "./plugins/rateLimit";
 import {
   CacheService,
-  EmailService,
   NotifyService,
   PayService,
   StatusService,
   UploadService,
   WebhookService,
 } from "./services";
+import { QueueStatusService } from "server/services/queueStatusService";
+import { QueueService } from "./services/QueueService";
 
 type Services = (
   services: string[]
 ) => {
   cacheService: CacheService;
-  emailService: EmailService;
   notifyService: NotifyService;
   payService: PayService;
   uploadService: UploadService;
   webhookService: WebhookService;
   statusService: StatusService;
+  queueService: QueueService;
+  queueStatusService: QueueStatusService;
 };
 
 export type RouteConfig = {

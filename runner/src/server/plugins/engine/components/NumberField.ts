@@ -9,35 +9,49 @@ export class NumberField extends FormComponent {
 
   constructor(def, model) {
     super(def, model);
-    this.schemaOptions = def.schema;
-    this.options = def.options;
-    const { min, max } = def.schema;
-    let schema = joi.number();
 
-    schema = schema.label(def.title);
+    const { schema = {}, options } = def;
 
-    if (def.schema?.min && def.schema?.max) {
-      schema = schema.$;
+    this.schemaOptions = schema;
+    this.options = options;
+    const { min, max } = schema;
+    let componentSchema = joi.number();
+
+    componentSchema = componentSchema.label(def.title.toLowerCase());
+
+    if (min && max) {
+      componentSchema = componentSchema.$;
     }
-    if (def.schema?.min ?? false) {
-      schema = schema.min(min);
+    if (min ?? false) {
+      componentSchema = componentSchema.min(min);
     }
 
-    if (def.schema?.max ?? false) {
-      schema = schema.max(max);
+    if (max ?? false) {
+      componentSchema = componentSchema.max(max);
     }
 
-    if (def.options.customValidationMessage) {
-      schema = schema.rule({ message: def.options.customValidationMessage });
+    if (options.customValidationMessage) {
+      componentSchema = componentSchema.rule({
+        message: def.options.customValidationMessage,
+      });
+    }
+
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
     }
 
     if (def.options.required === false) {
       const optionalSchema = joi
         .alternatives()
-        .try(joi.string().allow(null).allow("").default("").optional(), schema);
+        .try(
+          joi.string().allow(null).allow("").default("").optional(),
+          componentSchema
+        );
       this.schema = optionalSchema;
     } else {
-      this.schema = schema;
+      this.schema = componentSchema;
     }
   }
 

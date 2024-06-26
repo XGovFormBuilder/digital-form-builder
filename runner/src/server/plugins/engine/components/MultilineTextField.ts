@@ -23,32 +23,29 @@ export class MultilineTextField extends FormComponent {
 
   constructor(def: MultilineTextFieldComponent, model: FormModel) {
     super(def, model);
-    this.options = def.options;
-    this.schema = def.schema;
-    this.formSchema = Joi.string();
-    this.formSchema = this.formSchema.label(def.title);
-    const { maxWords, customValidationMessage } = def.options;
-    const isRequired = def.options.required ?? true;
+    const { schema = {}, options } = def;
+    this.options = options;
+    this.schema = schema;
+    let componentSchema = Joi.string()
+      .label(def.title.toLowerCase())
+      .required();
 
-    if (isRequired) {
-      this.formSchema = this.formSchema.required();
-    } else {
-      this.formSchema = this.formSchema.allow("").allow(null);
+    if (options.required === false) {
+      componentSchema = componentSchema.allow("").allow(null);
     }
-    this.formSchema = this.formSchema.ruleset;
 
-    if (def.schema.max) {
-      this.formSchema = this.formSchema.max(def.schema.max);
+    if (schema.max) {
+      componentSchema = componentSchema.max(schema.max);
       this.isCharacterOrWordCount = true;
     }
 
-    if (def.schema.min) {
-      this.formSchema = this.formSchema.min(def.schema.min);
+    if (schema.min) {
+      componentSchema = componentSchema.min(schema.min);
     }
 
-    if (maxWords ?? false) {
-      this.formSchema = this.formSchema.custom((value, helpers) => {
-        if (inputIsOverWordCount(value, maxWords)) {
+    if (options.maxWords ?? false) {
+      componentSchema = componentSchema.custom((value, helpers) => {
+        if (inputIsOverWordCount(value, options.maxWords)) {
           helpers.error("string.maxWords");
         }
         return value;
@@ -56,11 +53,19 @@ export class MultilineTextField extends FormComponent {
       this.isCharacterOrWordCount = true;
     }
 
-    if (customValidationMessage) {
-      this.formSchema = this.formSchema.rule({
-        message: customValidationMessage,
+    if (options.customValidationMessage) {
+      componentSchema = componentSchema.rule({
+        message: options.customValidationMessage,
       });
     }
+
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
+    }
+
+    this.formSchema = componentSchema;
   }
 
   getFormSchemaKeys() {

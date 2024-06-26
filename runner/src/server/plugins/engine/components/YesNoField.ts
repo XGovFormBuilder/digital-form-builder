@@ -40,12 +40,18 @@ export class YesNoField extends ListFormComponent {
 
     const { options } = this;
 
-    this.formSchema = helpers
+    let componentSchema = helpers
       .buildFormSchema("boolean", this, options?.required !== false)
       .valid(true, false);
-    this.stateSchema = helpers
-      .buildStateSchema(this.list.type, this)
-      .valid(true, false);
+
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
+      );
+    }
+
+    this.formSchema = componentSchema;
+    this.stateSchema = componentSchema;
 
     addClassOptionIfNone(this.options, "govuk-radios--inline");
   }

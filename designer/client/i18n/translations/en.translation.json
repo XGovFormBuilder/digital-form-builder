@@ -69,6 +69,22 @@
     "detailsLink": {
       "title": "Additional settings"
     },
+    "exposeToContextOption": {
+      "helpText": "If using additional context, choose this option to expose the field to be used by additional contexts",
+      "title": "Expose to context"
+    },
+    "allowPrePopulationOption": {
+      "helpText": "Tick this box if you want this field to be available to be pre-populated by query parameter",
+      "title": "Allow pre-population"
+    },
+    "allowPrePopulationOverwriteOption": {
+      "helpText": "Tick this box if you want query parameters to override state values for this field when passed in. This will only have an effect if 'Allow pre-population' is also ticked",
+      "title": "Allow overwriting from query parameter"
+    },
+    "disableChangingFromSummaryOption": {
+      "helpText": "Tick this box if you want the change button to be removed for this field on the summary screen",
+      "title": "Disable changing from summary"
+    },
     "helpTextField": {
       "helpText": "Enter the description to show for this field",
       "title": "Help text (optional)"
@@ -204,6 +220,10 @@
     "multipleFilesOption": {
       "helpText": "Tick this box to enable users to upload multiple files",
       "title": "Allow multiple file upload"
+    },
+    "imageQualityPlaybackOption": {
+      "helpText": "If your document upload API assesses the quality of uploaded images, and you want to inform the user but don't want to stop them from continuing, check this box.",
+      "title": "Enable playback page for image quality checking"
     }
   },
   "formDetails": {
@@ -326,7 +346,9 @@
   "outputEdit": {
     "notifyEdit": {
       "includeReferenceTitle": "Include webhook and payment references",
-      "includeReferenceHint": "If webhook or payment references are available, they will be included in Notify's personalisation object. The included fields are: hasWebhookReference (boolean), webhookReference: (string), hasPaymentReference: (boolean), paymentReference: string."
+      "includeReferenceHint": "If webhook or payment references are available, they will be included in Notify's personalisation object. The included fields are: hasWebhookReference (boolean), webhookReference: (string), hasPaymentReference: (boolean), paymentReference: string.",
+      "escapeURLsTitle": "Escape Notify encoded URLs",
+      "escapeURLsHint": "If you do not expect notify-encoded links to be passed through from your form, select this box to break this formatting. It is strongly recommended to enable this to prevent phishing attacks"
     }
   },
   "page": {
@@ -390,6 +412,10 @@
     "titleField": {
       "helpText": "Appears above the page title. However, if these titles are the same, the form will only show the page title.",
       "title": "Section title"
+    },
+    "hideTitleField": {
+      "helpText": "Tick this box if you do not want the section title to show on any pages in this section",
+      "title": "Hide section title"
     }
   },
   "title": "Title",

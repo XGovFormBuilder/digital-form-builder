@@ -28,9 +28,11 @@ suite(`Server config validation`, () => {
     );
   });
 
-  test("it throws when PAY_RETURN_URL is insecure", () => {
+  test("it throws when PAY_RETURN_URL is insecure and the environment is production", () => {
     const configWithInsecureUrl = {
       payReturnUrl: "http://insecure.url",
+      env: "production",
+      apiEnv: "production",
     };
 
     const { error } = configSchema.validate(configWithInsecureUrl);
@@ -38,6 +40,30 @@ suite(`Server config validation`, () => {
     expect(error.message).to.contain(
       "Provided payReturnUrl is insecure, please use https"
     );
+  });
+
+  test("it succeeds when PAY_RETURN_URL is insecure and the node environment is test", () => {
+    const configWithInsecureUrl = {
+      payReturnUrl: "http://insecure.url",
+      env: "test",
+      apiEnv: "production",
+    };
+
+    const result = configSchema.validate(configWithInsecureUrl);
+
+    expect(Object.keys(result)).to.not.contain("error");
+  });
+
+  test("it succeeds when PAY_RETURN_URL is insecure and the api environment is test", () => {
+    const configWithInsecureUrl = {
+      payReturnUrl: "http://insecure.url",
+      env: "production",
+      apiEnv: "test",
+    };
+
+    const result = configSchema.validate(configWithInsecureUrl);
+
+    expect(Object.keys(result)).to.not.contain("error");
   });
 
   test("it throws when oAuth config is incomplete", () => {

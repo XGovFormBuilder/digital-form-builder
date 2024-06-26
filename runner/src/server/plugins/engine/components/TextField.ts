@@ -25,7 +25,7 @@ export class TextField extends FormComponent {
     }
 
     componentSchema = componentSchema.label(
-      def.title.en ?? def.title ?? def.name
+      (def.title.en ?? def.title ?? def.name).toLowerCase()
     );
 
     if (schema.max) {
@@ -44,6 +44,12 @@ export class TextField extends FormComponent {
     if (options.customValidationMessage) {
       componentSchema = componentSchema.message(
         options.customValidationMessage
+      );
+    }
+
+    if (options.customValidationMessages) {
+      componentSchema = componentSchema.messages(
+        options.customValidationMessages
       );
     }
 

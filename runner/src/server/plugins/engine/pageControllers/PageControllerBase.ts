@@ -23,6 +23,8 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
+import nunjucks from "nunjucks";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -53,6 +55,7 @@ export class PageControllerBase {
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
+  backLinkFallback?: string;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -68,6 +71,7 @@ export class PageControllerBase {
     this.title = pageDef.title;
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
+    this.backLinkFallback = pageDef.backLinkFallback;
 
     // Resolve section
     this.section = model.sections?.find(
@@ -79,6 +83,20 @@ export class PageControllerBase {
     const conditionalFormComponents = components.formItems.filter(
       (c: any) => c.conditionalComponents
     );
+
+    const fieldsForPrePopulation = components.prePopulatedItems;
+
+    if (this.section) {
+      this.model.fieldsForPrePopulation[this.section.name] = {
+        ...(this.model.fieldsForPrePopulation[this.section.name] ?? {}),
+        ...fieldsForPrePopulation,
+      };
+    } else {
+      this.model.fieldsForPrePopulation = {
+        ...this.model.fieldsForPrePopulation,
+        ...fieldsForPrePopulation,
+      };
+    }
 
     this.components = components;
     this.hasFormComponents = !!components.formItems.length;
@@ -111,7 +129,12 @@ export class PageControllerBase {
   } {
     let showTitle = true;
     let pageTitle = this.title;
-    let sectionTitle = this.section?.title;
+    if (config.allowUserTemplates) {
+      pageTitle = nunjucks.renderString(pageTitle, {
+        ...formData,
+      });
+    }
+    let sectionTitle = !this.section?.hideTitle && this.section?.title;
     if (sectionTitle && iteration !== undefined) {
       sectionTitle = `${sectionTitle} ${iteration}`;
     }
@@ -158,9 +181,16 @@ export class PageControllerBase {
   }
 
   get next() {
-    return (this.pageDef.next || [])
-      .map((next: { path: string }) => {
+    const pageDefNext = this.pageDef.next ?? [];
+
+    return pageDefNext
+      .map((next: { path: string; redirect?: string }) => {
         const { path } = next;
+
+        if (next?.redirect) {
+          return next;
+        }
+
         const page = this.model.pages.find((page: PageControllerBase) => {
           return path === page.path;
         });
@@ -208,12 +238,20 @@ export class PageControllerBase {
     let defaultLink;
     const nextLink = this.next.find((link) => {
       const { condition } = link;
-      if (condition) {
-        return this.model.conditions[condition]?.fn?.(state);
+      if (!condition) {
+        defaultLink = link;
       }
-      defaultLink = link;
+      const conditionPassed = this.model.conditions[condition]?.fn?.(state);
+      if (conditionPassed) {
+        return link;
+      }
       return false;
     });
+
+    if (nextLink?.redirect) {
+      return nextLink;
+    }
+
     return nextLink?.page ?? defaultLink?.page;
   }
 
@@ -223,6 +261,9 @@ export class PageControllerBase {
    */
   getNext(state: any) {
     const nextPage = this.getNextPage(state);
+    if (nextPage?.redirect) {
+      return nextPage.redirect;
+    }
     const query = { num: 0 };
     let queryString = "";
     if (nextPage?.repeatField) {
@@ -267,12 +308,19 @@ export class PageControllerBase {
         ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
         : {};
 
-      return this.components.getFormDataFromState(
-        newState as FormSubmissionState
-      );
+      return {
+        ...this.components.getFormDataFromState(
+          newState as FormSubmissionState
+        ),
+        ...this.model.fieldsForContext?.getFormDataFromState(
+          newState as FormSubmissionState
+        ),
+      };
     }
-
-    return this.components.getFormDataFromState(pageState || {});
+    return {
+      ...this.components.getFormDataFromState(pageState || {}),
+      ...this.model.getContextState(state),
+    };
   }
 
   getStateFromValidForm(formData: FormPayload) {
@@ -409,7 +457,13 @@ export class PageControllerBase {
       relevantState = merge(relevantState, newValue);
 
       //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
-      nextPage = nextPage.getNextPage(relevantState);
+      const possibleNextPage = nextPage.getNextPage(relevantState);
+      if (possibleNextPage?.redirect) {
+        nextPage = null;
+      } else {
+        nextPage = possibleNextPage;
+      }
+
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
     }
 
@@ -432,6 +486,7 @@ export class PageControllerBase {
       const shouldRedirectToStartPage =
         !this.model.options.previewMode &&
         progress.length === 0 &&
+        !request.pre.hasPrepopulatedSessionFromQueryParameter &&
         !isStartPage &&
         !isInitialisedSession;
 
@@ -454,7 +509,6 @@ export class PageControllerBase {
           }
         });
       }
-
       const viewModel = this.getViewModel(formData, num);
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
@@ -521,7 +575,8 @@ export class PageControllerBase {
 
       await cacheService.mergeState(request, { progress });
 
-      viewModel.backLink = progress[progress.length - 2];
+      viewModel.backLink =
+        progress[progress.length - 2] ?? this.backLinkFallback;
       return h.view(this.viewName, viewModel);
     };
   }
@@ -564,7 +619,7 @@ export class PageControllerBase {
           path: field.name,
           href: `#${field.name}`,
           name: field.name,
-          text: "The selected file must be smaller than 5MB",
+          text: `The selected file must be smaller than ${config.maxFileSizeStringInMb}MB`,
         };
       });
 
@@ -740,7 +795,11 @@ export class PageControllerBase {
    * TODO:- proceed is interfering with subclasses
    */
   proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
-    return proceed(request, h, this.getNext(state));
+    const nextPage = this.getNext(state);
+    if (nextPage?.redirect) {
+      return proceed(request, h, nextPage?.redirect);
+    }
+    return proceed(request, h, nextPage);
   }
 
   getPartialMergeState(value) {
@@ -822,7 +881,7 @@ export class PageControllerBase {
   private renderWithErrors(request, h, payload, num, progress, errors) {
     const viewModel = this.getViewModel(payload, num, errors);
 
-    viewModel.backLink = progress[progress.length - 2];
+    viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
 
