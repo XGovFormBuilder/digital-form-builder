@@ -1,6 +1,9 @@
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import Joi, { ValidationError, ValidationErrorItem } from "joi";
 import { getFormPrehandler } from "server/plugins/engine/pluginHandlers/exit/preHandlers";
+import Boom from "boom";
+import { WebhookModel } from "server/plugins/engine/models/submission";
+import { post } from "wreck";
 
 function errorListFromValidationResult(validationError: any[]) {
   if (validationError.length === 0) {
@@ -104,7 +107,21 @@ export const emailPost = {
       },
     ],
   },
-  handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+  handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+    const form = request.pre.form;
+    if (!form.allowExit) {
+      Boom.forbidden();
+    }
+    const { cacheService, exitService } = request.services([]);
+    const state = await cacheService.getState(request);
+    let result;
+    try {
+      result = await exitService.exitForm(form, state);
+      request.yar.set("exitResult", result);
+    } catch (e) {
+      Boom.badRequest();
+    }
+
     return h.redirect("status");
   },
 };
@@ -113,8 +130,18 @@ export const statusGet = {
   method: "get",
   path: "/{id}/exit/status",
   options: {},
-  handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+  handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
     console.log(request.pre.errors);
-    return h.view("exit/status", { errors: request.pre.errors });
+    const result = request.yar.get("exitResult");
+
+    if (result.redirect) {
+      h.redirect(result.redirect);
+    }
+
+    return h.view("exit/status", {
+      errors: request.pre.errors,
+      payload: request.yar.get("exitPayload"),
+      result: request.yar.get("exitResult"),
+    });
   },
 };

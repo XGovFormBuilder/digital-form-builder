@@ -169,6 +169,7 @@ export type FeeOptions = {
 export type ExitOptions = {
   url: string;
   redirectUrl?: string;
+  format?: "STATE" | "WEBHOOK";
 };
 
 /**

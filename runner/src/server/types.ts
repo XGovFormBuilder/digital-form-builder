@@ -12,6 +12,7 @@ import { Logger } from "pino";
 import { RateOptions } from "./plugins/rateLimit";
 import {
   CacheService,
+  ExitService,
   NotifyService,
   PayService,
   StatusService,
@@ -33,6 +34,7 @@ type Services = (
   statusService: StatusService;
   queueService: QueueService;
   queueStatusService: QueueStatusService;
+  exitService: ExitService;
 };
 
 export type RouteConfig = {

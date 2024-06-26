@@ -83,12 +83,12 @@ function pagesToQuestions(
 
 function fieldAnswerFromComponent(
   component: FormComponent,
-  state: FormSubmissionState
+  state: FormSubmissionState = {}
 ) {
   if (!component) {
     return;
   }
-  const rawValue = state[component.name];
+  const rawValue = state?.[component.name];
 
   switch (component.dataType) {
     case "list":
