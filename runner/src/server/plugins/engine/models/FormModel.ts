@@ -63,7 +63,7 @@ export class FormModel {
   specialPages: FormDefinition["specialPages"];
 
   constructor(def, options) {
-    const result = Schema.validate(def, { abortEarly: false });
+    const result = Schema.validate(def, { abortEarly: false, convert: false });
 
     if (result.error) {
       throw result.error;

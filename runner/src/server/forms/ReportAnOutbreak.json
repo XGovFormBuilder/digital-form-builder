@@ -1624,33 +1624,6 @@
       ]
     },
     {
-      "title": "general-1-to-5",
-      "name": "pxxiab",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "1",
-          "value": 1
-        },
-        {
-          "text": "2 to 4",
-          "value": "2 to 4"
-        },
-        {
-          "text": "5 or more",
-          "value": "5 or more"
-        },
-        {
-          "text": "Not sure",
-          "value": "Not sure"
-        }
-      ]
-    },
-    {
       "title": "clientele-types",
       "name": "REslMD",
       "type": "string",
@@ -1678,29 +1651,6 @@
       ]
     },
     {
-      "title": "cases-none-some-all",
-      "name": "rLdCDZ",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Not applicable (there are no resident/client cases)",
-          "value": "Not applicable (there are no resident/client cases)"
-        }
-      ]
-    },
-    {
       "title": "area-1-more-note-sure-n-a",
       "name": "DcWntj",
       "type": "string",
@@ -1720,25 +1670,6 @@
         {
           "text": "Not applicable to my setting (e.g. domiciliary/home care)",
           "value": "Not applicable to my setting (e.g. domiciliary/home care)"
-        }
-      ]
-    },
-    {
-      "title": "general-all-some-none",
-      "name": "pqTQca",
-      "type": "string",
-      "items": [
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "None",
-          "value": "None"
         }
       ]
     },
@@ -1848,44 +1779,6 @@
       ]
     },
     {
-      "title": "general-confidence",
-      "name": "tgnngq",
-      "type": "string",
-      "items": [
-        {
-          "text": "Completely confident",
-          "value": "Completely confident"
-        },
-        {
-          "text": "Quite confident",
-          "value": "Quite confident"
-        },
-        {
-          "text": "Not at all confident",
-          "value": "Not at all confident"
-        }
-      ]
-    },
-    {
-      "title": "general-urgancy",
-      "name": "YFnxMY",
-      "type": "string",
-      "items": [
-        {
-          "text": "Very urgently",
-          "value": "Very urgently"
-        },
-        {
-          "text": "Soon",
-          "value": "Soon"
-        },
-        {
-          "text": "No hurry",
-          "value": "No hurry"
-        }
-      ]
-    },
-    {
       "title": "feedback",
       "name": "icNyDJ",
       "type": "string",
@@ -1931,11 +1824,11 @@
       "items": [
         {
           "text": "0",
-          "value": 0
+          "value": "0"
         },
         {
           "text": "1",
-          "value": 1
+          "value": "1"
         },
         {
           "text": "2 to 3",
@@ -1956,29 +1849,6 @@
       ]
     },
     {
-      "title": "cases-non-some-all-staff",
-      "name": "exEWIK",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Not applicable (there are no staff cases)",
-          "value": "Not applicable (there are no staff cases)"
-        }
-      ]
-    },
-    {
       "title": "HPTs",
       "name": "sjgMDe",
       "type": "string",
@@ -1994,165 +1864,6 @@
         {
           "text": "South West HPT",
           "value": "South West HPT"
-        }
-      ]
-    },
-    {
-      "title": "have-symptoms",
-      "name": "IiMNZH",
-      "type": "string",
-      "items": [
-        {
-          "text": "< 5",
-          "value": "< 5"
-        },
-        {
-          "text": "5 - 10",
-          "value": "5 - 10"
-        },
-        {
-          "text": "11 - 20 ",
-          "value": "11 - 20"
-        },
-        {
-          "text": "More than 20",
-          "value": "More than 20"
-        }
-      ]
-    },
-    {
-      "title": "S4Q15",
-      "name": "uGvTrx",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Not applicable (there are no staff cases)",
-          "value": "Not applicable (there are no staff cases)"
-        }
-      ]
-    },
-    {
-      "title": "S4Q14 a) In the same area/s of the setting",
-      "name": "yUeLAZ",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Not applicable (there are no staff cases)",
-          "value": "Not applicable (there are no staff cases)"
-        }
-      ]
-    },
-    {
-      "title": "S4Q14 b)",
-      "name": "akLMsZ",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        }
-      ]
-    },
-    {
-      "title": "S4Q14 b)",
-      "name": "gYZUTi",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        }
-      ]
-    },
-    {
-      "title": "S4Q14 b) On the same shift",
-      "name": "iosTNw",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        }
-      ]
-    },
-    {
-      "title": "S4Q14 b) On the same shift",
-      "name": "mqatEz",
-      "type": "string",
-      "items": [
-        {
-          "text": "ss",
-          "value": "ss"
-        }
-      ]
-    },
-    {
-      "title": "None / Some / All / N/A",
-      "name": "HgnBRj",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Not applicable (there are no staff cases)",
-          "value": "Not applicable (there are no staff cases)"
-        }
-      ]
-    },
-    {
-      "title": "S4Q13",
-      "name": "XGdfrJ",
-      "type": "string",
-      "items": [
-        {
-          "text": "None",
-          "value": "None"
-        },
-        {
-          "text": "Some",
-          "value": "Some"
-        },
-        {
-          "text": "All",
-          "value": "All"
-        },
-        {
-          "text": "Not applicable (there are no resident/client cases)",
-          "value": "Not applicable (there are no resident/client cases)"
         }
       ]
     },

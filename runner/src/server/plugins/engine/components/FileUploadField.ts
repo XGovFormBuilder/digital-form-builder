@@ -14,7 +14,7 @@ export class FileUploadField extends FormComponent {
 
     const { options = {} } = def;
 
-    let componentSchema = joi.string().label(def.title.toLowerCase());
+    let componentSchema = joi.string().label(def.title);
 
     if (options.required === false) {
       componentSchema = componentSchema.allow("").allow(null);

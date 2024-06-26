@@ -35,8 +35,7 @@
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
     "type-check:watch": "yarn workspaces foreach run type-check --watch",
-    "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'",
-    "build-start": "yarn && yarn build && yarn runner start"
+    "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.3",

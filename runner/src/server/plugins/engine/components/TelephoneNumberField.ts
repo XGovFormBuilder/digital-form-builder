@@ -15,8 +15,6 @@ import joi, { Schema } from "joi";
 
 const PATTERN = /^((\+\d{0,4})|(0))[0-9\s()+]{0,20}$/;
 const DEFAULT_MESSAGE = "Enter a telephone number in the correct format";
-const REQUIRED_MESSAGE =
-  "Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192";
 export class TelephoneNumberField extends FormComponent {
   constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
     super(def, model);

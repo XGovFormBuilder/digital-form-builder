@@ -18,7 +18,7 @@ export class DateField extends FormComponent {
 
     let schema = joi.date();
 
-    schema = schema.label(def.title.toLowerCase());
+    schema = schema.label(def.title);
     const { maxDaysInPast, maxDaysInFuture } = options;
 
     // Note: toString fixes the bug where a '0' days in future resolves to 'false' here

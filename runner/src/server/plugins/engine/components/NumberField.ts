@@ -17,7 +17,7 @@ export class NumberField extends FormComponent {
     const { min, max } = schema;
     let componentSchema = joi.number();
 
-    componentSchema = componentSchema.label(def.title.toLowerCase());
+    componentSchema = componentSchema.label(def.title);
 
     if (min && max) {
       componentSchema = componentSchema.$;

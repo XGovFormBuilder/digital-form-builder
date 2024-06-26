@@ -10,7 +10,7 @@ export class CheckboxesField extends SelectionControlField {
 
     const { options } = def;
 
-    let schema = joi.array().single().label(def.title.toLowerCase());
+    let schema = joi.array().single().label(def.title);
 
     if (options.required === false) {
       // null or empty string is valid for optional fields

@@ -26,9 +26,7 @@ export class MultilineTextField extends FormComponent {
     const { schema = {}, options } = def;
     this.options = options;
     this.schema = schema;
-    let componentSchema = Joi.string()
-      .label(def.title.toLowerCase())
-      .required();
+    let componentSchema = Joi.string().label(def.title).required();
 
     if (options.required === false) {
       componentSchema = componentSchema.allow("").allow(null);
