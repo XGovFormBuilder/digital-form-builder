@@ -85,13 +85,13 @@
       ],
       "next": [
         {
-          "path": "/Section-1-Details-of-your-setting"
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide"
         }
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting-Continuation-1",
-      "title": "Section 1 - Details of your setting (Continuation 1)",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-1",
+      "title": "Section 1 - What type of adult social care do you provide? (Continuation 1)",
       "components": [
         {
           "name": "S1Q4",
@@ -146,8 +146,8 @@
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting-Continuation-2",
-      "title": "Section 1 - Details of your setting (Continuation 2)",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-2",
+      "title": "Section 1 - What type of adult social care do you provide? (Continuation 2)",
       "components": [
         {
           "name": "S1Q3",
@@ -205,8 +205,8 @@
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting-Continuation-3",
-      "title": "Section 1 - Details of your setting (Continuation 3)",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-3",
+      "title": "Section 1 - What type of adult social care do you provide? (Continuation 3)",
       "components": [
         {
           "name": "sIFkPc",
@@ -1316,38 +1316,29 @@
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting",
-      "title": "Section 1 - Details of your setting",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide",
+      "title": "Section 1 - What type of adult social care do you provide?",
       "components": [
         {
           "name": "rHEHfX",
           "options": {},
           "type": "Para",
-          "content": "These questions ask for basic information about your setting.",
           "schema": {}
         },
         {
           "name": "S1Q1",
-          "options": {},
+          "options": {
+            "hideTitle": true,
+            "customValidationMessage": "Select the type of adult social care that you provide"
+          },
           "type": "RadiosField",
           "title": "S1Q1. What type of adult social care provider are you?",
-          "hint": "High risk supported living or extra care defined as closed community with substantial facilities shared between multiple people AND majority of residents(>50%) receive CQC regulated personal care.",
           "nameHasError": false,
           "list": "MpSRIP",
           "schema": {},
           "values": {
             "type": "listRef"
           }
-        },
-        {
-          "name": "S1Q2",
-          "options": {
-            "required": false
-          },
-          "type": "TextField",
-          "title": "S1Q2. If other, please state what sort of setting you are",
-          "nameHasError": false,
-          "schema": {}
         },
         {
           "name": "KRUUTd",
@@ -1361,15 +1352,15 @@
       ],
       "next": [
         {
-          "path": "/Section-1-Details-of-your-setting-Continuation-2",
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-2",
           "condition": "VBVcUJ"
         },
         {
-          "path": "/Section-1-Details-of-your-setting-Continuation-1",
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-1",
           "condition": "sUrRwU"
         },
         {
-          "path": "/Section-1-Details-of-your-setting-Continuation-3"
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-3"
         }
       ]
     },
@@ -1586,36 +1577,37 @@
       "type": "string",
       "items": [
         {
-          "text": "Residential Care Home",
-          "value": "Residential Care Home"
+          "text": "Residential care home",
+          "value": "Residential care home"
         },
         {
-          "text": "Nursing Care Home",
-          "value": "Nursing Care Home"
+          "text": "Nursing care home",
+          "value": "Nursing care home"
         },
         {
-          "text": "Residential and Nursing Care Home",
-          "value": "Residential and Nursing Care Home"
+          "text": "Residential and nursing care home",
+          "value": "Residential and nursing care home"
         },
         {
-          "text": "High Risk Supported Living or Extra Care",
-          "value": "High Risk Supported Living or Extra Care"
+          "text": "High-risk supported living or extra care",
+          "value": "High-risk supported living or extra care",
+          "description": "High-risk supported living or extra care is defined as closed community with substantial facilities shared between multiple people and more than half of residents get CQC-regulated personal care."
         },
         {
-          "text": "Supported Living or Extra Care (not high risk)",
-          "value": "Supported Living or Extra Care (not high risk)"
+          "text": "Supported living or extra care (not high risk)",
+          "value": "Supported living or extra care (not high risk)"
         },
         {
-          "text": "Day Centre",
-          "value": "Day Centre"
+          "text": "Day centre",
+          "value": "Day centre"
         },
         {
-          "text": "Domiciliary or Home Care",
-          "value": "Domiciliary or Home Care"
+          "text": "Domiciliary or home care",
+          "value": "Domiciliary or home care"
         },
         {
-          "text": "Retirement Home / Village or Sheltered Housing",
-          "value": "Retirement Home / Village or Sheltered Housing"
+          "text": "Retirement home or village or sheltered housing",
+          "value": "Retirement home or village or sheltered housing"
         },
         {
           "text": "Other",
@@ -1900,8 +1892,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Residential and Nursing Care Home",
-              "display": "Residential and Nursing Care Home"
+              "value": "Residential and nursing care home",
+              "display": "Residential and nursing care home"
             }
           },
           {
@@ -1914,8 +1906,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Nursing Care Home",
-              "display": "Nursing Care Home"
+              "value": "Nursing care home",
+              "display": "Nursing care home"
             }
           },
           {
@@ -1928,8 +1920,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Residential Care Home",
-              "display": "Residential Care Home"
+              "value": "Residential care home",
+              "display": "Residential care home"
             }
           }
         ]
@@ -1950,8 +1942,8 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Residential and Nursing Care Home",
-              "display": "Residential and Nursing Care Home"
+              "value": "Residential and nursing care home",
+              "display": "Residential and nursing care home"
             }
           },
           {
@@ -1978,8 +1970,8 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Residential Care Home",
-              "display": "Residential Care Home"
+              "value": "Residential care home",
+              "display": "Residential care home"
             }
           },
           {
@@ -1992,8 +1984,8 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Nursing Care Home",
-              "display": "Nursing Care Home"
+              "value": "Nursing care home",
+              "display": "Nursing care home"
             }
           }
         ]
