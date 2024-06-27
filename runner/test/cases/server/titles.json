@@ -97,10 +97,59 @@
       ],
       "next": [
         {
-          "path": "/summary"
+          "path": "/applicant-two"
         }
       ],
       "title": "Applicant contact details"
+    },
+    {
+      "path": "/applicant-two",
+      "title": "Applicant 2 details",
+      "section": "applicantTwoDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
     },
     {
       "path": "/summary",
@@ -110,8 +159,7 @@
       "next": []
     }
   ],
-  "lists": [
-  ],
+  "lists": [],
   "sections": [
     {
       "name": "applicantDetails",
@@ -120,15 +168,17 @@
     {
       "name": "applicantOneDetails",
       "title": "Applicant 1"
+    },
+    {
+      "name": "applicantTwoDetails",
+      "title": "Applicant 2",
+      "hideTitle": true
     }
   ],
   "phaseBanner": {},
-  "fees": [
-  ],
+  "fees": [],
   "payApiKey": "",
-  "outputs": [
-  ],
+  "outputs": [],
   "version": 2,
-  "conditions": [
-  ]
+  "conditions": []
 }

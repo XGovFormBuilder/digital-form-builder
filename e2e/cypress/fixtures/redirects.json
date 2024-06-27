@@ -1,0 +1,87 @@
+{
+  "metadata": {},
+  "startPage": "/start",
+  "pages": [
+    {
+      "title": "Start",
+      "path": "/start",
+      "section": "beforeYouStart",
+      "components": [
+        {
+          "name": "country",
+          "type": "AutocompleteField",
+          "title": "Country",
+          "nameHasError": false,
+          "list": "SfkWjb"
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        },
+        {
+          "redirect": "http://localhost:3009/help/cookies",
+          "condition": "shouldRedirectToCookiesPage"
+        }
+      ]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [
+        {
+          "name": "SFtcpL",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">You chose the option {{country}}</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "Countries",
+      "name": "SfkWjb",
+      "type": "string",
+      "items": [
+        {
+          "text": "Turkey",
+          "value": "Turkey"
+        },
+        {
+          "text": "Thailand",
+          "value": "Thailand"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "title": "Before you start",
+      "name": "beforeYouStart"
+    }
+  ],
+  "conditions": [
+    {
+      "name": "shouldRedirectToCookiesPage",
+      "value": "beforeYouStart.country == 'Turkey'"
+    }
+  ],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
+}

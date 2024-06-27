@@ -40,13 +40,29 @@ export default {
         {
           method: "get",
           path: "/help/cookies",
-          handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-            return h.view("help/cookies");
+          handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            const cookiesPolicy = request.state.cookies_policy;
+            let analytics =
+              cookiesPolicy?.analytics === "on" ? "accept" : "reject";
+            return h.view("help/cookies", {
+              analytics,
+            });
           },
         },
         {
           method: "post",
           options: {
+            payload: {
+              parse: true,
+              multipart: true,
+              failAction: async (
+                request: HapiRequest,
+                h: HapiResponseToolkit
+              ) => {
+                request.server.plugins.crumb.generate?.(request, h);
+                return h.continue;
+              },
+            },
             validate: {
               payload: Joi.object({
                 cookies: Joi.string()
@@ -78,7 +94,7 @@ export default {
                 usage: accept,
               },
               {
-                isHttpOnly: true,
+                isHttpOnly: false,
                 path: "/",
               }
             );
@@ -148,20 +164,24 @@ export default {
           let name = "";
 
           const { referer } = request.headers;
-          console.log("🚀 ~ referer", referer)
 
           if (referer) {
-            const match = referer.match(/https?:\/\/[^/]+\/([^/]+)(\/([^/]+))?.*/);
+            const match = referer.match(
+              /https?:\/\/[^/]+\/([^/]+)(\/([^/]+))?.*/
+            );
             if (match && match.length > 1) {
               startPage = `/${match[1]}`;
-              name = (match[1].split(/(?=[A-Z])/)).toString()
-              name = (name[0]+name.slice(1).toLowerCase()).replaceAll(",", " ")
+              name = match[1].split(/(?=[A-Z])/).toString();
+              name = (name[0] + name.slice(1).toLowerCase()).replaceAll(
+                ",",
+                " "
+              );
             }
           }
-      
+
           return h.view("timeout", {
             startPage,
-            name
+            name,
           });
         },
       });

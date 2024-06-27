@@ -19,7 +19,8 @@ export type SendNotificationArgs = {
   emailAddress: string;
   personalisation: Personalisation;
   reference: string;
-  replyToEmailId?: string;
+  emailReplyToId?: string;
+  escapeURLs?: boolean;
 };
 
 export class NotifyService {
@@ -31,11 +32,35 @@ export class NotifyService {
     this.logger = server.logger;
   }
 
-  parsePersonalisations(options: Personalisation): Personalisation {
+  /**
+   * Escapes markdown-formatted links. If a markdown-formatted link is passed
+   * through in personalisation, Notify will render it as a link. This could
+   * leave an opening to phishing attacks.
+   *
+   * @param value the personalisation value to be escaped
+   */
+  escapeURLs(value: string): string {
+    const specialCharactersPattern = new RegExp(/\[([^\[\]]*)]\(([^\(\)]*)\)/g);
+
+    return value.replaceAll(
+      specialCharactersPattern,
+      (_match, linkText, href) => {
+        return `\\[${linkText}\\]\\(${href})`;
+      }
+    );
+  }
+
+  parsePersonalisations(
+    options: Personalisation,
+    escapeURLs: boolean
+  ): Personalisation {
     const entriesWithReplacedBools = Object.entries(options).map(
       ([key, value]) => {
         if (typeof value === "boolean") {
           return [key, value ? "yes" : "no"];
+        }
+        if (typeof value === "string" && escapeURLs) {
+          value = this.escapeURLs(value);
         }
         return [key, value];
       }
@@ -51,17 +76,18 @@ export class NotifyService {
       personalisation,
       reference,
       emailReplyToId,
+      escapeURLs,
     } = args;
     let { apiKey } = args;
 
     if (isMultipleApiKey(apiKey)) {
-      apiKey = (config.apiEnv === "production"
-        ? apiKey.production ?? apiKey.test
-        : apiKey.test ?? apiKey.production) as string;
+      apiKey = (apiKey[config.apiEnv] ??
+        apiKey.test ??
+        apiKey.production) as string;
     }
 
     const parsedOptions: SendEmailOptions = {
-      personalisation: this.parsePersonalisations(personalisation),
+      personalisation: this.parsePersonalisations(personalisation, escapeURLs),
       reference,
       emailReplyToId,
     };

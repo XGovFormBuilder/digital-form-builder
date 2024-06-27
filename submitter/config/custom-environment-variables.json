@@ -1,0 +1,13 @@
+{
+  "env": "NODE_ENV",
+  "port": "PORT",
+
+  "logPrettyPrint": "LOG_PRETTY_PRINT",
+  "logLevel": "LOG_LEVEL",
+
+  "queueDatabaseUrl": "QUEUE_DATABASE_URL",
+  "queueDatabaseUsername": "QUEUE_DATABASE_USERNAME",
+  "queueDatabasePassword": "QUEUE_DATABASE_PASSWORD",
+  "pollingInterval": "QUEUE_POLLING_INTERVAL",
+  "retentionPeriod": "QUEUE_RETENTION_PERIOD_DAYS"
+}

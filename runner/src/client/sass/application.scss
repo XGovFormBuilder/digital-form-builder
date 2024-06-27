@@ -73,6 +73,35 @@
   }
 }
 
+.govuk-button {
+  &--link {
+    @extend .govuk-link;
+    border: none;
+    color: $govuk-link-colour;
+    cursor: pointer;
+    background-color: transparent;
+    &:hover {
+      color: $govuk-link-hover-colour;
+    }
+  }
+}
+
+.govuk-list {
+  &--multi-start-page li {
+    list-style-type: none;
+    padding-left: 25px;
+    padding-right: 25px;
+    position: relative;
+    &:before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      width: 20px;
+      overflow: hidden;
+    }
+  }
+}
+
 .govuk-header__logotype {
   fill: white;
 }

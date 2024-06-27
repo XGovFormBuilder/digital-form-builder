@@ -1,11 +1,18 @@
 import { FormModel } from "server/plugins/engine/models";
+import { TEmailModel } from "./types";
 import config from "server/config";
+import { EmailOutputConfiguration } from "@xgovformbuilder/model";
+import { WebhookData } from "server/plugins/engine/models/types";
 const { notifyTemplateId, notifyAPIKey } = config;
 
 /**
  * returns an object used for sending email requests. Used by {@link SummaryViewModel}
  */
-export function EmailModel(model: FormModel, outputConfiguration, webhookData) {
+export function EmailModel(
+  model: FormModel,
+  outputConfiguration: EmailOutputConfiguration,
+  webhookData: WebhookData
+): TEmailModel {
   const data: string[] = [];
 
   webhookData?.questions?.forEach((question) => {

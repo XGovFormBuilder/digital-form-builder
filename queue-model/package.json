@@ -1,0 +1,41 @@
+{
+  "name": "@xgovformbuilder/queue-model",
+  "version": "1.0.0",
+  "description": "A hapi plugin to provide the queue model for Xgov digital form builder based applications using the queue service",
+  "main": "dist/module/index.js",
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/feat/failure-queue/queue-model"
+  },
+  "scripts": {
+    "lint": "yarn run eslint .",
+    "fix-lint": "yarn run eslint . --fix",
+    "build": "yarn run build:prisma && yarn run build:types && yarn run build:node",
+    "build:prisma": "prisma generate",
+    "migrate": "prisma migrate dev",
+    "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module --copy-files",
+    "build:types": "tsc --emitDeclarationOnly",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.3",
+    "@babel/core": "^7.23.3",
+    "@babel/eslint-parser": "^7.23.3",
+    "@babel/eslint-plugin": "^7.22.10",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/node": "^20.4.6",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.10.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "prisma": "^5.1.1",
+    "typescript": "4.9.5"
+  },
+  "dependencies": {
+    "@prisma/client": "5.16.0"
+  }
+}

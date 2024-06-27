@@ -32,6 +32,11 @@ export class DateTimePartsField extends FormComponent {
           options: {
             required: options.required,
             classes: "govuk-input--width-2",
+            customValidationMessages: {
+              "number.min": "{{#label}} must be between 1 and 31",
+              "number.max": "{{#label}} must be between 1 and 31",
+              "number.base": `${def.title} must include a day`,
+            },
           },
         },
         {
@@ -42,6 +47,11 @@ export class DateTimePartsField extends FormComponent {
           options: {
             required: options.required,
             classes: "govuk-input--width-2",
+            customValidationMessages: {
+              "number.min": "{{#label}} must be between 1 and 12",
+              "number.max": "{{#label}} must be between 1 and 12",
+              "number.base": `${def.title} must include a month`,
+            },
           },
         },
         {
@@ -52,6 +62,9 @@ export class DateTimePartsField extends FormComponent {
           options: {
             required: options.required,
             classes: "govuk-input--width-4",
+            customValidationMessages: {
+              "number.base": `${def.title} must include a year`,
+            },
           },
         },
         {
@@ -62,6 +75,11 @@ export class DateTimePartsField extends FormComponent {
           options: {
             required: options.required,
             classes: "govuk-input--width-2",
+            customValidationMessages: {
+              "number.min": "{{#label}} must be between 0 and 23",
+              "number.max": "{{#label}} must be between 0 and 23",
+              "number.base": `${def.title} must include an hour`,
+            },
           },
         },
         {
@@ -72,6 +90,11 @@ export class DateTimePartsField extends FormComponent {
           options: {
             required: options.required,
             classes: "govuk-input--width-2",
+            customValidationMessages: {
+              "number.min": "{{#label}} must be between 0 and 59",
+              "number.max": "{{#label}} must be between 0 and 59",
+              "number.base": `${def.title} must include a minute`,
+            },
           },
         },
       ] as any,

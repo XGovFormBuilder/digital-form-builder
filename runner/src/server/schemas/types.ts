@@ -1,9 +1,10 @@
-import { ComponentType, ConfirmationPage } from "@xgovformbuilder/model";
+import { ConfirmationPage } from "@xgovformbuilder/model";
 import { FeeDetails } from "server/services/payService";
+import { DataType } from "server/plugins/engine/components/types";
 
 export type Field = {
   key: string;
-  type: ComponentType;
+  type: DataType | undefined;
   title: string;
   answer: any;
 };

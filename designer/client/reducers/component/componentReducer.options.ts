@@ -53,6 +53,13 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, multiple: payload },
         },
       };
+    case Options.EDIT_OPTIONS_IMAGE_QUALITY_PLAYBACK:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, imageQualityPlayback: payload },
+        },
+      };
     case Options.EDIT_OPTIONS_CLASSES:
       return {
         selectedComponent: {
@@ -126,6 +133,38 @@ export function optionsReducer(state, action: OptionsActions) {
         selectedComponent: {
           ...selectedComponent,
           options: { ...options, maxWords: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_EXPOSE_TO_CONTEXT:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, exposeToContext: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_ALLOW_PRE_POPULATION:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, allowPrePopulation: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_ALLOW_PRE_POPULATION_OVERWRITE:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, allowPrePopulationOverwrite: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_DISABLE_CHANGING_FROM_SUMMARY:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, disableChangingFromSummary: payload },
         },
       };
   }

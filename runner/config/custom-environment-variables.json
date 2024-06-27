@@ -13,6 +13,7 @@
   "matomoUrl": "MATOMO_URL",
   "payApiUrl": "PAY_API_URL",
   "payReturnUrl": "PAY_RETURN_URL",
+  "payReferenceLength": "PAY_REFERENCE_LENGTH",
   "serviceUrl": "SERVICE_URL",
   "redisHost": "REDIS_HOST",
   "redisPort": "REDIS_PORT",
@@ -41,5 +42,19 @@
   "authClientTokenUrl": "AUTH_CLIENT_TOKEN_URL",
   "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
   "previewMode": "PREVIEW_MODE",
-  "enforceCsrf": "ENFORCE_CSRF"
+  "enforceCsrf": "ENFORCE_CSRF",
+  "safelist": "SAFELIST",
+  "initialisedSessionTimeout": "INITIALISED_SESSION_TIMEOUT",
+  "initialisedSessionKey": "INITIALISED_SESSION_KEY",
+  "initialisedSessionAlgorithm": "INITIALISED_SESSION_ALGORITHM",
+  "enableQueueService": "ENABLE_QUEUE_SERVICE",
+  "queueType": "QUEUE_TYPE",
+  "queueDatabaseUrl": "QUEUE_DATABASE_URL",
+  "queueDatabaseUsername": "QUEUE_DATABASE_USERNAME",
+  "queueDatabasePassword": "QUEUE_DATABASE_PASSWORD",
+  "queueServicePollingInterval": "QUEUE_SERVICE_POLLING_INTERVAL",
+  "queueServicePollingTimeout": "QUEUE_SERVICE_POLLING_TIMEOUT",
+  "allowUserTemplates": "ALLOW_USER_TEMPLATES",
+  "maxClientFileSize": "MAX_CLIENT_FILE_SIZE",
+  "maxFileSizeStringInMb": "MAX_FILE_SIZE_STRING_IN_MB"
 }
