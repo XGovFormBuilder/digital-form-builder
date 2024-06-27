@@ -2368,13 +2368,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/hoek@npm:^6.1.2":
-  version: 6.2.4
-  resolution: "@hapi/hoek@npm:6.2.4"
-  checksum: 17e6e687509c20d3730dfb14b05536024d50253e96fcd0c7a4df8247e3a30568a8028b59208173f3e63dbab3eb6b71f07eff06b234dd5c2bd773d254af769e37
-  languageName: node
-  linkType: hard
-
 "@hapi/inert@npm:^6.0.1":
   version: 6.0.5
   resolution: "@hapi/inert@npm:6.0.5"
@@ -3667,31 +3660,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@prisma/client@npm:5.0.0"
-  dependencies:
-    "@prisma/engines-version": 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-  peerDependencies:
-    prisma: "*"
-  peerDependenciesMeta:
-    prisma:
-      optional: true
-  checksum: 332c2af44e880ffc9dd1223992bf6f45910094c7a3a540cbbfdda45d6caf3e82998376338abdf85e34a12f1082ae932f2385d6396c62fe4bba7ec6b84de54466
-  languageName: node
-  linkType: hard
-
 "@prisma/debug@npm:5.8.0":
   version: 5.8.0
   resolution: "@prisma/debug@npm:5.8.0"
   checksum: 43a600cab0160feb58da069074437e0f2eee61ed247788e5ed334dd50c0a8edccb5416d6446de2b7b4d68dad5f5faf65849a0c534dd43f6a29548b773fb7b2d7
-  languageName: node
-  linkType: hard
-
-"@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584":
-  version: 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-  resolution: "@prisma/engines-version@npm:4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584"
-  checksum: 8fcbceef3b554ee7fa404bead50be5286412a097b21723272aff298b289caf2802b01b84bb85c4c9f3b592eeac114c8d6e79db083f271dc8c54f453b4a515233
   languageName: node
   linkType: hard
 
@@ -3991,13 +3963,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/config@npm:^3.3.0":
-  version: 3.3.3
-  resolution: "@types/config@npm:3.3.3"
-  checksum: 738c616fc385fa93e61b2236b43fbcfd93b1b53fc222fa14f2ebaef17ec7eaf03bf3d768fa8cb00df1b5173574893c020dc73eab11ddd6ea769dbf9ea113e8da
-  languageName: node
-  linkType: hard
-
 "@types/cookie@npm:^0.4.1":
   version: 0.4.1
   resolution: "@types/cookie@npm:0.4.1"
@@ -4217,7 +4182,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20.4.6":
+"@types/node@npm:*":
   version: 20.10.8
   resolution: "@types/node@npm:20.10.8"
   dependencies:
@@ -5070,6 +5035,7 @@ __metadata:
     govuk-frontend: ^4.0.1
     hmpo-components: 5.2.1
     jest: ^29.2.0
+    jest-cli: ^29.7.0
     joi: 17.2.1
     nanoid: ^3.3.4
     nunjucks: ^3.2.3
@@ -5077,27 +5043,6 @@ __metadata:
     ts-jest: ^29.1.1
     typescript: 4.9.5
     wreck: 14.2.0
-  languageName: unknown
-  linkType: soft
-
-"@xgovformbuilder/queue-model@workspace:queue-model":
-  version: 0.0.0-use.local
-  resolution: "@xgovformbuilder/queue-model@workspace:queue-model"
-  dependencies:
-    "@babel/cli": ^7.23.3
-    "@babel/core": ^7.23.3
-    "@babel/eslint-parser": ^7.23.3
-    "@babel/eslint-plugin": ^7.22.10
-    "@babel/preset-env": ^7.23.3
-    "@babel/preset-typescript": ^7.23.3
-    "@prisma/client": 5.0.0
-    "@types/node": ^20.4.6
-    babel-eslint: ^10.1.0
-    eslint: ^8.10.0
-    eslint-plugin-import: ^2.25.4
-    eslint-plugin-tsdoc: ^0.2.14
-    prisma: ^5.1.1
-    typescript: 4.9.5
   languageName: unknown
   linkType: soft
 
@@ -5144,7 +5089,6 @@ __metadata:
     "@types/wreck": ^14.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": "workspace:model"
-    "@xgovformbuilder/queue-model": "workspace:queue-model"
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
     acorn: ^8.7.0
@@ -5195,43 +5139,6 @@ __metadata:
     url-parse: ^1.5.10
     uuid: ^8.3.2
     yar: 9.1.0
-  languageName: unknown
-  linkType: soft
-
-"@xgovformbuilder/submitter@workspace:submitter":
-  version: 0.0.0-use.local
-  resolution: "@xgovformbuilder/submitter@workspace:submitter"
-  dependencies:
-    "@babel/cli": ^7.23.3
-    "@babel/core": ^7.23.3
-    "@babel/eslint-parser": ^7.23.3
-    "@babel/eslint-plugin": ^7.22.10
-    "@babel/plugin-proposal-export-default-from": ^7.23.3
-    "@babel/plugin-transform-classes": ^7.23.3
-    "@babel/plugin-transform-modules-commonjs": ^7.23.3
-    "@babel/plugin-transform-runtime": ^7.23.3
-    "@babel/preset-env": ^7.23.3
-    "@babel/preset-typescript": ^7.23.3
-    "@babel/register": ^7.22.15
-    "@hapi/hapi": ^21.3.2
-    "@types/config": ^3.3.0
-    "@types/hapi": ^18.0.7
-    "@xgovformbuilder/queue-model": "workspace:queue-model"
-    babel-jest: ^29.7.0
-    config: ^3.3.7
-    dotenv: 8.2.0
-    eslint: ^8.11.0
-    eslint-plugin-import: ^2.25.4
-    eslint-plugin-tsdoc: ^0.2.14
-    hapi-cron: ^1.1.0
-    hapi-pino: 8.0.0
-    jest: ^26.6.3
-    jest-mock-extended: ^3.0.5
-    nodemon: ^3.0.1
-    pino: 8.15.1
-    prisma: ^5.1.1
-    schmervice: ^1.6.0
-    typescript: 4.9.5
   languageName: unknown
   linkType: soft
 
@@ -7924,15 +7831,6 @@ __metadata:
   dependencies:
     luxon: ^3.2.1
   checksum: 3cf248fc5cae6c19ec7124962b1cd84b76f02b9bc4f58976b3bd07624db3ef10aaf1548efcc2d2dcdab0dad4f12029d640a55ecce05ea5e1596af9db585502cf
-  languageName: node
-  linkType: hard
-
-"cron@npm:^1.7.1":
-  version: 1.8.2
-  resolution: "cron@npm:1.8.2"
-  dependencies:
-    moment-timezone: ^0.5.x
-  checksum: 9df2d2e24684e1ebce37e3e29c183b1dfecf7adb5fb16f84435014e7205926fc9868e9bfacfa5f7b93c556c9f4a6fbcce5fde9bee1306d20bc848568bb587791
   languageName: node
   linkType: hard
 
@@ -11525,16 +11423,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hapi-cron@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "hapi-cron@npm:1.1.0"
-  dependencies:
-    "@hapi/hoek": ^6.1.2
-    cron: ^1.7.1
-  checksum: 8e24bf17d9af49aa5f544d0464109f4c5b1d8c9a2cae3034d161e8a532d024d3d646c2be77e9dc2a16311205b4b75b8daecf29516f8750ac2c66367e6936bee3
-  languageName: node
-  linkType: hard
-
 "hapi-pino@npm:8.0.0":
   version: 8.0.0
   resolution: "hapi-pino@npm:8.0.0"
@@ -13771,18 +13659,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-mock-extended@npm:^3.0.5":
-  version: 3.0.5
-  resolution: "jest-mock-extended@npm:3.0.5"
-  dependencies:
-    ts-essentials: ^7.0.3
-  peerDependencies:
-    jest: ^24.0.0 || ^25.0.0 || ^26.0.0 || ^27.0.0 || ^28.0.0 || ^29.0.0
-    typescript: ^3.0.0 || ^4.0.0 || ^5.0.0
-  checksum: 440c52f743af588493c2cd02fa7e4e42177748ac3f7ae720f414bd58a4a72fad4271878457bf8796b62abcf9cf32cde4dc5151caad0805037bd965cc9ef07ca8
-  languageName: node
-  linkType: hard
-
 "jest-mock@npm:^26.6.2":
   version: 26.6.2
   resolution: "jest-mock@npm:26.6.2"
@@ -15654,15 +15530,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.x":
-  version: 0.5.44
-  resolution: "moment-timezone@npm:0.5.44"
-  dependencies:
-    moment: ^2.29.4
-  checksum: 2f1de58f145bb87896ca06afaebaea0904f24542a900208d6a56a54f2fb50b38d9d2b61c46039ed36d0ec575140ff9ba6a5824877551763dbf3db7bda0333781
-  languageName: node
-  linkType: hard
-
 "moment@npm:^2.29.4":
   version: 2.30.1
   resolution: "moment@npm:2.30.1"
@@ -16056,7 +15923,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemon@npm:^3.0.1, nodemon@npm:^3.0.2":
+"nodemon@npm:^3.0.2":
   version: 3.0.2
   resolution: "nodemon@npm:3.0.2"
   dependencies:
@@ -20480,15 +20347,6 @@ __metadata:
   bin:
     tree-kill: cli.js
   checksum: 49117f5f410d19c84b0464d29afb9642c863bc5ba40fcb9a245d474c6d5cc64d1b177a6e6713129eb346b40aebb9d4631d967517f9fbe8251c35b21b13cd96c7
-  languageName: node
-  linkType: hard
-
-"ts-essentials@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "ts-essentials@npm:7.0.3"
-  peerDependencies:
-    typescript: ">=3.7.0"
-  checksum: 74d75868acf7f8b95e447d8b3b7442ca21738c6894e576df9917a352423fde5eb43c5651da5f78997da6061458160ae1f6b279150b42f47ccc58b73e55acaa2f
   languageName: node
   linkType: hard
 
