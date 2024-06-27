@@ -22,6 +22,7 @@ COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  .
 COPY --chown=appuser:appuser model/package.json model/package.json
 COPY --chown=appuser:appuser runner/package.json runner/package.json
 COPY --chown=appuser:appuser designer/package.json designer/package.json
+COPY --chown=appuser:appuser queue-model/package.json queue-model/package.json
 USER 1001
 RUN --mount=type=cache,target=.yarn/cache,id=base,uid=1001,mode=0755 yarn
 
