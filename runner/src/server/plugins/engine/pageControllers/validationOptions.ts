@@ -19,8 +19,6 @@ const messageTemplate = {
   maxWords: "{{#label}} must be {{#limit}} words or fewer",
   dateRequired: "{{#label}} must be a real date",
   dateFormat: "{{#label}} must be a real date",
-  dateMin: "{{#label}} must be the same as or after {{#limit}}",
-  dateMax: "{{#label}} must be the same as or before {{#limit}}",
 };
 
 export const messages: ValidationOptions["messages"] = {
@@ -37,6 +35,8 @@ export const messages: ValidationOptions["messages"] = {
   "date.required": messageTemplate.required,
   "date.min": messageTemplate.dateMin,
   "date.max": messageTemplate.dateMax,
+  "date.format": messageTemplate.dateFormat,
+
   "number.base": messageTemplate.number,
   "number.empty": messageTemplate.required,
   "number.required": messageTemplate.required,
@@ -45,11 +45,6 @@ export const messages: ValidationOptions["messages"] = {
 
   "any.required": messageTemplate.selectRequired,
   "any.empty": messageTemplate.required,
-
-  "date.base": messageTemplate.dateRequired,
-  "date.format": messageTemplate.dateFormat,
-  "date.min": messageTemplate.dateMin,
-  "date.max": messageTemplate.dateMax,
 };
 
 export const validationOptions: ValidationOptions = {

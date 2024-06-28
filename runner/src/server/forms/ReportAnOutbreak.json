@@ -121,7 +121,11 @@
         },
         {
           "name": "S1Q7",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "S1Q7. Telephone number/s of Key Contact Person",
           "hint": "Please consider using a non-personal number.",
@@ -180,7 +184,11 @@
         },
         {
           "name": "S1Q7",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "S1Q7. Telephone number/s of Key Contact Person",
           "hint": "Please consider using a non-personal number.",
@@ -243,7 +251,11 @@
         },
         {
           "name": "S1Q7",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "S1Q7. Telephone number/s of Key Contact Person",
           "hint": "Please consider using a non-personal number.",
