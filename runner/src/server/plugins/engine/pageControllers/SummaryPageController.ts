@@ -8,6 +8,8 @@ import {
   RelativeUrl,
 } from "../feedback";
 import config from "server/config";
+import { FeesModel } from "server/plugins/engine/models/submission";
+import { isMultipleApiKey } from "@xgovformbuilder/model";
 
 export class SummaryPageController extends PageController {
   // Extract the error handling into a new method
@@ -168,50 +170,67 @@ export class SummaryPageController extends PageController {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
+      const feesModel = FeesModel(model, state);
+
       /**
        * If a user does not need to pay, redirect them to /status
        */
-      if (
-        !summaryViewModel.fees ||
-        (summaryViewModel.fees.details ?? []).length === 0
-      ) {
+      if ((feesModel?.details ?? [])?.length === 0) {
         return redirectTo(request, h, `/${request.params.id}/status`);
       }
 
-      // user must pay for service
-      const description = payService.descriptionFromFees(summaryViewModel.fees);
-      const url = new URL(
-        `${config.payReturnUrl}/${request.params.id}/status`
-      ).toString();
-      const res = await payService.payRequest(
-        summaryViewModel.fees,
-        summaryViewModel.payApiKey || "",
-        url
+      const payReturnUrl =
+        this.model.feeOptions?.payReturnUrl ?? config.payReturnUrl;
+
+      request.logger.info(
+        `payReturnUrl has been configured to ${payReturnUrl}`
       );
 
-      request.yar.set("basePath", model.basePath);
-      await cacheService.mergeState(request, {
+      const url = new URL(
+        `${payReturnUrl}/${request.params.id}/status`
+      ).toString();
+
+      const payStateMeta = payService.createPayStateMeta({
+        feesModel: feesModel!,
+        payApiKey: this.payApiKey,
+        url,
+      });
+
+      const res = await payService.payRequestFromMeta(payStateMeta);
+
+      // TODO:- refactor - this is repeated in applicationStatus
+      const payState = {
         pay: {
           payId: res.payment_id,
           reference: res.reference,
           self: res._links.self.href,
-          returnUrl: new URL(
-            `${config.payReturnUrl}/${request.params.id}/status`
-          ).toString(),
-          meta: {
-            amount: summaryViewModel.fees.total,
-            description,
-            attempts: 1,
-            payApiKey: summaryViewModel.payApiKey,
-          },
+          next_url: res._links.next_url.href,
+          returnUrl: url,
+          meta: payStateMeta,
         },
-      });
+      };
+
+      request.yar.set("basePath", model.basePath);
+      await cacheService.mergeState(request, payState);
       summaryViewModel.webhookDataPaymentReference = res.reference;
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
-      return redirectTo(request, h, res._links.next_url.href);
+      const payRedirectUrl = payState.pay.next_url;
+      const { showPaymentSkippedWarningPage } = this.model.feeOptions;
+
+      const { skipPayment } = request.payload;
+      if (skipPayment === "true" && showPaymentSkippedWarningPage) {
+        payState.pay.meta.attempts = 0;
+        await cacheService.mergeState(request, payState);
+        return h
+          .redirect(`/${request.params.id}/status/payment-skip-warning`)
+          .takeover();
+      }
+
+      await cacheService.mergeState(request, payState);
+      return h.redirect(payRedirectUrl);
     };
   }
 
@@ -262,5 +281,15 @@ export class SummaryPageController extends PageController {
         },
       },
     };
+  }
+
+  get payApiKey(): string {
+    const modelDef = this.model.def;
+    const payApiKey = modelDef.feeOptions?.payApiKey ?? def.payApiKey;
+
+    if (isMultipleApiKey(payApiKey)) {
+      return payApiKey[config.apiEnv] ?? payApiKey.test ?? payApiKey.production;
+    }
+    return payApiKey;
   }
 }

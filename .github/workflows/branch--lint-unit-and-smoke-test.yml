@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - main
+      - beta
     paths-ignore:
       - "docs/**"
       - "**/README.md"
@@ -18,7 +19,7 @@ jobs:
     name: Workspace
     strategy:
       matrix:
-        workspace: [model, designer, runner]
+        workspace: [model, designer, runner, submitter]
     uses: ./.github/workflows/lint-and-test.yml
     with:
       workspace: ${{ matrix.workspace }}
@@ -30,6 +31,13 @@ jobs:
       app: designer
     secrets: inherit
 
+  build-submitter:
+    name: Submitter
+    uses: ./.github/workflows/build.yml
+    with:
+      app: submitter
+    secrets: inherit
+
   build-runner:
     name: Runner
     uses: ./.github/workflows/build.yml
@@ -38,7 +46,7 @@ jobs:
     secrets: inherit
 
   smoke-test:
-    needs: [build-runner,build-designer]
+    needs: [build-runner, build-designer]
     uses: ./.github/workflows/smoke-test.yml
     with:
       runner-cache-ref: ${{needs.build-runner.outputs.tag}}

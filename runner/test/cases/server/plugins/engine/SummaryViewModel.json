@@ -64,7 +64,7 @@
     {
       "title": "CAZ Location",
       "name": "zone",
-      "type": "string",
+      "type": "number",
       "items": [
         {
           "text": "Bath",
@@ -103,10 +103,8 @@
       "title": "Named Section"
     }
   ],
-  "conditions": [
-  ],
-  "fees": [
-  ],
+  "conditions": [],
+  "fees": [],
   "outputs": [
     {
       "name": "webhook",
@@ -118,6 +116,6 @@
     }
   ],
   "version": 2,
-  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
+  "payApiKey": { "test": "test_api_key", "production": "production_api_key" },
   "skipSummary": false
 }

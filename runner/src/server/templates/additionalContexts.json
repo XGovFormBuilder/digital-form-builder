@@ -1,0 +1,12 @@
+{
+  "example": {
+    "Answer 1": {
+      "additionalInfo": "<p>This content is based on answer 1</p>",
+      "listItems": "<li>Item 1</li><li>Item 2</li>"
+    },
+    "Answer 2": {
+      "additionalInfo": "<p>This content is based on answer 2</p>",
+      "listItems": "<li>Item 3</li><li>Item 4</li>"
+    }
+  }
+}

@@ -31,14 +31,23 @@ export const configSchema = Joi.object({
   matomoId: Joi.string().optional(),
   matomoUrl: Joi.string().custom(secureUrl).optional(),
   payApiUrl: Joi.string().custom(secureUrl),
-  payReturnUrl: Joi.string().custom(secureUrl),
+  payReturnUrl: Joi.when("env", {
+    is: Joi.string().valid("development", "test"),
+    then: Joi.string().default("http://localhost:3009"),
+    otherwise: Joi.when("apiEnv", {
+      is: Joi.string().valid("test"),
+      then: Joi.string().default("http://localhost:3009"),
+      otherwise: Joi.string().custom(secureUrl),
+    }),
+  }),
+  payReferenceLength: Joi.number().optional().default(10),
   serviceUrl: Joi.string().optional(),
   redisHost: Joi.string().optional(),
   redisPort: Joi.number().optional(),
   redisPassword: Joi.string().optional(),
   redisTls: Joi.boolean().optional(),
   serviceName: Joi.string().optional(),
-  documentUploadApiUrl: Joi.string(),
+  documentUploadApiUrl: Joi.string().allow(null),
   previewMode: Joi.boolean().optional(),
   enforceCsrf: Joi.boolean().optional(),
   sslKey: Joi.string().optional(),
@@ -78,6 +87,54 @@ export const configSchema = Joi.object({
   safelist: Joi.array().items(Joi.string()),
   initialisedSessionTimeout: Joi.number(),
   initialisedSessionKey: Joi.string(),
+  initialisedSessionAlgorithm: Joi.string()
+    .allow(
+      "RS256",
+      "RS384",
+      "RS512",
+      "PS256",
+      "PS384",
+      "PS512",
+      "ES256",
+      "ES384",
+      "ES512",
+      "EdDSA",
+      "RS256",
+      "RS384",
+      "RS512",
+      "PS256",
+      "PS384",
+      "PS512",
+      "HS256",
+      "HS384",
+      "HS512"
+    )
+    .default("HS512"),
+
+  enableQueueService: Joi.boolean().optional(),
+  queueType: Joi.string().when("enableQueueService", {
+    is: true,
+    then: Joi.required().allow("MYSQL", "PGBOSS").default("MYSQL"),
+    otherwise: Joi.optional().allow(""),
+  }),
+  queueDatabaseUrl: Joi.string().when("enableQueueService", {
+    is: true,
+    then: Joi.required(),
+    otherwise: Joi.optional().allow(""),
+  }),
+  queueServicePollingInterval: Joi.number().when("enableQueueService", {
+    is: true,
+    then: Joi.number().required(),
+    otherwise: Joi.optional(),
+  }),
+  queueServicePollingTimeout: Joi.number().when("enableQueueService", {
+    is: true,
+    then: Joi.number().required(),
+    otherwise: Joi.optional(),
+  }),
+  allowUserTemplates: Joi.boolean().optional(),
+  maxClientFileSize: Joi.number().default("5242880"), // 5MB
+  maxFileSizeStringInMb: Joi.string().default("5"),
 });
 
 export function buildConfig(config) {

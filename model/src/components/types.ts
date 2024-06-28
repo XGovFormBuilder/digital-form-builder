@@ -23,6 +23,7 @@ export enum ComponentTypeEnum {
   Details = "Details",
   FlashCard = "FlashCard",
   List = "List",
+  ContextComponent = "ContextComponent",
 }
 
 export type ComponentType =
@@ -50,7 +51,8 @@ export type ComponentType =
   | "Details"
   | "FlashCard"
   | "List"
-  | "WebsiteField";
+  | "WebsiteField"
+  | "ContextComponent";
 
 export type ComponentSubType = "field" | "content";
 
@@ -80,6 +82,9 @@ interface TextFieldBase {
     classes?: string;
     allow?: string;
     autocomplete?: string;
+    exposeToContext?: boolean;
+    disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   schema: {
     max?: number;
@@ -99,6 +104,9 @@ interface NumberFieldBase {
   options: {
     prefix?: string;
     suffix?: string;
+    exposeToContext?: boolean;
+    disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   schema: {
     min?: number;
@@ -108,7 +116,7 @@ interface NumberFieldBase {
 }
 
 interface ListFieldBase {
-  subType?: "field" | "content";
+  subType?: "listField" | "content";
   type: string;
   name: string;
   title: string;
@@ -119,6 +127,11 @@ interface ListFieldBase {
     optionalText?: boolean;
     classes?: string;
     bold?: boolean;
+    exposeToContext?: boolean;
+    allowPrePopulation?: boolean;
+    allowPrePopulationOverwrite?: boolean;
+    disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   list: string;
   schema: {};
@@ -146,6 +159,9 @@ interface DateFieldBase {
     optionalText?: boolean;
     maxDaysInFuture?: number;
     maxDaysInPast?: number;
+    exposeToContext?: boolean;
+    disableChangingFromSummary?: boolean;
+    customValidationMessages?: Record<string, string>;
   };
   schema: {};
 }
@@ -181,7 +197,7 @@ export interface TelephoneNumberFieldComponent extends TextFieldBase {
   type: "TelephoneNumberField";
   options: TextFieldBase["options"] & {
     customValidationMessage?: string;
-    requiredFieldValidationMessage?: string;
+    isInternational?: boolean;
   };
 }
 
@@ -213,6 +229,9 @@ export interface FileUploadFieldComponent {
     hideTitle?: boolean;
     multiple?: boolean;
     classes?: string;
+    exposeToContext?: boolean;
+    imageQualityPlayback?: boolean;
+    disableChangingFromSummary?: boolean;
   };
   schema: {};
 }
@@ -270,10 +289,12 @@ export interface ListComponent extends ListFieldBase {
 
 export interface AutocompleteFieldComponent extends ListFieldBase {
   type: "AutocompleteField";
+  subType?: "listField";
 }
 
 export interface CheckboxesFieldComponent extends ListFieldBase {
   type: "CheckboxesField";
+  subType?: "listField";
 }
 
 export interface FlashCardComponent extends ListFieldBase {
@@ -282,11 +303,19 @@ export interface FlashCardComponent extends ListFieldBase {
 
 export interface RadiosFieldComponent extends ListFieldBase {
   type: "RadiosField";
+  subType?: "listField";
 }
 
 export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
   options: ListFieldBase["options"] & { autocomplete?: string };
+  subType?: "listField";
+}
+
+export interface ContextComponent extends ListFieldBase {
+  type: "ContextComponent";
+  options: ListFieldBase["options"];
+  section?: string;
 }
 
 export type ComponentDef =
@@ -314,7 +343,8 @@ export type ComponentDef =
   | TimeFieldComponent
   | UkAddressFieldComponent
   | YesNoFieldComponent
-  | WebsiteFieldComponent;
+  | WebsiteFieldComponent
+  | ContextComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -338,7 +368,9 @@ export type ContentComponentsDef =
   | ParaComponent
   | DetailsComponent
   | HtmlComponent
-  | InsetTextComponent;
+  | InsetTextComponent
+  | ListComponent
+  | FlashCardComponent;
 
 // Components that render Lists
 export type ListComponentsDef =

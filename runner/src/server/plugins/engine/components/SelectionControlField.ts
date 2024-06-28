@@ -1,11 +1,39 @@
 import { ListFormComponent } from "server/plugins/engine/components/ListFormComponent";
 import { FormData, FormSubmissionErrors } from "server/plugins/engine/types";
-import { ListItem } from "server/plugins/engine/components/types";
+import { ListItem, ViewModel } from "server/plugins/engine/components/types";
+import joi from "joi";
 
 /**
  * "Selection controls" are checkboxes and radios (and switches), as per Material UI nomenclature.
  */
 export class SelectionControlField extends ListFormComponent {
+  formSchema;
+
+  constructor(def: any, model: any) {
+    super(def, model);
+    const { options, schema = {} } = def;
+    this.options = options;
+    this.schema = schema;
+
+    let componentSchema = joi.string().required();
+
+    if (options.required === false) {
+      componentSchema = componentSchema.optional().allow("").allow(null);
+    }
+
+    componentSchema = componentSchema.label(
+      def.title.en ?? def.title ?? def.name
+    );
+
+    if (options.customValidationMessage) {
+      componentSchema = componentSchema.messages({
+        "any.required": options.customValidationMessage,
+      });
+    }
+
+    this.formSchema = componentSchema;
+  }
+
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, items } = this;
     const options: any = this.options;
@@ -34,7 +62,6 @@ export class SelectionControlField extends ListFormComponent {
           html: this.localisedString(item.description),
         };
       }
-
       return itemModel;
 
       // FIXME:- add this back when GDS fix accessibility issues involving conditional reveal fields

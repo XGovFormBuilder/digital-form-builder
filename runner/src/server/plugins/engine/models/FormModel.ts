@@ -12,9 +12,16 @@ import {
 } from "@xgovformbuilder/model";
 
 import { FormSubmissionState } from "../types";
-import { PageControllerBase, getPageController } from "../pageControllers";
+import {
+  PageControllerBase,
+  getPageController,
+  SummaryPageController,
+} from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
+import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
+import { ComponentCollection } from "server/plugins/engine/components";
+import { ContextComponentCollection } from "server/plugins/engine/components/ContextComponentCollection";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -47,11 +54,16 @@ export class FormModel {
   /** the id of the form used for the first url parameter eg localhost:3009/test */
   basePath: string;
   conditions: Record<string, ExecutableCondition> | {};
+  fieldsForContext: ContextComponentCollection;
+  fieldsForPrePopulation: Record<string, any>;
   pages: any;
   startPage: any;
 
+  feeOptions: FormDefinition["feeOptions"];
+  specialPages: FormDefinition["specialPages"];
+
   constructor(def, options) {
-    const result = Schema.validate(def, { abortEarly: false });
+    const result = Schema.validate(def, { abortEarly: false, convert: false });
 
     if (result.error) {
       throw result.error;
@@ -98,10 +110,14 @@ export class FormModel {
       const condition = this.makeCondition(conditionDef);
       this.conditions[condition.name] = condition;
     });
+    this.fieldsForContext = new ContextComponentCollection(this);
+    this.fieldsForPrePopulation = {};
 
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
+    this.specialPages = def.specialPages;
+    this.feeOptions = { ...DEFAULT_FEE_OPTIONS, ...def.feeOptions };
   }
 
   /**
@@ -238,5 +254,29 @@ export class FormModel {
 
   getList(name: string): List | [] {
     return this.lists.find((list) => list.name === name) ?? [];
+  }
+
+  getContextState(state: FormSubmissionState) {
+    return this.fieldsForContext.getFormDataFromState(state);
+  }
+
+  getRelevantPages(state: FormSubmissionState) {
+    let nextPage = this.startPage;
+    const relevantPages: any[] = [];
+    let endPage = null;
+
+    while (nextPage != null) {
+      if (nextPage.hasFormComponents) {
+        relevantPages.push(nextPage);
+      } else if (
+        !nextPage.hasNext &&
+        !(nextPage instanceof SummaryPageController)
+      ) {
+        endPage = nextPage;
+      }
+      nextPage = nextPage.getNextPage(state, true);
+    }
+
+    return { relevantPages, endPage };
   }
 }

@@ -13,6 +13,7 @@ import {
   allInputs,
   findList,
   inputsAccessibleAt,
+  removeCondition,
   updateCondition,
 } from "../data";
 import randomId from "../randomId";
@@ -147,8 +148,6 @@ export class InlineConditions extends React.Component<Props, State> {
       return;
     }
 
-    const copy = { ...data };
-
     if (condition) {
       const updatedData = updateCondition(data, condition.name, conditions);
       await save(updatedData);
@@ -166,6 +165,18 @@ export class InlineConditions extends React.Component<Props, State> {
       if (conditionsChange) {
         conditionsChange(event);
       }
+    }
+  };
+
+  onClickDelete = async (event: MouseEvent<HTMLAnchorElement>) => {
+    event?.preventDefault();
+    const { data, save } = this.context;
+    const { cancelCallback, condition } = this.props;
+
+    const updatedData = removeCondition(data, condition.name);
+    await save(updatedData);
+    if (cancelCallback) {
+      cancelCallback(event);
     }
   };
 
@@ -314,16 +325,28 @@ export class InlineConditions extends React.Component<Props, State> {
               fields={this.state.fields}
               saveCallback={this.saveCondition}
             />
-            <div className="govuk-form-group">
+            <div className="govuk-button-group">
               {hasConditions && (
-                <a
-                  href="#"
-                  id="save-inline-conditions"
-                  className="govuk-button"
-                  onClick={this.onClickSave}
-                >
-                  {i18n("save")}
-                </a>
+                <>
+                  <a
+                    href="#"
+                    id="save-inline-conditions"
+                    className="govuk-button"
+                    onClick={this.onClickSave}
+                  >
+                    {i18n("save")}
+                  </a>
+                  {this.props.condition && (
+                    <a
+                      href="#"
+                      id="delete-inline-conditions"
+                      className="govuk-button govuk-button--warning"
+                      onClick={this.onClickDelete}
+                    >
+                      {i18n("delete")}
+                    </a>
+                  )}
+                </>
               )}
               <a
                 href="#"

@@ -1,0 +1,21 @@
+datasource db {
+  provider = "mysql"
+  url = env("QUEUE_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Submission {
+  id Int @id @default(autoincrement())
+  webhook_url String @default("")
+  created_at DateTime @default(now())
+  updated_at DateTime?
+  data String? @db.Text
+  error String?
+  return_reference String?
+  complete Boolean @default(false)
+  retry_counter Int
+  allow_retry Boolean @default(true)
+}

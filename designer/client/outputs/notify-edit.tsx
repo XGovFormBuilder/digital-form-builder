@@ -33,7 +33,7 @@ class NotifyEdit extends Component<Props, State> {
 
   render() {
     const { data, output, onEdit, errors } = this.props;
-    const { conditions } = data;
+    const { conditions, lists } = data;
     const outputConfiguration = (typeof output.outputConfiguration === "object"
       ? output.outputConfiguration
       : {
@@ -49,6 +49,10 @@ class NotifyEdit extends Component<Props, State> {
       ...conditions.map((condition) => ({
         name: condition.name,
         display: condition.displayName,
+      })),
+      ...lists.map((list) => ({
+        name: list.name,
+        display: `${list.title} (List)`,
       })),
       ...this.usableKeys,
     ];
@@ -133,6 +137,24 @@ class NotifyEdit extends Component<Props, State> {
               },
             ]}
             name="add-references-to-personalisation"
+          />
+        </div>
+        <div className="govuk-form-group">
+          <Checkboxes
+            items={[
+              {
+                children: (
+                  <strong>
+                    {i18n("outputEdit.notifyEdit.escapeURLsTitle")}
+                  </strong>
+                ),
+                hint: {
+                  children: i18n("outputEdit.notifyEdit.escapeURLsHint"),
+                },
+                value: true,
+              },
+            ]}
+            name="escape-urls"
           />
         </div>
       </div>

@@ -1,7 +1,8 @@
 import React from "react";
 import randomId from "../randomId";
-import { withI18n } from "../i18n";
+import { i18n, withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
+import { Checkboxes } from "@xgovformbuilder/govuk-react-jsx";
 import {
   validateName,
   validateTitle,
@@ -11,6 +12,7 @@ import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
 import { addSection } from "../data";
 import logger from "../plugins/logger";
+import { Actions } from "../reducers/component/types";
 
 class SectionEdit extends React.Component {
   static contextType = DataContext;
@@ -24,6 +26,7 @@ class SectionEdit extends React.Component {
     this.state = {
       name: section?.name ?? randomId(),
       title: section?.title ?? "",
+      hideTitle: section?.hideTitle ?? false,
       errors: {},
     };
   }
@@ -35,11 +38,11 @@ class SectionEdit extends React.Component {
     if (hasValidationErrors(validationErrors)) return;
 
     const { data, save } = this.context;
-    const { name, title } = this.state;
+    const { name, title, hideTitle } = this.state;
     let updated = { ...data };
 
     if (this.isNewSection) {
-      updated = addSection(data, { name, title: title.trim() });
+      updated = addSection(data, { name, title: title.trim(), hideTitle });
     } else {
       const previousName = this.props.section?.name;
       const nameChanged = previousName !== name;
@@ -59,6 +62,7 @@ class SectionEdit extends React.Component {
         });
       }
       copySection.title = title;
+      copySection.hideTitle = hideTitle;
     }
 
     try {
@@ -110,7 +114,7 @@ class SectionEdit extends React.Component {
 
   render() {
     const { i18n } = this.props;
-    const { title, name, errors } = this.state;
+    const { title, name, hideTitle, errors } = this.state;
 
     return (
       <>
@@ -151,6 +155,27 @@ class SectionEdit extends React.Component {
               errors?.name ? { children: errors?.name.children } : undefined
             }
           />
+          <div className="govuk-checkboxes govuk-form-group">
+            <div className="govuk-checkboxes__item">
+              <input
+                className="govuk-checkboxes__input"
+                id="section-hideTitle"
+                name="hideTitle"
+                type="checkbox"
+                checked={hideTitle}
+                onChange={(e) => this.setState({ hideTitle: e.target.checked })}
+              />
+              <label
+                className="govuk-label govuk-checkboxes__label"
+                htmlFor="section-hideTitle"
+              >
+                {i18n("sectionEdit.hideTitleField.title")}
+              </label>
+              <span className="govuk-hint govuk-checkboxes__hint">
+                {i18n("sectionEdit.hideTitleField.helpText")}
+              </span>
+            </div>
+          </div>
           <button className="govuk-button" type="submit">
             Save
           </button>{" "}

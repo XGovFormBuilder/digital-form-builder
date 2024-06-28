@@ -7,6 +7,7 @@ import { capitalize } from "lodash";
 import pkg from "../../../package.json";
 import config from "../config";
 import { HapiRequest } from "../types";
+import additionalContexts from "../templates/additionalContexts.json";
 
 const basedir = path.join(process.cwd(), "..");
 
@@ -41,6 +42,7 @@ export default {
             autoescape: true,
             watch: false,
           });
+          environment.addGlobal("additionalContexts", additionalContexts);
           environment.addFilter("isArray", (x) => Array.isArray(x));
           options.compileOptions.environment = environment;
 

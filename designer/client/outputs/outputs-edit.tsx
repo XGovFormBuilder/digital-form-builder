@@ -68,7 +68,11 @@ class OutputsEdit extends React.Component<Props, State> {
                 ))}
                 <li>
                   <hr />
-                  <a href="#" onClick={this.onClickAddOutput}>
+                  <a
+                    data-testid="add-output"
+                    href="#"
+                    onClick={this.onClickAddOutput}
+                  >
                     Add output
                   </a>
                 </li>
