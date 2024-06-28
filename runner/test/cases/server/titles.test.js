@@ -57,4 +57,17 @@ describe("Title and section title", () => {
     expect($("h1 #section-title").html()).to.be.null();
     expect($("h2#section-title")).to.exist();
   });
+
+  it("Does not render the section title if hideTitle is set to true", async () => {
+    const options = {
+      method: "GET",
+      url: `/titles/applicant-two?visit=1`,
+    };
+
+    const response = await server.inject(options);
+    const $ = cheerio.load(response.payload);
+
+    expect($("h1").text().trim()).to.startWith("Applicant 2 details");
+    expect($("h2#section-title").html()).to.be.null();
+  });
 });

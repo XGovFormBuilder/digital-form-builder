@@ -8,14 +8,23 @@ export class CheckboxesField extends SelectionControlField {
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
 
-    let schema = joi
-      .array()
-      .items(joi[this.listType]().allow(...this.values))
-      .single()
-      .label(def.title);
+    const { options } = def;
 
-    if (def.options.required !== false) {
-      schema = schema.required();
+    let schema = joi.array().single().label(def.title);
+
+    if (options.required === false) {
+      // null or empty string is valid for optional fields
+      schema = schema
+        .empty(null)
+        .items(joi[this.listType]().allow(...this.values, ""));
+    } else {
+      schema = schema
+        .items(joi[this.listType]().allow(...this.values))
+        .required();
+    }
+
+    if (options.customValidationMessages) {
+      schema = schema.messages(options.customValidationMessages);
     }
 
     this.formSchema = schema;

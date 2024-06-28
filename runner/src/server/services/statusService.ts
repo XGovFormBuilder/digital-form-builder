@@ -12,6 +12,8 @@ import { ComponentCollection } from "server/plugins/engine/components/ComponentC
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
+import config from "server/config";
+import nunjucks from "nunjucks";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -61,40 +63,63 @@ export class StatusService {
     this.notifyService = notifyService;
     this.payService = payService;
   }
-
-  async shouldRetryPay(request): Promise<boolean> {
+  async shouldShowPayErrorPage(request: HapiRequest): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
     if (!pay) {
       this.logger.info(
-        ["StatusService", "shouldRetryPay"],
+        ["StatusService", "shouldShowPayErrorPage"],
         "No pay state detected, skipping"
       );
       return false;
-    } else {
-      const { self, meta } = pay;
-      const { query } = request;
-      const { state } = await this.payService.payStatus(self, meta.payApiKey);
-      const userSkippedOrLimitReached =
-        query?.continue === "true" || meta?.attempts >= 3;
+    }
+    const { self, meta } = pay;
+    const { query } = request;
+    const { state } = await this.payService.payStatus(self, meta.payApiKey);
+    pay.state = state;
 
-      await this.cacheService.mergeState(request, {
-        pay: {
-          ...pay,
-          paymentSkipped: userSkippedOrLimitReached,
-          state,
-        },
-      });
-
-      const shouldRetry =
-        state.status === "failed" && !userSkippedOrLimitReached;
-
+    if (state.status === "success") {
       this.logger.info(
-        ["StatusService", "shouldRetryPay"],
-        `user ${request.yar.id} - shouldRetryPay: ${shouldRetry}`
+        ["StatusService", "shouldShowPayErrorPage"],
+        `user ${request.yar.id} - shouldShowPayErrorPage: User has succeeded, setting paymentSkipped to false and continuing`
       );
 
-      return shouldRetry;
+      pay.paymentSkipped = false;
+      pay.state = state;
+      await this.cacheService.mergeState(request, { pay });
+
+      return false;
     }
+
+    const form: FormModel = request.server.app.forms[request.params.id];
+    const { maxAttempts, allowSubmissionWithoutPayment } = form.feeOptions;
+
+    this.logger.info(
+      ["StatusService", "shouldShowPayErrorPage"],
+      `user ${request.yar.id} - shouldShowPayErrorPage: User has failed ${meta.attempts} payments`
+    );
+
+    if (!allowSubmissionWithoutPayment) {
+      return true;
+    }
+
+    const userSkippedOrLimitReached =
+      query?.continue === "true" || meta?.attempts >= maxAttempts;
+
+    await this.cacheService.mergeState(request, {
+      pay: {
+        ...pay,
+        paymentSkipped: userSkippedOrLimitReached,
+      },
+    });
+
+    const shouldRetry = state.status === "failed" && !userSkippedOrLimitReached;
+
+    this.logger.info(
+      ["StatusService", "shouldShowPayErrorPage"],
+      `user ${request.yar.id} - shouldShowPayErrorPage: ${shouldRetry}`
+    );
+
+    return shouldRetry;
   }
 
   async outputRequests(request: HapiRequest) {
@@ -108,10 +133,6 @@ export class StatusService {
     if (callback) {
       this.logger.info(
         ["StatusService", "outputRequests"],
-        `Callback detected for ${request.yar.id}`
-      );
-      this.logger.info(
-        ["StatusService", "outputRequests"],
         `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`
       );
       try {
@@ -121,7 +142,7 @@ export class StatusService {
           "PUT"
         );
       } catch (e) {
-        throw Boom.badRequest();
+        throw Boom.badRequest(e);
       }
     }
 
@@ -130,7 +151,9 @@ export class StatusService {
     if (firstWebhook) {
       newReference = await this.webhookService.postRequest(
         firstWebhook.outputData.url,
-        formData
+        { ...formData },
+        "POST",
+        firstWebhook.outputData.sendAdditionalPayMetadata
       );
       await this.cacheService.mergeState(request, {
         reference: newReference,
@@ -146,8 +169,15 @@ export class StatusService {
 
     const requests = [
       ...notify.map((args) => this.notifyService.sendNotification(args)),
-      ...webhook.map(({ url, formData }) =>
-        this.webhookService.postRequest(url, formData)
+      ...webhook.map(({ url, sendAdditionalPayMetadata, formData }) =>
+        this.webhookService.postRequest(
+          url,
+          {
+            ...formData,
+          },
+          "POST",
+          sendAdditionalPayMetadata
+        )
       ),
     ];
 
@@ -164,7 +194,7 @@ export class StatusService {
     const { pay = {}, webhookData } = state;
     const { paymentSkipped } = pay;
     const { metadata, fees, ...rest } = webhookData;
-    return {
+    const webhookArgs = {
       ...rest,
       ...(!paymentSkipped && { fees }),
       metadata: {
@@ -173,6 +203,16 @@ export class StatusService {
         paymentSkipped: paymentSkipped ?? false,
       },
     };
+
+    if (pay) {
+      webhookArgs.metadata.pay = {
+        payId: pay.payId,
+        reference: pay.reference,
+        state: pay.state ?? {},
+      };
+    }
+
+    return webhookArgs;
   }
 
   emailOutputsFromState(
@@ -187,6 +227,7 @@ export class StatusService {
       personalisation = {},
       addReferencesToPersonalisation = false,
       emailReplyToId,
+      escapeURLs,
     } = outputData;
 
     return {
@@ -204,6 +245,7 @@ export class StatusService {
       templateId,
       emailAddress,
       emailReplyToId,
+      escapeURLs,
     };
   }
 
@@ -230,11 +272,11 @@ export class StatusService {
           notify.push(args);
         }
         if (isWebhookModel(currentValue.outputData)) {
-          const { url } = currentValue.outputData;
-          webhook.push({ url, formData });
+          const { url, sendAdditionalPayMetadata } = currentValue.outputData;
+          webhook.push({ url, sendAdditionalPayMetadata, formData });
           this.logger.trace(
             ["StatusService", "outputArgs", "webhookArgs"],
-            JSON.stringify({ url, formData })
+            JSON.stringify({ url, sendAdditionalPayMetadata, formData })
           );
         }
 
@@ -257,8 +299,6 @@ export class StatusService {
       ["StatusService", "getViewModel"],
       `generating viewModel for ${newReference ?? reference}`
     );
-    const { customText, components } =
-      formModel.def.specialPages?.confirmationPage ?? {};
 
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
@@ -269,8 +309,26 @@ export class StatusService {
       name: formModel.name,
     };
 
-    if (!customText && !callback?.customText) {
+    const confirmationPageDef = formModel.def.specialPages?.confirmationPage;
+    if (!confirmationPageDef?.customText && !callback?.customText) {
       return model;
+    }
+
+    const customText = { ...confirmationPageDef?.customText };
+
+    if (config.allowUserTemplates) {
+      if (customText?.nextSteps) {
+        customText.nextSteps = nunjucks.renderString(
+          customText.nextSteps,
+          state
+        );
+      }
+      if (customText?.paymentSkipped) {
+        customText.paymentSkipped = nunjucks.renderString(
+          customText.paymentSkipped,
+          state
+        );
+      }
     }
 
     model.customText = {
@@ -278,7 +336,8 @@ export class StatusService {
       ...(callback && callback.customText),
     };
 
-    const componentDefsToRender = callback?.components ?? components ?? [];
+    const componentDefsToRender =
+      callback?.components ?? confirmationPageDef?.components ?? [];
     const componentCollection = new ComponentCollection(
       componentDefsToRender,
       formModel

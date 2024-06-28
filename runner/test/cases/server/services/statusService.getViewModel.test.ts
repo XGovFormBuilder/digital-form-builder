@@ -122,7 +122,6 @@ suite("StatusService getViewModel renders custom text correctly", () => {
 
     $ = cheerio.load(response);
     expect($("body").text()).to.contain("Application complete");
-    expect($("body").text()).to.contain("What happens next");
     expect($("body").text()).to.contain(
       "You will receive an email with details with the next steps"
     );
@@ -197,6 +196,44 @@ suite("StatusService getViewModel renders custom text correctly", () => {
     expect($("body").text()).to.not.contain("No eggs for you");
     expect($("body").text()).to.contain("Tragedy");
   });
+
+  //TODO - turning on allowUserTemplates breaks CSRF tests
+  test.skip("customText defined with nunjucks templates are not overwritten with a static value", async () => {
+    // previously, the first render would overwrite formModel.def.specialPages.confirmationPage values with the first rendered value
+    // and would render the same value for all subsequent values, as if it was a static value.
+
+    let formModel = new FormModel(form, {});
+
+    const renderOne = statusService.getViewModel(
+      {
+        whichConsulate: "this is render one",
+      },
+      formModel
+    );
+    response = await server.render("confirmation", {
+      ...renderOne,
+      paymentSkipped: true,
+    });
+
+    $ = cheerio.load(response);
+    expect($("body").text()).to.contain("this is render one");
+
+    const renderTwo = statusService.getViewModel(
+      {
+        whichConsulate: "this is render two",
+      },
+      formModel
+    );
+
+    response = await server.render("confirmation", {
+      ...renderTwo,
+      paymentSkipped: false,
+    });
+
+    $ = cheerio.load(response);
+    expect($("body").text()).to.contain("this is render two");
+  });
+
   test("with callback defined", async () => {
     let formModel = new FormModel(form, {});
 

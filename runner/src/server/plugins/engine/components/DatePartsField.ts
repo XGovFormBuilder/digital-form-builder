@@ -36,6 +36,11 @@ export class DatePartsField extends FormComponent {
             required: isRequired,
             optionalText: optionalText,
             classes: "govuk-input--width-2",
+            customValidationMessages: {
+              "number.min": "{{#label}} must be between 1 and 31",
+              "number.max": "{{#label}} must be between 1 and 31",
+              "number.base": `${def.title} must include a day`,
+            },
           },
           hint: "",
         },
@@ -48,6 +53,11 @@ export class DatePartsField extends FormComponent {
             required: isRequired,
             optionalText: optionalText,
             classes: "govuk-input--width-2",
+            customValidationMessages: {
+              "number.min": "{{#label}} must be between 1 and 12",
+              "number.max": "{{#label}} must be between 1 and 12",
+              "number.base": `${def.title} must include a month`,
+            },
           },
           hint: "",
         },
@@ -60,6 +70,9 @@ export class DatePartsField extends FormComponent {
             required: isRequired,
             optionalText: optionalText,
             classes: "govuk-input--width-4",
+            customValidationMessages: {
+              "number.base": `${def.title} must include a year`,
+            },
           },
           hint: "",
         },
@@ -82,6 +95,9 @@ export class DatePartsField extends FormComponent {
     schema = schema.custom(
       helpers.getCustomDateValidator(maxDaysInPast, maxDaysInFuture)
     );
+    // if (options.customValidationMessages) {
+    //   schema = schema.messages(options.customValidationMessages);
+    // }
 
     this.schema = schema;
 

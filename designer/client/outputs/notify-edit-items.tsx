@@ -99,7 +99,12 @@ class NotifyItems extends React.Component<Props, State> {
               Notify template key
             </th>
             <th className="govuk-table__header" scope="col">
-              <a className="pull-right" href="#" onClick={this.onClickAddItem}>
+              <a
+                data-testid="add-notify-personalisation"
+                className="pull-right"
+                href="#"
+                onClick={this.onClickAddItem}
+              >
                 Add
               </a>
             </th>

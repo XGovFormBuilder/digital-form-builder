@@ -26,15 +26,19 @@ import {
   AddressService,
   CacheService,
   catboxProvider,
-  EmailService,
   NotifyService,
   PayService,
   StatusService,
   UploadService,
+  MockUploadService,
   WebhookService,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
+import { pluginQueue } from "server/plugins/queue";
+import { QueueStatusService } from "server/services/queueStatusService";
+import { MySqlQueueService } from "server/services/mySqlQueueService";
+import { PgBossQueueService } from "server/services/pgBossQueueService";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -57,7 +61,7 @@ const serverOptions = (): ServerOptions => {
           includeSubDomains: true,
           preload: false,
         },
-        xss: true,
+        xss: "enabled",
         noSniff: true,
         xframe: true,
       },
@@ -106,12 +110,28 @@ async function createServer(routeConfig: RouteConfig) {
     CacheService,
     NotifyService,
     PayService,
-    UploadService,
-    EmailService,
     WebhookService,
-    StatusService,
     AddressService,
   ]);
+  if (!config.documentUploadApiUrl) {
+    server.registerService([
+      Schmervice.withName("uploadService", MockUploadService),
+    ]);
+  } else {
+    server.registerService([UploadService]);
+  }
+
+  if (config.enableQueueService) {
+    const queueType = config.queueType;
+    const queueService =
+      queueType === "PGBOSS" ? PgBossQueueService : MySqlQueueService;
+    server.registerService([
+      Schmervice.withName("queueService", queueService),
+      Schmervice.withName("statusService", QueueStatusService),
+    ]);
+  } else {
+    server.registerService(StatusService);
+  }
 
   server.ext(
     "onPreResponse",
@@ -123,7 +143,6 @@ async function createServer(routeConfig: RouteConfig) {
       }
 
       if ("header" in response && response.header) {
-
         const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
         if (!WEBFONT_EXTENSIONS.test(request.url.toString())) {
           response.header(
@@ -161,6 +180,8 @@ async function createServer(routeConfig: RouteConfig) {
   server.state("cookies_policy", {
     encoding: "base64json",
   });
+
+  await server.register(pluginQueue);
 
   return server;
 }

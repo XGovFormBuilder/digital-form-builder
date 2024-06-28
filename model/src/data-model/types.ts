@@ -14,7 +14,7 @@ export interface Page {
   path: string;
   controller: string;
   components?: ComponentDef[];
-  section: string; // the section ID
+  section?: string; // the section ID
   next?: { path: string; condition?: string }[];
 }
 
@@ -35,6 +35,7 @@ export interface RepeatingFieldPage extends Page {
 export interface Section {
   name: string;
   title: string;
+  hideTitle: boolean;
 }
 
 export interface Item {
@@ -82,15 +83,21 @@ export type NotifyOutputConfiguration = {
   templateId: string;
   emailField: string;
   personalisation: string[];
+  personalisationFieldCustomisation?: {
+    [personalisationName: string]: string[];
+  };
   addReferencesToPersonalisation?: boolean;
   emailReplyToIdConfiguration?: {
     emailReplyToId: string;
     condition?: string | undefined;
   }[];
+  escapeURLs?: boolean;
 };
 
 export type WebhookOutputConfiguration = {
   url: string;
+  sendAdditionalPayMetadata?: boolean;
+  allowRetry?: boolean;
 };
 
 export type OutputConfiguration =
@@ -114,8 +121,17 @@ export type ConfirmationPage = {
   components: ComponentDef[];
 };
 
+export type PaymentSkippedWarningPage = {
+  customText: {
+    title: string;
+    caption: string;
+    body: string;
+  };
+};
+
 export type SpecialPages = {
   confirmationPage?: ConfirmationPage;
+  paymentSkippedWarningPage?: PaymentSkippedWarningPage;
 };
 
 export function isMultipleApiKey(
@@ -131,6 +147,23 @@ export type Fee = {
   multiplier?: string;
   condition?: string;
   prefix?: string;
+};
+
+export type AdditionalReportingColumn = {
+  columnName: string;
+  fieldPath?: string;
+  staticValue?: string;
+};
+
+export type FeeOptions = {
+  paymentReferenceFormat?: string;
+  payReturnUrl?: string;
+  allowSubmissionWithoutPayment: boolean;
+  maxAttempts: number;
+  customPayErrorMessage?: string;
+  showPaymentSkippedWarningPage: boolean;
+  additionalReportingColumns?: AdditionalReportingColumn[];
+  payApiKey?: string | MultipleApiKeys | undefined;
 };
 
 /**
@@ -153,5 +186,6 @@ export type FormDefinition = {
   payApiKey?: string | MultipleApiKeys | undefined;
   specialPages?: SpecialPages;
   paymentReferenceFormat?: string;
+  feeOptions: FeeOptions;
   authCheck?: boolean | undefined;
 };

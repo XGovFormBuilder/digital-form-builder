@@ -1,9 +1,8 @@
-import http from "http";
 import FormData from "form-data";
 
-import config from "../config";
-import { get, post } from "./httpService";
-import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
+import config from "../../config";
+import { get, post } from "../httpService";
+import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
 
 type Payload = HapiRequest["payload"];
 
@@ -14,6 +13,13 @@ const parsedError = (key: string, error?: string) => {
     name: key,
     text: error,
   };
+};
+
+const ERRORS = {
+  fileSizeError: 'The selected file for "%s" is too large',
+  fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
+  virusError: 'The selected file for "%s" contained a virus',
+  default: "There was an error uploading your file",
 };
 
 export class UploadService {
@@ -27,7 +33,7 @@ export class UploadService {
   }
 
   get fileSizeLimit() {
-    return 5 * 1024 * 1024; // 5mb
+    return config.maxClientFileSize;
   }
 
   get validFiletypes(): ["jpg", "jpeg", "png", "pdf"] {
@@ -55,35 +61,40 @@ export class UploadService {
       });
     }
 
-    const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await post(`${config.documentUploadApiUrl}/v1/files`, data);
-    return this.parsedDocumentUploadResponse(res);
+    const requestData = { headers: form.getHeaders(), payload: form };
+    const responseData = await post(
+      `${config.documentUploadApiUrl}/v1/files`,
+      requestData
+    );
+
+    return this.parsedDocumentUploadResponse(responseData);
   }
 
-  parsedDocumentUploadResponse(res: http.IncomingMessage) {
+  parsedDocumentUploadResponse({ res, payload }) {
+    const warning = payload?.toString?.();
     let error: string | undefined;
     let location: string | undefined;
-
     switch (res.statusCode) {
       case 201:
         location = res.headers.location;
         break;
+      case 400:
+        error = ERRORS.fileTypeError;
+        break;
       case 413:
-        error = 'The selected file for "%s" is too large';
+        error = ERRORS.fileSizeError;
         break;
       case 422:
-        error = 'The selected file for "%s" contained a virus';
-        break;
-      case 400:
-        error = "Invalid file type. Upload a PNG, JPG or PDF";
+        error = ERRORS.virusError;
         break;
       default:
-        error = "There was an error uploading your file";
+        error = ERRORS.default;
+        break;
     }
-
     return {
       location,
       error,
+      warning,
     };
   }
 
@@ -92,7 +103,11 @@ export class UploadService {
     return h.continue;
   }
 
-  async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
+  async handleUploadRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    page: any
+  ) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
@@ -170,10 +185,13 @@ export class UploadService {
 
       if (validFiles.length === values.length) {
         try {
-          const { error, location } = await this.uploadDocuments(validFiles);
+          const { error, location, warning } = await this.uploadDocuments(
+            validFiles
+          );
           if (location) {
             originalFilenames[key] = { location };
             request.payload[key] = location;
+            request.pre.warning = warning;
           }
           if (error) {
             request.pre.errors = [
@@ -182,8 +200,8 @@ export class UploadService {
             ];
           }
         } catch (e) {
-          if (e.data && e.data.res) {
-            const { error } = this.parsedDocumentUploadResponse(e.data.res);
+          if (e.data?.res) {
+            const { error } = this.parsedDocumentUploadResponse(e.data);
             request.pre.errors = [
               ...(h.request.pre.errors || []),
               parsedError(key, error),

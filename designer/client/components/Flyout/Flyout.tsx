@@ -1,16 +1,32 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  CSSProperties,
+  ReactChildren,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from "react";
 import FocusTrap from "focus-trap-react";
 import { FlyoutContext } from "../../context";
-import { DataContext } from "../../context";
 import { i18n } from "../../i18n";
 
 import "./Flyout.scss";
-import { bool } from "aws-sdk/clients/signer";
 
-export function useFlyoutEffect(props: {}) {
+interface Props {
+  style: string;
+  width?: string;
+  onHide: () => void;
+  closeOnEnter: (e) => void;
+  show: boolean;
+  offset: number;
+  title?: string;
+  children?: ReactChildren;
+  NEVER_UNMOUNTS?: boolean;
+}
+
+export function useFlyoutEffect(props: Props) {
   const flyoutContext = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
-  const [style, setStyle] = useState();
+  const [style, setStyle] = useState<CSSProperties>();
   const show = props.show ?? true;
 
   /**
@@ -58,7 +74,7 @@ export function useFlyoutEffect(props: {}) {
   return { style, width: props?.width, closeOnEnter, onHide, offset, show };
 }
 
-export function Flyout(props) {
+export function Flyout(props: Props) {
   const {
     style,
     width = "",

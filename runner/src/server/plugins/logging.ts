@@ -11,6 +11,8 @@ export default {
         return { level: label };
       },
     },
+    debug: config.isDev,
+    logRequestStart: config.isDev,
     logRequestComplete: config.isDev,
     ignoreFunc: (_options, request) =>
       request.path.startsWith("/assets") || request.url.contains("assets"),

@@ -1,0 +1,60 @@
+{
+  "metadata": {},
+  "startPage": "/start",
+  "pages": [
+    {
+      "title": "Start",
+      "path": "/start",
+      "components": [
+        {
+          "name": "country",
+          "options": { "exposeToContext": true },
+          "type": "AutocompleteField",
+          "title": "Country",
+          "nameHasError": false,
+          "list": "SfkWjb",
+          "values": { "type": "listRef" }
+        }
+      ],
+      "next": [{ "path": "/second-page" }]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [
+        {
+          "name": "SFtcpL",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">You chose the option {{country}}</p>"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "Countries",
+      "name": "SfkWjb",
+      "type": "string",
+      "items": [
+        { "text": "Turkey", "value": "Turkey" },
+        { "text": "Thailand", "value": "Thailand" }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
+}

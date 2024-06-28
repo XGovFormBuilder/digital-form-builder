@@ -5,8 +5,10 @@ import {
   redirectTo,
   redirectUrl,
   nonRelativeRedirectUrl,
+  getValidStateFromQueryParameters,
 } from "src/server/plugins/engine/helpers";
 import sinon from "sinon";
+import Joi from "joi";
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;
@@ -296,6 +298,96 @@ suite("Helpers", () => {
       const nextUrl = "https://test.com";
       const url = nonRelativeRedirectUrl(request, nextUrl);
       expect(url).to.equal("https://test.com/?f_t=true");
+    });
+  });
+
+  describe("getValidStateFromQueryParameters", () => {
+    test("Should return an empty object if none of the query parameters relate to valid fields for pre-population", () => {
+      const query = {
+        aBadQueryParam: "A value",
+      };
+      const prePopFields = {
+        eggType: {
+          schema: Joi.string().required(),
+        },
+      };
+      expect(
+        Object.keys(getValidStateFromQueryParameters(prePopFields, query))
+          .length
+      ).to.equal(0);
+    });
+
+    test("Should return an empty object when a query parameter is valid, but a value already exists in the form state", () => {
+      const query = {
+        aBadQueryParam: "A value",
+        eggType: "Hard boiled",
+      };
+      const prePopFields = {
+        eggType: {
+          schema: Joi.string().required(),
+        },
+      };
+      const state = {
+        eggType: "Fried",
+      };
+
+      expect(
+        Object.keys(
+          getValidStateFromQueryParameters(prePopFields, query, state)
+        ).length
+      ).to.equal(0);
+    });
+
+    test("Should allow the value to be overwritten if allowPrePopulationOverwrite is true", () => {
+      const query = {
+        eggType: "Hard boiled",
+      };
+      const prePopFields = {
+        eggType: {
+          schema: Joi.string().required(),
+          allowPrePopulationOverwrite: true,
+        },
+      };
+      const state = {
+        eggType: "Fried",
+      };
+
+      expect(
+        getValidStateFromQueryParameters(prePopFields, query, state)
+      ).to.equal({ eggType: "Hard boiled" });
+    });
+
+    test("Should be able to update nested object values", () => {
+      const query = {
+        "yourEggs.eggType": "Fried egg",
+      };
+      const prePopFields = {
+        yourEggs: {
+          eggType: {
+            schema: Joi.string().required(),
+          },
+        },
+      };
+      expect(
+        getValidStateFromQueryParameters(prePopFields, query).yourEggs.eggType
+      ).to.equal("Fried egg");
+    });
+
+    test("Should reject a value if it fails validation", () => {
+      const query = {
+        "yourEggs.eggType": "deviled",
+      };
+      const prePopFields = {
+        yourEggs: {
+          eggType: {
+            schema: Joi.string().valid("boiled", "fried", "poached"),
+          },
+        },
+      };
+      expect(
+        Object.keys(getValidStateFromQueryParameters(prePopFields, query))
+          .length
+      ).to.equal(0);
     });
   });
 });

@@ -7,10 +7,30 @@
       "components": [],
       "next": [
         {
-          "path": "/summary"
+          "path": "/name"
         }
       ],
       "controller": "./pages/start.js"
+    },
+    {
+      "title": "What is your name?",
+      "path": "/name",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
     },
     {
       "path": "/summary",
@@ -20,14 +40,12 @@
       "next": []
     }
   ],
-  "lists": [
-  ],
+  "lists": [],
   "sections": [],
   "phaseBanner": {},
   "fees": [],
   "payApiKey": "",
-  "outputs": [
-  ],
+  "outputs": [],
   "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
   "version": 2,
   "conditions": []

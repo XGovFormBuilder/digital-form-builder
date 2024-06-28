@@ -1,0 +1,129 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "Multi-page start example",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "sVKKuL",
+          "options": {},
+          "type": "Html",
+          "content": "<ul class=\"govuk-list govuk-list--multi-start-page\">\n  <li class=\"govuk-body-s\">First page</li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/second-page\">Second page</a></li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/third-page\">Third page</a></li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/fourth-page\">Fourth page</a></li>\n</ul>\n<hr class=\"govuk-section-break govuk-section-break--xl govuk-section-break--visible\">\n<h2 class=\"govuk-heading-m\">First page</h2>\n<p class=\"govuk-body\">This is the first page</p>"
+        }
+      ],
+      "startPageNavigation": {
+        "next": {
+          "labelText": "Second page",
+          "href": "/multi-start-page-example/second-page"
+        }
+      },
+      "controller": "MultiStartPageController",
+      "next": [{ "path": "/second-page" }]
+    },
+    {
+      "path": "/second-page",
+      "title": "Multi-page start example",
+      "components": [
+        {
+          "name": "HDgwZU",
+          "options": {},
+          "type": "Html",
+          "content": "<ul class=\"govuk-list govuk-list--multi-start-page\">\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/first-page\">First page</a></li>\n  <li class=\"govuk-body-s\">Second page</li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/third-page\">Third page</a></li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/fourth-page\">Fourth page</a></li>\n</ul>\n<hr class=\"govuk-section-break govuk-section-break--xl govuk-section-break--visible\">\n<h2 class=\"govuk-heading-m\">Second page</h2>\n<p class=\"govuk-body\">This is the second page</p>"
+        }
+      ],
+      "startPageNavigation": {
+        "previous": {
+          "labelText": "First page",
+          "href": "/multi-start-page-example/first-page"
+        },
+        "next": {
+          "labelText": "Third page",
+          "href": "/multi-start-page-example/third-page"
+        }
+      },
+      "controller": "MultiStartPageController",
+      "next": [{ "path": "/third-page" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    },
+    {
+      "path": "/third-page",
+      "title": "Multi-page start example",
+      "components": [
+        {
+          "name": "sGXfIE",
+          "options": {},
+          "type": "Html",
+          "content": "<ul class=\"govuk-list govuk-list--multi-start-page\">\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/first-page\">First page</a></li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/second-page\">Second page</a></li>\n  <li class=\"govuk-body-s\">Third page</li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/fourth-page\">Fourth page</a></li>\n</ul>\n<hr class=\"govuk-section-break govuk-section-break--xl govuk-section-break--visible\">\n<h2 class=\"govuk-heading-m\">Third page</h2>\n<p class=\"govuk-body\">This is the third page</p>"
+        }
+      ],
+      "startPageNavigation": {
+        "previous": {
+          "labelText": "Second page",
+          "href": "/multi-start-page-example/second-page"
+        },
+        "next": {
+          "labelText": "Fourth page",
+          "href": "/multi-start-page-example/fourth-page"
+        }
+      },
+      "controller": "MultiStartPageController",
+      "showContinueButton": true,
+      "continueButtonText": "Apply now",
+      "next": [{ "path": "/form-start" }]
+    },
+    {
+      "path": "/form-start",
+      "title": "Form start",
+      "components": [
+        {
+          "name": "ZOTkKs",
+          "options": {},
+          "type": "TextField",
+          "title": "First name"
+        },
+        {
+          "name": "yiaHAz",
+          "options": {},
+          "type": "TextField",
+          "title": "Surname"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/fourth-page",
+      "title": "Multi-page start example",
+      "components": [
+        {
+          "name": "dkbFtn",
+          "options": {},
+          "type": "Html",
+          "content": "<ul class=\"govuk-list govuk-list--multi-start-page\">\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/first-page\">First page</a></li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/second-page\">Second page</a></li>\n  <li class=\"govuk-body-s\"><a class=\"govuk-link\" href=\"/multi-start-page-example/third-page\">Third page</a></li>\n  <li class=\"govuk-body-s\">Fourth page</li>\n</ul>\n<hr class=\"govuk-section-break govuk-section-break--xl govuk-section-break--visible\">\n<h2 class=\"govuk-heading-m\">Fourth page</h2>\n<p class=\"govuk-body\">This is the fourth page</p>"
+        }
+      ],
+      "startPageNavigation": {
+        "previous": {
+          "labelText": "Second page",
+          "href": "/multi-start-page-example/third-page"
+        }
+      },
+      "controller": "MultiStartPageController",
+      "next": [{ "path": "/third-page" }]
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
+}

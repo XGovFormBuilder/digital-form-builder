@@ -47,7 +47,7 @@ suite("Month Year Field", () => {
         myComponent__year: 1,
         myComponent__month: 12,
       }).error.message
-    ).to.contain("must be 1000 or more");
+    ).to.contain("must be 1000 or higher");
 
     expect(
       validate(schema, {

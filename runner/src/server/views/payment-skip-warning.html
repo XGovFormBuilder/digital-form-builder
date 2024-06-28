@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-caption-l govuk-!-margin-top-0">
+      {{customText.caption if customText.caption else 'Payment'}}</h2>
+    <h1 class="govuk-heading-l">
+      {{customText.title if customText.title else 'You are about to skip payment'}}
+    </h1>
+    <div class="govuk-body">
+      {% if customText.body %}
+        {{ customText.body | safe }}
+      {% else %}
+        Only continue if you are unable to pay online, because for example you do not have a debit or credit card.
+      {% endif %}
+    </div>
+    <form method="post">
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <div class="govuk-button-group">
+        <a class="govuk-button" href="../status?continue=true">Continue</a>
+        <button class="govuk-link govuk-button--link" name="action" value="pay" data-module="govuk-button">Pay online instead</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

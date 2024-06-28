@@ -88,7 +88,7 @@ suite("Website field", () => {
     expect(formSchema.validate("http://www.gov.uk").error).to.be.undefined();
 
     expect(formSchema.validate("https://www.gov.uk").error?.message).to.contain(
-      `"My component" length must be less than or equal to 17 characters long`
+      `"my component" length must be less than or equal to 17 characters long`
     );
   });
 
@@ -109,7 +109,7 @@ suite("Website field", () => {
     expect(formSchema.validate("https://www.gov.uk").error).to.be.undefined();
 
     expect(formSchema.validate("http://www.gov.uk").error?.message).to.contain(
-      `"My component" length must be at least 18 characters long`
+      `"my component" length must be at least 18 characters long`
     );
   });
 
@@ -126,11 +126,11 @@ suite("Website field", () => {
     const { formSchema } = new WebsiteField(def, model);
 
     expect(formSchema.validate("").error?.message).to.contain(
-      `"My component" is not allowed to be empty`
+      `"my component" is not allowed to be empty`
     );
 
     expect(formSchema.validate(null).error?.message).to.contain(
-      `"My component" must be a string`
+      `"my component" must be a string`
     );
   });
 

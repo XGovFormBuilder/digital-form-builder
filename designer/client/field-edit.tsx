@@ -9,19 +9,30 @@ import { ErrorMessage } from "./components/ErrorMessage";
 
 type Props = {
   isContentField?: boolean;
+  isListField?: boolean;
 };
 
-export function FieldEdit({ isContentField = false }: Props) {
+export function FieldEdit({
+  isContentField = false,
+  isListField = false,
+}: Props) {
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent, errors } = state;
 
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
-  const { hideTitle = false, optionalText = false, required = true } = options;
+  const {
+    hideTitle = false,
+    optionalText = false,
+    required = true,
+    exposeToContext = false,
+    allowPrePopulation = false,
+    allowPrePopulationOverwrite = false,
+    disableChangingFromSummary = false,
+  } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
   const fieldTitle =
     ComponentTypes.find((componentType) => componentType.name === type)
       ?.title ?? "";
-
   return (
     <div>
       <div data-test-id="standard-inputs">
@@ -188,8 +199,134 @@ export function FieldEdit({ isContentField = false }: Props) {
             </span>
           </div>
         </div>
+        <div
+          className="govuk-checkboxes govuk-form-group"
+          data-test-id="field-options.exposeToContext-wrapper"
+        >
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-exposeToContext"
+              name="options.exposeToContext"
+              type="checkbox"
+              checked={exposeToContext}
+              onChange={(e) =>
+                dispatch({
+                  type: Actions.EDIT_OPTIONS_EXPOSE_TO_CONTEXT,
+                  payload: e.target.checked,
+                })
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-exposeToContext"
+            >
+              {i18n("common.exposeToContextOption.title")}
+            </label>
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("common.exposeToContextOption.helpText")}
+            </span>
+          </div>
+        </div>
+        {isListField && (
+          <>
+            <div className="govuk-checkboxes govuk-form-group">
+              <div className="govuk-checkboxes__item">
+                <input
+                  type="checkbox"
+                  id="field-options-allow-pre-population"
+                  className={`govuk-checkboxes__input`}
+                  name="options.allowPrePopulation"
+                  checked={allowPrePopulation}
+                  onChange={(e) =>
+                    dispatch({
+                      type: Actions.EDIT_OPTIONS_ALLOW_PRE_POPULATION,
+                      payload: e.target.checked,
+                    })
+                  }
+                />
+                <label
+                  className="govuk-label govuk-checkboxes__label"
+                  htmlFor="field-options-allow-pre-population"
+                >
+                  {i18n("common.allowPrePopulationOption.title", {
+                    component:
+                      ComponentTypes.find(
+                        (componentType) => componentType.name === type
+                      )?.title ?? "",
+                  })}
+                </label>
+                <span className="govuk-hint govuk-checkboxes__hint">
+                  {i18n("common.allowPrePopulationOption.helpText")}
+                </span>
+              </div>
+            </div>
+            <div className="govuk-checkboxes govuk-form-group">
+              <div className="govuk-checkboxes__item">
+                <input
+                  type="checkbox"
+                  id="field-options-allow-overwrite-from-query-param"
+                  className={`govuk-checkboxes__input`}
+                  name="options.allowPrePopulationOverwrite"
+                  checked={allowPrePopulationOverwrite}
+                  onChange={(e) =>
+                    dispatch({
+                      type:
+                        Actions.EDIT_OPTIONS_ALLOW_OVERWRITE_FROM_QUERY_PARAM,
+                      payload: e.target.checked,
+                    })
+                  }
+                />
+                <label
+                  className="govuk-label govuk-checkboxes__label"
+                  htmlFor="field-options-allow-pre-population"
+                >
+                  {i18n("common.allowPrePopulationOverwriteOption.title", {
+                    component:
+                      ComponentTypes.find(
+                        (componentType) => componentType.name === type
+                      )?.title ?? "",
+                  })}
+                </label>
+                <span className="govuk-hint govuk-checkboxes__hint">
+                  {i18n("common.allowPrePopulationOverwriteOption.helpText")}
+                </span>
+              </div>
+            </div>
+          </>
+        )}
+        <div
+          className="govuk-checkboxes govuk-form-group"
+          data-test-id="field-options.disableChangingFromSummary-wrapper"
+        >
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-disableChangingFromSummary"
+              name="options.disableChangingFromSummary"
+              type="checkbox"
+              checked={disableChangingFromSummary}
+              onChange={(e) =>
+                dispatch({
+                  type: Actions.EDIT_OPTIONS_DISABLE_CHANGING_FROM_SUMMARY,
+                  payload: e.target.checked,
+                })
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-disableChangingFromSummary"
+            >
+              {i18n("common.disableChangingFromSummaryOption.title")}
+            </label>
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("common.disableChangingFromSummaryOption.helpText")}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
 export default FieldEdit;

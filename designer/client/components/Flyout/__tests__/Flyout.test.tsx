@@ -14,6 +14,7 @@ const { test, describe, beforeEach, afterEach } = lab;
 function HookWrapper(props) {
   const hook = props.hook ? props.hook() : undefined;
   // @ts-ignore
+  // eslint-disable-next-line react/no-unknown-property
   return <div hook={hook} />;
 }
 

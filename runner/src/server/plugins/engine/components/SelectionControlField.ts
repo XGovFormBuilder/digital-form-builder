@@ -62,7 +62,6 @@ export class SelectionControlField extends ListFormComponent {
           html: this.localisedString(item.description),
         };
       }
-
       return itemModel;
 
       // FIXME:- add this back when GDS fix accessibility issues involving conditional reveal fields

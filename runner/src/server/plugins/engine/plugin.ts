@@ -1,6 +1,6 @@
 import path from "path";
 import { configure } from "nunjucks";
-import { redirectTo } from "./helpers";
+import { getValidStateFromQueryParameters, redirectTo } from "./helpers";
 import { FormConfiguration } from "@xgovformbuilder/model";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "server/types";
 
@@ -9,7 +9,7 @@ import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
-import config from "config";
+import config from "../../config";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -176,13 +176,57 @@ export const plugin = {
         if (model) {
           return getStartPageRedirect(request, h, id, model);
         }
+
+        if (config.serviceStartPage) {
+          return h.redirect(config.serviceStartPage);
+        }
+
         throw Boom.notFound("No default form found");
       },
     });
 
+    const queryParamPreHandler = async (
+      request: HapiRequest,
+      h: HapiResponseToolkit
+    ) => {
+      const { query } = request;
+      const { id } = request.params;
+      const model = forms[id];
+      if (!model) {
+        throw Boom.notFound("No form found for id");
+      }
+
+      const prePopFields = model.fieldsForPrePopulation;
+      if (
+        Object.keys(query).length === 0 ||
+        Object.keys(prePopFields).length === 0
+      ) {
+        return h.continue;
+      }
+      const { cacheService } = request.services([]);
+      const state = await cacheService.getState(request);
+      const newValues = getValidStateFromQueryParameters(
+        prePopFields,
+        query,
+        state
+      );
+      await cacheService.mergeState(request, newValues);
+      if (Object.keys(newValues).length > 0) {
+        h.request.pre.hasPrepopulatedSessionFromQueryParameter = true;
+      }
+      return h.continue;
+    };
+
     server.route({
       method: "get",
       path: "/{id}",
+      options: {
+        pre: [
+          {
+            method: queryParamPreHandler,
+          },
+        ],
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { id } = request.params;
         const model = forms[id];
@@ -196,6 +240,13 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
+      options: {
+        pre: [
+          {
+            method: queryParamPreHandler,
+          },
+        ],
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
         const model = forms[id];
@@ -228,7 +279,12 @@ export const plugin = {
     const { uploadService } = server.services([]);
 
     const handleFiles = (request: HapiRequest, h: HapiResponseToolkit) => {
-      return uploadService.handleUploadRequest(request, h);
+      const { path, id } = request.params;
+      const model = forms[id];
+      const page = model?.pages.find(
+        (page) => normalisePath(page.path) === normalisePath(path)
+      );
+      return uploadService.handleUploadRequest(request, h, page.pageDef);
     };
 
     const postHandler = async (
@@ -265,8 +321,8 @@ export const plugin = {
           parse: true,
           multipart: { output: "stream" },
           maxBytes: uploadService.fileSizeLimit,
-          failAction: async (request: any, h: HapiResponseToolkit) => {
-            request.server?.plugins?.crumb?.generate?.(request, h);
+          failAction: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            request.server.plugins.crumb.generate?.(request, h);
             return h.continue;
           },
         },

@@ -2,6 +2,7 @@ import { Plugin, Request } from "@hapi/hapi";
 import {
   callbackValidation,
   generateSessionTokenForForm,
+  verifyToken,
   webhookToSessionData,
 } from "./helpers";
 import { InitialiseSessionOptions, InitialiseSession } from "./types";
@@ -9,6 +10,7 @@ import path from "path";
 import { WebhookSchema } from "server/schemas/types";
 import Jwt from "@hapi/jwt";
 import { SpecialPages } from "@xgovformbuilder/model";
+import Boom from "boom";
 
 type ConfirmationPage = SpecialPages["confirmationPage"];
 
@@ -31,8 +33,15 @@ export const initialiseSession: Plugin<InitialiseSession> = {
       handler: async function (request, h) {
         const { cacheService } = request.services([]);
         const { token } = request.params;
-        const { decoded } = Jwt.token.decode(token);
-        const { payload } = decoded;
+        const tokenArtifacts = Jwt.token.decode(token);
+        const { isValid, error } = verifyToken(tokenArtifacts);
+
+        if (!isValid) {
+          request.logger.error([`GET /session/${token}`, "invalid JWT"], error);
+          throw Boom.badRequest();
+        }
+
+        const { payload } = tokenArtifacts.decoded;
         const { redirectPath } = await cacheService.activateSession(
           token,
           request

@@ -44,7 +44,7 @@ suite("Date parts field", () => {
     expect(returned.fieldset).to.equal({
       legend: {
         classes: "govuk-label--s",
-        text: `${def.title} (Optional)`,
+        text: `${def.title} (optional)`,
       },
     });
     expect(returned.items).to.equal([
@@ -55,7 +55,7 @@ suite("Date parts field", () => {
   });
   test("Error is displayed correctly", () => {
     const def = {
-      name: "myComponent",
+      name: "approximate",
       title: "My component",
       options: { required: false },
       schema: {},
@@ -90,3 +90,5 @@ function dateComponent(name, width) {
     attributes: {},
   };
 }
+
+// TODO: write test to make sure maxDaysInPast and maxDaysInFuture work as expected (based on current date instead of server initialisation date)

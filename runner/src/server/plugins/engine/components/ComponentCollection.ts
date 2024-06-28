@@ -12,10 +12,12 @@ import {
 import { ComponentCollectionViewModel } from "./types";
 import { ComponentBase } from "./ComponentBase";
 import { FormComponent } from "./FormComponent";
+import { merge } from "@hapi/hoek";
 
 export class ComponentCollection {
   items: (ComponentBase | ComponentCollection | FormComponent)[];
   formItems: FormComponent /* | ConditionalFormComponent*/[];
+  prePopulatedItems: Record<string, JoiSchema>;
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
 
@@ -43,6 +45,7 @@ export class ComponentCollection {
       .keys({ crumb: joi.string().optional().allow("") });
 
     this.stateSchema = joi.object().keys(this.getStateSchemaKeys()).required();
+    this.prePopulatedItems = this.getPrePopulatedItems();
   }
 
   getFormSchemaKeys() {
@@ -63,6 +66,24 @@ export class ComponentCollection {
     });
 
     return keys;
+  }
+
+  getPrePopulatedItems() {
+    return this.formItems
+      .filter((item) => item.options?.allowPrePopulation)
+      .map((item) => {
+        // to access the schema we need to use the component name to retrieve the value from getStateSchemaKeys
+        const schema = item.getStateSchemaKeys()[item.name];
+
+        return {
+          [item.name]: {
+            schema,
+            allowPrePopulationOverwrite:
+              item.options.allowPrePopulationOverwrite,
+          },
+        };
+      })
+      .reduce((acc, curr) => merge(acc, curr), {});
   }
 
   getFormDataFromState(state: FormSubmissionState): any {
