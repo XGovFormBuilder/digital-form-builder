@@ -212,7 +212,15 @@
           "name": "sIFkPc",
           "options": {},
           "type": "Para",
-          "content": "Please state what sort of setting you are.",
+          "content": "These questions ask for basic information about your setting.",
+          "schema": {}
+        },
+        {
+          "name": "S1Q2",
+          "options": {},
+          "type": "TextField",
+          "title": "S1Q2. State your setting type",
+          "nameHasError": false,
           "schema": {}
         },
         {
