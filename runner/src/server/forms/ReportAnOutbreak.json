@@ -482,6 +482,10 @@
           "options": {
             "required": false,
             "maxDaysInFuture": "0",
+            "customValidationMessages": {
+              "date.base": "The date that symptoms started must be a real date",
+              "date.max": "The date that symptoms started must be in the past"
+            },
             "label": "The date that symptoms started"
           },
           "type": "DatePartsField",
