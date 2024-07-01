@@ -1,1 +1,1 @@
-export const optionalText = " (optional)";
+export const optionalText = " (Optional)";
