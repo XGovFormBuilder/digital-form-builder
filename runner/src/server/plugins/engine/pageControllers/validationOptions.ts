@@ -9,7 +9,7 @@ const messageTemplate = {
   min: "{{#label}} must be {{#limit}} characters or more",
   regex: "enter a valid {{#label}}",
   email: "{{#label}} must be a valid email address",
-  date: "{{#label}} must be a valid date",
+  date: "{{#label}} must be a real date",
   dateMin: "{{#label}} must be on or after {{#limit}}",
   dateMax: "{{#label}} must be on or before {{#limit}}",
   number: "{{#label}} must be a number",

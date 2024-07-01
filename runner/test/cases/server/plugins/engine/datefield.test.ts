@@ -37,18 +37,18 @@ suite("Date field", () => {
 
     expect(
       schema.validate("2024-02-30", { messages }).error.message
-    ).to.contain("must be a valid date");
+    ).to.contain("must be a real date");
 
     expect(
       schema.validate("2023-02-29", { messages }).error.message
-    ).to.contain("must be a valid date");
+    ).to.contain("must be a real date");
 
     expect(schema.validate("2023-11-", { messages }).error.message).to.contain(
-      "must be a valid date"
+      "must be a real date"
     );
 
     expect(schema.validate("", { messages }).error.message).to.contain(
-      "must be a valid date"
+      "must be a real date"
     );
 
     expect(schema.validate("2021-12-25", { messages }).error).to.be.undefined();
