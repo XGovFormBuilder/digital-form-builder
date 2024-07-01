@@ -188,4 +188,5 @@ export type FormDefinition = {
   paymentReferenceFormat?: string;
   feeOptions: FeeOptions;
   authCheck?: boolean | undefined;
+  customErrors?: any;
 };

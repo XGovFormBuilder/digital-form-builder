@@ -378,6 +378,17 @@
     {
       "path": "/Section-4-Details-about-current-COVID-19-in-your-setting-Continuation-1",
       "title": "Section 4 - Details about current COVID-19 in your setting (Continuation 1)",
+      "customErrors": {
+        "dayMonth": "The date that symptoms started must include a day and a month",
+        "dayYear": "The date that symptoms started must include a day and a year",
+        "yearMonth": "The date that symptoms started must include a year and a month",
+        "S4Q6": {
+          "dayMonthYear": "Enter the date that symptoms started in the first case"
+        },
+        "S4Q8": {
+          "dayMonthYear": "Enter the date that symptoms started in the most recent case"
+        }
+      },
       "components": [
         {
           "name": "S4Q2",
@@ -431,7 +442,13 @@
           "name": "S4Q6",
           "options": {
             "required": true,
-            "maxDaysInFuture": "0"
+            "maxDaysInFuture": "0",
+            "customValidationMessages": {
+              "date.base": "The date that symptoms started must be a real date",
+              "date.max": "The date that symptoms started must be in the past",
+              "date.empty": "Enter the date that symptoms started in the first case"
+            },
+            "label": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S4Q6. Symptom onset date of first case",
@@ -443,7 +460,8 @@
           "name": "S4Q7",
           "options": {
             "required": false,
-            "maxDaysInFuture": "0"
+            "maxDaysInFuture": "0",
+            "label": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S4Q7. Symptom onset date of second case",
@@ -455,7 +473,12 @@
           "name": "S4Q8",
           "options": {
             "required": true,
-            "maxDaysInFuture": "0"
+            "maxDaysInFuture": "0",
+            "customValidationMessages": {
+              "date.base": "The date that symptoms started must be a real date",
+              "date.max": "The date that symptoms started must be in the past"
+            },
+            "label": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S4Q8. Symptom onset date of most recent case",
@@ -872,7 +895,8 @@
           "name": "S6Q4",
           "options": {
             "required": true,
-            "maxDaysInFuture": "0"
+            "maxDaysInFuture": "0",
+            "maxDaysInPast": "1000000000"
           },
           "type": "DatePartsField",
           "title": "S6Q4. Symptom onset date of first case",

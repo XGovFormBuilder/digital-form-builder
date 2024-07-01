@@ -119,6 +119,7 @@ const pageSchema = joi.object().keys({
   repeatField: joi.string().optional(),
   options: joi.object().optional(),
   backLinkFallback: joi.string().optional(),
+  customErrors: joi.object().optional(),
 });
 
 const startNavigationLinkSchema = joi.object().keys({

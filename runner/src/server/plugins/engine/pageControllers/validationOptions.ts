@@ -19,8 +19,13 @@ const messageTemplate = {
   maxWords: "{{#label}} must be {{#limit}} words or fewer",
   dateRequired: "{{#label}} must be a real date",
   dateFormat: "{{#label}} must be a real date",
-  dateMin: "{{#label}} must be the same as or after {{#limit}}",
-  dateMax: "{{#label}} must be the same as or before {{#limit}}",
+  dateMonth: "{{#label}} must include a month",
+  dateYear: "{{#label}} must include a year",
+  dateDay: "{{#label}} must include a day",
+  dateMonthYear: "{{#label}} must include a month and a year",
+  dateDayYear: "{{#label}} must include a day and a year",
+  dateDayMonth: "{{#label}} must include a day and a month",
+  dateYear3digits: "The year must include 4 numbers",
 };
 
 export const messages: ValidationOptions["messages"] = {
@@ -46,10 +51,14 @@ export const messages: ValidationOptions["messages"] = {
   "any.required": messageTemplate.selectRequired,
   "any.empty": messageTemplate.required,
 
-  "date.base": messageTemplate.dateRequired,
   "date.format": messageTemplate.dateFormat,
-  "date.min": messageTemplate.dateMin,
-  "date.max": messageTemplate.dateMax,
+  "date.month": messageTemplate.dateMonth,
+  "date.year": messageTemplate.dateYear,
+  "date.day": messageTemplate.dateDay,
+  "date.monthYear": messageTemplate.dateMonthYear,
+  "date.dayYear": messageTemplate.dateDayYear,
+  "date.dayMonth": messageTemplate.dateDayMonth,
+  "date.year3digits": messageTemplate.dateYear3digits,
 };
 
 export const validationOptions: ValidationOptions = {
