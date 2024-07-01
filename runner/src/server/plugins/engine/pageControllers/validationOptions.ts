@@ -42,6 +42,7 @@ export const messages: ValidationOptions["messages"] = {
   "date.required": messageTemplate.required,
   "date.min": messageTemplate.dateMin,
   "date.max": messageTemplate.dateMax,
+  "date.format": messageTemplate.dateFormat,
   "number.base": messageTemplate.number,
   "number.empty": messageTemplate.required,
   "number.required": messageTemplate.required,
@@ -51,8 +52,6 @@ export const messages: ValidationOptions["messages"] = {
   "any.required": messageTemplate.selectRequired,
   "any.empty": messageTemplate.required,
 
-  "date.format": messageTemplate.dateFormat,
-  "date.month": messageTemplate.dateMonth,
   "date.year": messageTemplate.dateYear,
   "date.day": messageTemplate.dateDay,
   "date.monthYear": messageTemplate.dateMonthYear,

@@ -34,7 +34,12 @@
       "components": [
         {
           "name": "S0Q4",
-          "options": { "customValidationMessage": "Enter a full UK postcode" },
+          "options": {
+            "customValidationMessages": {
+              "string.regex.base": "Enter a full UK postcode",
+              "string.pattern.base": "Enter a full UK postcode"
+            }
+          },
           "type": "TextField",
           "title": "Please enter your setting Postcode",
           "schema": {
@@ -63,7 +68,11 @@
         {
           "name": "S0Q3",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "string.base": "Please enter your local HPT here is required",
+              "string.empty": "Please enter your local HPT here is required"
+            }
           },
           "type": "SelectField",
           "title": "Please enter your local HPT here",
@@ -85,13 +94,13 @@
       ],
       "next": [
         {
-          "path": "/Section-1-Details-of-your-setting"
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide"
         }
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting-Continuation-1",
-      "title": "Section 1 - Details of your setting (Continuation 1)",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-1",
+      "title": "Section 1 - What type of adult social care do you provide? (Continuation 1)",
       "components": [
         {
           "name": "S1Q4",
@@ -146,8 +155,8 @@
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting-Continuation-2",
-      "title": "Section 1 - Details of your setting (Continuation 2)",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-2",
+      "title": "Section 1 - What type of adult social care do you provide? (Continuation 2)",
       "components": [
         {
           "name": "S1Q3",
@@ -161,7 +170,11 @@
         {
           "name": "S1Q5",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "string.base": "S1Q5. Name of Key Contact Person is required",
+              "string.empty": "S1Q5. Name of Key Contact Person is required"
+            }
           },
           "type": "TextField",
           "title": "S1Q5. Name of Key Contact Person",
@@ -205,14 +218,22 @@
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting-Continuation-3",
-      "title": "Section 1 - Details of your setting (Continuation 3)",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-3",
+      "title": "Section 1 - What type of adult social care do you provide? (Continuation 3)",
       "components": [
         {
           "name": "sIFkPc",
           "options": {},
           "type": "Para",
-          "content": "Please state what sort of setting you are.",
+          "content": "These questions ask for basic information about your setting.",
+          "schema": {}
+        },
+        {
+          "name": "S1Q2",
+          "options": {},
+          "type": "TextField",
+          "title": "S1Q2. State your setting type",
+          "nameHasError": false,
           "schema": {}
         },
         {
@@ -786,7 +807,10 @@
         {
           "name": "S5Q17",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "S5Q17. During this outbreak, how many cases have died due to Flu (confirmed or suspected) or chest infection? is required"
+            }
           },
           "type": "RadiosField",
           "title": "S5Q17. During this outbreak, how many cases have died due to Flu (confirmed or suspected) or chest infection?",
@@ -1178,7 +1202,10 @@
         {
           "name": "S8Q1",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "S8Q1. How often are you monitoring staff Infection Prevention and Control practices e.g. hand hygiene and PPE compliance, environmental cleanliness? is required"
+            }
           },
           "type": "RadiosField",
           "title": "S8Q1. How often are you monitoring staff Infection Prevention and Control practices e.g. hand hygiene and PPE compliance, environmental cleanliness?",
@@ -1192,7 +1219,10 @@
         {
           "name": "S8Q2",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessage": {
+              "any.required": "S8Q2. What issues are you currently experiencing and require support on? is required"
+            }
           },
           "type": "CheckboxesField",
           "title": "S8Q2. What issues are you currently experiencing and require support on?",
@@ -1204,7 +1234,10 @@
         {
           "name": "S8Q3",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)? is required"
+            }
           },
           "type": "YesNoField",
           "title": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?",
@@ -1279,7 +1312,10 @@
         {
           "name": "S9Q1",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "S9Q1. Do you use agency staff or share staff with other care settings? is required"
+            }
           },
           "type": "YesNoField",
           "title": "S9Q1. Do you use agency staff or share staff with other care settings?",
@@ -1340,38 +1376,29 @@
       ]
     },
     {
-      "path": "/Section-1-Details-of-your-setting",
-      "title": "Section 1 - Details of your setting",
+      "path": "/Section-1-What-type-of-adult-social-care-do-you-provide",
+      "title": "Section 1 - What type of adult social care do you provide?",
       "components": [
         {
           "name": "rHEHfX",
           "options": {},
           "type": "Para",
-          "content": "These questions ask for basic information about your setting.",
           "schema": {}
         },
         {
           "name": "S1Q1",
-          "options": {},
+          "options": {
+            "hideTitle": true,
+            "customValidationMessage": "Select the type of adult social care that you provide"
+          },
           "type": "RadiosField",
           "title": "S1Q1. What type of adult social care provider are you?",
-          "hint": "High risk supported living or extra care defined as closed community with substantial facilities shared between multiple people AND majority of residents(>50%) receive CQC regulated personal care.",
           "nameHasError": false,
           "list": "MpSRIP",
           "schema": {},
           "values": {
             "type": "listRef"
           }
-        },
-        {
-          "name": "S1Q2",
-          "options": {
-            "required": false
-          },
-          "type": "TextField",
-          "title": "S1Q2. If other, please state what sort of setting you are",
-          "nameHasError": false,
-          "schema": {}
         },
         {
           "name": "KRUUTd",
@@ -1385,15 +1412,15 @@
       ],
       "next": [
         {
-          "path": "/Section-1-Details-of-your-setting-Continuation-2",
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-2",
           "condition": "VBVcUJ"
         },
         {
-          "path": "/Section-1-Details-of-your-setting-Continuation-1",
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-1",
           "condition": "sUrRwU"
         },
         {
-          "path": "/Section-1-Details-of-your-setting-Continuation-3"
+          "path": "/Section-1-What-type-of-adult-social-care-do-you-provide-Continuation-3"
         }
       ]
     },
@@ -1530,7 +1557,10 @@
         {
           "name": "S10Q1",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "S10Q1. How would you describe this risk assessment tool? is required"
+            }
           },
           "type": "CheckboxesField",
           "title": "S10Q1. How would you describe this risk assessment tool?",
@@ -1610,36 +1640,37 @@
       "type": "string",
       "items": [
         {
-          "text": "Residential Care Home",
-          "value": "Residential Care Home"
+          "text": "Residential care home",
+          "value": "Residential care home"
         },
         {
-          "text": "Nursing Care Home",
-          "value": "Nursing Care Home"
+          "text": "Nursing care home",
+          "value": "Nursing care home"
         },
         {
-          "text": "Residential and Nursing Care Home",
-          "value": "Residential and Nursing Care Home"
+          "text": "Residential and nursing care home",
+          "value": "Residential and nursing care home"
         },
         {
-          "text": "High Risk Supported Living or Extra Care",
-          "value": "High Risk Supported Living or Extra Care"
+          "text": "High-risk supported living or extra care",
+          "value": "High-risk supported living or extra care",
+          "description": "High-risk supported living or extra care is defined as closed community with substantial facilities shared between multiple people and more than half of residents get CQC-regulated personal care."
         },
         {
-          "text": "Supported Living or Extra Care (not high risk)",
-          "value": "Supported Living or Extra Care (not high risk)"
+          "text": "Supported living or extra care (not high risk)",
+          "value": "Supported living or extra care (not high risk)"
         },
         {
-          "text": "Day Centre",
-          "value": "Day Centre"
+          "text": "Day centre",
+          "value": "Day centre"
         },
         {
-          "text": "Domiciliary or Home Care",
-          "value": "Domiciliary or Home Care"
+          "text": "Domiciliary or home care",
+          "value": "Domiciliary or home care"
         },
         {
-          "text": "Retirement Home / Village or Sheltered Housing",
-          "value": "Retirement Home / Village or Sheltered Housing"
+          "text": "Retirement home or village or sheltered housing",
+          "value": "Retirement home or village or sheltered housing"
         },
         {
           "text": "Other",
@@ -1924,8 +1955,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Residential and Nursing Care Home",
-              "display": "Residential and Nursing Care Home"
+              "value": "Residential and nursing care home",
+              "display": "Residential and nursing care home"
             }
           },
           {
@@ -1938,8 +1969,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Nursing Care Home",
-              "display": "Nursing Care Home"
+              "value": "Nursing care home",
+              "display": "Nursing care home"
             }
           },
           {
@@ -1952,8 +1983,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Residential Care Home",
-              "display": "Residential Care Home"
+              "value": "Residential care home",
+              "display": "Residential care home"
             }
           }
         ]
@@ -1974,8 +2005,8 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Residential and Nursing Care Home",
-              "display": "Residential and Nursing Care Home"
+              "value": "Residential and nursing care home",
+              "display": "Residential and nursing care home"
             }
           },
           {
@@ -2002,8 +2033,8 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Residential Care Home",
-              "display": "Residential Care Home"
+              "value": "Residential care home",
+              "display": "Residential care home"
             }
           },
           {
@@ -2016,8 +2047,8 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Nursing Care Home",
-              "display": "Nursing Care Home"
+              "value": "Nursing care home",
+              "display": "Nursing care home"
             }
           }
         ]
@@ -2597,7 +2628,7 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "declaration": "<style>\n  ul {\n    list-style-type: none;\n  }\n\n  li {\n    list-style-type: none;\n    position: relative;\n  }\n  .bullet-item::before {\n    content: \"– \";\n   width: 10px;\n    left: 0;\n  }\n</style>\n<br class=\"govuk-prose-scope\">\n  <p class=\"govuk-body\">In this section you can review and change your answers. The Submit button at the bottom of this page will result in your responses being submitted.<br/>\n    Please be aware that your responses in this form may be shared with the Local Authority, Community Infection Control Team, Health Protection Team and/or NHS for the purposes of assisting you with the management of your situation.\n    </br>\n  <p class=\"govuk-body\">Once you press “submit”, you should receive at least two automatic emails from the Care OBRA Tool:</p>\n  <ul>\n    <li class=\"bullet-item\">One “acknowledgement email” which gives a summary of the information you entered onto the form</li>\n    <li class=\"bullet-item\">One “advice email” which tells you what steps you should take to prevent spread of infection amongst your clients/residents and staff; and what to expect next from your Health Protection Team (HPT) or Community Infection Control (CIC) Team</li>\n    <li class=\"bullet-item\">If you have reported an outbreak AND a single case of a different infection, you may receive an additional advice email</li>\n  </ul>\n  <p class=\"govuk-body govuk-!-font-weight-bold\">If:</p>\n  <ul class=\"govuk-body govuk-!-font-weight-bold\">\n    <li class=\"bullet-item\">You do not receive these emails within one hour OR</li>\n    <li class=\"bullet-item\">You need very urgent outbreak management advice</li>\n  </ul>\n  <p class=\"govuk-body govuk-!-font-weight-bold\">You should call your local HPT or CIC Team.</p>\n  <p class=\"govuk-body\">If you do not know the contact details of your HPT you can find them here - <a href=\"https://www.gov.uk/health-protection-team\" class=\"govuk-link\" rel=\"noreferrer noopener\" target=\"_blank\">Find your local health protection team in England - GOV.UK (www.gov.uk)</a></p>\n  <p class=\"govuk-body\">Before submitting your answers, please ensure you have not included any person identifiable information in your responses (e.g. names or dates of birth).</p>\n  <p class=\"govuk-body\">Please tick to confirm understanding of this.</p>\n</div>\n",
+  "declaration": "<br class=\"govuk-prose-scope\">\n  <p class=\"govuk-body\">Your responses may be shared with your local UKHSA health protection team, your local authority community infection control team, and the NHS. They will use your information to help you to manage your situation.</br>\n  <p class=\"govuk-body\">By submitting this report you confirm that the details you are providing are correct to the best of your knowledge. You confirm that you have not included any personally identifiable information, for example names or dates of birth</p>\n</div>\n",
   "name": "Report an outbreak",
   "feedback": {
     "feedbackForm": true,
