@@ -145,7 +145,7 @@ export function getCustomDateValidator(
     }
 
     if (year < 1000) {
-      return helpers.error("date.year3digits", { label: helpers.state.key });
+      return helpers.error("date.year4digits", { label: helpers.state.key });
     }
 
     return value;

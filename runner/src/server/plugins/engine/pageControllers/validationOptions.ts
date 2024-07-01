@@ -25,7 +25,7 @@ const messageTemplate = {
   dateMonthYear: "{{#label}} must include a month and a year",
   dateDayYear: "{{#label}} must include a day and a year",
   dateDayMonth: "{{#label}} must include a day and a month",
-  dateYear3digits: "The year must include 4 numbers",
+  dateYear4digits: "The year must include 4 numbers",
 };
 
 export const messages: ValidationOptions["messages"] = {
@@ -57,7 +57,7 @@ export const messages: ValidationOptions["messages"] = {
   "date.monthYear": messageTemplate.dateMonthYear,
   "date.dayYear": messageTemplate.dateDayYear,
   "date.dayMonth": messageTemplate.dateDayMonth,
-  "date.year3digits": messageTemplate.dateYear3digits,
+  "date.year4digits": messageTemplate.dateYear4digits,
 };
 
 export const validationOptions: ValidationOptions = {
