@@ -85,7 +85,7 @@
         <input type="hidden" name="crumb" value="{{ crumb }}" />
 
         {%if declaration %}
-        <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
+        <h2 class="govuk-heading-m" id="declaration">Now send your report</h2>
         {{ declaration | safe }}
         <div
           class="govuk-grid-column-two-thirds {{ 'govuk-form-group--error' if declarationError }}"
@@ -96,29 +96,6 @@
             {{ declarationError }}
           </span>
           {% endif %}
-          <div class="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-              <input
-                class="govuk-checkboxes__input"
-                id="declaration-1"
-                name="declaration"
-                {%
-                if
-                result.error
-                %}disabled{%
-                endif
-                %}
-                type="checkbox"
-                value="true"
-              />
-              <label
-                class="govuk-label govuk-checkboxes__label"
-                for="declaration-1"
-              >
-                Confirm
-              </label>
-            </div>
-          </div>
         </div>
         {% endif %}
 
@@ -139,15 +116,15 @@
               data-module="govuk-button"
             >
               {% if fees and fees.details|length %} Submit and pay {% else %}
-              Submit {% endif %}
+              Confirm and send {% endif %}
             </button>
           </div>
           
 
           {% if result.error %}
           <label id="form-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> You must enter all
-            required questions before submitting.
+            <span class="govuk-visually-hidden">Error:</span>
+            Answer all required questions before sending your report.
           </label>
           {% endif %}
         </div>
