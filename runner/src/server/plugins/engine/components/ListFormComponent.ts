@@ -38,7 +38,7 @@ export class ListFormComponent extends FormComponent {
       // null or empty string is valid for optional fields
       componentSchema = componentSchema.empty(null).valid(...this.values, "");
     } else {
-      componentSchema = componentSchema.valid(...this.values).required();
+      componentSchema = componentSchema.allow(...this.values).required();
     }
 
     if (options.customValidationMessages) {
