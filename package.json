@@ -60,12 +60,13 @@
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "prettier": "2.1.2",
-    "prisma": "^5.1.1",
+    "prisma": "latest",
     "typedoc": "~0.23.17",
     "typescript": "4.9.5"
   },
   "dependencies": {
     "@babel/runtime": "^7.21.0",
+    "@prisma/client": "latest",
     "govuk-frontend": "^4.8.0",
     "hmpo-components": "^5.2.1"
   },

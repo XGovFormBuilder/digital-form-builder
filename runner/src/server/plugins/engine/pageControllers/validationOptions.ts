@@ -3,8 +3,11 @@ import { ValidationOptions } from "joi";
  * see @link https://joi.dev/api/?v=17.4.2#template-syntax for template syntax
  */
 const messageTemplate = {
-  required: "Enter {{#label}}",
-  selectRequired: "Select {{#label}}",
+  /* The commented out values are the XGov Forms default messages*/
+  // required: "Enter {{#label}}",
+  // selectRequired: "Select {{#label}}",
+  required: "{{#label}} is required",
+  selectRequired: "{{#label}} is required",
   max: "{{#label}} must be {{#limit}} characters or less",
   min: "{{#label}} must be {{#limit}} characters or more",
   regex: "enter a valid {{#label}}",
