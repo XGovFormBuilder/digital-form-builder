@@ -469,7 +469,7 @@
               "date.max": "The date that symptoms started must be in the past",
               "date.empty": "Enter the date that symptoms started in the first case"
             },
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S4Q6. Symptom onset date of first case",
@@ -486,7 +486,7 @@
               "date.base": "The date that symptoms started must be a real date",
               "date.max": "The date that symptoms started must be in the past"
             },
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S4Q7. Symptom onset date of second case",
@@ -503,7 +503,7 @@
               "date.base": "The date that symptoms started must be a real date",
               "date.max": "The date that symptoms started must be in the past"
             },
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S4Q8. Symptom onset date of most recent case",
@@ -764,7 +764,7 @@
           "options": {
             "required": true,
             "maxDaysInFuture": "0",
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S5Q12. Symptom onset date of first case (confirmed flu, suspected flu OR chest infections)",
@@ -777,7 +777,7 @@
           "options": {
             "required": false,
             "maxDaysInFuture": "0",
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S5Q13. Symptom onset date of second case (confirmed flu, suspected flu OR chest infections)",
@@ -790,7 +790,7 @@
           "options": {
             "required": true,
             "maxDaysInFuture": "0",
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S5Q14. Symptom onset date of most recent case (confirmed flu, suspected flu OR chest infections)",
@@ -949,8 +949,7 @@
           "options": {
             "required": true,
             "maxDaysInFuture": "0",
-            "maxDaysInPast": "1000000000",
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S6Q4. Symptom onset date of first case",
@@ -963,7 +962,7 @@
           "options": {
             "required": false,
             "maxDaysInFuture": "0",
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S6Q5. Symptom onset date of second case",
@@ -976,7 +975,7 @@
           "options": {
             "required": true,
             "maxDaysInFuture": "0",
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "DatePartsField",
           "title": "S6Q6. Symptom onset date of most recent case",
@@ -988,7 +987,7 @@
           "name": "S6Q7",
           "options": {
             "required": false,
-            "label": "The date that symptoms started"
+            "errorLabel": "The date that symptoms started"
           },
           "type": "NumberField",
           "title": "S6Q7. How many of these resident-client cases have been tested for COVID-19?",

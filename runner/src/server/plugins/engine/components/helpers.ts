@@ -65,8 +65,8 @@ export function buildStateSchema(schemaType, component) {
     schema = schema.allow(null, "").optional();
   }
 
-  if (component.options.label) {
-    schema = schema.label(component.options.label);
+  if (component.options.errorLabel) {
+    schema = schema.label(component.options.errorLabel);
   }
 
   if (schema.trim && component.schema.trim !== false) {
@@ -99,8 +99,7 @@ export const addClassOptionIfNone = (
 
 export function getCustomDateValidator(
   maxDaysInPast?: number,
-  maxDaysInFuture?: number,
-  label?: string
+  maxDaysInFuture?: number
 ) {
   return (value: Date, helpers: joi.CustomHelpers) => {
     if (maxDaysInPast) {

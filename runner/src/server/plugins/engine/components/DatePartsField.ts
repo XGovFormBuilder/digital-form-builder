@@ -22,7 +22,7 @@ export class DatePartsField extends FormComponent {
     super(def, model);
 
     const { name, options } = this;
-    const { label } = options;
+    const { errorLabel } = options;
     const isRequired =
       "required" in options && options.required === false ? false : true;
     const optionalText = "optionalText" in options && options.optionalText;
@@ -38,9 +38,9 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-2",
             customValidationMessages: {
-              "number.min": `${label} must be a real date`,
-              "number.max": `${label} must be a real date`,
-              "number.base": `${label} must include a day`,
+              "number.min": `${errorLabel} must be a real date`,
+              "number.max": `${errorLabel} must be a real date`,
+              "number.base": `${errorLabel} must include a day`,
             },
           },
           hint: "",
@@ -55,9 +55,9 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-2",
             customValidationMessages: {
-              "number.min": `${label} must be a real date`,
-              "number.max": `${label} must be a real date`,
-              "number.base": `${label} must include a month`,
+              "number.min": `${errorLabel} must be a real date`,
+              "number.max": `${errorLabel} must be a real date`,
+              "number.base": `${errorLabel} must include a month`,
             },
           },
           hint: "",
@@ -72,7 +72,7 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-4",
             customValidationMessages: {
-              "number.base": `${label} must include a year`,
+              "number.base": `${errorLabel} must include a year`,
             },
           },
           hint: "",

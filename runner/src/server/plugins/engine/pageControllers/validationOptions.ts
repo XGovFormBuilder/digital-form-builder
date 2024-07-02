@@ -53,6 +53,7 @@ export const messages: ValidationOptions["messages"] = {
   "any.empty": messageTemplate.required,
 
   "date.year": messageTemplate.dateYear,
+  "date.month": messageTemplate.dateMonth,
   "date.day": messageTemplate.dateDay,
   "date.monthYear": messageTemplate.dateMonthYear,
   "date.dayYear": messageTemplate.dateDayYear,
