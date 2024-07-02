@@ -137,7 +137,12 @@
         },
         {
           "name": "S1Q8",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter an email address in the correct format, like name@example.com",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
           "type": "TextField",
           "title": "S1Q8. Email of key contact person",
           "hint": "Please use an address that will be regularly and frequently monitored.",
@@ -198,7 +203,12 @@
         },
         {
           "name": "S1Q8",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter an email address in the correct format, like name@example.com",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
           "type": "TextField",
           "title": "S1Q8. Email of key contact person",
           "hint": "Please use an address that will be regularly and frequently monitored.",
@@ -273,7 +283,12 @@
         },
         {
           "name": "S1Q8",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter an email address in the correct format, like name@example.com",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
           "type": "TextField",
           "title": "S1Q8. Email of key contact person",
           "hint": "Please use an address that will be regularly and frequently monitored.",
