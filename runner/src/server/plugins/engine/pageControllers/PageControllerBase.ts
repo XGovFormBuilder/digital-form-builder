@@ -56,6 +56,7 @@ export class PageControllerBase {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
   backLinkFallback?: string;
+  customErrors?: any;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -72,6 +73,7 @@ export class PageControllerBase {
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
     this.backLinkFallback = pageDef.backLinkFallback;
+    this.customErrors = pageDef.customErrors;
 
     // Resolve section
     this.section = model.sections?.find(
@@ -126,6 +128,7 @@ export class PageControllerBase {
     startPage?: HapiResponseObject;
     backLink?: string;
     phaseTag?: string | undefined;
+    customErrors?: any;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -170,6 +173,7 @@ export class PageControllerBase {
       components,
       errors,
       isStartPage: false,
+      customErrors: this.customErrors,
     };
   }
 
@@ -331,21 +335,13 @@ export class PageControllerBase {
    * Parses the errors from joi.validate so they can be rendered by govuk-frontend templates
    * @param validationResult - provided by joi.validate
    */
-  getErrors(validationResult) {
+
+  getErrors(validationResult): FormSubmissionErrors | undefined {
     if (!validationResult?.error) {
       return undefined;
     }
-
-    const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
     const errors = validationResult.error.details;
     const formItems = this.components.formItems;
-
-    const findTitle = (fieldName: string) => {
-      return (
-        formItems.find((item) => item.name === fieldName)?.title ||
-        "Title not found"
-      );
-    };
 
     const formatDateMessage = (message: string) => {
       return message.replace(isoRegex, (text) =>
@@ -353,46 +349,91 @@ export class PageControllerBase {
       );
     };
 
-    const errorList = errors.reduce((list, err) => {
+    const findTitle = (fieldName: string) => {
+      return (
+        formItems.find((item) => item.name === fieldName)?.title ||
+        "Title not found"
+      );
+    };
+    const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
+
+    const errorList = errors.map((err) => {
       let name = err.path.join("__");
       let title = findTitle(name.split("__")[0]);
       let text = formatDateMessage(err.message);
 
-      if (
-        name.endsWith("__day") ||
-        name.endsWith("__month") ||
-        name.endsWith("__year")
-      ) {
-        // Check if there is already an error for the date field
-        const dateErrorIndex = list.findIndex(
-          (e) => e.name === name.split("__")[0]
-        );
-        if (dateErrorIndex === -1) {
-          // If not, add a new error for the date field
-          list.push({
-            path: name,
-            href: `#${name}`,
-            name: name.split("__")[0],
-            title: title,
-            text: `${title} must be a valid date.`,
+      return {
+        path: err.path.join("."),
+        href: `#${name}`,
+        name: name,
+        title: title,
+        text: text,
+      };
+    });
+
+    const addCustomErrors = (errorList) => {
+      const errorMap = {};
+
+      // Populate the errorMap with the base name and suffix
+      errorList.forEach((err) => {
+        const baseName = err.name.split("__")[0];
+        const suffix = err.name.match(/__(day|month|year)$/)?.[0];
+
+        if (!errorMap[baseName]) {
+          errorMap[baseName] = {
+            baseName: baseName,
+            day: false,
+            month: false,
+            year: false,
+            errors: [],
+            name: err.name,
+          };
+        }
+
+        if (suffix === "__day") errorMap[baseName].day = true;
+        if (suffix === "__month") errorMap[baseName].month = true;
+        if (suffix === "__year") errorMap[baseName].year = true;
+        errorMap[baseName].errors.push(err);
+      });
+
+      // Process the errorMap to set text based on combinations and add to finalErrors
+      const finalErrors = [];
+      Object.values(errorMap).forEach((e: any) => {
+        if (e.day && e.month && !e.year) {
+          e.errors.forEach((err) => {
+            err.text = this.customErrors.dayMonth;
+          });
+        } else if (e.day && e.year && !e.month) {
+          e.errors.forEach((err) => {
+            err.text = this.customErrors.dayYear;
+          });
+        } else if (!e.day && e.year && e.month) {
+          e.errors.forEach((err) => {
+            err.text = this.customErrors.yearMonth;
+          });
+        } else if (e.day && e.year && e.month) {
+          e.errors.forEach((err) => {
+            err.text = this.customErrors[e.baseName].dayMonthYear;
           });
         }
-      } else {
-        list.push({
-          path: name,
-          href: `#${name}`,
-          name: name,
-          title: title,
-          text: text,
-        });
-      }
 
-      return list;
-    }, []);
+        // Add all errors from this group to finalErrors
+        finalErrors.push(...e.errors);
+      });
+
+      return finalErrors;
+    };
+
+    const processedErrorList = this.customErrors
+      ? addCustomErrors(errorList)
+      : errorList;
 
     return {
       titleText: this.errorSummaryTitle,
-      errorList,
+      errorList: processedErrorList.filter(
+        ({ text }, index) =>
+          index === errorList.findIndex((err) => err.text === text)
+      ),
     };
   }
 

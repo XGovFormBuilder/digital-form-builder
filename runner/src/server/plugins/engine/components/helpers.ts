@@ -63,6 +63,10 @@ export function buildStateSchema(schemaType, component) {
     schema = schema.allow(null, "").optional();
   }
 
+  if (component.options.errorLabel) {
+    schema = schema.label(component.options.errorLabel);
+  }
+
   if (schema.trim && component.schema.trim !== false) {
     schema = schema.trim();
   }
@@ -115,11 +119,30 @@ export function getCustomDateValidator(
         });
       }
     }
+    const year = value.getFullYear();
 
-    if (value.getFullYear() == 1899) {
-      return helpers.error("date.base", {
-        label: helpers.state.key,
-      });
+    // Workaround to force an error on optional date parts fields
+    switch (year) {
+      case 1899:
+        return helpers.error("date.base", { label: helpers.state.key });
+      case 100:
+        return helpers.error("date.year", { label: helpers.state.key });
+      case 200:
+        return helpers.error("date.month", { label: helpers.state.key });
+      case 300:
+        return helpers.error("date.day", { label: helpers.state.key });
+      case 400:
+        return helpers.error("date.dayYear", { label: helpers.state.key });
+      case 500:
+        return helpers.error("date.monthYear", { label: helpers.state.key });
+      case 600:
+        return helpers.error("date.dayMonth", { label: helpers.state.key });
+      default:
+        break;
+    }
+
+    if (year < 1000) {
+      return helpers.error("date.year4digits", { label: helpers.state.key });
     }
 
     return value;

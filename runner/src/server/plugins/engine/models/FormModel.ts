@@ -58,6 +58,7 @@ export class FormModel {
   fieldsForPrePopulation: Record<string, any>;
   pages: any;
   startPage: any;
+  customErrors: any;
 
   feeOptions: FormDefinition["feeOptions"];
   specialPages: FormDefinition["specialPages"];
@@ -96,6 +97,7 @@ export class FormModel {
     this.options = options;
     this.name = def.name;
     this.values = result.value;
+    this.customErrors = def.customErrors;
 
     if (options.defaultPageController) {
       this.DefaultPageController = getPageController(

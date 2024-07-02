@@ -22,6 +22,7 @@ export class DatePartsField extends FormComponent {
     super(def, model);
 
     const { name, options } = this;
+    const { errorLabel } = options;
     const isRequired =
       "required" in options && options.required === false ? false : true;
     const optionalText = "optionalText" in options && options.optionalText;
@@ -37,9 +38,9 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-2",
             customValidationMessages: {
-              "number.min": "{{#label}} must be between 1 and 31",
-              "number.max": "{{#label}} must be between 1 and 31",
-              "number.base": `${def.title} must include a day`,
+              "number.min": `${errorLabel} must be a real date`,
+              "number.max": `${errorLabel} must be a real date`,
+              "number.base": `${errorLabel} must include a day`,
             },
           },
           hint: "",
@@ -54,9 +55,9 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-2",
             customValidationMessages: {
-              "number.min": "{{#label}} must be between 1 and 12",
-              "number.max": "{{#label}} must be between 1 and 12",
-              "number.base": `${def.title} must include a month`,
+              "number.min": `${errorLabel} must be a real date`,
+              "number.max": `${errorLabel} must be a real date`,
+              "number.base": `${errorLabel} must include a month`,
             },
           },
           hint: "",
@@ -71,7 +72,7 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-4",
             customValidationMessages: {
-              "number.base": `${def.title} must include a year`,
+              "number.base": `${errorLabel} must include a year`,
             },
           },
           hint: "",
@@ -92,13 +93,15 @@ export class DatePartsField extends FormComponent {
     const { maxDaysInPast, maxDaysInFuture } = options as any;
     let schema: any = this.stateSchema;
 
+    // Add custom date validator
     schema = schema.custom(
       helpers.getCustomDateValidator(maxDaysInPast, maxDaysInFuture)
     );
-    // if (options.customValidationMessages) {
-    //   schema = schema.messages(options.customValidationMessages);
-    // }
 
+    // Add custom validation messages if any
+    if (options.customValidationMessages) {
+      schema = schema.messages(options.customValidationMessages);
+    }
     this.schema = schema;
 
     return { [this.name]: schema };
@@ -122,7 +125,7 @@ export class DatePartsField extends FormComponent {
     const month = payload[`${name}__month`];
     const year = payload[`${name}__year`];
 
-    if (day || month || year) {
+    if (day && month && year) {
       const indexedMonth = month - 1; // Adjust month for zero-based index
       const parsedDate = new Date(year, indexedMonth, day);
 
@@ -132,6 +135,26 @@ export class DatePartsField extends FormComponent {
         return new Date(0, 0, 0); // Invalid date fallback
       }
     }
+    // Workaround to force an error on optional date parts fields
+    if (day && month && !year) {
+      return new Date(100, 1, 1);
+    }
+    if (day && !month && year) {
+      return new Date(200, 1, 1);
+    }
+    if (!day && month && year) {
+      return new Date(300, 1, 1);
+    }
+    if (!day && month && !year) {
+      return new Date(400, 1, 1);
+    }
+    if (day && !month && !year) {
+      return new Date(500, 1, 1);
+    }
+    if (!day && !month && year) {
+      return new Date(600, 1, 1);
+    }
+
     return null;
   }
 
@@ -166,7 +189,9 @@ export class DatePartsField extends FormComponent {
       errors?.errorList?.filter((error) => error.path.includes(this.name)) ??
       [];
     const firstError = relevantErrors[0];
-    const errorMessage = firstError && { text: firstError?.text };
+    const errorMessage = firstError && {
+      text: firstError?.text,
+    };
 
     return {
       ...viewModel,

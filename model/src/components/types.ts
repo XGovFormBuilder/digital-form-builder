@@ -85,6 +85,7 @@ interface TextFieldBase {
     exposeToContext?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    errorLabel?: string;
   };
   schema: {
     max?: number;
@@ -107,6 +108,7 @@ interface NumberFieldBase {
     exposeToContext?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    errorLabel?: string;
   };
   schema: {
     min?: number;
@@ -132,6 +134,7 @@ interface ListFieldBase {
     allowPrePopulationOverwrite?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    errorLabel?: string;
   };
   list: string;
   schema: {};
@@ -162,6 +165,7 @@ interface DateFieldBase {
     exposeToContext?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    errorLabel?: string;
   };
   schema: {};
 }
@@ -232,6 +236,7 @@ export interface FileUploadFieldComponent {
     exposeToContext?: boolean;
     imageQualityPlayback?: boolean;
     disableChangingFromSummary?: boolean;
+    errorLabel?: string;
   };
   schema: {};
 }
