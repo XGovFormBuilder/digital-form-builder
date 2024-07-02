@@ -610,8 +610,6 @@ export class PageControllerBase {
     const progress = state.progress || [];
     const { num } = request.query;
 
-    console.log("forResult.errors", formResult.errors);
-
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {
       const reformattedErrors = fileFields.map((field) => {

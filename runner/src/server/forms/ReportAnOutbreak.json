@@ -67,13 +67,7 @@
         },
         {
           "name": "S0Q3",
-          "options": {
-            "required": true,
-            "customValidationMessages": {
-              "string.base": "Please enter your local HPT here is required",
-              "string.empty": "Please enter your local HPT here is required"
-            }
-          },
+          "options": { "required": true },
           "type": "SelectField",
           "title": "Please enter your local HPT here",
           "list": "sjgMDe",
@@ -173,13 +167,7 @@
         },
         {
           "name": "S1Q5",
-          "options": {
-            "required": true,
-            "customValidationMessages": {
-              "string.base": "S1Q5. Name of Key Contact Person is required",
-              "string.empty": "S1Q5. Name of Key Contact Person is required"
-            }
-          },
+          "options": {},
           "type": "TextField",
           "title": "S1Q5. Name of Key Contact Person",
           "nameHasError": false,
@@ -796,10 +784,7 @@
         {
           "name": "S5Q17",
           "options": {
-            "required": true,
-            "customValidationMessages": {
-              "any.required": "S5Q17. During this outbreak, how many cases have died due to Flu (confirmed or suspected) or chest infection? is required"
-            }
+            "required": true
           },
           "type": "RadiosField",
           "title": "S5Q17. During this outbreak, how many cases have died due to Flu (confirmed or suspected) or chest infection?",
@@ -1190,10 +1175,7 @@
         {
           "name": "S8Q1",
           "options": {
-            "required": true,
-            "customValidationMessages": {
-              "any.required": "S8Q1. How often are you monitoring staff Infection Prevention and Control practices e.g. hand hygiene and PPE compliance, environmental cleanliness? is required"
-            }
+            "required": true
           },
           "type": "RadiosField",
           "title": "S8Q1. How often are you monitoring staff Infection Prevention and Control practices e.g. hand hygiene and PPE compliance, environmental cleanliness?",
@@ -1207,10 +1189,7 @@
         {
           "name": "S8Q2",
           "options": {
-            "required": true,
-            "customValidationMessage": {
-              "any.required": "S8Q2. What issues are you currently experiencing and require support on? is required"
-            }
+            "required": true
           },
           "type": "CheckboxesField",
           "title": "S8Q2. What issues are you currently experiencing and require support on?",
@@ -1222,10 +1201,7 @@
         {
           "name": "S8Q3",
           "options": {
-            "required": true,
-            "customValidationMessages": {
-              "any.required": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)? is required"
-            }
+            "required": true
           },
           "type": "YesNoField",
           "title": "S8Q3. Does your setting undertake Aerosol Generating Procedures (AGPs)?",
@@ -1300,10 +1276,7 @@
         {
           "name": "S9Q1",
           "options": {
-            "required": true,
-            "customValidationMessages": {
-              "any.required": "S9Q1. Do you use agency staff or share staff with other care settings? is required"
-            }
+            "required": true
           },
           "type": "YesNoField",
           "title": "S9Q1. Do you use agency staff or share staff with other care settings?",
@@ -1545,10 +1518,7 @@
         {
           "name": "S10Q1",
           "options": {
-            "required": true,
-            "customValidationMessages": {
-              "any.required": "S10Q1. How would you describe this risk assessment tool? is required"
-            }
+            "required": true
           },
           "type": "CheckboxesField",
           "title": "S10Q1. How would you describe this risk assessment tool?",
