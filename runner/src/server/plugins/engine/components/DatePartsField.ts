@@ -73,6 +73,8 @@ export class DatePartsField extends FormComponent {
             classes: "govuk-input--width-4",
             customValidationMessages: {
               "number.base": `${errorLabel} must include a year`,
+              "number.max": `${errorLabel} must be in the past`,
+              "number.min": "The year must include 4 numbers",
             },
           },
           hint: "",
