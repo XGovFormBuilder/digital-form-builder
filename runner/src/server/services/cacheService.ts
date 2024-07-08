@@ -6,12 +6,13 @@ import Redis from "ioredis";
 
 import config from "../config";
 import { HapiRequest, HapiServer } from "../types";
-import { FormSubmissionState } from "../plugins/engine/types";
+import { ExitState, FormSubmissionState } from "../plugins/engine/types";
 import {
   DecodedSessionToken,
   InitialiseSessionOptions,
 } from "server/plugins/initialiseSession/types";
 import { WebhookSchema } from "../schemas/types";
+import { ExitResponse } from "server/services/ExitService";
 
 const {
   redisHost,
@@ -111,6 +112,13 @@ export class CacheService {
     return {
       redirectPath: initialisedSession?.callback?.redirectPath ?? "",
     };
+  }
+
+  /**
+   * Sets the exitState (via merge) to the user's state.
+   */
+  async setExitState(request: HapiRequest, exitState: Partial<ExitState>) {
+    return this.mergeState(request, { exitState });
   }
 
   async clearState(request: HapiRequest) {

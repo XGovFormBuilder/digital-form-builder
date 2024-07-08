@@ -1,4 +1,10 @@
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
+import { ExitResponse } from "server/services/ExitService";
+
+export type ExitState = {
+  exitEmailAddress: string;
+  result: ExitResponse;
+};
 
 /**
  * FormSubmissionState is an object containing the following props:
@@ -46,6 +52,7 @@ export type FormSubmissionState = {
   progress?: string[];
   [propName: string]: any;
   callback?: InitialiseSessionOptions;
+  exitState?: ExitState;
 };
 
 export type FormSubmissionErrors = {

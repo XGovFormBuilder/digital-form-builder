@@ -10,19 +10,17 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    {{ payload | dump }}
-    {{ result | dump }}
     <h1 class="govuk-heading-l">
       Your application to {{ name if name else serviceName }} has been saved
     </h1>
     <p class="govuk-body">
-      A link has been sent to {{ email }}.
+      A link has been sent to {{ exitEmailAddress }}.
     </p>
-    <p class="govuk-body">
     {% if result.expiry %}
+    <p class="govuk-body">
       You have until {{ result.expiry }} to go back to your application and complete it.
-    {% endif %}
     </p>
+    {% endif %}
 
     <p class="govuk-body">
       If you don't go back to your application, it will be deleted and you will have to start again.

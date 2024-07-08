@@ -702,13 +702,17 @@ export class PageControllerBase {
       if (response?.source?.context?.errors) {
         return response;
       }
+      const { cacheService } = request.services([]);
 
       const shouldGoToExitPage =
         this.model.allowExit && request.payload?.action === "exit";
+
       if (shouldGoToExitPage) {
+        await cacheService.setExitState(request, {
+          pageExitedOn: request.path,
+        });
         return h.redirect("exit/email");
       }
-      const { cacheService } = request.services([]);
       const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
       let relevantState = this.getConditionEvaluationContext(
@@ -870,6 +874,7 @@ export class PageControllerBase {
     viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
+    viewModel.allowExit = this.model.allowExit;
 
     return h.view(this.viewName, viewModel);
   }

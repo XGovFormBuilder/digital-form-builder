@@ -1,6 +1,10 @@
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import Joi, { ValidationError, ValidationErrorItem } from "joi";
-import { getFormPrehandler } from "server/plugins/engine/pluginHandlers/exit/preHandlers";
+import {
+  getBacklink,
+  getFormPrehandler,
+  getStatePrehandler,
+} from "server/plugins/engine/pluginHandlers/exit/preHandlers";
 import Boom from "boom";
 import { WebhookModel } from "server/plugins/engine/models/submission";
 import { post } from "wreck";
@@ -58,11 +62,23 @@ export const emailGet = {
         assign: "errors",
         method: parseErrors,
       },
+      {
+        assign: "state",
+        method: getStatePrehandler,
+      },
+      {
+        assign: "backlink",
+        method: getBacklink,
+      },
     ],
   },
-  handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+  handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
     console.log(request.pre.errors);
-    return h.view("exit/email", { errors: request.pre.errors });
+
+    return h.view("exit/email", {
+      errors: request.pre.errors,
+      backLink: request.pre.backlink,
+    });
   },
 };
 
@@ -91,16 +107,21 @@ export const emailPost = {
         method: getFormPrehandler,
       },
       {
-        method: (request, h) => {
-          const result = postSchema.validate(
+        method: async (request, h) => {
+          const { value, error } = postSchema.validate(
             request.payload,
             postSchemaValidationOptions
           );
 
-          if (result.error) {
-            request.yar.flash("exitEmailError", result.error);
+          if (error) {
+            request.yar.flash("exitEmailError", error);
             return h.redirect("email").takeover();
           }
+
+          const { cacheService } = request.services([]);
+
+          const { exitEmailAddress } = value;
+          await cacheService.setExitState(request, { exitEmailAddress });
 
           return h.continue;
         },
@@ -114,12 +135,13 @@ export const emailPost = {
     }
     const { cacheService, exitService } = request.services([]);
     const state = await cacheService.getState(request);
+
     let result;
     try {
-      result = await exitService.exitForm(form, state);
-      request.yar.set("exitResult", result);
+      await exitService.exitForm(form, state);
     } catch (e) {
-      Boom.badRequest();
+      console.log(e);
+      throw Boom.badRequest();
     }
 
     return h.redirect("status");
@@ -131,17 +153,18 @@ export const statusGet = {
   path: "/{id}/exit/status",
   options: {},
   handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-    console.log(request.pre.errors);
-    const result = request.yar.get("exitResult");
+    const { cacheService } = request.services([]);
+    const state = await cacheService.getState(request);
+    const { exitState } = state;
+    await cacheService.clearState(request);
 
-    if (result.redirect) {
-      h.redirect(result.redirect);
+    if (exitState?.result?.redirectUrl) {
+      return h.redirect(exitState?.result.redirectUrl);
     }
 
     return h.view("exit/status", {
       errors: request.pre.errors,
-      payload: request.yar.get("exitPayload"),
-      result: request.yar.get("exitResult"),
+      ...exitState,
     });
   },
 };

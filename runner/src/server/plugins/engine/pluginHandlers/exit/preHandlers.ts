@@ -12,3 +12,19 @@ export function getFormPrehandler(
   }
   return form;
 }
+export async function getStatePrehandler(
+  request: HapiRequest,
+  _h: HapiResponseToolkit
+) {
+  const { cacheService } = request.services([]);
+  return cacheService.getState(request);
+}
+
+export async function getBacklink(
+  request: HapiRequest,
+  _h: HapiResponseToolkit
+) {
+  const state = request.pre.state;
+  const { progress } = state;
+  return progress?.at?.(-1) ?? null;
+}
