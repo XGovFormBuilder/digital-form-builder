@@ -108,8 +108,8 @@ as is, until the user decides to return. This makes it simpler calling [session-
     },
   ],
   exitState: {
-    pageExitedOn: "/test/applicant-one",
     exitEmailAddress: "jen@cautionyourblast.com",
+    pageExitedOn: "/test/how-many-people",
   },
 }
 ```

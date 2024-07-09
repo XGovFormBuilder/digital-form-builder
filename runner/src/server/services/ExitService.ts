@@ -98,7 +98,7 @@ export class ExitService {
       return format(parseISO(expiry), "d MMMM yyyy");
     } catch (e) {
       this.logger.warn(
-        ["ExitService"],
+        { tags: ["ExitService"], err: e },
         `Expiry date ${expiry} was returned but could not be parsed to d MMMM yyyy`
       );
       return;
