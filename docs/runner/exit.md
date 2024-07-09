@@ -17,6 +17,7 @@ When the user selects this
    - If the persistence API returned with a `redirectUrl` in the response body, the user will be redirected to this URL
    - If no redirectUrl was returned, the user will be shown a page detailing the email address it was sent to.
      - If the persistence API returned with an `expiry` in the response body, the user will be shown a message detailing how long they have to return
+4. The user's cache will then be cleared
 
 ## Configuration
 
@@ -74,6 +75,44 @@ two forms at once, /form-a and /form-b, if the user chose to exit on /form-a, on
 
 This mirrors the same format that data is sent when configuring a webhook output. You may just choose to store the data
 as is, until the user decides to return. This makes it simpler calling [session-initialisation.md](./session-initialisation.md).
+
+```json5
+{
+  name: "Digital Form Builder - Runner test",
+  metadata: {},
+  questions: [
+    {
+      category: "checkBeforeYouStart",
+      question: "Do you have a UK passport?",
+      fields: [
+        {
+          key: "ukPassport",
+          title: "Do you have a UK passport?",
+          type: "list",
+        },
+      ],
+      index: 0,
+    },
+    {
+      category: "applicantDetails",
+      question: "How many applicants are there?",
+      fields: [
+        {
+          key: "numberOfApplicants",
+          title: "How many applicants are there?",
+          type: "list",
+          answer: "1 or fewer",
+        },
+      ],
+      index: 0,
+    },
+  ],
+  exitState: {
+    pageExitedOn: "/test/applicant-one",
+    exitEmailAddress: "jen@cautionyourblast.com",
+  },
+}
+```
 
 ## Persistence API response
 

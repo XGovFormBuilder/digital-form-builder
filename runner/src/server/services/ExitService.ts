@@ -18,6 +18,9 @@ type WebhookDataWithExitState = WebhookData & {
   exitState: ExitState;
 };
 
+/**
+ * Service to handle exiting a form.
+ */
 export class ExitService {
   responseSchema = Joi.object({
     expiry: Joi.string().isoDate().optional(),
@@ -92,7 +95,7 @@ export class ExitService {
       return;
     }
     try {
-      return format(parseISO(new Date().toISOString()), "d MMMM yyyy");
+      return format(parseISO(expiry), "d MMMM yyyy");
     } catch (e) {
       this.logger.warn(
         ["ExitService"],
