@@ -1,14 +1,11 @@
 import { HapiRequest, HapiResponseToolkit } from "server/types";
-
-import {
-  getBacklinkPrehandler,
-  getFormPrehandler,
-  getStatePrehandler,
-  parseErrorsPrehandler,
-  redirectUserBackToForm,
-  validateEmailPostRequest,
-} from "server/plugins/engine/pluginHandlers/exit/preHandlers";
 import Boom from "boom";
+import { getForm } from "./prehandlers/getForm";
+import { parseErrors } from "./prehandlers/parseErrors";
+import { getState } from "./prehandlers/getState";
+import { getBacklink } from "./prehandlers/getBacklink";
+import { validateEmailPostRequest } from "./prehandlers/validateEmailPostRequest";
+import { redirectUserBackToForm } from "./prehandlers/redirectUserBackToForm";
 
 export const emailGet = {
   method: "get",
@@ -17,19 +14,19 @@ export const emailGet = {
     pre: [
       {
         assign: "form",
-        method: getFormPrehandler,
+        method: getForm,
       },
       {
         assign: "errors",
-        method: parseErrorsPrehandler,
+        method: parseErrors,
       },
       {
         assign: "state",
-        method: getStatePrehandler,
+        method: getState,
       },
       {
         assign: "backlink",
-        method: getBacklinkPrehandler,
+        method: getBacklink,
       },
     ],
   },
@@ -48,7 +45,7 @@ export const emailPost = {
     pre: [
       {
         assign: "form",
-        method: getFormPrehandler,
+        method: getForm,
       },
       {
         method: validateEmailPostRequest,
@@ -83,8 +80,8 @@ export const statusGet = {
   path: "/{id}/exit/status",
   options: {
     pre: [
-      { assign: "state", method: getStatePrehandler },
-      { assign: "form", method: getFormPrehandler },
+      { assign: "state", method: getState },
+      { assign: "form", method: getForm },
       { method: redirectUserBackToForm },
     ],
   },
