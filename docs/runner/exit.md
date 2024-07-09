@@ -53,7 +53,7 @@ With both formats, the request body will always include `exitState`.
 }
 ```
 
-### ExitOptions.format - STATE (default)
+### ExitOptions.format - STATE
 
 This mirrors the data in the user's state for the form that they chose to exit on. For example, if the user is filling out
 two forms at once, /form-a and /form-b, if the user chose to exit on /form-a, only data from /form-a will be sent.
