@@ -2,19 +2,22 @@ import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
 import { WebhookModel } from "server/plugins/engine/models/submission";
 import wreck from "@hapi/wreck";
-import pino from "pino";
 import { format, parseISO } from "date-fns";
 import { callbackValidation } from "server/plugins/initialiseSession/helpers";
 import Joi from "joi";
-import { FormSubmissionState } from "server/plugins/engine/types";
+import { ExitState, FormSubmissionState } from "server/plugins/engine/types";
 import { HapiServer } from "server/types";
+import { WebhookData } from "server/plugins/engine/models/types";
 
 export type ExitResponse = {
   expiry?: string;
   redirectUrl?: string;
 };
 
-const logger = pino().child({ service: "ExitService" });
+type WebhookDataWithExitState = WebhookData & {
+  exitState: ExitState;
+};
+
 export class ExitService {
   responseSchema = Joi.object({
     expiry: Joi.string().isoDate().optional(),
@@ -26,19 +29,28 @@ export class ExitService {
     this.logger = server.logger;
   }
 
-  async post(url: string, payload: FormSubmissionState) {
+  async postToExitUrl(
+    url: string,
+    payload: FormSubmissionState | WebhookDataWithExitState
+  ) {
     try {
       const response = await wreck.post<ExitResponse>(url, {
         payload,
         json: "force",
       });
       return response.payload;
-    } catch (e) {
-      if (!e.data) {
-        logger.error(e);
-      }
+    } catch (e: unknown) {
       if (e.data?.isResponseError) {
-        this.logger.error(`Exiting form for ${payload}`);
+        this.logger.error(
+          {
+            service: "ExitService",
+            method: "POST",
+            url,
+            reqBody: payload,
+            statusCode: e.data.res.statusCode,
+          },
+          `${url} responded with an error when exiting form for ${payload?.exitState?.exitEmailAddress}.`
+        );
       }
       throw e;
     }
@@ -58,33 +70,31 @@ export class ExitService {
         exitState: state.exitState,
       };
     }
-    const payload = await this.post(options.url, body);
+
+    const payload = await this.postToExitUrl(options.url, body);
 
     const { value } = this.responseSchema.validate(payload, {
       stripUnknown: true,
       abortEarly: false,
     });
 
-    const result = {
+    const expiry = this.getParsedExpiry(value);
+
+    return {
       ...value,
+      ...{ expiry },
     };
-    const { expiry } = value;
-
-    if (expiry) {
-      const parsedExpiry = this.parseExpiry(expiry);
-      if (parsedExpiry) {
-        result.expiry = parsedExpiry;
-      }
-    }
-
-    return result;
   }
 
-  parseExpiry(expiry: string) {
+  getParsedExpiry(result: ExitResponse) {
+    const { expiry } = result;
+    if (!expiry) {
+      return;
+    }
     try {
       return format(parseISO(new Date().toISOString()), "d MMMM yyyy");
     } catch (e) {
-      this.logger.error(
+      this.logger.warn(
         ["ExitService"],
         `Expiry date ${expiry} was returned but could not be parsed to d MMMM yyyy`
       );
