@@ -11,7 +11,7 @@ to disable it.
 If exits are allowed, on all question pages, a button "save and come back later" will be displayed below the continue button.
 When the user selects this
 
-1. They will be taken to a page /{id}/exit/email, where /{id} is the form's ID (i.e. the form's file name.), which asks for the user's email address.
+1. They will be taken to a page /{id}/exit/email, where /{id} is the form's ID (i.e. the form's file name), which asks for the user's email address.
 2. If the email address is valid, a POST request will be made to the configured URL with the user's data
 3. If the POST request was successful (2xx) code, the user will be redirected to a page /{id}/exit/status
    - If the persistence API returned with a `redirectUrl` in the response body, the user will be redirected to this URL
@@ -29,18 +29,18 @@ The exit feature is configured in the form JSON on the `exitOptions` property.
   // ..etc
   exitOptions: {
     url: "your-persistence-api:3005",
-    type: "WEBHOOK", // can be "WEBHOOK" or "STATE"
+    format: "WEBHOOK", // can be "WEBHOOK" or "STATE"
   },
 }
 ```
 
-`exitOptions.type` can be `WEBHOOK` or `STATE`. This will control in which format the data is sent exitOptions.url.
+`exitOptions.format` can be `WEBHOOK` or `STATE`. This will control in which format the data is sent exitOptions.url.
 
 ## Data sent
 
-Depending on which `exitOptions.type` is configured for the form, the format the users' answers are in will be different.
+Depending on which `exitOptions.format` is configured for the form, the format the users' answers are in will be different.
 
-With both types, the request body will always include `exitState`.
+With both formats, the request body will always include `exitState`.
 
 ```json5
 {
@@ -52,7 +52,7 @@ With both types, the request body will always include `exitState`.
 }
 ```
 
-### ExitOptions.type - STATE (default)
+### ExitOptions.format - STATE (default)
 
 This mirrors the data in the user's state for the form that they chose to exit on. For example, if the user is filling out
 two forms at once, /form-a and /form-b, if the user chose to exit on /form-a, only data from /form-a will be sent.
@@ -70,7 +70,7 @@ two forms at once, /form-a and /form-b, if the user chose to exit on /form-a, on
 }
 ```
 
-### ExitOptions.type - WEBHOOK
+### ExitOptions.format - WEBHOOK
 
 This mirrors the same format that data is sent when configuring a webhook output. You may just choose to store the data
 as is, until the user decides to return. This makes it simpler calling [session-initialisation.md](./session-initialisation.md).
