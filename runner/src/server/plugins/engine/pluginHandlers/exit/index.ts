@@ -1,7 +1,7 @@
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import Boom from "boom";
 import { getForm } from "./prehandlers/getForm";
-import { parseErrors } from "./prehandlers/parseErrors";
+import { parseExitEmailErrors } from "./prehandlers/parseExitEmailErrors";
 import { getState } from "./prehandlers/getState";
 import { getBacklink } from "./prehandlers/getBacklink";
 import { validateEmailPostRequest } from "./prehandlers/validateEmailPostRequest";
@@ -18,7 +18,7 @@ export const emailGet = {
       },
       {
         assign: "errors",
-        method: parseErrors,
+        method: parseExitEmailErrors,
       },
       {
         assign: "state",
