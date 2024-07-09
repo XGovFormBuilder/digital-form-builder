@@ -1,5 +1,6 @@
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import Joi from "joi";
+import config from "server/config";
 
 const postSchema = Joi.object({
   exitEmailAddress: Joi.string().email().label("Email address"),
@@ -17,6 +18,10 @@ const postSchemaValidationOptions: Joi.ValidationOptions = {
   },
 };
 
+/**
+ * Validates the email address submitted by the user, and stores it in volatile
+ * storage (yar.flash).
+ */
 export async function validateEmailPostRequest(
   request: HapiRequest,
   h: HapiResponseToolkit
