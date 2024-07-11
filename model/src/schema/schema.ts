@@ -161,15 +161,9 @@ const paymentSkippedWarningPage = joi.object({
   }),
 });
 
-const exitConfirmationPage = joi.object().keys({
-  title: joi.string().optional(),
-  body: joi.string().optional(),
-});
-
 const specialPagesSchema = joi.object().keys({
   confirmationPage: confirmationPageSchema.optional(),
   paymentSkippedWarningPage: paymentSkippedWarningPage.optional(),
-  exitConfirmationPage: exitConfirmationPage,
 });
 
 const listItemSchema = joi.object().keys({
