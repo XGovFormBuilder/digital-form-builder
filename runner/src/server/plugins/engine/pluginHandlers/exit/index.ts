@@ -99,6 +99,7 @@ export const statusGet = {
     return h.view("exit/status", {
       errors: request.pre.errors,
       ...exitState,
+      name: request.pre.form.name,
     });
   },
 };
