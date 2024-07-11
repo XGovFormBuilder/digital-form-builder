@@ -89,6 +89,9 @@ export const statusGet = {
     const state = request.pre.state;
     const { exitState } = state;
 
+    const { cacheService } = request.services([]);
+    await cacheService.clearState(request);
+
     if (exitState?.result?.redirectUrl) {
       return h.redirect(exitState?.result.redirectUrl);
     }
