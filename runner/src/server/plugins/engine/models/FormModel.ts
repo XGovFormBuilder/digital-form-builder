@@ -61,7 +61,7 @@ export class FormModel {
 
   feeOptions: FormDefinition["feeOptions"];
   specialPages: FormDefinition["specialPages"];
-  exitOptions: FormDefinition["exitOptions"];
+  exitOptions?: ExitOptions;
   allowExit: boolean;
 
   constructor(def, options) {
