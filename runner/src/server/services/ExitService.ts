@@ -22,10 +22,9 @@ type WebhookDataWithExitState = WebhookData & {
  * Service to handle exiting a form.
  */
 export class ExitService {
-  responseSchema = Joi.object({
-    expiry: Joi.string().isoDate().optional(),
-    redirectUrl: callbackValidation().optional(),
-  });
+  static expirySchema = Joi.string().isoDate().optional();
+  static redirectUrlSchema = callbackValidation().optional();
+
   logger: HapiServer["logger"];
 
   constructor(server: HapiServer) {
@@ -61,12 +60,11 @@ export class ExitService {
 
   async exitForm(form: FormModel, state: FormSubmissionState) {
     if (!form.allowExit) {
-      Boom.forbidden();
+      throw Boom.forbidden();
     }
 
     const options = form.exitOptions;
-    let body = { ...state };
-
+    let body = { ...state, metadata: form.def.metadata ?? {} };
     if (options.format === "WEBHOOK") {
       body = {
         ...WebhookModel(form, state),
@@ -75,17 +73,12 @@ export class ExitService {
     }
 
     const payload = await this.postToExitUrl(options.url, body);
-
-    const { value } = this.responseSchema.validate(payload, {
-      stripUnknown: true,
-      abortEarly: false,
-    });
-
-    const expiry = this.getParsedExpiry(value);
+    const sanitisedResponse = this.sanitiseResponse(payload);
+    const expiry = this.getParsedExpiry(sanitisedResponse);
 
     return {
-      ...value,
-      ...{ expiry },
+      ...sanitisedResponse,
+      ...(expiry && { expiry }),
     };
   }
 
@@ -103,5 +96,35 @@ export class ExitService {
       );
       return;
     }
+  }
+
+  /**
+   * Removes any invalid or unknown fields from the response.
+   */
+  sanitiseResponse(response: ExitResponse) {
+    const sanitisedResponse: ExitResponse = {};
+    const {
+      value: expiryValue,
+      error: expiryError,
+    } = ExitService.expirySchema.validate(response.expiry, {
+      abortEarly: false,
+    });
+
+    if (expiryValue && !expiryError) {
+      sanitisedResponse.expiry = expiryValue;
+    }
+
+    const {
+      value: redirectValue,
+      error: redirectError,
+    } = ExitService.redirectUrlSchema.validate(response.redirectUrl, {
+      abortEarly: false,
+    });
+
+    if (redirectValue && !redirectError) {
+      sanitisedResponse.redirectUrl = redirectValue;
+    }
+
+    return sanitisedResponse;
   }
 }

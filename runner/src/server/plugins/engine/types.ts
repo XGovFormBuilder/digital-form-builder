@@ -3,6 +3,7 @@ import { ExitResponse } from "server/services/ExitService";
 
 export type ExitState = {
   exitEmailAddress: string;
+  pageExitedOn: string;
   result: ExitResponse;
 };
 

@@ -2,21 +2,11 @@ import { FormModel } from "server/plugins/engine/models/FormModel";
 import pino from "pino";
 import config from "server/config";
 const logger = pino().child({ class: "ExitOptions" });
-
 export class ExitOptions {
   url: string;
-  redirectUrl?: string;
   format?: "STATE" | "WEBHOOK";
   constructor(exitOptions: FormModel["exitOptions"]) {
     this.url = ExitOptions.validatedUrl(exitOptions.url, "url");
-
-    if (exitOptions.redirectUrl) {
-      this.redirectUrl = ExitOptions.validatedUrl(
-        exitOptions.redirectUrl,
-        "redirectUrl"
-      );
-    }
-
     this.format = exitOptions.format;
   }
 
@@ -30,7 +20,9 @@ export class ExitOptions {
     }
 
     if (!config.safelist.includes(urlHostname)) {
-      logger.error(`${propName} (${url}) is not on the allowlist`);
+      logger.error(
+        `${propName} (${url}) is not on the allowlist, only ${config.safelist} are allowed`
+      );
       throw new Error(`${propName} (${url}) is not on the allowlist`);
     }
 
