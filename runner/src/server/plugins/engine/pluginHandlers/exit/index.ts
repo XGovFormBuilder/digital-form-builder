@@ -63,10 +63,10 @@ export const emailPost = {
     const form = request.pre.form;
 
     const { cacheService, exitService } = request.services([]);
-    const state = await cacheService.getState(request);
 
     try {
-      await exitService.exitForm(form, state);
+      const exitResponse = await exitService.exitForm(form, request.pre.state);
+      await cacheService.setExitState(request, { result: exitResponse });
     } catch (e) {
       throw Boom.badRequest();
     }
