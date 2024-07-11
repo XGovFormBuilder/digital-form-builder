@@ -20,9 +20,7 @@ export class ExitOptions {
     }
 
     if (!config.safelist.includes(urlHostname)) {
-      logger.error(
-        `${propName} (${url}) is not on the allowlist, only ${config.safelist} are allowed`
-      );
+      logger.error(`${propName} (${url}) is not on the allowlist`);
       throw new Error(`${propName} (${url}) is not on the allowlist`);
     }
 
