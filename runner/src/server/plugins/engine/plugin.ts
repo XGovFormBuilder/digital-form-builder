@@ -77,6 +77,7 @@ export const plugin = {
      * The designer also uses these endpoints as a persistence mechanism for storing and retrieving data
      * for its own purposes so if you're changing these endpoints you likely need to go and amend
      * the designer too!
+     * TODO: - Move this to ./pluginHandlers/publish/*
      */
     server.route({
       method: "post",
@@ -107,6 +108,7 @@ export const plugin = {
       },
     });
 
+    // TODO: - Move this to ./pluginHandlers/publish/*
     server.route({
       method: "get",
       path: "/published/{id}",
@@ -133,6 +135,7 @@ export const plugin = {
       },
     });
 
+    // TODO: - Move this to ./pluginHandlers/publish/*
     server.route({
       method: "get",
       path: "/published",
@@ -219,6 +222,7 @@ export const plugin = {
       return h.continue;
     };
 
+    //TODO:- Move to ./pluginHandlers/id/*
     server.route({
       method: "get",
       path: "/{id}",
@@ -239,6 +243,7 @@ export const plugin = {
       },
     });
 
+    //TODO:- Move to ./pluginHandlers/id/*
     server.route({
       method: "get",
       path: "/{id}/{path*}",
@@ -284,6 +289,7 @@ export const plugin = {
       return uploadService.handleUploadRequest(request, h, page.pageDef);
     };
 
+    //TODO:- Merge with POST /{id}/{path*} route, and move to ./pluginHandlers/id/*
     const postHandler = async (
       request: HapiRequest,
       h: HapiResponseToolkit
@@ -304,6 +310,7 @@ export const plugin = {
       throw Boom.notFound("No form of path found");
     };
 
+    //TODO:- move to ./pluginHandlers/id/*
     server.route({
       method: "post",
       path: "/{id}/{path*}",
