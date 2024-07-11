@@ -106,8 +106,11 @@ export class PageControllerBase {
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
 
-    if (!this.model.allowExit) {
+    if (this.model.allowExit) {
       this[FORM_SCHEMA] = this[FORM_SCHEMA].append({
+        action: Joi.string().allow("exit"),
+      });
+      this[STATE_SCHEMA] = this[STATE_SCHEMA].append({
         action: Joi.string().allow("exit"),
       });
     }
@@ -384,13 +387,11 @@ export class PageControllerBase {
   }
 
   validateForm(payload) {
-    console.log(payload);
     return this.validate(payload, this.formSchema);
   }
 
   validateState(newState) {
-    const { action, ...state } = newState;
-    return this.validate(state, this.stateSchema);
+    return this.validate(newState, this.stateSchema);
   }
 
   /**
@@ -670,6 +671,7 @@ export class PageControllerBase {
     }
 
     let update = this.getPartialMergeState(stateResult.value);
+
     if (this.repeatField) {
       const updateValue = { [this.path]: update[this.section.name] };
       const sectionState = state[this.section.name];
@@ -689,8 +691,6 @@ export class PageControllerBase {
       update = modifyUpdate(update);
     }
     await cacheService.mergeState(request, update, nullOverride, arrayMerge);
-    // const shouldGoToExitPage =
-    //   payload.action === "exit" && this.model.allowExit;
   }
 
   /**

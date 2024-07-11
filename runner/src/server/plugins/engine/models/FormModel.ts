@@ -62,7 +62,7 @@ export class FormModel {
   feeOptions: FormDefinition["feeOptions"];
   specialPages: FormDefinition["specialPages"];
   exitOptions?: ExitOptions;
-  allowExit: boolean;
+  allowExit: boolean = false;
 
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
@@ -115,16 +115,16 @@ export class FormModel {
     this.fieldsForContext = new ContextComponentCollection(this);
     this.fieldsForPrePopulation = {};
 
+    if (def.exitOptions) {
+      this.exitOptions = new ExitOptions(def.exitOptions);
+      this.allowExit = true;
+    }
+
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
     this.specialPages = def.specialPages;
     this.feeOptions = { ...DEFAULT_FEE_OPTIONS, ...def.feeOptions };
-
-    if (def.exitOptions) {
-      this.exitOptions = new ExitOptions(def.exitOptions);
-    }
-    this.allowExit = !!def.exitOptions;
   }
 
   /**

@@ -1,6 +1,10 @@
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
 import { ExitResponse } from "server/services/ExitService";
 
+/**
+ * Used to track the user's state when exiting a form, as well as storing
+ * the response from the persistence webhook.
+ */
 export type ExitState = {
   exitEmailAddress: string;
   pageExitedOn: string;

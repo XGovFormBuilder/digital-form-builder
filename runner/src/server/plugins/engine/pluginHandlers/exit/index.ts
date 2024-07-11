@@ -5,24 +5,26 @@ import { parseExitEmailErrors } from "./prehandlers/parseExitEmailErrors";
 import { getState } from "./prehandlers/getState";
 import { getBacklink } from "./prehandlers/getBacklink";
 import { validateEmailPostRequest } from "./prehandlers/validateEmailPostRequest";
-import { redirectUserBackToForm } from "./prehandlers/redirectUserBackToForm";
+import { checkUserIsAllowedAccess } from "./prehandlers/checkUserIsAllowedAccess";
 
 export const emailGet = {
   method: "get",
   path: "/{id}/exit/email",
   options: {
+    description: "Allows users to exit the form if enabled on the form",
     pre: [
       {
         assign: "form",
         method: getForm,
       },
       {
-        assign: "errors",
-        method: parseExitEmailErrors,
-      },
-      {
         assign: "state",
         method: getState,
+      },
+      { method: checkUserIsAllowedAccess },
+      {
+        assign: "errors",
+        method: parseExitEmailErrors,
       },
       {
         assign: "backlink",
@@ -48,19 +50,17 @@ export const emailPost = {
         method: getForm,
       },
       {
+        assign: "state",
+        method: getState,
+      },
+      { method: checkUserIsAllowedAccess },
+      {
         method: validateEmailPostRequest,
       },
     ],
   },
   handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
     const form = request.pre.form;
-    if (!form.allowExit) {
-      request.server.logger.error({
-        tags: ["exit"],
-        msg: `User ${request.yar.id} attempted to exit ${form.basePath} but it is not enabled for this form.`,
-      });
-      throw Boom.forbidden();
-    }
 
     const { cacheService, exitService } = request.services([]);
     const state = await cacheService.getState(request);
@@ -82,7 +82,7 @@ export const statusGet = {
     pre: [
       { assign: "state", method: getState },
       { assign: "form", method: getForm },
-      { method: redirectUserBackToForm },
+      { method: checkUserIsAllowedAccess },
     ],
   },
   handler: async (request: HapiRequest, h: HapiResponseToolkit) => {

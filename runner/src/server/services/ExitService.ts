@@ -9,9 +9,12 @@ import { ExitState, FormSubmissionState } from "server/plugins/engine/types";
 import { HapiServer } from "server/types";
 import { WebhookData } from "server/plugins/engine/models/types";
 
+/**
+ * Expected response from the exit webhook.
+ */
 export type ExitResponse = {
-  expiry?: string;
-  redirectUrl?: string;
+  expiry?: string; // ISO date string
+  redirectUrl?: string; // URL to redirect the user to. It must be on the safelist.
 };
 
 type WebhookDataWithExitState = WebhookData & {

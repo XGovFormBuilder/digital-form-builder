@@ -303,7 +303,6 @@ const feeOptionSchema = joi
 
 const exitSchema = joi.object().keys({
   url: joi.string(),
-  redirectUrl: joi.string().optional(),
   format: joi.string().allow("STATE", "WEBHOOK"),
 });
 
