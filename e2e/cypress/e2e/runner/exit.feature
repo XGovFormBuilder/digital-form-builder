@@ -31,6 +31,6 @@ Feature: Exit
     And I select the button "Save and come back later"
     And I enter "test@test.com" for "Enter your email address"
     And I select the button "Save and exit"
-    Then I see "Your application"
+    Then I see "Your application to exit test has been saved"
     # TODO: Mock the API in the e2e process so we can check for correct data sent.
 

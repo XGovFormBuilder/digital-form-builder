@@ -136,3 +136,13 @@ The response body must be JSON, and can some or none include the following prope
 ```
 
 The user will be shown a generic error page if the request failed to send, or the API responded with a non 2xx code.
+
+## Initialising session and exiting
+
+When initialising a session you can configure the `callbackUrl`. This will send data to a different URL from
+what is configured in the form JSON's webhook output.
+
+Currently, when exiting an initialised session, the data will be sent to the URL configured in `exitOptions.url`. It will not be sent to the `callbackUrl`.
+
+If you need to initialise a session, allow a user to exit, and still be able to identify the user, you should initialise
+the session with `metadata`. The metadata should include an identifier so your API can match and merge their data if required.
