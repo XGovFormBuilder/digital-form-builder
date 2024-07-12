@@ -4,7 +4,7 @@ import { getForm } from "./prehandlers/getForm";
 import { parseExitEmailErrors } from "./prehandlers/parseExitEmailErrors";
 import { getState } from "./prehandlers/getState";
 import { getBacklink } from "./prehandlers/getBacklink";
-import { validateEmailPostRequest } from "./prehandlers/validateEmailPostRequest";
+import { validateEmailAndSave } from "./prehandlers/validateEmailAndSave";
 import { checkUserIsAllowedAccess } from "./prehandlers/checkUserIsAllowedAccess";
 
 export const emailGet = {
@@ -55,11 +55,8 @@ export const emailPost = {
       },
       { method: checkUserIsAllowedAccess },
       {
-        method: validateEmailPostRequest,
-      },
-      {
         assign: "updatedState",
-        method: getState,
+        method: validateEmailAndSave,
       },
     ],
   },

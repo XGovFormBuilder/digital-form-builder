@@ -21,7 +21,7 @@ const postSchemaValidationOptions: Joi.ValidationOptions = {
  * Validates the email address submitted by the user, and stores it in volatile
  * storage (yar.flash).
  */
-export async function validateEmailPostRequest(
+export async function validateEmailAndSave(
   request: HapiRequest,
   h: HapiResponseToolkit
 ) {
@@ -38,7 +38,5 @@ export async function validateEmailPostRequest(
   const { cacheService } = request.services([]);
 
   const { exitEmailAddress } = value;
-  await cacheService.setExitState(request, { exitEmailAddress });
-
-  return h.continue;
+  return await cacheService.setExitState(request, { exitEmailAddress });
 }
