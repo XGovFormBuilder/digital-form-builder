@@ -57,15 +57,21 @@ export const emailPost = {
       {
         method: validateEmailPostRequest,
       },
+      {
+        assign: "updatedState",
+        method: getState,
+      },
     ],
   },
   handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+    const { cacheService, exitService } = request.services([]);
     const form = request.pre.form;
 
-    const { cacheService, exitService } = request.services([]);
-
     try {
-      const exitResponse = await exitService.exitForm(form, request.pre.state);
+      const exitResponse = await exitService.exitForm(
+        form,
+        request.pre.updatedState
+      );
       await cacheService.setExitState(request, { result: exitResponse });
     } catch (e) {
       throw Boom.badRequest();
