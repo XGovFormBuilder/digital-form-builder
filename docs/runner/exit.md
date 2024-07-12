@@ -155,4 +155,5 @@ the session with `metadata`. The metadata should include an identifier so your A
 When exiting the form, the user's last known page is given to you in the `exitState` object in `pageExitedOn` property,
 `pageExitedOn` is given in the format `/{formId}/{pagePath}`, e.g. `/test/uk-passport`. If you want to return the user back
 to this page wth initialised sessions, you can use the `redirectPath` option in the session initialisation payload.
-Note that in the POST /session/{formId} payload, the `redirectPath` is relative to the formId, so you must remove `/{formId}`, e.g. `/uk-passport`.
+Note that in the POST `/session/{formId}` payload, the `redirectPath` is relative to the formId, so you must remove `/{formId}`
+from `/test/uk-passport` so the user is redirected to the correct page, e.g. `/uk-passport`.
