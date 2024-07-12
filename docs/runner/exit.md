@@ -71,6 +71,11 @@ two forms at once, /form-a and /form-b, if the user chose to exit on /form-a, on
 }
 ```
 
+This may be an easier format for the persistence API to parse, however you must convert this data back into the webhook.
+
+In future, the initialise session and webhook output formats may support this "flatter" format for easier persistence.
+Note that this data format does not include information like the page or component titles.
+
 ### ExitOptions.format - WEBHOOK
 
 This mirrors the same format that data is sent when configuring a webhook output. You may just choose to store the data
@@ -146,3 +151,8 @@ Currently, when exiting an initialised session, the data will be sent to the URL
 
 If you need to initialise a session, allow a user to exit, and still be able to identify the user, you should initialise
 the session with `metadata`. The metadata should include an identifier so your API can match and merge their data if required.
+
+When exiting the form, the user's last known page is given to you in the `exitState` object in `pageExitedOn` property,
+`pageExitedOn` is given in the format `/{formId}/{pagePath}`, e.g. `/test/uk-passport`. If you want to return the user back
+to this page wth initialised sessions, you can use the `redirectPath` option in the session initialisation payload.
+Note that in the POST /session/{formId} payload, the `redirectPath` is relative to the formId, so you must remove `/{formId}`, e.g. `/uk-passport`.
