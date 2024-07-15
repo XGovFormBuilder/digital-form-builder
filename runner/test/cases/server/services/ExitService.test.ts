@@ -32,7 +32,7 @@ suite("ExitService.exitForm", () => {
     progress: ["/exit/first-page"],
   };
   beforeEach(() => {
-    formModel = new FormModel(form, {});
+    formModel = new FormModel(form, { basePath: "/exit" });
     exitService = new ExitService(server);
   });
 
@@ -47,6 +47,7 @@ suite("ExitService.exitForm", () => {
         exitEmailAddress: "j@cyb.dev",
         pageExitedOn: "/exit/first-page",
       },
+      formPath: "/exit",
       metadata: {
         caseType: "generic",
       },
@@ -87,7 +88,7 @@ suite("ExitService.exitForm", () => {
       ...form,
       exitOptions: { ...form.exitOptions, format: "STATE" },
     };
-    formModel = new FormModel(formWithStateOption, {});
+    formModel = new FormModel(formWithStateOption, { basePath: "/exit" });
     const postRequest = sinon.stub(exitService, "postToExitUrl").returns({});
     await exitService.exitForm(formModel, state);
     const [_urlArg, payloadArg] = postRequest.getCall(0).args;
@@ -96,6 +97,7 @@ suite("ExitService.exitForm", () => {
         exitEmailAddress: "j@cyb.dev",
         pageExitedOn: "/exit/first-page",
       },
+      formPath: "/exit",
       progress: ["/exit/first-page"],
       whichConsulate: "portimao",
       metadata: {
@@ -110,7 +112,7 @@ suite("ExitService.exitForm", () => {
     };
     delete formWithNoExitOptions.exitOptions;
 
-    formModel = new FormModel(formWithNoExitOptions, {});
+    formModel = new FormModel(formWithNoExitOptions, { basePath: "/exit" });
 
     expect(exitService.exitForm(formModel, state)).to.reject();
   });

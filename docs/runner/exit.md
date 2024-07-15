@@ -41,7 +41,7 @@ The exit feature is configured in the form JSON on the `exitOptions` property.
 
 Depending on which `exitOptions.format` is configured for the form, the format the users' answers are in will be different.
 
-With both formats, the request body will always include `exitState`.
+With both formats, the request body will always include `exitState` and `formPath`, which is the form's id.
 
 ```json5
 {
@@ -49,6 +49,7 @@ With both formats, the request body will always include `exitState`.
     exitEmailAddress: "abc@def.tld", // the email address the user entered on /{id}/exit/email
     pageExitedOn: "/form-a/your-address", // the page the user chose to exit on
   },
+  formPath: "/form-a",
   //...
 }
 ```
@@ -60,14 +61,14 @@ two forms at once, /form-a and /form-b, if the user chose to exit on /form-a, on
 
 ```json5
 {
-   "exitState": {
-     "exitEmailAddress": 'jen@cautionyourblast.com',
-     "pageExitedOn": '/test/how-many-people'
-   },
-   "progress": [ '/test/uk-passport', '/test/how-many-people' ],
-   "checkBeforeYouStart": { "ukPassport": true },
-   "applicantDetails": { "numberOfApplicants": '1 or fewer' }
- }
+  exitState: {
+    exitEmailAddress: "jen@cautionyourblast.com",
+    pageExitedOn: "/test/how-many-people",
+  },
+  progress: ["/test/uk-passport", "/test/how-many-people"],
+  checkBeforeYouStart: { ukPassport: true },
+  applicantDetails: { numberOfApplicants: "1 or fewer" },
+  formPath: "/test",
 }
 ```
 
@@ -116,6 +117,7 @@ as is, until the user decides to return. This makes it simpler calling [session-
     exitEmailAddress: "jen@cautionyourblast.com",
     pageExitedOn: "/test/how-many-people",
   },
+  formPath: "/test",
 }
 ```
 
