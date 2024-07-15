@@ -21,6 +21,10 @@ type WebhookDataWithExitState = WebhookData & {
   exitState: ExitState;
 };
 
+type ExitPayload = (FormSubmissionState | WebhookDataWithExitState) & {
+  formPath: string;
+};
+
 /**
  * Service to handle exiting a form.
  */
@@ -34,10 +38,7 @@ export class ExitService {
     this.logger = server.logger;
   }
 
-  async postToExitUrl(
-    url: string,
-    payload: FormSubmissionState | WebhookDataWithExitState
-  ) {
+  async postToExitUrl(url: string, payload: ExitPayload) {
     try {
       const response = await wreck.post<ExitResponse>(url, {
         payload,
@@ -66,12 +67,19 @@ export class ExitService {
       throw Boom.forbidden();
     }
 
-    const options = form.exitOptions;
-    let body = { ...state, metadata: form.def.metadata ?? {} };
+    const options = form.exitOptions!;
+
+    let body = {
+      ...state,
+      metadata: form.def.metadata,
+      formPath: form.basePath,
+    };
+
     if (options.format === "WEBHOOK") {
       body = {
         ...WebhookModel(form, state),
         exitState: state.exitState,
+        formPath: form.basePath,
       };
     }
 
