@@ -36,6 +36,7 @@ export const emailGet = {
     return h.view("exit/email", {
       errors: request.pre.errors,
       backLink: request.pre.backlink,
+      name: request.pre.form.name,
     });
   },
 };
