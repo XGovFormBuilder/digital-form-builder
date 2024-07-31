@@ -75,16 +75,16 @@ suite("Server Auth", () => {
         method: "GET",
         url: "/",
       });
-      const initialSession = prepResponse.headers["set-cookie"].find((cookie) =>
-        cookie.startsWith("session=")
-      );
+      const initialSessionCookie = prepResponse.headers["set-cookie"]
+        .find((cookie) => cookie.startsWith("session="))
+        .replace("HttpOnly; ");
 
       // We can first check the created session works as expected:
       const checkPrepResponse = await server.inject({
         method: "GET",
         url: "/",
         headers: {
-          Cookie: initialSession.replace("Secure; HttpOnly; ", ""),
+          Cookie: initialSessionCookie,
         },
       });
       expect(
@@ -98,7 +98,7 @@ suite("Server Auth", () => {
         method: "GET",
         url: "/logout",
         headers: {
-          Cookie: initialSession.replace("Secure; HttpOnly; ", ""),
+          Cookie: initialSessionCookie,
         },
       });
 
@@ -108,7 +108,7 @@ suite("Server Auth", () => {
       );
 
       expect(newSession).to.not.be.undefined();
-      expect(newSession).to.not.equal(initialSession);
+      expect(newSession).to.not.equal(initialSessionCookie);
       expect(
         res.headers["set-cookie"].filter((cookie) =>
           cookie.startsWith("auth=;")
