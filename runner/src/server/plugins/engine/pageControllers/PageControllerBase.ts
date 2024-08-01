@@ -25,6 +25,7 @@ import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
+import Joi from "joi";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -104,6 +105,15 @@ export class PageControllerBase {
 
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
+
+    if (this.model.allowExit) {
+      this[FORM_SCHEMA] = this[FORM_SCHEMA].append({
+        action: Joi.string().allow("exit"),
+      });
+      this[STATE_SCHEMA] = this[STATE_SCHEMA].append({
+        action: Joi.string().allow("exit"),
+      });
+    }
   }
 
   /**
@@ -546,6 +556,8 @@ export class PageControllerBase {
 
       viewModel.backLink =
         progress[progress.length - 2] ?? this.backLinkFallback;
+
+      viewModel.allowExit = this.model.allowExit;
       return h.view(this.viewName, viewModel);
     };
   }
@@ -659,6 +671,7 @@ export class PageControllerBase {
     }
 
     let update = this.getPartialMergeState(stateResult.value);
+
     if (this.repeatField) {
       const updateValue = { [this.path]: update[this.section.name] };
       const sectionState = state[this.section.name];
@@ -690,6 +703,16 @@ export class PageControllerBase {
         return response;
       }
       const { cacheService } = request.services([]);
+
+      const shouldGoToExitPage =
+        this.model.allowExit && request.payload?.action === "exit";
+
+      if (shouldGoToExitPage) {
+        await cacheService.setExitState(request, {
+          pageExitedOn: request.path,
+        });
+        return h.redirect("exit/email");
+      }
       const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
       let relevantState = this.getConditionEvaluationContext(
@@ -851,6 +874,7 @@ export class PageControllerBase {
     viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
+    viewModel.allowExit = this.model.allowExit;
 
     return h.view(this.viewName, viewModel);
   }

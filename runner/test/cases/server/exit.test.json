@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "caseType": "generic"
+  },
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "whichConsulate",
+          "options": {},
+          "type": "RadiosField",
+          "title": "which consulate",
+          "list": "IpQxvK",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "section": "yourDetails",
+      "title": "Second page",
+      "path": "/second-page",
+      "components": [
+        {
+          "name": "fullName",
+          "title": "Your full name",
+          "options": {},
+          "type": "TextField",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "specialPages": {},
+  "lists": [
+    {
+      "title": "which consulate",
+      "name": "IpQxvK",
+      "type": "string",
+      "items": [
+        {
+          "text": "lisbon",
+          "value": "lisbon"
+        },
+        {
+          "text": "portimao",
+          "value": "portimao"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "yourDetails",
+      "title": "Your details"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "isLisbon",
+      "name": "isLisbon",
+      "value": {
+        "name": "isLisbon",
+        "conditions": [
+          {
+            "field": {
+              "name": "whichConsulate",
+              "type": "RadiosField",
+              "display": "which consulate"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "lisbon",
+              "display": "lisbon"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "isPortimao",
+      "name": "isPortimao",
+      "value": {
+        "name": "isPortimao",
+        "conditions": [
+          {
+            "field": {
+              "name": "whichConsulate",
+              "type": "RadiosField",
+              "display": "which consulate"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "portimao",
+              "display": "portimao"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [],
+
+  "version": 2,
+  "skipSummary": false,
+  "exitOptions": {
+    "format": "WEBHOOK",
+    "url": "http://localhost:3005/exit"
+  },
+  "name": "exit test"
+}

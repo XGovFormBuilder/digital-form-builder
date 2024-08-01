@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% from "button/macro.njk" import govukButton %}
+{% from "input/macro.njk" import govukInput %}
+
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "partials/components.html" import componentList with context %}
+
+{% block content %}
+
+{% set defaultHint = "We will send you a link you can use to get back to your saved application." %}
+{% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
+
+{% set hintText = hint if hint else defaultHint %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% if errors %}
+      {{ govukErrorSummary(errors) }}
+    {% endif %}
+
+    {% include "partials/heading.html" %}
+
+    <form method="post" autocomplete="on">
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+
+      {{ govukInput({
+        label: {
+          text: "Enter your email address",
+          classes: "govuk-label--l",
+          isPageHeading: true
+        },
+        hint: {
+          text: hintText
+        },
+        id: "exitEmailAddress",
+        name: "exitEmailAddress"
+      }) }}
+
+      {{ govukButton({ attributes: { id: "submit" }, text: "Save and exit" }) }}
+
+    </form>
+
+    <pre>{{ value | dump(2) | safe }}</pre>
+  </div>
+</div>
+{% endblock %}
+
+

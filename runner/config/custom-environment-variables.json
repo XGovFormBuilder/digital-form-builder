@@ -43,7 +43,10 @@
   "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
   "previewMode": "PREVIEW_MODE",
   "enforceCsrf": "ENFORCE_CSRF",
-  "safelist": "SAFELIST",
+  "safelist": {
+    "__name": "SAFELIST",
+    "__format": "json"
+  },
   "initialisedSessionTimeout": "INITIALISED_SESSION_TIMEOUT",
   "initialisedSessionKey": "INITIALISED_SESSION_KEY",
   "initialisedSessionAlgorithm": "INITIALISED_SESSION_ALGORITHM",

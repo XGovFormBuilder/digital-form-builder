@@ -20,8 +20,8 @@ import {
 import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
 import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
-import { ComponentCollection } from "server/plugins/engine/components";
 import { ContextComponentCollection } from "server/plugins/engine/components/ContextComponentCollection";
+import { ExitOptions } from "server/plugins/engine/models/FormModel.exitOptions";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -61,6 +61,8 @@ export class FormModel {
 
   feeOptions: FormDefinition["feeOptions"];
   specialPages: FormDefinition["specialPages"];
+  exitOptions?: ExitOptions;
+  allowExit: boolean = false;
 
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
@@ -112,6 +114,11 @@ export class FormModel {
     });
     this.fieldsForContext = new ContextComponentCollection(this);
     this.fieldsForPrePopulation = {};
+
+    if (def.exitOptions) {
+      this.exitOptions = new ExitOptions(def.exitOptions);
+      this.allowExit = true;
+    }
 
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));

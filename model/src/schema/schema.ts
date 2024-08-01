@@ -295,6 +295,11 @@ const feeOptionSchema = joi
     };
   });
 
+const exitSchema = joi.object().keys({
+  url: joi.string(),
+  format: joi.string().allow("STATE", "WEBHOOK"),
+});
+
 export const Schema = joi
   .object()
   .required()
@@ -321,6 +326,7 @@ export const Schema = joi
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
     feeOptions: feeOptionSchema,
+    exitOptions: exitSchema.optional(),
   });
 
 /**
