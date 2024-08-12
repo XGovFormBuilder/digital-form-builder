@@ -28,6 +28,8 @@ export class UploadService {
    */
 
   logger: HapiServer["logger"];
+  validContentTypes = new Set(["image/jpeg", "image/png", "application/pdf"]);
+
   constructor(server) {
     this.logger = server.logger;
   }
@@ -38,6 +40,15 @@ export class UploadService {
 
   get validFiletypes(): ["jpg", "jpeg", "png", "pdf"] {
     return ["jpg", "jpeg", "png", "pdf"];
+  }
+
+  incorrectFileTypeError(fieldName: string) {
+    return parsedError(
+      fieldName,
+      `The selected file for "%s" must be a ${this.validFiletypes
+        .slice(0, -1)
+        .join(", ")} or ${this.validFiletypes.slice(-1)}`
+    );
   }
 
   fileStreamsFromPayload(payload: Payload) {
@@ -103,6 +114,10 @@ export class UploadService {
     return h.continue;
   }
 
+  isValidContentType(file) {
+    return this.validContentTypes.has(file.hapi.headers["content-type"]);
+  }
+
   async handleUploadRequest(
     request: HapiRequest,
     h: HapiResponseToolkit,
@@ -110,7 +125,7 @@ export class UploadService {
   ) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
-    const originalFilenames = state?.originalFilenames ?? {};
+    let originalFilenames = state?.originalFilenames ?? {};
 
     let files: [string, any][] = [];
 
@@ -124,12 +139,16 @@ export class UploadService {
      */
     if (!files.length && request.payload) {
       const fields = Object.entries(request.payload);
-
       for (const [key, value] of fields) {
         if (value._data) {
           const originalFilename = originalFilenames[key];
-          request.payload[key] =
-            (originalFilename && originalFilename.location) || "";
+          this.logger.info(
+            { id: request.yar.id, key },
+            `Empty file buffer detected for ${key}, but there was a previous upload`
+          );
+          if (originalFilename) {
+            request.payload[key] = originalFilename.location;
+          }
         }
       }
 
@@ -140,100 +159,122 @@ export class UploadService {
      * files is an array of tuples containing key and value.
      * value may be an array of file data where multiple files have been uploaded
      */
-
-    for (const file of files) {
-      const key = file[0];
-      const previousUpload = originalFilenames[key] || {};
-
+    for (const [fieldName, value] of files) {
+      const loggerIdentifier = { id: request.yar.id, fieldName };
+      const previousUpload = originalFilenames[fieldName] || {};
       let values: any;
 
-      if (Array.isArray(file[1])) {
-        values = file[1];
+      if (Array.isArray(value)) {
+        values = value;
       } else {
-        values = [file[1]];
+        values = [value];
       }
 
-      const validFiles = (
-        await Promise.all(
-          values.map(async (fileValue) => {
-            const extension = fileValue.hapi.filename.split(".").pop();
-            if (
-              !this.validFiletypes.includes((extension || "").toLowerCase())
-            ) {
-              request.pre.errors = [
-                ...(h.request.pre.errors || []),
-                parsedError(
-                  key,
-                  `The selected file for "%s" must be a ${this.validFiletypes
-                    .slice(0, -1)
-                    .join(", ")} or ${this.validFiletypes.slice(-1)}`
-                ),
-              ];
-              return null;
-            }
-            try {
-              return fileValue;
-            } catch (e) {
-              request.pre.errors = [
-                ...(h.request.pre.errors || []),
-                parsedError(key, e),
-              ];
-            }
-          })
-        )
-      ).filter((value) => !!value);
+      let validFiles = [];
 
-      if (validFiles.length === values.length) {
-        try {
-          const { error, location, warning } = await this.uploadDocuments(
-            validFiles
-          );
-          if (location) {
-            originalFilenames[key] = { location };
-            request.payload[key] = location;
-            request.pre.warning = warning;
-          }
-          if (error) {
-            request.pre.errors = [
-              ...(h.request.pre.errors || []),
-              parsedError(key, error),
-            ];
-          }
-        } catch (e) {
-          if (e.data?.res) {
-            const { error } = this.parsedDocumentUploadResponse(e.data);
-            request.pre.errors = [
-              ...(h.request.pre.errors || []),
-              parsedError(key, error),
-            ];
-          } else if (e.code === "EPIPE") {
-            // ignore this error, it happens when the request is responded to by the doc upload service before the
-            // body has finished being sent. A valid response is still received.
-            request.server.log(
-              ["info", "documentupload"],
-              `Ignoring EPIPE response: ${e.message}`
-            );
-          } else {
-            request.server.log(
-              ["error", "documentupload"],
-              `Error uploading document: ${e.message}`
-            );
-            request.pre.errors = [
-              ...(h.request.pre.errors || []),
-              parsedError(key, e),
-            ];
-          }
+      for (const file of values) {
+        if (this.isValidContentType(file)) {
+          validFiles.push(file);
+          continue;
         }
-      } else {
-        request.payload[key] = previousUpload.location || "";
+
+        this.logger.error(
+          loggerIdentifier,
+          `Invalid content type: ${file.hapi.headers["content-type"]} for field ${fieldName}`
+        );
       }
 
-      if (request.pre.errors && request.pre.errors.length) {
-        delete request.payload[key];
+      if (validFiles.length !== values.length) {
+        request.pre.errors = [
+          ...(h.request.pre.errors || []),
+          this.incorrectFileTypeError(fieldName),
+        ];
+
+        if (!previousUpload.location) {
+          delete request.payload[fieldName];
+          this.logger.error(
+            loggerIdentifier,
+            `Deleting ${fieldName} due to invalid content type and no previous uploads`
+          );
+          continue;
+        }
+
+        this.logger.info(
+          loggerIdentifier,
+          `Attempting to upload ${fieldName} (${validFiles.length} files with valid content type)`
+        );
+
+        this.logger.warn(
+          loggerIdentifier,
+          `There was an issue with the upload, using ${previousUpload.location} instead`
+        );
+        request.payload[fieldName] = previousUpload.location;
+      }
+
+      try {
+        const { error, location, warning } = await this.uploadDocuments(
+          validFiles
+        );
+        if (location) {
+          originalFilenames[fieldName] = { location };
+          request.payload[fieldName] = location;
+          request.pre.warning = warning;
+
+          this.logger.info(
+            loggerIdentifier,
+            `field ${fieldName} uploaded to ${location} ${
+              warning ? `With warning: ${warning}` : ""
+            }`
+          );
+        }
+
+        const updatedState = await cacheService.mergeState(request, {
+          originalFilenames,
+        });
+
+        originalFilenames = updatedState.originalFilenames;
+        if (error) {
+          this.logger.error(
+            loggerIdentifier,
+            `Error uploading document: ${error}`
+          );
+          request.pre.errors = [
+            ...(h.request.pre.errors || []),
+            parsedError(fieldName, error),
+          ];
+        }
+      } catch (e) {
+        if (e.data?.res) {
+          const { error } = this.parsedDocumentUploadResponse(e.data);
+          request.pre.errors = [
+            ...(h.request.pre.errors || []),
+            parsedError(fieldName, error),
+          ];
+          request.payload[fieldName] = previousUpload.location || "";
+        } else if (e.code === "EPIPE") {
+          // ignore this error, it happens when the request is responded to by the doc upload service before the
+          // body has finished being sent. A valid response is still received.
+          request.server.log(
+            ["info", "documentupload"],
+            `Ignoring EPIPE response: ${e.message}`
+          );
+        } else {
+          request.server.log(
+            ["error", "documentupload"],
+            `Error uploading document: ${e.message}`
+          );
+          request.pre.errors = [
+            ...(h.request.pre.errors || []),
+            parsedError(fieldName, e),
+          ];
+        }
       }
     }
 
-    await cacheService.mergeState(request, { originalFilenames });
+    this.logger.info(
+      { id: request.yar.id, allUserFiles: originalFilenames },
+      `Finished uploading files on ${request.path}`
+    );
 
     return h.continue;
   }

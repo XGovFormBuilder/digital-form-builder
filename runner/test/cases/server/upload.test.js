@@ -54,7 +54,12 @@ suite("uploads", () => {
         [
           "file1",
           {
-            hapi: { filename: "file.jpg" },
+            hapi: {
+              filename: "file.jpg",
+              headers: {
+                "content-type": "image/jpeg",
+              },
+            },
             _data: fs.readFileSync(path.join(__dirname, "dummy.pdf")),
           },
         ],
@@ -116,7 +121,10 @@ suite("uploads", () => {
         [
           "file1",
           {
-            hapi: { filename: "file.test" },
+            hapi: {
+              filename: "file.test",
+              headers: { "content-type": "image/gif" },
+            },
             _data: fs.readFileSync(path.join(__dirname, "dummy.pdf")),
           },
         ],
