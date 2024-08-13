@@ -5,7 +5,7 @@ import { get, post } from "../httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
 
 type Payload = HapiRequest["payload"];
-
+type ReadableStreamEntry = [string, Array<ReadableStream>];
 const parsedError = (key: string, error?: string) => {
   return {
     path: key,
@@ -40,15 +40,41 @@ export class UploadService {
     return ["jpg", "jpeg", "png", "pdf"];
   }
 
-  fileStreamsFromPayload(payload: Payload) {
-    return Object.entries(payload).filter(([_key, value]: [string, any]) => {
-      if (value) {
-        if (Array.isArray(value)) {
-          return value.every((nv) => !!nv._data && nv._data.length > 1);
-        }
-        return !!value._data && value._data.length > 1;
-      }
-      return false;
+  isReadable(value: any | ReadableStream) {
+    return value?.isReadable;
+  }
+
+  payloadEntryIsFile(entry: [string, any]) {
+    const [key, value] = entry;
+    if (!value) {
+      return;
+    }
+
+    if (Array.isArray(value)) {
+      return value.every((v) => v?.readable);
+    }
+    return value?.readable;
+  }
+
+  convertFileValueToArray(
+    entry: [string, ReadableStream | ReadableStream[]]
+  ): [string, ReadableStream[]] {
+    const [key, value] = entry;
+    if (Array.isArray(value)) {
+      return [key, value];
+    }
+    return [key, [value]];
+  }
+
+  fileStreamsFromPayload(payload: Payload): ReadableStreamEntry[] {
+    const entries = Object.entries(payload);
+    const payloadFileEntries = entries.filter(this.payloadEntryIsFile);
+    return payloadFileEntries.map(this.convertFileValueToArray);
+  }
+
+  fileSummary(files: ReadableStreamEntry[]) {
+    return files.map(([fieldName, value]) => {
+      return `${value.length} files for field ${fieldName}`;
     });
   }
 
@@ -111,13 +137,7 @@ export class UploadService {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
-
-    let files: [string, any][] = [];
-
-    if (request.payload !== null) {
-      files = this.fileStreamsFromPayload(request.payload);
-    }
-
+    const files = request.pre.files;
     /**
      * If there are no valid file(buffer)s, reassign any empty buffers with empty string
      * allows bypassing of file upload for whatever reason it doesn't work.
