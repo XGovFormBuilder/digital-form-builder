@@ -16,6 +16,7 @@ export async function handleUpload(
   const { cacheService, uploadService } = request.services([]);
   const state = await cacheService.getState(request);
   let originalFilenames = state?.originalFilenames ?? {};
+  let logger = request.server.logger;
   const files = request.pre.files;
 
   if (!files) {
@@ -36,7 +37,7 @@ export async function handleUpload(
     const previousUpload = originalFilenames[fieldName];
 
     if (previousUpload) {
-      uploadService.logger.info(
+      logger.info(
         loggerIdentifier,
         `User is attempting to overwrite ${fieldName} with location ${previousUpload.location}`
       );
@@ -56,12 +57,9 @@ export async function handleUpload(
       } else if (err.code === "EPIPE") {
         // ignore this error, it happens when the request is responded to by the doc upload service before the
         // body has finished being sent. A valid response is still received.
-        uploadService.logger.warn(
-          loggerIdentifier,
-          `Ignoring EPIPE response ${err.message}`
-        );
+        logger.warn(loggerIdentifier, `Ignoring EPIPE response ${err.message}`);
       } else {
-        uploadService.logger.error(
+        logger.error(
           { ...loggerIdentifier, err },
           `Error uploading document: ${err.message}`
         );
@@ -79,7 +77,7 @@ export async function handleUpload(
         .map((stream) => stream.hapi?.filename)
         .join(", ");
 
-      uploadService.logger.info(
+      logger.info(
         loggerIdentifier,
         `Uploaded ${fieldName} successfully to ${location}`
       );
@@ -89,7 +87,7 @@ export async function handleUpload(
         originalFilenames: updatedFilenames,
       } = await cacheService.mergeState(request, { originalFilenames });
 
-      uploadService.logger.info(
+      logger.info(
         { ...loggerIdentifier, allFiles: updatedFilenames },
         `Updated originalFileNames for user`
       );
@@ -99,14 +97,14 @@ export async function handleUpload(
 
     if (warning) {
       request.pre.warning = warning;
-      uploadService.logger.warn(
+      logger.warn(
         loggerIdentifier,
         `File was uploaded successfully but there was a warning ${warning}`
       );
     }
 
     if (error) {
-      uploadService.logger.error(
+      logger.error(
         loggerIdentifier,
         `Document upload API responded with an error ${error}`
       );
