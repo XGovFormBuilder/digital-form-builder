@@ -42,14 +42,14 @@ export class UploadService {
     this.logger = server.logger;
   }
 
-  validMimeTypes = new Set(["image/jpeg", "application/pdf", "image/png"]);
+  validContentTypes = new Set(["image/jpeg", "application/pdf", "image/png"]);
+  validFiletypes = ["jpg", "jpeg", "png", "pdf"];
+  validFiletypesString = `The selected file for "%s" must be a ${this.validFiletypes
+    .slice(0, -1)
+    .join(", ")} or ${this.validFiletypes.slice(-1)}`;
 
   get fileSizeLimit() {
     return config.maxClientFileSize;
-  }
-
-  get validFiletypes(): ["jpg", "jpeg", "png", "pdf"] {
-    return ["jpg", "jpeg", "png", "pdf"];
   }
 
   isReadable(value: any | HapiReadableStream) {
@@ -145,16 +145,11 @@ export class UploadService {
   }
 
   validateContentType(file: HapiReadableStream) {
-    return this.validMimeTypes.has(file?.hapi?.headers?.["content-type"]);
+    return this.validContentTypes.has(file?.hapi?.headers?.["content-type"]);
   }
 
   invalidFileTypeError(fieldName: string) {
-    return parsedError(
-      fieldName,
-      `The selected file for "%s" must be a ${this.validFiletypes
-        .slice(0, -1)
-        .join(", ")} or ${this.validFiletypes.slice(-1)}`
-    );
+    return parsedError(fieldName, this.validFiletypesString);
   }
 
   async handleUploadRequest(
