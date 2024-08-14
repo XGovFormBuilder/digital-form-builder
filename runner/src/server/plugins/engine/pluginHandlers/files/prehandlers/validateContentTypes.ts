@@ -58,7 +58,6 @@ export async function validateContentTypes(
   }
 
   if (erroredFields) {
-    request.pre.hasInvalidContentTypes = true;
     request.pre.errors = erroredFields.map((field) =>
       uploadService.invalidFileTypeError(field)
     );
