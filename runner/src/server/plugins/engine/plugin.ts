@@ -13,9 +13,9 @@ import config from "../../config";
 import * as exit from "./pluginHandlers/exit";
 import {
   getFiles,
+  handleUpload,
   validateContentTypes,
 } from "./pluginHandlers/files/prehandlers";
-import { handleUploadRequest } from "server/plugins/engine/pluginHandlers/files/prehandlers/handleUploadRequest";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
