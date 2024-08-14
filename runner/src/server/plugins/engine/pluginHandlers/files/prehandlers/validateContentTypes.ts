@@ -21,19 +21,45 @@ export async function validateContentTypes(
 
   const validFields: ReadableStreamEntry[] = [];
   const erroredFields: string[] = [];
+
   const { originalFilenames = {} } = await cacheService.getState(request);
 
+  const { id, path } = request.params;
+  const form = request.server.app.forms[id];
+  const page = form.pages.find((page) => page.path === `/${path}`);
+
   for (const [fieldName, values] of files) {
+    const schema = page.formSchema.describe();
+    const componentSchema = schema.keys[fieldName];
+    const originalFilename = originalFilenames[fieldName];
+
+    const filesArePopulated = values.every((value) => value?._data.length > 1);
+    const componentIsRequired = componentSchema?.flags?.presence === "required";
+
+    if (!filesArePopulated && !componentIsRequired) {
+      logger.warn(
+        loggerIdentifier,
+        `${fieldName} is optional, user skipped uploading a file. ${
+          originalFilename?.location
+            ? `Using ${originalFilename?.location} instead`
+            : ""
+        }`
+      );
+
+      request.payload[fieldName] = originalFilename?.location;
+      continue;
+    }
+
     const invalidFile = values.find(
       (value) => !uploadService.validateContentType(value)
     );
+
     if (invalidFile) {
       logger.error(
         loggerIdentifier,
         `User uploaded file with invalid content type or empty field for ${fieldName}, attempting to find previous upload`
       );
 
-      const originalFilename = originalFilenames[fieldName];
       if (!originalFilename) {
         logger.error(
           loggerIdentifier,

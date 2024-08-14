@@ -63,7 +63,7 @@ export class UploadService {
     }
 
     if (Array.isArray(value)) {
-      return value.every((v) => v?.readable);
+      return value.every((v) => v?.readable && v._data.length > 1);
     }
     return value?.readable;
   }
