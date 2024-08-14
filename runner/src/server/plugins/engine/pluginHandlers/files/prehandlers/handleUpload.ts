@@ -47,7 +47,6 @@ export async function handleUpload(
     try {
       response = await uploadService.uploadDocuments(streams);
     } catch (err) {
-      console.log("ERR", err);
       if (err.data?.res) {
         const { error } = uploadService.parsedDocumentUploadResponse(err.data);
         request.pre.errors = [
