@@ -27,16 +27,19 @@ export async function validateContentTypes(
   const { id, path } = request.params;
   const form = request.server.app.forms[id];
   const page = form.pages.find((page) => page.path === `/${path}`);
+  const components = page.components.formItems;
 
   for (const [fieldName, values] of files) {
-    const schema = page.formSchema.describe();
-    const componentSchema = schema.keys[fieldName];
+    const component = components.find(
+      (component) => component.name === fieldName
+    );
+
     const originalFilenameLocation = originalFilenames[fieldName]?.location;
 
-    const filesArePopulated = values.every((value) => value?._data.length > 1);
-    const componentIsRequired = componentSchema?.flags?.presence === "required";
+    const filesArePopulated = values.every((value) => value?._data?.length > 1);
+    const componentIsOptional = component?.options?.required === false;
 
-    if (!filesArePopulated && !componentIsRequired) {
+    if (!filesArePopulated && componentIsOptional) {
       logger.warn(
         loggerIdentifier,
         `${fieldName} is optional, user skipped uploading a file. ${

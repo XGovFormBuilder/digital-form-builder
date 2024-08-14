@@ -89,7 +89,7 @@ export class UploadService {
 
   fileSummary(files: ReadableStreamEntry[]) {
     return files.map(([fieldName, value]) => {
-      return `${value.length} files for field ${fieldName}`;
+      return `${value?.length ?? 0} files for field ${fieldName}`;
     });
   }
 
