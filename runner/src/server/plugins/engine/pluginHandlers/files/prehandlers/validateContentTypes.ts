@@ -31,7 +31,7 @@ export async function validateContentTypes(
   for (const [fieldName, values] of files) {
     const schema = page.formSchema.describe();
     const componentSchema = schema.keys[fieldName];
-    const originalFilename = originalFilenames[fieldName];
+    const originalFilenameLocation = originalFilenames[fieldName]?.location;
 
     const filesArePopulated = values.every((value) => value?._data.length > 1);
     const componentIsRequired = componentSchema?.flags?.presence === "required";
@@ -40,13 +40,13 @@ export async function validateContentTypes(
       logger.warn(
         loggerIdentifier,
         `${fieldName} is optional, user skipped uploading a file. ${
-          originalFilename?.location
-            ? `Using ${originalFilename?.location} instead`
+          originalFilenameLocation
+            ? `Using ${originalFilenameLocation} instead`
             : ""
         }`
       );
 
-      request.payload[fieldName] = originalFilename?.location;
+      request.payload[fieldName] = originalFilenameLocation;
       continue;
     }
 
@@ -60,7 +60,7 @@ export async function validateContentTypes(
         `User uploaded file with invalid content type or empty field for ${fieldName}, attempting to find previous upload`
       );
 
-      if (!originalFilename) {
+      if (!originalFilenameLocation) {
         logger.error(
           loggerIdentifier,
           `User uploaded invalid content type or empty field for ${fieldName}, and has no previous upload for field. Deleting ${fieldName} from payload`
@@ -69,12 +69,12 @@ export async function validateContentTypes(
         erroredFields.push(fieldName);
       }
 
-      if (originalFilename) {
+      if (originalFilenameLocation) {
         logger.warn(
           loggerIdentifier,
-          `User uploaded invalid content type or empty field for ${fieldName}, using existing upload ${originalFilename.location} instead`
+          `User uploaded invalid content type or empty field for ${fieldName}, using existing upload ${originalFilenameLocation} instead`
         );
-        request.payload[fieldName] = originalFilename.location;
+        request.payload[fieldName] = originalFilenameLocation;
       }
 
       continue;
