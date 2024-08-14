@@ -53,10 +53,17 @@ suite("uploads", () => {
       return [
         [
           "file1",
-          {
-            hapi: { filename: "file.jpg" },
-            _data: fs.readFileSync(path.join(__dirname, "dummy.pdf")),
-          },
+          [
+            {
+              hapi: {
+                filename: "file.jpg",
+                headers: {
+                  "content-type": "application/pdf",
+                },
+              },
+              _data: fs.readFileSync(path.join(__dirname, "dummy.pdf")),
+            },
+          ],
         ],
       ];
     });
@@ -98,7 +105,7 @@ suite("uploads", () => {
       method: "POST",
       url: "/upload/upload-file",
       headers: form.getHeaders(),
-      payload: null,
+      payload: form.getBuffer(),
     };
     const response = await server.inject(options);
 
@@ -112,15 +119,15 @@ suite("uploads", () => {
   test("request with file upload field containing invalid file type returns with error message", async () => {
     restore();
     stub(UploadService.prototype, "fileStreamsFromPayload").callsFake(() => {
-      return [
-        [
-          "file1",
-          {
-            hapi: { filename: "file.test" },
-            _data: fs.readFileSync(path.join(__dirname, "dummy.pdf")),
-          },
-        ],
-      ];
+      const buffer = fs.readFileSync(path.join(__dirname, "dummy.pdf"));
+      buffer.hapi = {
+        filename: "dummy.pdf",
+        headers: {
+          "content-type": "image/gif",
+        },
+      };
+
+      return [["file1", [buffer]]];
     });
 
     const form = new FormData();
@@ -138,5 +145,24 @@ suite("uploads", () => {
     expect($("[href='#file1']").text().trim()).to.contain(
       'The selected file for "Passport photo" must be a jpg, jpeg, png or pdf'
     );
+  });
+
+  test("Request with no files skips all prehandlers", async () => {
+    restore();
+
+    const form = new FormData();
+    form.append("favouriteEgg", "scrambled");
+    const options = {
+      method: "POST",
+      url: "/upload/favourite",
+      headers: form.getHeaders(),
+      payload: form.getBuffer(),
+    };
+    const response = await server.inject(options);
+
+    const $ = cheerio.load(response.payload);
+    expect(response.statusCode).to.equal(302);
+    expect(response.headers).to.include("location");
+    expect(response.headers.location).to.equal("/upload/summary");
   });
 });

@@ -11,6 +11,7 @@ import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "../../config";
 import * as exit from "./pluginHandlers/exit";
+import { ReadableStreamEntry } from "server/services/upload/uploadService";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -330,7 +331,11 @@ export const plugin = {
             return h.continue;
           },
         },
-        pre: [{ method: getFiles, assign: "files" }, { method: handleFiles }],
+        pre: [
+          { method: getFiles, assign: "files" },
+          { method: validateContentTypes, assign: "validFiles" },
+          { method: handleFiles },
+        ],
         handler: postHandler,
       },
     });
@@ -351,6 +356,51 @@ function getFiles(request: HapiRequest, _h: HapiResponseToolkit) {
       { id: request.yar.id, path: request.path },
       `Found ${uploadService.fileSummary(files)} to process on ${request.path}`
     );
+    return files;
   }
-  return files;
+
+  return null;
+}
+
+function validateContentTypes(request: HapiRequest, h: HapiResponseToolkit) {
+  const files = request.pre.files;
+
+  if (!files) {
+    return h.continue;
+  }
+
+  const { uploadService } = request.services([]);
+  const logger = request.server.logger;
+  const loggerIdentifier = { id: request.yar.id, path: request.path };
+
+  const validFields: ReadableStreamEntry[] = [];
+  const erroredFields: string[] = [];
+
+  for (const [fieldName, values] of files) {
+    const invalidFile = values.find(
+      (value) => !uploadService.validateContentType(value)
+    );
+
+    if (invalidFile) {
+      logger.error(
+        loggerIdentifier,
+        `User uploaded file with invalid content type for ${fieldName}, deleting from payload`
+      );
+
+      erroredFields.push(fieldName);
+      delete request.payload[fieldName];
+      continue;
+    }
+
+    validFields.push([fieldName, values]);
+  }
+
+  if (erroredFields) {
+    request.pre.hasInvalidContentTypes = true;
+    request.pre.errors = erroredFields.map((field) =>
+      uploadService.invalidFileTypeError(field)
+    );
+  }
+
+  return validFields;
 }

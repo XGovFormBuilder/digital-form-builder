@@ -611,7 +611,7 @@ export class PageControllerBase {
     /**
      * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
      */
-    if (preHandlerErrors) {
+    if (preHandlerErrors?.length) {
       const reformattedErrors: any[] = [];
       preHandlerErrors.forEach((error) => {
         const reformatted = error;

@@ -52,6 +52,24 @@
       ]
     },
     {
+      "path": "/favourite",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "favouriteEgg",
+          "title": {
+            "en": "What is your favourite egg"
+          }
+        }
+      ],
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
       "path": "/summary",
       "controller": "./pages/summary.ts",
       "components": [],
