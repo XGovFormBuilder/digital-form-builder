@@ -166,24 +166,8 @@ export class UploadService {
     const state = await cacheService.getState(request);
     let originalFilenames = state?.originalFilenames ?? {};
     const files = request.pre.files;
+
     if (!files) {
-      return h.continue;
-    }
-    /**
-     * If there are no valid file(buffer)s, reassign any empty buffers with empty string
-     * allows bypassing of file upload for whatever reason it doesn't work.
-     */
-    if (!files.length && request.payload) {
-      const fields = Object.entries(request.payload);
-
-      for (const [key, value] of fields) {
-        if (value._data) {
-          const originalFilename = originalFilenames[key];
-          request.payload[key] =
-            (originalFilename && originalFilename.location) || "";
-        }
-      }
-
       return h.continue;
     }
 
@@ -209,46 +193,6 @@ export class UploadService {
 
       try {
         response = await this.uploadDocuments(streams);
-
-        const { location, warning, error } = response;
-
-        if (location) {
-          const originalFileName = streams
-            .map((stream) => stream.hapi?.filename)
-            .join(", ");
-
-          this.logger.info(
-            loggerIdentifier,
-            `Uploaded ${fieldName} successfully to ${location}`
-          );
-
-          originalFilenames[fieldName] = { location, originalFileName };
-          const {
-            originalFilenames: updatedFilenames,
-          } = await cacheService.mergeState(request, { originalFilenames });
-
-          this.logger.info(
-            { ...loggerIdentifier, allFiles: updatedFilenames },
-            `Updated originalFileNames for user`
-          );
-          request.payload[fieldName] = location;
-          originalFilenames = updatedFilenames;
-        }
-
-        if (warning) {
-          request.pre.warning = warning;
-          this.logger.warn(
-            loggerIdentifier,
-            `File was uploaded successfully but there was a warning ${warning}`
-          );
-        }
-
-        if (error) {
-          request.pre.errors = [
-            ...(request.pre.errors || []),
-            parsedError(fieldName, error),
-          ];
-        }
       } catch (err) {
         console.log("ERR", err);
         if (err.data?.res) {
@@ -274,6 +218,50 @@ export class UploadService {
             parsedError(fieldName, err),
           ];
         }
+      }
+
+      const { location, warning, error } = response;
+
+      if (location) {
+        const originalFilename = streams
+          .map((stream) => stream.hapi?.filename)
+          .join(", ");
+
+        this.logger.info(
+          loggerIdentifier,
+          `Uploaded ${fieldName} successfully to ${location}`
+        );
+
+        originalFilenames[fieldName] = { location, originalFilename };
+        const {
+          originalFilenames: updatedFilenames,
+        } = await cacheService.mergeState(request, { originalFilenames });
+
+        this.logger.info(
+          { ...loggerIdentifier, allFiles: updatedFilenames },
+          `Updated originalFileNames for user`
+        );
+        request.payload[fieldName] = location;
+        originalFilenames = updatedFilenames;
+      }
+
+      if (warning) {
+        request.pre.warning = warning;
+        this.logger.warn(
+          loggerIdentifier,
+          `File was uploaded successfully but there was a warning ${warning}`
+        );
+      }
+
+      if (error) {
+        this.logger.error(
+          loggerIdentifier,
+          `Document upload API responded with an error ${error}`
+        );
+        request.pre.errors = [
+          ...(request.pre.errors || []),
+          parsedError(fieldName, error),
+        ];
       }
     }
 

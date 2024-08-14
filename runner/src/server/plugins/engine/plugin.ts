@@ -362,33 +362,52 @@ function getFiles(request: HapiRequest, _h: HapiResponseToolkit) {
   return null;
 }
 
-function validateContentTypes(request: HapiRequest, h: HapiResponseToolkit) {
+async function validateContentTypes(
+  request: HapiRequest,
+  h: HapiResponseToolkit
+) {
   const files = request.pre.files;
 
   if (!files) {
     return h.continue;
   }
 
-  const { uploadService } = request.services([]);
+  const { uploadService, cacheService } = request.services([]);
   const logger = request.server.logger;
   const loggerIdentifier = { id: request.yar.id, path: request.path };
 
   const validFields: ReadableStreamEntry[] = [];
   const erroredFields: string[] = [];
+  const { originalFilenames = {} } = await cacheService.getState(request);
 
   for (const [fieldName, values] of files) {
     const invalidFile = values.find(
       (value) => !uploadService.validateContentType(value)
     );
-
     if (invalidFile) {
       logger.error(
         loggerIdentifier,
-        `User uploaded file with invalid content type for ${fieldName}, deleting from payload`
+        `User uploaded file with invalid content type or empty field for ${fieldName}, attempting to find previous upload`
       );
 
-      erroredFields.push(fieldName);
-      delete request.payload[fieldName];
+      const originalFilename = originalFilenames[fieldName];
+      if (!originalFilename) {
+        logger.error(
+          loggerIdentifier,
+          `User uploaded invalid content type or empty field for ${fieldName}, and has no previous upload for field. Deleting ${fieldName} from payload`
+        );
+        delete request.payload[fieldName];
+        erroredFields.push(fieldName);
+      }
+
+      if (originalFilename) {
+        logger.warn(
+          loggerIdentifier,
+          `User uploaded invalid content type or empty field for ${fieldName}, using existing upload ${originalFilename.location} instead`
+        );
+        request.payload[fieldName] = originalFilename.location;
+      }
+
       continue;
     }
 
