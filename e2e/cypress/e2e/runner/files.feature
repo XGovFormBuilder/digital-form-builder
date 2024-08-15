@@ -19,5 +19,4 @@ Feature: File upload fields
     And I navigate to the "files" form
     When I upload the file "passes.png"
     And I navigate to "/files/file-one"
-    Then I see "You previously provided the file \"passes.png\""
-
+    Then I see "You previously uploaded the file ‘passes.png’"
