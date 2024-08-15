@@ -158,6 +158,8 @@ export class SummaryViewModel {
       const items: any[] = [];
       let sectionState = section ? state[section.name] || {} : state;
 
+      sectionState.originalFilenames = state.originalFilenames ?? {};
+
       const sectionPages = relevantPages.filter(
         (page) => page.section === section
       );
@@ -352,7 +354,7 @@ function Item(
     });
   }
 
-  return {
+  const item = {
     name: component.name,
     path: page.path,
     label: component.localisedString(component.title),
@@ -365,4 +367,14 @@ function Item(
     dataType: component.dataType,
     immutable: component.options.disableChangingFromSummary,
   };
+
+  if (
+    component.type === "FileUploadField" &&
+    model.showFilenamesOnSummaryPage
+  ) {
+    item.filename =
+      sectionState.originalFilenames[component.name]?.originalFilename;
+  }
+
+  return item;
 }

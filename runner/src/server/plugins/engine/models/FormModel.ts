@@ -63,6 +63,7 @@ export class FormModel {
   specialPages: FormDefinition["specialPages"];
   exitOptions?: ExitOptions;
   allowExit: boolean = false;
+  showFilenamesOnSummaryPage: boolean = false;
 
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
@@ -119,6 +120,8 @@ export class FormModel {
       this.exitOptions = new ExitOptions(def.exitOptions);
       this.allowExit = true;
     }
+
+    this.showFilenamesOnSummaryPage = def.showFilenamesOnSummaryPage ?? false;
 
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
