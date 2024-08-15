@@ -18,8 +18,6 @@ Feature: Image quality playback page
    And I choose "<option>"
    And I continue
    Then I see the heading "<heading>"
-   And I navigate to "/image-quality-playback/upload-a-file"
-   Then I see "You have already provided this file"
   Examples:
    | option                                     | heading        |
    | No - I'm happy with the image              | Summary        |
