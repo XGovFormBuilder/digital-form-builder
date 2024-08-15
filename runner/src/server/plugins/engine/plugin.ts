@@ -11,6 +11,11 @@ import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "../../config";
 import * as exit from "./pluginHandlers/exit";
+import {
+  getFiles,
+  handleUpload,
+  validateContentTypes,
+} from "./pluginHandlers/files/prehandlers";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -280,15 +285,6 @@ export const plugin = {
 
     const { uploadService } = server.services([]);
 
-    const handleFiles = (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { path, id } = request.params;
-      const model = forms[id];
-      const page = model?.pages.find(
-        (page) => normalisePath(page.path) === normalisePath(path)
-      );
-      return uploadService.handleUploadRequest(request, h, page.pageDef);
-    };
-
     //TODO:- Merge with POST /{id}/{path*} route, and move to ./pluginHandlers/id/*
     const postHandler = async (
       request: HapiRequest,
@@ -330,7 +326,11 @@ export const plugin = {
             return h.continue;
           },
         },
-        pre: [{ method: handleFiles }],
+        pre: [
+          { method: getFiles, assign: "files" },
+          { method: validateContentTypes, assign: "validFiles" },
+          { method: handleUpload },
+        ],
         handler: postHandler,
       },
     });

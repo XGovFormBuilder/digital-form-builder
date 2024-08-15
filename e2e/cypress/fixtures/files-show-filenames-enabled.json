@@ -1,0 +1,48 @@
+{
+  "startPage": "/file-one",
+  "pages": [
+    {
+      "path": "/file-one",
+      "components": [
+        {
+          "type": "FileUploadField",
+          "name": "file1",
+          "title": "File 1",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "section": "checkBeforeYouStart",
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "title": "Upload file 1"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
+    }
+  ],
+  "phaseBanner": {},
+  "fees": [],
+  "payApiKey": "",
+  "outputs": [],
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
+  "version": 2,
+  "conditions": [],
+  "showFilenamesOnSummaryPage": true
+}
