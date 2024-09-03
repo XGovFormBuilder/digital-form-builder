@@ -3,6 +3,8 @@
 {% from "components/checkboxes/macro.njk" import govukCheckboxes %}
 {% extends 'layout.html' %}
 
+{% set pageTitle = pageTitle if not isReadOnlySummary else "View your answers" %}
+
 {% block beforeContent %}
   {{ govukPhaseBanner({
     tag: {
@@ -10,10 +12,10 @@
     },
     html: "This is a new service."
   }) }}
-    {% if isConfirmPageControllerRequest %}
+    {% if isConfirmPageControllerRequest or isReadOnlySummary %}
         {{ govukBackLink({
                 href: backLink,
-                text: backLinkText
+                text: backLinkText if not isReadOnlySummary else "Back to application for funding overview"
             }) }}
     {% endif %}
 {% endblock %}
@@ -23,6 +25,11 @@
       <div class="govuk-grid-column-full">
         {% if migrationBannerEnabled %}
           {{migrationBanner()}}
+        {% endif %}
+
+        {% set hasMultipleSections = (details and details.length > 1 and details[0].items[0] | isArray) %}
+        {% if not hasMultipleSections %}
+        <span class="govuk-caption-l">{{ details[0].title }}</span>
         {% endif %}
         <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
         {% if callback and callback.message %}
@@ -35,8 +42,13 @@
           Check your uploaded file is visible. If not, upload it again.
         </div>
         {% endif %}
+
+        {% if isReadOnlySummary %}
+        <p class="govuk-body">You cannot change your answers.</p>
+        {% endif %}
+
         {% for detail in details %}
-          {{ summaryDetail(detail) }}
+          {{ summaryDetail(detail, isReadOnlySummary) }}
         {% endfor %}
 
         {% if fees and fees.details|length %}
@@ -49,7 +61,7 @@
           <p class="govuk-body">Total cost: £{{fees.total / 100 }}</p>
         {% endif %}
 
-        {% if not result.error  %}
+        {% if not result.error and not isReadOnlySummary %}
             <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
               <input type="hidden" name="crumb" value="{{crumb}}"/>
 
