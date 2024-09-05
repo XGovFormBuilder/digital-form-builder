@@ -1,8 +1,8 @@
 {% from "./summary-row.html" import summaryRow %}
 
-{% macro summaryDetail(data) %}
+{% macro summaryDetail(data, isReadOnlySummary=false) %}
     {%  set isRepeatableSection = (data.items[0] | isArray) %}
-    {% if not isRepeatableSection %}
+    {% if (not isRepeatableSection and not isReadOnlySummary) %}
         <h2 class="govuk-heading-m">{{data.title}}</h2>
     {% endif %}
   <dl class="govuk-summary-list">
@@ -14,7 +14,7 @@
                 {{ summaryRow(repeated) }}
             {% endfor %}
         {% else %}
-          {{ summaryRow(item, data.notSuppliedText, data.changeText) }}
+          {{ summaryRow(item, data.notSuppliedText, data.changeText, isReadOnlySummary) }}
         {% endif %}
       {% endif %}
     {% endfor %}
