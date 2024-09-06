@@ -2,7 +2,7 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 RUN npm install -g npm@^9.x.x && \
     mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
