@@ -52,7 +52,7 @@ jobs:
         run: yarn ${{inputs.workspace}} test-cov
 
       - name: Upload test results artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: ${{ success() || failure() }}
         with:
           name: test-results-${{inputs.workspace}}
@@ -60,7 +60,7 @@ jobs:
           retention-days: 14
 
       - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: ${{ success() || failure() }}
         with:
           name: test-coverage-${{inputs.workspace}}
