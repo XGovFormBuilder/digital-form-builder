@@ -26,9 +26,8 @@ export class ContextComponent extends FormComponent {
 
     if (name in state) {
       _.set(result, `${path}${name}`, this.getFormValueFromState(state));
-      return result;
     }
 
-    return undefined;
+    return result;
   }
 }

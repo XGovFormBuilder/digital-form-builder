@@ -32,7 +32,8 @@
           "schema": {}
         }
       ],
-      "next": [{ "path": "/summary" }]
+      "next": [{ "path": "/summary" }],
+      "section": "gcdSFb"
     },
     {
       "title": "Summary",
