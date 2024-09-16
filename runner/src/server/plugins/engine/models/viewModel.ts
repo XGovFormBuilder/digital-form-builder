@@ -55,6 +55,7 @@ export class ViewModel {
   saveAndContinueText: string;
   confirmAndContinueText?: string;
   isConfirmPageControllerRequest?: boolean;
+  isReadOnlySummary?: boolean;
   continueText: string;
   footer?: any;
 

@@ -201,6 +201,16 @@ export class SummaryPageController extends PageController {
         );
         viewModel.backLink = state.callback?.returnUrl;
       }
+      if (state["metadata"] && state["metadata"]["is_read_only_summary"]) {
+        viewModel.isReadOnlySummary =
+          state["metadata"]["is_read_only_summary"];
+        viewModel.backLinkText = UtilHelper.getBackLinkText(
+          true,
+          this.model.def?.metadata?.isWelsh
+        );
+        viewModel.backLink = state.callback?.returnUrl;
+      }
+
       return h.view("summary", viewModel);
     };
   }
