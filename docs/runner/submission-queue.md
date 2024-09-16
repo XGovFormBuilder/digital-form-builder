@@ -34,7 +34,7 @@ support that is required.
 
 #### PGBOSS Prerequisites
 
-- PostgreSQL database >=v11
+- PostgreSQL database >=v13
 - A worker process which can connect to the PostgreSQL database, via PgBoss. Your implementation should look something like this
 
 ```ts
@@ -80,15 +80,16 @@ When using pgboss, it is important that successful work returns `{ reference }` 
 
 ### Environment variables
 
-| Variable name                  | Definition                                                                               | Default | Example                                     |
-| ------------------------------ | ---------------------------------------------------------------------------------------- | ------- | ------------------------------------------- |
-| ENABLE_QUEUE_SERVICE           | Whether the queue service is enabled or not                                              | `false` |                                             |
-| QUEUE_DATABASE_TYPE            | PGBOSS or MYSQL                                                                          |         |                                             |
-| QUEUE_DATABASE_URL             | Used for configuring the endpoint of the database instance                               |         | mysql://username:password@endpoint/database |
-| QUEUE_DATABASE_USERNAME        | Used for configuring the user being used to access the database                          |         | root                                        |
-| QUEUE_DATABASE_PASSWORD        | Used for configuring the password used for accessing the database                        |         | password                                    |
-| QUEUE_SERVICE_POLLING_INTERVAL | The amount of time, in milliseconds, between poll requests for updates from the database | 500     |                                             |
-| QUEUE_SERVICE_POLLING_TIMEOUT  | The total amount of time, in milliseconds, to poll requests for from the database        | 2000    |                                             |
+| Variable name                  | Definition                                                                               | Default  | Example                                     |
+| ------------------------------ | ---------------------------------------------------------------------------------------- | -------- | ------------------------------------------- |
+| ENABLE_QUEUE_SERVICE           | Whether the queue service is enabled or not                                              | `false`  |                                             |
+| QUEUE_DATABASE_TYPE            | PGBOSS or MYSQL                                                                          |          |                                             |
+| QUEUE_DATABASE_URL             | Used for configuring the endpoint of the database instance                               |          | mysql://username:password@endpoint/database |
+| QUEUE_DATABASE_USERNAME        | Used for configuring the user being used to access the database                          |          | root                                        |
+| QUEUE_DATABASE_PASSWORD        | Used for configuring the password used for accessing the database                        |          | password                                    |
+| QUEUE_DATABASE_SCHEMA_NAME     | Used for configuring the schema name that pgboss should use                              | `pgboss` |                                             |
+| QUEUE_SERVICE_POLLING_INTERVAL | The amount of time, in milliseconds, between poll requests for updates from the database | 500      |                                             |
+| QUEUE_SERVICE_POLLING_TIMEOUT  | The total amount of time, in milliseconds, to poll requests for from the database        | 2000     |                                             |
 
 Webhooks can be configured so that the submitter only attempts to post to the webhook URL once.
 
