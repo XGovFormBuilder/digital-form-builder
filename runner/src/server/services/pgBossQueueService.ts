@@ -25,7 +25,11 @@ export class PgBossQueueService extends QueueService {
     this.pollingInterval = parseInt(config.queueServicePollingInterval);
     this.pollingTimeout = parseInt(config.queueServicePollingTimeout);
 
-    const boss = new PgBoss(config.queueDatabaseUrl);
+    const schema = config.queueDatabaseSchemaName;
+    const boss = new PgBoss({
+      connectionString: config.queueDatabaseUrl,
+      schema,
+    });
     this.queue = boss;
     boss.on("error", this.logger.error);
     boss.start().catch((e) => {
@@ -37,9 +41,7 @@ export class PgBossQueueService extends QueueService {
   }
 
   /**
-   * Fetches a reference number from `this.queueReferenceApiUrl/{jobId}`.
-   * If a reference number for `jobId` exists, the response body must be {@link QueueReferenceApiResponse}.
-   * This request will happen once, and timeout in 2s.
+   * Fetches a reference number from the database.
    */
   async getReturnRef(
     jobId: string

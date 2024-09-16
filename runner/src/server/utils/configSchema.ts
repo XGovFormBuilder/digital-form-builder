@@ -132,6 +132,7 @@ export const configSchema = Joi.object({
     then: Joi.number().required(),
     otherwise: Joi.optional(),
   }),
+  queueDatabaseSchemaName: Joi.string().optional(),
   allowUserTemplates: Joi.boolean().optional(),
   maxClientFileSize: Joi.number().default("5242880"), // 5MB
   maxFileSizeStringInMb: Joi.string().default("5"),
