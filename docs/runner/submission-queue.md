@@ -188,6 +188,8 @@ following errors will be thrown:
 
 ## Migration guide
 
+### MYSQL to PGBOSS
+
 If you are moving from MYSQL to PGBOSS, ensure you have a worker which will handle the jobs added to your queue. For "zero downtime",
 
 1. Set up any new infrastructure components if necessary (e.g. database and worker)
@@ -199,3 +201,13 @@ Any submissions that have previously failed, or were submitted during deployment
 Check the database to ensure that there are no more failed entries.
 
 You may then safely remove the submitter, and MySQL database (if it is not used for any other purpose).
+
+### PGBOSS v9 to v10
+
+If you are upgrading from v3.33.0-rc.10 to any higher version, you will need to set `QUEUE_DATABASE_SCHEMA_NAME` to a new value, such as `pgboss_v10`. This is so that pgboss can set up it's schema on the first run.
+
+You should keep an old version of your queue worker running for a few minutes, so that messages can be drained form the old schema.
+It will then be safe to
+
+1. Delete the old schema
+2. Stop the old worker
