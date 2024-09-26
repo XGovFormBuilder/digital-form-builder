@@ -31,7 +31,7 @@ Also see the individual repo README files for additional info:
 
 **Always run scripts from the root directory.**
 
-1. Make sure you are using node 18 `node --version`.
+1. Make sure you are using node 20 `node --version`.
 2. Make sure you have yarn 1.22+ installed. You do not need to install yarn 2.4+, yarn will detect the yarn 2 binary within [.yarn](./.yarn) and that will be used.
 3. If using the designer:
    - Note that the designer requires the runner to be running with the default `NODE_ENV=development` settings (see [runner/config/development.json](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner/config/development.json)) to enable posting and previewing of forms during design.

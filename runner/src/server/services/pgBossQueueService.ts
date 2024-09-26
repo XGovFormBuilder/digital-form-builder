@@ -1,6 +1,6 @@
 import { QueueService } from "server/services/QueueService";
 type QueueResponse = [number | string, string | undefined];
-import PgBoss, { Job, JobWithMetadata } from "pg-boss";
+import PgBoss, { JobWithMetadata } from "pg-boss";
 import config from "server/config";
 
 type QueueReferenceApiResponse = {
@@ -32,12 +32,19 @@ export class PgBossQueueService extends QueueService {
     });
     this.queue = boss;
     boss.on("error", this.logger.error);
-    boss.start().catch((e) => {
-      this.logger.error(
-        `Connecting to ${config.queueDatabaseUrl} failed, exiting`
-      );
-      throw e;
-    });
+    boss
+      .start()
+      .then(() => {
+        boss.createQueue(this.queueName).then(() => {
+          this.logger.info(`${this.queueName} queue created successfully`);
+        });
+      })
+      .catch((e) => {
+        this.logger.error(
+          `Connecting to ${config.queueDatabaseUrl} failed, exiting`
+        );
+        throw e;
+      });
   }
 
   /**
@@ -52,7 +59,7 @@ export class PgBossQueueService extends QueueService {
     let job;
 
     try {
-      job = await this.queue.getJobById(jobId);
+      job = await this.queue.getJobById(this.queueName, jobId);
     } catch (e) {
       this.logger.error(
         ["PgBossQueueService", "getReturnRef"],
