@@ -1,0 +1,29 @@
+{% from "partials/summary-detail.html" import summaryDetail %}
+{% from "components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "summary-list/macro.njk" import govukSummaryList %}
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+            {{ pageTitle }}
+        </h1>
+
+        {% for list in lists %}
+        <h2 class="govuk-heading-m"> {{list.sectionTitle}} </h2>
+          {{ govukSummaryList(list) }}
+        {% endfor %}
+
+
+          <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
+            <input type="hidden" name="crumb" value="{{crumb}}"/>
+            <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+          <form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

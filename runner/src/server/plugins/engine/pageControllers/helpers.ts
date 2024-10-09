@@ -11,6 +11,7 @@ import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
 import { Page } from "@xgovformbuilder/model";
 import { UploadPageController } from "server/plugins/engine/pageControllers/UploadPageController";
 import { MultiStartPageController } from "server/plugins/engine/pageControllers/MultiStartPageController";
+import { SummaryPageWithNextPageController } from "server/plugins/engine/pageControllers/SummaryPageWithNextPageController";
 
 const PageControllers = {
   DobPageController,
@@ -23,6 +24,7 @@ const PageControllers = {
   RepeatingFieldPageController,
   UploadPageController,
   MultiStartPageController,
+  SummaryPageWithNextPageController,
 };
 
 export const controllerNameFromPath = (filePath: string) => {

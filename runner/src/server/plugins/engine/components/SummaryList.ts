@@ -1,0 +1,84 @@
+import { ComponentBase } from "server/plugins/engine/components/ComponentBase";
+import { FormData, FormSubmissionErrors } from "server/plugins/engine/types";
+
+export class SummaryList extends ComponentBase {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {}
+}
+
+/**
+ * rows: [
+ *     {
+ *       key: {
+ *         text: "Name"
+ *       },
+ *       value: {
+ *         text: "Sarah Philips"
+ *       },
+ *       actions: {
+ *         items: [
+ *           {
+ *             href: "#",
+ *             text: "Change",
+ *             visuallyHiddenText: "name"
+ *           }
+ *         ]
+ *       }
+ *     },
+ *     {
+ *       key: {
+ *         text: "Date of birth"
+ *       },
+ *       value: {
+ *         text: "5 January 1978"
+ *       },
+ *       actions: {
+ *         items: [
+ *           {
+ *             href: "#",
+ *             text: "Change",
+ *             visuallyHiddenText: "date of birth"
+ *           }
+ *         ]
+ *       }
+ *     },
+ *     {
+ *       key: {
+ *         text: "Address"
+ *       },
+ *       value: {
+ *         html: "72 Guild Street<br>London<br>SE23 6FH"
+ *       },
+ *       actions: {
+ *         items: [
+ *           {
+ *             href: "#",
+ *             text: "Change",
+ *             visuallyHiddenText: "address"
+ *           }
+ *         ]
+ *       }
+ *     },
+ *     {
+ *       key: {
+ *         text: "Contact details"
+ *       },
+ *       value: {
+ *         html: '<p class="govuk-body">07700 900457</p><p class="govuk-body">sarah.phillips@example.com</p>'
+ *       },
+ *       actions: {
+ *         items: [
+ *           {
+ *             href: "#",
+ *             text: "Add",
+ *             visuallyHiddenText: "contact details"
+ *           },
+ *           {
+ *             href: "#",
+ *             text: "Change",
+ *             visuallyHiddenText: "contact details"
+ *           }
+ *         ]
+ *       }
+ *     }
+ *   ]
+ */
