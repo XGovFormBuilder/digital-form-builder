@@ -1,4 +1,8 @@
-import { ConditionRawData, FormDefinition } from "@xgovformbuilder/model";
+import {
+  ConditionRawData,
+  ConditionsModel,
+  FormDefinition,
+} from "@xgovformbuilder/model";
 
 /**
  * @param data
@@ -8,7 +12,7 @@ import { ConditionRawData, FormDefinition } from "@xgovformbuilder/model";
 export function updateCondition(
   data: FormDefinition,
   conditionName: ConditionRawData["name"],
-  updatedPartial: Partial<Omit<ConditionRawData, "name">>
+  updatedPartial: ConditionsModel
 ): FormDefinition {
   const conditions = [...data.conditions!];
   const conditionIndex = conditions.findIndex(
@@ -18,15 +22,15 @@ export function updateCondition(
     throw Error(`No condition found with name ${conditionName}`);
   }
   const condition = data.conditions[conditionIndex];
-  const {
-    displayName = condition.displayName,
-    value: conditionValue = condition.value,
-  } = updatedPartial;
+  const { name: displayName, asPerUserGroupings } = updatedPartial;
 
   const updatedCondition = {
     ...condition,
     displayName,
-    value: conditionValue,
+    value: {
+      name: condition.value.name,
+      conditions: asPerUserGroupings,
+    },
   };
 
   return {

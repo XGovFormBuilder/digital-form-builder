@@ -1,0 +1,361 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "YesNo",
+          "options": {},
+          "type": "YesNoField",
+          "title": "first page yes no",
+          "nameHasError": false,
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/second-page", "condition": "zDnqpG" },
+        { "path": "/page-3", "condition": "SIwgdM" }
+      ],
+      "section": "HQFhXb"
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [
+        {
+          "name": "YesNo",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Second page yes no",
+          "nameHasError": false,
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/page-4", "condition": "MwPhML" },
+        { "path": "/page-6", "condition": "lqCigw" }
+      ],
+      "section": "xhTyqx"
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    },
+    {
+      "path": "/page-3",
+      "title": "Page 3",
+      "components": [
+        {
+          "name": "EGUXFt",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Page 3 yes no",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/page-4", "condition": "NytpLR" },
+        { "path": "/page-5", "condition": "ppGecr" }
+      ]
+    },
+    {
+      "path": "/page-4",
+      "title": "Page 4",
+      "components": [
+        {
+          "name": "TAdqlw",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Page 4 yes no"
+        }
+      ],
+      "next": [
+        { "path": "/summary", "condition": "rQaeYP" },
+        { "path": "/page-7" }
+      ]
+    },
+    { "path": "/page-5", "title": "Page 5", "components": [], "next": [] },
+    { "path": "/page-6", "title": "Page 6", "components": [], "next": [] },
+    { "path": "/page-7", "title": "Page 7", "components": [], "next": [] }
+  ],
+  "lists": [],
+  "sections": [
+    { "name": "HQFhXb", "title": "Section 1" },
+    { "name": "xhTyqx", "title": "Section 2" }
+  ],
+  "conditions": [
+    {
+      "displayName": "Page 1 is yes",
+      "name": "SIwgdM",
+      "value": {
+        "name": "Page 1 is yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "HQFhXb.YesNo",
+              "type": "YesNoField",
+              "display": "first page yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 1 is no",
+      "name": "zDnqpG",
+      "value": {
+        "name": "Page 1 is no",
+        "conditions": [
+          {
+            "field": {
+              "name": "HQFhXb.YesNo",
+              "type": "YesNoField",
+              "display": "first page yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 2 is yes",
+      "name": "pIEnEM",
+      "value": {
+        "name": "Page 2 is yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "xhTyqx.YesNo",
+              "type": "YesNoField",
+              "display": "Second page yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 2 is no",
+      "name": "PCHZDP",
+      "value": {
+        "name": "Page 2 is no",
+        "conditions": [
+          {
+            "field": {
+              "name": "xhTyqx.YesNo",
+              "type": "YesNoField",
+              "display": "Second page yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 1 is no and page 2 is no",
+      "name": "lqCigw",
+      "value": {
+        "name": "Page 1 is no and page 2 is no",
+        "conditions": [
+          { "conditionName": "zDnqpG", "conditionDisplayName": "Page 1 is no" },
+          {
+            "coordinator": "and",
+            "conditionName": "PCHZDP",
+            "conditionDisplayName": "Page 2 is no"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 1 is no and page 2 is yes",
+      "name": "MwPhML",
+      "value": {
+        "name": "Page 1 is no and page 2 is yes",
+        "conditions": [
+          { "conditionName": "zDnqpG", "conditionDisplayName": "Page 1 is no" },
+          {
+            "coordinator": "and",
+            "conditionName": "pIEnEM",
+            "conditionDisplayName": "Page 2 is yes"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 3 is yes",
+      "name": "navVim",
+      "value": {
+        "name": "Page 3 is yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "EGUXFt",
+              "type": "YesNoField",
+              "display": "Page 3 yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 3 is no",
+      "name": "tivwpa",
+      "value": {
+        "name": "Page 3 is no",
+        "conditions": [
+          {
+            "field": {
+              "name": "EGUXFt",
+              "type": "YesNoField",
+              "display": "Page 3 yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 1 is yes and page 3 is yes",
+      "name": "NytpLR",
+      "value": {
+        "name": "Page 1 is yes and page 3 is yes",
+        "conditions": [
+          {
+            "conditionName": "SIwgdM",
+            "conditionDisplayName": "Page 1 is yes"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "navVim",
+            "conditionDisplayName": "Page 3 is yes"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 1 is yes and page 3 is no",
+      "name": "ppGecr",
+      "value": {
+        "name": "Page 1 is yes and page 3 is no",
+        "conditions": [
+          {
+            "conditionName": "SIwgdM",
+            "conditionDisplayName": "Page 1 is yes"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "tivwpa",
+            "conditionDisplayName": "Page 3 is no"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 4 is yes",
+      "name": "iHDFwh",
+      "value": {
+        "name": "Page 4 is yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "TAdqlw",
+              "type": "YesNoField",
+              "display": "Page 4 yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Page 4 is no",
+      "name": "kuaRrI",
+      "value": {
+        "name": "Page 4 is no",
+        "conditions": [
+          {
+            "field": {
+              "name": "TAdqlw",
+              "type": "YesNoField",
+              "display": "Page 4 yes no"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "page 1 is yes, page 2 is yes and page 4 is yes",
+      "name": "zrlOIn",
+      "value": {
+        "name": "page 1 is yes, page 2 is yes and page 4 is yes",
+        "conditions": [
+          {
+            "conditionName": "NytpLR",
+            "conditionDisplayName": "Page 1 is yes and page 3 is yes"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "iHDFwh",
+            "conditionDisplayName": "Page 4 is yes"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "page 1 is no, page 2 is yes and page 4 is yes",
+      "name": "chNfHc",
+      "value": {
+        "name": "page 1 is no, page 2 is yes and page 4 is yes",
+        "conditions": [
+          {
+            "conditionName": "MwPhML",
+            "conditionDisplayName": "Page 1 is no and page 2 is yes"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "iHDFwh",
+            "conditionDisplayName": "Page 4 is yes"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "summary page should be shown",
+      "name": "rQaeYP",
+      "value": {
+        "name": "summary page should be shown",
+        "conditions": [
+          {
+            "conditionName": "zrlOIn",
+            "conditionDisplayName": "page 1 is yes, page 2 is yes and page 4 is yes"
+          },
+          {
+            "coordinator": "or",
+            "conditionName": "chNfHc",
+            "conditionDisplayName": "page 1 is no, page 2 is yes and page 4 is yes"
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false
+}
