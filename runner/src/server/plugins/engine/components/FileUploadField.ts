@@ -6,8 +6,16 @@ import { FileUploadFieldComponent } from "@xgovformbuilder/model";
 import { FormModel } from "server/plugins/engine/models";
 import joi, { Schema } from "joi";
 
+type FileUploadAttributes = {
+  accept: string;
+  multiple?: string;
+};
+
 export class FileUploadField extends FormComponent {
   dataType = "file" as DataType;
+  attributes: FileUploadAttributes = {
+    accept: "image/jpeg,image/gif,image/png,application/pdf",
+  };
 
   constructor(def: FileUploadFieldComponent, model: FormModel) {
     super(def, model);
@@ -18,6 +26,14 @@ export class FileUploadField extends FormComponent {
 
     if (options.required === false) {
       componentSchema = componentSchema.allow("").allow(null);
+    }
+
+    if (options.multiple) {
+      this.attributes.multiple = "multiple";
+    }
+
+    if (options.accept) {
+      this.attributes.accept = options.accept;
     }
 
     componentSchema = componentSchema.messages({
@@ -38,12 +54,6 @@ export class FileUploadField extends FormComponent {
 
   getStateSchemaKeys() {
     return { [this.name]: this.schema as Schema };
-  }
-
-  get attributes() {
-    return {
-      accept: "image/jpeg,image/gif,image/png,application/pdf",
-    };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {

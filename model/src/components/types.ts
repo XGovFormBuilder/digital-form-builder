@@ -232,6 +232,7 @@ export interface FileUploadFieldComponent {
     exposeToContext?: boolean;
     imageQualityPlayback?: boolean;
     disableChangingFromSummary?: boolean;
+    accept?: string;
   };
   schema: {};
 }
