@@ -31,7 +31,7 @@
     "@babel/runtime": "^7.23.3",
     "boom": "7.3.0",
     "btoa": "^1.2.1",
-    "govuk-frontend": "^4.0.1",
+    "govuk-frontend": "^4.9.0",
     "joi": "17.2.1"
   },
   "devDependencies": {
