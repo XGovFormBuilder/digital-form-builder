@@ -159,13 +159,9 @@ export class UploadService {
     file: HapiReadableStream,
     customAcceptedTypes?: string[]
   ) {
-    if (customAcceptedTypes) {
-      return customAcceptedTypes.includes(
-        file?.hapi?.headers?.["content-type"]
-      );
-    }
+    const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
-    return this.validContentTypes.has(file?.hapi?.headers?.["content-type"]);
+    return acceptedTypes.includes(file?.hapi?.headers?.["content-type"]);
   }
 
   invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
