@@ -34,6 +34,8 @@ export async function validateContentTypes(
       (component) => component.name === fieldName
     );
 
+    const customAcceptedTypes = component.customAcceptedTypes;
+
     const originalFilenameLocation = originalFilenames[fieldName]?.location;
 
     const filesArePopulated = values.every((value) => value?._data?.length > 1);
@@ -54,7 +56,7 @@ export async function validateContentTypes(
     }
 
     const invalidFile = values.find(
-      (value) => !uploadService.validateContentType(value)
+      (value) => !uploadService.validateContentType(value, customAcceptedTypes)
     );
 
     if (invalidFile) {

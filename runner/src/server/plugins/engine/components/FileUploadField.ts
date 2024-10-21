@@ -16,6 +16,7 @@ export class FileUploadField extends FormComponent {
   attributes: FileUploadAttributes = {
     accept: "image/jpeg,image/gif,image/png,application/pdf",
   };
+  customAcceptedTypes?: string[] = [];
 
   constructor(def: FileUploadFieldComponent, model: FormModel) {
     super(def, model);
@@ -34,6 +35,7 @@ export class FileUploadField extends FormComponent {
 
     if (options.accept) {
       this.attributes.accept = options.accept;
+      this.customAcceptedTypes = options.accept.split(",");
     }
 
     componentSchema = componentSchema.messages({
