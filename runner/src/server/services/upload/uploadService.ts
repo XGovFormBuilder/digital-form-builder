@@ -42,9 +42,9 @@ export class UploadService {
     this.logger = server.logger;
   }
 
-  validContentTypes = ["image/jpeg", "application/pdf", "image/png"];
+  validContentTypes = ["image/jpeg", "image/png", "application/pdf"];
 
-  validFiletypesString(customAcceptedTypes: string[]) {
+  validFiletypesString(customAcceptedTypes?: string[]) {
     const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
     const acceptedTypeNames = acceptedTypes
@@ -186,7 +186,7 @@ export class UploadService {
 }
 
 const contentTypeToName = {
-  "image/jpeg": "jpg",
+  "image/jpeg": "jpg, jpeg",
   "image/png": "png",
   "application/pdf": "pdf",
   "application/vnd.oasis.opendocument.text": "odt",

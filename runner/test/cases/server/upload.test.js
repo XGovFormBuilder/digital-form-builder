@@ -119,15 +119,22 @@ suite("uploads", () => {
   test("request with file upload field containing invalid file type returns with error message", async () => {
     restore();
     stub(UploadService.prototype, "fileStreamsFromPayload").callsFake(() => {
-      const buffer = fs.readFileSync(path.join(__dirname, "dummy.pdf"));
-      buffer.hapi = {
-        filename: "dummy.pdf",
-        headers: {
-          "content-type": "image/gif",
-        },
-      };
-
-      return [["file1", [buffer]]];
+      return [
+        [
+          "file1",
+          [
+            {
+              hapi: {
+                filename: "file.jpg",
+                headers: {
+                  "content-type": "application/json",
+                },
+              },
+              _data: fs.readFileSync(path.join(__dirname, "dummy.pdf")),
+            },
+          ],
+        ],
+      ];
     });
 
     const form = new FormData();

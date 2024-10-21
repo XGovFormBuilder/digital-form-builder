@@ -16,7 +16,7 @@ export class FileUploadField extends FormComponent {
   attributes: FileUploadAttributes = {
     accept: "image/jpeg,image/gif,image/png,application/pdf",
   };
-  customAcceptedTypes?: string[] = [];
+  customAcceptedTypes?: string[];
 
   constructor(def: FileUploadFieldComponent, model: FormModel) {
     super(def, model);
