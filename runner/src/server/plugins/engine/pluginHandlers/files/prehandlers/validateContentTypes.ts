@@ -20,7 +20,10 @@ export async function validateContentTypes(
   const loggerIdentifier = { id: request.yar.id, path: request.path };
 
   const validFields: ReadableStreamEntry[] = [];
-  const erroredFields: string[] = [];
+  const erroredFields: {
+    fieldName: string;
+    customAcceptedTypes?: string[];
+  }[] = [];
 
   const { originalFilenames = {} } = await cacheService.getState(request);
 
@@ -33,6 +36,8 @@ export async function validateContentTypes(
     const component = components.find(
       (component) => component.name === fieldName
     );
+
+    const customAcceptedTypes = component.customAcceptedTypes;
 
     const originalFilenameLocation = originalFilenames[fieldName]?.location;
 
@@ -54,7 +59,7 @@ export async function validateContentTypes(
     }
 
     const invalidFile = values.find(
-      (value) => !uploadService.validateContentType(value)
+      (value) => !uploadService.validateContentType(value, customAcceptedTypes)
     );
 
     if (invalidFile) {
@@ -69,7 +74,7 @@ export async function validateContentTypes(
           `User uploaded invalid content type or empty field for ${fieldName}, and has no previous upload for field. Deleting ${fieldName} from payload`
         );
         delete request.payload[fieldName];
-        erroredFields.push(fieldName);
+        erroredFields.push({ fieldName, customAcceptedTypes });
       }
 
       if (originalFilenameLocation) {
@@ -87,9 +92,10 @@ export async function validateContentTypes(
   }
 
   if (erroredFields) {
-    request.pre.errors = erroredFields.map((field) =>
-      uploadService.invalidFileTypeError(field)
-    );
+    request.pre.errors = erroredFields.map((field) => {
+      const { fieldName, customAcceptedTypes } = field;
+      return uploadService.invalidFileTypeError(fieldName, customAcceptedTypes);
+    });
   }
 
   return validFields;

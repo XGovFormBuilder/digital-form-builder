@@ -42,11 +42,22 @@ export class UploadService {
     this.logger = server.logger;
   }
 
-  validContentTypes = new Set(["image/jpeg", "application/pdf", "image/png"]);
-  validFiletypes = ["jpg", "jpeg", "png", "pdf"];
-  validFiletypesString = `The selected file for "%s" must be a ${this.validFiletypes
-    .slice(0, -1)
-    .join(", ")} or ${this.validFiletypes.slice(-1)}`;
+  validContentTypes = ["image/jpeg", "image/png", "application/pdf"];
+
+  validFiletypesString(customAcceptedTypes?: string[]) {
+    const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
+
+    const acceptedTypeNames = acceptedTypes
+      .map((type) => contentTypeToName[type])
+      .filter(Boolean);
+
+    const acceptedTypesNameWithoutLast = acceptedTypeNames
+      .slice(0, -1)
+      .join(", ");
+    const lastAcceptedTypeName = acceptedTypeNames.slice(-1);
+
+    return `The selected file for "%s" must be a ${acceptedTypesNameWithoutLast} or ${lastAcceptedTypeName}`;
+  }
 
   get fileSizeLimit() {
     return config.maxClientFileSize;
@@ -144,12 +155,20 @@ export class UploadService {
     return h.continue;
   }
 
-  validateContentType(file: HapiReadableStream) {
-    return this.validContentTypes.has(file?.hapi?.headers?.["content-type"]);
+  validateContentType(
+    file: HapiReadableStream,
+    customAcceptedTypes?: string[]
+  ) {
+    const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
+
+    return acceptedTypes.includes(file?.hapi?.headers?.["content-type"]);
   }
 
-  invalidFileTypeError(fieldName: string) {
-    return parsedError(fieldName, this.validFiletypesString);
+  invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
+    return parsedError(
+      fieldName,
+      this.validFiletypesString(customAcceptedTypes)
+    );
   }
 
   downloadDocuments(paths: string[]) {
@@ -165,3 +184,16 @@ export class UploadService {
     };
   }
 }
+
+/**
+ * Commonly used content/mime type to names. These will be rendered in error messages.
+ */
+const contentTypeToName = {
+  "image/jpeg": "jpg, jpeg",
+  "image/png": "png",
+  "application/pdf": "pdf",
+  "application/vnd.oasis.opendocument.text": "odt",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    "docx",
+  "text/csv": "csv",
+};
