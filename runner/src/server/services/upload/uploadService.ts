@@ -185,6 +185,9 @@ export class UploadService {
   }
 }
 
+/**
+ * Commonly used content/mime type to names. These will be rendered in error messages.
+ */
 const contentTypeToName = {
   "image/jpeg": "jpg, jpeg",
   "image/png": "png",

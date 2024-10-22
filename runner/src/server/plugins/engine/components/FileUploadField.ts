@@ -35,7 +35,9 @@ export class FileUploadField extends FormComponent {
 
     if (options.accept) {
       this.attributes.accept = options.accept;
-      this.customAcceptedTypes = options.accept.split(",");
+      this.customAcceptedTypes = options.accept
+        .split(",")
+        .map((type) => type.trim());
     }
 
     componentSchema = componentSchema.messages({
