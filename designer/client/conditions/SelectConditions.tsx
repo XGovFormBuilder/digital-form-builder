@@ -202,7 +202,9 @@ class SelectConditions extends React.Component<Props, State> {
     conditions: any[]
   ) {
     if (isDuplicateCondition(conditions, conditionToAdd.name)) return;
-    if (fieldName === conditionFieldName) conditions.push(conditionToAdd);
+
+    if (fieldName === this.trimSectionName(conditionFieldName))
+      conditions.push(conditionToAdd);
   }
 
   trimSectionName(fieldName: string) {
