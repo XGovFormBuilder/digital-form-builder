@@ -3,8 +3,19 @@ import { PageController } from "server/plugins/engine/pageControllers/PageContro
 
 import { FormComponent } from "server/plugins/engine/components";
 import { PageControllerBase } from "server/plugins/engine/pageControllers/PageControllerBase";
+import { FormModel } from "server/plugins/engine/models";
 
 export class SummaryPageWithNextPageController extends PageController {
+  returnUrlParameter: string;
+  constructor(model: FormModel, pageDef: any) {
+    super(model, pageDef);
+    /**
+     * TODO: set options to the instance if necessary.
+     */
+
+    const returnPath = `/${this.model.basePath}${this.path}`;
+    this.returnUrlParameter = `?returnUrl=${encodeURIComponent(returnPath)}`;
+  }
   /**
    * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`,
    */
@@ -13,7 +24,6 @@ export class SummaryPageWithNextPageController extends PageController {
       this.langFromRequest(request);
 
       const viewModel = await this.summaryViewModel(request);
-
       return h.view("summary-with-next", viewModel);
     };
   }
@@ -51,8 +61,6 @@ export class SummaryPageWithNextPageController extends PageController {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const { relevantPages } = this.model.getRelevantPages(state);
-    const returnPath = `/${this.model.basePath}${this.path}`;
-    const returnUrlParameter = `?returnUrl=${encodeURIComponent(returnPath)}`;
 
     const rowsBySection = relevantPages.reduce((prev, page) => {
       const sectionName = page.section?.name;
@@ -62,7 +70,7 @@ export class SummaryPageWithNextPageController extends PageController {
       const toRow = this.formItemsToRowByPage({
         page,
         sectionState,
-        returnUrlParameter,
+        returnUrlParameter: this.returnUrlParameter,
       });
 
       section.push(...page.components.formItems.map(toRow));
@@ -82,7 +90,6 @@ export class SummaryPageWithNextPageController extends PageController {
         rows,
       };
     });
-    console.log(lists);
 
     return {
       pageTitle: this.title,
@@ -110,7 +117,7 @@ export class SummaryPageWithNextPageController extends PageController {
           text: component.title,
         },
         value: {
-          text: valueText || "Not supplied",
+          text: valueText ?? "Not supplied",
         },
         actions: {
           items: [
