@@ -65,12 +65,12 @@ export class SummaryPageWithNextPageController extends PageController {
     const rowsBySection = relevantPages.reduce((prev, page) => {
       const sectionName = page.section?.name;
       const section = prev[sectionName] ?? [];
-      let sectionState = section ? state[sectionName] || {} : state;
+      let sectionState = sectionName ? state[sectionName] || {} : state;
 
       const toRow = this.formItemsToRowByPage({
         page,
         sectionState,
-        returnUrlParameter: this.returnUrlParameter,
+        fullState: state,
       });
 
       section.push(...page.components.formItems.map(toRow));
@@ -79,52 +79,64 @@ export class SummaryPageWithNextPageController extends PageController {
       return prev;
     }, {});
 
-    const lists = Object.entries(rowsBySection).map(([section, rows]) => {
-      const modelSection = this.model.sections.find(
-        (mSection) => mSection.name === section
-      );
+    const summaryLists = Object.entries(rowsBySection).map(
+      ([section, rows]) => {
+        const modelSection = this.model.sections.find(
+          (mSection) => mSection.name === section
+        );
 
-      return {
-        sectionTitle: !modelSection?.hideTitle ? modelSection?.title : "",
-        section,
-        rows,
-      };
-    });
+        return {
+          sectionTitle: !modelSection?.hideTitle ? modelSection?.title : "",
+          section,
+          rows,
+        };
+      }
+    );
 
     return {
       pageTitle: this.title,
       name: this.model.name,
       phaseTag: this.model.name,
-      lists,
+      summaryLists,
     };
   }
 
   formItemsToRowByPage({
     page,
     sectionState,
-    returnUrlParameter,
+    fullState,
   }: {
     page: PageControllerBase;
     sectionState: { [key: string]: any };
-    returnUrlParameter: string;
+    fullState: { [key: string]: any };
   }) {
+    const pagePath = `/${page.model.basePath}${page.path}`;
+    const returnPath = `${pagePath}${this.returnUrlParameter}`;
+    const model = this.model;
     return function (component: FormComponent) {
-      const pagePath = `/${page.model.basePath}${page.path}`;
-      const valueText = component.getDisplayStringFromState(sectionState);
+      let valueText = component.getDisplayStringFromState(sectionState);
+
+      if (
+        component.type === "FileUploadField" &&
+        model.showFilenamesOnSummaryPage
+      ) {
+        valueText =
+          fullState.originalFilenames?.[component.name]?.originalFilename;
+      }
 
       return {
         key: {
           text: component.title,
         },
         value: {
-          text: valueText ?? "Not supplied",
+          text: valueText || "Not supplied",
         },
         actions: {
           items: [
             {
               text: "Change",
               visuallyHiddenText: component.title,
-              href: `${pagePath}${returnUrlParameter}`,
+              href: returnPath,
             },
           ],
         },
