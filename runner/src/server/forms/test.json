@@ -28,7 +28,7 @@
       "section": "checkBeforeYouStart",
       "next": [
         {
-          "path": "/summary-1"
+          "path": "/how-many-people"
         },
         {
           "path": "/no-uk-passport",
@@ -53,14 +53,25 @@
       "next": []
     },
     {
-      "path": "/summary-1",
-      "components": [],
-      "next": [
+      "path": "/how-many-people",
+      "section": "applicantDetails",
+      "components": [
         {
-          "path": "/summary"
+          "options": {
+            "classes": "govuk-input--width-10",
+            "required": true
+          },
+          "type": "SelectField",
+          "name": "numberOfApplicants",
+          "title": "How many applicants are there?",
+          "list": "numberOfApplicants"
         }
       ],
-      "controller": "SummaryPageWithNextPageController",
+      "next": [
+        {
+          "path": "/applicant-one"
+        }
+      ],
       "title": "How many applicants are there?"
     },
     {
