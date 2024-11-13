@@ -5,13 +5,10 @@ import { FormComponent } from "server/plugins/engine/components";
 import { PageControllerBase } from "server/plugins/engine/pageControllers/PageControllerBase";
 import { FormModel } from "server/plugins/engine/models";
 
-export class SummaryPageWithNextPageController extends PageController {
+export class NonSubmittingSummaryPage extends PageController {
   returnUrlParameter: string;
   constructor(model: FormModel, pageDef: any) {
     super(model, pageDef);
-    /**
-     * TODO: set options to the instance if necessary.
-     */
 
     const returnPath = `/${this.model.basePath}${this.path}`;
     this.returnUrlParameter = `?returnUrl=${encodeURIComponent(returnPath)}`;
@@ -24,7 +21,8 @@ export class SummaryPageWithNextPageController extends PageController {
       this.langFromRequest(request);
 
       const viewModel = await this.summaryViewModel(request);
-      return h.view("summary-with-next", viewModel);
+
+      return h.view("midpoint-summary", viewModel);
     };
   }
 

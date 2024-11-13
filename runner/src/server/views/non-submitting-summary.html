@@ -16,13 +16,14 @@
           {{ govukSummaryList(list) }}
         {% endfor %}
 
-
+        {% if page.hasNext %}
           <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
             <input type="hidden" name="crumb" value="{{crumb}}"/>
             <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
                 Continue
             </button>
           <form>
+        {% endif %}
       </div>
     </div>
   </div>
