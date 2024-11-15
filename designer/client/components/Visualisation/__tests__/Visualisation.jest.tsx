@@ -89,7 +89,6 @@ test("Links between pages are navigable via keyboard", async () => {
       providerProps,
     }
   );
-
   // Check link exists and has the expected label
   const link = await queryAllByText(
     "Edit link from link-source to link-target"
@@ -119,4 +118,33 @@ test("Links between pages are navigable via keyboard", async () => {
   });
 
   expect(queryByTestId("flyout-0")).toBeInTheDocument();
+});
+
+test("Minimap Navigation", async () => {
+  const data = {
+    pages: [
+      {
+        title: "link source",
+        path: "/link-source",
+        next: [{ path: "/link-target" }],
+      },
+      { title: "link target", path: "/link-target" },
+    ],
+    conditions: [],
+  };
+  const providerProps = {
+    data,
+    save: jest.fn(),
+  };
+
+  const { getByTestId, queryByTestId } = customRender(
+    <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
+    {
+      providerProps,
+    }
+  );
+
+  fireEvent.click(getByTestId("/link-target1"));
+  // @ts-ignore
+  expect(queryByTestId("/link-target").className).toBe("page page--selected");
 });
