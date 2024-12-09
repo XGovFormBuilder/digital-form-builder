@@ -890,7 +890,7 @@
           "type": "TextField",
           "nameHasError": false,
           "title": "Your setting postcode",
-          "hint": "The postcode of the setting where the cases are located, not the management company",
+          "hint": "The postcode of the setting where the cases are located, not the management company. If you provide domiciliary or home care, give the postcode of the care provider company",
           "values": {
             "type": "listRef"
           }
