@@ -921,6 +921,13 @@
           }
         },
         {
+          "name": "nMOTry",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>\n Use your postcode to find your local health protection team (opens in a new tab)</a>\n",
+          "schema": {}
+        },
+        {
           "name": "CQCRegistered",
           "options": {
             "required": false
