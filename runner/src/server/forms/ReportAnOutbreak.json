@@ -10,15 +10,13 @@
           "name": "nMOTrx",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\">Applies to England</p>\n",
-          "schema": {}
+          "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\">Applies to England</p>\n"
         },
         {
           "name": "nMOTry",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\">\n You can use this service if you provide adult social care, such as a care home, retirement home, supported living or extra care.\n <p class=\"govuk-body-m\">Use this service to report:<p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li>a new outbreak of an acute respiratory infection (ARI) - 2 or more people in your setting with symptom onset within 5 days of each other</li>\n <li>a single confirmed case of flu in your setting</li></ul>\n <p class=\"govuk-body-m\">ARIs include COVID-19, flu, respiratory syncytial virus (RSV), or unknown respiratory infection including chest infections.</p>\n <p class=\"govuk-body-m\">It should take about 10 minutes to complete.</p>\n\n <h3 class=\"govuk-heading-m\">Before you start</h3>\n <p class=\"govuk-body\">\n If possible, test all service users with symptoms who are <a href=\"https://www.nhs.uk/conditions/covid-19/treatments-for-covid-19/\" target=\"_blank\" class=\"govuk-link\">eligible for COVID-19 treatments</a> using a COVID-19 rapid lateral flow test. Staff with symptoms who are eligible for COVID-19 treatments should test themselves at home. \n </p>\n <p class=\"govuk-body\">\n If you cannot test people, do not wait. Report as soon as possible. \n </p>\n <p class=\"govuk-body\">\n You'll need to know the:\n </p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li>setting postcode</li>\n <li>total number of service users and staff in your setting</li>\n<li>number of service users and staff with symptoms</li>\n<li>dates when people's symptoms started</li>\n<li>test results for anyone tested for any ARI, for example COVID-19, flu or RSV</li>\n<li>number of service users and staff vaccinated for COVID-19 and flu</li>\n</ul>\n<button class=\"govuk-button govuk-button--start\" data-module=\"govuk-button\" id=\"submit\"> Start now <svg class=\"govuk-button__start-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"17.5\" height=\"19\" viewBox=\"0 0 33 40\" aria-hidden=\"true\" focusable=\"false\"> <path fill=\"currentColor\" d=\"M0 0h13l20 20-20 20H0l20-20z\"></path> </svg></button>\n<h3 class=\"govuk-heading-m\">Updating about an existing outbreak</h3>\n <p class=\"govuk-body\">\n Do not use this online service to give an update on an outbreak or cluster of ARI that you've already reported. If you need to give an update, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> or your community infection control team.\n </p> <h3 class=\"govuk-heading-m\">Identifying an ARI outbreak</h3>\n <p class=\"govuk-body\">You only need to report 2 or more ARI cases if they could be linked by spread in your setting. If the infection could not have been spread in your setting, you should not report it as an outbreak. If in doubt, report as an outbreak.</p>\n <p class=\"govuk-body\">Do not use this service to report:</p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li>single cases of COVID-19</li>\n <li>any infection other than acute respiratory infections</li>\n</ul>\n <p class=\"govuk-body\">Read more on:</p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li><a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection\" target=\"_blank\" class=\"govuk-link\">infection prevention and control in adult social care: acute respiratory infection</a></li>\n<li><a href=\"https://www.nhs.uk/conditions/respiratory-tract-infection/\" target=\"_blank\" class=\"govuk-link\">identifying and treating respiratory infections on the NHS website</a></li>\n</ul>\n<h3 class=\"govuk-heading-m\">Why you should report an outbreak</h3>\n<p class=\"govuk-body\">Your local UKHSA health protection team, or the community infection control team, will use your information to assess your outbreak. They will help you manage the outbreak and prevent further spread.</p>\n<h3 class=\"govuk-heading-m\">Get help</h3>\n<p class=\"govuk-body\">If you need help using the service or have any other questions, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> during working hours.</p>\n<p class=\"govuk-body\">If your enquiry is urgent outside of working hours, telephone your health protection team's out-of-hours service.</p>\n<h3 class=\"govuk-heading-m\">If you need urgent medical advice</h3>\n<p class=\"govuk-body\">If you need urgent medical advice, you should call NHS 111 or visit <a href=\"https://111.nhs.uk/\" target=\"_blank\" class=\"govuk-link\">111.nhs.uk</a>. For life-threatening emergencies, call 999.</p>\n",
-          "schema": {}
+          "content": "<p class=\"govuk-body-m\">\n You can use this service if you provide adult social care, such as a care home, retirement home, supported living or extra care.\n <p class=\"govuk-body-m\">Use this service to report:<p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li>a new outbreak of an acute respiratory infection (ARI) - 2 or more people in your setting with symptom onset within 5 days of each other</li>\n <li>a single confirmed case of flu in your setting</li></ul>\n <p class=\"govuk-body-m\">ARIs include COVID-19, flu, respiratory syncytial virus (RSV), or unknown respiratory infection including chest infections.</p>\n <p class=\"govuk-body-m\">It should take about 10 minutes to complete.</p>\n\n <h3 class=\"govuk-heading-m\">Before you start</h3>\n <p class=\"govuk-body\">\n If possible, test all service users with symptoms who are <a href=\"https://www.nhs.uk/conditions/covid-19/treatments-for-covid-19/\" target=\"_blank\" class=\"govuk-link\">eligible for COVID-19 treatments</a> using a COVID-19 rapid lateral flow test. Staff with symptoms who are eligible for COVID-19 treatments should test themselves at home. \n </p>\n <p class=\"govuk-body\">\n If you cannot test people, do not wait. Report as soon as possible. \n </p>\n <p class=\"govuk-body\">\n You'll need to know the:\n </p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li>setting postcode</li>\n <li>total number of service users and staff in your setting</li>\n<li>number of service users and staff with symptoms</li>\n<li>dates when people's symptoms started</li>\n<li>test results for anyone tested for any ARI, for example COVID-19, flu or RSV</li>\n<li>number of service users and staff vaccinated for COVID-19 and flu</li>\n</ul>\n<button class=\"govuk-button govuk-button--start\" data-module=\"govuk-button\" id=\"submit\"> Start now <svg class=\"govuk-button__start-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"17.5\" height=\"19\" viewBox=\"0 0 33 40\" aria-hidden=\"true\" focusable=\"false\"> <path fill=\"currentColor\" d=\"M0 0h13l20 20-20 20H0l20-20z\"></path> </svg></button>\n<h3 class=\"govuk-heading-m\">Updating about an existing outbreak</h3>\n <p class=\"govuk-body\">\n Do not use this online service to give an update on an outbreak or cluster of ARI that you've already reported. If you need to give an update, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> or your community infection control team.\n </p> <h3 class=\"govuk-heading-m\">Identifying an ARI outbreak</h3>\n <p class=\"govuk-body\">You only need to report 2 or more ARI cases if they could be linked by spread in your setting. If the infection could not have been spread in your setting, you should not report it as an outbreak. If in doubt, report as an outbreak.</p>\n <p class=\"govuk-body\">Do not use this service to report:</p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li>single cases of COVID-19</li>\n <li>any infection other than acute respiratory infections</li>\n</ul>\n <p class=\"govuk-body\">Read more on:</p>\n <ul class=\"govuk-list govuk-list--bullet\">\n <li><a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection\" target=\"_blank\" class=\"govuk-link\">infection prevention and control in adult social care: acute respiratory infection</a></li>\n<li><a href=\"https://www.nhs.uk/conditions/respiratory-tract-infection/\" target=\"_blank\" class=\"govuk-link\">identifying and treating respiratory infections on the NHS website</a></li>\n</ul>\n<h3 class=\"govuk-heading-m\">Why you should report an outbreak</h3>\n<p class=\"govuk-body\">Your local UKHSA health protection team, or the community infection control team, will use your information to assess your outbreak. They will help you manage the outbreak and prevent further spread.</p>\n<h3 class=\"govuk-heading-m\">Get help</h3>\n<p class=\"govuk-body\">If you need help using the service or have any other questions, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> during working hours.</p>\n<p class=\"govuk-body\">If your enquiry is urgent outside of working hours, telephone your health protection team's out-of-hours service.</p>\n<h3 class=\"govuk-heading-m\">If you need urgent medical advice</h3>\n<p class=\"govuk-body\">If you need urgent medical advice, you should call NHS 111 or visit <a href=\"https://111.nhs.uk/\" target=\"_blank\" class=\"govuk-link\">111.nhs.uk</a>. For life-threatening emergencies, call 999.</p>\n"
         }
       ],
       "next": [
@@ -72,7 +70,7 @@
       "next": [
         {
           "path": "/2-or-more-ari",
-          "condition": "sUrRwU"
+          "condition": "PositiveARI:No"
         },
         {
           "path": "/which-ari"
@@ -99,11 +97,11 @@
       "next": [
         {
           "path": "/check-answers",
-          "condition": "einiQH"
+          "condition": "WhichARI:FLU"
         },
         {
           "path": "/2-or-more-cases-not-covid-or-flu",
-          "condition": "fknfQQQ"
+          "condition": "WhichARI:OTHER"
         },
         {
           "path": "/2-or-more-covid"
@@ -128,7 +126,7 @@
       "next": [
         {
           "path": "/do-not-need-to-report",
-          "condition": "fninfWW"
+          "condition": "TwoOrMoreCovid:No"
         },
         {
           "path": "/2-or-more-covid-details"
@@ -165,7 +163,7 @@
       "next": [
         {
           "path": "/do-not-need-to-report",
-          "condition": "dmdojqQH"
+          "condition": "ReportCovid:No"
         },
         {
           "path": "/check-answers"
@@ -190,7 +188,7 @@
       "next": [
         {
           "path": "/do-not-need-to-report",
-          "condition": "yowninW"
+          "condition": "TwoOrMoreARI:No"
         },
         {
           "path": "/check-answers"
@@ -237,7 +235,7 @@
       "next": [
         {
           "path": "/do-not-need-to-report",
-          "condition": "yowninW"
+          "condition": "TwoOrMoreARI:No"
         },
         {
           "path": "/ari-infection-type"
@@ -263,7 +261,7 @@
       "next": [
         {
           "path": "/do-not-need-to-report",
-          "condition": "yowninW"
+          "condition": "TwoOrMoreARI:No"
         },
         {
           "path": "/check-answers"
@@ -1503,7 +1501,7 @@
   "conditions": [
     {
       "displayName": "PositiveARI:No",
-      "name": "sUrRwU",
+      "name": "PositiveARI:No",
       "value": {
         "name": "PositiveARI:No",
         "conditions": [
@@ -1525,7 +1523,7 @@
     },
     {
       "displayName": "TwoOrMoreARI:No",
-      "name": "yowninW",
+      "name": "TwoOrMoreARI:No",
       "value": {
         "name": "TwoOrMoreARI:No",
         "conditions": [
@@ -1547,7 +1545,7 @@
     },
     {
       "displayName": "TwoOrMoreCovid:No",
-      "name": "fninfWW",
+      "name": "TwoOrMoreCovid:No",
       "value": {
         "name": "TwoOrMoreCovid:No",
         "conditions": [
@@ -1569,7 +1567,7 @@
     },
     {
       "displayName": "WhichARI:FLU",
-      "name": "einiQH",
+      "name": "WhichARI:FLU",
       "value": {
         "name": "WhichARI:FLU",
         "conditions": [
@@ -1591,7 +1589,7 @@
     },
     {
       "displayName": "WhichARI:OTHER",
-      "name": "fknfQQQ",
+      "name": "WhichARI:OTHER",
       "value": {
         "name": "WhichARI:OTHER",
         "conditions": [
@@ -1613,7 +1611,7 @@
     },
     {
       "displayName": "ReportCovid:No",
-      "name": "dmdojqQH",
+      "name": "ReportCovid:No",
       "value": {
         "name": "ReportCovid:No",
         "conditions": [
@@ -1649,7 +1647,7 @@
     },
     {
       "displayName": "TwoOrMoreCasesNotCovidFlu:NO",
-      "name": "fwnsinQ",
+      "name": "TwoOrMoreCasesNotCovidFlu:NO",
       "value": {
         "name": "TwoOrMoreCasesNotCovidFlu:NO",
         "conditions": [
