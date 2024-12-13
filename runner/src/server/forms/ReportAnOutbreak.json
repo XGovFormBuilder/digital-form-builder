@@ -32,7 +32,7 @@
       "title": "What type of adult social care do you provide?",
       "components": [
         {
-          "name": "S4Q9",
+          "name": "CareSettingType",
           "options": {},
           "type": "RadiosField",
           "nameHasError": false,
@@ -432,7 +432,7 @@
       "title": "Staff: number of flu or chest infection cases",
       "components": [
         {
-          "name": "ServiceUsersFluSwabTest",
+          "name": "StaffFluSwabTest",
           "options": {},
           "type": "NumberField",
           "schema": {
@@ -531,7 +531,7 @@
       "title": "Severity of the case of flu",
       "components": [
         {
-          "name": "FluSeverityCalledGP",
+          "name": "SingleCaseOfFluSeverityCalledGP",
           "options": {},
           "type": "YesNoField",
           "nameHasError": false,
@@ -541,7 +541,7 @@
           }
         },
         {
-          "name": "FluSeverityHospitalised",
+          "name": "SingleCaseOfFluSeverityHospitalised",
           "options": {},
           "type": "YesNoField",
           "nameHasError": false,
@@ -551,7 +551,7 @@
           }
         },
         {
-          "name": "FluSeverityDeath",
+          "name": "SingleCaseOfFluSeverityDeath",
           "options": {},
           "type": "YesNoField",
           "nameHasError": false,
@@ -759,7 +759,7 @@
       "title": "Severity of flu or chest infection cases in this outbreak",
       "components": [
         {
-          "name": "FluSeverityCalledGPMultipleCases",
+          "name": "SingleCaseOfFluSeverityCalledGPMultipleCases",
           "options": {},
           "type": "RadiosField",
           "nameHasError": false,
@@ -894,7 +894,7 @@
           }
         },
         {
-          "name": "S0Q3",
+          "name": "HPT",
           "options": {
             "required": true,
             "customValidationMessages": {
@@ -1091,7 +1091,7 @@
           "list": "ServiceUsersTypes"
         },
         {
-          "name": "ServiceUsersNumber",
+          "name": "StaffNumber",
           "options": {},
           "type": "NumberField",
           "schema": {
@@ -1099,7 +1099,19 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many service users currently live in your care setting or use your service?"
+          "title": "How many staff currently work in your care setting or service?"
+        },
+        {
+          "name": "EmptyBeds",
+          "options": { "required": false },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 200
+          },
+          "nameHasError": false,
+          "title": "How many empty beds do you have in your care setting?",
+          "hint": "If you do not know, leave this blank"
         }
       ],
       "next": [
@@ -1110,6 +1122,7 @@
     },
     {
       "path": "/summaryPage",
+      "controller": "./pages/summary.js",
       "title": "Check your answers before sending your report",
       "components": [
         {
@@ -1120,11 +1133,7 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/reportSent"
-        }
-      ]
+      "next": []
     },
     {
       "path": "/reportSent",
@@ -1815,7 +1824,6 @@
     }
   ],
   "fees": [],
-  "outputs": [],
   "version": 2,
   "skipSummary": false,
   "declaration": "<br class=\"govuk-prose-scope\">\n  <p class=\"govuk-body\">Your responses may be shared with your local UKHSA health protection team, your local authority community infection control team, and the NHS. They will use your information to help you to manage your situation.</br>\n  <p class=\"govuk-body\">By submitting this report you confirm that the details you are providing are correct to the best of your knowledge. You confirm that you have not included any personally identifiable information, for example names or dates of birth</p>\n</div>\n",
