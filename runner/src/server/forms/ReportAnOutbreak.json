@@ -1026,7 +1026,7 @@
         },
         {
           "type": "NumberField",
-          "name": "symptomsStaff",
+          "name": "StaffSymptomsNotTested",
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
