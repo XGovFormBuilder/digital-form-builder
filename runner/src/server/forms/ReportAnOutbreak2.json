@@ -1,0 +1,97 @@
+{
+  "metadata": {},
+  "startPage": "/start",
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Report an outbreak of acute respiratory infection in an adult social care setting",
+      "components": [
+        {
+          "name": "nMOTrx",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\">Applies to England</p>\n"
+        }
+      ],
+      "next": [
+        {
+          "path": "/positive-ari"
+        }
+      ]
+    },
+    {
+      "path": "/positive-ari",
+      "title": "Do you have any positive test results for an acute respiratory infection?",
+      "section": "InfectionsYouAreReporting",
+      "components": [
+        {
+          "name": "PositiveARI",
+          "options": {},
+          "type": "YesNoField",
+          "nameHasError": false,
+          "title": "Do you have any positive test results for an acute respiratory infection?",
+          "hint": "Acute respiratory infections include COVID-19, flu, respiratory syncytial virus (RSV), adenovirus, human metapneumovirus (hMPV), parainfluenza and rhinovirus",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-ari",
+          "condition": "PositiveARI:true"
+        },
+        {
+          "path": "/2-or-more-ari"
+        }
+      ]
+    },
+    {
+      "path": "/2-or-more-ari",
+      "title": "2 or more ARI",
+      "components": []
+    },
+    {
+      "path": "/which-ari",
+      "title": "Which ARI",
+      "components": []
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "PositiveARI:true",
+      "name": "PositiveARI:true",
+      "value": {
+        "name": "PositiveARI:true",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.PositiveARI",
+              "type": "YesNoField",
+              "display": "Do you have any positive test results for an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "InfectionsYouAreReporting",
+      "title": "Infections you are reporting"
+    }
+  ],
+  "fees": [],
+  "name": "Report an outbreak",
+  "declaration": "",
+  "skipSummary": false,
+  "version": 2
+}

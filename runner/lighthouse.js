@@ -40,6 +40,8 @@ Object.keys(requiredScores).forEach((category) => {
 });
 
 console.log(ciStdout.join("\n"));
+console.log("Field value:", formData.PositiveARI);
+console.log("Condition check:", formData.PositiveARI === true);
 
 if (!success) {
   process.exit(1);

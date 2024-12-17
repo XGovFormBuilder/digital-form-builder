@@ -240,7 +240,7 @@
       ],
       "next": [
         {
-          "condition": "TwoOrMoreCasesNotCovidFlu:No",
+          "condition": "TwoOrMoreCasesNotCovidFlu:NO",
           "path": "/do-not-need-to-report"
         },
         {
@@ -268,7 +268,239 @@
       ],
       "next": [
         {
-          "path": "/ari-cases-setting"
+          "path": "/ari-cases-setting-adenovirus",
+          "condition": "ARIInfectionType:Adenovirus"
+        },
+        {
+          "path": "/ari-cases-setting",
+          "condition": "ARIInfectionType:Other"
+        },
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/ari-cases-setting-adenovirus",
+      "title": "Who are you reporting cases or symptoms of adenovirus in?",
+      "section": "AdenovirusInYourSetting",
+      "components": [
+        {
+          "name": "AdenovirusServiceStaff",
+          "options": {},
+          "type": "CheckboxesField",
+          "nameHasError": false,
+          "title": "Who are you reporting cases or symptoms of adenovirus in?",
+          "hint": "You can select more than one option",
+          "list": "ServiceOrStaff",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-users-adenovirus",
+          "condition": "AdenovirusServiceStaff:ServiceUsers"
+        },
+        {
+          "path": "/staff-adenovirus",
+          "condition": "AdenovirusServiceStaff:Staff"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-adenovirus",
+      "title": "Service users: number of adenovirus cases",
+      "section": "AdenovirusInYourSetting",
+      "components": [
+        {
+          "name": "ServiceUsersConfirmedAdenovirus",
+          "type": "NumberField",
+          "title": "How many symptomatic service users have tested positive for adenovirus in your setting? (confirmed cases)",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "ServiceUsersSuspectedAdenovirus",
+          "type": "NumberField",
+          "title": "How many service users have similar symptoms but have not tested positive? (suspected cases)",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "ServiceUsersTestedCovid",
+          "type": "NumberField",
+          "title": "How many symptomatic service users have been tested for COVID-19?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "ServiceUsersPositiveCovid",
+          "type": "NumberField",
+          "title": "Of the symptomatic service users tested for COVID-19, how many had a positive result?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "ServiceUsersTestedFlu",
+          "type": "NumberField",
+          "title": "How many symptomatic service users have been tested for flu?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "ServiceUsersPositiveFlu",
+          "type": "NumberField",
+          "title": "Of the symptomatic service users tested for flu, how many had a positive result?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-adenovirus",
+          "condition": "AdenovirusServiceStaff:Both"
+        },
+        {
+          "path": "/severity-adenovirus"
+        }
+      ]
+    },
+    {
+      "path": "/staff-adenovirus",
+      "title": "Staff: number of adenovirus cases",
+      "section": "AdenovirusInYourSetting",
+      "components": [
+        {
+          "name": "StaffConfirmedAdenovirus",
+          "type": "NumberField",
+          "title": "How many symptomatic staff have tested positive with this ARI in your setting? (confirmed cases)",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffSuspectedAdenovirus",
+          "type": "NumberField",
+          "title": "How many staff have similar symptoms but have not tested positive for an ARI? (suspected cases)",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTestedCovid",
+          "type": "NumberField",
+          "title": "How many symptomatic staff have been tested for COVID-19?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffPositiveCovid",
+          "type": "NumberField",
+          "title": "Of the symptomatic staff tested for COVID-19, how many had a positive result?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTestedFlu",
+          "type": "NumberField",
+          "title": "How many symptomatic staff have been tested for flu?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffPositiveFlu",
+          "type": "NumberField",
+          "title": "Of the symptomatic staff tested for flu, how many had a positive result?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-adenovirus"
+        }
+      ]
+    },
+    {
+      "path": "/severity-adenovirus",
+      "title": "Severity of adenovirus cases in this outbreak",
+      "section": "AdenovirusInYourSetting",
+      "components": [
+        {
+          "name": "CasesCalledGP",
+          "type": "RadiosField",
+          "title": "How many cases of ARI have you called the GP about because of the severity of illness in this outbreak?",
+          "list": "CaseNumbers",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "CasesGivenAntibiotics",
+          "type": "NumberField",
+          "title": "How many service users or staff have been given antibiotics for their respiratory symptoms? (optional)",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {}
+        },
+        {
+          "name": "CasesHospitalised",
+          "type": "RadiosField",
+          "title": "How many service users or staff have been hospitalised because of this ARI in this outbreak?",
+          "list": "CaseNumbers",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "CasesDeaths",
+          "type": "RadiosField",
+          "title": "How many service users or staff have died because of this ARI during this outbreak?",
+          "list": "CaseNumbers",
+          "schema": {},
+          "options": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptom-onset"
         }
       ]
     },
@@ -696,7 +928,11 @@
           "path": "/service-users-ari-cases"
         },
         {
+          "condition": "ARIServiceOrStaff:Staff",
           "path": "/staff-ari-cases"
+        },
+        {
+          "path": "/summary"
         }
       ]
     },
@@ -1490,7 +1726,11 @@
           "schema": {}
         }
       ],
-      "next": []
+      "next": [
+        {
+          "path": "/reportSent"
+        }
+      ]
     },
     {
       "path": "/reportSent",
@@ -1533,7 +1773,7 @@
       "items": [
         {
           "text": "COVID-19",
-          "value": "COVID19"
+          "value": "COVID-19"
         },
         {
           "text": "Flu",
@@ -1573,7 +1813,7 @@
         },
         {
           "text": "Other acute respiratory infection",
-          "value": "Other acute respiratory infection"
+          "value": "Other"
         }
       ]
     },
@@ -1923,6 +2163,10 @@
     {
       "name": "ConfirmedOrUnknownARI",
       "title": "Confirmed or unknown acute respiratory infection"
+    },
+    {
+      "name": "AdenovirusInYourSetting",
+      "title": "Adenovirus in your setting"
     }
   ],
   "conditions": [
@@ -1934,7 +2178,7 @@
         "conditions": [
           {
             "field": {
-              "name": "PositiveARI",
+              "name": "InfectionsYouAreReporting.PositiveARI",
               "type": "YesNoField",
               "display": "Do you have any positive test results for an acute respiratory infection?"
             },
@@ -2087,8 +2331,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "true",
-              "display": "true"
+              "value": "false",
+              "display": "false"
             }
           }
         ]
@@ -2291,8 +2535,30 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Other acute respiratory infection",
+              "value": "Other",
               "display": "Other acute respiratory infection"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Adenovirus",
+      "name": "ARIInfectionType:Adenovirus",
+      "value": {
+        "name": "ARIInfectionType:Adenovirus",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionYouAreReporting.ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Adenovirus",
+              "display": "Adenovirus"
             }
           }
         ]
@@ -2367,6 +2633,86 @@
               "name": "ARIServiceOrStaff",
               "type": "CheckboxesField",
               "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "AdenovirusServiceStaff:Both",
+      "name": "AdenovirusServiceStaff:Both",
+      "value": {
+        "name": "AdenovirusServiceStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases of adenovirus in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service user",
+              "display": "Service user"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases of adenovirus in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "AdenovirusServiceStaff:ServiceUsers",
+      "name": "AdenovirusServiceStaff:ServiceUsers",
+      "value": {
+        "name": "AdenovirusServiceStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases of adenovirus in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service user",
+              "display": "Service user"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "AdenovirusServiceStaff:Staff",
+      "name": "AdenovirusServiceStaff:Staff",
+      "value": {
+        "name": "AdenovirusServiceStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases of adenovirus in?"
             },
             "operator": "contains",
             "value": {
