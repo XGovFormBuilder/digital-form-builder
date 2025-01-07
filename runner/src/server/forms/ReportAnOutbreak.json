@@ -307,59 +307,30 @@
       ],
       "next": [
         {
-          "path": "/ari-cases-setting"
+          "path": "/ari-confirmed-cases-setting"
         }
       ]
     },
     {
-      "path": "/ari-cases-setting-known",
-      "title": "Who are you reporting cases or symptoms of adenovirus in?",
+      "path": "/service-users-ari-confirmed",
+      "title": "Service users: number of cases",
       "section": "AdenovirusInYourSetting",
       "components": [
         {
-          "name": "AdenovirusServiceStaff",
-          "options": {},
-          "type": "CheckboxesField",
-          "nameHasError": false,
-          "title": "Who are you reporting cases or symptoms of adenovirus in?",
-          "hint": "You can select more than one option",
-          "list": "ServiceOrStaff",
-          "values": {
-            "type": "listRef"
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/service-users-adenovirus",
-          "condition": "AdenovirusServiceStaff:ServiceUsers"
-        },
-        {
-          "path": "/staff-adenovirus",
-          "condition": "AdenovirusServiceStaff:Staff"
-        }
-      ]
-    },
-    {
-      "path": "/service-users-adenovirus",
-      "title": "Service users: number of adenovirus cases",
-      "section": "AdenovirusInYourSetting",
-      "components": [
-        {
-          "name": "ServiceUsersConfirmedAdenovirus",
+          "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
-          "title": "How many symptomatic service users have tested positive for adenovirus in your setting? (confirmed cases)",
-          "hint": "If none, enter 0",
+          "title": "How many service users have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
           "schema": {
             "min": 0,
             "max": 999
           }
         },
         {
-          "name": "ServiceUsersSuspectedAdenovirus",
+          "name": "ServiceUsersSuspectedARI",
           "type": "NumberField",
-          "title": "How many service users have similar symptoms but have not tested positive? (suspected cases)",
-          "hint": "If none, enter 0",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -368,38 +339,24 @@
         {
           "name": "ServiceUsersTestedCovid",
           "type": "NumberField",
-          "title": "How many symptomatic service users have been tested for COVID-19?",
+          "title": "How many service users have been tested for COVID-19?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
-          }
-        },
-        {
-          "name": "ServiceUsersPositiveCovid",
-          "type": "NumberField",
-          "title": "Of the symptomatic service users tested for COVID-19, how many had a positive result?",
-          "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
+          },
+          "options": {
+            "required": false
           }
         },
         {
           "name": "ServiceUsersTestedFlu",
           "type": "NumberField",
-          "title": "How many symptomatic service users have been tested for flu?",
+          "title": "How many service users have been tested for flu?",
           "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        },
-        {
-          "name": "ServiceUsersPositiveFlu",
-          "type": "NumberField",
-          "title": "Of the symptomatic service users tested for flu, how many had a positive result?",
-          "hint": "If none, enter 0",
+          "options": {
+            "required": false
+          },
           "schema": {
             "min": 0,
             "max": 999
@@ -408,34 +365,34 @@
       ],
       "next": [
         {
-          "path": "/staff-adenovirus",
-          "condition": "AdenovirusServiceStaff:Both"
+          "path": "/staff-ari-confirmed",
+          "condition": "ConfirmedARIServiceStaff:Staff"
         },
         {
-          "path": "/severity-adenovirus"
+          "path": "/severity-of-illness"
         }
       ]
     },
     {
-      "path": "/staff-adenovirus",
-      "title": "Staff: number of adenovirus cases",
-      "section": "AdenovirusInYourSetting",
+      "path": "/staff-ari-confirmed",
+      "title": "Staff: number of cases",
+      "section": "InfectionsInYourSetting",
       "components": [
         {
-          "name": "StaffConfirmedAdenovirus",
+          "name": "StaffConfirmedARI",
           "type": "NumberField",
-          "title": "How many symptomatic staff have tested positive with this ARI in your setting? (confirmed cases)",
-          "hint": "If none, enter 0",
+          "title": "How many staff have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
           "schema": {
             "min": 0,
             "max": 999
           }
         },
         {
-          "name": "StaffSuspectedAdenovirus",
+          "name": "StaffSuspectedARI",
           "type": "NumberField",
-          "title": "How many staff have similar symptoms but have not tested positive for an ARI? (suspected cases)",
-          "hint": "If none, enter 0",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -444,94 +401,33 @@
         {
           "name": "StaffTestedCovid",
           "type": "NumberField",
-          "title": "How many symptomatic staff have been tested for COVID-19?",
-          "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        },
-        {
-          "name": "StaffPositiveCovid",
-          "type": "NumberField",
-          "title": "Of the symptomatic staff tested for COVID-19, how many had a positive result?",
-          "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        },
-        {
-          "name": "StaffTestedFlu",
-          "type": "NumberField",
-          "title": "How many symptomatic staff have been tested for flu?",
-          "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        },
-        {
-          "name": "StaffPositiveFlu",
-          "type": "NumberField",
-          "title": "Of the symptomatic staff tested for flu, how many had a positive result?",
-          "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/severity-adenovirus"
-        }
-      ]
-    },
-    {
-      "path": "/severity-adenovirus",
-      "title": "Severity of adenovirus cases in this outbreak",
-      "section": "AdenovirusInYourSetting",
-      "components": [
-        {
-          "name": "CasesCalledGP",
-          "type": "RadiosField",
-          "title": "How many cases of ARI have you called the GP about because of the severity of illness in this outbreak?",
-          "list": "CaseNumbers",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "CasesGivenAntibiotics",
-          "type": "NumberField",
-          "title": "How many service users or staff have been given antibiotics for their respiratory symptoms? (optional)",
+          "title": "How many staff have been tested for COVID-19?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
           },
-          "options": {}
+          "options": {
+            "required": false
+          }
         },
         {
-          "name": "CasesHospitalised",
-          "type": "RadiosField",
-          "title": "How many service users or staff have been hospitalised because of this ARI in this outbreak?",
-          "list": "CaseNumbers",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "CasesDeaths",
-          "type": "RadiosField",
-          "title": "How many service users or staff have died because of this ARI during this outbreak?",
-          "list": "CaseNumbers",
-          "schema": {},
-          "options": {}
+          "name": "StaffTestedFlu",
+          "type": "NumberField",
+          "title": "How many staff have been tested for flu?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
         }
       ],
       "next": [
         {
-          "path": "/symptom-onset"
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -614,7 +510,7 @@
       ],
       "next": [
         {
-          "path": "/multiple-cases-flu-service-users",
+          "path": "/service-users-flu",
           "condition": "MultipleCasesOfFluServiceOrStaff:ServiceUsers"
         },
         {
@@ -623,7 +519,7 @@
       ]
     },
     {
-      "path": "/multiple-cases-flu-service-users",
+      "path": "/service-users-flu",
       "title": "Service users: number of cases",
       "section": "InfectionsInYourSetting",
       "components": [
@@ -917,7 +813,41 @@
       ]
     },
     {
-      "path": "/ari-cases-setting",
+      "path": "/ari-unknown-cases-setting",
+      "title": "Who has an acute respiratory infection?",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+        },
+        {
+          "name": "ARIServiceOrStaff",
+          "type": "CheckboxesField",
+          "title": " ",
+          "hint": "You can select more than one option",
+          "list": "ServiceOrStaffMultiple",
+          "options": {
+            "required": true
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIServiceOrStaff:Both",
+          "path": "/ari-cases"
+        },
+        {
+          "condition": "ARIServiceOrStaff:ServiceUsers",
+          "path": "/service-users-master"
+        },
+        {
+          "path": "/staff-ari-cases"
+        }
+      ]
+    },
+    {
+      "path": "/ari-confirmed-cases-setting",
       "title": "Who has an acute respiratory infection?",
       "section": "InfectionsInYourSetting",
       "components": [
@@ -956,40 +886,44 @@
       "section": "InfectionsInYourSetting",
       "components": [
         {
-          "name": "ServiceUsersTestedCovid19",
           "type": "NumberField",
+          "name": "ServiceUsersCovidTestPositive",
           "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {},
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
-        },
-        {
-          "name": "ServiceUsersARISymptoms",
-          "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
-          "hint": "Include those who are currently in hospital or on visits out. <br>If none, enter 0",
+          "hint": "Include those who are currently in hospital or on visits out",
           "options": {
             "required": true
           },
           "schema": {
-            "min": 0,
-            "max": 200
+            "min": 0
           }
         },
         {
-          "name": "ServiceUsersConfirmedOtherARI",
           "type": "NumberField",
-          "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out"
+          "name": "ServiceUsersSymptomsNotTestedCovid19",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "options": {
+            "required": true
+          },
+          "schema": {
+            "min": 0
+          }
         },
         {
-          "name": "ServiceUsersARISymptomsNotTestedForAdenovirus",
+          "name": "ServiceUsersConfirmedARI",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "ServiceUsersNotTestedOtherARI",
           "type": "NumberField",
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {},
+          "options": {}
         },
         {
           "name": "ServiceUsersTestedFlu",
@@ -1001,7 +935,7 @@
           },
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           }
         }
       ],
@@ -1229,61 +1163,6 @@
       ]
     },
     {
-      "path": "/service-users-ari-cases-0",
-      "title": "Service users: number of cases",
-      "section": "InfectionsInYourSetting",
-      "components": [
-        {
-          "name": "ServiceUsersARISymptoms",
-          "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection but have not tested positive?",
-          "hint": "Include those who are currently in hospital or on visits out. <br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
-        },
-        {
-          "name": "ServiceUsersTestedCovid19",
-          "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
-        },
-        {
-          "name": "ServiceUsersTestedFlu",
-          "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/staff-ari-cases-0",
-          "condition": "ARIServiceOrStaff:Both"
-        },
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
       "path": "/staff-ari-cases-0",
       "title": "Staff: Number of cases",
       "section": "Infections in your setting",
@@ -1494,11 +1373,11 @@
       "next": [
         {
           "condition": "CovidServiceOrStaff:Both",
-          "path": "/service-users-covid-cases"
+          "path": "/service-users-covid"
         },
         {
           "condition": "CovidServiceOrStaff:ServiceUsers",
-          "path": "/service-users-covid-cases"
+          "path": "/service-users-covid"
         },
         {
           "condition": "CovidServiceOrStaff:Staff",
@@ -1507,7 +1386,7 @@
       ]
     },
     {
-      "path": "/service-users-covid-cases",
+      "path": "/service-users-covid",
       "title": "Service users: number of cases",
       "section": "InfectionsInYourSetting",
       "components": [
@@ -1525,7 +1404,7 @@
         },
         {
           "type": "NumberField",
-          "name": "ServiceUsersSymptomsNotTested",
+          "name": "ServiceUsersSymptomsNotTestedCovid19",
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
@@ -1551,6 +1430,140 @@
         },
         {
           "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-covid-flu",
+      "title": "Service users: number of cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "NumberField",
+          "name": "ServiceUsersCovidTestPositive",
+          "title": "How many service users have COVID-19 confirmed by a positive test?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "options": {
+            "required": true
+          },
+          "schema": {
+            "min": 0
+          }
+        },
+        {
+          "type": "NumberField",
+          "name": "ServiceUsersSymptomsNotTestedCovid19",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "options": {
+            "required": true
+          },
+          "schema": {
+            "min": 0
+          }
+        },
+        {
+          "type": "NumberField",
+          "name": "ServiceUsersFluSwabTest",
+          "title": "How many service users have flu confirmed by a positive swab test?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "ServiceUsersChestInfection",
+          "options": {
+            "required": false
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 200
+          },
+          "nameHasError": false,
+          "title": "How many service users have been diagnosed with a chest infection by a GP?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
+        },
+        {
+          "name": "ServiceUsersSymptomsNotTestedFlu",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "type": "NumberField",
+          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {},
+          "options": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-master"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-flu-ari",
+      "title": "Service users: number of cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "NumberField",
+          "name": "ServiceUsersFluSwabTest",
+          "title": "How many service users have flu confirmed by a positive swab test?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "ServiceUsersChestInfection",
+          "options": {
+            "required": false
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 200
+          },
+          "nameHasError": false,
+          "title": "How many service users have been diagnosed with a chest infection by a GP?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
+        },
+        {
+          "name": "ServiceUsersSymptomsNotTestedFlu",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "type": "NumberField",
+          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "ServiceUsersConfirmedARI",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "ServiceUsersNotTestedOtherARI",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "ServiceUsersTestedCovid",
+          "type": "NumberField",
+          "title": "How many service users have been tested for COVID-19?",
+          "hint": "If none, enter 0",
+          "schema": {},
+          "options": {
+            "required": false
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-master"
         }
       ]
     },
@@ -1691,10 +1704,6 @@
         {
           "path": "/cases-of-flu",
           "condition": "WhichARI:CovidAndFlu"
-        },
-        {
-          "path": "/ari-cases-setting-adenovirus",
-          "condition": "WhichARI:Other"
         },
         {
           "path": "/severity-of-illness"
@@ -2502,10 +2511,6 @@
       "title": "Confirmed or unknown acute respiratory infection"
     },
     {
-      "name": "AdenovirusInYourSetting",
-      "title": "Adenovirus in your setting"
-    },
-    {
       "name": "FluInYourSetting",
       "title": "Flu in your setting"
     }
@@ -3136,14 +3141,14 @@
       }
     },
     {
-      "displayName": "AdenovirusServiceStaff:Both",
-      "name": "AdenovirusServiceStaff:Both",
+      "displayName": "ConfirmedARIServiceStaff:Both",
+      "name": "ConfirmedARIServiceStaff:Both",
       "value": {
-        "name": "AdenovirusServiceStaff:Both",
+        "name": "ConfirmedARIServiceStaff:Both",
         "conditions": [
           {
             "field": {
-              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "name": "InfectionsInYourSetting.ConfirmedARIServiceStaff",
               "type": "CheckboxesField",
               "display": "Who are you reporting cases of adenovirus in?"
             },
@@ -3157,7 +3162,7 @@
           {
             "coordinator": "and",
             "field": {
-              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "name": "InfectionsInYourSetting.ConfirmedARIServiceStaff",
               "type": "CheckboxesField",
               "display": "Who are you reporting cases of adenovirus in?"
             },
@@ -3172,14 +3177,14 @@
       }
     },
     {
-      "displayName": "AdenovirusServiceStaff:ServiceUsers",
-      "name": "AdenovirusServiceStaff:ServiceUsers",
+      "displayName": "ConfirmedARIServiceStaff:ServiceUsers",
+      "name": "ConfirmedARIServiceStaff:ServiceUsers",
       "value": {
-        "name": "AdenovirusServiceStaff:ServiceUsers",
+        "name": "ConfirmedARIServiceStaff:ServiceUsers",
         "conditions": [
           {
             "field": {
-              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "name": "InfectionsInYourSetting.ConfirmedARIServiceStaff",
               "type": "CheckboxesField",
               "display": "Who are you reporting cases of adenovirus in?"
             },
@@ -3194,14 +3199,14 @@
       }
     },
     {
-      "displayName": "AdenovirusServiceStaff:Staff",
-      "name": "AdenovirusServiceStaff:Staff",
+      "displayName": "ConfirmedARIServiceStaff:Staff",
+      "name": "ConfirmedARIServiceStaff:Staff",
       "value": {
-        "name": "AdenovirusServiceStaff:Staff",
+        "name": "ConfirmedARIServiceStaff:Staff",
         "conditions": [
           {
             "field": {
-              "name": "AdenovirusInYourSetting.AdenovirusServiceStaff",
+              "name": "InfectionsInYourSetting.ConfirmedARIServiceStaff",
               "type": "CheckboxesField",
               "display": "Who are you reporting cases of adenovirus in?"
             },
