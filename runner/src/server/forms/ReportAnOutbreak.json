@@ -330,9 +330,9 @@
           }
         },
         {
-          "name": "ServiceUsersSuspectedARI",
+          "name": "ServiceUsersSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
@@ -438,9 +438,9 @@
           "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
         },
         {
-          "name": "StaffConfirmedARI",
+          "name": "StaffSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection but have not been tested?",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out",
           "schema": {
             "min": 0,
@@ -496,9 +496,9 @@
           }
         },
         {
-          "name": "StaffSuspectedARI",
+          "name": "StaffSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
@@ -594,38 +594,6 @@
       ]
     },
     {
-      "path": "/multiple-cases-of-flu",
-      "title": "Who has an acute respiratory infection?",
-      "section": "InfectionsInYourSetting",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
-        },
-        {
-          "name": "MultipleCasesOfFluServiceOrStaff",
-          "options": {},
-          "type": "CheckboxesField",
-          "nameHasError": false,
-          "title": " ",
-          "hint": "You can select more than one option",
-          "list": "ServiceOrStaffMultiple",
-          "values": {
-            "type": "listRef"
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/service-users-flu",
-          "condition": "MultipleCasesOfFluServiceOrStaff:ServiceUsers"
-        },
-        {
-          "path": "/multiple-cases-flu-staff"
-        }
-      ]
-    },
-    {
       "path": "/service-users-flu",
       "title": "Service users: number of cases",
       "section": "InfectionsInYourSetting",
@@ -657,7 +625,7 @@
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
-          "name": "ServiceUsersARISymptomsNotTestedForFlu",
+          "name": "ServiceUsersSymptomsNotTested",
           "options": {},
           "type": "NumberField",
           "schema": {
@@ -665,7 +633,7 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
@@ -685,7 +653,7 @@
       ],
       "next": [
         {
-          "path": "/multiple-cases-flu-staff",
+          "path": "/staff-flu",
           "condition": "MultipleCasesOfFluServiceOrStaff:ServiceUsersAndStaff"
         },
         {
@@ -694,7 +662,7 @@
       ]
     },
     {
-      "path": "/multiple-cases-flu-staff",
+      "path": "/staff-flu",
       "title": "Staff: number of cases",
       "section": "InfectionsInYourSetting",
       "components": [
@@ -730,7 +698,7 @@
           "hint": "Include those who are currently in hospital<br>If none, enter 0"
         },
         {
-          "name": "StaffSuspectedFlu",
+          "name": "StaffSymptomsNotTested",
           "options": {},
           "type": "NumberField",
           "schema": {
@@ -738,7 +706,7 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>This usually includes people who have a sudden onset of acute respiratory symptoms and fever<br><br>Include those who are currently in hospital<br>If none, enter 0"
         },
         {
@@ -773,7 +741,7 @@
           "type": "DatePartsField",
           "nameHasError": false,
           "title": "When did symptoms start?",
-          "hint": "For example, 31 03 2024",
+          "hint": "For example, 31 3 2024",
           "values": {
             "type": "listRef"
           }
@@ -1003,6 +971,22 @@
           "path": "/staff-flu-ari"
         },
         {
+          "path": "/service-users-flu",
+          "condition": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers"
+        },
+        {
+          "path": "/staff-flu",
+          "condition": "WhichARI:Flu&ARIServiceOrStaff:Staff"
+        },
+        {
+          "path": "/service-users-covid",
+          "condition": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers"
+        },
+        {
+          "path": "/staff-covid",
+          "condition": "WhichARI:Covid&ARIServiceOrStaff:Staff"
+        },
+        {
           "condition": "ARIServiceOrStaff:ServiceUsers",
           "path": "/service-users-ari-confirmed"
         },
@@ -1029,18 +1013,6 @@
           }
         },
         {
-          "type": "NumberField",
-          "name": "ServiceUsersSymptomsNotTestedCovid19",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
           "title": "How many service users have tested positive for adenovirus?",
@@ -1049,9 +1021,9 @@
           "options": {}
         },
         {
-          "name": "ServiceUsersNotTestedOtherARI",
+          "name": "ServiceUsersSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
@@ -1081,6 +1053,59 @@
       ]
     },
     {
+      "path": "/staff-covid-ari",
+      "title": "Staff: number of cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "NumberField",
+          "name": "StaffCovidTestPositive",
+          "title": "How many staff have COVID-19 confirmed by a positive test?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "options": {
+            "required": true
+          },
+          "schema": {
+            "min": 0
+          }
+        },
+        {
+          "name": "StaffConfirmedARI",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "StaffSymptomsNotTested",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {},
+          "options": {}
+        },
+        {
+          "name": "StaffTestedFlu",
+          "type": "NumberField",
+          "title": "How many staff have been tested for flu?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
       "path": "/staff-ari-cases",
       "title": "Staff: Number of cases",
       "section": "Infections in your setting",
@@ -1090,9 +1115,9 @@
           "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
         },
         {
-          "name": "OtherARIStaffARISymptoms",
+          "name": "StaffSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection but have not been tested?",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
             "required": true
@@ -1154,8 +1179,8 @@
         },
         {
           "type": "NumberField",
-          "name": "ServiceUsersSymptomsNotTestedCovid19",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
+          "name": "ServiceUsersSymptomsNotTested",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
@@ -1187,8 +1212,8 @@
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
-          "name": "ServiceUsersSymptomsNotTestedFlu",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "name": "ServiceUsersSymptomsNotTested",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "type": "NumberField",
           "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
@@ -1203,9 +1228,9 @@
           "options": {}
         },
         {
-          "name": "ServiceUsersNotTestedOtherARI",
+          "name": "ServiceUsersNotTested",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
@@ -1237,18 +1262,6 @@
         },
         {
           "type": "NumberField",
-          "name": "StaffSymptomsNotTestedCovid19",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
           "name": "StaffFluSwabTest",
           "title": "How many staff have flu confirmed by a positive swab test?",
           "hint": "Include those who are currently in hospital or on visits out",
@@ -1269,77 +1282,16 @@
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
-          "name": "StaffSymptomsNotTestedFlu",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for flu?",
-          "type": "NumberField",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
-        },
-        {
           "name": "StaffConfirmedARI",
           "type": "NumberField",
           "title": "How many staff have tested positive for adenovirus?",
           "hint": "Include those who are currently in hospital or on visits out"
         },
         {
-          "name": "StaffNotTestedOtherARI",
+          "name": "StaffSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
-        }
-      ],
-      "next": [
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
-      "path": "/staff-ari-cases-0",
-      "title": "Staff: Number of cases",
-      "section": "Infections in your setting",
-      "components": [
-        {
-          "type": "Para",
-          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
-        },
-        {
-          "name": "OtherARIStaffARISymptoms",
-          "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection but have not been tested?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
-        },
-        {
-          "name": "OtherARIStaffTestedCovid",
-          "type": "NumberField",
-          "title": "How many staff have been tested for COVID-19?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
-        },
-        {
-          "name": "OtherARIStaffTestedFlu",
-          "type": "NumberField",
-          "title": "How many staff have been tested for flu?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
-          "schema": {
-            "min": 0,
-            "max": 200
-          }
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br><br>If none, enter 0"
         }
       ],
       "next": [
@@ -1485,38 +1437,6 @@
       ]
     },
     {
-      "path": "/covid-cases-setting",
-      "title": "Who has an acute respiratory infection?",
-      "section": "InfectionsInYourSetting",
-      "components": [
-        {
-          "type": "CheckboxesField",
-          "name": "CovidServiceOrStaff",
-          "options": {},
-          "title": "Who has an acute respiratory infection?",
-          "hint": "You can select more than one option",
-          "list": "ServiceOrStaffMultiple",
-          "values": {
-            "type": "listRef"
-          }
-        }
-      ],
-      "next": [
-        {
-          "condition": "CovidServiceOrStaff:Both",
-          "path": "/service-users-covid"
-        },
-        {
-          "condition": "CovidServiceOrStaff:ServiceUsers",
-          "path": "/service-users-covid"
-        },
-        {
-          "condition": "CovidServiceOrStaff:Staff",
-          "path": "/staff-covid-cases"
-        }
-      ]
-    },
-    {
       "path": "/service-users-covid",
       "title": "Service users: number of cases",
       "section": "InfectionsInYourSetting",
@@ -1535,8 +1455,8 @@
         },
         {
           "type": "NumberField",
-          "name": "ServiceUsersSymptomsNotTestedCovid19",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
+          "name": "ServiceUsersSymptomsNotTested",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
@@ -1548,16 +1468,8 @@
       ],
       "next": [
         {
-          "condition": "CovidServiceOrStaff:Staff",
+          "condition": "WhichARI:Covid&ARIServiceOrStaff:Staff",
           "path": "/staff-covid-cases"
-        },
-        {
-          "condition": "WhichARI:FLU",
-          "path": "/cases-of-flu"
-        },
-        {
-          "condition": "WhichARI:Other",
-          "path": "/ari-unknown-cases-setting"
         },
         {
           "path": "/severity-of-illness"
@@ -1574,18 +1486,6 @@
           "name": "ServiceUsersCovidTestPositive",
           "title": "How many service users have COVID-19 confirmed by a positive test?",
           "hint": "Include those who are currently in hospital or on visits out",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
-          "name": "ServiceUsersSymptomsNotTestedCovid19",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
           },
@@ -1616,10 +1516,10 @@
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
-          "name": "ServiceUsersSymptomsNotTestedFlu",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "name": "ServiceUsersSymptomsNotTested",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "type": "NumberField",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br><br>If none, enter 0",
           "schema": {},
           "options": {}
         }
@@ -1653,18 +1553,6 @@
         },
         {
           "type": "NumberField",
-          "name": "StaffSymptomsNotTestedCovid19",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
           "name": "StaffFluSwabTest",
           "title": "How many staff have flu confirmed by a positive swab test?",
           "hint": "Include those who are currently in hospital or on visits out",
@@ -1686,8 +1574,8 @@
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
-          "name": "StaffSymptomsNotTestedFlu",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "name": "StaffSymptomsNotTested",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "type": "NumberField",
           "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
@@ -1714,6 +1602,14 @@
           "options": {}
         },
         {
+          "name": "ServiceUsersConfirmedARI",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {},
+          "options": {}
+        },
+        {
           "name": "ServiceUsersChestInfection",
           "options": {
             "required": false
@@ -1728,26 +1624,10 @@
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
-          "name": "ServiceUsersSymptomsNotTestedFlu",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "name": "ServiceUsersSymptomsNotTested",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "type": "NumberField",
           "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersConfirmedARI",
-          "type": "NumberField",
-          "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersNotTestedOtherARI",
-          "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -1786,6 +1666,14 @@
           "options": {}
         },
         {
+          "name": "StaffConfirmedARI",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {},
+          "options": {}
+        },
+        {
           "name": "StaffChestInfection",
           "options": {
             "required": false
@@ -1800,26 +1688,10 @@
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
-          "name": "StaffSymptomsNotTestedFlu",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for flu?",
+          "name": "StaffSymptomsNotTested",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "type": "NumberField",
           "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffConfirmedARI",
-          "type": "NumberField",
-          "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffNotTestedOtherARI",
-          "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -1951,7 +1823,7 @@
         {
           "type": "NumberField",
           "name": "StaffSymptomsNotTested",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for COVID-19?",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
             "required": true
@@ -3494,6 +3366,78 @@
       }
     },
     {
+      "displayName": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+      "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+      "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+      "value": {
+        "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
       "displayName": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:Staff",
       "name": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:Staff",
       "value": {
@@ -3594,6 +3538,78 @@
       }
     },
     {
+      "displayName": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+      "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+      "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+      "value": {
+        "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
       "displayName": "ReportCovid:No",
       "name": "ReportCovid:No",
       "value": {
@@ -3601,7 +3617,7 @@
         "conditions": [
           {
             "field": {
-              "name": "TwoOrMoreCovid5days",
+              "name": "InfectionsYouAreReporting.TwoOrMoreCovid5days",
               "type": "RadiosField",
               "display": "Did symptoms in 2 or more cases of COVID-19 start within 5 days of each other?"
             },
@@ -3613,9 +3629,9 @@
             }
           },
           {
-            "coordinator": "or",
+            "coordinator": "and",
             "field": {
-              "name": "TwoOrMoreCovidSpread",
+              "name": "InfectionsYouAreReporting.TwoOrMoreCovidSpread",
               "type": "RadiosField",
               "display": "Is it possible that at least 2 of the cases of COVID-19 are linked by spread in your setting?​"
             },
