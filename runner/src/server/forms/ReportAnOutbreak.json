@@ -1179,18 +1179,6 @@
         },
         {
           "type": "NumberField",
-          "name": "ServiceUsersSymptomsNotTested",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
           "name": "ServiceUsersFluSwabTest",
           "title": "How many service users have flu confirmed by a positive swab test?",
           "hint": "Include those who are currently in hospital or on visits out",
