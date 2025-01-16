@@ -4055,6 +4055,16 @@
     }
   ],
   "fees": [],
+  "outputs": [
+    {
+      "name": "WEBHOOOK",
+      "title": "CareOBRA SalesForce",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "${Webhook.URL}"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false,
   "declaration": "<br class=\"govuk-prose-scope\">\n  <p class=\"govuk-body\">Your responses may be shared with your local UKHSA health protection team, your local authority community infection control team, and the NHS. They will use your information to help you to manage your situation.</br>\n  <p class=\"govuk-body\">By submitting this report you confirm that the details you are providing are correct to the best of your knowledge. You confirm that you have not included any personally identifiable information, for example names or dates of birth</p>\n</div>\n",
