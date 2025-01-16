@@ -2198,11 +2198,7 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/reportSent"
-        }
-      ]
+      "next": []
     },
     {
       "path": "/reportSent",
