@@ -31,6 +31,12 @@ export interface RepeatingFieldPage extends Page {
     };
   };
 }
+export interface NonSubmittingSummaryPage extends Page {
+  controller: "NonSubmittingSummaryPageController";
+  options: {
+    customText: any;
+  };
+}
 
 export interface Section {
   name: string;

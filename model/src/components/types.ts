@@ -132,6 +132,7 @@ interface ListFieldBase {
     allowPrePopulationOverwrite?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    shortTitle?: string;
   };
   list: string;
   schema: {};

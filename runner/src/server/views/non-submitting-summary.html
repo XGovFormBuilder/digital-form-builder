@@ -1,0 +1,45 @@
+{% from "partials/summary-detail.html" import summaryDetail %}
+
+{% from "components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "summary-list/macro.njk" import govukSummaryList %}
+{% extends 'layout.html' %}
+
+{% block content %}
+  {% include "partials/heading.html" %}
+
+  {% if customText.insetText %}
+    <div class="govuk-inset-text">
+      {{ customText.insetText | safe }}
+    </div>
+  {% endif %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+          <h2 class="govuk-summary-card__title">
+            {{ customText.cardTitle | safe }}
+          </h2>
+        </div>
+        <div class="govuk-summary-card__content">
+        {% for list in summaryLists %}
+          {{ govukSummaryList(list) }}
+        {% endfor %}
+        </div>
+      </div>
+    {% if customText.details %}
+      <p class="govuk-body">
+        {{ customText.details | safe }}
+      </p>
+    {% endif %}
+
+    <a href="{{serviceStartPage}}">
+      <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+        Back to start
+      </button>
+    </a>
+    </div>
+
+  </div>
+{% endblock %}
