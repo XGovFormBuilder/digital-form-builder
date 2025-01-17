@@ -16,29 +16,46 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+      {% for list in summaryLists %}
       <div class="govuk-summary-card">
         <div class="govuk-summary-card__title-wrapper">
           <h2 class="govuk-summary-card__title">
-            {{ customText.cardTitle | safe }}
+            {{list.sectionTitle}}
           </h2>
         </div>
         <div class="govuk-summary-card__content">
-        {% for list in summaryLists %}
           {{ govukSummaryList(list) }}
-        {% endfor %}
         </div>
       </div>
+
+        {% endfor %}
+
+ 
+ 
     {% if customText.details %}
       <p class="govuk-body">
         {{ customText.details | safe }}
       </p>
     {% endif %}
 
+    {% if page.hasNext %}
+    <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
+      <input type="hidden" name="crumb" value="{{crumb}}"/>
+      <br/>
+      <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+          Continue
+      </button>
+    <form>
+    {% else %}
     <a href="{{serviceStartPage}}">
+      <br/>
       <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
         Back to start
       </button>
     </a>
+    {% endif %}
+
+
     </div>
 
   </div>

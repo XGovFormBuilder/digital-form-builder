@@ -103,6 +103,7 @@ export class NonSubmittingSummaryPageController extends PageController {
     );
 
     return {
+      page: this,
       pageTitle: this.title,
       sectionTitle: this.section?.title,
       backLink: progress[progress.length - 1] ?? this.backLinkFallback,
