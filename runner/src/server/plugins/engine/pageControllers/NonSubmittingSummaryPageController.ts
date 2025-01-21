@@ -139,7 +139,7 @@ export class NonSubmittingSummaryPageController extends PageController {
 
       return {
         key: {
-          text: component.options.shortTitle ?? component.title,
+          text: component.options.summaryTitle ?? component.title,
         },
         value: {
           text: valueText || "Not supplied",
