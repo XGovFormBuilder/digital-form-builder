@@ -73,7 +73,6 @@ export class NonSubmittingSummaryPageController extends PageController {
 
     const rowsBySection = relevantPages.reduce((prev, page) => {
       let displaySectionName;
-      // if we're on multi summary do X
       if (this.options?.multiSummary) {
         // Use sectionForMultiSummaryPages, then sectionForSummaryPages for grouping if available, otherwise use section name
         displaySectionName =
