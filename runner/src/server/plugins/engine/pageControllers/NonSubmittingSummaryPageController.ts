@@ -72,9 +72,24 @@ export class NonSubmittingSummaryPageController extends PageController {
     const { relevantPages } = this.model.getRelevantPages(state);
 
     const rowsBySection = relevantPages.reduce((prev, page) => {
-      const sectionName = page.section?.name;
-      const section = prev[sectionName] ?? [];
-      let sectionState = sectionName ? state[sectionName] || {} : state;
+      let displaySectionName;
+      // if we're on multi summary do X
+      if (this.options?.multiSummary) {
+        // Use sectionForMultiSummaryPages, then sectionForSummaryPages for grouping if available, otherwise use section name
+        displaySectionName =
+          page.sectionForMultiSummaryPages || page.section?.name;
+      } else {
+        // Use sectionForSummaryPages for grouping if available, otherwise use section name
+        displaySectionName = page.sectionForSummaryPages || page.section?.name;
+      }
+
+      // Always use section name for state access
+      const stateSectionName = page.section?.name;
+
+      const section = prev[displaySectionName] ?? [];
+      let sectionState = stateSectionName
+        ? state[stateSectionName] || {}
+        : state;
 
       const toRow = this.formItemsToRowByPage({
         page,
@@ -84,7 +99,7 @@ export class NonSubmittingSummaryPageController extends PageController {
 
       section.push(...page.components.formItems.map(toRow));
 
-      prev[sectionName] = section;
+      prev[displaySectionName] = section;
       return prev;
     }, {});
 

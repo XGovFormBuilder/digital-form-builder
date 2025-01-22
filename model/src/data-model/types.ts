@@ -15,6 +15,8 @@ export interface Page {
   controller: string;
   components?: ComponentDef[];
   section?: string; // the section ID
+  sectionForSummaryPages?: string;
+  sectionForMultiSummaryPages?: string;
   next?: { path: string; condition?: string }[];
 }
 
