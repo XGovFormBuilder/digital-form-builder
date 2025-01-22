@@ -31,10 +31,14 @@
       "path": "/setting",
       "title": "What type of adult social care do you provide?",
       "section": "YourSetting",
+      "sectionForSummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
       "components": [
         {
           "name": "CareSettingType",
-          "options": {},
+          "options": {
+            "summaryTitle": "Your setting"
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "What type of adult social care do you provide?",
@@ -55,10 +59,14 @@
       "path": "/positive-ari",
       "title": "Do you have any positive test results for an acute respiratory infection?",
       "section": "InfectionsYouAreReporting",
+      "sectionForSummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
       "components": [
         {
           "name": "PositiveARI",
-          "options": {},
+          "options": {
+            "summaryTitle": "Positive test result"
+          },
           "type": "YesNoField",
           "nameHasError": false,
           "title": "Do you have any positive test results for an acute respiratory infection?",
@@ -74,6 +82,7 @@
           "path": "/2-or-more-ari",
           "condition": "PositiveARI:No"
         },
+
         {
           "path": "/which-ari"
         }
@@ -83,10 +92,14 @@
       "path": "/which-ari",
       "title": "Which acute respiratory infections do you have a positive test result for?",
       "section": "InfectionsYouAreReporting",
+      "sectionForSummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
       "components": [
         {
           "name": "WhichARI",
-          "options": {},
+          "options": {
+            "summaryTitle": "Infection"
+          },
           "type": "CheckboxesField",
           "nameHasError": false,
           "title": "Which acute respiratory infections do you have a positive test result for? ",
@@ -115,6 +128,8 @@
       "path": "/2-or-more-covid",
       "title": "Are you reporting 2 or more cases?",
       "section": "InfectionsYouAreReporting",
+      "sectionForSummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
       "components": [
         {
           "type": "Para",
@@ -122,9 +137,11 @@
         },
         {
           "name": "TwoOrMoreCovid",
-          "options": {},
           "type": "YesNoField",
           "nameHasError": false,
+          "options": {
+            "summaryTitle": "2 or more cases"
+          },
           "title": " ",
           "values": {
             "type": "listRef"
@@ -145,6 +162,7 @@
       "path": "/2-or-more-covid-descriptive",
       "title": "Are you reporting 2 or more cases of COVID-19?",
       "section": "InfectionsYouAreReporting",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
       "components": [
         {
           "type": "Para",
@@ -152,7 +170,9 @@
         },
         {
           "name": "TwoOrMoreCovid",
-          "options": {},
+          "options": {
+            "summaryTitle": "2 or more cases"
+          },
           "type": "YesNoField",
           "nameHasError": false,
           "title": " ",
@@ -163,7 +183,7 @@
       ],
       "next": [
         {
-          "path": "/do-not-need-to-report",
+          "path": "/2-or-more-cases-not-covid-or-flu",
           "condition": "TwoOrMoreCovid:No"
         },
         {
@@ -175,6 +195,8 @@
       "path": "/2-or-more-covid-details",
       "title": "Acute respiratory infections in your setting",
       "section": "InfectionsYouAreReporting",
+      "sectionForSummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
       "components": [
         {
           "type": "Para",
@@ -182,7 +204,9 @@
         },
         {
           "name": "TwoOrMoreCovid5days",
-          "options": {},
+          "options": {
+            "summaryTitle": "Symptoms started within 5 days of each other"
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "Did symptoms in 2 or more cases start within 5 days of each other?",
@@ -193,7 +217,9 @@
         },
         {
           "name": "TwoOrMoreCovidSpread",
-          "options": {},
+          "options": {
+            "summaryTitle": "The cases are linked by spread"
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "Is it possible that at least 2 of the cases are linked by spread in your setting?​",
@@ -225,10 +251,14 @@
       "path": "/2-or-more-ari",
       "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
       "section": "InfectionYouAreReporting",
+      "sectionForSummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
       "components": [
         {
           "name": "TwoOrMoreARI",
-          "options": {},
+          "options": {
+            "summaryTitle": "2 or more cases"
+          },
           "type": "YesNoField",
           "nameHasError": false,
           "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
@@ -251,16 +281,41 @@
       "path": "/do-not-need-to-report",
       "title": "You do not need to report",
       "section": "InfectionsYouAreReporting",
+      "controller": "NonSubmittingSummaryPageController",
+      "options": {
+        "customText": {
+          "insetText": "Based on your answers, you do not need to report this acute respiratory infection.",
+          "details": "<p>You only need to report:<ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li></ul></p><p class=\"govuk-body\">Read guidance on <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection\">infection prevention and control in adult social care settings.</a></p>"
+        }
+      },
+      "components": []
+    },
+    {
+      "path": "/do-not-need-to-report-multiple",
+      "title": "You do not need to report",
+      "section": "InfectionsYouAreReporting",
+      "controller": "NonSubmittingSummaryPageController",
+      "options": {
+        "multiSummary": true,
+        "customText": {
+          "insetText": "Based on your answers, you do not need to report these acute respiratory infections.",
+          "details": "<p>You only need to report:<ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li></ul></p><p class=\"govuk-body\">Read guidance on <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection\">infection prevention and control in adult social care settings.</a></p>"
+        }
+      },
       "components": []
     },
     {
       "path": "/2-or-more-cases-not-covid-or-flu",
       "title": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?",
       "section": "InfectionYouAreReporting",
+      "sectionForSummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "OtherInYourSetting",
       "components": [
         {
           "name": "TwoOrMoreCasesNotCovidFlu",
-          "options": {},
+          "options": {
+            "summaryTitle": "2 or more cases"
+          },
           "type": "YesNoField",
           "nameHasError": false,
           "title": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?",
@@ -272,32 +327,77 @@
       ],
       "next": [
         {
+          "condition": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
+          "path": "/do-not-need-to-report-multiple"
+        },
+        {
+          "condition": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
+          "path": "/do-not-need-to-report-multiple"
+        },
+        {
           "condition": "WhichARI:COVID19ANDOTHER_COVID_NOT_REPORTABLE",
-          "path": "/mid-way-summary"
+          "path": "/mid-way-summary-covid-no-other-yes"
         },
         {
-          "condition": "TwoOrMoreCasesNotCovidFlu:NO",
-          "path": "/do-not-need-to-report"
+          "condition": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
+          "path": "/mid-way-summary-covid-yes-other-no"
         },
         {
+          "condition": "TwoOrMoreCasesNotCovidFlu:YES",
           "path": "/ari-infection-type"
+        },
+        {
+          "path": "/do-not-need-to-report"
         }
       ]
     },
     {
       "path": "/mid-way-summary",
-      "title": "Mid-way summary",
+      "title": "Check your answers before continuing",
       "section": "InfectionsYouAreReporting",
+      "controller": "NonSubmittingSummaryPageController",
+      "options": {
+        "multiSummary": true
+      },
+      "components": []
+    },
+    {
+      "path": "/mid-way-summary-covid-yes-other-no",
+      "title": "Check your answers before continuing",
+      "section": "InfectionsYouAreReporting",
+      "controller": "NonSubmittingSummaryPageController",
+      "options": {
+        "multiSummary": true,
+        "customText": {
+          "insetText": "<p>Based on your answers:<ul class=\"govuk-list govuk-list--bullet\"><li>you need to report the cases of COVID-19</li><li>you do not need to report the case of other respiratory infection</li></ul></p>"
+        }
+      },
+      "components": []
+    },
+    {
+      "path": "/mid-way-summary-covid-no-other-yes",
+      "title": "Check your answers before continuing",
+      "section": "InfectionsYouAreReporting",
+      "controller": "NonSubmittingSummaryPageController",
+      "options": {
+        "multiSummary": true,
+        "customText": {
+          "insetText": "<p>Based on your answers:<ul class=\"govuk-list govuk-list--bullet\"><li>you need to report the cases of COVID-19</li><li>you do not need to report the case of other respiratory infection</li></ul></p>"
+        }
+      },
       "components": []
     },
     {
       "path": "/ari-infection-type",
       "title": "What infection are you reporting?",
       "section": "InfectionYouAreReporting",
+      "sectionForMultiSummaryPages": "OtherInYourSetting",
       "components": [
         {
           "name": "ARIInfectionType",
-          "options": {},
+          "options": {
+            "summaryTitle": "Infection type"
+          },
           "type": "CheckboxesField",
           "nameHasError": false,
           "title": "What infection are you reporting?",
@@ -309,6 +409,10 @@
         }
       ],
       "next": [
+        {
+          "condition": "WhichARI:COVID19ANDOTHER",
+          "path": "/mid-way-summary"
+        },
         {
           "path": "/ari-confirmed-cases-setting"
         }
@@ -371,6 +475,126 @@
           "path": "/staff-ari-confirmed",
           "condition": "ARIServiceOrStaff:Staff"
         },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-adenovirus",
+      "title": "Service users: number of cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "ServiceUsersAdenovirus",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "ServiceUsersSymptomsNotTested",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "ServiceUsersTestedCovid",
+          "type": "NumberField",
+          "title": "How many service users have been tested for COVID-19?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "required": false
+          }
+        },
+        {
+          "name": "ServiceUsersTestedFlu",
+          "type": "NumberField",
+          "title": "How many service users have been tested for flu?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-ari-adenovirus",
+          "condition": "ARIServiceOrStaff:Staff"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-adenovirus",
+      "title": "Staff: number of cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "StaffAdenovirus",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffSymptomsNotTested",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTestedCovid",
+          "type": "NumberField",
+          "title": "How many service users have been tested for COVID-19?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "required": false
+          }
+        },
+        {
+          "name": "StaffTestedFlu",
+          "type": "NumberField",
+          "title": "How many service users have been tested for flu?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
         {
           "path": "/severity-of-illness"
         }
@@ -2584,6 +2808,18 @@
   ],
   "sections": [
     {
+      "name": "AcuteInfections",
+      "title": "Acute respiratory infections in your setting"
+    },
+    {
+      "name": "Covid19InYourSetting",
+      "title": "COVID-19 in your setting"
+    },
+    {
+      "name": "OtherInYourSetting",
+      "title": "Other infections in your setting"
+    },
+    {
       "name": "InfectionYouAreReporting",
       "title": "Infection you are reporting"
     },
@@ -2851,10 +3087,231 @@
               "value": "false",
               "display": "false"
             }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
+              "type": "YesNoField",
+              "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
           }
         ]
       }
     },
+    {
+      "displayName": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
+      "name": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
+      "value": {
+        "name": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Any other acute respiratory infections",
+              "display": "Any other acute respiratory infections"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsYouAreReporting.TwoOrMoreCovid",
+              "type": "YesNoField",
+              "display": "Are you reporting 2 or more cases of COVID-19?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionYouAreReporting.TwoOrMoreARI",
+              "type": "YesNoField",
+              "display": "Are you reporting 2 or more cases of an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
+      "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
+      "value": {
+        "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Any other acute respiratory infections",
+              "display": "Any other acute respiratory infections"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsYouAreReporting.TwoOrMoreCovid",
+              "type": "YesNoField",
+              "display": "Are you reporting 2 or more cases of COVID-19?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
+              "type": "YesNoField",
+              "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
+      "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
+      "value": {
+        "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsYouAreReporting.WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Any other acute respiratory infections",
+              "display": "Any other acute respiratory infections"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsYouAreReporting.TwoOrMoreCovid5days",
+              "type": "RadiosField",
+              "display": "Did symptoms in 2 or more cases of COVID-19 start within 5 days of each other?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "No",
+              "display": "No"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsYouAreReporting.TwoOrMoreCovidSpread",
+              "type": "RadiosField",
+              "display": "Is it possible that at least 2 of the cases of COVID-19 are linked by spread in your setting?​"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "No",
+              "display": "No"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
+              "type": "YesNoField",
+              "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+
     {
       "displayName": "WhichARI:COVID19",
       "name": "WhichARI:COVID19",
@@ -3594,6 +4051,28 @@
       }
     },
     {
+      "displayName": "WhichOtherARI:Adenovirus",
+      "name": "WhichOtherARI:Adenovirus",
+      "value": {
+        "name": "WhichOtherARI:Adenovirus",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsYouAreReporting.TwoOrMoreCovid5days",
+              "type": "RadiosField",
+              "display": "Did symptoms in 2 or more cases of COVID-19 start within 5 days of each other?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "No",
+              "display": "No"
+            }
+          }
+        ]
+      }
+    },
+    {
       "displayName": "ReportCovid:No",
       "name": "ReportCovid:No",
       "value": {
@@ -3630,10 +4109,10 @@
       }
     },
     {
-      "displayName": "TwoOrMoreCasesNotCovidFlu:NO",
-      "name": "TwoOrMoreCasesNotCovidFlu:NO",
+      "displayName": "TwoOrMoreCasesNotCovidFlu:YES",
+      "name": "TwoOrMoreCasesNotCovidFlu:YES",
       "value": {
-        "name": "TwoOrMoreCasesNotCovidFlu:NO",
+        "name": "TwoOrMoreCasesNotCovidFlu:YES",
         "conditions": [
           {
             "field": {
@@ -3644,8 +4123,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "false",
-              "display": "false"
+              "value": "true",
+              "display": "true"
             }
           }
         ]
