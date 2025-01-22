@@ -266,7 +266,6 @@ export class PageControllerBase {
     if (nextLink?.redirect) {
       return nextLink;
     }
-    console.log(nextLink?.page);
 
     return nextLink?.page ?? defaultLink?.page;
   }
