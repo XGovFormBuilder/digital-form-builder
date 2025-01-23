@@ -74,7 +74,7 @@ export class NonSubmittingSummaryPageController extends PageController {
     const rowsBySection = relevantPages.reduce((prev, page) => {
       let displaySectionName;
       if (this.options?.multiSummary) {
-        // Use sectionForMultiSummaryPages, then sectionForSummaryPages for grouping if available, otherwise use section name
+        // Use sectionForMultiSummaryPages, otherwise use section name
         displaySectionName =
           page.sectionForMultiSummaryPages || page.section?.name;
       } else {
