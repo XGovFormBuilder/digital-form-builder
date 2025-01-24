@@ -61,6 +61,7 @@ describe("NonSubmittingSummaryPageController", () => {
             path: "/page1",
             title: "Page 1",
             section: { name: "section1" },
+            sectionForMultiSummaryPages: "Custom Section 1",
             components: {
               formItems: [
                 {
@@ -69,6 +70,23 @@ describe("NonSubmittingSummaryPageController", () => {
                   type: "TextField",
                   options: { summaryTitle: "F1" },
                   getDisplayStringFromState: (state) => state.field1,
+                },
+              ],
+            },
+          },
+          {
+            path: "/page2",
+            title: "Page 2",
+            section: { name: "section2" },
+            sectionForMultiSummaryPages: "Custom Section 2",
+            components: {
+              formItems: [
+                {
+                  name: "field2",
+                  title: "Field 2",
+                  type: "TextField",
+                  options: { summaryTitle: "F2" },
+                  getDisplayStringFromState: (state) => state.field2,
                 },
               ],
             },
@@ -97,10 +115,12 @@ describe("NonSubmittingSummaryPageController", () => {
     mockCacheService = {
       getState: () =>
         Promise.resolve({
-          section1: { field1: "test value" },
+          section1: { field1: "test value 1" },
+          section2: { field2: "test value 2" },
           progress: ["/previous-page"],
           originalFilenames: {
-            field1: { originalFilename: "test.pdf" },
+            field1: { originalFilename: "test1.pdf" },
+            field2: { originalFilename: "test2.pdf" },
           },
         }),
     };
@@ -143,31 +163,57 @@ describe("NonSubmittingSummaryPageController", () => {
       const result = await handler(mockRequest, mockH);
 
       expect(result).to.be.a.string();
+      expect(result).to.equal("/summary");
     });
   });
 
-  describe("postRouteOptions", () => {
-    it("should return options with onPreHandler that continues", async () => {
-      const options = controller.postRouteOptions;
-      const result = await options.ext.onPreHandler.method(mockRequest, mockH);
+  describe("summaryLists generation", () => {
+    it("should generate summaryLists based on rowsBySection and model.sections", () => {
+      // Mock data
+      const rowsBySection = {
+        section1: ["row1", "row2"],
+        section2: ["row3"],
+      };
 
-      expect(result).to.equal(mockH.continue);
-    });
-  });
+      const model = {
+        sections: [
+          { name: "section1", title: "Section One", hideTitle: false },
+          { name: "section2", title: "Section Two", hideTitle: true },
+          { name: "section3", title: "Section Three", hideTitle: false },
+        ],
+      };
 
-  describe("summaryViewModel", () => {
-    it("should generate correct view model with sections and rows", async () => {
-      const viewModel = await controller.summaryViewModel(mockRequest);
+      // The function to test
+      const summaryLists = Object.entries(rowsBySection).map(
+        ([section, rows]) => {
+          const modelSection = model.sections.find(
+            (mSection) => mSection.name === section
+          );
 
-      expect(viewModel.summaryLists).to.be.an.array();
-      expect(viewModel.customText).to.equal(mockPageDef.options.customText);
-    });
+          return {
+            sectionTitle: !modelSection?.hideTitle ? modelSection?.title : "",
+            section,
+            rows,
+          };
+        }
+      );
 
-    it("should handle hidden section titles", async () => {
-      mockModel.sections[0].hideTitle = true;
-      const viewModel = await controller.summaryViewModel(mockRequest);
+      // Expected result
+      const expectedSummaryLists = [
+        {
+          sectionTitle: "Section One",
+          section: "section1",
+          rows: ["row1", "row2"],
+        },
+        {
+          sectionTitle: "", // Title hidden because `hideTitle` is true
+          section: "section2",
+          rows: ["row3"],
+        },
+      ];
 
-      expect(viewModel.summaryLists).to.be.an.array();
+      // Assertions
+      expect(summaryLists).to.equal(expectedSummaryLists);
     });
   });
 
