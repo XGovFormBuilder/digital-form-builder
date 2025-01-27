@@ -4,17 +4,17 @@ import { PageController } from "server/plugins/engine/pageControllers/PageContro
 import { FormComponent } from "server/plugins/engine/components";
 import { PageControllerBase } from "server/plugins/engine/pageControllers/PageControllerBase";
 import { FormModel } from "server/plugins/engine/models";
-import { NonSubmittingSummaryPage } from "@xgovformbuilder/model";
+import { CheckpointSummaryPageC } from "@xgovformbuilder/model";
 
 const DEFAULT_OPTIONS = {
   customText: {},
 };
 
-export class NonSubmittingSummaryPageController extends PageController {
+export class CheckpointSummaryPageController extends PageController {
   returnUrlParameter: string;
-  options: NonSubmittingSummaryPage["options"];
+  options: CheckpointSummaryPageC["options"];
 
-  constructor(model: FormModel, pageDef: NonSubmittingSummaryPage) {
+  constructor(model: FormModel, pageDef: CheckpointSummaryPageC) {
     super(model, pageDef);
 
     const returnPath = `/${this.model.basePath}${this.path}`;
@@ -78,8 +78,9 @@ export class NonSubmittingSummaryPageController extends PageController {
         displaySectionName =
           page.sectionForMultiSummaryPages || page.section?.name;
       } else {
-        // Use sectionForSummaryPages for grouping if available, otherwise use section name
-        displaySectionName = page.sectionForSummaryPages || page.section?.name;
+        // Use sectionForExitJourneySummaryPages for grouping if available, otherwise use section name
+        displaySectionName =
+          page.sectionForExitJourneySummaryPages || page.section?.name;
       }
 
       // Always use section name for state access

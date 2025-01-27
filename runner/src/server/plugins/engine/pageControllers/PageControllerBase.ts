@@ -53,7 +53,7 @@ export class PageControllerBase {
   condition: any; // TODO
   repeatField: any; // TODO
   section: any; // TODO
-  sectionForSummaryPages: any;
+  sectionForExitJourneySummaryPages: any;
   sectionForMultiSummaryPages: any;
   components: ComponentCollection;
   hasFormComponents: boolean;
@@ -81,7 +81,8 @@ export class PageControllerBase {
       (section) => section.name === pageDef.section
     );
 
-    this.sectionForSummaryPages = pageDef.sectionForSummaryPages;
+    this.sectionForExitJourneySummaryPages =
+      pageDef.sectionForExitJourneySummaryPages;
     this.sectionForMultiSummaryPages = pageDef.sectionForMultiSummaryPages;
 
     // Components collection

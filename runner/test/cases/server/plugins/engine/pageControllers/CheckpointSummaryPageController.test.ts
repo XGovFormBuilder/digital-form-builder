@@ -1,14 +1,14 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { FormModel } from "server/plugins/engine/models";
-import { NonSubmittingSummaryPageController } from "server/plugins/engine/pageControllers/NonSubmittingSummaryPageController";
+import { CheckpointSummaryPageController } from "server/plugins/engine/pageControllers/CheckpointSummaryPageController";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
 const { describe, it, beforeEach } = lab;
 
-describe("NonSubmittingSummaryPageController", () => {
+describe("CheckpointSummaryPageController", () => {
   let controller;
   let mockModel;
   let mockPageDef;
@@ -101,7 +101,7 @@ describe("NonSubmittingSummaryPageController", () => {
       path: "/summary",
       title: "Summary Page",
       section: "section1",
-      controller: "NonSubmittingSummaryPageController",
+      controller: "CheckpointSummaryPageController",
       name: "summary-page",
       components: [],
       next: [],
@@ -138,7 +138,7 @@ describe("NonSubmittingSummaryPageController", () => {
       continue: Symbol("continue"),
     };
 
-    controller = new NonSubmittingSummaryPageController(
+    controller = new CheckpointSummaryPageController(
       new FormModel(formDef, {}),
       mockPageDef
     );
@@ -146,7 +146,7 @@ describe("NonSubmittingSummaryPageController", () => {
 
   describe("constructor", () => {
     it("should initialize with default options when none provided", () => {
-      const controllerNoOptions = new NonSubmittingSummaryPageController(
+      const controllerNoOptions = new CheckpointSummaryPageController(
         new FormModel(mockModel.def, {}),
         { ...mockPageDef, options: undefined }
       );

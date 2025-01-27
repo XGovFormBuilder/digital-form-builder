@@ -113,7 +113,7 @@ const pageSchema = joi.object().keys({
   path: joi.string().required().disallow("/status"),
   title: localisedString,
   section: joi.string(),
-  sectionForSummaryPages: joi.string(),
+  sectionForExitJourneySummaryPages: joi.string(),
   sectionForMultiSummaryPages: joi.string(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
