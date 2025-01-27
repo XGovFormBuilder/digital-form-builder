@@ -414,6 +414,10 @@
           "path": "/mid-way-summary"
         },
         {
+          "condition": "WhichARI:Other",
+          "path": "/other-ari-confirmed-cases-setting"
+        },
+        {
           "path": "/ari-confirmed-cases-setting"
         }
       ]
@@ -423,16 +427,6 @@
       "title": "Service users: number of cases",
       "section": "InfectionsInYourSetting",
       "components": [
-        {
-          "name": "ServiceUsersConfirmedARI",
-          "type": "NumberField",
-          "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        },
         {
           "name": "ServiceUsersSymptomsNotTested",
           "type": "NumberField",
@@ -482,7 +476,7 @@
     },
     {
       "path": "/service-users-ari-adenovirus",
-      "title": "Service users: number of cases",
+      "title": "Service users: number of adenovirus cases",
       "section": "InfectionsInYourSetting",
       "components": [
         {
@@ -494,38 +488,24 @@
             "min": 0,
             "max": 999
           }
-        },
+        }
+      ],
+      "next": [
         {
-          "name": "ServiceUsersSymptomsNotTested",
-          "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        },
+          "path": "/service-users-ari-hmpv"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-hmpv",
+      "title": "Service users: number of human Metapneumovirus (hMPV) cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
         {
-          "name": "ServiceUsersTestedCovid",
+          "name": "ServiceUsersHmpv",
           "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
-          "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          },
-          "options": {
-            "required": false
-          }
-        },
-        {
-          "name": "ServiceUsersTestedFlu",
-          "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
+          "title": "How many service users have tested positive for human Metapneumovirus (hMPV)?",
+          "hint": "Include those who are currently in hospital or on visits out",
           "schema": {
             "min": 0,
             "max": 999
@@ -534,17 +514,79 @@
       ],
       "next": [
         {
-          "path": "/staff-ari-adenovirus",
-          "condition": "ARIServiceOrStaff:Staff"
-        },
+          "path": "/service-users-ari-parainfluenza"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-parainfluenza",
+      "title": "Service users: number of parainfluenza cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
         {
-          "path": "/severity-of-illness"
+          "name": "ServiceUsersParainfluenza",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for parainfluenza?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-users-ari-rsv"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-rsv",
+      "title": "Service users: number of Respiratory Syncytial Virus (RSV) cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "ServiceUsersRSV",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for Respiratory Syncytial Virus (RSV)?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-users-other"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-other",
+      "title": "Service users: number of other acute respiratory infection cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "ServiceUsersOtherARI",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for an other acute respiratory infection?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-ari-adenovirus"
         }
       ]
     },
     {
       "path": "/staff-ari-adenovirus",
-      "title": "Staff: number of cases",
+      "title": "Staff: number of adenovirus cases",
       "section": "InfectionsInYourSetting",
       "components": [
         {
@@ -556,38 +598,112 @@
             "min": 0,
             "max": 999
           }
-        },
+        }
+      ],
+      "next": [
         {
-          "name": "StaffSymptomsNotTested",
+          "path": "/staff-ari-hmpv"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-hmpv",
+      "title": "Staff: number of human Metapneumovirus (hMPV) cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "StaffHmpv",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "title": "How many staff have tested positive for human Metapneumovirus (hMPV)?",
+          "hint": "Include those who are currently in hospital or on visits out",
           "schema": {
             "min": 0,
             "max": 999
           }
-        },
+        }
+      ],
+      "next": [
         {
-          "name": "StaffTestedCovid",
+          "path": "/staff-ari-parainfluenza"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-parainfluenza",
+      "title": "Staff: number of parainfluenza cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "StaffParainfluenza",
           "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
-          "hint": "If none, enter 0",
+          "title": "How many staff have tested positive for parainfluenza?",
+          "hint": "Include those who are currently in hospital or on visits out",
           "schema": {
             "min": 0,
             "max": 999
-          },
-          "options": {
-            "required": false
           }
-        },
+        }
+      ],
+      "next": [
         {
-          "name": "StaffTestedFlu",
+          "path": "/staff-ari-rsv"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-rsv",
+      "title": "Staff: number of Respiratory Syncytial Virus (RSV) cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "StaffRSV",
           "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
+          "title": "How many staff have tested positive for Respiratory Syncytial Virus (RSV)?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-ari-rhinovirus"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-rhinovirus",
+      "title": "Staff: number of rhinovirus cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "ServiceUsersRhinovirus",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for rhinovirus?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-other"
+        }
+      ]
+    },
+    {
+      "path": "/staff-other",
+      "title": "Staff: number of other acute respiratory infection cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "StaffOtherARI",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for an other acute respiratory infection?",
+          "hint": "Include those who are currently in hospital or on visits out",
           "schema": {
             "min": 0,
             "max": 999
@@ -710,16 +826,6 @@
       "section": "InfectionsInYourSetting",
       "components": [
         {
-          "name": "StaffConfirmedARI",
-          "type": "NumberField",
-          "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        },
-        {
           "name": "StaffSymptomsNotTested",
           "type": "NumberField",
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
@@ -758,7 +864,7 @@
       ],
       "next": [
         {
-          "path": "/severity-of-illness"
+          "path": "/service-users-ari-adenovirus"
         }
       ]
     },
@@ -1138,6 +1244,53 @@
         },
         {
           "path": "/staff-ari-unknown"
+        }
+      ]
+    },
+    {
+      "path": "/other-ari-confirmed-cases-setting",
+      "title": "Who has an acute respiratory infection?",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+        },
+        {
+          "name": "OtherARIServiceOrStaff",
+          "type": "CheckboxesField",
+          "title": " ",
+          "hint": "You can select more than one option",
+          "list": "ServiceOrStaffMultiple",
+          "options": {
+            "required": true
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-unknown"
         }
       ]
     },
@@ -2881,6 +3034,222 @@
     }
   ],
   "conditions": [
+    {
+      "displayName": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionYouAreReporting.ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Adenovirus",
+              "display": "Adenovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionYouAreReporting.ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Human Metapneumovirus (hMPV)",
+              "display": "Human Metapneumovirus (hMPV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionYouAreReporting.ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Parainfluenza",
+              "display": "Parainfluenza"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionYouAreReporting.ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Respiratory Syncytial Virus (RSV)",
+              "display": "Respiratory Syncytial Virus (RSV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionYouAreReporting.ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Rhinovirus",
+              "display": "Rhinovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionYouAreReporting.ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Other acute respiratory infection",
+              "display": "Rhinovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
     {
       "displayName": "PositiveARI:No",
       "name": "PositiveARI:No",

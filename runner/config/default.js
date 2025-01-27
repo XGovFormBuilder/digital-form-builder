@@ -56,7 +56,7 @@ module.exports = {
    */
   serviceUrl: "http://localhost:3009", //This is used for redirects back to the runner.
   serviceName: "Webforms",
-  serviceStartPage: "",
+  serviceStartPage: "/ReportAnOutbreak/setting",
   privacyPolicyUrl: "",
   feedbackLink: "#", // Used in your phase banner. Can be a URL or more commonly mailto mailto:feedback@department.gov.uk
   phaseTag: "beta", // Accepts "alpha" |"beta" | ""
