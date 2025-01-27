@@ -4,7 +4,7 @@ import { PageController } from "server/plugins/engine/pageControllers/PageContro
 import { FormComponent } from "server/plugins/engine/components";
 import { PageControllerBase } from "server/plugins/engine/pageControllers/PageControllerBase";
 import { FormModel } from "server/plugins/engine/models";
-import { CheckpointSummaryPageC } from "@xgovformbuilder/model";
+import { CheckpointSummaryPage } from "@xgovformbuilder/model";
 
 const DEFAULT_OPTIONS = {
   customText: {},
@@ -12,9 +12,9 @@ const DEFAULT_OPTIONS = {
 
 export class CheckpointSummaryPageController extends PageController {
   returnUrlParameter: string;
-  options: CheckpointSummaryPageC["options"];
+  options: CheckpointSummaryPage["options"];
 
-  constructor(model: FormModel, pageDef: CheckpointSummaryPageC) {
+  constructor(model: FormModel, pageDef: CheckpointSummaryPage) {
     super(model, pageDef);
 
     const returnPath = `/${this.model.basePath}${this.path}`;
