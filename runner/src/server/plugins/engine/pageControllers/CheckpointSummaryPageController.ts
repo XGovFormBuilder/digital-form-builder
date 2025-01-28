@@ -31,7 +31,7 @@ export class CheckpointSummaryPageController extends PageController {
 
       const viewModel = await this.summaryViewModel(request);
 
-      return h.view("non-submitting-summary", viewModel);
+      return h.view("checkpoint-summary", viewModel);
     };
   }
 
