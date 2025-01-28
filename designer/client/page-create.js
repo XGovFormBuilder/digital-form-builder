@@ -206,6 +206,9 @@ class PageCreate extends React.Component {
               <option value="">Question Page</option>
               <option value="./pages/start.js">Start Page</option>
               <option value="./pages/summary.js">Summary Page</option>
+              <option value="CheckpointSummaryPage">
+                Non-submitting Summary Page
+              </option>
             </select>
           </div>
 

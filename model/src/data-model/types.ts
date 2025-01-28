@@ -15,6 +15,8 @@ export interface Page {
   controller: string;
   components?: ComponentDef[];
   section?: string; // the section ID
+  sectionForExitJourneySummaryPages?: string;
+  sectionForMultiSummaryPages?: string;
   next?: { path: string; condition?: string }[];
 }
 
@@ -29,6 +31,12 @@ export interface RepeatingFieldPage extends Page {
     customText?: {
       separatePageTitle?: string;
     };
+  };
+}
+export interface CheckpointSummaryPage extends Page {
+  controller: "CheckpointSummaryPageController";
+  options: {
+    customText: any;
   };
 }
 

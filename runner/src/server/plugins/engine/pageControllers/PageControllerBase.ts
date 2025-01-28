@@ -53,6 +53,8 @@ export class PageControllerBase {
   condition: any; // TODO
   repeatField: any; // TODO
   section: any; // TODO
+  sectionForExitJourneySummaryPages: any;
+  sectionForMultiSummaryPages: any;
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
@@ -78,6 +80,10 @@ export class PageControllerBase {
     this.section = model.sections?.find(
       (section) => section.name === pageDef.section
     );
+
+    this.sectionForExitJourneySummaryPages =
+      pageDef.sectionForExitJourneySummaryPages;
+    this.sectionForMultiSummaryPages = pageDef.sectionForMultiSummaryPages;
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
