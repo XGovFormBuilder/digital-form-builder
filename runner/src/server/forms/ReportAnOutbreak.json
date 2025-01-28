@@ -118,17 +118,9 @@
           "path": "/2-or-more-covid-descriptive",
           "condition": "WhichARI:COVID19ANDFLU"
         },
-        {
-          "path": "/2-or-more-covid",
-          "condition": "WhichARI:COVID19"
-        },
-        {
-          "path": "/cases-of-flu",
-          "condition": "WhichARI:FLU"
-        },
-        {
-          "path": "/2-or-more-cases-not-covid-or-flu"
-        }
+        { "path": "/2-or-more-covid", "condition": "WhichARI:COVID19" },
+        { "path": "/cases-of-flu", "condition": "WhichARI:FLU" },
+        { "path": "/2-or-more-cases-not-covid-or-flu" }
       ]
     },
     {
@@ -492,31 +484,28 @@
       ],
       "next": [
         {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-adenovirus"
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-adenovirus"
         },
         {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-hmpv"
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-hmpv"
         },
         {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-parainfluenza"
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-parainfluenza"
         },
         {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rsv"
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rsv"
         },
         {
-          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rhinovirus"
+          "condition": "ARIInfectionType:Rhiovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
         },
         {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-other"
-        },
-        {
-          "path": "/severity-of-illness"
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
         }
       ]
     },
@@ -708,7 +697,11 @@
       ],
       "next": [
         {
-          "path": "/staff-master"
+          "condition": "OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-cases"
+        },
+        {
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -750,7 +743,7 @@
           "path": "/staff-ari-other"
         },
         {
-          "path": "/staff-ari-cases"
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -788,7 +781,7 @@
           "path": "/staff-ari-other"
         },
         {
-          "path": "/staff-ari-cases"
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -822,7 +815,7 @@
           "path": "/staff-ari-other"
         },
         {
-          "path": "/staff-ari-cases"
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -852,7 +845,7 @@
           "path": "/staff-ari-other"
         },
         {
-          "path": "/staff-ari-cases"
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -878,7 +871,7 @@
           "path": "/staff-ari-other"
         },
         {
-          "path": "/staff-ari-cases"
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -1188,6 +1181,7 @@
           "type": "Para",
           "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
         },
+
         {
           "name": "StaffFluSwabTest",
           "options": {},
@@ -1460,52 +1454,12 @@
           "path": "/service-users-master"
         },
         {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-adenovirus"
+          "condition": "OtherARIServiceOrStaff:ServiceUsers",
+          "path": "/service-users-ari-confirmed"
         },
         {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-hmpv"
-        },
-        {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-parainfluenza"
-        },
-        {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-rsv"
-        },
-        {
-          "condition": "ARIInfectionType:Rhiovirus&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-rhinovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-other"
-        },
-        {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-adenovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-hmpv"
-        },
-        {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-parainfluenza"
-        },
-        {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rsv"
-        },
-        {
-          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rhinovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-other"
+          "condition": "OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-cases"
         },
         {
           "path": "/service-users-master"
@@ -1750,6 +1704,30 @@
         }
       ],
       "next": [
+        {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
         {
           "path": "/severity-of-illness"
         }
@@ -2803,9 +2781,7 @@
         },
         {
           "name": "EmptyBeds",
-          "options": {
-            "required": false
-          },
+          "options": { "required": false },
           "type": "NumberField",
           "schema": {
             "min": 0,
@@ -2836,19 +2812,6 @@
         }
       ],
       "next": []
-    },
-    {
-      "path": "/reportSent",
-      "title": "",
-      "components": [
-        {
-          "name": "nMOTrx",
-          "options": {},
-          "type": "Para",
-          "content": "<style>.container{font-family:system-ui,-apple-system,sans-serif;max-width:800px;margin:20px auto}.header{background-color:#2e7d32;color:white;padding:30px 20px;text-align:center;margin-bottom:30px}.header h1{margin:0 0 20px;font-size:2.5rem}.header .reference{font-size:1.5rem}.section{margin-bottom:30px;padding:0 20px}.section h2{font-size:1.3rem;margin-bottom:15px}.section p{line-height:1.5;margin-bottom:15px}.alert{background-color:#f8f9fa;border:1px solid #dee2e6;padding:20px;margin:15px 0;border-radius:4px}.link{color:#0066cc;text-decoration:none}.link:hover{text-decoration:underline}.emergency{background-color:#fff3cd;border:1px solid #ffecb5;padding:20px;margin:15px 0;border-radius:4px}</style><div class=\"container\"><div class=\"header\"><h1>Report sent</h1><div class=\"reference\">Your reference number<br>OS-5371</div></div><div class=\"section\"><h2>Your outbreak reference number</h2><p>Your reference number is: OS-5371. Use this number if you need to contact the UKHSA health protection team about your outbreak.</p></div><div class=\"section\"><h2>What happens next</h2><p>We will send 2 automated emails to Pel@coy.com.</p><p>An acknowledgement email will give you your reference number and a copy of the information you've provided. The email will tell you if you have a low-risk outbreak, a medium-risk outbreak, a high-priority outbreak, or a single case of flu.</p><p>An advice email will give you information specific to your situation to help you prevent the spread of infection. It explains what to expect from your local UKHSA health protection team or the community infection control team.</p><p>If these emails do not arrive within one hour, or you need urgent advice, telephone your local <a href=\"#\" class=\"link\">UKHSA health protection team</a> or community infection control team.</p></div><div class=\"section\"><h2>If your outbreak is high priority on a weekend or bank holiday</h2><p>If your acknowledgement or advice email tells you that your outbreak is assessed as high priority on a weekend or a bank holiday, you also need to telephone your local <a href=\"#\" class=\"link\">UKHSA health protection team</a>. Call during the daytime if possible. If you do not call the health protection team, a member of the health protection team will only call you on the next working day.</p></div><div class=\"section\"><h2>If you need urgent medical advice</h2><div class=\"emergency\"><p>If you need urgent medical advice, you can call NHS 111 or visit <a href=\"#\" class=\"link\">111.nhs.uk</a>. For life-threatening emergencies, call 999.</p></div></div><div class=\"section\"><h2>Give feedback on this service</h2><p>This is a new service. Help us improve it and <a href=\"#\" class=\"link\">give your feedback</a>.</p></div></div>",
-          "schema": {}
-        }
-      ]
     }
   ],
   "lists": [
@@ -3305,7 +3268,52 @@
       "title": "Flu in your setting"
     }
   ],
+
   "conditions": [
+    {
+      "displayName": "OtherARIServiceOrStaff:ServiceUsers",
+      "name": "OtherARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "OtherARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "OtherARIServiceOrStaff:Staff",
+      "name": "OtherARIServiceOrStaff:Staff",
+      "value": {
+        "name": "OtherARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "InfectionsInYourSetting.OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
     {
       "displayName": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
       "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
@@ -4218,6 +4226,7 @@
         ]
       }
     },
+
     {
       "displayName": "WhichARI:COVID19",
       "name": "WhichARI:COVID19",
@@ -5368,7 +5377,7 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "nextSteps": "We will send 2 automated emails to {{ S1Q8 }}",
+        "nextSteps": "<h2 class='govuk-heading-m'>Your outbreak reference number</h2><p class='govuk-body'>Your reference number is: TEST. Use this number if you need to contact the UKHSA health protection team about your outbreak.</p><h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We will send 2 automated emails to {{ MainContactEmailAddress }}. An acknowledgement email will give you your reference number and a copy of the information you've provided. The email will tell you if you have a low-risk COVID-19 outbreak, a medium-risk COVID-19 outbreak, a high-priority outbreak, or a single case of flu. An advice email will give you information specific to your situation to help you prevent the spread of infection. It explains what to expect from your local UKHSA health protection team or the community infection control team. If these emails do not arrive within one hour, or you need urgent advice, telephone your local <a href='https://www.gov.uk/health-protection-team' target=”_blank”>UKHSA health protection team (opens in a new tab)</a> or community infection control team.</p><h2 class='govuk-heading-m'>If your outbreak is high priority on a weekend or bank holiday</h2><p class='govuk-body'>If your acknowledgement or advice email tells you that your outbreak is assessed as high priority on a weekend or a bank holiday, you also need to telephone your local <a href='https://www.gov.uk/health-protection-team' target=”_blank”>UKHSA health protection team (opens in a new tab)</a>. Call during the daytime if possible. If you do not call the health protection team, a member of the health protection team will only call you on the next working day. </p><h2 class='govuk-heading-m'>If you need urgent medical advice</h2><p class='govuk-body'>If you need urgent medical advice, you can call NHS 111 or visit <a href='https://111.nhs.uk' target=”_blank”>111.nhs.uk (opens in a new tab)</a>. For life-threatening emergencies, call 999.</p><h2 class='govuk-heading-m'>Give feedback on this service</h2><p class='govuk-body'>This is a new service. Help us improve it and give your <a href='/ReportAnOutbreak/feedback' target=”_blank”>feedback (opens in new tab)</a>.</p>",
         "title": "Report sent"
       }
     }
