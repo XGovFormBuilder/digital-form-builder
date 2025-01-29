@@ -5018,7 +5018,7 @@
             }
           },
           {
-            "coordinator": "and",
+            "coordinator": "or",
             "field": {
               "name": "InfectionsYouAreReporting.TwoOrMoreCovidSpread",
               "type": "RadiosField",
