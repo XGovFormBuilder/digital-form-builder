@@ -19,14 +19,11 @@ export class NumberField extends FormComponent {
 
     componentSchema = componentSchema.label(def.title.toLowerCase());
 
-    if (min && max) {
-      componentSchema = componentSchema.$;
-    }
-    if (min ?? false) {
+    if (min !== null && min !== undefined) {
       componentSchema = componentSchema.min(min);
     }
 
-    if (max ?? false) {
+    if (max !== null && max !== undefined) {
       componentSchema = componentSchema.max(max);
     }
 
