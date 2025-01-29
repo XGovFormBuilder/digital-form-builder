@@ -1996,11 +1996,11 @@
           "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
         },
         {
-          "name": "SingleCaseOfFluSeverityCalledGPMultipleCases",
+          "name": "FluSeverityCalledGPMultipleCases",
           "options": {},
           "type": "RadiosField",
           "nameHasError": false,
-          "title": "How many people have you called the GP about because of the severity of illness in this outbreak?",
+          "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
           "list": "CaseNumbers",
           "values": {
             "type": "listRef"
@@ -2389,7 +2389,7 @@
         {
           "name": "SeverityGPCalls",
           "type": "RadiosField",
-          "title": "How many people have you called the GP about because of the severity of illness in this outbreak?",
+          "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
           "list": "CaseNumbers",
           "options": {
             "required": true
