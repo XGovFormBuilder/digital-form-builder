@@ -2092,7 +2092,7 @@
       "next": [
         {
           "condition": "WhichARI:Covid&ARIServiceOrStaff:Staff",
-          "path": "/staff-covid-cases"
+          "path": "/staff-covid"
         },
         {
           "path": "/severity-of-illness"
@@ -2152,6 +2152,46 @@
           "condition": "WhichARI:CovidAndFlu&ARIServiceOrStaff:Staff",
           "path": "/staff-covid-flu"
         },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/staff-covid",
+      "title": "Staff: number of cases",
+      "section": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+        },
+        {
+          "type": "NumberField",
+          "name": "StaffCovidTestPositive",
+          "title": "How many service users have COVID-19 confirmed by a positive test?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "options": {
+            "required": true
+          },
+          "schema": {
+            "min": 0
+          }
+        },
+        {
+          "type": "NumberField",
+          "name": "StaffSymptomsNotTested",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "options": {
+            "required": true
+          },
+          "schema": {
+            "min": 0
+          }
+        }
+      ],
+      "next": [
         {
           "path": "/severity-of-illness"
         }
@@ -2419,62 +2459,6 @@
       "next": [
         {
           "path": "/vaccination"
-        }
-      ]
-    },
-    {
-      "path": "/staff-covid-cases",
-      "title": "Staff: number of cases",
-      "section": "InfectionsInYourSetting",
-      "components": [
-        {
-          "type": "Para",
-          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
-        },
-        {
-          "type": "NumberField",
-          "name": "StaffCovidTestPositive",
-          "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
-          "name": "StaffSymptomsNotTested",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "name": "FluSeveritySpecificArea",
-          "title": "Are the cases linked to a specific area of the setting?",
-          "type": "RadiosField",
-          "nameHasError": false,
-          "list": "FluSeveritySpecificArea",
-          "options": {},
-          "schema": {},
-          "values": {
-            "type": "listRef"
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/cases-of-flu",
-          "condition": "WhichARI:CovidAndFlu"
-        },
-        {
-          "path": "/severity-of-illness"
         }
       ]
     },
