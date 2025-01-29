@@ -67,7 +67,8 @@
           "options": {
             "summaryTitle": "Positive test result"
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Do you have any positive test results for an acute respiratory infection?",
           "hint": "The infection must have been confirmed by a test, for example a lateral flow test, flu swab test or a laboratory test.",
@@ -136,7 +137,8 @@
         },
         {
           "name": "TwoOrMoreCovid",
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "options": {
             "summaryTitle": "2 or more cases"
@@ -172,7 +174,8 @@
           "options": {
             "summaryTitle": "2 or more cases"
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": " ",
           "values": {
@@ -258,7 +261,8 @@
           "options": {
             "summaryTitle": "2 or more cases"
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
           "values": {
@@ -315,7 +319,8 @@
           "options": {
             "summaryTitle": "2 or more cases"
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?",
           "hint": "This includes viruses such as respiratory syncytial virus, rhinovirus, parainfluenza and chest infections",
@@ -1272,7 +1277,8 @@
         {
           "name": "SingleCaseOfFluSeverityCalledGP",
           "options": {},
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Have you called the GP because of the severity of illness in this case?",
           "values": {
@@ -1282,7 +1288,8 @@
         {
           "name": "SingleCaseOfFluSeverityHospitalised",
           "options": {},
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Has the person been hospitalised with the flu?",
           "values": {
@@ -1292,7 +1299,8 @@
         {
           "name": "SingleCaseOfFluSeverityDeath",
           "options": {},
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Has the person died with flu in this case?",
           "values": {
@@ -1945,7 +1953,8 @@
         {
           "name": "AGPs",
           "options": {},
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Does your setting undertake aerosol generating procedures (AGPs)?",
           "hint": "For example, inserting or removing a tracheotomy or ostomy, sputum induction, respiratory tract suctioning below the oro-pharynx (mouth suctioning is not an AGP)",
@@ -1958,7 +1967,8 @@
           "options": {
             "required": false
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Are you aware of any media interest in this outbreak?",
           "values": {
@@ -2499,7 +2509,8 @@
         {
           "name": "AgencyStaff",
           "options": {},
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Do you use agency staff or share staff with other care settings?",
           "values": {
@@ -2595,7 +2606,8 @@
         {
           "name": "CQCRegistered",
           "options": {},
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "YesNo",
           "nameHasError": false,
           "title": "Is your care setting registered with the Care Quality Commission (CQC)?",
           "values": {
@@ -2815,6 +2827,21 @@
     }
   ],
   "lists": [
+    {
+      "title": "yes-no",
+      "name": "YesNo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "true"
+        },
+        {
+          "text": "No",
+          "value": "false"
+        }
+      ]
+    },
     {
       "title": "yes-no-sure",
       "name": "YesNoSure",
@@ -3755,7 +3782,7 @@
           {
             "field": {
               "name": "InfectionsYouAreReporting.PositiveARI",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do you have any positive test results for an acute respiratory infection?"
             },
             "operator": "is",
@@ -3777,7 +3804,7 @@
           {
             "field": {
               "name": "InfectionYouAreReporting.TwoOrMoreARI",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of an acute respiratory infection?"
             },
             "operator": "is",
@@ -3799,7 +3826,7 @@
           {
             "field": {
               "name": "InfectionsYouAreReporting.TwoOrMoreCovid",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases?"
             },
             "operator": "is",
@@ -3993,7 +4020,7 @@
             "coordinator": "and",
             "field": {
               "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Which acute respiratory infections do you have a positive test result for?"
             },
             "operator": "is",
@@ -4007,7 +4034,7 @@
             "coordinator": "and",
             "field": {
               "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
             },
             "operator": "is",
@@ -4057,7 +4084,7 @@
             "coordinator": "and",
             "field": {
               "name": "InfectionsYouAreReporting.TwoOrMoreCovid",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of COVID-19?"
             },
             "operator": "is",
@@ -4071,7 +4098,7 @@
             "coordinator": "and",
             "field": {
               "name": "InfectionYouAreReporting.TwoOrMoreARI",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of an acute respiratory infection?"
             },
             "operator": "is",
@@ -4121,7 +4148,7 @@
             "coordinator": "and",
             "field": {
               "name": "InfectionsYouAreReporting.TwoOrMoreCovid",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of COVID-19?"
             },
             "operator": "is",
@@ -4135,7 +4162,7 @@
             "coordinator": "and",
             "field": {
               "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
             },
             "operator": "is",
@@ -4213,7 +4240,7 @@
             "coordinator": "and",
             "field": {
               "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
             },
             "operator": "is",
@@ -5032,7 +5059,7 @@
           {
             "field": {
               "name": "InfectionYouAreReporting.TwoOrMoreCasesNotCovidFlu",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
             },
             "operator": "is",
@@ -5316,7 +5343,7 @@
           {
             "field": {
               "name": "InfectionPreventionAndControl.AGPs",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Does your setting undertake aerosol generating procedures (AGPs)?"
             },
             "operator": "is",
@@ -5338,7 +5365,7 @@
           {
             "field": {
               "name": "Staff.AgencyStaff",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do you use agency staff or share staff with other care settings?"
             },
             "operator": "is",
