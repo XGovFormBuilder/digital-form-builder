@@ -1316,7 +1316,7 @@
     },
     {
       "path": "/vaccination",
-      "title": "Vaccination among your staff and service users",
+      "title": "Vaccination among your service users and staff",
       "section": "Vaccination",
       "components": [
         {
