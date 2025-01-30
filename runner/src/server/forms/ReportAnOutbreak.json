@@ -1253,7 +1253,9 @@
       "components": [
         {
           "name": "FluSymptomOnsetDate",
-          "options": {},
+          "options": {
+            "maxDaysInFuture": "0"
+          },
           "type": "DatePartsField",
           "nameHasError": false,
           "title": "When did symptoms start?",
@@ -2443,7 +2445,8 @@
           "title": "When did symptoms start in the first case in this outbreak?",
           "hint": "For example, 31 3 2025",
           "options": {
-            "required": true
+            "required": true,
+            "maxDaysInFuture": "0"
           }
         },
         {
@@ -2452,7 +2455,8 @@
           "title": "When did symptoms start in the most recent case in this outbreak?",
           "hint": "For example, 31 3 2025",
           "options": {
-            "required": false
+            "required": false,
+            "maxDaysInFuture": "0"
           }
         }
       ],
