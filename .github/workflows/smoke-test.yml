@@ -16,7 +16,6 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     name: build app ${{inputs.app}}
-    container: ubuntu
     outputs:
       tag: ${{ steps.hashFile.outputs.tag }}
       hash: ${{ steps.hashFile.outputs.hash }}
@@ -78,6 +77,6 @@ jobs:
 
       - name: run smoke tests
         run: |
-          curl 127.0.0.1:3009/health-check
+          curl -f http://localhost:3009/health-check
           docker compose logs runner
           yarn e2e cypress run
