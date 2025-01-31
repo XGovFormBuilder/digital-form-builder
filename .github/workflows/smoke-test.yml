@@ -71,6 +71,9 @@ jobs:
       - name: log
         run: |
           docker compose logs runner
+          docker exec runner wget host.docker.internal:3009/health-check --server-response
 
       - name: run smoke tests
-        run: yarn e2e cypress run
+        run: |
+          curl localhost:3009/health-check
+          yarn e2e cypress run
