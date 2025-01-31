@@ -71,7 +71,7 @@ jobs:
       - name: log
         run: |
           docker compose logs runner
-          docker exec runner wget host.docker.internal:3009/health-check --server-response
+          docker exec runner wget runner:3009/health-check --server-response
 
       - name: run smoke tests
         run: |
