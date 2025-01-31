@@ -77,5 +77,6 @@ jobs:
 
       - name: run smoke tests
         run: |
-          curl localhost:3009/health-check
+          curl 127.0.0.1:3009/health-check
+          docker compose logs runner
           yarn e2e cypress run
