@@ -59,23 +59,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: load designer
-        uses: docker/build-push-action@v3
-        with:
-          file: designer/Dockerfile
-          load: true
-          context: .
-          tags: digital-form-builder-designer
-          cache-from: type=registry,ref=xgovformbuilder/digital-form-builder-designer:latest
-
-      - name: load runner
-        uses: docker/build-push-action@v3
-        with:
-          file: runner/Dockerfile
-          context: .
-          load: true
-          tags: digital-form-builder-runner
-          cache-from: type=registry,ref=xgovformbuilder/digital-form-builder-runner:latest
+      #      - name: load designer
+      #        uses: docker/build-push-action@v3
+      #        with:
+      #          file: designer/Dockerfile
+      #          load: true
+      #          context: .
+      #          tags: digital-form-builder-designer
+      #          cache-from: type=registry,ref=xgovformbuilder/digital-form-builder-designer:latest
+      #
+      #      - name: load runner
+      #        uses: docker/build-push-action@v3
+      #        with:
+      #          file: runner/Dockerfile
+      #          context: .
+      #          load: true
+      #          tags: digital-form-builder-runner
+      #          cache-from: type=registry,ref=xgovformbuilder/digital-form-builder-runner:latest
 
       - name: check images
         run: |
@@ -83,12 +83,11 @@ jobs:
 
       - name: start containers
         run: |
-          docker compose -f docker-compose.smoke.yml up -d 
-          docker ps
+          docker compose -f docker-compose.smoke.yml up redis designer -d
 
-      - name: log
+      - name: start containers
         run: |
-          docker compose logs runner
+          docker compose -f docker-compose.smoke.yml up runner -d
 
       - name: run smoke tests
         run: yarn e2e cypress run
