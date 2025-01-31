@@ -59,22 +59,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: load designer
-        uses: docker/build-push-action@v3
-        with:
-          file: designer/Dockerfile
-          load: true
-          context: .
-          tags: digital-form-builder-designer
-
-      - name: load runner
-        uses: docker/build-push-action@v3
-        with:
-          file: runner/Dockerfile
-          context: .
-          load: true
-          tags: digital-form-builder-runner
-
       - name: check images
         run: |
           docker images
