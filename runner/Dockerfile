@@ -2,6 +2,8 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
+# alpine3.20 is required due to openssl location changing in later versions of alpine, causing prisma to panic
+# Prisma and queue-model will be removed in subsequent versions
 FROM node:20-alpine3.20 AS base
 RUN npm install -g npm@^9.x.x && \
     mkdir -p /usr/src/app && \
