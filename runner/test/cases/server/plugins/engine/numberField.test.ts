@@ -59,4 +59,28 @@ test("Prefix and suffix are passed to view model", () => {
     prefix: { text: "@£%" },
     suffix: { text: "&^%%" },
   });
+
+  test("Text type and numeric inputmode are used by default", () => {
+    const numberFieldPrefixSuffix = new NumberField(baseDef);
+
+    expect(numberFieldPrefixSuffix.getViewModel({})).to.contain({
+      type: "text",
+      inputmode: "numeric",
+    });
+  });
+
+  test("Number type is used is precision is specified", () => {
+    const def = {
+      ...baseDef,
+      schema: { precision: "0" },
+    };
+    const numberFieldPrefixSuffix = new NumberField(def);
+
+    expect(numberFieldPrefixSuffix.getViewModel({})).to.contain({
+      type: "number",
+      attributes: {
+        step: "0.1",
+      },
+    });
+  });
 });
