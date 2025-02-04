@@ -37,7 +37,7 @@
         {
           "name": "CareSettingType",
           "options": {
-            "summaryTitle": "Your setting"
+            "summaryTitle": "Setting type"
           },
           "type": "RadiosField",
           "nameHasError": false,
