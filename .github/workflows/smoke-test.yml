@@ -77,8 +77,8 @@ jobs:
         run: |
           docker images
 
-      #      - name: run smoke tests
-      #        run: yarn e2e cypress run
+            - name: run smoke tests
+              run: yarn e2e cypress run
 
       - name: log runner
         if: always()
