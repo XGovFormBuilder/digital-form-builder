@@ -20,7 +20,7 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 USER 1001
-RUN --mount=type=cache,target=./.yarn/cache,id=base,uid=1001,mode=0755 yarn
+RUN yarn
 
 # ----------------------------
 # Stage 3
@@ -33,8 +33,7 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./queue-model/package.json ./queue-model/tsconfig.json ./queue-model/babel.config.json ./queue-model/schema.prisma ./queue-model/
 COPY --chown=appuser:appuser ./queue-model/src ./queue-model/src/
 COPY --chown=appuser:appuser ./queue-model/migrations ./queue-model/migrations/
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model \
-    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model yarn workspaces focus @xgovformbuilder/queue-model
+RUN yarn workspaces focus @xgovformbuilder/queue-model
 RUN yarn queue-model build
 
 # ----------------------------
@@ -51,8 +50,7 @@ ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./submitter/package.json ./submitter/tsconfig.json ./submitter/.babelrc ./submitter/nodemon.json ./submitter/
 COPY --chown=appuser:appuser ./submitter/config ./submitter/config
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner \
-    yarn workspaces focus @xgovformbuilder/submitter
+RUN yarn workspaces focus @xgovformbuilder/submitter
 COPY --chown=appuser:appuser ./submitter/src ./submitter/src/
 RUN touch submitter/.env && \
     echo "LAST_TAG_GH=$LAST_TAG" >> submitter/.env && \
