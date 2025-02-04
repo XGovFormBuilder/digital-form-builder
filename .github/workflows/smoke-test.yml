@@ -69,21 +69,8 @@ jobs:
           docker compose -f docker-compose.smoke.yml up runner -d
           sleep 10
 
-      - name: log runner
-        run: |
-          docker compose logs runner
-
-      - name: check images
-        run: |
-          docker images
-
-            - name: run smoke tests
-              run: yarn e2e cypress run
-
-      - name: log runner
-        if: always()
-        run: |
-          docker compose logs runner
+      - name: run smoke tests
+        run: yarn e2e cypress run
 
       - uses: actions/upload-artifact@v4
         if: always()
