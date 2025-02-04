@@ -2,7 +2,7 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-FROM node:20-alpine AS base
+FROM node:20-alpine3.20 AS base
 RUN npm install -g npm@^9.x.x && \
     mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
@@ -35,8 +35,7 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
-    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
+RUN yarn workspaces focus @xgovformbuilder/model
 RUN yarn model build
 
 # ----------------------------
@@ -76,6 +75,7 @@ RUN touch runner/.env && \
     echo "LAST_COMMIT=$LAST_COMMIT" >> runner/.env
 
 RUN yarn runner build
+
 USER 1001
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]
