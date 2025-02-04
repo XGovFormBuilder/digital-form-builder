@@ -2562,8 +2562,8 @@
           "nameHasError": false,
           "title": "Your setting postcode",
           "hint": "The postcode of the setting where the cases are located, not the management company.",
-          "values": {
-            "type": "listRef"
+          "schema": {
+            "regex": "^([a-zA-Z]{1,2}[0-9][a-zA-Z0-9]? *[0-9][a-zA-Z]{2}|[a-zA-Z]{1,2}[0-9][a-zA-Z0-9]?)$"
           }
         },
         {
