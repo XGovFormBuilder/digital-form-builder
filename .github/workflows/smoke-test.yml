@@ -53,44 +53,37 @@ jobs:
             [registry."ghcr.io"]
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      #      - name: load designer
-      #        uses: docker/build-push-action@v3
-      #        with:
-      #          file: designer/Dockerfile
-      #          load: true
-      #          context: .
-      #          tags: digital-form-builder-designer
-      #          cache-from: type=registry,ref=xgovformbuilder/digital-form-builder-designer:latest
-      #
-      #      - name: load runner
-      #        uses: docker/build-push-action@v3
-      #        with:
-      #          file: runner/Dockerfile
-      #          context: .
-      #          load: true
-      #          tags: digital-form-builder-runner
-      #          cache-from: type=registry,ref=xgovformbuilder/digital-form-builder-runner:latest
+      - name: start containers
+        run: |
+          docker compose -f docker-compose.smoke.yml up redis designer -d
+          sleep 10
+
+      - name: start runner
+        run: |
+          docker compose -f docker-compose.smoke.yml up runner -d
+          sleep 10
+
+      - name: log runner
+        run: |
+          docker compose logs runner
 
       - name: check images
         run: |
           docker images
 
-      - name: start containers
-        run: |
-          docker compose -f docker-compose.smoke.yml up redis designer -d
-
-      - name: start containers
-        run: |
-          docker compose -f docker-compose.smoke.yml up runner -d
-
       - name: run smoke tests
         run: yarn e2e cypress run
+
+      - name: log runner
+        if: always()
+        run: |
+          docker compose logs runner
 
       - uses: actions/upload-artifact@v4
         if: always()

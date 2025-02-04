@@ -50,8 +50,7 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./queue-model/package.json ./queue-model/tsconfig.json ./queue-model/babel.config.json ./queue-model/schema.prisma ./queue-model/
 COPY --chown=appuser:appuser ./queue-model/src ./queue-model/src/
 COPY --chown=appuser:appuser ./queue-model/migrations ./queue-model/migrations/
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model \
-    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model yarn workspaces focus @xgovformbuilder/queue-model
+RUN yarn workspaces focus @xgovformbuilder/queue-model
 RUN yarn queue-model build
 
 # ----------------------------
@@ -68,8 +67,7 @@ ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
 COPY --chown=appuser:appuser ./runner/config ./runner/config
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner \
-    yarn workspaces focus @xgovformbuilder/runner
+RUN yarn workspaces focus @xgovformbuilder/runner
 COPY --chown=appuser:appuser ./runner/src ./runner/src/
 COPY --chown=appuser:appuser ./runner/bin ./runner/bin/
 COPY --chown=appuser:appuser ./runner/public ./runner/public/
