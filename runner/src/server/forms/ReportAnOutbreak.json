@@ -2171,7 +2171,7 @@
         {
           "type": "NumberField",
           "name": "StaffCovidTestPositive",
-          "title": "How many service users have COVID-19 confirmed by a positive test?",
+          "title": "How many staff have COVID-19 confirmed by a positive test?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
@@ -2183,7 +2183,7 @@
         {
           "type": "NumberField",
           "name": "StaffSymptomsNotTested",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
