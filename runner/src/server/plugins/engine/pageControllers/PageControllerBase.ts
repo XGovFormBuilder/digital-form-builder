@@ -85,8 +85,6 @@ export class PageControllerBase {
     this.sectionForExitJourneySummaryPages =
       pageDef.sectionForExitJourneySummaryPages;
     this.sectionForMultiSummaryPages = pageDef.sectionForMultiSummaryPages;
-    this.sidebarTitle = pageDef.sidebarTitle;
-    this.sidebarSubtitle = pageDef.sidebarSubtitle;
     this.sidebarContent = pageDef.sidebarContent;
 
     // Components collection
