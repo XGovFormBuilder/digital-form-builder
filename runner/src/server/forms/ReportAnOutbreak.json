@@ -37,7 +37,16 @@
         {
           "name": "CareSettingType",
           "options": {
-            "summaryTitle": "Setting type"
+            "summaryTitle": "Setting type",
+            "conditionallyRevealedComponents": {
+              "Other adult social care": {
+                "type": "TextField",
+                "name": "Other adult social care",
+                "title": "Enter your setting type",
+                "options": {},
+                "schema": {}
+              }
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
@@ -2593,7 +2602,17 @@
         },
         {
           "name": "CQCRegistered",
-          "options": {},
+          "options": {
+            "conditionallyRevealedComponents": {
+              "true": {
+                "type": "TextField",
+                "name": "true",
+                "title": "Enter your CQC location ID, for example, 1-123456789",
+                "options": {},
+                "schema": {}
+              }
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
