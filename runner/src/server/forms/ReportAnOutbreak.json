@@ -37,7 +37,7 @@
         {
           "name": "CareSettingType",
           "options": {
-            "summaryTitle": "Your setting",
+            "summaryTitle": "Setting type",
             "conditionallyRevealedComponents": {
               "Other adult social care": {
                 "type": "TextField",
