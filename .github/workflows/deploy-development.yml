@@ -30,7 +30,7 @@ jobs:
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:login
+        run: npx --yes heroku container:login
 
       - name: Pull latest ${{ inputs.app }} image
         run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:${{ inputs.tag }}
