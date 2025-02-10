@@ -47,11 +47,18 @@
       <h2 class="govuk-heading-s" style="margin: 15px 0">Related content</h2>
       <hr class="govuk-section-break govuk-section-break--visible">
       <ul class="govuk-list">
-        <li>
-        <p class="govuk-body govuk-!-font-size-16" style="padding: 15px 0 0 0">Detailed guidance</p>
-        </li>
-        <li><b><a href="{{relatedContent[0].link}}" class="govuk-link govuk-!-font-size-16" style="margin: 15px 0 0 0">{{relatedContent[0].title}}</a></b></li>
-        <li><b><a href="{{relatedContent[1].link}}" class="govuk-link govuk-!-font-size-16">{{relatedContent[1].title}}</a></b></li>
+          <li>
+            <p class="govuk-body govuk-!-font-size-16" style="padding: 15px 0 0 0">Detailed guidance</p>
+          </li>
+          {% for item in relatedContent %}
+            <li>
+              <b>
+                <a href="{{ item.link }}" class="govuk-link govuk-!-font-size-16" {% if loop.first %}style="margin: 15px 0 0 0"{% endif %}>
+                  {{ item.title }}
+                </a>
+              </b>
+            </li>
+          {% endfor %}      
       </ul>
     </div>  
   </div>
