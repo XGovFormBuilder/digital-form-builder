@@ -46,4 +46,4 @@ jobs:
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:release -a digital-form-builder-${{ inputs.app }} web
+        run: npx --yes heroku container:release -a digital-form-builder-${{ inputs.app }} web
