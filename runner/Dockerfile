@@ -2,7 +2,9 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-FROM node:20-alpine AS base
+# alpine3.20 is required due to openssl location changing in later versions of alpine, causing prisma to panic
+# Prisma and queue-model will be removed in subsequent versions
+FROM node:20-alpine3.20 AS base
 RUN npm install -g npm@^9.x.x && \
     mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
@@ -35,8 +37,7 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
-    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
+RUN yarn workspaces focus @xgovformbuilder/model
 RUN yarn model build
 
 # ----------------------------
@@ -50,8 +51,7 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./queue-model/package.json ./queue-model/tsconfig.json ./queue-model/babel.config.json ./queue-model/schema.prisma ./queue-model/
 COPY --chown=appuser:appuser ./queue-model/src ./queue-model/src/
 COPY --chown=appuser:appuser ./queue-model/migrations ./queue-model/migrations/
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model \
-    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=queue-model yarn workspaces focus @xgovformbuilder/queue-model
+RUN yarn workspaces focus @xgovformbuilder/queue-model
 RUN yarn queue-model build
 
 # ----------------------------
@@ -68,8 +68,7 @@ ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
 COPY --chown=appuser:appuser ./runner/config ./runner/config
-RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner \
-    yarn workspaces focus @xgovformbuilder/runner
+RUN yarn workspaces focus @xgovformbuilder/runner
 COPY --chown=appuser:appuser ./runner/src ./runner/src/
 COPY --chown=appuser:appuser ./runner/bin ./runner/bin/
 COPY --chown=appuser:appuser ./runner/public ./runner/public/
@@ -78,6 +77,7 @@ RUN touch runner/.env && \
     echo "LAST_COMMIT=$LAST_COMMIT" >> runner/.env
 
 RUN yarn runner build
+
 USER 1001
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]
