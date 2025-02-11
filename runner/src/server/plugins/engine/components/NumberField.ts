@@ -40,12 +40,7 @@ export class NumberField extends FormComponent {
     }
 
     if (def.options.required === false) {
-      const optionalSchema = joi
-        .alternatives()
-        .try(
-          joi.string().allow(null).allow("").default("").optional(),
-          componentSchema
-        );
+      const optionalSchema = componentSchema.allow(null).allow("").optional();
       this.schema = optionalSchema;
     } else {
       this.schema = componentSchema;
