@@ -74,14 +74,22 @@ export class SelectionControlField extends ListFormComponent {
         // The conditional html tag used by the gov.uk design system macro will reference HTML rarther than one or more additional
         // gov.uk design system macros.
 
+        let viewModel = item.conditionallyRevealedComponents.getViewModel(
+          formData,
+          errors
+        );
+
+        viewModel.forEach((component) => {
+          if (component.model.label) {
+            component.model.label.classes = "govuk-label";
+          }
+        });
+
         itemModel.conditional = {
           html: nunjucks.render(
             "../views/partials/conditional-components.html",
             {
-              components: item.conditionallyRevealedComponents.getViewModel(
-                formData,
-                errors
-              ),
+              components: viewModel,
             }
           ),
         };
