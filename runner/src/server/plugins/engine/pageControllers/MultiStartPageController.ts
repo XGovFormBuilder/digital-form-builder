@@ -4,7 +4,7 @@ import { PageController } from "./PageController";
 export class MultiStartPageController extends PageController {
   get viewName() {
     if (this.sidebarContent) {
-      return "multi-start-page-with-related-content";
+      return "multi-start-page-with-sidebar-content";
     } else {
       return "multi-start-page";
     }
