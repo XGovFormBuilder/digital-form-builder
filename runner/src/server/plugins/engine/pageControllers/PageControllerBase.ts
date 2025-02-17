@@ -434,6 +434,15 @@ export class PageControllerBase {
       //Iterate all components on this page and pull out the saved values from the state
       for (const component of nextPage.components.items) {
         newValue[component.name] = currentState[component.name];
+
+        if (component.options.conditionallyRevealedComponents) {
+          for (const key in component.options.conditionallyRevealedComponents) {
+            const revealedComponent =
+              component.options.conditionallyRevealedComponents[key]; // Get the actual object
+            newValue[revealedComponent.name] =
+              currentState[revealedComponent.name];
+          }
+        }
       }
 
       if (nextPage.section) {

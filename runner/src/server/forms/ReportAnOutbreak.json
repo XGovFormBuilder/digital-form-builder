@@ -47,9 +47,9 @@
           "options": {
             "summaryTitle": "Setting type",
             "conditionallyRevealedComponents": {
-              "Other adult social care": {
+              "OtherAdultSocialCare": {
                 "type": "TextField",
-                "name": "Other adult social care",
+                "name": "OtherAdultSocialCare",
                 "title": "Enter your setting type",
                 "options": {},
                 "schema": {}
@@ -2612,9 +2612,9 @@
           "name": "CQCRegistered",
           "options": {
             "conditionallyRevealedComponents": {
-              "true": {
+              "CQCLocationID": {
                 "type": "TextField",
-                "name": "true",
+                "name": "CQCLocationID",
                 "title": "Enter your CQC location ID, for example, 1-123456789",
                 "options": {},
                 "schema": {}
@@ -2622,7 +2622,7 @@
             }
           },
           "type": "RadiosField",
-          "list": "YesNo",
+          "list": "CQCYesNo",
           "nameHasError": false,
           "title": "Is your care setting registered with the Care Quality Commission (CQC)?",
           "values": {
@@ -2843,6 +2843,21 @@
   ],
   "lists": [
     {
+      "title": "cqc-yes-no",
+      "name": "CQCYesNo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "CQCLocationID"
+        },
+        {
+          "text": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
       "title": "yes-no",
       "name": "YesNo",
       "type": "string",
@@ -2962,7 +2977,7 @@
         },
         {
           "text": "Other adult social care",
-          "value": "Other adult social care"
+          "value": "OtherAdultSocialCare"
         }
       ]
     },
@@ -5401,7 +5416,7 @@
       "title": "CareOBRA SalesForce",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "${Webhook.URL}"
+        "url": "https://eozhvfzu9d0i6vf.m.pipedream.net"
       }
     }
   ],
