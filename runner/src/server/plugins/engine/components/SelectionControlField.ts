@@ -32,11 +32,10 @@ export class SelectionControlField extends ListFormComponent {
 
         if (conditionallyRevealedComponent != undefined) {
           item.hasConditionallyRevealedComponents = true;
-          item.childrenCollection = new ComponentCollection(
+          item.conditionallyRevealedComponents = new ComponentCollection(
             [conditionallyRevealedComponent],
             item.model
           );
-          item.conditionallyRevealedComponents = item.childrenCollection;
         }
       }
     }
@@ -45,7 +44,7 @@ export class SelectionControlField extends ListFormComponent {
   getStateFromValidForm(payload: FormPayload) {
     const state = super.getStateFromValidForm(payload);
     const itemsWithConditionalComponents = this.items.filter(
-      (item: any) => item.childrenCollection
+      (item: any) => item.conditionallyRevealedComponents
     );
     const selectedItemsWithConditionalComponents = itemsWithConditionalComponents?.filter(
       (item) => {
@@ -62,7 +61,7 @@ export class SelectionControlField extends ListFormComponent {
     selectedItemsWithConditionalComponents?.forEach((item: any) =>
       Object.assign(
         state,
-        item.childrenCollection.getStateFromValidForm(payload)
+        item.conditionallyRevealedComponents.getStateFromValidForm(payload)
       )
     );
     // Add null values to the state for unselected form data associated with conditionally revealed content.
@@ -71,10 +70,10 @@ export class SelectionControlField extends ListFormComponent {
       (item) => !selectedItemsWithConditionalComponents?.includes(item)
     );
     unselectedItemsWithConditionalComponents?.forEach((item: any) => {
-      const stateFromValidForm = item.childrenCollection.getStateFromValidForm(
+      const stateFromValidForm = item.conditionallyRevealedComponents.getStateFromValidForm(
         payload
       );
-      Object.values(item.childrenCollection.items)
+      Object.values(item.conditionallyRevealedComponents.items)
         .filter(
           (conditionalItem: any) => stateFromValidForm[conditionalItem.name]
         )
@@ -91,10 +90,10 @@ export class SelectionControlField extends ListFormComponent {
     const formData = super.getFormDataFromState(state);
     if (formData) {
       const itemsWithConditionalComponents = this.items.filter(
-        (item: any) => item.childrenCollection
+        (item: any) => item.conditionallyRevealedComponents
       );
       itemsWithConditionalComponents?.forEach((item: any) => {
-        const itemFormDataFromState = item.childrenCollection.getFormDataFromState(
+        const itemFormDataFromState = item.conditionallyRevealedComponents.getFormDataFromState(
           state
         );
         if (
