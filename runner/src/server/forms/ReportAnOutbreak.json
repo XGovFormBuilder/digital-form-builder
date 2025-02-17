@@ -5416,7 +5416,7 @@
       "title": "CareOBRA SalesForce",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://eozhvfzu9d0i6vf.m.pipedream.net"
+        "url": "${Webhook.URL}"
       }
     }
   ],
