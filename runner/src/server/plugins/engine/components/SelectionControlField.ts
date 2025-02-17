@@ -27,9 +27,10 @@ export class SelectionControlField extends ListFormComponent {
         options.conditionallyRevealedComponents;
 
       for (const item of items) {
-        const conditionallyRevealedComponent = this
-          .conditionallyRevealedComponents![item.value];
-        if (conditionallyRevealedComponent) {
+        let conditionallyRevealedComponent = this
+          .conditionallyRevealedComponents[item.value];
+
+        if (conditionallyRevealedComponent != undefined) {
           item.hasConditionallyRevealedComponents = true;
           item.conditionallyRevealedComponents = new ComponentCollection(
             [conditionallyRevealedComponent],
@@ -38,6 +39,73 @@ export class SelectionControlField extends ListFormComponent {
         }
       }
     }
+  }
+
+  getStateFromValidForm(payload: FormPayload) {
+    const state = super.getStateFromValidForm(payload);
+    const itemsWithConditionalComponents = this.items.filter(
+      (item: any) => item.conditionallyRevealedComponents
+    );
+    const selectedItemsWithConditionalComponents = itemsWithConditionalComponents?.filter(
+      (item) => {
+        if (payload[this.name] && Array.isArray(payload[this.name])) {
+          return payload[this.name].find(
+            (nestedItem) => item.value === nestedItem
+          );
+        } else {
+          return item.value === payload[this.name];
+        }
+      }
+    );
+    // Add selected form data associated with conditionally revealed content to the state.
+    selectedItemsWithConditionalComponents?.forEach((item: any) =>
+      Object.assign(
+        state,
+        item.conditionallyRevealedComponents.getStateFromValidForm(payload)
+      )
+    );
+    // Add null values to the state for unselected form data associated with conditionally revealed content.
+    // This will allow changes in the visibility of conditionally revealed content to be reflected in state correctly.
+    const unselectedItemsWithConditionalComponents = itemsWithConditionalComponents?.filter(
+      (item) => !selectedItemsWithConditionalComponents?.includes(item)
+    );
+    unselectedItemsWithConditionalComponents?.forEach((item: any) => {
+      const stateFromValidForm = item.conditionallyRevealedComponents.getStateFromValidForm(
+        payload
+      );
+      Object.values(item.conditionallyRevealedComponents.items)
+        .filter(
+          (conditionalItem: any) => stateFromValidForm[conditionalItem.name]
+        )
+        .forEach((key: any) => {
+          const conditionalItemToNull = key.name;
+          Object.assign(stateFromValidForm, { [conditionalItemToNull]: null });
+        });
+      Object.assign(state, stateFromValidForm);
+    });
+    return state;
+  }
+
+  getFormDataFromState(state: FormSubmissionState) {
+    const formData = super.getFormDataFromState(state);
+    if (formData) {
+      const itemsWithConditionalComponents = this.items.filter(
+        (item: any) => item.conditionallyRevealedComponents
+      );
+      itemsWithConditionalComponents?.forEach((item: any) => {
+        const itemFormDataFromState = item.conditionallyRevealedComponents.getFormDataFromState(
+          state
+        );
+        if (
+          itemFormDataFromState &&
+          Object.keys(itemFormDataFromState).length > 0
+        ) {
+          Object.assign(formData, itemFormDataFromState);
+        }
+      });
+    }
+
+    return formData;
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
