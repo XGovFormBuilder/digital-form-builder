@@ -76,10 +76,8 @@ export class SelectionControlField extends ListFormComponent {
       );
       Object.values(item.childrenCollection.items)
         .filter(
-          // TODO: type
           (conditionalItem: any) => stateFromValidForm[conditionalItem.name]
         )
-        // TODO: type
         .forEach((key: any) => {
           const conditionalItemToNull = key.name;
           Object.assign(stateFromValidForm, { [conditionalItemToNull]: null });
