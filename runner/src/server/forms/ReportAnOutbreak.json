@@ -1214,7 +1214,7 @@
           },
           "nameHasError": false,
           "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital."
+          "hint": "Include those who are currently in hospital<br>If none, enter 0"
         },
         {
           "name": "StaffChestInfection",
