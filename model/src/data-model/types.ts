@@ -126,6 +126,8 @@ export type ConfirmationPage = {
     title: string;
     paymentSkipped: Toggleable<string>;
     nextSteps: Toggleable<string>;
+    referenceTitle: string;
+    referenceContent: string;
   };
   components: ComponentDef[];
 };
