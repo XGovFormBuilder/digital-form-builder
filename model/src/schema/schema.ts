@@ -151,6 +151,8 @@ const confirmationPageSchema = joi.object({
       nextSteps: toggleableString.default(
         "You will receive an email with details with the next steps."
       ),
+      referenceTitle: joi.string(),
+      referenceContent: joi.string(),
     })
     .default(),
   components: joi.array().items(componentSchema),

@@ -45,6 +45,15 @@
           {{ customText.paymentSkipped | safe }}
         </p>
       {% else %}
+      {% if reference %}
+      <h2 class="govuk-heading-m">
+        {{ customText.referenceTitle }}
+      </h2>
+      <p class="govuk-body">
+        Your reference number is: {{ reference }}. 
+        {{ customText.referenceContent }}
+      </p>
+      {% endif %}
         {% if customText.nextSteps %}
           <p class="govuk-body">
             {{ customText.nextSteps | safe }}

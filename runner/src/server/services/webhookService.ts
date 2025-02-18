@@ -46,7 +46,15 @@ export class WebhookService {
       if (typeof payload === "object" && !Buffer.isBuffer(payload)) {
         return payload.reference;
       }
+
+      const Name = JSON.parse(payload)[0].Name;
+
+      if (Name) {
+        return Name;
+      }
+
       const { reference } = JSON.parse(payload);
+
       this.logger.info(
         ["WebhookService", "postRequest"],
         `Webhook request to ${url} submitted OK`
