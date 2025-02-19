@@ -526,7 +526,7 @@
           "path": "/service-users-ari-rsv"
         },
         {
-          "condition": "ARIInfectionType:Rhiovirus&OtherARIServiceOrStaff:ServiceUser",
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
           "path": "/service-users-ari-rhinovirus"
         },
         {
@@ -1207,7 +1207,7 @@
           "path": "/service-users-ari-rsv"
         },
         {
-          "condition": "ARIInfectionType:Rhiovirus&OtherARIServiceOrStaff:ServiceUser",
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
           "path": "/service-users-ari-rhinovirus"
         },
         {
@@ -1974,7 +1974,7 @@
           "path": "/service-users-ari-rsv"
         },
         {
-          "condition": "ARIInfectionType:Rhiovirus&OtherARIServiceOrStaff:ServiceUser",
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
           "path": "/service-users-ari-rhinovirus"
         },
         {
