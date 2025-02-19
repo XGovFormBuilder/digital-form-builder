@@ -506,6 +506,10 @@
       ],
       "next": [
         {
+          "condition": "OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-confirmed"
+        },
+        {
           "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
           "path": "/service-users-ari-adenovirus"
         },
@@ -569,7 +573,31 @@
           "path": "/service-users-ari-other"
         },
         {
-          "path": "/service-users-ari-confirmed"
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -607,7 +635,31 @@
           "path": "/service-users-ari-other"
         },
         {
-          "path": "/service-users-ari-confirmed"
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -641,7 +693,31 @@
           "path": "/service-users-ari-other"
         },
         {
-          "path": "/service-users-ari-confirmed"
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -671,7 +747,31 @@
           "path": "/service-users-ari-other"
         },
         {
-          "path": "/service-users-ari-confirmed"
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -697,7 +797,31 @@
           "path": "/service-users-ari-other"
         },
         {
-          "path": "/service-users-ari-confirmed"
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -1067,7 +1191,55 @@
       ],
       "next": [
         {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
           "path": "/service-users-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhiovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
+        },
+        {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/severity-of-illness"
         }
       ]
     },
@@ -1477,19 +1649,11 @@
       ],
       "next": [
         {
-          "condition": "WhichARI:COVID19&FLU&OTHER",
-          "path": "/service-users-master"
-        },
-        {
           "condition": "OtherARIServiceOrStaff:ServiceUsers",
           "path": "/service-users-ari-confirmed"
         },
         {
-          "condition": "OtherARIServiceOrStaff:Staff",
           "path": "/staff-ari-cases"
-        },
-        {
-          "path": "/service-users-master"
         }
       ]
     },
@@ -1561,10 +1725,6 @@
         {
           "path": "/staff-covid",
           "condition": "WhichARI:Covid&ARIServiceOrStaff:Staff"
-        },
-        {
-          "condition": "ARIServiceOrStaff:ServiceUsers",
-          "path": "/service-users-ari-confirmed"
         },
         {
           "path": "/staff-ari-cases"
@@ -1856,9 +2016,6 @@
         {
           "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
           "path": "/staff-ari-other"
-        },
-        {
-          "path": "/service-users-ari-confirmed"
         }
       ]
     },
