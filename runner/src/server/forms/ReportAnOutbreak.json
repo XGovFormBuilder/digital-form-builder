@@ -544,7 +544,7 @@
           "name": "ServiceUsersAdenovirus",
           "type": "NumberField",
           "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -610,7 +610,7 @@
           "name": "ServiceUsersHmpv",
           "type": "NumberField",
           "title": "How many service users have tested positive for human Metapneumovirus (hMPV)?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -672,7 +672,7 @@
           "name": "ServiceUsersParainfluenza",
           "type": "NumberField",
           "title": "How many service users have tested positive for parainfluenza?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -730,7 +730,7 @@
           "name": "ServiceUsersRSV",
           "type": "NumberField",
           "title": "How many service users have tested positive for Respiratory Syncytial Virus (RSV)?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -784,7 +784,7 @@
           "name": "ServiceUsersRhinovirus",
           "type": "NumberField",
           "title": "How many service users have tested positive for rhinovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -834,7 +834,7 @@
           "name": "ServiceUsersOtherARI",
           "type": "NumberField",
           "title": "How many service users have tested positive for an other acute respiratory infection?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -860,7 +860,7 @@
           "name": "StaffAdenovirus",
           "type": "NumberField",
           "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -902,7 +902,7 @@
           "name": "StaffHmpv",
           "type": "NumberField",
           "title": "How many staff have tested positive for human Metapneumovirus (hMPV)?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -940,7 +940,7 @@
           "name": "StaffParainfluenza",
           "type": "NumberField",
           "title": "How many staff have tested positive for parainfluenza?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -974,7 +974,7 @@
           "name": "StaffRSV",
           "type": "NumberField",
           "title": "How many staff have tested positive for Respiratory Syncytial Virus (RSV)?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1004,7 +1004,7 @@
           "name": "StaffRhinovirus",
           "type": "NumberField",
           "title": "How many staff have tested positive for rhinovirus?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1030,7 +1030,7 @@
           "name": "StaffOtherARI",
           "type": "NumberField",
           "title": "How many staff have tested positive for an other acute respiratory infection?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1052,7 +1052,7 @@
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
           "title": "How many service users have symptoms of an acute respiratory infection but have not been tested?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1108,7 +1108,7 @@
           "name": "StaffSymptomsNotTested",
           "type": "NumberField",
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1313,7 +1313,7 @@
           },
           "nameHasError": false,
           "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out"
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
           "name": "ServiceUsersChestInfection",
@@ -1728,7 +1728,7 @@
           "type": "NumberField",
           "name": "ServiceUsersCovidTestPositive",
           "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
           },
@@ -1740,7 +1740,7 @@
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
           "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -1785,7 +1785,7 @@
           "type": "NumberField",
           "name": "StaffCovidTestPositive",
           "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
             "required": true
           },
@@ -1797,7 +1797,7 @@
           "name": "StaffConfirmedARI",
           "type": "NumberField",
           "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -1917,7 +1917,7 @@
           "type": "NumberField",
           "name": "ServiceUsersCovidTestPositive",
           "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
           },
@@ -1929,7 +1929,7 @@
           "type": "NumberField",
           "name": "ServiceUsersFluSwabTest",
           "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -2016,7 +2016,7 @@
           "type": "NumberField",
           "name": "StaffCovidTestPositive",
           "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
             "required": true
           },
@@ -2028,7 +2028,7 @@
           "type": "NumberField",
           "name": "StaffFluSwabTest",
           "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {}
         },
         {
@@ -2272,7 +2272,7 @@
           "type": "NumberField",
           "name": "ServiceUsersCovidTestPositive",
           "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
             "required": true
           },
@@ -2284,7 +2284,7 @@
           "type": "NumberField",
           "name": "ServiceUsersFluSwabTest",
           "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -2370,7 +2370,7 @@
           "type": "NumberField",
           "name": "StaffCovidTestPositive",
           "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
             "required": true
           },
@@ -2382,7 +2382,7 @@
           "type": "NumberField",
           "name": "StaffFluSwabTest",
           "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -2424,7 +2424,7 @@
           "type": "NumberField",
           "name": "ServiceUsersFluSwabTest",
           "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -2432,7 +2432,7 @@
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
           "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -2488,7 +2488,7 @@
           "type": "NumberField",
           "name": "StaffFluSwabTest",
           "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
@@ -2496,7 +2496,7 @@
           "name": "StaffConfirmedARI",
           "type": "NumberField",
           "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "schema": {},
           "options": {}
         },
