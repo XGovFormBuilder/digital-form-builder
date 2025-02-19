@@ -1214,10 +1214,10 @@
           },
           "nameHasError": false,
           "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital."
+          "hint": "Include those who are currently in hospital<br>If none, enter 0"
         },
         {
-          "name": "StaffChestInfection",
+          "name": "StaffSymptomsNotTested",
           "options": {
             "required": false
           },
@@ -1227,20 +1227,8 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many staff have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0"
-        },
-        {
-          "name": "StaffSymptomsNotTested",
-          "options": {},
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 200
-          },
-          "nameHasError": false,
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>This usually includes people who have a sudden onset of acute respiratory symptoms and fever<br><br>Include those who are currently in hospital<br>If none, enter 0"
+          "hint": "This usually includes people who have a sudden onset of acute respiratory symptoms and fever<br>Include those who are currently in hospital<br>If none, enter 0"
         },
         {
           "name": "StaffChestInfectionCovid19",
