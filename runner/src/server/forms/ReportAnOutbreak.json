@@ -2592,7 +2592,7 @@
         {
           "name": "introText1",
           "type": "Para",
-          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections.",
+          "content": "Include cases confirmed by a test and also service users and staff with symptoms of acute respiratory infections.",
           "options": {}
         },
         {
