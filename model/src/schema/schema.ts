@@ -88,7 +88,7 @@ export const componentSchema = joi
     hint: localisedString.optional(),
     options: joi.object().default({}),
     schema: joi
-      .object({ min: joi.number(), max: joi.number() })
+      .object({ min: joi.number(), max: joi.number(), integer: joi.boolean() })
       .unknown(true)
       .default({}),
     list: joi.string().optional(),
