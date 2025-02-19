@@ -2152,7 +2152,7 @@
     },
     {
       "path": "/flu-severity-multiple-cases",
-      "title": "Severity of flu or chest infection cases in this outbreak",
+      "title": "Severity of illness in this outbreak",
       "section": "SeverityOfIllness",
       "components": [
         {
