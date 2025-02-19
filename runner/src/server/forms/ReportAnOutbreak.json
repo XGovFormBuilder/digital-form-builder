@@ -1359,7 +1359,7 @@
       "next": [
         {
           "path": "/staff-flu",
-          "condition": "MultipleCasesOfFluServiceOrStaff:ServiceUsersAndStaff"
+          "condition": "ARIServiceOrStaff:Staff"
         },
         {
           "path": "/flu-severity-multiple-cases"
@@ -5284,64 +5284,6 @@
               "type": "Value",
               "value": "One",
               "display": "1"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "MultipleCasesOfFluServiceOrStaff:ServiceUsers",
-      "name": "MultipleCasesOfFluServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "MultipleCasesOfFluServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "InfectionsInYourSetting.MultipleCasesOfFluServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of flu in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "MultipleCasesOfFluServiceOrStaff:ServiceUsersAndStaff",
-      "name": "MultipleCasesOfFluServiceOrStaff:ServiceUsersAndStaff",
-      "value": {
-        "name": "MultipleCasesOfFluServiceOrStaff:ServiceUsersAndStaff",
-        "conditions": [
-          {
-            "field": {
-              "name": "InfectionsInYourSetting.MultipleCasesOfFluServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of flu in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "InfectionsInYourSetting.MultipleCasesOfFluServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of flu in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
             }
           }
         ]
