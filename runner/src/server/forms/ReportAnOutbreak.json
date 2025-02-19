@@ -2586,7 +2586,7 @@
     },
     {
       "path": "/symptom-onset",
-      "title": "Symptom onset in this outbreak",
+      "title": "Symptom onset of cases in this outbreak",
       "section": "SymptomStartDates",
       "components": [
         {
@@ -2605,7 +2605,7 @@
           "name": "FirstCaseOnset",
           "type": "DatePartsField",
           "title": "When did symptoms start in the first case in this outbreak?",
-          "hint": "For example, 31 3 2025",
+          "hint": "For example, 31 3 2024",
           "options": {
             "required": true,
             "maxDaysInFuture": "0"
@@ -2615,9 +2615,9 @@
           "name": "MostRecentCaseOnset",
           "type": "DatePartsField",
           "title": "When did symptoms start in the most recent case in this outbreak?",
-          "hint": "For example, 31 3 2025",
+          "hint": "For example, 31 3 2024",
           "options": {
-            "required": false,
+            "required": true,
             "maxDaysInFuture": "0"
           }
         }
