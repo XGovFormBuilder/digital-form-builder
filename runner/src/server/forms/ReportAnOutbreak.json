@@ -1429,6 +1429,11 @@
       "section": "FluInYourSetting",
       "components": [
         {
+          "name": "intro",
+          "type": "Para",
+          "content": "If you do not know the exact date, give an estimate."
+        },
+        {
           "name": "FluSymptomOnsetDate",
           "options": {
             "maxDaysInFuture": "0"
