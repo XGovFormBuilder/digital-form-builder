@@ -31,14 +31,6 @@ export function WebhookModel(model: FormModel, state: FormSubmissionState) {
   };
 }
 
-interface Field {
-  key: string;
-  title: string;
-  type: string | undefined;
-  answer: any;
-  children?: Field[]; // Add this to support nesting
-}
-
 function createToFieldsMap(state: FormSubmissionState) {
   return function (component: FormComponent | SelectionControlField): Field[] {
     if (component instanceof SelectionControlField) {
@@ -63,12 +55,7 @@ function createToFieldsMap(state: FormSubmissionState) {
           toField
         );
 
-        return [
-          {
-            ...baseField,
-            children: nestedFields,
-          },
-        ];
+        return [baseField, ...nestedFields];
       }
 
       return [baseField];
