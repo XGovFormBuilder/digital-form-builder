@@ -850,6 +850,10 @@
       ],
       "next": [
         {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
           "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
           "path": "/staff-ari-hmpv"
         },
