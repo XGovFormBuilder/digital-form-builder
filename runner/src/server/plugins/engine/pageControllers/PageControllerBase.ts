@@ -57,6 +57,7 @@ export class PageControllerBase {
   sectionForMultiSummaryPages: any;
   sidebarContent: any;
   components: ComponentCollection;
+  disableSingleComponentAsHeading: boolean;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
   backLinkFallback?: string;
@@ -76,6 +77,8 @@ export class PageControllerBase {
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
     this.backLinkFallback = pageDef.backLinkFallback;
+    this.disableSingleComponentAsHeading =
+      pageDef.disableSingleComponentAsHeading;
 
     // Resolve section
     this.section = model.sections?.find(
@@ -169,14 +172,16 @@ export class PageControllerBase {
     if (singleFormComponent && singleFormComponentIsFirst) {
       const label: any = singleFormComponent.model.label;
 
-      if (pageTitle) {
-        label.text = pageTitle;
-      }
+      if (!this.disableSingleComponentAsHeading) {
+        if (pageTitle) {
+          label.text = pageTitle;
+        }
 
-      label.isPageHeading = true;
-      label.classes = "govuk-label--l";
-      pageTitle = pageTitle || label.text;
-      showTitle = false;
+        label.isPageHeading = true;
+        label.classes = "govuk-label--l";
+        pageTitle = pageTitle || label.text;
+        showTitle = false;
+      }
     }
 
     return {
