@@ -118,6 +118,7 @@ const pageSchema = joi.object().keys({
   sidebarContent: joi.object().optional(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
+  disableSingleComponentAsHeading: joi.boolean(),
   next: joi.array().items(nextSchema),
   repeatField: joi.string().optional(),
   options: joi.object().optional(),

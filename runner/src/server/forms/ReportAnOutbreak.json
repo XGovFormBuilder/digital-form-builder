@@ -466,6 +466,7 @@
       "path": "/service-users-ari-confirmed",
       "title": "Service users: number of cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersSymptomsNotTested",
@@ -539,6 +540,7 @@
       "path": "/service-users-ari-adenovirus",
       "title": "Service users: number of adenovirus cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersAdenovirus",
@@ -605,6 +607,7 @@
       "path": "/service-users-ari-hmpv",
       "title": "Service users: number of human Metapneumovirus (hMPV) cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersHmpv",
@@ -667,6 +670,7 @@
       "path": "/service-users-ari-parainfluenza",
       "title": "Service users: number of parainfluenza cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersParainfluenza",
@@ -725,6 +729,7 @@
       "path": "/service-users-ari-rsv",
       "title": "Service users: number of Respiratory Syncytial Virus (RSV) cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersRSV",
@@ -779,6 +784,7 @@
       "path": "/service-users-ari-rhinovirus",
       "title": "Service users: number of rhinovirus cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersRhinovirus",
@@ -829,6 +835,7 @@
       "path": "/service-users-ari-other",
       "title": "Service users: number of other acute respiratory infection cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersOtherARI",
@@ -843,8 +850,24 @@
       ],
       "next": [
         {
-          "condition": "OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-cases"
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
         },
         {
           "path": "/severity-of-illness"
@@ -855,6 +878,7 @@
       "path": "/staff-ari-adenovirus",
       "title": "Staff: number of adenovirus cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "StaffAdenovirus",
@@ -897,6 +921,7 @@
       "path": "/staff-ari-hmpv",
       "title": "Staff: number of human Metapneumovirus (hMPV) cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "StaffHmpv",
@@ -935,6 +960,7 @@
       "path": "/staff-ari-parainfluenza",
       "title": "Staff: number of parainfluenza cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "StaffParainfluenza",
@@ -969,6 +995,7 @@
       "path": "/staff-ari-rsv",
       "title": "Staff: number of Respiratory Syncytial Virus (RSV) cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "StaffRSV",
@@ -999,6 +1026,7 @@
       "path": "/staff-ari-rhinovirus",
       "title": "Staff: number of rhinovirus cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "StaffRhinovirus",
@@ -1025,6 +1053,7 @@
       "path": "/staff-ari-other",
       "title": "Staff: number of other acute respiratory infection cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "StaffOtherARI",
@@ -1047,6 +1076,7 @@
       "path": "/service-users-ari-unknown",
       "title": "Service users: number of cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersConfirmedARI",
@@ -1099,6 +1129,7 @@
       "path": "/staff-ari-unknown",
       "title": "Staff: number of cases",
       "section": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
       "components": [
         {
           "type": "Para",
