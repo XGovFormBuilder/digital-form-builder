@@ -31,7 +31,7 @@ export class DatePartsField extends FormComponent {
           type: "NumberField",
           name: `${name}__day`,
           title: "Day",
-          schema: { min: 1, max: 31 },
+          schema: { min: 1, max: 31, integer: true },
           options: {
             required: isRequired,
             optionalText: optionalText,
@@ -48,7 +48,7 @@ export class DatePartsField extends FormComponent {
           type: "NumberField",
           name: `${name}__month`,
           title: "Month",
-          schema: { min: 1, max: 12 },
+          schema: { min: 1, max: 12, integer: true },
           options: {
             required: isRequired,
             optionalText: optionalText,
@@ -65,7 +65,7 @@ export class DatePartsField extends FormComponent {
           type: "NumberField",
           name: `${name}__year`,
           title: "Year",
-          schema: { min: 1000, max: 3000 },
+          schema: { min: 1000, max: 3000, integer: true },
           options: {
             required: isRequired,
             optionalText: optionalText,
