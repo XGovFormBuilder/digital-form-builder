@@ -59,7 +59,7 @@ module.exports = {
   serviceStartPage: "",
   privacyPolicyUrl: "",
   feedbackLink: "#", // Used in your phase banner. Can be a URL or more commonly mailto mailto:feedback@department.gov.uk
-  phaseTag: "beta", // Accepts "alpha" |"beta" | ""
+  phaseTag: "Beta", // Accepts "alpha" |"Beta" | ""
 
   /**
    * Session storage
