@@ -3032,6 +3032,7 @@
         {
           "text": "Any other acute respiratory infections",
           "value": "Any other acute respiratory infections",
+          "checkpointDisplayValue": "Other acute respiratory infection (not COVID-19 or flu)",
           "description": "including viruses such as respiratory syncytial virus (RSV), adenovirus, human metapneumovirus (hMPV), parainfluenza and rhinovirus"
         }
       ]
