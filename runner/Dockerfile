@@ -2,9 +2,10 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-# alpine3.20 is required due to openssl location changing in later versions of alpine, causing prisma to panic
+FROM node:20-alpine AS base
+# Symlink below is required due to openssl location changing in later versions of alpine, causing prisma to panic. See https://github.com/prisma/prisma/issues/25817#issuecomment-2533685958 for details.
 # Prisma and queue-model will be removed in subsequent versions
-FROM node:20-alpine3.20 AS base
+RUN [ ! -e /lib/libssl.so.3 ] && ln -s /usr/lib/libssl.so.3 /lib/libssl.so.3 || true
 RUN npm install -g npm@^9.x.x && \
     mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
