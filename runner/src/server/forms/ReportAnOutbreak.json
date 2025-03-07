@@ -243,7 +243,7 @@
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">Read <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection/infection-prevention-and-control-ipc-in-adult-social-care-acute-respiratory-infection-ari#What_to_do\">guidance on when cases may be linked by spread in the care setting (opens in a new tab).</a></p>"
+          "content": "<p class=\"govuk-body\">Read <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection/infection-prevention-and-control-ipc-in-adult-social-care-acute-respiratory-infection-ari#What_to_do\" target=”_blank”>guidance on when cases may be linked by spread in the care setting (opens in a new tab).</a></p>"
         }
       ],
       "next": [
