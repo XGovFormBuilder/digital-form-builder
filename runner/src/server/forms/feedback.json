@@ -10,7 +10,11 @@
       "components": [
         {
           "name": "Feedback",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select how you would describe Report an outbreak"
+            }
+          },
           "type": "CheckboxesField",
           "title": "How would you describe Report an outbreak?",
           "hint": "Select all that apply",
@@ -18,8 +22,16 @@
         },
         {
           "name": "OtherFeedbackTextBox",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter your feedback about any difficulties or highlights you experienced, and how we could improve the service",
+              "string.max": "Your feedback about any difficulties or highlights you experienced, and how we could improve the service, must be 2000 characters or less"
+            }
+          },
           "type": "MultilineTextField",
+          "schema": {
+            "maxlength": 2000
+          },
           "title": "Tell us about any difficulties or highlights you experienced, and how we could improve the service.",
           "hint": "Do not include any personal information here, for example patient or disease details."
         },
@@ -32,7 +44,13 @@
         {
           "name": "FeedbackEmailAddress",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "schema": {
+            "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "title": "Email address for a researcher to contact you",
           "type": "TextField"
@@ -94,20 +112,13 @@
     {
       "name": "FeedbackForm",
       "title": "CareOBRA FeedbackForm",
-      "type": "notify",
+      "type": "email",
       "outputConfiguration": {
         "apiKey": {
           "test": "local_guest_list-db3df15e-136e-484b-8035-2ebe1f382799-e71ae908-dbd4-479f-97cf-3e3079b977c7",
           "production": "productionKey"
         },
-        "emailField": "FeedbackEmailAddress",
-        "templateId": "83d1c036-dfeb-4d5b-b4e3-e8125810c663",
-        "addReferencesToPersonalisation": false,
-        "personalisation": [
-          "Feedback",
-          "OtherFeedbackTextBox",
-          "FeedbackEmailAddress"
-        ]
+        "emailAddress": "emily.j.evans@ukhsa.gov.uk"
       }
     }
   ],
