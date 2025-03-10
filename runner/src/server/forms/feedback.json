@@ -118,7 +118,7 @@
           "test": "local_guest_list-db3df15e-136e-484b-8035-2ebe1f382799-e71ae908-dbd4-479f-97cf-3e3079b977c7",
           "production": "productionKey"
         },
-        "emailAddress": "emily.j.evans@ukhsa.gov.uk"
+        "emailAddress": "${feedbackEmail}"
       }
     }
   ],
