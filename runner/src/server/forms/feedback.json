@@ -130,8 +130,8 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "title": "Thank you for completing the survey",
-        "nextSteps": "You can now close this page."
+        "nextSteps": "<h1 class='govuk-heading-l'>Thank you for completing this survey</h1><p class='govuk-body'>You can now close this page.</p>",
+        "hidePanel": true
       }
     }
   }
