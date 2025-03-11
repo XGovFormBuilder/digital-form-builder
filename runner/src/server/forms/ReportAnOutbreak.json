@@ -2143,7 +2143,15 @@
           "title": "How many service users or staff have been given antibiotics for their respiratory symptoms?",
           "type": "NumberField",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
           }
         },
         {
@@ -2563,7 +2571,15 @@
           "title": "How many service users or staff have been given antibiotics for their respiratory symptoms?",
           "type": "NumberField",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
           }
         },
         {
