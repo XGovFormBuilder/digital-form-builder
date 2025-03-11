@@ -114,11 +114,9 @@
       "title": "CareOBRA FeedbackForm",
       "type": "email",
       "outputConfiguration": {
-        "apiKey": {
-          "test": "local_guest_list-db3df15e-136e-484b-8035-2ebe1f382799-e71ae908-dbd4-479f-97cf-3e3079b977c7",
-          "production": "productionKey"
-        },
-        "emailAddress": "${feedbackEmail}"
+        "apiKey": "${notifyApiKey}",
+        "emailAddress": "${feedbackEmail}",
+        "notifyTemplateId": "83d1c036-dfeb-4d5b-b4e3-e8125810c663"
       }
     }
   ],
@@ -126,6 +124,10 @@
   "conditions": [],
   "phaseBanner": {
     "phase": "beta"
+  },
+  "feedback": {
+    "feedbackForm": true,
+    "url": "/feedback"
   },
   "specialPages": {
     "confirmationPage": {

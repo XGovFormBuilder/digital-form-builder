@@ -84,6 +84,8 @@ export enum OutputType {
 }
 
 export type EmailOutputConfiguration = {
+  apiKey: string;
+  notifyTemplateId: string;
   emailAddress: string;
 };
 

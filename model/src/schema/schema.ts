@@ -234,6 +234,7 @@ const notifySchema = joi.object().keys({
 const emailSchema = joi.object().keys({
   apiKey: [joi.string().allow("").optional(), multiApiKeySchema],
   emailAddress: joi.string(),
+  notifyTemplateId: joi.string(),
 });
 
 const webhookSchema = joi.object().keys({
