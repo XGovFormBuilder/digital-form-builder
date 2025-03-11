@@ -161,10 +161,8 @@ export class CheckpointSummaryPageController extends PageController {
     const returnPath = `${pagePath}${this.returnUrlParameter}`;
     const model = this.model;
 
-    // Bind the findDisplayValue method to the current instance
-    const boundFindDisplayValue = this.findDisplayValue.bind(this);
-
-    return function (component: FormComponent) {
+    return (component: FormComponent) => {
+      // Get initial display value
       let valueText = component.getDisplayStringFromState(sectionState);
 
       if (
@@ -175,10 +173,7 @@ export class CheckpointSummaryPageController extends PageController {
           fullState.originalFilenames?.[component.name]?.originalFilename;
       }
 
-      // Try to find alternate display value
-      const alternateValue = boundFindDisplayValue(component, valueText);
-
-      // Use alternate value if found
+      const alternateValue = this.findDisplayValue(component, valueText);
       if (alternateValue) {
         valueText = alternateValue;
       }
