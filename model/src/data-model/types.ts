@@ -84,6 +84,8 @@ export enum OutputType {
 }
 
 export type EmailOutputConfiguration = {
+  apiKey: string;
+  notifyTemplateId: string;
   emailAddress: string;
 };
 
@@ -128,6 +130,7 @@ export type ConfirmationPage = {
     nextSteps: Toggleable<string>;
     referenceTitle: string;
     referenceContent: string;
+    hidePanel?: boolean;
   };
   components: ComponentDef[];
 };
