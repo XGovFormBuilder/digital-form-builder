@@ -218,7 +218,7 @@ export class SelectionControlField extends ListFormComponent {
 
       Object.keys(conditionalSchemaKeys).forEach((key) => {
         let schema = joi.alternatives().conditional(joi.ref(conditionalName), {
-          is: item.value, // Make sure this is the correct value to check against
+          is: item.value,
           then: conditionalSchemaKeys[key].messages(conditionalMessages),
           otherwise: joi.optional(),
         });
