@@ -129,6 +129,25 @@ export class CheckpointSummaryPageController extends PageController {
     };
   }
 
+  findDisplayValue(
+    component: FormComponent,
+    value: string
+  ): string | undefined {
+    // Check if the component has items list
+    if (component.items && Array.isArray(component.items)) {
+      // Find the item where the text or value matches the input value
+      const matchedItem = component.items.find(
+        (item) => item.text === value || item.value === value
+      );
+
+      // Return value2 if it exists, otherwise return undefined
+      return matchedItem?.checkpointDisplayValue || matchedItem?.text;
+    }
+
+    // If no items list or no match found, return undefined
+    return undefined;
+  }
+
   formItemsToRowByPage({
     page,
     sectionState,
@@ -141,7 +160,9 @@ export class CheckpointSummaryPageController extends PageController {
     const pagePath = `/${page.model.basePath}${page.path}`;
     const returnPath = `${pagePath}${this.returnUrlParameter}`;
     const model = this.model;
-    return function (component: FormComponent) {
+
+    return (component: FormComponent) => {
+      // Get initial display value
       let valueText = component.getDisplayStringFromState(sectionState);
 
       if (
@@ -150,6 +171,11 @@ export class CheckpointSummaryPageController extends PageController {
       ) {
         valueText =
           fullState.originalFilenames?.[component.name]?.originalFilename;
+      }
+
+      const alternateValue = this.findDisplayValue(component, valueText);
+      if (alternateValue) {
+        valueText = alternateValue;
       }
 
       return {

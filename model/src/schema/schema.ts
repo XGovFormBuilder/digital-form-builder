@@ -176,6 +176,7 @@ const specialPagesSchema = joi.object().keys({
 const listItemSchema = joi.object().keys({
   text: localisedString,
   value: joi.alternatives().try(joi.number(), joi.string()),
+  checkpointDisplayValue: joi.alternatives().try(joi.number(), joi.string()),
   description: localisedString.optional(),
   conditional: joi
     .object()
