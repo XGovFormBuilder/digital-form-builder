@@ -286,7 +286,7 @@
           "condition": "TwoOrMoreARI:No"
         },
         {
-          "path": "/ari-unknown-cases-setting"
+          "path": "/ari-confirmed-cases-setting"
         }
       ]
     },
@@ -1056,7 +1056,7 @@
         {
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection but have not been tested?",
+          "title": "How many service users have symptoms of an acute respiratory infection but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
@@ -1096,7 +1096,7 @@
           "condition": "ARIServiceOrStaff:Staff"
         },
         {
-          "path": "/severity-of-illness"
+          "path": "/severity-of-illness-unknown"
         }
       ]
     },
@@ -1122,7 +1122,7 @@
         {
           "name": "StaffTestedCovid",
           "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
+          "title": "How many staff have been tested for COVID-19?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
@@ -1135,7 +1135,7 @@
         {
           "name": "StaffTestedFlu",
           "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
+          "title": "How many staff have been tested for flu?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
@@ -1148,7 +1148,7 @@
       ],
       "next": [
         {
-          "path": "/severity-of-illness"
+          "path": "/severity-of-illness-unknown"
         }
       ]
     },
@@ -1588,35 +1588,6 @@
       ]
     },
     {
-      "path": "/ari-unknown-cases-setting",
-      "title": "Who has an acute respiratory infection?",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
-        },
-        {
-          "name": "ARIServiceOrStaff",
-          "type": "CheckboxesField",
-          "title": " ",
-          "hint": "You can select more than one option",
-          "list": "ServiceOrStaffMultiple",
-          "options": {
-            "required": true
-          }
-        }
-      ],
-      "next": [
-        {
-          "condition": "ARIServiceOrStaff:ServiceUsers",
-          "path": "/service-users-ari-other"
-        },
-        {
-          "path": "/staff-ari-unknown"
-        }
-      ]
-    },
-    {
       "path": "/other-ari-confirmed-cases-setting",
       "title": "Who has an acute respiratory infection?",
       "components": [
@@ -1665,6 +1636,14 @@
         }
       ],
       "next": [
+        {
+          "condition": "UnknownARI&ServiceOrStaff:ServiceUsers",
+          "path": "/service-users-ari-unknown"
+        },
+        {
+          "condition": "UnknownARI&ServiceOrStaff:Staff",
+          "path": "/staff-ari-unknown"
+        },
         {
           "condition": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
           "path": "/service-users-master"
@@ -2073,9 +2052,6 @@
         },
         {
           "path": "/severity-of-illness"
-        },
-        {
-          "path": "/severity-of-illness"
         }
       ]
     },
@@ -2167,7 +2143,15 @@
           "title": "How many service users or staff have been given antibiotics for their respiratory symptoms?",
           "type": "NumberField",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
           }
         },
         {
@@ -2560,6 +2544,72 @@
           "list": "CaseNumbers",
           "options": {
             "required": true
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptom-onset"
+        }
+      ]
+    },
+    {
+      "path": "/severity-of-illness-unknown",
+      "title": "Severity of illness in this outbreak",
+      "components": [
+        {
+          "name": "SeverityGPCalls",
+          "type": "RadiosField",
+          "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true
+          }
+        },
+        {
+          "name": "SeverityAntibiotics",
+          "title": "How many service users or staff have been given antibiotics for their respiratory symptoms?",
+          "type": "NumberField",
+          "options": {
+            "required": false,
+            "customValidationMessages": {
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be 999 or fewer"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "SeverityHospitalisations",
+          "type": "RadiosField",
+          "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true
+          }
+        },
+        {
+          "name": "SeverityDeaths",
+          "type": "RadiosField",
+          "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true
+          }
+        },
+        {
+          "name": "SeveritySpecificArea",
+          "title": "Are the cases linked to a specific area of the setting?",
+          "type": "RadiosField",
+          "nameHasError": false,
+          "list": "FluSeveritySpecificArea",
+          "options": {},
+          "schema": {},
+          "values": {
+            "type": "listRef"
           }
         }
       ],
@@ -3394,8 +3444,79 @@
       "title": "Infections in your setting"
     }
   ],
-
   "conditions": [
+    {
+      "displayName": "UnknownARI&ServiceOrStaff:ServiceUsers",
+      "name": "UnknownARI&ServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "UnknownARI&ServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "PositiveARI",
+              "type": "RadiosField",
+              "display": "Do you have any positive test results for an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "No"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "UnknownARI&ServiceOrStaff:Staff",
+      "name": "UnknownARI&ServiceOrStaff:Staff",
+      "value": {
+        "name": "UnknownARI&ServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "PositiveARI",
+              "type": "RadiosField",
+              "display": "Do you have any positive test results for an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "No"
+            }
+          }
+        ]
+      }
+    },
     {
       "displayName": "OtherARIServiceOrStaff:ServiceUsers",
       "name": "OtherARIServiceOrStaff:ServiceUsers",
@@ -3843,20 +3964,6 @@
         "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
         "conditions": [
           {
-            "field": {
-              "name": "ARIInfectionType",
-              "type": "CheckboxesField",
-              "display": "What infection are you reporting?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Other acute respiratory infection",
-              "display": "Rhinovirus"
-            }
-          },
-          {
-            "coordinator": "and",
             "field": {
               "name": "OtherARIServiceOrStaff",
               "type": "CheckboxesField",
@@ -5437,7 +5544,7 @@
   "name": "Report an outbreak",
   "feedback": {
     "feedbackForm": true,
-    "url": ""
+    "url": "/feedback"
   },
   "phaseBanner": {
     "phase": "beta"
