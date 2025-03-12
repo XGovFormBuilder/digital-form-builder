@@ -2738,7 +2738,12 @@
       "components": [
         {
           "name": "SettingName",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter your setting name",
+              "string.base": "Enter your setting name"
+            }
+          },
           "type": "TextField",
           "nameHasError": false,
           "title": "Your setting name",
@@ -2749,7 +2754,12 @@
         },
         {
           "name": "SettingPostcode",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode"
+            }
+          },
           "type": "TextField",
           "nameHasError": false,
           "title": "Your setting postcode",
@@ -2763,8 +2773,8 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "string.empty": "Your local UKHSA health protection team is required",
-              "string.base": "Your local UKHSA health protection team is required"
+              "string.empty": "Select your local UKHSA health protection team",
+              "any.only": "Select your local UKHSA health protection team"
             }
           },
           "type": "SelectField",
@@ -2786,13 +2796,23 @@
         {
           "name": "CQCRegistered",
           "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if your setting is registered with the Care Quality Commission (CQC)"
+            },
             "conditionallyRevealedComponents": {
               "CQCLocationID": {
                 "type": "TextField",
                 "name": "CQCLocationID",
                 "title": "Enter your CQC location ID, for example, 1-123456789",
-                "options": {},
-                "schema": {}
+                "options": {
+                  "customValidationMessages": {
+                    "string.empty": "CQC location ID cannot be blank",
+                    "string.pattern.base": "Enter a CQC location ID in the correct format"
+                  }
+                },
+                "schema": {
+                  "regex": "^1-\\d{9}$"
+                }
               }
             }
           },
