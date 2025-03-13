@@ -26,6 +26,8 @@ import { format, parseISO } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
 import Joi from "joi";
+import Jwt, { HapiJwt } from "@hapi/jwt";
+import { verifyHmacToken } from "../../initialiseSession/helpers";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -498,6 +500,31 @@ export class PageControllerBase {
           : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
       }
 
+      if (this.model.def.authentication && this.model.def.toggle === true) {
+        const authCookie = request.state.auth_token; // Check for the auth cookie
+
+        if (!authCookie && !isStartPage && this.model.def.authentication) {
+          // If the auth cookie is missing and it's not the start page, redirect
+          if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+            return h.redirect(`/${this.model.basePath}${startPage!}`);
+          }
+        }
+        if (authCookie) {
+          const tokenArtifacts = Jwt.token.decode(authCookie);
+          const { isValid, error } = verifyHmacToken(
+            tokenArtifacts,
+            this.model.def.jwtKey
+          );
+
+          if (!isValid) {
+            // If the token is invalid, redirect to the start page
+            if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+              return h.redirect(`/${this.model.basePath}${startPage!}`);
+            }
+          }
+        }
+      }
+
       formData.lang = lang;
       /**
        * We store the original filename for the user in a separate object (`originalFileNames`), however they are not used for any of the outputs. The S3 url is stored in the state.
@@ -725,6 +752,33 @@ export class PageControllerBase {
         return response;
       }
       const { cacheService } = request.services([]);
+
+      if (this.model.def.authentication && this.model.def.toggle === true) {
+        const startPage = this.model.def.startPage;
+        const isStartPage = this.path === `${startPage}`;
+        const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
+        const authCookie = request.state.auth_token; // Check for the auth cookie
+        if (!authCookie && !isStartPage && this.model.def.authentication) {
+          // If the auth cookie is missing and it's not the start page, redirect
+          if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+            return h.redirect(`/${this.model.basePath}${startPage!}`);
+          }
+        }
+
+        if (authCookie) {
+          const tokenArtifacts = Jwt.token.decode(authCookie);
+          const { isValid, error } = verifyHmacToken(
+            tokenArtifacts,
+            this.model.def.jwtKey
+          );
+          if (!isValid) {
+            // If the token is invalid, redirect to the start page
+            if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+              return h.redirect(`/${this.model.basePath}${startPage!}`);
+            }
+          }
+        }
+      }
 
       const shouldGoToExitPage =
         this.model.allowExit && request.payload?.action === "exit";

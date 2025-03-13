@@ -164,7 +164,9 @@ export class StatusService {
       otherOutputs,
       formData,
       newReference,
-      state.pay
+      state.pay,
+      state.hmacSignature,
+      state.hmacExpiryTime
     );
 
     const requests = [
@@ -193,16 +195,28 @@ export class StatusService {
   webhookArgsFromState(state) {
     const { pay = {}, webhookData } = state;
     const { paymentSkipped } = pay;
-    const { metadata, fees, ...rest } = webhookData;
-    const webhookArgs = {
-      ...rest,
-      ...(!paymentSkipped && { fees }),
-      metadata: {
-        ...metadata,
-        ...state.metadata,
-        paymentSkipped: paymentSkipped ?? false,
-      },
-    };
+    const webhookArgs = (() => {
+      if (!webhookData) {
+        // Handle the case when webhookData is undefined
+        return {
+          metadata: {
+            ...state.metadata,
+            paymentSkipped: paymentSkipped ?? false,
+          },
+        };
+      }
+
+      const { metadata, fees, ...rest } = webhookData;
+      return {
+        ...rest,
+        ...(!paymentSkipped && { fees }),
+        metadata: {
+          ...metadata,
+          ...state.metadata,
+          paymentSkipped: paymentSkipped ?? false,
+        },
+      };
+    })();
 
     if (pay) {
       webhookArgs.metadata.pay = {
@@ -218,7 +232,9 @@ export class StatusService {
   emailOutputsFromState(
     outputData,
     reference,
-    payReference
+    payReference,
+    hmacSignature,
+    hmacExpiryTime
   ): SendNotificationArgs {
     const {
       apiKey,
@@ -239,6 +255,8 @@ export class StatusService {
           hasPaymentReference: !!payReference,
           paymentReference: payReference || "",
         }),
+        hmacSignature,
+        hmacExpiryTime,
       },
       reference,
       apiKey,
@@ -253,7 +271,9 @@ export class StatusService {
     outputs: OutputModel[] = [],
     formData = {},
     reference,
-    payReference
+    payReference,
+    hmacSignature,
+    hmacExpiryTime
   ): OutputArgs {
     this.logger.trace(["StatusService", "outputArgs"], JSON.stringify(outputs));
     return outputs.reduce<OutputArgs>(
@@ -263,7 +283,9 @@ export class StatusService {
           const args = this.emailOutputsFromState(
             currentValue.outputData,
             reference,
-            payReference
+            payReference,
+            hmacSignature,
+            hmacExpiryTime
           );
           this.logger.trace(
             ["StatusService", "outputArgs", "notify"],

@@ -230,6 +230,7 @@ const notifySchema = joi.object().keys({
   addReferencesToPersonalisation: joi.boolean().optional(),
   emailReplyToIdConfiguration: joi.array().items(replyToConfigurationSchema),
   escapeURLs: joi.boolean().default(false),
+  hmacKey: joi.string().optional(),
 });
 
 const emailSchema = joi.object().keys({
@@ -317,6 +318,7 @@ export const Schema = joi
     name: localisedString.optional(),
     feedback: feedbackSchema,
     startPage: joi.string().required(),
+    authentication: joi.boolean().optional(),
     pages: joi
       .array()
       .required()
@@ -335,9 +337,12 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    jwtKey: joi.string().optional(),
     feeOptions: feeOptionSchema,
     exitOptions: exitSchema.optional(),
     showFilenamesOnSummaryPage: joi.boolean().optional(),
+    toggle: joi.alternatives().try(joi.boolean(), joi.string()).optional(),
+    toggleRedirect: joi.string().optional(),
   });
 
 /**

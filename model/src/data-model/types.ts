@@ -195,6 +195,7 @@ export type FormDefinition = {
   lists: List[];
   sections: Section[];
   startPage?: Page["path"] | undefined;
+  authentication?: boolean | undefined;
   name?: string | undefined;
   feedback?: Feedback;
   phaseBanner?: PhaseBanner;
@@ -208,4 +209,6 @@ export type FormDefinition = {
   paymentReferenceFormat?: string;
   feeOptions: FeeOptions;
   exitOptions: ExitOptions;
+  jwtKey?: string | undefined;
+  toggle?: boolean | string | undefined;
 };

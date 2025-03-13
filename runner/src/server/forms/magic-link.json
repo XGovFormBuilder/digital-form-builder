@@ -1,0 +1,176 @@
+{
+  "startPage": "/start",
+  "skipSummary": true,
+  "toggle": "${magicLinkToggle}",
+  "toggleRedirect": "/ReportAnOutbreak/setting",
+  "pages": [
+    {
+      "path": "/start",
+      "controller": "MagicLinkStartPageController"
+    },
+    {
+      "title": "What is your email address?",
+      "path": "/email",
+      "continueButtonText": "Send secure link",
+      "showContinueButton": true,
+      "backLinkFallback": "/ReportAnOutbreak/start",
+      "components": [
+        {
+          "name": "EmailIntro",
+          "options": {},
+          "type": "Para",
+          "content": "We need to email you a secure link to the service. <br><br> Click on the link on the device that you'll use to access the service.",
+          "schema": {}
+        },
+        {
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "name": "email",
+          "schema": {
+            "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+          },
+          "options": {
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "string.empty": "Enter an email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/submit1"
+        }
+      ]
+    },
+    {
+      "path": "/submit1",
+      "controller": "ResubmitPageController"
+    },
+    {
+      "path": "/check-your-email",
+      "title": "Check your email",
+      "backLinkFallback": "/magic-link/magic-link",
+      "components": [
+        {
+          "name": "SentAnotherEmail",
+          "options": {},
+          "type": "Para",
+          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to Report an outbreak. <br><br> You can change the email address if it’s not correct or if you’d like to use a different email.</p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email.</p><a href='/magic-link/summary' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Resubmit</button></a>",
+          "schema": {}
+        }
+      ]
+    },
+    {
+      "path": "/resubmit-email",
+      "title": "We've sent you another email",
+      "backLinkFallback": "/check-your-email",
+      "components": [
+        {
+          "name": "SentAnotherEmail",
+          "options": {},
+          "type": "Para",
+          "content": "We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to Report an outbreak. <br><br> You can <a href='/magic-link'>change the email address</a> if it’s not correct or if you’d like to use a different email.",
+          "schema": {}
+        },
+        {
+          "name": "NotReceivedEmail",
+          "options": {},
+          "type": "Para",
+          "title": "If you've not received an email",
+          "content": "<h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "title": "summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    },
+    {
+      "path": "/email-confirmed",
+      "title": "Email confirmed",
+      "components": [
+        {
+          "name": "EmailConfirmed",
+          "options": {},
+          "type": "Para",
+          "content": "You have successfully confirmed your email address. You can continue to Report an outbreak.<br><br><a href='/ReportAnOutbreak/setting' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
+          "schema": {}
+        }
+      ]
+    },
+    {
+      "title": "return",
+      "path": "/return",
+      "controller": "MagicLinkController",
+      "components": []
+    },
+    {
+      "path": "/incorrect-email",
+      "title": "Incorrect email link",
+      "components": [
+        {
+          "name": "IncorrectEmail",
+          "options": {},
+          "type": "Para",
+          "content": "The email you used does not match the email associated with this link.<br><br><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "schema": {}
+        }
+      ]
+    },
+    {
+      "path": "/expired",
+      "title": "This link has expired",
+      "components": [
+        {
+          "type": "Para",
+          "title": "This link has expired",
+          "content": "<a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "name": "blarGGH",
+          "options": {},
+          "schema": {}
+        }
+      ]
+    }
+  ],
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "hidePanel": true,
+        "nextSteps": "<a href='/magic-link/check-your-email' class='govuk-back-link'>Back</a><h1 class='govuk-heading-l'>We've sent you another email</h1><p class=\"govuk-body\">We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to Report an outbreak. <br><br> You can <a href='/magic-link'>change the email address</a> if it’s not correct or if you’d like to use a different email.</p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>"
+      }
+    }
+  },
+  "lists": [],
+  "sections": [],
+  "name": "Report an outbreak",
+  "phaseBanner": {
+    "phase": "beta"
+  },
+  "metadata": {},
+  "fees": [],
+  "outputs": [
+    {
+      "name": "magiclink",
+      "title": "CareOBRA MagicLink",
+      "type": "notify",
+      "outputConfiguration": {
+        "apiKey": "${notifyApiKey}",
+        "templateId": "${NotifyTemplateId}",
+        "emailField": "email",
+        "addReferencesToPersonalisation": false,
+        "personalisation": ["email", "hmacSignature", "hmacExpiryTime"],
+        "hmacKey": "${HmacKey}"
+      }
+    }
+  ],
+  "jwtKey": "${jwtKey}",
+
+  "version": 2,
+  "conditions": []
+}

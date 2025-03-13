@@ -6,7 +6,7 @@
   ],
   "isTest": true,
   "previewMode": true,
-  "enforceCsrf": false,
+  "enforceCsrf": true,
   "initialisedSessionKey": "predictable-key",
   "env": "test",
   "documentUploadApiUrl": "http://localhost:9000"
