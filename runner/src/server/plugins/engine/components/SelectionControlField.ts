@@ -19,6 +19,7 @@ export class SelectionControlField extends ListFormComponent {
   constructor(def, model) {
     super(def, model);
     const { options } = def;
+    this.options = options;
 
     const { items } = this;
 
@@ -31,6 +32,21 @@ export class SelectionControlField extends ListFormComponent {
           .conditionallyRevealedComponents[item.value];
 
         if (conditionallyRevealedComponent != undefined) {
+          // Pass custom validation messages to the conditionally revealed component
+          if (options.customValidationMessages) {
+            conditionallyRevealedComponent.options =
+              conditionallyRevealedComponent.options || {};
+            conditionallyRevealedComponent.options.customValidationMessages =
+              conditionallyRevealedComponent.options.customValidationMessages ||
+              {};
+
+            // Merge parent validation messages with child validation messages
+            Object.assign(
+              conditionallyRevealedComponent.options.customValidationMessages,
+              options.customValidationMessages
+            );
+          }
+
           item.hasConditionallyRevealedComponents = true;
           item.conditionallyRevealedComponents = new ComponentCollection(
             [conditionallyRevealedComponent],
@@ -196,18 +212,19 @@ export class SelectionControlField extends ListFormComponent {
         schemaKeysFunctionName
       ]();
 
+      const conditionalMessages =
+        item.conditionallyRevealedComponents.items[0].options
+          .customValidationMessages || {};
+
       Object.keys(conditionalSchemaKeys).forEach((key) => {
-        Object.assign(schemaKeys, {
-          [key]: joi.alternatives().conditional(joi.ref(conditionalName), {
-            is: key,
-            then: joi.string(), //TODO should work for other validations
-            otherwise: joi.optional(),
-          }),
+        let schema = joi.alternatives().conditional(joi.ref(conditionalName), {
+          is: item.value,
+          then: conditionalSchemaKeys[key].messages(conditionalMessages),
+          otherwise: joi.optional(),
         });
+        schemaKeys[key] = schema;
       });
     });
-
-    //TODO should work for checkbox components
 
     return schemaKeys;
   }
