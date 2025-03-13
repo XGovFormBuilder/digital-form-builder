@@ -6,7 +6,7 @@
   "pages": [
     {
       "path": "/start",
-      "title": "Give feedback on Report an Outbreak",
+      "title": "Give feedback on Report an outbreak",
       "components": [
         {
           "name": "Feedback",
@@ -76,6 +76,10 @@
         {
           "text": "Useful resource",
           "value": "Useful resource"
+        },
+        {
+          "text": "Easy to understand",
+          "value": "Easy to understand"
         },
         {
           "text": "Easy to complete",
