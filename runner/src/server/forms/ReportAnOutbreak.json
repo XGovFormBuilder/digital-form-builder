@@ -154,7 +154,7 @@
           "options": {
             "summaryTitle": "2 or more cases",
             "customValidationMessages": {
-              "any.required": "Select if you are reporting 2 or more cases"
+              "any.required": "Select yes if you are reporting 2 or more cases"
             }
           },
           "title": " ",
