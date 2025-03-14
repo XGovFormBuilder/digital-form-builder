@@ -215,7 +215,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+          "content": "<p class='govuk-hint'>Include cases confirmed by a test and people with symptoms of acute respiratory infections, including chest infections</p>"
         },
         {
           "name": "TwoOrMoreCovid5days",
