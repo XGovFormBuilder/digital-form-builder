@@ -319,7 +319,7 @@
     },
     {
       "path": "/2-or-more-cases-not-covid-or-flu",
-      "title": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?",
+      "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
       "sectionForExitJourneySummaryPages": "AcuteInfections",
       "sectionForMultiSummaryPages": "OtherInYourSetting",
       "components": [
@@ -331,8 +331,7 @@
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
-          "title": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?",
-          "hint": "This includes viruses such as respiratory syncytial virus, rhinovirus, parainfluenza and chest infections",
+          "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
           "values": {
             "type": "listRef"
           }
