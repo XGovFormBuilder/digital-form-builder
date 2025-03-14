@@ -11,7 +11,7 @@
     {
       "title": "What is your email address?",
       "path": "/email",
-      "continueButtonText": "Send secure link",
+      "continueButtonText": "Continue",
       "showContinueButton": true,
       "backLinkFallback": "/ReportAnOutbreak/start",
       "components": [
@@ -19,7 +19,7 @@
           "name": "EmailIntro",
           "options": {},
           "type": "Para",
-          "content": "We need to email you a secure link to the service. <br><br> Click on the link on the device that you'll use to access the service.",
+          "content": "We need to email you a secure link to the service. <br><br> The link expires after 20 minutes. <br><br> If you're returning to a report that you started in the last 3 days, use the same email address.",
           "schema": {}
         },
         {
@@ -36,6 +36,13 @@
               "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           }
+        },
+        {
+          "name": "PrivacyNotice",
+          "options": {},
+          "type": "Para",
+          "content": "By continuing, you agree to our <a href='https://www.gov.uk/government/publications/ukhsa-privacy-notice' target='_blank'>privacy notice</a>.",
+          "schema": {}
         }
       ],
       "next": [
