@@ -1329,7 +1329,7 @@
           },
           "nameHasError": false,
           "title": "How many service users have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
+          "hint": "Do not include cases that have been confirmed by a test as flu<br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
           "name": "ServiceUsersSymptomsNotTested",
@@ -1341,7 +1341,7 @@
           },
           "nameHasError": false,
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
+          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
           "name": "ServiceUsersChestInfectionCovid19",
@@ -1354,7 +1354,7 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many service users have been tested for COVID-19?",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0"
         }
       ],
