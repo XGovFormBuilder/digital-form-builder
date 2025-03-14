@@ -147,10 +147,6 @@
       "sectionForMultiSummaryPages": "Covid19InYourSetting",
       "components": [
         {
-          "type": "Para",
-          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
-        },
-        {
           "name": "TwoOrMoreCovid",
           "type": "RadiosField",
           "list": "YesNo",
@@ -159,6 +155,7 @@
             "summaryTitle": "2 or more cases"
           },
           "title": " ",
+          "hint": "Include cases confirmed by a test and people with symptoms of acute respiratory infections, including chest infections.",
           "values": {
             "type": "listRef"
           }
