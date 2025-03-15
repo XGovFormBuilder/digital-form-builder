@@ -1068,7 +1068,7 @@
         {
           "name": "ServiceUsersTestedCovid",
           "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
@@ -1081,7 +1081,7 @@
         {
           "name": "ServiceUsersTestedFlu",
           "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
+          "title": "How many service users have been tested for flu and had a negative test result",
           "hint": "If none, enter 0",
           "options": {
             "required": false
