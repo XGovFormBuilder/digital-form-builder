@@ -1104,7 +1104,7 @@
     },
     {
       "path": "/staff-ari-unknown",
-      "title": "Staff: number of cases",
+      "title": "Staff: number of other cases",
       "disableSingleComponentAsHeading": true,
       "components": [
         {
