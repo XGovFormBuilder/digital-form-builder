@@ -1124,7 +1124,7 @@
         {
           "name": "StaffTestedCovid",
           "type": "NumberField",
-          "title": "How many staff have been tested for COVID-19?",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
@@ -1137,7 +1137,7 @@
         {
           "name": "StaffTestedFlu",
           "type": "NumberField",
-          "title": "How many staff have been tested for flu?",
+          "title": "How many staff have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
