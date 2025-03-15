@@ -1052,13 +1052,13 @@
     },
     {
       "path": "/service-users-ari-unknown",
-      "title": "Service users: number of cases",
+      "title": "Service users: number of other cases",
       "disableSingleComponentAsHeading": true,
       "components": [
         {
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection but have not been tested for any infection?",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
