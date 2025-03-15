@@ -2850,7 +2850,7 @@
             "required": false
           },
           "type": "Para",
-          "content": "<p>Provide a contact who will be available to receive: <ul class=\"govuk-list govuk-list--bullet\"><li>an acknowledgment email including a copy of the answers submitted</li><li>advice by email</li><li> a follow up phone call (depending on the risk level)</li></ul></p> <p> If possible, provide a work phone number and email address instead of personal contact details.</p><h3 class=\"govuk-heading-m\">Main contact person</h3>",
+          "content": "<p>Enter a contact to receive: <ul class=\"govuk-list govuk-list--bullet\"><li>an acknowledgment email including a copy of the answers submitted</li><li>advice by email</li><li> a follow up phone call (depending on the risk level)</li></ul></p> <p> If possible, provide a work phone number and email address instead of personal contact details.</p><h2 class=\"govuk-heading-m\">Main contact</h2>",
           "schema": {}
         },
         {
@@ -2904,7 +2904,7 @@
             "required": false
           },
           "type": "Para",
-          "content": "<h3 class=\"govuk-heading-m\">Alternative contact</h3><p>Enter details for an alternative contact if you want the emails to also be sent to a second contact person. We will use this phone number for a follow up call if the main contact is not available.</p>",
+          "content": "<h2 class=\"govuk-heading-m\">Additional contact</h2><p>Enter another contact to also receive the emails. We will use this phone number if the main contact is not available.</p>",
           "schema": {}
         },
         {
