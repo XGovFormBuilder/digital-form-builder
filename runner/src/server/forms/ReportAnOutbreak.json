@@ -535,6 +535,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for adenovirus",
+              "number.max": "The number of service users that have tested positive for adenovirus must be 999 or fewer",
+              "number.min": "The number of service users that have tested positive for adenovirus must be 999 or fewer"
+            }
           }
         }
       ],
@@ -663,6 +670,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for human Metapneumovirus (hMPV)",
+              "number.max": "The number of service users that have tested positive for human Metapneumovirus (hMPV) must be 999 or fewer",
+              "number.min": "The number of service users that have tested positive for human Metapneumovirus (hMPV) must be 999 or fewer"
+            }
           }
         }
       ],
@@ -775,6 +789,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for parainfluenza",
+              "number.max": "The number of service users that have tested positive for parainfluenza must be 999 or fewer",
+              "number.min": "The number of service users that have tested positive for parainfluenza must be 999 or fewer"
+            }
           }
         }
       ],
@@ -871,6 +892,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for Respiratory Syncytial Virus (RSV)",
+              "number.max": "The number of service users that have tested positive for Respiratory Syncytial Virus (RSV) must be 999 or fewer",
+              "number.min": "The number of service users that have tested positive for Respiratory Syncytial Virus (RSV) must be 999 or fewer"
+            }
           }
         }
       ],
@@ -951,6 +979,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for rhinovirus",
+              "number.max": "The number of service users that have tested positive for rhinovirus must be 999 or fewer",
+              "number.min": "The number of service users that have tested positive for rhinovirus must be 999 or fewer"
+            }
           }
         }
       ],
@@ -1015,6 +1050,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for an other acute respiratory infection",
+              "number.max": "The number of service users that have tested positive for an other acute respiratory infection must be 999 or fewer",
+              "number.min": "The number of service users that have tested positive for an other acute respiratory infection must be 999 or fewer"
+            }
           }
         }
       ],
