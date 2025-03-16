@@ -2245,7 +2245,11 @@
         },
         {
           "name": "FluSeverityCalledGPMultipleCases",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the number of service users you have called the GP about because of the severity of illness"
+            }
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
@@ -2272,7 +2276,11 @@
         },
         {
           "name": "FluSeverityHospitalisedMultipleCases",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been hospitalised because of an acute respiratory infection"
+            }
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
@@ -2283,7 +2291,11 @@
         },
         {
           "name": "FluSeverityDeathMultipleCases",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have died because of an acute respiratory infection"
+            }
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
@@ -2298,7 +2310,11 @@
           "type": "RadiosField",
           "nameHasError": false,
           "list": "FluSeveritySpecificArea",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select if the cases are linked to a specific area of the setting"
+            }
+          },
           "schema": {},
           "values": {
             "type": "listRef"
