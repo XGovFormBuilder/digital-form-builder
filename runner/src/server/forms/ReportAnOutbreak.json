@@ -2339,10 +2339,16 @@
           "title": "How many staff have COVID-19 confirmed by a positive test?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have COVID-19 confirmed by a positive test",
+              "number.max": "The number of staff that have COVID-19 confirmed by a positive test must be more than 0 and up to 999",
+              "number.min": "The number of staff that have COVID-19 confirmed by a positive test must be more than 0 and up to 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         },
         {
@@ -2351,10 +2357,16 @@
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         }
       ],
