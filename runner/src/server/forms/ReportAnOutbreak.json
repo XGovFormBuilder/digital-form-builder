@@ -1460,7 +1460,11 @@
       "components": [
         {
           "name": "SingleCaseOfFluSeverityCalledGP",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if you have called the GP because of the severity of illness"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
@@ -1471,7 +1475,11 @@
         },
         {
           "name": "SingleCaseOfFluSeverityHospitalised",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has been hospitalised with the flu"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
@@ -1482,7 +1490,11 @@
         },
         {
           "name": "SingleCaseOfFluSeverityDeath",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has died with flu"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
