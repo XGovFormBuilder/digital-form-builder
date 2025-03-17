@@ -3,25 +3,41 @@ import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 import { FormModel } from "../models";
 import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
-import {
-  getStateSchemaKeys,
-  getFormSchemaKeys,
-  addClassOptionIfNone,
-} from "./helpers";
+import { addClassOptionIfNone } from "./helpers";
+import joi, { Schema } from "joi";
 
 export class EmailAddressField extends FormComponent {
+  formSchema;
+  stateSchema;
+
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     this.schema["email"] = true;
+
     addClassOptionIfNone(this.options, "govuk-input--width-20");
+
+    // Define Joi schema for email validation
+    let emailSchema = joi.string();
+
+    if (this.schema.regex) {
+      const pattern = new RegExp(this.schema.regex);
+      emailSchema = emailSchema.pattern(pattern);
+    }
+
+    if (this.options.customValidationMessages) {
+      emailSchema = emailSchema.messages(this.options.customValidationMessages);
+    }
+
+    this.formSchema = emailSchema;
+    this.stateSchema = emailSchema;
   }
 
   getFormSchemaKeys() {
-    return getFormSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.formSchema as Schema };
   }
 
   getStateSchemaKeys() {
-    return getStateSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.stateSchema as Schema };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
@@ -34,7 +50,7 @@ export class EmailAddressField extends FormComponent {
       };
     }
 
-    viewModel.type = "email";
+    viewModel.type = "text";
     viewModel.autocomplete = "email";
 
     return viewModel;
