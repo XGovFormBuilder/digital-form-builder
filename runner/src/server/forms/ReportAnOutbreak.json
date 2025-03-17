@@ -1646,7 +1646,10 @@
           "hint": "You can select more than one option",
           "list": "ServiceOrStaffMultiple",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select if your service users or staff have an acute respiratory infection"
+            }
           }
         }
       ],
