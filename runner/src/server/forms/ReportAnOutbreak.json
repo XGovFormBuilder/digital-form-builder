@@ -1058,11 +1058,18 @@
         {
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection but have not been tested for any infection?",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be 999 or fewer",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be 999 or fewer"
+            }
           }
         },
         {
@@ -1075,7 +1082,11 @@
             "max": 999
           },
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be 999 or fewer",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be 999 or fewer"
+            }
           }
         },
         {
@@ -1084,7 +1095,11 @@
           "title": "How many service users have been tested for flu?",
           "hint": "If none, enter 0",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for flu and had a negative test result must be 999 or fewer",
+              "number.min": "The number of service users that have been tested for flu and had a negative test result must be 999 or fewer"
+            }
           },
           "schema": {
             "min": 0,
