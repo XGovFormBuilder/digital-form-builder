@@ -1414,7 +1414,7 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0"
         }
       ],
