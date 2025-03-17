@@ -2527,7 +2527,10 @@
           "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
           "list": "CaseNumbers",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the number of service users you have called the GP about because of the severity of illness"
+            }
           }
         },
         {
@@ -2536,7 +2539,10 @@
           "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
           "list": "CaseNumbers",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been hospitalised because of an acute respiratory infection"
+            }
           }
         },
         {
@@ -2545,7 +2551,10 @@
           "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
           "list": "CaseNumbers",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been died because of an acute respiratory infection"
+            }
           }
         }
       ],
