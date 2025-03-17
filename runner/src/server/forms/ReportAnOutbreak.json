@@ -2237,7 +2237,7 @@
     },
     {
       "path": "/flu-severity-multiple-cases",
-      "title": "Severity of illness in this outbreak",
+      "title": "Severity of illness",
       "components": [
         {
           "type": "Para",
