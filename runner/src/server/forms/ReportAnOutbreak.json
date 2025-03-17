@@ -52,9 +52,16 @@
                 "type": "TextField",
                 "name": "OtherAdultSocialCare",
                 "title": "Enter your setting type",
-                "options": {},
+                "options": {
+                  "customValidationMessages": {
+                    "string.empty": "Enter the type of adult social care you provide"
+                  }
+                },
                 "schema": {}
               }
+            },
+            "customValidationMessages": {
+              "any.required": "Select the type of adult social care you provide"
             }
           },
           "type": "RadiosField",
