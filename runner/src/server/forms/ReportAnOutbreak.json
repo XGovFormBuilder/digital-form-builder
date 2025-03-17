@@ -2227,10 +2227,16 @@
           "title": "How many service users have COVID-19 confirmed by a positive test?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have COVID-19 confirmed by a positive test",
+              "number.max": "The number of service users that have COVID-19 confirmed by a positive test must be more than 0 and up to 999",
+              "number.min": "The number of service users that have COVID-19 confirmed by a positive test must be more than 0 and up to 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         },
         {
@@ -2239,10 +2245,16 @@
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         }
       ],
