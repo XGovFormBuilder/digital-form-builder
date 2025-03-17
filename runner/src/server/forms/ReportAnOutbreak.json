@@ -429,7 +429,10 @@
         {
           "name": "ARIInfectionType",
           "options": {
-            "summaryTitle": "Infection type"
+            "summaryTitle": "Infection type",
+            "customValidationMessages": {
+              "any.required": "Select the infection you are reporting"
+            }
           },
           "type": "CheckboxesField",
           "nameHasError": false,
