@@ -121,7 +121,10 @@
         {
           "name": "WhichARI",
           "options": {
-            "summaryTitle": "Infection"
+            "summaryTitle": "Infection",
+            "customValidationMessages": {
+              "any.required": "Select which acute respiratory infections you have a positive test result for"
+            }
           },
           "type": "CheckboxesField",
           "nameHasError": false,
