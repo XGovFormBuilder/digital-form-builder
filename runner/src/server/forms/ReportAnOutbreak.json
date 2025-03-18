@@ -1311,8 +1311,8 @@
           "options": {
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have flu confirmed by a positive swab test",
-              "number.max": "The number of service users that have flu confirmed by a positive swab test must be more than 0 and up to 999",
-              "number.min": "The number of service users that have flu confirmed by a positive swab test must be more than 0 and up to 999"
+              "number.max": "The number of service users that have flu confirmed by a positive swab test must be between 0 and 999",
+              "number.min": "The number of service users that have flu confirmed by a positive swab test must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1329,8 +1329,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of service users that have been diagnosed with a chest infection by a GP must be more than 0 and up to 999",
-              "number.min": "The number of service users that have been diagnosed with a chest infection by a GP must be more than 0 and up to 999"
+              "number.max": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999",
+              "number.min": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1347,8 +1347,8 @@
           "options": {
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
-              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
-              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1365,8 +1365,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999",
-              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999"
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1403,8 +1403,8 @@
           "options": {
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have flu confirmed by a positive swab test",
-              "number.max": "The number of staff that have flu confirmed by a positive swab test must be more than 0 and up to 999",
-              "number.min": "The number of staff that have flu confirmed by a positive swab test must be more than 0 and up to 999"
+              "number.max": "The number of staff that have flu confirmed by a positive swab test must be between 0 and 999",
+              "number.min": "The number of staff that have flu confirmed by a positive swab test must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1421,8 +1421,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
-              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1439,8 +1439,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999",
-              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999"
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1553,8 +1553,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of service users vaccinated for COVID-19 must be more than 0 and up to 999",
-              "number.min": "The number of service users vaccinated for COVID-19 must be more than 0 and up to 999"
+              "number.max": "The number of service users vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for COVID-19 must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1573,8 +1573,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of service users vaccinated for flu must be more than 0 and up to 999",
-              "number.min": "The number of service users vaccinated for flu must be more than 0 and up to 999"
+              "number.max": "The number of service users vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for flu must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1593,8 +1593,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of service users vaccinated for RSV must be more than 0 and up to 999",
-              "number.min": "The number of service users vaccinated for RSV must be more than 0 and up to 999"
+              "number.max": "The number of service users vaccinated for RSV must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for RSV must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1613,8 +1613,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of staff vaccinated for COVID-19 must be more than 0 and up to 999",
-              "number.min": "The number of staff vaccinated for COVID-19 must be more than 0 and up to 999"
+              "number.max": "The number of staff vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for COVID-19 must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -1633,8 +1633,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of staff vaccinated for flu must be more than 0 and up to 999",
-              "number.min": "The number of staff vaccinated for flu must be more than 0 and up to 999"
+              "number.max": "The number of staff vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for flu must be between 0 and 999"
             }
           },
           "type": "NumberField",
