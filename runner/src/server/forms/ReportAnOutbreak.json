@@ -1306,11 +1306,17 @@
       "components": [
         {
           "name": "ServiceUsersFluSwabTest",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have flu confirmed by a positive swab test",
+              "number.max": "The number of service users that have flu confirmed by a positive swab test must be between 0 and 999",
+              "number.min": "The number of service users that have flu confirmed by a positive swab test must be between 0 and 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have flu confirmed by a positive swab test?",
@@ -1319,12 +1325,16 @@
         {
           "name": "ServiceUsersChestInfection",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999",
+              "number.min": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have been diagnosed with a chest infection by a GP?",
@@ -1332,11 +1342,17 @@
         },
         {
           "name": "ServiceUsersSymptomsNotTested",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
@@ -1345,12 +1361,16 @@
         {
           "name": "ServiceUsersChestInfectionCovid19",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have been tested for COVID-19 and had a negative test result?",
@@ -1378,11 +1398,17 @@
 
         {
           "name": "StaffFluSwabTest",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have flu confirmed by a positive swab test",
+              "number.max": "The number of staff that have flu confirmed by a positive swab test must be between 0 and 999",
+              "number.min": "The number of staff that have flu confirmed by a positive swab test must be between 0 and 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff have flu confirmed by a positive swab test?",
@@ -1391,12 +1417,16 @@
         {
           "name": "StaffSymptomsNotTested",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
@@ -1405,12 +1435,16 @@
         {
           "name": "StaffChestInfectionCovid19",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff have been tested for COVID-19 and had a negative test result?",
@@ -1458,7 +1492,11 @@
       "components": [
         {
           "name": "SingleCaseOfFluSeverityCalledGP",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if you have called the GP because of the severity of illness"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
@@ -1469,7 +1507,11 @@
         },
         {
           "name": "SingleCaseOfFluSeverityHospitalised",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has been hospitalised with the flu"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
@@ -1480,7 +1522,11 @@
         },
         {
           "name": "SingleCaseOfFluSeverityDeath",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has died with flu"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
@@ -1503,13 +1549,17 @@
         {
           "name": "ServiceUsersCovid19Vaccination",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for COVID-19 must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "nameHasError": false,
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "title": "Service users: how many are up to date with the current COVID-19 vaccination schedule?",
           "values": {
@@ -1519,13 +1569,17 @@
         {
           "name": "ServiceUsersFluVaccination",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for flu must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "nameHasError": false,
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "title": "Service users: how many have had the flu vaccine for this current winter season?",
           "values": {
@@ -1535,13 +1589,17 @@
         {
           "name": "ServiceUsersRSVVaccination",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for RSV must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for RSV must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "nameHasError": false,
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "title": "Service users: how many have had the respiratory syncytial virus (RSV) vaccine?",
           "values": {
@@ -1551,13 +1609,17 @@
         {
           "name": "StaffCovid19Vaccination",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for COVID-19 must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "nameHasError": false,
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "title": "Staff: how many are up to date with the current COVID-19 vaccination schedule?",
           "values": {
@@ -1567,13 +1629,17 @@
         {
           "name": "StaffFluVaccination",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for flu must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "nameHasError": false,
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "title": "Staff: how many have had the flu vaccine for this current winter season?",
           "values": {
@@ -2525,7 +2591,10 @@
           "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
           "list": "CaseNumbers",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the number of service users you have called the GP about because of the severity of illness"
+            }
           }
         },
         {
@@ -2534,7 +2603,10 @@
           "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
           "list": "CaseNumbers",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been hospitalised because of an acute respiratory infection"
+            }
           }
         },
         {
@@ -2543,7 +2615,10 @@
           "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
           "list": "CaseNumbers",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been died because of an acute respiratory infection"
+            }
           }
         }
       ],
