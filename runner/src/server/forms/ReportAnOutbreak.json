@@ -1308,11 +1308,17 @@
       "components": [
         {
           "name": "ServiceUsersFluSwabTest",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have flu confirmed by a positive swab test",
+              "number.max": "The number of service users that have flu confirmed by a positive swab test must be more than 0 and up to 999",
+              "number.min": "The number of service users that have flu confirmed by a positive swab test must be more than 0 and up to 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have flu confirmed by a positive swab test?",
@@ -1321,12 +1327,16 @@
         {
           "name": "ServiceUsersChestInfection",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been diagnosed with a chest infection by a GP must be more than 0 and up to 999",
+              "number.min": "The number of service users that have been diagnosed with a chest infection by a GP must be more than 0 and up to 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have been diagnosed with a chest infection by a GP?",
@@ -1334,11 +1344,17 @@
         },
         {
           "name": "ServiceUsersSymptomsNotTested",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
@@ -1347,12 +1363,16 @@
         {
           "name": "ServiceUsersChestInfectionCovid19",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many service users have been tested for COVID-19?",
