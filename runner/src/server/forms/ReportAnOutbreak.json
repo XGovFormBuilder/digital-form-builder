@@ -2714,7 +2714,11 @@
       "components": [
         {
           "name": "AgencyStaff",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if you use agency staff or share staff with other care settings"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
