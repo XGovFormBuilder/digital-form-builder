@@ -1160,6 +1160,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
           }
         },
         {
@@ -1172,7 +1179,11 @@
             "max": 999
           },
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
           }
         },
         {
@@ -1181,7 +1192,11 @@
           "title": "How many service users have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999"
+            }
           },
           "schema": {
             "min": 0,
@@ -1216,6 +1231,13 @@
           "schema": {
             "min": 0,
             "max": 999
+          },
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
           }
         },
         {
@@ -1228,7 +1250,11 @@
             "max": 999
           },
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
           }
         },
         {
@@ -1237,7 +1263,11 @@
           "title": "How many staff have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999"
+            }
           },
           "schema": {
             "min": 0,
