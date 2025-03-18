@@ -2063,7 +2063,11 @@
       "components": [
         {
           "name": "IPCPractices",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select how often you monitor staff infection prevention and control practices"
+            }
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "How often do you monitor staff infection prevention and control practices?",
@@ -2075,7 +2079,11 @@
         },
         {
           "name": "Issues",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the issues you currently need support with"
+            }
+          },
           "type": "CheckboxesField",
           "nameHasError": false,
           "title": "What issues do you currently need support with?",
@@ -2086,8 +2094,18 @@
           }
         },
         {
-          "name": "AGPs",
+          "name": "SYlpIV",
           "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\",()=>{const c=document.querySelectorAll(\".govuk-checkboxes__input\"),n=document.getElementById(\"Issues-11\");c.forEach(e=>{e.addEventListener(\"change\",function(){this===n&&this.checked?c.forEach(e=>{e!==n&&(e.checked=false)}):this!==n&&this.checked&&(n.checked=false)})})});</script>"
+        },
+        {
+          "name": "AGPs",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if your setting undertakes aerosol generating procedures (AGPs)"
+            }
+          },
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
