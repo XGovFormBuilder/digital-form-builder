@@ -82,7 +82,10 @@
         {
           "name": "PositiveARI",
           "options": {
-            "summaryTitle": "Positive test result"
+            "summaryTitle": "Positive test result",
+            "customValidationMessages": {
+              "any.required": "Select yes if you have any positive test results for an acute respiratory infection"
+            }
           },
           "type": "RadiosField",
           "list": "YesNo",
