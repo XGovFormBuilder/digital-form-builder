@@ -147,16 +147,15 @@
       "sectionForMultiSummaryPages": "Covid19InYourSetting",
       "components": [
         {
-          "type": "Para",
-          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
-        },
-        {
           "name": "TwoOrMoreCovid",
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
           "options": {
-            "summaryTitle": "2 or more cases"
+            "summaryTitle": "2 or more cases",
+            "customValidationMessages": {
+              "any.required": "Select yes if you are reporting 2 or more cases"
+            }
           },
           "title": " ",
           "values": {
