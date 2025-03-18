@@ -2230,8 +2230,8 @@
             "required": true,
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have COVID-19 confirmed by a positive test",
-              "number.max": "The number of service users that have COVID-19 confirmed by a positive test must be more than 0 and up to 999",
-              "number.min": "The number of service users that have COVID-19 confirmed by a positive test must be more than 0 and up to 999"
+              "number.max": "The number of service users that have COVID-19 confirmed by a positive test must be between 0 and 999",
+              "number.min": "The number of service users that have COVID-19 confirmed by a positive test must be between 0 and 999"
             }
           },
           "schema": {
@@ -2248,8 +2248,8 @@
             "required": true,
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
-              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
-              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
             }
           },
           "schema": {
@@ -2342,8 +2342,8 @@
             "required": true,
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have COVID-19 confirmed by a positive test",
-              "number.max": "The number of staff that have COVID-19 confirmed by a positive test must be more than 0 and up to 999",
-              "number.min": "The number of staff that have COVID-19 confirmed by a positive test must be more than 0 and up to 999"
+              "number.max": "The number of staff that have COVID-19 confirmed by a positive test must be between 0 and 999",
+              "number.min": "The number of staff that have COVID-19 confirmed by a positive test must be between 0 and 999"
             }
           },
           "schema": {
@@ -2360,8 +2360,8 @@
             "required": true,
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
-              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
-              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
             }
           },
           "schema": {
