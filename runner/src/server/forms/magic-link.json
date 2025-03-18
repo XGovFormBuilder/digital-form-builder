@@ -19,7 +19,7 @@
           "name": "EmailIntro",
           "options": {},
           "type": "Para",
-          "content": "We need to email you a secure link to the service. <br><br> The link expires after 20 minutes. <br><br> If you're returning to a report that you started in the last 3 days, use the same email address.",
+          "content": "We need to email you a secure link to the service.<br><br>The link expires after 20 minutes.<br>",
           "schema": {}
         },
         {
