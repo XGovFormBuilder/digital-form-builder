@@ -1400,11 +1400,17 @@
 
         {
           "name": "StaffFluSwabTest",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have flu confirmed by a positive swab test",
+              "number.max": "The number of staff that have flu confirmed by a positive swab test must be more than 0 and up to 999",
+              "number.min": "The number of staff that have flu confirmed by a positive swab test must be more than 0 and up to 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff have flu confirmed by a positive swab test?",
@@ -1413,12 +1419,16 @@
         {
           "name": "StaffSymptomsNotTested",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
@@ -1427,12 +1437,16 @@
         {
           "name": "StaffChestInfectionCovid19",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff have been tested for COVID-19?",
