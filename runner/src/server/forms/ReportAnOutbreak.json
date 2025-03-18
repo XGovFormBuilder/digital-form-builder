@@ -2999,7 +2999,11 @@
       "components": [
         {
           "name": "ServiceUsersTypes",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the options that best describe the majority of your service users"
+            }
+          },
           "type": "CheckboxesField",
           "nameHasError": false,
           "title": "Select the options that best describe the majority of your service users",
@@ -3011,12 +3015,18 @@
         },
         {
           "name": "ServiceUsersCurrentlyLive",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that currently live in your care setting or use your service",
+              "number.max": "The number of service users that currently live in your care setting or use your service must be more than 0 and up to 999",
+              "number.min": "The number of service users that currently live in your care setting or use your service must be more than 0 and up to 999"
+            }
+          },
           "type": "NumberField",
           "nameHasError": false,
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "title": "How many service users currently live in your care setting or use your service?",
           "hint": "Include those who are currently in hospital or on visits out",
@@ -3024,22 +3034,34 @@
         },
         {
           "name": "StaffNumber",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that currently work in your care setting or service",
+              "number.max": "The number of staff that currently work in your care setting or service must be more than 0 and up to 999",
+              "number.min": "The number of staff that currently work in your care setting or service must be more than 0 and up to 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff currently work in your care setting or service?"
         },
         {
           "name": "EmptyBeds",
-          "options": { "required": false },
+          "options": {
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of empty beds that you have in your care setting must be more than 0 and up to 999",
+              "number.min": "The number of empty beds that you have in your care setting must be more than 0 and up to 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many empty beds do you have in your care setting?",
