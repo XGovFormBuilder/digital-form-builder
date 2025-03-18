@@ -214,7 +214,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+          "content": "<p class='govuk-hint'>Include cases confirmed by a test and people with symptoms of acute respiratory infections, including chest infections</p>"
         },
         {
           "name": "TwoOrMoreCovid5days",
@@ -318,7 +318,7 @@
     },
     {
       "path": "/2-or-more-cases-not-covid-or-flu",
-      "title": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?",
+      "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
       "sectionForExitJourneySummaryPages": "AcuteInfections",
       "sectionForMultiSummaryPages": "OtherInYourSetting",
       "components": [
@@ -330,8 +330,7 @@
           "type": "RadiosField",
           "list": "YesNo",
           "nameHasError": false,
-          "title": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?",
-          "hint": "This includes viruses such as respiratory syncytial virus, rhinovirus, parainfluenza and chest infections",
+          "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
           "values": {
             "type": "listRef"
           }
@@ -1329,7 +1328,7 @@
           },
           "nameHasError": false,
           "title": "How many service users have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
+          "hint": "Do not include cases that have been confirmed by a test as flu<br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
           "name": "ServiceUsersSymptomsNotTested",
@@ -1341,7 +1340,7 @@
           },
           "nameHasError": false,
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
+          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
         },
         {
           "name": "ServiceUsersChestInfectionCovid19",
@@ -1354,7 +1353,7 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many service users have been tested for COVID-19?",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0"
         }
       ],
@@ -1401,7 +1400,7 @@
           },
           "nameHasError": false,
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "This usually includes people who have a sudden onset of acute respiratory symptoms and fever<br>Include those who are currently in hospital<br>If none, enter 0"
+          "hint": "Include those who are currently in hospital<br>If none, enter 0"
         },
         {
           "name": "StaffChestInfectionCovid19",
@@ -1414,7 +1413,7 @@
             "max": 200
           },
           "nameHasError": false,
-          "title": "How many staff have been tested for COVID-19?",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0"
         }
       ],
