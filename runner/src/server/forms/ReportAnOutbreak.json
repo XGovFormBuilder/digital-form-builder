@@ -52,9 +52,16 @@
                 "type": "TextField",
                 "name": "OtherAdultSocialCare",
                 "title": "Enter your setting type",
-                "options": {},
+                "options": {
+                  "customValidationMessages": {
+                    "string.empty": "Enter the type of adult social care you provide"
+                  }
+                },
                 "schema": {}
               }
+            },
+            "customValidationMessages": {
+              "any.required": "Select the type of adult social care you provide"
             }
           },
           "type": "RadiosField",
@@ -114,7 +121,10 @@
         {
           "name": "WhichARI",
           "options": {
-            "summaryTitle": "Infection"
+            "summaryTitle": "Infection",
+            "customValidationMessages": {
+              "any.required": "Select which acute respiratory infections you have a positive test result for"
+            }
           },
           "type": "CheckboxesField",
           "nameHasError": false,
@@ -417,7 +427,10 @@
         {
           "name": "ARIInfectionType",
           "options": {
-            "summaryTitle": "Infection type"
+            "summaryTitle": "Infection type",
+            "customValidationMessages": {
+              "any.required": "Select the infection you are reporting"
+            }
           },
           "type": "CheckboxesField",
           "nameHasError": false,
@@ -1841,7 +1854,10 @@
           "hint": "You can select more than one option",
           "list": "ServiceOrStaffMultiple",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select if your service users or staff have an acute respiratory infection"
+            }
           }
         }
       ],
@@ -2435,10 +2451,16 @@
           "title": "How many service users have COVID-19 confirmed by a positive test?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have COVID-19 confirmed by a positive test",
+              "number.max": "The number of service users that have COVID-19 confirmed by a positive test must be between 0 and 999",
+              "number.min": "The number of service users that have COVID-19 confirmed by a positive test must be between 0 and 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         },
         {
@@ -2447,10 +2469,16 @@
           "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         }
       ],
@@ -2535,10 +2563,16 @@
           "title": "How many staff have COVID-19 confirmed by a positive test?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have COVID-19 confirmed by a positive test",
+              "number.max": "The number of staff that have COVID-19 confirmed by a positive test must be between 0 and 999",
+              "number.min": "The number of staff that have COVID-19 confirmed by a positive test must be between 0 and 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         },
         {
@@ -2547,10 +2581,16 @@
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
           },
           "schema": {
-            "min": 0
+            "min": 0,
+            "max": 999
           }
         }
       ],
