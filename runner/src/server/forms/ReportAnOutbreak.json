@@ -223,7 +223,10 @@
         {
           "name": "TwoOrMoreCovid5days",
           "options": {
-            "summaryTitle": "Symptoms started within 5 days of each other"
+            "summaryTitle": "Symptoms started within 5 days of each other",
+            "customValidationMessages": {
+              "any.required": "Select yes if symptoms in 2 or more cases started within 5 days of each other"
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
@@ -236,7 +239,10 @@
         {
           "name": "TwoOrMoreCovidSpread",
           "options": {
-            "summaryTitle": "The cases are linked by spread"
+            "summaryTitle": "The cases are linked by spread",
+            "customValidationMessages": {
+              "any.required": "Select yes if it is possible that at least 2 of the cases are linked by spread"
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
