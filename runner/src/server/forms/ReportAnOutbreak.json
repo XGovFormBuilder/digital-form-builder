@@ -2744,7 +2744,11 @@
       "components": [
         {
           "name": "AdditionalStaff",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the number of additional agency staff or staff from other care settings you have used during this outbreak"
+            }
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "How many additional agency staff or staff from other care settings have you used during this outbreak?",
