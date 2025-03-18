@@ -1067,8 +1067,8 @@
           "options": {
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
-              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
-              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
             }
           }
         },
@@ -1084,8 +1084,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999",
-              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999"
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
             }
           }
         },
@@ -1097,8 +1097,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of service users that have been tested for flu and had a negative test result must be more than 0 and up to 999",
-              "number.min": "The number of service users that have been tested for flu and had a negative test result must be more than 0 and up to 999"
+              "number.max": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999"
             }
           },
           "schema": {
@@ -1138,8 +1138,8 @@
           "options": {
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
-              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999",
-              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be more than 0 and up to 999"
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
             }
           }
         },
@@ -1155,8 +1155,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999",
-              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be more than 0 and up to 999"
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
             }
           }
         },
@@ -1168,8 +1168,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of staff that have been tested for flu and had a negative test result must be more than 0 and up to 999",
-              "number.min": "The number of staff that have been tested for flu and had a negative test result must be more than 0 and up to 999"
+              "number.max": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999"
             }
           },
           "schema": {
@@ -2177,8 +2177,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be more than 0 and up to 999",
-              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be more than 0 and up to 999"
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999"
             }
           },
           "schema": {
@@ -2605,8 +2605,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be more than 0 and up to 999",
-              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be more than 0 and up to 999"
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999"
             }
           },
           "schema": {
