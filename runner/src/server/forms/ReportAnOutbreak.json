@@ -280,7 +280,10 @@
         {
           "name": "TwoOrMoreARI",
           "options": {
-            "summaryTitle": "2 or more cases"
+            "summaryTitle": "2 or more cases",
+            "customValidationMessages": {
+              "any.required": "Select yes if you are reporting 2 or more cases of an acute respiratory infection"
+            }
           },
           "type": "RadiosField",
           "list": "YesNo",
