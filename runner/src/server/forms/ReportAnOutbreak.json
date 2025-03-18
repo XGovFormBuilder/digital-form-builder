@@ -449,7 +449,7 @@
     },
     {
       "path": "/service-users-ari-confirmed",
-      "title": "Service users: number of cases",
+      "title": "Service users: number of other cases",
       "disableSingleComponentAsHeading": true,
       "components": [
         {
@@ -465,7 +465,7 @@
         {
           "name": "ServiceUsersTestedCovid",
           "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
@@ -478,7 +478,7 @@
         {
           "name": "ServiceUsersTestedFlu",
           "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
+          "title": "How many service users have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
@@ -1056,7 +1056,7 @@
         {
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection but have not been tested for any infection?",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
           "schema": {
             "min": 0,
@@ -1066,7 +1066,7 @@
         {
           "name": "ServiceUsersTestedCovid",
           "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
@@ -1079,7 +1079,7 @@
         {
           "name": "ServiceUsersTestedFlu",
           "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
+          "title": "How many service users have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
@@ -1122,7 +1122,7 @@
         {
           "name": "StaffTestedCovid",
           "type": "NumberField",
-          "title": "How many staff have been tested for COVID-19?",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
@@ -1135,7 +1135,7 @@
         {
           "name": "StaffTestedFlu",
           "type": "NumberField",
-          "title": "How many staff have been tested for flu?",
+          "title": "How many staff have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
@@ -1154,7 +1154,7 @@
     },
     {
       "path": "/staff-ari-confirmed",
-      "title": "Staff: number of cases",
+      "title": "Staff: number of other cases",
       "components": [
         {
           "name": "StaffSymptomsNotTested",
@@ -1169,7 +1169,7 @@
         {
           "name": "StaffTestedCovid",
           "type": "NumberField",
-          "title": "How many staff have been tested for COVID-19?",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "schema": {
             "min": 0,
@@ -1182,7 +1182,7 @@
         {
           "name": "StaffTestedFlu",
           "type": "NumberField",
-          "title": "How many staff have been tested for flu?",
+          "title": "How many staff have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
@@ -1807,7 +1807,7 @@
     },
     {
       "path": "/staff-ari-cases",
-      "title": "Staff: Number of cases",
+      "title": "Staff: number of cases",
       "components": [
         {
           "type": "Para",
@@ -1829,7 +1829,7 @@
         {
           "name": "OtherARIStaffTestedCovid",
           "type": "NumberField",
-          "title": "How many staff have been tested for COVID-19?",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
@@ -1842,7 +1842,7 @@
         {
           "name": "OtherARIStaffTestedFlu",
           "type": "NumberField",
-          "title": "How many staff have been tested for flu?",
+          "title": "How many staff have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
             "required": false
@@ -2848,7 +2848,7 @@
             "required": false
           },
           "type": "Para",
-          "content": "<p>Provide a contact who will be available to receive: <ul class=\"govuk-list govuk-list--bullet\"><li>an acknowledgment email including a copy of the answers submitted</li><li>advice by email</li><li> a follow up phone call (depending on the risk level)</li></ul></p> <p> If possible, provide a work phone number and email address instead of personal contact details.</p><h3 class=\"govuk-heading-m\">Main contact person</h3>",
+          "content": "<p>Enter a contact to receive: <ul class=\"govuk-list govuk-list--bullet\"><li>an acknowledgment email including a copy of the answers submitted</li><li>advice by email</li><li> a follow up phone call (depending on the risk level)</li></ul></p> <p> If possible, provide a work phone number and email address instead of personal contact details.</p><h2 class=\"govuk-heading-m\">Main contact</h2>",
           "schema": {}
         },
         {
@@ -2902,7 +2902,7 @@
             "required": false
           },
           "type": "Para",
-          "content": "<h3 class=\"govuk-heading-m\">Alternative contact</h3><p>Enter details for an alternative contact if you want the emails to also be sent to a second contact person. We will use this phone number for a follow up call if the main contact is not available.</p>",
+          "content": "<h2 class=\"govuk-heading-m\">Additional contact</h2><p>Enter another contact to also receive the emails. We will use this phone number if the main contact is not available.</p>",
           "schema": {}
         },
         {
