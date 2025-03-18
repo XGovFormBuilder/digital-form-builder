@@ -2688,7 +2688,11 @@
       "components": [
         {
           "name": "FFP3Masks",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select if staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks"
+            }
+          },
           "type": "RadiosField",
           "nameHasError": false,
           "title": "Do staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks?",
