@@ -3027,8 +3027,8 @@
           "options": {
             "customValidationMessages": {
               "number.base": "Enter the number of service users that currently live in your care setting or use your service",
-              "number.max": "The number of service users that currently live in your care setting or use your service must be more than 0 and up to 999",
-              "number.min": "The number of service users that currently live in your care setting or use your service must be more than 0 and up to 999"
+              "number.max": "The number of service users that currently live in your care setting or use your service must be between 0 and 999",
+              "number.min": "The number of service users that currently live in your care setting or use your service must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -3046,8 +3046,8 @@
           "options": {
             "customValidationMessages": {
               "number.base": "Enter the number of staff that currently work in your care setting or service",
-              "number.max": "The number of staff that currently work in your care setting or service must be more than 0 and up to 999",
-              "number.min": "The number of staff that currently work in your care setting or service must be more than 0 and up to 999"
+              "number.max": "The number of staff that currently work in your care setting or service must be between 0 and 999",
+              "number.min": "The number of staff that currently work in your care setting or service must be between 0 and 999"
             }
           },
           "type": "NumberField",
@@ -3063,8 +3063,8 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "number.max": "The number of empty beds that you have in your care setting must be more than 0 and up to 999",
-              "number.min": "The number of empty beds that you have in your care setting must be more than 0 and up to 999"
+              "number.max": "The number of empty beds that you have in your care setting must be between 0 and 999",
+              "number.min": "The number of empty beds that you have in your care setting must be between 0 and 999"
             }
           },
           "type": "NumberField",
