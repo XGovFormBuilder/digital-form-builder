@@ -149,7 +149,7 @@
     "confirmationPage": {
       "customText": {
         "hidePanel": true,
-        "nextSteps": "<a href='/magic-link/check-your-email' class='govuk-back-link'>Back</a><h1 class='govuk-heading-l'>We've sent you another email</h1><p class=\"govuk-body\">We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to Report an outbreak. <br><br> You can <a href='/magic-link'>change the email address</a> if it’s not correct or if you’d like to use a different email.</p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>"
+        "nextSteps": "<a href='/magic-link/check-your-email' class='govuk-back-link'>Back</a><h1 class='govuk-heading-l'>We've sent you another email</h1><p class=\"govuk-body\">We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to report an outbreak. </p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>"
       }
     }
   },
@@ -177,7 +177,10 @@
     }
   ],
   "jwtKey": "${jwtKey}",
-
+  "feedback": {
+    "feedbackForm": true,
+    "url": "/feedback"
+  },
   "version": 2,
   "conditions": []
 }
