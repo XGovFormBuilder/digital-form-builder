@@ -2093,8 +2093,11 @@
           "name": "Issues",
           "options": {
             "customValidationMessages": {
-              "any.required": "Select the issues you currently need support with"
-            }
+              "any.required": "Select the issues you currently need support with",
+              "any.invalid": "Select the issues you currently need support with, or select ‘no issues’"
+            },
+            "divider": true,
+            "finalValue": "No issues"
           },
           "type": "CheckboxesField",
           "nameHasError": false,
@@ -2104,12 +2107,6 @@
           "values": {
             "type": "listRef"
           }
-        },
-        {
-          "name": "SYlpIV",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.addEventListener(\"DOMContentLoaded\",()=>{const c=document.querySelectorAll(\".govuk-checkboxes__input\"),n=document.getElementById(\"Issues-11\");c.forEach(e=>{e.addEventListener(\"change\",function(){this===n&&this.checked?c.forEach(e=>{e!==n&&(e.checked=false)}):this!==n&&this.checked&&(n.checked=false)})})});</script>"
         },
         {
           "name": "AGPs",

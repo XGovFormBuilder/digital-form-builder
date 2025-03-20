@@ -134,6 +134,8 @@ interface ListFieldBase {
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
     summaryTitle?: string;
+    divider?: boolean;
+    finalValue?: string;
   };
   list: string;
   schema: {};
