@@ -126,25 +126,16 @@
               "any.required": "Select which acute respiratory infections you have a positive test result for"
             }
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "nameHasError": false,
           "title": "Which acute respiratory infections do you have a positive test result for? ",
           "list": "InfectionTypes",
-          "hint": "You can select more than one option",
           "values": {
             "type": "listRef"
           }
         }
       ],
       "next": [
-        {
-          "path": "/2-or-more-covid-descriptive",
-          "condition": "WhichARI:COVID19ANDOTHER"
-        },
-        {
-          "path": "/2-or-more-covid-descriptive",
-          "condition": "WhichARI:COVID19ANDFLU"
-        },
         { "path": "/2-or-more-covid", "condition": "WhichARI:COVID19" },
         { "path": "/cases-of-flu", "condition": "WhichARI:FLU" },
         { "path": "/2-or-more-cases-not-covid-or-flu" }
@@ -259,10 +250,6 @@
       ],
       "next": [
         {
-          "path": "/2-or-more-cases-not-covid-or-flu",
-          "condition": "WhichARI:COVID19ANDOTHER"
-        },
-        {
           "path": "/do-not-need-to-report",
           "condition": "ReportCovid:No"
         },
@@ -314,19 +301,6 @@
       "components": []
     },
     {
-      "path": "/do-not-need-to-report-multiple",
-      "title": "You do not need to report",
-      "controller": "CheckpointSummaryPageController",
-      "options": {
-        "multiSummary": true,
-        "customText": {
-          "insetText": "Based on your answers, you do not need to report these acute respiratory infections.",
-          "details": "<p>You only need to report:<ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li></ul></p><p class=\"govuk-body\">Read guidance on <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection\">infection prevention and control in adult social care settings.</a></p>"
-        }
-      },
-      "components": []
-    },
-    {
       "path": "/2-or-more-cases-not-covid-or-flu",
       "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
       "sectionForExitJourneySummaryPages": "AcuteInfections",
@@ -348,22 +322,6 @@
       ],
       "next": [
         {
-          "condition": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
-          "path": "/do-not-need-to-report-multiple"
-        },
-        {
-          "condition": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
-          "path": "/do-not-need-to-report-multiple"
-        },
-        {
-          "condition": "WhichARI:COVID19ANDOTHER_COVID_NOT_REPORTABLE",
-          "path": "/mid-way-summary-covid-no-other-yes"
-        },
-        {
-          "condition": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
-          "path": "/mid-way-summary-covid-yes-other-no"
-        },
-        {
           "condition": "TwoOrMoreCasesNotCovidFlu:YES",
           "path": "/ari-infection-type"
         },
@@ -371,53 +329,6 @@
           "path": "/do-not-need-to-report"
         }
       ]
-    },
-    {
-      "path": "/mid-way-summary",
-      "title": "Check your answers before continuing",
-      "controller": "CheckpointSummaryPageController",
-      "options": {
-        "multiSummary": true
-      },
-      "components": []
-    },
-    {
-      "path": "/mid-way-summary-covid-yes-flu-yes-other-yes",
-      "title": "Check your answers before continuing",
-      "controller": "CheckpointSummaryPageController",
-      "options": {
-        "multiSummary": true
-      },
-      "components": [],
-      "next": [
-        {
-          "path": "/other-ari-confirmed-cases-setting"
-        }
-      ]
-    },
-    {
-      "path": "/mid-way-summary-covid-yes-other-no",
-      "title": "Check your answers before continuing",
-      "controller": "CheckpointSummaryPageController",
-      "options": {
-        "multiSummary": true,
-        "customText": {
-          "insetText": "<p>Based on your answers:<ul class=\"govuk-list govuk-list--bullet\"><li>you need to report the cases of COVID-19</li><li>you do not need to report the case of other respiratory infection</li></ul></p>"
-        }
-      },
-      "components": []
-    },
-    {
-      "path": "/mid-way-summary-covid-no-other-yes",
-      "title": "Check your answers before continuing",
-      "controller": "CheckpointSummaryPageController",
-      "options": {
-        "multiSummary": true,
-        "customText": {
-          "insetText": "<p>Based on your answers:<ul class=\"govuk-list govuk-list--bullet\"><li>you need to report the cases of COVID-19</li><li>you do not need to report the case of other respiratory infection</li></ul></p>"
-        }
-      },
-      "components": []
     },
     {
       "path": "/ari-infection-type",
@@ -443,14 +354,6 @@
         }
       ],
       "next": [
-        {
-          "condition": "WhichARI:COVID19&FLU&OTHER",
-          "path": "/mid-way-summary-covid-yes-flu-yes-other-yes"
-        },
-        {
-          "condition": "WhichARI:COVID19ANDOTHER",
-          "path": "/mid-way-summary"
-        },
         {
           "condition": "WhichARI:Other",
           "path": "/other-ari-confirmed-cases-setting"
@@ -1870,38 +1773,7 @@
           "condition": "UnknownARI&ServiceOrStaff:Staff",
           "path": "/staff-ari-unknown"
         },
-        {
-          "condition": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-          "path": "/service-users-master"
-        },
-        {
-          "condition": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:Staff",
-          "path": "/staff-master"
-        },
-        {
-          "condition": "WhichARI:CovidAndFlu&ARIServiceOrStaff:ServiceUsers",
-          "path": "/service-users-covid-flu"
-        },
-        {
-          "condition": "WhichARI:CovidAndFlu&ARIServiceOrStaff:Staff",
-          "path": "/staff-covid-flu"
-        },
-        {
-          "condition": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-          "path": "/service-users-covid-ari"
-        },
-        {
-          "condition": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:Staff",
-          "path": "/staff-covid-ari"
-        },
-        {
-          "condition": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-          "path": "/service-users-flu-ari"
-        },
-        {
-          "condition": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:Staff",
-          "path": "/staff-flu-ari"
-        },
+
         {
           "path": "/service-users-flu",
           "condition": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers"
@@ -1920,114 +1792,6 @@
         },
         {
           "path": "/staff-ari-cases"
-        }
-      ]
-    },
-    {
-      "path": "/service-users-covid-ari",
-      "title": "Service users: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "ServiceUsersCovidTestPositive",
-          "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "name": "ServiceUsersConfirmedARI",
-          "type": "NumberField",
-          "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersSymptomsNotTested",
-          "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersTestedFlu",
-          "type": "NumberField",
-          "title": "How many service users have been tested for flu?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/staff-ari-cases",
-          "condition": "ARIServiceOrStaff:Both"
-        },
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
-      "path": "/staff-covid-ari",
-      "title": "Staff: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "StaffCovidTestPositive",
-          "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "name": "StaffConfirmedARI",
-          "type": "NumberField",
-          "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffSymptomsNotTested",
-          "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffTestedFlu",
-          "type": "NumberField",
-          "title": "How many staff have been tested for flu?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false
-          },
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/severity-of-illness"
         }
       ]
     },
@@ -2077,178 +1841,6 @@
             "min": 0,
             "max": 200
           }
-        }
-      ],
-      "next": [
-        {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-adenovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-hmpv"
-        },
-        {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-parainfluenza"
-        },
-        {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rsv"
-        },
-        {
-          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rhinovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-other"
-        },
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
-      "path": "/service-users-master",
-      "title": "Service users: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "ServiceUsersCovidTestPositive",
-          "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
-          "name": "ServiceUsersFluSwabTest",
-          "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersChestInfection",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 200
-          },
-          "nameHasError": false,
-          "title": "How many service users have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
-        },
-        {
-          "name": "ServiceUsersSymptomsNotTested",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "type": "NumberField",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        }
-      ],
-      "next": [
-        {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-adenovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-hmpv"
-        },
-        {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-parainfluenza"
-        },
-        {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-rsv"
-        },
-        {
-          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-rhinovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-other"
-        },
-        {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-adenovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-hmpv"
-        },
-        {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-parainfluenza"
-        },
-        {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rsv"
-        },
-        {
-          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rhinovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-other"
-        }
-      ]
-    },
-    {
-      "path": "/staff-master",
-      "title": "Staff: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "StaffCovidTestPositive",
-          "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
-          "name": "StaffFluSwabTest",
-          "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {}
-        },
-        {
-          "name": "StaffChestInfection",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 200
-          },
-          "nameHasError": false,
-          "title": "How many staff have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0"
-        },
-        {
-          "name": "StaffSymptomsNotTested",
-          "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital<br><br>If none, enter 0"
         }
       ],
       "next": [
@@ -2493,63 +2085,6 @@
       ]
     },
     {
-      "path": "/service-users-covid-flu",
-      "title": "Service users: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "ServiceUsersCovidTestPositive",
-          "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
-          "name": "ServiceUsersFluSwabTest",
-          "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersChestInfection",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 200
-          },
-          "nameHasError": false,
-          "title": "How many service users have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
-        },
-        {
-          "name": "ServiceUsersSymptomsNotTested",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "type": "NumberField",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br><br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        }
-      ],
-      "next": [
-        {
-          "condition": "WhichARI:CovidAndFlu&ARIServiceOrStaff:Staff",
-          "path": "/staff-covid-flu"
-        },
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
       "path": "/staff-covid",
       "title": "Staff: number of cases",
       "components": [
@@ -2591,181 +2126,6 @@
           "schema": {
             "min": 0,
             "max": 999
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
-      "path": "/staff-covid-flu",
-      "title": "Staff: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "StaffCovidTestPositive",
-          "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "options": {
-            "required": true
-          },
-          "schema": {
-            "min": 0
-          }
-        },
-        {
-          "type": "NumberField",
-          "name": "StaffFluSwabTest",
-          "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffChestInfection",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 200
-          },
-          "nameHasError": false,
-          "title": "How many staff have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0"
-        },
-        {
-          "name": "StaffSymptomsNotTested",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "type": "NumberField",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
-      "path": "/service-users-flu-ari",
-      "title": "Service users: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "ServiceUsersFluSwabTest",
-          "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersConfirmedARI",
-          "type": "NumberField",
-          "title": "How many service users have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersChestInfection",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 200
-          },
-          "nameHasError": false,
-          "title": "How many service users have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
-        },
-        {
-          "name": "ServiceUsersSymptomsNotTested",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "type": "NumberField",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "ServiceUsersTestedCovid",
-          "type": "NumberField",
-          "title": "How many service users have been tested for COVID-19?",
-          "hint": "If none, enter 0",
-          "schema": {},
-          "options": {
-            "required": false
-          }
-        }
-      ],
-      "next": [
-        {
-          "path": "/staff-flu-ari",
-          "condition": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:Staff"
-        },
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
-      "path": "/staff-flu-ari",
-      "title": "Staff: number of cases",
-      "components": [
-        {
-          "type": "NumberField",
-          "name": "StaffFluSwabTest",
-          "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffConfirmedARI",
-          "type": "NumberField",
-          "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffChestInfection",
-          "options": {
-            "required": false
-          },
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 200
-          },
-          "nameHasError": false,
-          "title": "How many staff have been diagnosed with a chest infection by a GP?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0"
-        },
-        {
-          "name": "StaffSymptomsNotTested",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "type": "NumberField",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Among elderly people this may include people who have a sudden onset of acute respiratory symptoms, fever, or sudden mental or physical deterioration without any other known cause<br><br>Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "name": "StaffUsersTestedCovid",
-          "type": "NumberField",
-          "title": "How many staff have been tested for COVID-19?",
-          "hint": "If none, enter 0",
-          "schema": {},
-          "options": {
-            "required": false
           }
         }
       ],
@@ -4302,6 +3662,20 @@
         "conditions": [
           {
             "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Any other acute respiratory infections",
+              "display": "Any other acute respiratory infections"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
               "name": "OtherARIServiceOrStaff",
               "type": "CheckboxesField",
               "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
@@ -4391,10 +3765,10 @@
           {
             "field": {
               "name": "WhichARI",
-              "type": "CheckboxesField",
+              "type": "RadiosField",
               "display": "Which acute respiratory infections do you have a positive test result for?"
             },
-            "operator": "contains",
+            "operator": "is",
             "value": {
               "type": "Value",
               "value": "Flu",
@@ -4404,399 +3778,6 @@
         ]
       }
     },
-    {
-      "displayName": "WhichARI:COVID19&FLU&OTHER",
-      "name": "WhichARI:COVID19&FLU&OTHER",
-      "value": {
-        "name": "WhichARI:COVID19&FLU&OTHER",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:COVID19ANDOTHER",
-      "name": "WhichARI:COVID19ANDOTHER",
-      "value": {
-        "name": "WhichARI:COVID19ANDOTHER",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:COVID19ANDFLU",
-      "name": "WhichARI:COVID19ANDFLU",
-      "value": {
-        "name": "WhichARI:COVID19ANDFLU",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:COVID19ANDOTHER_COVID_NOT_REPORTABLE",
-      "name": "WhichARI:COVID19ANDOTHER_COVID_NOT_REPORTABLE",
-      "value": {
-        "name": "WhichARI:COVID19ANDOTHER_COVID_NOT_REPORTABLE",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCasesNotCovidFlu",
-              "type": "RadiosField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCasesNotCovidFlu",
-              "type": "RadiosField",
-              "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
-      "name": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
-      "value": {
-        "name": "WhichARI:COVID19ANDOTHER_OTHER_NOT_REPORTABLE",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCovid",
-              "type": "RadiosField",
-              "display": "Are you reporting 2 or more cases of COVID-19?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "true",
-              "display": "true"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreARI",
-              "type": "RadiosField",
-              "display": "Are you reporting 2 or more cases of an acute respiratory infection?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
-      "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
-      "value": {
-        "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCovid",
-              "type": "RadiosField",
-              "display": "Are you reporting 2 or more cases of COVID-19?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCasesNotCovidFlu",
-              "type": "RadiosField",
-              "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
-      "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
-      "value": {
-        "name": "WhichARI:COVID19ANDOTHER_BOTH_NOT_REPORTABLE2",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCovid5days",
-              "type": "RadiosField",
-              "display": "Did symptoms in 2 or more cases of COVID-19 start within 5 days of each other?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "No",
-              "display": "No"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCovidSpread",
-              "type": "RadiosField",
-              "display": "Is it possible that at least 2 of the cases of COVID-19 are linked by spread in your setting?​"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "No",
-              "display": "No"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "TwoOrMoreCasesNotCovidFlu",
-              "type": "RadiosField",
-              "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "false",
-              "display": "false"
-            }
-          }
-        ]
-      }
-    },
-
     {
       "displayName": "WhichARI:COVID19",
       "name": "WhichARI:COVID19",
@@ -4806,10 +3787,10 @@
           {
             "field": {
               "name": "WhichARI",
-              "type": "CheckboxesField",
+              "type": "RadiosField",
               "display": "Which acute respiratory infections do you have a positive test result for?"
             },
-            "operator": "contains",
+            "operator": "is",
             "value": {
               "type": "Value",
               "value": "COVID-19",
@@ -4828,730 +3809,14 @@
           {
             "field": {
               "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidAndFlu",
-      "name": "WhichARI:CovidAndFlu",
-      "value": {
-        "name": "WhichARI:CovidAndFlu",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidAndOther",
-      "name": "WhichARI:CovidAndOther",
-      "value": {
-        "name": "WhichARI:CovidAndOther",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidFluAndConfirmedARI",
-      "name": "WhichARI:CovidFluAndConfirmedARI",
-      "value": {
-        "name": "WhichARI:CovidFluAndConfirmedARI",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:Staff",
-      "name": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:Staff",
-      "value": {
-        "name": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-      "name": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "WhichARI:CovidFluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-      "name": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:Staff",
-      "name": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:Staff",
-      "value": {
-        "name": "WhichARI:CovidAndConfirmedARI&ARIServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidAndFlu&ARIServiceOrStaff:Staff",
-      "name": "WhichARI:CovidAndFlu&ARIServiceOrStaff:Staff",
-      "value": {
-        "name": "WhichARI:CovidAndFlu&ARIServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:CovidAndFlu&ARIServiceOrStaff:ServiceUsers",
-      "name": "WhichARI:CovidAndFlu&ARIServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "WhichARI:CovidAndFlu&ARIServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
-      "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:Covid&ARIServiceOrStaff:Staff",
-      "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
-      "value": {
-        "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "COVID-19",
-              "display": "COVID-19"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:Staff",
-      "name": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:Staff",
-      "value": {
-        "name": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-      "name": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "WhichARI:FluAndConfirmedARI&ARIServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
-      "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichARI:Flu&ARIServiceOrStaff:Staff",
-      "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
-      "value": {
-        "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "WhichARI",
-              "type": "CheckboxesField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Flu",
-              "display": "Flu"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "ARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "WhichOtherARI:Adenovirus",
-      "name": "WhichOtherARI:Adenovirus",
-      "value": {
-        "name": "WhichOtherARI:Adenovirus",
-        "conditions": [
-          {
-            "field": {
-              "name": "TwoOrMoreCovid5days",
               "type": "RadiosField",
-              "display": "Did symptoms in 2 or more cases of COVID-19 start within 5 days of each other?"
+              "display": "Which acute respiratory infections do you have a positive test result for?"
             },
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "No",
-              "display": "No"
+              "value": "Any other acute respiratory infections",
+              "display": "Any other acute respiratory infections"
             }
           }
         ]
@@ -5593,6 +3858,115 @@
         ]
       }
     },
+    {
+      "displayName": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+      "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+      "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+      "value": {
+        "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+      "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infections do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+
     {
       "displayName": "TwoOrMoreCasesNotCovidFlu:YES",
       "name": "TwoOrMoreCasesNotCovidFlu:YES",
@@ -5654,86 +4028,6 @@
               "type": "Value",
               "value": "One",
               "display": "1"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "CovidServiceOrStaff:ServiceUsers",
-      "name": "CovidServiceOrStaff:ServiceUsers",
-      "value": {
-        "name": "CovidServiceOrStaff:ServiceUsers",
-        "conditions": [
-          {
-            "field": {
-              "name": "CovidServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of COVID-19 in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "CovidServiceOrStaff:Staff",
-      "name": "CovidServiceOrStaff:Staff",
-      "value": {
-        "name": "CovidServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "CovidServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of COVID-19 in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "CovidServiceOrStaff:Both",
-      "name": "CovidServiceOrStaff:Both",
-      "value": {
-        "name": "CovidServiceOrStaff:Both",
-        "conditions": [
-          {
-            "field": {
-              "name": "CovidServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of COVID-19 in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Service users",
-              "display": "Service users"
-            }
-          },
-          {
-            "coordinator": "and",
-            "field": {
-              "name": "CovidServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of COVID-19 in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
             }
           }
         ]
