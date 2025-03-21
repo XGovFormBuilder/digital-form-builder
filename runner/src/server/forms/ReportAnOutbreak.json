@@ -3131,11 +3131,11 @@
           "options": {
             "customValidationMessages": {
               "string.empty": "Enter a main contact's full name",
-              "string.pattern.base": "Main contact's name must be 99 characters or less"
+              "string.max": "Main contact's name must be 99 characters or less"
             }
           },
           "schema": {
-            "regex": "^.{0,99}$"
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -3149,11 +3149,11 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "string.pattern.base": "Main contact's job title must be 99 characters or less"
+              "string.max": "Main contact's job title must be 99 characters or less"
             }
           },
           "schema": {
-            "regex": "^.{0,99}$"
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -3171,10 +3171,7 @@
               "string.pattern.base": "Enter a main contact's phone number, like 01632 960 001 or 07700 900 982"
             }
           },
-          "schema": {
-            "regex": "^(0\\d{2}[\\s]?\\d{3}[\\s]?\\d{3}[\\s]?\\d{3}|\\+\\d{2}[\\s]?\\d{3}[\\s]?\\d{3}[\\s]?\\d{3})$"
-          },
-          "type": "TextField",
+          "type": "TelephoneNumberField",
           "nameHasError": false,
           "title": "Phone number",
           "values": {
@@ -3189,9 +3186,6 @@
               "string.empty": "Enter a main contact's email address",
               "string.pattern.base": "Enter a main contact's email address in the correct format, like name@example.com"
             }
-          },
-          "schema": {
-            "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
           },
           "type": "EmailAddressField",
           "nameHasError": false,
@@ -3214,11 +3208,11 @@
           "options": {
             "required": false,
             "customValidationMessages": {
-              "string.pattern.base": "Additional contact's name must be 99 characters or less"
+              "string.max": "Additional contact's name must be 99 characters or less"
             }
           },
           "schema": {
-            "regex": "^.{0,99}$"
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -3236,7 +3230,7 @@
             }
           },
           "schema": {
-            "regex": "^.{0,99}$"
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -3254,10 +3248,7 @@
               "string.pattern.base": "Enter an additional contact's phone number, like 01632 960 001 or 07700 900 982"
             }
           },
-          "schema": {
-            "regex": "^(0\\d{2}[\\s]?\\d{3}[\\s]?\\d{3}[\\s]?\\d{3}|\\+\\d{2}[\\s]?\\d{3}[\\s]?\\d{3}[\\s]?\\d{3})$"
-          },
-          "type": "TextField",
+          "type": "TelephoneNumberField",
           "nameHasError": false,
           "title": "Phone number",
           "values": {
@@ -3272,10 +3263,7 @@
               "string.pattern.base": "Enter an additional contact's email address in the correct format, like name@example.com"
             }
           },
-          "schema": {
-            "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
-          },
-          "type": "TextField",
+          "type": "EmailAddressField",
           "nameHasError": false,
           "title": "Email address",
           "values": {

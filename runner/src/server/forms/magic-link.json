@@ -26,9 +26,6 @@
           "type": "EmailAddressField",
           "title": "Email address",
           "name": "email",
-          "schema": {
-            "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
-          },
           "options": {
             "exposeToContext": true,
             "customValidationMessages": {
