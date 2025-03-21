@@ -69,7 +69,7 @@
       "title": "SRS Endpoint",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://rwjvk4d6wj.execute-api.eu-west-2.amazonaws.com/v1/v1/forms",
+        "url": "https://6m548a7wv4.execute-api.eu-west-2.amazonaws.com/v1/forms",
         "allowRetry": true
       }
     }
