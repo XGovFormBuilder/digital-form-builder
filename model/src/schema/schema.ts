@@ -115,6 +115,7 @@ const pageSchema = joi.object().keys({
   section: joi.string(),
   sectionForExitJourneySummaryPages: joi.string(),
   sectionForMultiSummaryPages: joi.string(),
+  sectionForEndSummaryPages: joi.string(),
   sidebarContent: joi.object().optional(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
