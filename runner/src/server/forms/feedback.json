@@ -49,11 +49,8 @@
               "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           },
-          "schema": {
-            "regex": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
-          },
           "title": "Email address for a researcher to contact you",
-          "type": "TextField"
+          "type": "EmailAddressField"
         }
       ],
       "next": [

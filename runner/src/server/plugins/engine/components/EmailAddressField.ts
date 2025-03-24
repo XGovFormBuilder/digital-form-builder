@@ -6,6 +6,8 @@ import { FormComponent } from "./FormComponent";
 import { addClassOptionIfNone } from "./helpers";
 import joi, { Schema } from "joi";
 
+const EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
 export class EmailAddressField extends FormComponent {
   formSchema;
   stateSchema;
@@ -19,10 +21,12 @@ export class EmailAddressField extends FormComponent {
     // Define Joi schema for email validation
     let emailSchema = joi.string();
 
-    if (this.schema.regex) {
-      const pattern = new RegExp(this.schema.regex);
-      emailSchema = emailSchema.pattern(pattern);
+    if (this.options.required === false) {
+      emailSchema = emailSchema.allow("").allow(null);
     }
+
+    const pattern = new RegExp(EMAIL_REGEX);
+    emailSchema = emailSchema.pattern(pattern);
 
     if (this.options.customValidationMessages) {
       emailSchema = emailSchema.messages(this.options.customValidationMessages);

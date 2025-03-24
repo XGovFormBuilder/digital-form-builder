@@ -6,23 +6,22 @@ import { addClassOptionIfNone, internationalPhoneValidator } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 import joi, { Schema } from "joi";
 
-const PATTERN = /^[0-9\\\s+()-]*$/;
-const DEFAULT_MESSAGE = "Enter a telephone number in the correct format";
+const TELEPHONE_REGEX =
+  "^((\\+44\\s?|0)7\\d{3}\\s?\\d{3}\\s?\\d{3}|(\\+44\\s?|0)1\\d{1,3}\\s?\\d{3,4}\\s?\\d{3,4})$";
+
 export class TelephoneNumberField extends FormComponent {
   constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
     super(def, model);
 
     const { options = {}, schema = {} } = def;
-    const pattern = schema.regex ? new RegExp(schema.regex) : PATTERN;
     let componentSchema = joi.string();
 
     if (options.required === false) {
       componentSchema = componentSchema.allow("").allow(null);
     }
-    componentSchema = componentSchema
-      .pattern(pattern)
-      .message(def.options?.customValidationMessage ?? DEFAULT_MESSAGE)
-      .label(def.title.toLowerCase());
+
+    const pattern = new RegExp(TELEPHONE_REGEX);
+    componentSchema = componentSchema.pattern(pattern);
 
     if (schema.max) {
       componentSchema = componentSchema.max(schema.max);
@@ -43,7 +42,7 @@ export class TelephoneNumberField extends FormComponent {
     }
     this.schema = componentSchema;
 
-    addClassOptionIfNone(this.options, "govuk-input--width-10");
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
 
   getFormSchemaKeys() {

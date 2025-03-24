@@ -388,9 +388,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: with symptoms, but not tested"
-          },
-          "options": {
+            "summaryTitle": "Service users: with symptoms, but not tested",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
               "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
@@ -482,9 +480,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: confirmed positive adenovirus test results"
-          },
-          "options": {
+            "summaryTitle": "Service users: confirmed positive adenovirus test results",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have tested positive for adenovirus",
               "number.max": "The number of service users that have tested positive for adenovirus must be between 0 and 999",
@@ -559,9 +555,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive adenovirus test results"
-          },
-          "options": {
+            "summaryTitle": "Staff: confirmed positive adenovirus test results",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have tested positive for adenovirus",
               "number.max": "The number of staff that have tested positive for adenovirus must be between 0 and 999",
@@ -632,9 +626,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: confirmed positive human Metapneumovirus (hMPV) test results"
-          },
-          "options": {
+            "summaryTitle": "Service users: confirmed positive human Metapneumovirus (hMPV) test results",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have tested positive for human Metapneumovirus (hMPV)",
               "number.max": "The number of service users that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999",
@@ -701,9 +693,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive human Metapneumovirus (hMPV) test results"
-          },
-          "options": {
+            "summaryTitle": "Staff: confirmed positive human Metapneumovirus (hMPV) test results",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have tested positive for human Metapneumovirus (hMPV)",
               "number.max": "The number of staff that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999",
@@ -766,9 +756,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: confirmed positive parainfluenza test results"
-          },
-          "options": {
+            "summaryTitle": "Service users: confirmed positive parainfluenza test results",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have tested positive for parainfluenza",
               "number.max": "The number of service users that have tested positive for parainfluenza must be between 0 and 999",
@@ -827,9 +815,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive parainfluenza test results"
-          },
-          "options": {
+            "summaryTitle": "Staff: confirmed positive parainfluenza test results",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have tested positive for parainfluenza",
               "number.max": "The number of staff that have tested positive for parainfluenza must be between 0 and 999",
@@ -884,9 +870,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: confirmed positive Respiratory Syncytial Virus (RSV) test results"
-          },
-          "options": {
+            "summaryTitle": "Service users: confirmed positive Respiratory Syncytial Virus (RSV) test results",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have tested positive for Respiratory Syncytial Virus (RSV)",
               "number.max": "The number of service users that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999",
@@ -937,9 +921,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive Respiratory Syncytial Virus (RSV) test results"
-          },
-          "options": {
+            "summaryTitle": "Staff: confirmed positive Respiratory Syncytial Virus (RSV) test results",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have tested positive for Respiratory Syncytial Virus (RSV)",
               "number.max": "The number of staff that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999",
@@ -986,9 +968,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: confirmed positive rhinovirus test results"
-          },
-          "options": {
+            "summaryTitle": "Service users: confirmed positive rhinovirus test results",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have tested positive for rhinovirus",
               "number.max": "The number of service users that have tested positive for rhinovirus must be between 0 and 999",
@@ -1031,9 +1011,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive rhinovirus test results"
-          },
-          "options": {
+            "summaryTitle": "Staff: confirmed positive rhinovirus test results",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have tested positive for rhinovirus",
               "number.max": "The number of staff that have tested positive for rhinovirus must be between 0 and 999",
@@ -1072,9 +1050,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: confirmed positive other acute respiratory infection test results"
-          },
-          "options": {
+            "summaryTitle": "Service users: confirmed positive other acute respiratory infection test results",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have tested positive for an other acute respiratory infection",
               "number.max": "The number of service users that have tested positive for an other acute respiratory infection must be between 0 and 999",
@@ -1109,9 +1085,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive other acute respiratory infection test results"
-          },
-          "options": {
+            "summaryTitle": "Staff: confirmed positive other acute respiratory infection test results",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have tested positive for an other acute respiratory infection",
               "number.max": "The number of staff that have tested positive for an other acute respiratory infection must be between 0 and 999",
@@ -1142,9 +1116,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Service users: with symptoms, but not tested"
-          },
-          "options": {
+            "summaryTitle": "Service users: with symptoms, but not tested",
             "customValidationMessages": {
               "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
               "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
@@ -1219,9 +1191,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive flu test results"
-          },
-          "options": {
+            "summaryTitle": "Staff: confirmed positive flu test results",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
               "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
@@ -1287,9 +1257,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: with symptoms, but not tested"
-          },
-          "options": {
+            "summaryTitle": "Staff: with symptoms, but not tested",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
               "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
@@ -2653,7 +2621,14 @@
         {
           "name": "MainContactName",
           "options": {
-            "summaryTitle": "Main contact"
+            "summaryTitle": "Main contact",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's full name",
+              "string.max": "Main contact's name must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -2666,7 +2641,13 @@
           "name": "MainContactJobTitle",
           "options": {
             "required": false,
-            "summaryTitle": "Job title"
+            "summaryTitle": "Job title",
+            "customValidationMessages": {
+              "string.max": "Main contact's job title must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -2679,9 +2660,13 @@
         {
           "name": "MainContactPhoneNumber",
           "options": {
-            "summaryTitle": "Phone number"
+            "summaryTitle": "Phone number",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's phone number",
+              "string.pattern.base": "Enter a main contact's phone number, like 01632 960 001 or 07700 900 982"
+            }
           },
-          "type": "TextField",
+          "type": "TelephoneNumberField",
           "nameHasError": false,
           "title": "Phone number",
           "values": {
@@ -2692,9 +2677,13 @@
           "name": "MainContactEmailAddress",
           "options": {
             "exposeToContext": true,
-            "summaryTitle": "Email address"
+            "summaryTitle": "Email address",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's email address",
+              "string.pattern.base": "Enter a main contact's email address in the correct format, like name@example.com"
+            }
           },
-          "type": "TextField",
+          "type": "EmailAddressField",
           "nameHasError": false,
           "title": "Email address",
           "values": {
@@ -2714,7 +2703,13 @@
           "name": "AltContactName",
           "options": {
             "required": false,
-            "summaryTitle": "Additional contact"
+            "summaryTitle": "Additional contact",
+            "customValidationMessages": {
+              "string.max": "Additional contact's name must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -2727,7 +2722,13 @@
           "name": "AltContactJobTitle",
           "options": {
             "required": false,
-            "summaryTitle": "Additional contact’s job title"
+            "summaryTitle": "Additional contact’s job title",
+            "customValidationMessages": {
+              "string.pattern.base": "Additional contact's job title must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
           },
           "type": "TextField",
           "nameHasError": false,
@@ -2741,9 +2742,12 @@
           "name": "AltContactPhoneNumber",
           "options": {
             "required": false,
-            "summaryTitle": "Additional phone number"
+            "summaryTitle": "Additional phone number",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an additional contact's phone number, like 01632 960 001 or 07700 900 982"
+            }
           },
-          "type": "TextField",
+          "type": "TelephoneNumberField",
           "nameHasError": false,
           "title": "Phone number",
           "values": {
@@ -2754,9 +2758,12 @@
           "name": "AltContactEmailAddress",
           "options": {
             "required": false,
-            "summaryTitle": "Additional email address"
+            "summaryTitle": "Additional email address",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an additional contact's email address in the correct format, like name@example.com"
+            }
           },
-          "type": "TextField",
+          "type": "EmailAddressField",
           "nameHasError": false,
           "title": "Email address",
           "values": {
