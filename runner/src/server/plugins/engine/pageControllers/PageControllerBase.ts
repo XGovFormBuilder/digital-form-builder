@@ -56,6 +56,7 @@ export class PageControllerBase {
   repeatField: any; // TODO
   section: any; // TODO
   sectionForExitJourneySummaryPages: any;
+  sectionForEndSummaryPages: any;
   sectionForMultiSummaryPages: any;
   sidebarContent: any;
   components: ComponentCollection;
@@ -90,6 +91,7 @@ export class PageControllerBase {
     this.sectionForExitJourneySummaryPages =
       pageDef.sectionForExitJourneySummaryPages;
     this.sectionForMultiSummaryPages = pageDef.sectionForMultiSummaryPages;
+    this.sectionForEndSummaryPages = pageDef.sectionForEndSummaryPages;
     this.sidebarContent = pageDef.sidebarContent;
 
     // Components collection
