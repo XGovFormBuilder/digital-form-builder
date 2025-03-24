@@ -180,6 +180,9 @@ export interface TextFieldComponent extends TextFieldBase {
 
 export interface EmailAddressFieldComponent extends TextFieldBase {
   type: "EmailAddressField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
 }
 
 export interface NumberFieldComponent extends NumberFieldBase {
