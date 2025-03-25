@@ -116,7 +116,7 @@
     },
     {
       "path": "/which-ari",
-      "title": "Which acute respiratory infections do you have a positive test result for?",
+      "title": "Which acute respiratory infection do you have a positive test result for?",
       "sectionForExitJourneySummaryPages": "AcuteInfections",
       "sectionForMultiSummaryPages": "InfectionsInYourSetting",
       "sectionForEndSummaryPages": "InfectionsInYourSetting",
@@ -131,7 +131,7 @@
           },
           "type": "RadiosField",
           "nameHasError": false,
-          "title": "Which acute respiratory infections do you have a positive test result for? ",
+          "title": "Which acute respiratory infection do you have a positive test result for? ",
           "list": "InfectionTypes",
           "values": {
             "type": "listRef"
@@ -2418,6 +2418,7 @@
       "components": [
         {
           "name": "FFP3Masks",
+
           "options": {
             "summaryTitle": "Staff wear fit-tested FFP3 masks"
           },
@@ -2920,8 +2921,8 @@
           "value": "Flu"
         },
         {
-          "text": "Any other acute respiratory infections",
-          "value": "Any other acute respiratory infections",
+          "text": "Any other acute respiratory infection",
+          "value": "Any other acute respiratory infection",
           "checkpointDisplayValue": "Other acute respiratory infection (not COVID-19 or flu)",
           "description": "including viruses such as respiratory syncytial virus (RSV), adenovirus, human metapneumovirus (hMPV), parainfluenza and rhinovirus"
         }
@@ -3841,8 +3842,8 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
+              "value": "Any other acute respiratory infection",
+              "display": "Any other acute respiratory infection"
             }
           },
           {
@@ -3938,7 +3939,7 @@
             "field": {
               "name": "WhichARI",
               "type": "RadiosField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
+              "display": "Which acute respiratory infection do you have a positive test result for?"
             },
             "operator": "is",
             "value": {
@@ -3960,7 +3961,7 @@
             "field": {
               "name": "WhichARI",
               "type": "RadiosField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
+              "display": "Which acute respiratory infection do you have a positive test result for?"
             },
             "operator": "is",
             "value": {
@@ -3982,13 +3983,13 @@
             "field": {
               "name": "WhichARI",
               "type": "RadiosField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
+              "display": "Which acute respiratory infection do you have a positive test result for?"
             },
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Any other acute respiratory infections",
-              "display": "Any other acute respiratory infections"
+              "value": "Any other acute respiratory infection",
+              "display": "Any other acute respiratory infection"
             }
           }
         ]
@@ -4040,7 +4041,7 @@
             "field": {
               "name": "WhichARI",
               "type": "RadiosField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
+              "display": "Which acute respiratory infection do you have a positive test result for?"
             },
             "operator": "is",
             "value": {
@@ -4076,7 +4077,7 @@
             "field": {
               "name": "WhichARI",
               "type": "RadiosField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
+              "display": "Which acute respiratory infection do you have a positive test result for?"
             },
             "operator": "is",
             "value": {
@@ -4112,7 +4113,7 @@
             "field": {
               "name": "WhichARI",
               "type": "RadiosField",
-              "display": "Which acute respiratory infections do you have a positive test result for?"
+              "display": "Which acute respiratory infection do you have a positive test result for?"
             },
             "operator": "is",
             "value": {
