@@ -4139,6 +4139,42 @@
         ]
       }
     },
+    {
+      "displayName": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+      "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+      "value": {
+        "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
 
     {
       "displayName": "TwoOrMoreCasesNotCovidFlu:YES",
