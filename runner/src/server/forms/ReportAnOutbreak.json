@@ -1760,6 +1760,7 @@
     {
       "path": "/staff-ari-cases",
       "title": "Staff: number of other cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
       "components": [
         {
           "type": "Para",
