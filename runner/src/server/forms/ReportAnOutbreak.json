@@ -2657,7 +2657,7 @@
             "required": false,
             "summaryTitle": "Additional contact’s job title",
             "customValidationMessages": {
-              "string.pattern.base": "Additional contact's job title must be 99 characters or less"
+              "string.max": "Additional contact's job title must be 99 characters or less"
             }
           },
           "schema": {
