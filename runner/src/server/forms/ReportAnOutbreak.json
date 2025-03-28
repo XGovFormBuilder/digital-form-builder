@@ -1483,6 +1483,10 @@
       "path": "/symptom-onset-flu",
       "title": "Symptom onset for the case of flu",
       "sectionForEndSummaryPages": "SymptomOnset",
+      "controller": "DateComparisonPageController",
+      "options": {
+        "firstDateComponent": "FluSymptomOnsetDate"
+      },
       "components": [
         {
           "name": "intro",
@@ -1491,9 +1495,16 @@
         },
         {
           "name": "FluSymptomOnsetDate",
+          "errorLabel": "The date symptoms started",
           "options": {
             "maxDaysInFuture": "0",
-            "summaryTitle": "Symptoms started"
+            "summaryTitle": "Symptoms started",
+            "customValidationMessages": {
+              "dayMonthYear": "Enter the date symptoms started",
+              "nonNumeric": "The date symptoms started must be a real date",
+              "date.max": "The date symptoms started must be in the past",
+              "date.base": "The date symptoms started must be a real date"
+            }
           },
           "type": "DatePartsField",
           "nameHasError": false,
@@ -2296,6 +2307,11 @@
       "path": "/symptom-onset",
       "title": "Symptom onset of cases in this outbreak",
       "sectionForEndSummaryPages": "SymptomOnset",
+      "controller": "DateComparisonPageController",
+      "options": {
+        "firstDateComponent": "FirstCaseOnset",
+        "secondDateComponent": "MostRecentCaseOnset"
+      },
       "components": [
         {
           "name": "introText1",
@@ -2313,22 +2329,37 @@
           "name": "FirstCaseOnset",
           "type": "DatePartsField",
           "title": "When did symptoms start in the first case in this outbreak?",
+          "errorLabel": "The date that symptoms started in the first case of this outbreak",
           "hint": "For example, 31 3 2024",
           "options": {
             "summaryTitle": "First case: symptoms started",
             "required": true,
-            "maxDaysInFuture": "0"
+            "maxDaysInFuture": 0,
+            "customValidationMessages": {
+              "nonNumeric": "The date symptoms started in the first case of this outbreak must be a real date",
+              "dayMonthYear": "Enter the date symptoms started in the first case of this outbreak",
+              "date.max": "The date symptoms started in the first case of this outbreak must be in the past",
+              "date.base": "The date symptoms started in the first case of this outbreak must be a real date"
+            }
           }
         },
         {
           "name": "MostRecentCaseOnset",
           "type": "DatePartsField",
+          "errorLabel": "The date symptoms started in the most recent case of this outbreak",
           "title": "When did symptoms start in the most recent case in this outbreak?",
           "hint": "For example, 31 3 2024",
           "options": {
             "summaryTitle": "Most recent case: symptoms started",
             "required": true,
-            "maxDaysInFuture": "0"
+            "maxDaysInFuture": 0,
+            "customValidationMessages": {
+              "dayMonthYear": "Enter the date symptoms started in the most recent case of this outbreak",
+              "nonNumeric": "The date symptoms started in the most recent case of this outbreak must be a real date",
+              "date.max": "The date symptoms started in the most recent case of this outbreak must be in the past",
+              "date.base": "The date symptoms started in the most recent case of this outbreak must be a real date",
+              "date.min": "The date symptoms started in the most recent case of this outbreak must be the same as or after the first case"
+            }
           }
         }
       ],

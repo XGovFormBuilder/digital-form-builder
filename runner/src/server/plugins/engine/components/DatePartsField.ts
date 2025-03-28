@@ -1,4 +1,4 @@
-import { add, sub, parseISO, format } from "date-fns";
+import { parseISO, format } from "date-fns";
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
@@ -39,7 +39,9 @@ export class DatePartsField extends FormComponent {
             customValidationMessages: {
               "number.min": "{{#label}} must be between 1 and 31",
               "number.max": "{{#label}} must be between 1 and 31",
-              "number.base": `${def.title} must include a day`,
+              "number.base": `${
+                def.errorLabel ?? def.title
+              } must include a day`,
             },
           },
           hint: "",
@@ -56,7 +58,9 @@ export class DatePartsField extends FormComponent {
             customValidationMessages: {
               "number.min": "{{#label}} must be between 1 and 12",
               "number.max": "{{#label}} must be between 1 and 12",
-              "number.base": `${def.title} must include a month`,
+              "number.base": `${
+                def.errorLabel ?? def.title
+              } must include a month`,
             },
           },
           hint: "",
@@ -71,7 +75,9 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-4",
             customValidationMessages: {
-              "number.base": `${def.title} must include a year`,
+              "number.base": `${
+                def.errorLabel ?? def.title
+              } must include a year`,
             },
           },
           hint: "",
@@ -95,6 +101,7 @@ export class DatePartsField extends FormComponent {
     schema = schema.custom(
       helpers.getCustomDateValidator(maxDaysInPast, maxDaysInFuture)
     );
+
     if (options.customValidationMessages) {
       schema = schema.messages(options.customValidationMessages);
     }
@@ -118,6 +125,27 @@ export class DatePartsField extends FormComponent {
 
   getStateValueFromValidForm(payload: FormPayload) {
     const name = this.name;
+    const day = payload[`${name}__day`];
+    const month = payload[`${name}__month`];
+    const year = payload[`${name}__year`];
+
+    // If any of the date parts are missing, return null
+    if (!day || !month || !year) {
+      return null;
+    }
+
+    // Convert to Date object (month is 0-indexed)
+    const date = new Date(year, month - 1, day);
+
+    // Check if the reconstructed date matches the input
+    if (
+      date.getFullYear() !== year ||
+      date.getMonth() !== month - 1 || // Convert back to 1-indexed
+      date.getDate() !== day
+    ) {
+      console.error("Invalid date detected:", { day, month, year });
+      return null; // Invalid date
+    }
 
     return payload[`${name}__year`]
       ? new Date(

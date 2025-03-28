@@ -11,3 +11,4 @@ export { ResubmitPageController } from "./ResubmitPageController";
 export { MagicLinkController } from "./MagicLinkController";
 export { MagicLinkStartPageController } from "./MagicLinkStartPageController";
 export { CustomSummaryPageController } from "./CustomSummaryPageController";
+export { DateComparisonPageController } from "./DateComparisonPageController";
