@@ -91,7 +91,10 @@
         {
           "name": "PositiveARI",
           "options": {
-            "summaryTitle": "Positive test result"
+            "summaryTitle": "Positive test result",
+            "customValidationMessages": {
+              "any.required": "Select yes if you have any positive test results for an acute respiratory infection"
+            }
           },
           "type": "RadiosField",
           "list": "YesNo",
@@ -226,7 +229,10 @@
         {
           "name": "TwoOrMoreCovid5days",
           "options": {
-            "summaryTitle": "COVID-19: symptoms started within 5 days of each other"
+            "summaryTitle": "COVID-19: symptoms started within 5 days of each other",
+            "customValidationMessages": {
+              "any.required": "Select yes if symptoms in 2 or more cases started within 5 days of each other"
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
@@ -239,7 +245,10 @@
         {
           "name": "TwoOrMoreCovidSpread",
           "options": {
-            "summaryTitle": "COVID-19: cases are linked by spread"
+            "summaryTitle": "COVID-19: cases are linked by spread",
+            "customValidationMessages": {
+              "any.required": "Select yes if it is possible that at least 2 of the cases are linked by spread"
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
@@ -274,7 +283,10 @@
         {
           "name": "TwoOrMoreARI",
           "options": {
-            "summaryTitle": "2 or more cases"
+            "summaryTitle": "2 or more cases",
+            "customValidationMessages": {
+              "any.required": "Select yes if you are reporting 2 or more cases of an acute respiratory infection"
+            }
           },
           "type": "RadiosField",
           "list": "YesNo",
@@ -1860,7 +1872,10 @@
         {
           "name": "IPCPractices",
           "options": {
-            "summaryTitle": "How often you monitor staff IPC practices"
+            "summaryTitle": "How often you monitor staff IPC practices",
+            "customValidationMessages": {
+              "any.required": "Select how often you monitor staff infection prevention and control practices"
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
@@ -1874,7 +1889,13 @@
         {
           "name": "Issues",
           "options": {
-            "summaryTitle": "Issues you need support with"
+            "summaryTitle": "Issues you need support with",
+            "customValidationMessages": {
+              "any.required": "Select the issues you currently need support with",
+              "any.invalid": "Select the issues you currently need support with, or select ‘no issues’"
+            },
+            "divider": true,
+            "finalValue": "No issues"
           },
           "type": "CheckboxesField",
           "nameHasError": false,
@@ -1888,7 +1909,10 @@
         {
           "name": "AGPs",
           "options": {
-            "summaryTitle": "Your setting undertakes aerosol generating procedures"
+            "summaryTitle": "Your setting undertakes aerosol generating procedures",
+            "customValidationMessages": {
+              "any.required": "Select yes if your setting undertakes aerosol generating procedures (AGPs)"
+            }
           },
           "type": "RadiosField",
           "list": "YesNo",
@@ -2319,7 +2343,10 @@
           "name": "FFP3Masks",
 
           "options": {
-            "summaryTitle": "Staff wear fit-tested FFP3 masks"
+            "summaryTitle": "Staff wear fit-tested FFP3 masks",
+            "customValidationMessages": {
+              "any.required": "Select if staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks"
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
@@ -2344,7 +2371,10 @@
         {
           "name": "AgencyStaff",
           "options": {
-            "summaryTitle": "You use agency staff or share staff with other settings"
+            "summaryTitle": "You use agency staff or share staff with other settings",
+            "customValidationMessages": {
+              "any.required": "Select yes if you use agency staff or share staff with other care settings"
+            }
           },
           "type": "RadiosField",
           "list": "YesNo",
@@ -2373,7 +2403,10 @@
         {
           "name": "AdditionalStaff",
           "options": {
-            "summaryTitle": "Agency staff or staff from other settings"
+            "summaryTitle": "Agency staff or staff from other settings",
+            "customValidationMessages": {
+              "any.required": "Select the number of additional agency staff or staff from other care settings you have used during this outbreak"
+            }
           },
           "type": "RadiosField",
           "nameHasError": false,
@@ -2685,7 +2718,10 @@
         {
           "name": "ServiceUsersTypes",
           "options": {
-            "summaryTitle": "The majority of your service users"
+            "summaryTitle": "The majority of your service users",
+            "customValidationMessages": {
+              "any.required": "Select the options that best describe the majority of your service users"
+            }
           },
           "type": "CheckboxesField",
           "nameHasError": false,
@@ -2699,13 +2735,18 @@
         {
           "name": "ServiceUsersCurrentlyLive",
           "options": {
-            "summaryTitle": "People that live in your setting or use your service"
+            "summaryTitle": "People that live in your setting or use your service",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that currently live in your care setting or use your service",
+              "number.max": "The number of service users that currently live in your care setting or use your service must be between 0 and 999",
+              "number.min": "The number of service users that currently live in your care setting or use your service must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "nameHasError": false,
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "title": "How many service users currently live in your care setting or use your service?",
           "hint": "Include those who are currently in hospital or on visits out",
@@ -2714,23 +2755,35 @@
         {
           "name": "StaffNumber",
           "options": {
-            "summaryTitle": "Staff that work in your care setting or service"
+            "summaryTitle": "Staff that work in your care setting or service",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that currently work in your care setting or service",
+              "number.max": "The number of staff that currently work in your care setting or service must be between 0 and 999",
+              "number.min": "The number of staff that currently work in your care setting or service must be between 0 and 999"
+            }
           },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many staff currently work in your care setting or service?"
         },
         {
           "name": "EmptyBeds",
-          "options": { "required": false, "summaryTitle": "Empty beds" },
+          "options": {
+            "required": false,
+            "summaryTitle": "Empty beds",
+            "customValidationMessages": {
+              "number.max": "The number of empty beds that you have in your care setting must be between 0 and 999",
+              "number.min": "The number of empty beds that you have in your care setting must be between 0 and 999"
+            }
+          },
           "type": "NumberField",
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           },
           "nameHasError": false,
           "title": "How many empty beds do you have in your care setting?",
