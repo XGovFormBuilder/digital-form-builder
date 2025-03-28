@@ -447,10 +447,6 @@
       ],
       "next": [
         {
-          "condition": "OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-confirmed"
-        },
-        {
           "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
           "path": "/service-users-ari-adenovirus"
         },
@@ -1255,120 +1251,6 @@
       ]
     },
     {
-      "path": "/staff-ari-confirmed",
-      "title": "Staff: number of other cases",
-      "sectionForEndSummaryPages": "InfectionsInYourSetting",
-      "components": [
-        {
-          "name": "StaffSymptomsNotTested",
-          "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          },
-          "options": {
-            "summaryTitle": "Staff: with symptoms, but not tested",
-            "customValidationMessages": {
-              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
-              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
-              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
-            }
-          }
-        },
-        {
-          "name": "StaffTestedCovid",
-          "type": "NumberField",
-          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
-          "hint": "If none, enter 0",
-          "schema": {
-            "min": 0,
-            "max": 999
-          },
-          "options": {
-            "required": false,
-            "summaryTitle": "Staff: negative COVID-19 test results",
-            "customValidationMessages": {
-              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
-              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
-            }
-          }
-        },
-        {
-          "name": "StaffTestedFlu",
-          "type": "NumberField",
-          "title": "How many staff have been tested for flu and had a negative test result?",
-          "hint": "If none, enter 0",
-          "options": {
-            "required": false,
-            "summaryTitle": "Staff: negative flu test results",
-            "customValidationMessages": {
-              "number.max": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999",
-              "number.min": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999"
-            }
-          },
-          "schema": {
-            "min": 0,
-            "max": 999
-          }
-        }
-      ],
-      "next": [
-        {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-adenovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-hmpv"
-        },
-        {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-parainfluenza"
-        },
-        {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-rsv"
-        },
-        {
-          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-rhinovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
-          "path": "/service-users-ari-other"
-        },
-        {
-          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-adenovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-hmpv"
-        },
-        {
-          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-parainfluenza"
-        },
-        {
-          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rsv"
-        },
-        {
-          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-rhinovirus"
-        },
-        {
-          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
-          "path": "/staff-ari-other"
-        },
-        {
-          "path": "/severity-of-illness"
-        }
-      ]
-    },
-    {
       "path": "/cases-of-flu",
       "title": "How many cases are you reporting?",
       "sectionForEndSummaryPages": "InfectionsInYourSetting",
@@ -1889,7 +1771,8 @@
     },
     {
       "path": "/staff-ari-cases",
-      "title": "Staff: number of cases",
+      "title": "Staff: number of other cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
       "components": [
         {
           "type": "Para",
@@ -1901,11 +1784,17 @@
           "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
           "hint": "Include those who are currently in hospital<br>If none, enter 0",
           "options": {
-            "required": true
+            "required": true,
+            "summaryTitle": "Staff: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
           },
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           }
         },
         {
@@ -1914,11 +1803,16 @@
           "title": "How many staff have been tested for COVID-19 and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
-            "required": false
+            "required": false,
+            "summaryTitle": "Staff: negative COVID-19 test results",
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
           },
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           }
         },
         {
@@ -1927,11 +1821,16 @@
           "title": "How many staff have been tested for flu and had a negative test result?",
           "hint": "If none, enter 0",
           "options": {
-            "required": false
+            "required": false,
+            "summaryTitle": "Staff: negative flu test results",
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999"
+            }
           },
           "schema": {
             "min": 0,
-            "max": 200
+            "max": 999
           }
         }
       ],
@@ -3457,28 +3356,6 @@
               "type": "Value",
               "value": "Service users",
               "display": "Service users"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "OtherARIServiceOrStaff:Staff",
-      "name": "OtherARIServiceOrStaff:Staff",
-      "value": {
-        "name": "OtherARIServiceOrStaff:Staff",
-        "conditions": [
-          {
-            "field": {
-              "name": "OtherARIServiceOrStaff",
-              "type": "CheckboxesField",
-              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
-            },
-            "operator": "contains",
-            "value": {
-              "type": "Value",
-              "value": "Staff",
-              "display": "Staff"
             }
           }
         ]
