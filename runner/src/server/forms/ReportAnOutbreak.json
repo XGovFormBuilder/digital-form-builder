@@ -1392,7 +1392,7 @@
             "max": 999
           },
           "options": {
-            "summaryTitle": "Staff: confirmed positive flu test results",
+            "summaryTitle": "Staff: with symptoms, but not tested",
             "customValidationMessages": {
               "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
               "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
