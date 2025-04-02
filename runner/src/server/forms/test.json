@@ -473,7 +473,7 @@
       "title": "Test webhook",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://060nw3t077.execute-api.eu-west-2.amazonaws.com/v1/forms"
+        "url": "https://a8rafapgvc.execute-api.eu-west-2.amazonaws.com/v1/forms"
       }
     }
   ],
