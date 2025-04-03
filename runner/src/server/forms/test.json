@@ -473,7 +473,7 @@
       "title": "Test webhook",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io"
+        "url": "https://a8rafapgvc.execute-api.eu-west-2.amazonaws.com/v1/forms"
       }
     }
   ],
