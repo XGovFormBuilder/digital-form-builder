@@ -2774,7 +2774,7 @@
                   }
                 },
                 "schema": {
-                  "regex": "^1-\\d{9}$"
+                  "regex": "^(?:1-\\d{9,11}|[A-Z][A-Z0-9]{4,6})$"
                 }
               }
             }
@@ -2791,7 +2791,7 @@
           "name": "nMOTdlmry",
           "options": {},
           "type": "Para",
-          "content": "<a href=\"https://www.cqc.org.uk/about-us/transparency/using-cqc-data\" target=”_blank”>\n Find your CQC location ID in the care directory on the CQC website (opens in a new tab)</a>. The CQC location ID is listed on the ‘Registration details’ page for your care setting.",
+          "content": "<a href=\"https://www.cqc.org.uk/search/all?filters%5B%5D=services%3Acare-home&radius=all\" target=”_blank”>\n Find your CQC location ID in the care directory on the CQC website (opens in a new tab)</a>. The CQC location ID is listed on the ‘Registration details’ page for your care setting.",
           "schema": {}
         }
       ],
