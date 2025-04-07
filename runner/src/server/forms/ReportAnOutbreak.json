@@ -4122,8 +4122,8 @@
             "operator": "contains",
             "value": {
               "type": "Value",
-              "value": "Any other acute respiratory infection",
-              "display": "Any other acute respiratory infection"
+              "value": "Other acute respiratory infection",
+              "display": "Other acute respiratory infection"
             }
           },
           {
