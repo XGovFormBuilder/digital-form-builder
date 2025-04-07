@@ -2558,7 +2558,7 @@
           "name": "FirstCaseOnset",
           "type": "DatePartsField",
           "title": "When did symptoms start in the first case in this outbreak?",
-          "errorLabel": "The date that symptoms started in the first case of this outbreak",
+          "errorLabel": "The date symptoms started in the first case of this outbreak",
           "hint": "For example, 31 3 2024",
           "options": {
             "summaryTitle": "First case: symptoms started",
