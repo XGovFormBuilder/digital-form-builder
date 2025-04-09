@@ -127,6 +127,25 @@ export class CacheService {
     }
   }
 
+  async createMagicLinkRecord(email: string, hmac: string) {
+    const key = this.MagicLinkKey(email, hmac);
+    const value = {
+      active: true,
+    };
+    return this.cache.set(key, value, config.sessionTimeout);
+  }
+
+  async searchForMagicLinkRecord(email: string, hmac: string) {
+    const key = this.MagicLinkKey(email, hmac);
+    const emailCached = await this.cache.get(key);
+    return emailCached ?? null;
+  }
+
+  async deleteMagicLinkRecord(email: string, hmac: string) {
+    const key = this.MagicLinkKey(email, hmac);
+    return await this.cache.drop(key);
+  }
+
   /**
    * The key used to store user session data against.
    * If there are multiple forms on the same runner instance, for example `form-a` and `form-a-feedback` this will prevent CacheService from clearing data from `form-a` if a user gave feedback before they finished `form-a`
@@ -149,6 +168,10 @@ export class CacheService {
       segment: partition,
       id: jwt,
     };
+  }
+
+  MagicLinkKey(email, hmac) {
+    return `${email}+${hmac}`;
   }
 }
 

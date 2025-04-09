@@ -14,16 +14,26 @@ export class MagicLinkController extends PageController {
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const email = request.query.email;
-      const signature = request.query.signature;
+      const hmac = request.query.signature;
       const requestTime = request.query.request_time;
       const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
-      const validation = await validateHmac(
+      const validation = await validateHmac(email, hmac, requestTime, hmacKey);
+
+      const { cacheService } = request.services([]);
+
+      const state = await cacheService.getState(request);
+
+      const isMagicLinkRecordActive = await cacheService.searchForMagicLinkRecord(
         email,
-        signature,
-        requestTime,
-        hmacKey
+        hmac
       );
+
+      if (!isMagicLinkRecordActive) {
+        return h.redirect("/magic-link/expired").code(302);
+      }
+
+      await cacheService.deleteMagicLinkRecord(email, hmac);
 
       if (!validation.isValid) {
         // Handle different invalid token cases
@@ -39,13 +49,12 @@ export class MagicLinkController extends PageController {
 
       this.langFromRequest(request);
 
-      const { cacheService } = request.services([]);
       const model = this.model;
 
       if (this.model.def.skipSummary) {
         return this.makePostRouteHandler()(request, h);
       }
-      const state = await cacheService.getState(request);
+
       const viewModel = new SummaryViewModel(this.title, model, state, request);
 
       if (viewModel.endPage) {
@@ -113,16 +122,11 @@ export class MagicLinkController extends PageController {
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const email = request.query.email;
-      const signature = request.query.signature;
+      const hmac = request.query.signature;
       const requestTime = request.query.request_time;
       const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
-      const validation = await validateHmac(
-        email,
-        signature,
-        requestTime,
-        hmacKey
-      );
+      const validation = await validateHmac(email, hmac, requestTime, hmacKey);
 
       if (validation.isValid) {
         const token = Jwt.token.generate(

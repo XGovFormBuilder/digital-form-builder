@@ -146,6 +146,16 @@ export class ResubmitPageController extends PageController {
           hmacKey
         );
 
+        // Check the hapi server for a record with that email
+        const foundHmac = await cacheService.searchForMagicLinkRecord(
+          email,
+          hmac
+        );
+
+        if (!foundHmac) {
+          await cacheService.createMagicLinkRecord(email, hmac);
+        }
+
         const hmacUrlStart = "/magic-link/return?email=";
 
         const hmacUrl = hmacUrlStart.concat(
