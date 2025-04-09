@@ -32,7 +32,10 @@ export class SummaryPageController extends PageController {
       }
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
-
+      
+      if (model.basePath === "close-contact-form") {
+        viewModel.details = this.convertDetailsForCloseContact(viewModel.details);
+      }
       if (viewModel.endPage) {
         return redirectTo(
           request,
@@ -298,5 +301,100 @@ export class SummaryPageController extends PageController {
       return payApiKey[config.apiEnv] ?? payApiKey.test ?? payApiKey.production;
     }
     return payApiKey;
+  }
+
+  convertDetailsForCloseContact(details) {
+    const detailItem = ({ name, url, value }) => {
+      return {
+        name: name === "Full name" ? "FullName" : name.split(" ")[0] + "Details",
+        path: url,
+        label: name,
+        value: value,
+        rawValue: value,
+        options: {},
+        url: `/close-contact-form${url}?returnUrl=%2Fclose-contact-form%2Fsummary`,
+        pageId: `/close-contact-form${url}`,
+        type: "TextField",
+        title: name,
+        dataType: "text",
+      };
+    };
+  
+    const fullName = (sectionName) => {
+      return details
+        .find((item) => item.name === sectionName)
+        .items.filter((item) => item.label.includes("name"))
+        .map((item) => item.value)
+        .join(" ");
+    };
+  
+    const contactDetails = (sectionName) => {
+      return details
+        .find((item) => item.name === sectionName)
+        .items.filter((item) => !/close contact|name/g.test(item.label) && item.value)
+        .map((item) => item.value)
+        .join("\n");
+    };
+  
+    const closeContactItem = (itemName) => JSON.parse(
+      JSON.stringify(details[0].items.find((item) => item.name === itemName))
+        .replace(/'Yes' if they've/g, "Have they")
+        .replace(/'Yes' if you've/g, "Have you")
+        .replace(/ contact/g, " contact with anyone in the last 7 days?")
+    );
+  
+    const isFormForSomeoneElse = details.find((item) => item.name === "mKkWra");
+  
+    const arrayToReturn = [
+      {
+        name: "PersonalDetails",
+        title: "Personal details",
+        items: [
+          detailItem({
+            name: "Your details",
+            value: `${fullName("RhyImE")}\n${contactDetails("RhyImE")}`,
+            url: "/personal-details",
+          }),
+          details[0].items.find((item) => item.name === "iRJvrX"),
+        ],
+      },
+      {
+        name: "CloseContacts",
+        title: "Close contacts",
+        items: [closeContactItem(isFormForSomeoneElse ? "FFRnNF" : "GFRnNF")],
+      },
+    ];
+
+    if (isFormForSomeoneElse) {
+      arrayToReturn[0].items.push(
+        detailItem({
+          name: "Their details",
+          value: `${fullName("mKkWra")}\n${contactDetails("mKkWra")}`,
+          url: "/other-persons-details",
+        }),
+        details[0].items.find((item) => item.name === "RdSrff"),
+      )
+    };
+  
+    details.slice(isFormForSomeoneElse ? 3 : 2).forEach((section, i) =>
+      arrayToReturn.push({
+        name: section.name,
+        title: section.title,
+        items: [
+          detailItem({
+            name: "Full name",
+            value: fullName(section.name),
+            url: "/close-contact-" + (i + 1),
+          }),
+          detailItem({
+            name: "Contact details",
+            value: contactDetails(section.name),
+            url: "/close-contact-" + (i + 1),
+          }),
+        ],
+      })
+    );
+  
+    return arrayToReturn;
   }
 }
