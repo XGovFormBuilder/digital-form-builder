@@ -1,0 +1,45 @@
+{
+  "metadata": {},
+  "startPage": "/page",
+  "pages": [
+    {
+      "path": "/page",
+      "title": "Page",
+      "components": [
+        {
+          "name": "PbIWeF",
+          "options": { "required": false },
+          "type": "TextField",
+          "title": "Blank"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/summary",
+      "title": "Summary",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "BsGFLT",
+      "title": "Execute API",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://a8rafapgvc.execute-api.eu-west-2.amazonaws.com/v1/forms",
+        "allowRetry": true
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": true,
+  "feeOptions": {},
+  "declaration": ""
+}
