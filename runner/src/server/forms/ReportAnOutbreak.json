@@ -1692,7 +1692,8 @@
               "dayMonthYear": "Enter the date symptoms started",
               "nonNumeric": "The date symptoms started must be a real date",
               "date.max": "The date symptoms started must be in the past",
-              "date.base": "The date symptoms started must be a real date"
+              "date.base": "The date symptoms started must be a real date",
+              "date.min": "The date symptoms started must be in the past two months"
             }
           },
           "type": "DatePartsField",
@@ -2568,7 +2569,8 @@
               "nonNumeric": "The date symptoms started in the first case of this outbreak must be a real date",
               "dayMonthYear": "Enter the date symptoms started in the first case of this outbreak",
               "date.max": "The date symptoms started in the first case of this outbreak must be in the past",
-              "date.base": "The date symptoms started in the first case of this outbreak must be a real date"
+              "date.base": "The date symptoms started in the first case of this outbreak must be a real date",
+              "date.min": "The date symptoms started in the first case of this outbreak must be in the past two months"
             }
           }
         },

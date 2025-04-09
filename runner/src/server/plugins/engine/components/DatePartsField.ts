@@ -83,6 +83,10 @@ export class DatePartsField extends FormComponent {
             optionalText: optionalText,
             classes: "govuk-input--width-4",
             customValidationMessages: {
+              "number.min": `${
+                def.options?.customValidationMessages?.["date.min"] ||
+                "year must be 1000 or higher"
+              }`,
               "number.base": `${
                 def.errorLabel ?? def.title
               } must include a year`,

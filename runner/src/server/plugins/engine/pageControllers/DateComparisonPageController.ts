@@ -2,6 +2,7 @@ import joi from "joi";
 import { PageController } from "./PageController";
 import { format, parseISO } from "date-fns";
 import { FormSubmissionErrors } from "../types";
+import { subMonths } from "date-fns";
 
 /**
  * DateComparisonPageController validates that:
@@ -36,6 +37,7 @@ export class DateComparisonPageController extends PageController {
         .date()
         .required()
         .max("now") // Prevents dates in the future
+        .min(subMonths(new Date(), 2)) // Prevents dates more than 2 months in the past
         .messages({
           ...this.firstDateComponent?.options?.customValidationMessages,
         }),
