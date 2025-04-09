@@ -41,6 +41,5 @@
   "version": 2,
   "skipSummary": true,
   "feeOptions": {},
-  "authCheck": false,
   "declaration": ""
 }
