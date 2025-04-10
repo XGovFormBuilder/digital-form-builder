@@ -3069,7 +3069,7 @@
       "options": {
         "customText": {
           "insetText": "You will only see answers to questions that are relevant to your report.",
-          "endContent": "<h2 class='govuk-heading-m'>Now send your report</h2><p class='govuk-body'>Your responses will be shared with your local health protection teams. They will use your information to help you manage your situation. <br><br>By submitting this report you confirm that the details are correct to the best of your knowledge. You confirm that you have not included any personally identifiable information for service users or staff, for example names or dates of birth. </p>"
+          "endContent": "<h2 class='govuk-heading-m'>Now send your report</h2><p class='govuk-body'>Your responses will be shared with your local UKHSA health protection team, local authority, local community infection prevention control team and the NHS. They will use your information to help you manage your situation. <br><br>By submitting this report you confirm that the details are correct to the best of your knowledge. You confirm that you have not included any personally identifiable information for service users, for example names or dates of birth. </p>"
         }
       },
       "next": []
