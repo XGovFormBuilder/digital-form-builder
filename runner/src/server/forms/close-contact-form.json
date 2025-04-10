@@ -285,7 +285,7 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-1", "condition": "IfContactsYesOther" },
+        { "path": "/close-contact-name-1", "condition": "IfContactsYesOther" },
         { "path": "/summary", "condition": "IfContactsNoOther" }
       ]
     },
@@ -317,20 +317,14 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-1", "condition": "IfContactsYesYou" },
+        { "path": "/close-contact-name-1", "condition": "IfContactsYesYou" },
         { "path": "/summary", "condition": "IfContactsNoYou" }
       ]
     },
     {
-      "path": "/close-contact-1",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-1",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName1",
           "options": {},
@@ -344,25 +338,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-1" }],
+      "section": "CloseContact1"
+    },
+    {
+      "path": "/close-contact-methods-1",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber1",
@@ -380,10 +376,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber1\");\n  var emailInput = document.getElementById(\"ContactEmail1\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-1" }],
@@ -414,21 +410,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-2", "condition": "AddAnotherYes1" },
+        { "path": "/close-contact-name-2", "condition": "AddAnotherYes1" },
         { "path": "/summary", "condition": "AddAnotherNo1" }
       ],
       "section": "CloseContact1"
     },
     {
-      "path": "/close-contact-2",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-2",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName2",
           "options": {},
@@ -442,25 +432,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-2" }],
+      "section": "CloseContact2"
+    },
+    {
+      "path": "/close-contact-methods-2",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber2",
@@ -478,10 +470,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber2\");\n  var emailInput = document.getElementById(\"ContactEmail2\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-2" }],
@@ -512,21 +504,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-3", "condition": "AddAnotherYes2" },
+        { "path": "/close-contact-name-3", "condition": "AddAnotherYes2" },
         { "path": "/summary", "condition": "AddAnotherNo2" }
       ],
       "section": "CloseContact2"
     },
     {
-      "path": "/close-contact-3",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-3",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName3",
           "options": {},
@@ -540,25 +526,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-3" }],
+      "section": "CloseContact3"
+    },
+    {
+      "path": "/close-contact-methods-3",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber3",
@@ -576,10 +564,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber3\");\n  var emailInput = document.getElementById(\"ContactEmail3\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-3" }],
@@ -610,21 +598,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-4", "condition": "AddAnotherYes3" },
+        { "path": "/close-contact-name-4", "condition": "AddAnotherYes3" },
         { "path": "/summary", "condition": "AddAnotherNo3" }
       ],
       "section": "CloseContact3"
     },
     {
-      "path": "/close-contact-4",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-4",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName4",
           "options": {},
@@ -638,25 +620,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-4" }],
+      "section": "CloseContact4"
+    },
+    {
+      "path": "/close-contact-methods-4",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber4",
@@ -674,10 +658,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber4\");\n  var emailInput = document.getElementById(\"ContactEmail4\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-4" }],
@@ -708,21 +692,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-5", "condition": "AddAnotherYes4" },
+        { "path": "/close-contact-name-5", "condition": "AddAnotherYes4" },
         { "path": "/summary", "condition": "AddAnotherNo4" }
       ],
       "section": "CloseContact4"
     },
     {
-      "path": "/close-contact-5",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-5",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName5",
           "options": {},
@@ -736,25 +714,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-5" }],
+      "section": "CloseContact5"
+    },
+    {
+      "path": "/close-contact-methods-5",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber5",
@@ -772,10 +752,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber5\");\n  var emailInput = document.getElementById(\"ContactEmail5\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-5" }],
@@ -806,21 +786,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-6", "condition": "AddAnotherYes5" },
+        { "path": "/close-contact-name-6", "condition": "AddAnotherYes5" },
         { "path": "/summary", "condition": "AddAnotherNo5" }
       ],
       "section": "CloseContact5"
     },
     {
-      "path": "/close-contact-6",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-6",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName6",
           "options": {},
@@ -834,25 +808,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-6" }],
+      "section": "CloseContact6"
+    },
+    {
+      "path": "/close-contact-methods-6",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber6",
@@ -870,10 +846,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber6\");\n  var emailInput = document.getElementById(\"ContactEmail6\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-6" }],
@@ -904,21 +880,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-7", "condition": "AddAnotherYes6" },
+        { "path": "/close-contact-name-7", "condition": "AddAnotherYes6" },
         { "path": "/summary", "condition": "AddAnotherNo6" }
       ],
       "section": "CloseContact6"
     },
     {
-      "path": "/close-contact-7",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-7",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName7",
           "options": {},
@@ -932,25 +902,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-7" }],
+      "section": "CloseContact7"
+    },
+    {
+      "path": "/close-contact-methods-7",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber7",
@@ -968,10 +940,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber7\");\n  var emailInput = document.getElementById(\"ContactEmail7\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-7" }],
@@ -1002,21 +974,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-8", "condition": "AddAnotherYes7" },
+        { "path": "/close-contact-name-8", "condition": "AddAnotherYes7" },
         { "path": "/summary", "condition": "AddAnotherNo7" }
       ],
       "section": "CloseContact7"
     },
     {
-      "path": "/close-contact-8",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-8",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName8",
           "options": {},
@@ -1030,25 +996,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-8" }],
+      "section": "CloseContact8"
+    },
+    {
+      "path": "/close-contact-methods-8",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber8",
@@ -1066,10 +1034,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber8\");\n  var emailInput = document.getElementById(\"ContactEmail8\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-8" }],
@@ -1100,21 +1068,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-9", "condition": "AddAnotherYes8" },
+        { "path": "/close-contact-name-9", "condition": "AddAnotherYes8" },
         { "path": "/summary", "condition": "AddAnotherNo8" }
       ],
       "section": "CloseContact8"
     },
     {
-      "path": "/close-contact-9",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-9",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName9",
           "options": {},
@@ -1128,25 +1090,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-9" }],
+      "section": "CloseContact9"
+    },
+    {
+      "path": "/close-contact-methods-9",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber9",
@@ -1164,10 +1128,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber9\");\n  var emailInput = document.getElementById(\"ContactEmail9\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-9" }],
@@ -1198,21 +1162,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-10", "condition": "AddAnotherYes9" },
+        { "path": "/close-contact-name-10", "condition": "AddAnotherYes9" },
         { "path": "/summary", "condition": "AddAnotherNo9" }
       ],
       "section": "CloseContact9"
     },
     {
-      "path": "/close-contact-10",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-10",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName10",
           "options": {},
@@ -1226,25 +1184,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-10" }],
+      "section": "CloseContact10"
+    },
+    {
+      "path": "/close-contact-methods-10",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber10",
@@ -1262,10 +1222,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber10\");\n  var emailInput = document.getElementById(\"ContactEmail10\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-10" }],
@@ -1296,21 +1256,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-11", "condition": "AddAnotherYes10" },
+        { "path": "/close-contact-name-11", "condition": "AddAnotherYes10" },
         { "path": "/summary", "condition": "AddAnotherNo10" }
       ],
       "section": "CloseContact10"
     },
     {
-      "path": "/close-contact-11",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-11",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName11",
           "options": {},
@@ -1324,25 +1278,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-11" }],
+      "section": "CloseContact11"
+    },
+    {
+      "path": "/close-contact-methods-11",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber11",
@@ -1360,10 +1316,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber11\");\n  var emailInput = document.getElementById(\"ContactEmail11\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-11" }],
@@ -1394,21 +1350,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-12", "condition": "AddAnotherYes11" },
+        { "path": "/close-contact-name-12", "condition": "AddAnotherYes11" },
         { "path": "/summary", "condition": "AddAnotherNo11" }
       ],
       "section": "CloseContact11"
     },
     {
-      "path": "/close-contact-12",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-12",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName12",
           "options": {},
@@ -1422,25 +1372,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-12" }],
+      "section": "CloseContact12"
+    },
+    {
+      "path": "/close-contact-methods-12",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber12",
@@ -1458,10 +1410,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber12\");\n  var emailInput = document.getElementById(\"ContactEmail12\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-12" }],
@@ -1492,21 +1444,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-13", "condition": "AddAnotherYes12" },
+        { "path": "/close-contact-name-13", "condition": "AddAnotherYes12" },
         { "path": "/summary", "condition": "AddAnotherNo12" }
       ],
       "section": "CloseContact12"
     },
     {
-      "path": "/close-contact-13",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-13",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName13",
           "options": {},
@@ -1520,25 +1466,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-13" }],
+      "section": "CloseContact13"
+    },
+    {
+      "path": "/close-contact-methods-13",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber13",
@@ -1556,10 +1504,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber13\");\n  var emailInput = document.getElementById(\"ContactEmail13\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-13" }],
@@ -1590,21 +1538,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-14", "condition": "AddAnotherYes13" },
+        { "path": "/close-contact-name-14", "condition": "AddAnotherYes13" },
         { "path": "/summary", "condition": "AddAnotherNo13" }
       ],
       "section": "CloseContact13"
     },
     {
-      "path": "/close-contact-14",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-14",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName14",
           "options": {},
@@ -1618,25 +1560,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-14" }],
+      "section": "CloseContact14"
+    },
+    {
+      "path": "/close-contact-methods-14",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber14",
@@ -1654,10 +1598,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber14\");\n  var emailInput = document.getElementById(\"ContactEmail14\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-14" }],
@@ -1688,21 +1632,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-15", "condition": "AddAnotherYes14" },
+        { "path": "/close-contact-name-15", "condition": "AddAnotherYes14" },
         { "path": "/summary", "condition": "AddAnotherNo14" }
       ],
       "section": "CloseContact14"
     },
     {
-      "path": "/close-contact-15",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-15",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName15",
           "options": {},
@@ -1716,25 +1654,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-15" }],
+      "section": "CloseContact15"
+    },
+    {
+      "path": "/close-contact-methods-15",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber15",
@@ -1752,10 +1692,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber15\");\n  var emailInput = document.getElementById(\"ContactEmail15\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-15" }],
@@ -1786,21 +1726,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-16", "condition": "AddAnotherYes15" },
+        { "path": "/close-contact-name-16", "condition": "AddAnotherYes15" },
         { "path": "/summary", "condition": "AddAnotherNo15" }
       ],
       "section": "CloseContact15"
     },
     {
-      "path": "/close-contact-16",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-16",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName16",
           "options": {},
@@ -1814,25 +1748,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-16" }],
+      "section": "CloseContact16"
+    },
+    {
+      "path": "/close-contact-methods-16",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber16",
@@ -1850,10 +1786,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber16\");\n  var emailInput = document.getElementById(\"ContactEmail16\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-16" }],
@@ -1884,21 +1820,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-17", "condition": "AddAnotherYes16" },
+        { "path": "/close-contact-name-17", "condition": "AddAnotherYes16" },
         { "path": "/summary", "condition": "AddAnotherNo16" }
       ],
       "section": "CloseContact16"
     },
     {
-      "path": "/close-contact-17",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-17",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName17",
           "options": {},
@@ -1912,25 +1842,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-17" }],
+      "section": "CloseContact17"
+    },
+    {
+      "path": "/close-contact-methods-17",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber17",
@@ -1948,10 +1880,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber17\");\n  var emailInput = document.getElementById(\"ContactEmail17\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-17" }],
@@ -1982,21 +1914,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-18", "condition": "AddAnotherYes17" },
+        { "path": "/close-contact-name-18", "condition": "AddAnotherYes17" },
         { "path": "/summary", "condition": "AddAnotherNo17" }
       ],
       "section": "CloseContact17"
     },
     {
-      "path": "/close-contact-18",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-18",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName18",
           "options": {},
@@ -2010,25 +1936,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-18" }],
+      "section": "CloseContact18"
+    },
+    {
+      "path": "/close-contact-methods-18",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber18",
@@ -2046,10 +1974,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber18\");\n  var emailInput = document.getElementById(\"ContactEmail18\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-18" }],
@@ -2080,21 +2008,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-19", "condition": "AddAnotherYes18" },
+        { "path": "/close-contact-name-19", "condition": "AddAnotherYes18" },
         { "path": "/summary", "condition": "AddAnotherNo18" }
       ],
       "section": "CloseContact18"
     },
     {
-      "path": "/close-contact-19",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-19",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName19",
           "options": {},
@@ -2108,25 +2030,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-19" }],
+      "section": "CloseContact19"
+    },
+    {
+      "path": "/close-contact-methods-19",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber19",
@@ -2144,10 +2068,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber19\");\n  var emailInput = document.getElementById(\"ContactEmail19\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-19" }],
@@ -2178,21 +2102,15 @@
         }
       ],
       "next": [
-        { "path": "/close-contact-20", "condition": "AddAnotherYes19" },
+        { "path": "/close-contact-name-20", "condition": "AddAnotherYes19" },
         { "path": "/summary", "condition": "AddAnotherNo19" }
       ],
       "section": "CloseContact19"
     },
     {
-      "path": "/close-contact-20",
-      "title": "Enter the contact details for your close contact",
+      "path": "/close-contact-name-20",
+      "title": "Enter the name for your close contact",
       "components": [
-        {
-          "name": "Subheader1",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
-        },
         {
           "name": "ContactFirstName20",
           "options": {},
@@ -2206,25 +2124,27 @@
           "type": "TextField",
           "title": "Last name",
           "schema": {}
-        },
-        {
-          "name": "Subheader2",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "ContactWarningText",
-          "options": {},
-          "type": "Html",
-          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
-        },
+        }
+      ],
+      "next": [{ "path": "/close-contact-methods-20" }],
+      "section": "CloseContact20"
+    },
+    {
+      "path": "/close-contact-methods-20",
+      "title": "Enter the contact details for your close contact",
+      "components": [
         {
           "name": "ContactHintText",
           "options": {},
           "type": "Html",
           "content": "<span class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
           "schema": {}
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
         },
         {
           "name": "ContactPhoneNumber20",
@@ -2242,10 +2162,10 @@
           "schema": {}
         },
         {
-          "name": "ContactPara",
-          "type": "Para",
-          "content": "You can add more close contacts after you contact.",
-          "schema": {}
+          "name": "PreventTwoEmptyFields",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\", function () {\n  var formElem = document.getElementsByTagName(\"form\")[0];\n  var phoneNumber = document.getElementById(\"ContactPhoneNumber20\");\n  var emailInput = document.getElementById(\"ContactEmail20\");\n  formElem.addEventListener(\"submit\", function (event) {\n    if (phoneNumber.value === \"\" && emailInput.value === \"\") {\n      event.preventDefault();\n      alert(\"Please provide at least one contact detail for the close contact\");\n    }\n  });\n});</script>"
         }
       ],
       "next": [{ "path": "/summary" }],
