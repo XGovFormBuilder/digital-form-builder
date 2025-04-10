@@ -100,7 +100,7 @@
           "list": "YesNo",
           "nameHasError": false,
           "title": "Do you have any positive test results for an acute respiratory infection?",
-          "hint": "The infection must have been confirmed by a test, for example a lateral flow test, flu swab test or a laboratory test.",
+          "hint": "The infection must have been confirmed by a test, for example a lateral flow test, flu swab test or a laboratory test",
           "schema": {},
           "values": {
             "type": "listRef"
