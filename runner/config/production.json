@@ -1,6 +1,6 @@
 {
   "env": "production",
   "logPrettyPrint": false,
-  "enableCsrf": true,
+  "enforceCsrf": true,
   "previewMode": false
 }
