@@ -1,6 +1,6 @@
 {
   "isTest": true,
   "previewMode": true,
-  "enforceCsrf": false,
+  "enforceCsrf": true,
   "env": "development"
 }
