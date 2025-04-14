@@ -112,6 +112,7 @@ const nextSchema = joi.object().keys({
 const pageSchema = joi.object().keys({
   path: joi.string().required().disallow("/status"),
   title: localisedString,
+  unauthenticated: joi.boolean().optional(),
   section: joi.string(),
   sectionForExitJourneySummaryPages: joi.string(),
   sectionForMultiSummaryPages: joi.string(),

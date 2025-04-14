@@ -12,7 +12,7 @@
           "name": "mainContent",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\">From: <a href=\"https://www.gov.uk/government/organisations/uk-health-security-agency\">UK Health Security Agency</a><br>Applies to England</p>\n<p class=\"govuk-body-m\">You can use this service if you provide adult social care. This includes a care home, supported living or extra care.</p>\n<p class=\"govuk-body-m\">Use this service to report:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>a single confirmed case of flu in your setting</li>\n<li>a new outbreak of acute respiratory infection (ARI) - 2 or more people in your setting with symptoms that started within 5 days of each other</li>\n</ul>\n<p class=\"govuk-body-m\">ARIs include COVID-19, flu, respiratory syncytial virus (RSV), and other respiratory infections.</p>\n<p class=\"govuk-body-m\">It should take about 10 minutes to complete.</p>\n<h3 class=\"govuk-heading-m\">Before you start</h3>\n<p class=\"govuk-body\">If possible, test all service users with symptoms who are <a href=\"https://www.nhs.uk/conditions/covid-19/treatments-for-covid-19/\" target=\"_blank\" class=\"govuk-link\">eligible for COVID-19 treatments</a> using a COVID-19 rapid lateral flow test. Staff with symptoms who are eligible for COVID-19 treatments should test themselves at home.</p>\n<p class=\"govuk-body\">If you cannot test people, do not wait. Report as soon as possible.</p>\n<p class=\"govuk-body\">You'll need to know the:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>setting postcode</li>\n<li>Care Quality Commission (CQC) location ID, if you are CQC registered</li>\n<li>total number of service users and staff in your setting</li>\n<li>number of service users and staff with symptoms</li>\n<li>dates when people's symptoms started</li>\n<li>test results for anyone tested for any ARI, for example COVID-19, flu or RSV</li>\n<li>number of service users and staff vaccinated for COVID-19 and flu</li>\n<li>number of service users vaccinated for RSV</li>\n</ul>\n<p>You’ll need to give your email address to access this service.</p>\n<a href='/magic-link' role='button' draggable='false' class='govuk-button govuk-button--start' data-module='govuk-button' id='submit'>Start now<svg class='govuk-button__start-icon' xmlns='http://www.w3.org/2000/svg' width='17.5' height='19' viewBox='0 0 33 40' aria-hidden='true' focusable='false'><path fill='currentColor' d='M0 0h13l20 20-20 20H0l20-20z'></path></svg></a>\n<h3 class=\"govuk-heading-m\">Updating about an existing outbreak</h3>\n<p class=\"govuk-body\">Do not use this online service to give an update on an outbreak that you have already reported. If you need to give an update, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> or your community infection control team.</p>\n<h3 class=\"govuk-heading-m\">Identifying an ARI outbreak</h3>\n<p class=\"govuk-body\">You only need to report 2 or more ARI cases if they could be linked by spread in your setting. If the infection could not have been spread in your setting, you should not report it as an outbreak. If in doubt, report as an outbreak.</p>\n<h3 class=\"govuk-heading-m\">Why you should report</h3>\n<p class=\"govuk-body\">Your local UKHSA health protection team, or the community infection control team, will use your information to assess your outbreak. They will help you manage the outbreak and prevent further spread.</p>\n<h3 class=\"govuk-heading-m\">Get help</h3>\n<p class=\"govuk-body\">If you need help using the service or have any other questions, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a>.</p>\n<h3 class=\"govuk-heading-m\">If you need urgent medical advice</h3>\n<p class=\"govuk-body\">If you need urgent medical advice, you should call NHS 111 or <a href=\"https://111.nhs.uk/\" target=\"_blank\" class=\"govuk-link\">visit 111.nhs.uk</a>. For life-threatening emergencies, call 999.</p>"
+          "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\">From: <a href=\"https://www.gov.uk/government/organisations/uk-health-security-agency\">UK Health Security Agency</a><br>Applies to England</p>\n<p class=\"govuk-body-m\">You can use this service if you provide adult social care. This includes a care home, supported living or extra care.</p>\n<p class=\"govuk-body-m\">Use this service to report:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>a single confirmed case of flu in your setting</li>\n<li>a new outbreak of acute respiratory infection (ARI) - 2 or more people in your setting with symptoms that started within 5 days of each other</li>\n</ul>\n<p class=\"govuk-body-m\">ARIs include COVID-19, flu, respiratory syncytial virus (RSV), and other respiratory infections.</p>\n<p class=\"govuk-body-m\">It should take about 10 minutes to complete.</p>\n<h3 class=\"govuk-heading-m\">Before you start</h3>\n<p class=\"govuk-body\">If possible, test all service users with symptoms who are <a href=\"https://www.nhs.uk/conditions/covid-19/treatments-for-covid-19/\" target=\"_blank\" class=\"govuk-link\">eligible for COVID-19 treatments</a> using a COVID-19 rapid lateral flow test. Staff with symptoms who are eligible for COVID-19 treatments should test themselves at home.</p>\n<p class=\"govuk-body\">If you cannot test people, do not wait. Report as soon as possible.</p>\n<p class=\"govuk-body\">You'll need to know the:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>setting postcode</li>\n<li>Care Quality Commission (CQC) location ID, if you are CQC registered</li>\n<li>total number of service users and staff in your setting</li>\n<li>number of service users and staff with symptoms</li>\n<li>dates when people's symptoms started</li>\n<li>test results for anyone tested for any ARI, for example COVID-19, flu or RSV</li>\n<li>number of service users and staff vaccinated for COVID-19 and flu</li>\n<li>number of service users vaccinated for RSV</li>\n</ul>\n<p>You’ll need to give your email address to access this service.</p>\n<a href='/ReportAnOutbreak/hpt-region' role='button' draggable='false' class='govuk-button govuk-button--start' data-module='govuk-button' id='submit'>Start now<svg class='govuk-button__start-icon' xmlns='http://www.w3.org/2000/svg' width='17.5' height='19' viewBox='0 0 33 40' aria-hidden='true' focusable='false'><path fill='currentColor' d='M0 0h13l20 20-20 20H0l20-20z'></path></svg></a>\n<h3 class=\"govuk-heading-m\">Updating about an existing outbreak</h3>\n<p class=\"govuk-body\">Do not use this online service to give an update on an outbreak that you have already reported. If you need to give an update, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> or your community infection control team.</p>\n<h3 class=\"govuk-heading-m\">Identifying an ARI outbreak</h3>\n<p class=\"govuk-body\">You only need to report 2 or more ARI cases if they could be linked by spread in your setting. If the infection could not have been spread in your setting, you should not report it as an outbreak. If in doubt, report as an outbreak.</p>\n<h3 class=\"govuk-heading-m\">Why you should report</h3>\n<p class=\"govuk-body\">Your local UKHSA health protection team, or the community infection control team, will use your information to assess your outbreak. They will help you manage the outbreak and prevent further spread.</p>\n<h3 class=\"govuk-heading-m\">Get help</h3>\n<p class=\"govuk-body\">If you need help using the service or have any other questions, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a>.</p>\n<h3 class=\"govuk-heading-m\">If you need urgent medical advice</h3>\n<p class=\"govuk-body\">If you need urgent medical advice, you should call NHS 111 or <a href=\"https://111.nhs.uk/\" target=\"_blank\" class=\"govuk-link\">visit 111.nhs.uk</a>. For life-threatening emergencies, call 999.</p>"
         }
       ],
       "sidebarContent": {
@@ -33,7 +33,72 @@
       "showContinueButton": false,
       "next": [
         {
+          "path": "/hpt-region"
+        }
+      ]
+    },
+    {
+      "path": "/hpt-region",
+      "title": "Where is your adult social care setting?",
+      "sectionForEndSummaryPages": "SettingDetails",
+      "unauthenticated": true,
+      "components": [
+        {
+          "name": "IntroPara",
+          "type": "Para",
+          "content": "This service is only available in some regions of England."
+        },
+        {
+          "name": "HPT",
+          "options": {
+            "summaryTitle": "Local UKHSA health protection team",
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "any.required": "Select your local UKHSA health protection team"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Which acute respiratory infection do you have a positive test result for? ",
+          "list": "HPTs",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "HPTLink",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>\n Use your postcode to find your local health protection team (opens in a new tab)</a>\n",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/magic-link-redirect", "condition": "HPTRegionActive" },
+        {
+          "path": "/service-not-available"
+        }
+      ]
+    },
+    {
+      "path": "/magic-link-redirect",
+      "unauthenticated": true,
+      "controller": "MagicLinkRedirectController",
+      "next": [
+        {
           "path": "/setting"
+        }
+      ]
+    },
+    {
+      "path": "/service-not-available",
+      "unauthenticated": true,
+      "title": "This service is not available in the {{ HPT }} region",
+      "components": [
+        {
+          "name": "ServiceNotAvailableContent",
+          "type": "Para",
+          "content": "Phone your local <a href='https://www.gov.uk/health-protection-team'>UKHSA health protection team</a> to report:<br><ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li>"
         }
       ]
     },
@@ -2730,32 +2795,6 @@
           }
         },
         {
-          "name": "HPT",
-          "options": {
-            "summaryTitle": "Local UKHSA health protection team",
-            "required": true,
-            "customValidationMessages": {
-              "string.empty": "Select your local UKHSA health protection team",
-              "any.only": "Select your local UKHSA health protection team"
-            }
-          },
-          "type": "SelectField",
-          "title": "Your local UKHSA health protection team",
-          "list": "sjgMDe",
-          "nameHasError": false,
-          "schema": {},
-          "values": {
-            "type": "listRef"
-          }
-        },
-        {
-          "name": "nMOTry",
-          "options": {},
-          "type": "Para",
-          "content": "<a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>\n Use your postcode to find your local health protection team (opens in a new tab)</a>\n",
-          "schema": {}
-        },
-        {
           "name": "CQCRegistered",
           "options": {
             "summaryTitle": "Registered with the Care Quality Commission (CQC)",
@@ -3441,19 +3480,43 @@
     },
     {
       "title": "HPTs",
-      "name": "sjgMDe",
+      "name": "HPTs",
       "type": "string",
       "items": [
         {
-          "text": "East of England HPT",
-          "value": "East of England HPT"
+          "text": "North East",
+          "value": "North East"
         },
         {
-          "text": "West Midlands HPT",
+          "text": "North West",
+          "value": "North West"
+        },
+        {
+          "text": "Yorkshire and the Humber",
+          "value": "Yorkshire and the Humber"
+        },
+        {
+          "text": "East Midlands",
+          "value": "East Midlands"
+        },
+        {
+          "text": "West Midlands",
           "value": "West Midlands HPT"
         },
         {
-          "text": "South West HPT",
+          "text": "East of England",
+          "value": "East of England HPT"
+        },
+        {
+          "text": "London",
+          "value": "London"
+        },
+        {
+          "text": "South East",
+          "value": "South East"
+        },
+        {
+          "text": "South West",
           "value": "South West HPT"
         }
       ]
@@ -3533,6 +3596,56 @@
     }
   ],
   "conditions": [
+    {
+      "displayName": "HPTRegionActive",
+      "name": "HPTRegionActive",
+      "value": {
+        "name": "HPTRegionActive",
+        "conditions": [
+          {
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "West Midlands HPT",
+              "display": "West Midlands"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "East of England HPT",
+              "display": "East of England"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "South West HPT",
+              "display": "South West"
+            }
+          }
+        ]
+      }
+    },
     {
       "displayName": "UnknownARI&ServiceOrStaff:ServiceUsers",
       "name": "UnknownARI&ServiceOrStaff:ServiceUsers",

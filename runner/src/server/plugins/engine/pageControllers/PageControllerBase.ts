@@ -502,7 +502,11 @@ export class PageControllerBase {
           : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
       }
 
-      if (this.model.def.authentication && this.model.def.toggle === true) {
+      if (
+        this.model.def.authentication &&
+        this.model.def.toggle === true &&
+        this.pageDef.unauthenticated !== true
+      ) {
         const authCookie = request.state.auth_token; // Check for the auth cookie
 
         if (!authCookie && !isStartPage && this.model.def.authentication) {
@@ -755,12 +759,16 @@ export class PageControllerBase {
       }
       const { cacheService } = request.services([]);
 
-      if (this.model.def.authentication && this.model.def.toggle === true) {
+      if (
+        this.model.def.authentication &&
+        this.model.def.toggle === true &&
+        this.pageDef.unauthenticated !== true
+      ) {
         const startPage = this.model.def.startPage;
         const isStartPage = this.path === `${startPage}`;
         const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
         const authCookie = request.state.auth_token; // Check for the auth cookie
-        if (!authCookie && !isStartPage && this.model.def.authentication) {
+        if (!authCookie && !isStartPage) {
           // If the auth cookie is missing and it's not the start page, redirect
           if (currentPath !== `/${this.model.basePath}${startPage!}`) {
             return h.redirect(`/${this.model.basePath}${startPage!}`);

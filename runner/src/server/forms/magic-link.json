@@ -6,14 +6,16 @@
   "pages": [
     {
       "path": "/start",
-      "controller": "MagicLinkStartPageController"
+      "controller": "MagicLinkStartPageController",
+      "unauthenticated": true
     },
     {
       "title": "What is your email address?",
       "path": "/email",
+      "unauthenticated": true,
       "continueButtonText": "Continue",
       "showContinueButton": true,
-      "backLinkFallback": "/ReportAnOutbreak/start",
+      "backLinkFallback": "/ReportAnOutbreak/hpt-region",
       "components": [
         {
           "name": "EmailIntro",
@@ -55,6 +57,7 @@
     {
       "path": "/check-your-email",
       "title": "Check your email",
+      "unauthenticated": true,
       "backLinkFallback": "/magic-link/magic-link",
       "components": [
         {
@@ -69,6 +72,7 @@
     {
       "path": "/resubmit-email",
       "title": "We've sent you another email",
+      "unauthenticated": true,
       "backLinkFallback": "/check-your-email",
       "components": [
         {
