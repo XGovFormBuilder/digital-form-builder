@@ -1,0 +1,41 @@
+name: Sync Upstream Semantic Version Tags
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight UTC; adjust as needed
+
+jobs:
+  sync-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Important: fetch the entire history including all tags
+
+      - name: Add Upstream Remote
+        run: |
+          git remote add upstream https://github.com/XGovFormBuilder/digital-form-builder || echo "Upstream remote already exists"
+
+      - name: Fetch Tags from Upstream
+        run: |
+          git fetch upstream --tags
+
+      - name: Sync Semantic Version Tags from Upstream
+        run: |
+          # List all upstream tags matching semantic versioning (e.g. v1.2.3)
+          tags=$(git ls-remote --tags upstream | grep -E 'refs/tags/v[0-9]+\.[0-9]+\.[0-9]+$' | awk '{print $2}' | sed 's|refs/tags/||')
+
+          for tag in $tags; do
+            if git rev-parse "$tag" >/dev/null 2>&1; then
+              echo "Tag $tag already exists in fork, skipping."
+            else
+              # Get the commit hash corresponding to the tag from upstream
+              commit=$(git ls-remote --tags upstream $tag | awk '{print $1}')
+              echo "Creating tag $tag at commit $commit"
+              # Create an annotated tag; change to lightweight tag by removing -a and the message if desired.
+              git tag -a "$tag" -m "Synced $tag from upstream" $commit
+              git push origin "$tag"
+            fi
+          done
