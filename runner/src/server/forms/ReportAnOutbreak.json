@@ -59,7 +59,8 @@
           },
           "type": "RadiosField",
           "nameHasError": false,
-          "title": "Which acute respiratory infection do you have a positive test result for? ",
+          "title": " ",
+          "hint": "Select your local UKHSA health protection team",
           "list": "HPTs",
           "values": {
             "type": "listRef"
