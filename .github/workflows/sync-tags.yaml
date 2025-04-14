@@ -25,10 +25,6 @@ jobs:
       - name: Sync Semantic Version Tags from Upstream
         run: |
           echo "Listing upstream tags..."
-          # This regex matches lines that end with either:
-          #   refs/tags/vMAJOR.MINOR.PATCH
-          # or
-          #   refs/tags/vMAJOR.MINOR.PATCH^{}
           tags=$(git ls-remote --tags upstream | grep -E 'refs/tags/v[0-9]+\.[0-9]+\.[0-9]+(\^\{\})?$' | sed -E 's|refs/tags/([^\\^]+).*|\1|')
 
           if [ -z "$tags" ]; then
@@ -39,15 +35,12 @@ jobs:
           fi
 
           for tag in $tags; do
-              # Check if tag already exists in the fork.
               if git rev-parse "$tag" >/dev/null 2>&1; then
-                  echo "Tag $tag already exists in fork, skipping."
+              echo "Tag $tag already exists, skipping."
               else
-                  # Get the commit hash corresponding to the tag from upstream.
-                  # We filter the ls-remote output to allow both the regular and peeled ref.
-                  commit=$(git ls-remote --tags upstream "$tag" | grep -E "refs/tags/$tag(\\^\\{\\})?$" | awk '{print $1}' | head -n 1)
-                  echo "Creating tag $tag at commit $commit"
-                  git tag -a "$tag" -m "Synced $tag from upstream" "$commit"
-                  git push origin "$tag"
+              commit=$(git ls-remote --tags upstream "$tag" | grep -E "refs/tags/$tag(\\^\\{\\})?$" | awk '{print $1}' | head -n 1)
+              echo "Creating tag $tag at commit $commit"
+              git tag -a "$tag" -m "Synced $tag from upstream" "$commit"
+              git push origin "$tag"
               fi
           done
