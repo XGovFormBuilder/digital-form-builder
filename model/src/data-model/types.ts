@@ -213,4 +213,5 @@ export type FormDefinition = {
   exitOptions: ExitOptions;
   jwtKey?: string | undefined;
   toggle?: boolean | string | undefined;
+  retryTimeoutSeconds?: number | undefined;
 };

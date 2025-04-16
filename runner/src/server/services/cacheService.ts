@@ -127,22 +127,41 @@ export class CacheService {
     }
   }
 
-  async createMagicLinkRecord(email: string, hmac: string) {
-    const key = this.MagicLinkKey(email, hmac);
+  async createMagicLinkRecord(
+    email: string,
+    hmac: string,
+    currentTimestamp: string
+  ) {
+    const key = email;
     const value = {
-      active: true,
+      hmac: hmac,
+      active: currentTimestamp,
     };
     return this.cache.set(key, value, config.sessionTimeout);
   }
 
-  async searchForMagicLinkRecord(email: string, hmac: string) {
-    const key = this.MagicLinkKey(email, hmac);
+  async updateMagicLinkRecord(
+    email: string,
+    hmac: string,
+    currentTimestamp: string
+  ) {
+    const key = email;
+
+    const value = {
+      hmac: hmac,
+      active: currentTimestamp,
+    };
+    return this.cache.set(key, value, config.sessionTimeout);
+  }
+
+  async searchForMagicLinkRecord(email: string) {
+    const key = email;
     const emailCached = await this.cache.get(key);
     return emailCached ?? null;
   }
 
-  async deleteMagicLinkRecord(email: string, hmac: string) {
-    const key = this.MagicLinkKey(email, hmac);
+  async deleteMagicLinkRecord(email: string) {
+    const key = email;
     return await this.cache.drop(key);
   }
 
@@ -168,10 +187,6 @@ export class CacheService {
       segment: partition,
       id: jwt,
     };
-  }
-
-  MagicLinkKey(email, hmac) {
-    return `${email}+${hmac}`;
   }
 }
 

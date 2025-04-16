@@ -3,6 +3,7 @@
   "skipSummary": true,
   "toggle": "${magicLinkToggle}",
   "toggleRedirect": "/ReportAnOutbreak/setting",
+  "retryTimeoutSeconds": 300,
   "pages": [
     {
       "path": "/start",
@@ -52,7 +53,11 @@
     },
     {
       "path": "/submit1",
-      "controller": "ResubmitPageController"
+      "controller": "MagicLinkFirstSubmitPageController"
+    },
+    {
+      "path": "/submit2",
+      "controller": "MagicLinkSecondSubmitPageController"
     },
     {
       "path": "/check-your-email",
@@ -64,7 +69,7 @@
           "name": "SentAnotherEmail",
           "options": {},
           "type": "Para",
-          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to report an outbreak.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email in 5 minutes, you can resubmit the email.</p><a href='/magic-link/summary' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
+          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to report an outbreak.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email in 5 minutes, you can resubmit the email.</p><a href='/magic-link/submit2' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
           "schema": {}
         }
       ]

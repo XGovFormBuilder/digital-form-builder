@@ -345,6 +345,7 @@ export const Schema = joi
     showFilenamesOnSummaryPage: joi.boolean().optional(),
     toggle: joi.alternatives().try(joi.boolean(), joi.string()).optional(),
     toggleRedirect: joi.string().optional(),
+    retryTimeoutSeconds: joi.number().optional(),
   });
 
 /**
