@@ -12,7 +12,8 @@ import { Page } from "@xgovformbuilder/model";
 import { UploadPageController } from "server/plugins/engine/pageControllers/UploadPageController";
 import { MultiStartPageController } from "server/plugins/engine/pageControllers/MultiStartPageController";
 import { CheckpointSummaryPageController } from "src/server/plugins/engine/pageControllers/CheckpointSummaryPageController";
-import { ResubmitPageController } from "./ResubmitPageController";
+import { MagicLinkFirstSubmitPageController } from "./MagicLinkFirstSubmitPageController";
+import { MagicLinkSecondSubmitPageController } from "./MagicLinkSecondSubmitPageController";
 import { MagicLinkController } from "./MagicLinkController";
 import { MagicLinkStartPageController } from "./MagicLinkStartPageController";
 import { CustomSummaryPageController } from "./CustomSummaryPageController";
@@ -31,7 +32,8 @@ const PageControllers = {
   UploadPageController,
   MultiStartPageController,
   CheckpointSummaryPageController,
-  ResubmitPageController,
+  MagicLinkFirstSubmitPageController,
+  MagicLinkSecondSubmitPageController,
   MagicLinkController,
   MagicLinkStartPageController,
   CustomSummaryPageController,

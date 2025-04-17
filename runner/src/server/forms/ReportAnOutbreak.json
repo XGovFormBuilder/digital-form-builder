@@ -54,7 +54,7 @@
             "summaryTitle": "Local UKHSA health protection team",
             "exposeToContext": true,
             "customValidationMessages": {
-              "any.required": "Select your local UKHSA health protection team"
+              "any.required": "Select where your adult social care setting is"
             }
           },
           "type": "RadiosField",

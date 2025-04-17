@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="govuk-width-container">
+    <a href="/ReportAnOutbreak/hpt-region" class="govuk-back-link">Back</a>
+    <div class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">What is your email address?</h1>
+    
+            <p class="govuk-body">We need to email you a secure link to the service.</p>
+            
+            <p class="govuk-body">The link expires after 20 minutes.</p>
+            
+            <div>
+                <label for="email" class="govuk-label govuk-label--s">Email address</label>
+                <input type="email" class="govuk-input govuk-input--width-20" id="email" name="email" required>
+            </div>
+            <br>
+            <p class="govuk-body">By continuing, you agree to our <a href="#" class="privacy-link">privacy notice</a>.</p>
+    
+
+            {% if minutesRemaining %}
+            <div class="alert">
+                <div class='govuk-warning-text'>
+                    <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>
+                    <strong class='govuk-warning-text__text'>
+                        <span class='govuk-visually-hidden'>Warning</span>
+                        You must wait 
+                        {% if minutesRemaining == 1 %}
+                            1 minute
+                        {% else %}
+                            {{ minutesRemaining }} minutes
+                        {% endif %}
+                        before resubmitting the email
+                    </strong>
+                </div>
+            </div>
+            {% endif %}
+
+            <a href='/magic-link/submit1' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>
+        </div>
+    </div>
+  </div>
+</div>     
+{% endblock %}
