@@ -5,6 +5,9 @@ import { HapiRequest, HapiResponseToolkit } from "../types";
 import config from "../config";
 import getRequestInfo from "server/utils/getRequestInfo";
 
+import fs from "fs";
+import path from "path";
+
 const routes = [...publicRoutes, healthCheckRoute];
 
 enum CookieValue {
@@ -29,23 +32,64 @@ export default {
       server.route([
         {
           method: "get",
-          path: "/help/privacy",
+          path: "/{url}/privacy",
           handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-            if (config.privacyPolicyUrl) {
-              return h.redirect(config.privacyPolicyUrl);
+            const { url } = _request.params; // Extract the dynamic page parameter
+            const form = server.app.forms[url]; // Gain requested form context
+
+            // Construct the file path for the view
+            const viewPath = path.join(
+              __dirname,
+              "../views",
+              url,
+              "privacy.html"
+            );
+
+            // Catch the default help page before processing further
+            if (url === "help") {
+              return h.view("help/privacy");
             }
-            return h.view("help/privacy");
+
+            // Check if the file exists
+            if (!form || !fs.existsSync(viewPath)) {
+              return h.redirect("/help/privacy");
+            }
+
+            return h.view(`${url}/privacy`, { name: form.name });
           },
         },
         {
           method: "get",
-          path: "/help/cookies",
+          path: "/{url}/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            const { url } = request.params; // Extract the dynamic page parameter
             const cookiesPolicy = request.state.cookies_policy;
             let analytics =
               cookiesPolicy?.analytics === "on" ? "accept" : "reject";
-            return h.view("help/cookies", {
+
+            const form = server.app.forms[url]; // Gain requested form context
+
+            // Construct the file path for the view
+            const viewPath = path.join(
+              __dirname,
+              "../views",
+              url,
+              "cookies.html"
+            );
+
+            // Catch the default help page before processing further
+            if (url === "help") {
+              return h.view("help/cookies");
+            }
+
+            // Check if the file exists
+            if (!form || !fs.existsSync(viewPath)) {
+              return h.redirect("/help/cookies");
+            }
+
+            return h.view(`${url}/cookies`, {
               analytics,
+              name: form.name,
             });
           },
         },
@@ -72,13 +116,35 @@ export default {
               }).required(),
             },
           },
-          path: "/help/cookies",
+          path: "/{url}/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            const { url } = request.params; // Extract the dynamic page parameter
+
             const { cookies } = request.payload as CookiePayload;
             const accept = cookies === "accept";
 
             const { referrer } = getRequestInfo(request);
-            let redirectPath = "/help/cookies";
+            const form = server.app.forms[url]; // Gain requested form context
+
+            // Construct the file path for the view
+            const viewPath = path.join(
+              __dirname,
+              "../views",
+              url,
+              "cookies.html"
+            );
+
+            let redirectPath = `/${url}/cookies`;
+
+            // Catch the default help page before processing further
+            if (url === "help") {
+              redirectPath = "help/cookies";
+            }
+
+            // Check if the file exists
+            if (!form || !fs.existsSync(viewPath)) {
+              redirectPath = "/help/cookies";
+            }
 
             if (referrer) {
               redirectPath = new URL(referrer).pathname;
@@ -92,6 +158,7 @@ export default {
                 essential: true,
                 analytics: accept ? "on" : "off",
                 usage: accept,
+                name: form.name,
               },
               {
                 isHttpOnly: false,
@@ -104,17 +171,61 @@ export default {
 
       server.route({
         method: "get",
-        path: "/help/terms-and-conditions",
+        path: "/{url}/terms-and-conditions",
         handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-          return h.view("help/terms-and-conditions");
+          const { url } = _request.params; // Extract the dynamic page parameter
+
+          const form = server.app.forms[url]; // Gain requested form context
+
+          // Construct the file path for the view
+          const viewPath = path.join(
+            __dirname,
+            "../views",
+            url,
+            "terms-and-conditions.html"
+          );
+
+          // Catch the default help page before processing further
+          if (url === "help") {
+            return h.view("help/terms-and-conditions");
+          }
+
+          // Check if the file exists, if it doesn't, redirect to the default accessibility statement
+          if (!form || !fs.existsSync(viewPath)) {
+            return h.redirect("/help/terms-and-conditions");
+          }
+
+          return h.view(`${url}/terms-and-conditions`, { name: form.name });
         },
       });
 
       server.route({
         method: "get",
-        path: "/help/accessibility-statement",
+        path: "/{url}/accessibility-statement",
         handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-          return h.view("help/accessibility-statement");
+          const { url } = _request.params; // Extract the dynamic page parameter
+
+          const form = server.app.forms[url]; // Gain requested form context
+
+          // Construct the file path for the view
+          const viewPath = path.join(
+            __dirname,
+            "../views",
+            url,
+            "accessibility-statement.html"
+          );
+
+          // Catch the default help page before processing further
+          if (url === "help") {
+            return h.view("help/accessibility-statement");
+          }
+
+          // Check if the file exists, if it doesn't, redirect to the default accessibility statement
+          if (!form || !fs.existsSync(viewPath)) {
+            return h.redirect("/help/accessibility-statement");
+          }
+
+          return h.view(`${url}/accessibility-statement`, { name: form.name });
         },
       });
 
