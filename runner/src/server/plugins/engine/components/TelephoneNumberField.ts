@@ -7,8 +7,7 @@ import { FormData, FormSubmissionErrors } from "../types";
 import joi, { Schema } from "joi";
 
 const TELEPHONE_REGEX =
-  "^((\\+44\\s?|0)7\\d{3}\\s?\\d{3}\\s?\\d{3}|(\\+44\\s?|0)1\\d{1,3}\\s?\\d{3,4}\\s?\\d{3,4})$";
-
+  "^(((+44s?d{4}|(?0d{4})?)s?d{3}s?d{3})|((+44s?d{3}|(?0d{3})?)s?d{3}s?d{4})|((+44s?d{2}|(?0d{2})?)s?d{4}s?d{4}))(s?#(d{4}|d{3}))?$";
 export class TelephoneNumberField extends FormComponent {
   constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
     super(def, model);
