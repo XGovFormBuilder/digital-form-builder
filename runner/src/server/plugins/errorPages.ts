@@ -41,7 +41,7 @@ export default {
             // In the event of 403 (CSRF protection)
             if (statusCode === 403) {
               return h
-                .view("csrf-protection", { url: urlPath, name: form.name })
+                .view("csrf-protection", { url: urlPath[1], name: form.name })
                 .code(statusCode);
             }
 
