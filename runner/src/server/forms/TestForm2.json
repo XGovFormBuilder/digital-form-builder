@@ -29,7 +29,7 @@
       "title": "Execute API",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://iv5ypy2te5.execute-api.eu-west-2.amazonaws.com/test",
+        "url": "https://pksfrddt6i.execute-api.eu-west-2.amazonaws.com/test",
         "allowRetry": true
       }
     }
