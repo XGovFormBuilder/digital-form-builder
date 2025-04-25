@@ -23,7 +23,17 @@
   "sections": [],
   "conditions": [],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "BsGFLT",
+      "title": "Execute API",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://iv5ypy2te5.execute-api.eu-west-2.amazonaws.com/test",
+        "allowRetry": true
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false,
   "feeOptions": {},
