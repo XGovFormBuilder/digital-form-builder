@@ -25,15 +25,14 @@ export class MagicLinkController extends PageController {
       const state = await cacheService.getState(request);
 
       const isMagicLinkRecordActive = await cacheService.searchForMagicLinkRecord(
-        email,
-        hmac
+        email
       );
 
       if (!isMagicLinkRecordActive) {
         return h.redirect("/magic-link/expired").code(302);
       }
 
-      await cacheService.deleteMagicLinkRecord(email, hmac);
+      await cacheService.deleteMagicLinkRecord(email);
 
       if (!validation.isValid) {
         // Handle different invalid token cases
