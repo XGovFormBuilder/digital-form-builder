@@ -1,0 +1,31 @@
+{
+  "metadata": {},
+  "startPage": "/hello",
+  "pages": [
+    {
+      "path": "/hello",
+      "title": "Hello",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    }
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    },
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {},
+  "authCheck": false
+}
