@@ -36,6 +36,5 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "feeOptions": {},
-  "authCheck": false
+  "feeOptions": {}
 }
