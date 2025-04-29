@@ -3212,5 +3212,6 @@
     "allowSubmissionWithoutPayment": true,
     "maxAttempts": 3,
     "showPaymentSkippedWarningPage": false
-  }
+  },
+  "feedback": {}
 }
