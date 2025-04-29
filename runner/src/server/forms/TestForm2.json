@@ -36,5 +36,6 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "feeOptions": {}
+  "feeOptions": {},
+  "feedback": {}
 }
