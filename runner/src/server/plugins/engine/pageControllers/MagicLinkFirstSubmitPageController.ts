@@ -2,8 +2,8 @@ import { MagicLinkSubmissionPageController } from "./MagicLinkSubmissionPageCont
 
 // Original MagicLinkFirstSubmitPageController as a child class
 export class MagicLinkFirstSubmitPageController extends MagicLinkSubmissionPageController {
-  get timeRemainingTemplate() {
-    return "email-time-remaining";
+  get timeRemainingRedirect() {
+    return `/${this.model.basePath}/email`;
   }
 
   get redirectAfterSubmission() {

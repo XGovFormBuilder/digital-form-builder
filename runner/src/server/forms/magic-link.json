@@ -22,7 +22,7 @@
           "name": "EmailIntro",
           "options": {},
           "type": "Para",
-          "content": "We need to email you a secure link to the service.<br><br>The link expires after 20 minutes.<br>",
+          "content": "We need to email you a secure link to the service.<br><br>The link expires after 20 minutes.<br><br>If you're returning to a report that you started in the last 3 days, use the same email address.<br>",
           "schema": {}
         },
         {
@@ -36,6 +36,15 @@
               "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           }
+        },
+        {
+          "name": "alert",
+          "type": "ContentWithState",
+          "options": {
+            "exposeToContext": true,
+            "stateVariable": "minutesRemaining"
+          },
+          "content": "{% if minutesRemaining %}<div class='alert'><div class='govuk-warning-text'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><strong class='govuk-warning-text__text'><span class='govuk-visually-hidden'>Warning</span>You must wait {% if minutesRemaining == 1 %}1 minute{% else %}{{ minutesRemaining }} minutes{% endif %} before resubmitting the email</strong></div></div>{% endif %}"
         },
         {
           "name": "PrivacyNotice",
@@ -69,7 +78,23 @@
           "name": "SentAnotherEmail",
           "options": {},
           "type": "Para",
-          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to report an outbreak.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email in 5 minutes, you can resubmit the email.</p><a href='/magic-link/submit2' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
+          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to report an outbreak.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email in 5 minutes.</p>",
+          "schema": {}
+        },
+        {
+          "name": "alert",
+          "type": "ContentWithState",
+          "options": {
+            "exposeToContext": true,
+            "stateVariable": "minutesRemaining"
+          },
+          "content": "{% if minutesRemaining %}<div class='alert'><div class='govuk-warning-text'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><strong class='govuk-warning-text__text'><span class='govuk-visually-hidden'>Warning</span>You must wait {% if minutesRemaining == 1 %}1 minute{% else %}{{ minutesRemaining }} minutes{% endif %} before resubmitting the email</strong></div></div>{% endif %}"
+        },
+        {
+          "name": "SentAnotherEmailButton",
+          "options": {},
+          "type": "Para",
+          "content": "<a href='/magic-link/submit2' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
           "schema": {}
         }
       ]

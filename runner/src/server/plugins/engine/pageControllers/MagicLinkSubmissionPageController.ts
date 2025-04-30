@@ -25,8 +25,8 @@ export class MagicLinkSubmissionPageController extends PageController {
   }
 
   // Template-specific configurations that can be overridden by child classes
-  get timeRemainingTemplate() {
-    return "email-time-remaining";
+  get timeRemainingRedirect() {
+    return `/${this.model.basePath}/email`;
   }
 
   get redirectAfterSubmission() {
@@ -38,7 +38,6 @@ export class MagicLinkSubmissionPageController extends PageController {
       this.request = request; // Store request for use in getter methods
       const { cacheService } = request.services([]);
       const state = await cacheService.getState(request);
-      const email = state["email"];
       const currentTime = Math.floor(Date.now() / 1000);
 
       // Check if there's a cookie with retry information
@@ -66,12 +65,12 @@ export class MagicLinkSubmissionPageController extends PageController {
 
           // Otherwise show the time remaining page with consistent calculation
           const minutesRemaining = Math.ceil(timeRemaining / 60);
-          return h.view(this.timeRemainingTemplate, {
-            email,
-            minutesRemaining,
-            timeRemaining,
-            retryTimeoutSeconds: this.RETRY_TIMEOUT_SECONDS,
+
+          await cacheService.mergeState(request, {
+            minutesRemaining: minutesRemaining,
           });
+
+          return redirectTo(request, h, this.timeRemainingRedirect);
         } catch (error) {
           request.logger.error(["Cookie parsing error", error.message]);
           return redirectTo(request, h, `/${this.model.basePath}/start`);
@@ -148,6 +147,10 @@ export class MagicLinkSubmissionPageController extends PageController {
           const timeRemaining = this.RETRY_TIMEOUT_SECONDS - timeDifference;
           const minutesRemaining = Math.ceil(timeRemaining / 60);
 
+          await cacheService.mergeState(request, {
+            minutesRemaining: minutesRemaining,
+          });
+
           // Set consistent cookie for retry timeout
           const cookieValue = {
             retryAfter: hmacTimestamp + this.RETRY_TIMEOUT_SECONDS,
@@ -157,11 +160,7 @@ export class MagicLinkSubmissionPageController extends PageController {
           h.state("magicLinkRetry", cookieValue, cookieOptions);
 
           // Show the time remaining page
-          return h.view(this.timeRemainingTemplate, {
-            email,
-            minutesRemaining,
-            timeRemaining,
-          });
+          return redirectTo(request, h, this.timeRemainingRedirect);
         }
       }
 
@@ -189,14 +188,26 @@ export class MagicLinkSubmissionPageController extends PageController {
         hmac.toString()
       );
 
-      // Store data in state with a single merge operation
-      await cacheService.mergeState(request, {
+      // First, let's get the current state to see what's in it
+      const currentState = await cacheService.getState(request);
+
+      // Create new state object with all the values we want to set
+      const newStateValues = {
         hmacSignature: hmacUrl,
         hmacExpiryTime: hmacExpiryTime,
         outputs: summaryViewModel.outputs,
         userCompletedSummary: true,
         webhookData: summaryViewModel.validatedWebhookData,
-      });
+      };
+
+      // If minutesRemaining exists in the current state, explicitly remove it
+      if ("minutesRemaining" in currentState) {
+        // Use undefined instead of null to truly remove the property
+        newStateValues.minutesRemaining = undefined;
+      }
+
+      // Store data in state with a single merge operation
+      await cacheService.mergeState(request, newStateValues);
 
       // Set cookie for retry timeout (using consistent constant)
       const cookieOptions = getCookieOptions(this.RETRY_TIMEOUT_SECONDS);

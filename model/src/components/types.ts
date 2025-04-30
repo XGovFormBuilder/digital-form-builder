@@ -24,6 +24,7 @@ export enum ComponentTypeEnum {
   FlashCard = "FlashCard",
   List = "List",
   ContextComponent = "ContextComponent",
+  ContentWithState = "ContentWithState",
 }
 
 export type ComponentType =
@@ -52,7 +53,8 @@ export type ComponentType =
   | "FlashCard"
   | "List"
   | "WebsiteField"
-  | "ContextComponent";
+  | "ContextComponent"
+  | "ContentWithState";
 
 export type ComponentSubType = "field" | "content";
 
@@ -278,6 +280,10 @@ export interface ParaComponent extends ContentFieldBase {
   type: "Para";
 }
 
+export interface ContentWithStateComponent extends ContentFieldBase {
+  type: "ContentWithState";
+}
+
 export interface DetailsComponent extends ContentFieldBase {
   type: "Details";
 }
@@ -352,7 +358,8 @@ export type ComponentDef =
   | UkAddressFieldComponent
   | YesNoFieldComponent
   | WebsiteFieldComponent
-  | ContextComponent;
+  | ContextComponent
+  | ContentWithStateComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -378,7 +385,8 @@ export type ContentComponentsDef =
   | HtmlComponent
   | InsetTextComponent
   | ListComponent
-  | FlashCardComponent;
+  | FlashCardComponent
+  | ContentWithStateComponent;
 
 // Components that render Lists
 export type ListComponentsDef =
