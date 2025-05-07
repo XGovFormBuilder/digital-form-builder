@@ -29,10 +29,11 @@ export class WebhookService {
     method: "POST" | "PUT" = "POST",
     sendAdditionalPayMetadata: boolean = false
   ) {
-    this.logger.info(
-      ["WebhookService", "postRequest body"],
-      JSON.stringify(data)
-    );
+    // Commented out due to potential for logging PII
+    // this.logger.info(
+    //   ["WebhookService", "postRequest body"],
+    //   JSON.stringify(data)
+    // );
     let request = method === "POST" ? post : put;
     try {
       if (!sendAdditionalPayMetadata) {
@@ -59,10 +60,11 @@ export class WebhookService {
         ["WebhookService", "postRequest"],
         `Webhook request to ${url} submitted OK`
       );
-      this.logger.debug(
-        ["WebhookService", "postRequest", `REF: ${reference}`],
-        JSON.stringify(payload)
-      );
+      // Commented out due to potential for logging PII
+      // this.logger.debug(
+      //   ["WebhookService", "postRequest", `REF: ${reference}`],
+      //   JSON.stringify(payload)
+      // );
       return reference;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);

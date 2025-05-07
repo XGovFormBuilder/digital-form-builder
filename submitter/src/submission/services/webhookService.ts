@@ -28,11 +28,13 @@ export class WebhookService {
     try {
       parsed = JSON.parse(data);
     } catch (e) {
-      this.logger.error(`Not submitting ${data}, ${e}`);
+      // Commented out due to potential for logging PII
+      // this.logger.error(`Not submitting ${data}, ${e}`);
       return { payload: { error: e.message } };
     }
 
-    this.logger.info({ data: parsed }, `${method} to ${url}`);
+    // Commented out due to potential for logging PII
+    // this.logger.info({ data: parsed }, `${method} to ${url}`);
 
     try {
       const { payload } = await request(url, {
@@ -47,7 +49,8 @@ export class WebhookService {
       if (e.isBoom) {
         return e.output;
       }
-      this.logger.error({ data }, e);
+      // Commented out due to potential for logging PII
+      // this.logger.error({ data }, e);
       return { payload: { error: e.message } };
     }
   }

@@ -168,10 +168,11 @@ export class SummaryPageController extends PageController {
         userCompletedSummary: true,
       });
 
-      request.logger.info(
-        ["Webhook data", "before send", request.yar.id],
-        JSON.stringify(summaryViewModel.validatedWebhookData)
-      );
+      // Commented out due to potential for logging PII
+      // request.logger.info(
+      //   ["Webhook data", "before send", request.yar.id],
+      //   JSON.stringify(summaryViewModel.validatedWebhookData)
+      // );
 
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,

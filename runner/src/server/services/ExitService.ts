@@ -46,18 +46,19 @@ export class ExitService {
       });
       return response.payload;
     } catch (e: unknown) {
-      if (e.data?.isResponseError) {
-        this.logger.error(
-          {
-            service: "ExitService",
-            method: "POST",
-            url,
-            reqBody: payload,
-            statusCode: e.data.res.statusCode,
-          },
-          `${url} responded with an error when exiting form for ${payload?.exitState?.exitEmailAddress}.`
-        );
-      }
+      // Commented out due to potential for logging PII
+      // if (e.data?.isResponseError) {
+      // this.logger.error(
+      //   {
+      //     service: "ExitService",
+      //     method: "POST",
+      //     url,
+      //     reqBody: payload,
+      //     statusCode: e.data.res.statusCode,
+      //   },
+      //   `${url} responded with an error when exiting form for ${payload?.exitState?.exitEmailAddress}.`
+      // );
+      // }
       throw e;
     }
   }
