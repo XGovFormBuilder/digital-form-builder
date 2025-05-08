@@ -219,10 +219,11 @@ export class MagicLinkSubmissionPageController extends PageController {
         cookieOptions
       );
 
-      request.logger.info(
-        ["Webhook data", "before send", request.yar.id],
-        JSON.stringify(summaryViewModel.validatedWebhookData)
-      );
+      // Commented out due to potential for logging PII
+      // request.logger.info(
+      //   ["Webhook data", "before send", request.yar.id],
+      //   JSON.stringify(summaryViewModel.validatedWebhookData)
+      // );
 
       // Get StatusService and submit the form
       const { statusService } = request.services([]);
