@@ -353,6 +353,8 @@ export const Schema = joi
     toggle: joi.alternatives().try(joi.boolean(), joi.string()).optional(),
     toggleRedirect: joi.string().optional(),
     retryTimeoutSeconds: joi.number().optional(),
+    allowedDomains: joi.array().items(joi.string()).optional(),
+    invalidDomainRedirect: joi.string().optional(),
     analytics: analyticsSchema.optional(),
     webhookHmacSharedKey: joi.string().optional(),
     fullStartPage: joi.string().optional(),

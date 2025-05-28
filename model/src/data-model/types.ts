@@ -221,6 +221,8 @@ export type FormDefinition = {
   jwtKey?: string | undefined;
   toggle?: boolean | string | undefined;
   retryTimeoutSeconds?: number | undefined;
+  allowedDomains?: string[] | undefined;
+  invalidDomainRedirect?: string | undefined;
   analytics?: Analytics;
   webhookHmacSharedKey?: string | undefined;
   fullStartPage?: string | undefined;

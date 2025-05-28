@@ -3,6 +3,7 @@ import { PageController } from "./PageController";
 import { redirectTo } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { createHmac } from "src/server/utils/hmac";
+import { isAllowedDomain } from "src/server/utils/domain";
 
 // Shared options for cookie settings
 const getCookieOptions = (timeRemaining) => ({
@@ -130,6 +131,18 @@ export class MagicLinkSubmissionPageController extends PageController {
           JSON.stringify(state),
         ]);
         return redirectTo(request, h, `/${model.basePath}/start`);
+      }
+
+      const allowedEmailDomains = this.model.def.allowedDomains ?? [];
+      //hardcoded start page as a fallback if InvalidDomainRedirectPage not added to config
+      const InvalidDomainRedirectPage =
+        model.def.invalidDomainRedirect || "/start";
+      if (!isAllowedDomain(email, allowedEmailDomains)) {
+        request.logger.warn([
+          "DomainValidation",
+          `Email domain '${email.split("@")[1]}' not allowed`,
+        ]);
+        return redirectTo(request, h, InvalidDomainRedirectPage);
       }
 
       const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
