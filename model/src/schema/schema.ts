@@ -209,6 +209,13 @@ const feeSchema = joi.object().keys({
   prefix: joi.string().optional(),
 });
 
+const analyticsSchema = joi.object().keys({
+  gtmId1: joi.string().allow("").optional(),
+  gtmId2: joi.string().allow("").optional(),
+  matomoId: joi.string().allow("").optional(),
+  matomoUrl: joi.string().uri().allow("").optional(),
+});
+
 const multiApiKeySchema = joi.object({
   test: joi.string().optional(),
   smoke: joi.string().optional(),
@@ -346,6 +353,7 @@ export const Schema = joi
     toggle: joi.alternatives().try(joi.boolean(), joi.string()).optional(),
     toggleRedirect: joi.string().optional(),
     retryTimeoutSeconds: joi.number().optional(),
+    analytics: analyticsSchema.optional(),
     webhookHmacSharedKey: joi.string().optional(),
     fullStartPage: joi.string().optional(),
     serviceName: joi.string().optional(),
