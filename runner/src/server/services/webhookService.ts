@@ -27,13 +27,15 @@ export class WebhookService {
     url: string,
     data: object,
     method: "POST" | "PUT" = "POST",
-    sendAdditionalPayMetadata: boolean = false
+    sendAdditionalPayMetadata: boolean = false,
+    authHeaders?: Record<string, string>
   ) {
     // Commented out due to potential for logging PII
     // this.logger.info(
     //   ["WebhookService", "postRequest body"],
     //   JSON.stringify(data)
     // );
+
     let request = method === "POST" ? post : put;
     try {
       if (!sendAdditionalPayMetadata) {
@@ -41,6 +43,10 @@ export class WebhookService {
       }
       const { payload } = await request(url, {
         ...DEFAULT_OPTIONS,
+        headers: {
+          ...DEFAULT_OPTIONS.headers,
+          ...(authHeaders || {}),
+        },
         payload: JSON.stringify(data),
       });
 

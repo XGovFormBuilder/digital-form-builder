@@ -1,4 +1,5 @@
 import { HapiRequest, HapiServer } from "../types";
+import { createHmacRaw } from "../utils/hmac";
 import {
   CacheService,
   NotifyService,
@@ -130,6 +131,29 @@ export class StatusService {
 
     let newReference;
 
+    /**
+     * If the OPTIONAL config contains webhookHmacSharedKey, then we send HMAC Auth headers
+     * This is used to confirm ONLY X-Gov's backend is sending data to our API
+     * Everyone else will be Rejected
+     */
+    const id = request.params?.id;
+    const forms = request.server?.app?.forms;
+    const model = id && forms?.[id];
+    const hmacKey = model?.def?.webhookHmacSharedKey;
+    let customSecurityHeaders: Record<string, string> = {};
+
+    if (hmacKey) {
+      const [hmacSignature, requestTime, hmacExpiryTime] = await createHmacRaw(
+        request.yar.id,
+        hmacKey
+      );
+      customSecurityHeaders = {
+        "X-Request-ID": request.yar.id.toString(),
+        "X-HMAC-Signature": hmacSignature.toString(),
+        "X-HMAC-Time": requestTime.toString(),
+      };
+    }
+
     if (callback) {
       this.logger.info(
         ["StatusService", "outputRequests"],
@@ -153,7 +177,8 @@ export class StatusService {
         firstWebhook.outputData.url,
         { ...formData },
         "POST",
-        firstWebhook.outputData.sendAdditionalPayMetadata
+        firstWebhook.outputData.sendAdditionalPayMetadata,
+        customSecurityHeaders
       );
       await this.cacheService.mergeState(request, {
         reference: newReference,
@@ -178,7 +203,8 @@ export class StatusService {
             ...formData,
           },
           "POST",
-          sendAdditionalPayMetadata
+          sendAdditionalPayMetadata,
+          customSecurityHeaders
         )
       ),
     ];

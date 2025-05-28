@@ -81,6 +81,29 @@ export async function createHmac(email: string, hmacKey: string) {
 }
 
 /**
+ * Similar to the above but returns raw epoch timestamps,
+ * making it preferable for cryptographic logic.
+ * The other function may benefit from refactoring
+ * to separate display logic from core logic. */
+export async function createHmacRaw(message: string, hmacKey: string) {
+  try {
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    const dataToHash = message + currentTimestamp;
+    const hmac = crypto
+      .createHmac("sha256", hmacKey)
+      .update(dataToHash)
+      .digest("hex");
+
+    const expiryTimestamp = currentTimestamp + TIME_THRESHOLD;
+
+    return [hmac, currentTimestamp, expiryTimestamp];
+  } catch (error) {
+    console.error("Error creating HMAC (raw):", error);
+    throw error;
+  }
+}
+
+/**
  * Validates an HMAC signature
  */
 export async function validateHmac(

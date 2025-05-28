@@ -346,6 +346,7 @@ export const Schema = joi
     toggle: joi.alternatives().try(joi.boolean(), joi.string()).optional(),
     toggleRedirect: joi.string().optional(),
     retryTimeoutSeconds: joi.number().optional(),
+    webhookHmacSharedKey: joi.string().optional(),
     fullStartPage: joi.string().optional(),
     serviceName: joi.string().optional(),
   });
