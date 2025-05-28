@@ -214,4 +214,6 @@ export type FormDefinition = {
   jwtKey?: string | undefined;
   toggle?: boolean | string | undefined;
   retryTimeoutSeconds?: number | undefined;
+  fullStartPage?: string | undefined;
+  serviceName?: string | undefined;
 };
