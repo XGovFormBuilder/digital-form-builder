@@ -192,7 +192,7 @@ export class MagicLinkSubmissionPageController extends PageController {
       }
 
       // Construct the magic link URL
-      const hmacUrlStart = "/magic-link/return?email=";
+      const hmacUrlStart = `/${model.basePath}/return?email=`
       const hmacUrl = hmacUrlStart.concat(
         email,
         "&request_time=",
