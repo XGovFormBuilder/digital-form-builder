@@ -1,23 +1,88 @@
 {
   "metadata": {},
-  "startPage": "/thank-you-for-verifying-your-email",
+  "startPage": "/contact-the-knowledge-and-library-services-team",
+  "fullStartPage": "/kls-path-1/contact-the-knowledge-and-library-services-team",
+  "serviceName": "Knowledge and Library Services",
+   "analytics": {
+    "matomoUrl": "https://ukhsakls.matomo.cloud",
+    "matomoId": "11"
+  },
+  "webhookHmacSharedKey": "SomeRandomHMACKey",
+  "magicLinkConfig": "kls-magic-link",
   "pages": [
     {
-      "title": "Thank you for verifying your email",
-      "path": "/thank-you-for-verifying-your-email",
-      "components": [
+      "title": "Contact the Knowledge and Library Services team",
+      "path": "/contact-the-knowledge-and-library-services-team",
+      "components": [],
+      "next": [
         {
-          "name": "YrUDYI",
-          "options": {},
-          "type": "Para",
-          "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the KLS team deal with your enquiry promptly and accurately. ",
-          "schema": {}
+          "path": "/which-organisation-do-you-work-for"
         }
       ],
-      "next": [{ "path": "/which-organisation-do-you-work-for" }],
       "controller": "./pages/start.js"
     },
     {
+      "path": "/which-organisation-do-you-work-for",
+      "title": "Which organisation do you work for?",
+      "components": [
+        {
+          "name": "ZpmVWP",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Organisation",
+          "hint": "The KLS service is available to staff from: UK Health Security Agency, Office for Health Improvement and Disparities, NHS England Public Health, and Local Authority Public Health. \n\nIf you do not belong to one of these organisations you can still contact the KLS team by selecting the 'Other' option to find the team's email address.",
+          "list": "uIwkHV",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/please-contact-us-via-email",
+          "condition": "BOkxIN"
+        },
+        {
+          "path": "/magic-link-redirect",
+          "condition": "dhBTmP"
+        }
+      ]
+    },
+    {
+      "path": "/please-contact-us-via-email",
+      "title": "Please contact us via email",
+      "components": [
+        {
+          "name": "ryhwUr",
+          "options": {},
+          "type": "Html",
+          "content": "<p>You are not eligable to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraryadmin@ukhsa.gov.uk\">libraryadmin@ukhsa.gov.uk</a></strong></p>"
+        }
+      ],
+      "next": []
+    },
+    {
+        
+      "path": "/magic-link-redirect",
+      "unauthenticated": true,
+      "controller": "MagicLinkRedirectController",
+      "next": [
+        {
+          "path": "/which-organisation-do-you-work-for-DUPE"
+        }
+      ]
+
+
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+     {
       "path": "/about-you",
       "title": "About you",
       "components": [
@@ -472,8 +537,8 @@
       ]
     },
     {
-      "path": "/which-organisation-do-you-work-for",
-      "title": "Which organisation do you work for?",
+      "path": "/which-organisation-do-you-work-for-DUPE",
+      "title": "Which organisation do you work for-DUPE?",
       "components": [
         {
           "name": "wyvXTj",
@@ -754,6 +819,32 @@
   ],
   "lists": [
     {
+      "title": "Organisation",
+      "name": "uIwkHV",
+      "type": "string",
+      "items": [
+        {
+          "text": "UK Health Security Agency",
+          "value": "UKHSA"
+        },
+        {
+          "text": "Office for Health Improvement and Disparities",
+          "value": "OHID"
+        },
+        {
+          "text": "NHS England Public Health",
+          "value": "NHSE"
+        },
+        {
+          "text": "Local Authority Public Health",
+          "value": "LAPH"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },    {
       "title": "Preferred contact method",
       "name": "slVZMW",
       "type": "string",
@@ -1375,6 +1466,50 @@
   "sections": [],
   "conditions": [
     {
+      "displayName": "Other",
+      "name": "BOkxIN",
+      "value": {
+        "name": "Other",
+        "conditions": [
+          {
+            "field": {
+              "name": "ZpmVWP",
+              "type": "RadiosField",
+              "display": "Organisation"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Other",
+              "display": "Other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Not other",
+      "name": "dhBTmP",
+      "value": {
+        "name": "Not other",
+        "conditions": [
+          {
+            "field": {
+              "name": "ZpmVWP",
+              "type": "RadiosField",
+              "display": "Organisation"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "Other",
+              "display": "Other"
+            }
+          }
+        ]
+      }
+    },
+    {
       "displayName": "General route",
       "name": "mZdZMC",
       "value": {
@@ -1735,9 +1870,5 @@
     "allowSubmissionWithoutPayment": true,
     "maxAttempts": 3,
     "showPaymentSkippedWarningPage": false
-  },
-  "declaration": "",
-  "name": "kls-service-enquiry-v3-pt2-1",
-  "feedback": { "feedbackForm": true, "url": "" },
-  "phaseBanner": { "phase": "beta" }
+  }
 }
