@@ -123,6 +123,7 @@
             },
 
     {
+
       "path": "/resubmit-email",
       "title": "We've sent you another email",
       "unauthenticated": true,
