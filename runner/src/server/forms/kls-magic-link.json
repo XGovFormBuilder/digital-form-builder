@@ -8,9 +8,9 @@
   },
   "magicLinkConfig": "kls-magic-link",
   "allowedDomains": ["ukhsa.gov.uk", "dhsc.gov.uk", "nhs.net", "nhs.uk", "gov.uk"],
-  "invalidDomainRedirect": "/kls-path-1/please-contact-us-via-email",
+  "invalidDomainRedirect": "/kls-magic-link/your-email-is-not-on-our-approved-list",
   "serviceName": "Knowledge and Library Services",
-  "fullStartPage": "/kls-path-1/contact-the-knowledge-and-library-services-team",
+  "fullStartPage": "/kls-path-1/start",
   "pages": [
     {
       "path": "/start",
@@ -23,13 +23,13 @@
       "unauthenticated": true,
       "continueButtonText": "Continue",
       "showContinueButton": true,
-      "backLinkFallback": "/YOUMESSEDUP",
+      "backLinkFallback": "/kls-path-1/which-organisation-do-you-work-for",
       "components": [
         {
           "name": "EmailIntro",
           "options": {},
           "type": "Para",
-          "content": "We need to email you a secure link to the service.<br><br>The link expires after 20 minutes.<br><br>If you're returning to a report that you started in the last 3 days, use the same email address.<br>",
+          "content": "We need to email you a secure link to the service.<br><br>The link expires after 20 minutes.<br>",
           "schema": {}
         },
         {
@@ -79,7 +79,7 @@
       "path": "/check-your-email",
       "title": "Check your email",
       "unauthenticated": true,
-      "backLinkFallback": "/magic-link/magic-link",
+      "backLinkFallback": "/start",
       "components": [
         {
           "name": "SentAnotherEmail",
@@ -107,6 +107,23 @@
       ]
     },
     {
+      "backLinkFallback": "/kls-magic-link",
+      "path": "/your-email-is-not-on-our-approved-list",
+      "title": "Your email is not on our approved list",
+      "components": [
+        {
+          "name": "GVrjNV",
+          "options": {},
+          "type": "Para",
+          "content": " The email you provided does not match our approved email criteria. We only accept emails from goverment orgainsation limited to UKHSA, OHID, Local Authorities and the NHS (nhs.uk and nhs.net).<br>You can still contact the Knowledge and Library Services team via their <b>email</b>:<br> libraries@kls.ukhsa.gov.uk ",
+          "schema": {}
+        }
+              ]
+
+            },
+
+    {
+
       "path": "/resubmit-email",
       "title": "We've sent you another email",
       "unauthenticated": true,
