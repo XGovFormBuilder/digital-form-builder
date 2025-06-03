@@ -5,6 +5,7 @@ import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { validateHmac } from "src/server/utils/hmac";
 import Jwt from "@hapi/jwt";
 import config from "server/config";
+import { configureEnginePlugin } from "../configureEnginePlugin";
 
 export class MagicLinkController extends PageController {
   constructor(model, pageDef) {
@@ -18,18 +19,22 @@ export class MagicLinkController extends PageController {
       const requestTime = request.query.request_time;
       const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
+      debugger;
+
       const validation = await validateHmac(email, hmac, requestTime, hmacKey);
 
       const { cacheService } = request.services([]);
 
       const state = await cacheService.getState(request);
 
+      //💣 Issue: As the program scales, this will need updating on a per-form basis.
+      // Otherwise active on one form, will mark them active on all.
       const isMagicLinkRecordActive = await cacheService.searchForMagicLinkRecord(
         email
       );
 
       if (!isMagicLinkRecordActive) {
-        return h.redirect("/magic-link/expired").code(302);
+        return h.redirect(`/${this.model.basePath}/expired`).code(302);
       }
 
       await cacheService.deleteMagicLinkRecord(email);
@@ -38,11 +43,11 @@ export class MagicLinkController extends PageController {
         // Handle different invalid token cases
         switch (validation.reason) {
           case "expired":
-            return h.redirect("/magic-link/expired").code(302);
+            return h.redirect(`/${this.model.basePath}/expired`).code(302);
           case "invalid_signature":
-            return h.redirect("/magic-link/incorrect-email").code(302);
+            return h.redirect(`/${this.model.basePath}/incorrect-email`).code(302);
           default:
-            return h.redirect("/magic-link/error").code(302);
+            return h.redirect(`/${this.model.basePath}/error`).code(302);
         }
       }
 

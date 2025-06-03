@@ -101,7 +101,7 @@
           "name": "SentAnotherEmailButton",
           "options": {},
           "type": "Para",
-          "content": "<a href='/magic-link/submit2' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
+          "content": "<a href='/kls-magic-link/submit2' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
           "schema": {}
         }
       ]
@@ -141,7 +141,7 @@
           "options": {},
           "type": "Para",
           "title": "If you've not received an email",
-          "content": "<h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "content": "<h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/kls-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
           "schema": {}
         }
       ],
@@ -180,7 +180,7 @@
           "name": "IncorrectEmail",
           "options": {},
           "type": "Para",
-          "content": "The email you used does not match the email associated with this link.<br><br><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "content": "The email you used does not match the email associated with this link.<br><br><a href='/kls-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
           "schema": {}
         }
       ]
@@ -192,7 +192,7 @@
         {
           "type": "Para",
           "title": "This link has expired",
-          "content": "<a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "content": "<a href='/kls-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
           "name": "blarGGH",
           "options": {},
           "schema": {}
@@ -204,7 +204,7 @@
     "confirmationPage": {
       "customText": {
         "hidePanel": true,
-        "nextSteps": "<a href='/magic-link/check-your-email' class='govuk-back-link'>Back</a><h1 class='govuk-heading-l'>We've sent you another email</h1><p class=\"govuk-body\">We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to report an outbreak. </p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>"
+        "nextSteps": "<a href='/kls-magic-link/check-your-email' class='govuk-back-link'>Back</a><h1 class='govuk-heading-l'>We've sent you another email</h1><p class=\"govuk-body\">We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to report an outbreak. </p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/kls-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>"
       }
     }
   },
