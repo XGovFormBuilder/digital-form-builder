@@ -103,9 +103,9 @@
           "name": "afZPpL",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter your email address",
-              "any.only": "Enter your email address",
-              "string.empty": "Enter your email address"
+              "any.required": "Enter email address",
+              "any.only": "Enter email address",
+              "string.empty": "Enter email address"
             }
           },
           "type": "EmailAddressField",
@@ -313,10 +313,15 @@
         {
           "name": "etcpxo",
           "options": {
-            "string.empty": "Enter your email address"
+          "customValidationMessages": {
+              "any.required": "Enter UK only or international",
+              "any.only": "Enter UK only or international",
+              "string.empty": "Enter UK only or international"
+           }
           },
           "type": "TextField",
           "title": "UK only or international?",
+          
           "hint": "Help the KLS team understand the geographic scope of your work by entering the relevant country/countries",
           "schema": {}
         },
@@ -784,7 +789,13 @@
         },
         {
           "name": "UjGoiE",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter UK only or international",
+              "any.only": "Enter UK only or international",
+              "string.empty": "Enter UK only or international"
+            }
+          },
           "type": "TextField",
           "hint": "Help the KLS team understand the geographic scope of your work by entering the relevant country/countries",
           "title": "UK only or international?",
@@ -905,8 +916,9 @@
           "name": "nmlFzr",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter your group",
-              "any.only": "Enter your group"
+              "any.required": "Enter group",
+              "any.only": "Enter group",
+              "string.empty": "Enter group"
             }
           },
           "type": "SelectField",
@@ -921,8 +933,10 @@
           "name": "oUmeSI",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter your directorate",
-              "any.only": "Enter your directorate"
+              "any.required": "Enter directorate",
+              "any.only": "Enter directorate",
+              "string.empty": "Enter directorate"
+
             }
           },
           "type": "SelectField",
@@ -937,8 +951,9 @@
           "name": "EkwRix",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter your location",
-              "any.only": "Enter your location"
+              "any.required": "Enter location",
+              "any.only": "Enter location",
+              "string.empty": "Enter location"
             }
           },
           "type": "SelectField",
@@ -953,9 +968,9 @@
           "name": "SPKrpE",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter your email address",
-              "any.only": "Enter your email address",
-              "string.empty": "Enter your email address"
+              "any.required": "Enter email address",
+              "any.only": "Enter email address",
+              "string.empty": "Enter email address"
             }
           },
           "type": "EmailAddressField",
@@ -996,9 +1011,9 @@
           "name": "PIjqqt",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter your email address",
-              "any.only": "Enter your email address",
-              "string.empty": "Enter your email address"
+              "any.required": "Enter email address",
+              "any.only": "Enter email address",
+              "string.empty": "Enter email address"
             }
           },
           "type": "EmailAddressField",
@@ -1016,8 +1031,10 @@
           "name": "oCVslj",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter your location",
-              "any.only": "Enter your location"
+              "any.required": "Enter location",
+              "any.only": "Enter location",
+              "string.empty": "Enter location"
+
             }
           },
           "type": "SelectField",
@@ -1124,18 +1141,8 @@
         },
         {
           "description": "",
-          "text": "CSO: Radiation",
-          "value": "CSO: Radiation"
-        },
-        {
-          "description": "",
-          "text": "Chemicals",
-          "value": "Chemicals"
-        },
-        {
-          "value": "Climate and Environmental Hazards",
-          "description": "",
-          "text": "Climate and Environmental Hazards"
+          "text": "CSO: Radiation, Chemicals, Climate and Environmental Hazards",
+          "value": "CSO: Radiation, Chemicals, Climate and Environmental Hazards"
         },
         {
           "value": "CSO: Scientific Facilities and Performance",
@@ -1148,14 +1155,9 @@
           "text": "CSO: Science Strategy and Evidence"
         },
         {
-          "value": "CMA: Emergency Preparedness",
+          "value": "CMA: Emergency Preparedness, Resilience and Response (EPRR) and Response Operations",
           "description": "",
-          "text": "CMA: Emergency Preparedness"
-        },
-        {
-          "value": "Resilience and Response (EPRR) and Response Operations",
-          "description": "",
-          "text": "Resilience and Response (EPRR) and Response Operations"
+          "text": "CMA: Emergency Preparedness, Resilience and Response (EPRR) and Response Operations"
         },
         {
           "description": "",
@@ -1188,14 +1190,9 @@
           "text": "CDO: Analysis and Intelligence Assessment"
         },
         {
-          "value": "CDO: Data Protection",
+          "value": "CDO: Data Protection, Security and Technology Services",
           "description": "",
-          "text": "CDO: Data Protection"
-        },
-        {
-          "value": "Security and Technology Services",
-          "description": "",
-          "text": "Security and Technology Services"
+          "text": "CDO: Data Protection, Security and Technology Services"
         },
         {
           "value": "CDO: Digital and Data",
