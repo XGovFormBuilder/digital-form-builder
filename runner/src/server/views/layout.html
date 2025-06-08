@@ -5,6 +5,9 @@
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "skip-link/macro.njk" import govukSkipLink -%}
 {% from "cookie-banner/macro.njk" import govukCookieBanner %}
+
+{% set govukRebrand = true %}
+
 {% block head %}
   <!--[if !IE 8]><!-->
     <link rel="preload" as="font" href="{{ assetPath }}/fonts/light-94a07e06a1-v2.woff2" type="font/woff2" crossorigin="anonymous">
@@ -72,6 +75,7 @@
   {{ pageTitle }}
 {% endblock %}
 
+
 {% block skipLink %}
   {{ govukSkipLink({
     href: '#main-content',
@@ -87,7 +91,8 @@
     serviceName: name if name else serviceName,
     serviceUrl: serviceStartPage,
     navigation: navigation,
-    useTudorCrown: true
+    useTudorCrown: true,
+    rebrand: true
 }) }}
 
 {% endblock %}
@@ -172,6 +177,7 @@
 
 {% block footer %}
     {{ govukFooter({
+        rebrand: true,
         meta: {
             items: [{
                 href: privacyPolicyUrl,

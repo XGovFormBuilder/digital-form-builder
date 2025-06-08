@@ -4963,7 +4963,7 @@ __metadata:
     flagg: ^1.1.2
     flat: 5.0.2
     focus-trap-react: ^8.9.2
-    govuk-frontend: ^4.9.0
+    govuk-frontend: ^4.10.0
     hapi-pino: ^8.0.1
     hoek: ^6.1.3
     html-webpack-plugin: ^4.5.2
@@ -5058,7 +5058,7 @@ __metadata:
     eslint-plugin-import: ^2.25.4
     eslint-plugin-tsdoc: ^0.2.14
     expr-eval: 2.0.2
-    govuk-frontend: ^4.9.0
+    govuk-frontend: ^4.10.0
     hmpo-components: 5.2.1
     jest: ^29.2.0
     joi: 17.2.1
@@ -5160,7 +5160,7 @@ __metadata:
     flat: 5.0.2
     form-data: ^4.0.0
     google-libphonenumber: ^3.2.34
-    govuk-frontend: ^4.9.0
+    govuk-frontend: ^4.10.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -8618,7 +8618,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-tsdoc: ^0.2.14
-    govuk-frontend: ^4.9.0
+    govuk-frontend: ^4.10.0
     hmpo-components: ^5.2.1
     husky: ^4.3.0
     lint-staged: ^10.4.2
@@ -11407,10 +11407,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^4.9.0":
-  version: 4.9.0
-  resolution: "govuk-frontend@npm:4.9.0"
-  checksum: f70cf65d91e00669b6b818e82b343df8dc40fef1ffdda02ad4394291bdb184aca3593e610f5399ee01b1c921a5226f13cd537606a7755a4e882864852fd2e18c
+"govuk-frontend@npm:^4.10.0":
+  version: 4.10.0
+  resolution: "govuk-frontend@npm:4.10.0"
+  checksum: 2c0b0be3b6661173839057bd025bda181d99f4d93678be4e9640c67bfb4a63a4f7a366fdbde3f1c634dd45ca48a3dc4c095e625af45e4b30d2c18378a2e5857c
   languageName: node
   linkType: hard
 
