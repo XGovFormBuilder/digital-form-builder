@@ -7,7 +7,7 @@
     "matomoUrl": "https://ukhsakls.matomo.cloud",
     "matomoId": "11"
   },
-  "webhookHmacSharedKey": "SomeRandomHMACKey",
+  "webhookHmacSharedKey": "${KLSkey}",
   "magicLinkConfig": "kls-magic-link",
   "pages": [
     {
@@ -2286,7 +2286,7 @@
       "title": "test-output",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://webhook.site/e87402d7-a93e-406c-bf13-ca72f3973bbc",
+        "url": "${KLSwebhook}",
         "allowRetry": true
       }
     }
