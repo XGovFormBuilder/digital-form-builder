@@ -313,15 +313,14 @@
         {
           "name": "etcpxo",
           "options": {
-          "customValidationMessages": {
+            "customValidationMessages": {
               "any.required": "Enter UK only or international",
               "any.only": "Enter UK only or international",
               "string.empty": "Enter UK only or international"
-           }
+            }
           },
           "type": "TextField",
           "title": "UK only or international?",
-          
           "hint": "Help the KLS team understand the geographic scope of your work by entering the relevant country/countries",
           "schema": {}
         },
@@ -936,7 +935,6 @@
               "any.required": "Enter directorate",
               "any.only": "Enter directorate",
               "string.empty": "Enter directorate"
-
             }
           },
           "type": "SelectField",
@@ -1034,7 +1032,6 @@
               "any.required": "Enter location",
               "any.only": "Enter location",
               "string.empty": "Enter location"
-
             }
           },
           "type": "SelectField",
@@ -1071,15 +1068,15 @@
         },
         {
           "text": "Office for Health Improvement and Disparities",
-          "value": "OHID"
+          "value": "Office for Health Improvement and Disparities (OHID)"
         },
         {
           "text": "NHS England Public Health",
-          "value": "NHSE"
+          "value": "NHS England Public Health"
         },
         {
           "text": "Local Authority Public Health",
-          "value": "LAPH"
+          "value": "Local Authority Public Health"
         },
         {
           "text": "Other",
@@ -1110,22 +1107,22 @@
         {
           "description": "",
           "text": "Chief Scientific Officer (CSO)",
-          "value": "CSO"
+          "value": "Chief Scientific Officer (CSO)"
         },
         {
           "description": "",
           "text": "Chief Medical Advisor (CMA)",
-          "value": "CMA"
+          "value": "Chief Medical Advisor (CMA)"
         },
         {
           "description": "",
           "text": "Chief Data Officer (CDO)",
-          "value": "CDO"
+          "value": "Chief Data Officer (CDO)"
         },
         {
           "description": "",
           "text": "Chief Operating Officer (COO)",
-          "value": "COO"
+          "value": "Chief Operating Officer (COO)"
         }
       ]
     },
@@ -1273,19 +1270,19 @@
       "items": [
         {
           "text": "Literature search",
-          "value": "Literature search"
+          "value": "Literature Searches"
         },
         {
           "text": "Systematic review",
-          "value": "Systematic review"
+          "value": "Systematic Reviews"
         },
         {
           "text": "Evidence briefing",
-          "value": "Evidence briefing"
+          "value": "Evidence Briefings"
         },
         {
           "text": "Current awareness alerts",
-          "value": "Current awareness alerts"
+          "value": "Current Awareness"
         },
         {
           "text": "General enquiry",
@@ -1317,7 +1314,7 @@
         {
           "description": "",
           "text": "RIS (for reference management software)",
-          "value": "RIS"
+          "value": "RIS (for reference management software)"
         }
       ]
     },
@@ -1411,12 +1408,12 @@
         {
           "description": "It usually takes the KLS team at least 1 working week to complete this work.",
           "text": "Option 1. A list of relevant literature search results in either chronological or author order.",
-          "value": "Option 1. A list of relevant literature search results in either chronological or author order"
+          "value": "Search option 1: a list of the relevant results of a literature search, in chronological or author order. Usually takes at least 1 working week."
         },
         {
           "description": "It usually takes the KLS team at least 2 working weeks to complete this request.",
           "text": "Option 2. A list of the relevant literature search results, organised or annotated by theme or study type.",
-          "value": "Option 2. A list of the relevant literature search results, organised or annotated by theme or study type."
+          "value": "Search option 2: a list of relevant results of a literature search, organised or annotated, by theme or study type. Usually takes at least 2 working weeks."
         }
       ]
     },
@@ -1616,15 +1613,15 @@
         },
         {
           "text": "Office for Health Improvement and Disparities",
-          "value": "OHID"
+          "value": "Office for Health Improvement and Disparities (OHID)"
         },
         {
           "text": "NHS England Public Health",
-          "value": "NHSE"
+          "value": "NHS England Public Health"
         },
         {
           "text": "Local Authority Public Health",
-          "value": "LAPH"
+          "value": "Local Authority Public Health"
         }
       ]
     },
@@ -1720,11 +1717,11 @@
       "items": [
         {
           "text": "Literature search",
-          "value": "Literature search"
+          "value": "Literature Searches"
         },
         {
           "text": "Current awareness alerts",
-          "value": "Current awareness alerts"
+          "value": "Current Awareness"
         },
         {
           "text": "General enquiry",
@@ -1772,8 +1769,8 @@
           "value": "North West"
         },
         {
-          "text": "Yorkshire and Humber",
-          "value": "Yorkshire and Humber"
+          "text": "Yorkshire & Humber",
+          "value": "Yorkshire & Humber"
         },
         {
           "text": "East Midlands",
@@ -1951,7 +1948,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Current awareness alerts",
+              "value": "Current Awareness",
               "display": "Current awareness alerts"
             }
           }
@@ -1973,7 +1970,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Literature search",
+              "value": "Literature Searches",
               "display": "Literature search"
             }
           }
@@ -1995,7 +1992,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Evidence briefing",
+              "value": "Evidence Briefings",
               "display": "Evidence briefing"
             }
           }
@@ -2017,7 +2014,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Systematic review",
+              "value": "Systematic Reviews",
               "display": "Systematic review"
             }
           }
@@ -2053,7 +2050,7 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Current awareness alerts",
+              "value": "Current Awareness",
               "display": "Current awareness alerts"
             }
           }
@@ -2075,7 +2072,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "LAPH",
+              "value": "Local Authority Public Health",
               "display": "LAPH"
             }
           }
@@ -2141,7 +2138,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Literature search",
+              "value": "Literature Searches",
               "display": "Literature search"
             }
           }
@@ -2163,7 +2160,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Current awareness alerts",
+              "value": "Current Awareness",
               "display": "Current awareness alerts"
             }
           }
@@ -2185,7 +2182,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Literature search",
+              "value": "Literature Searches",
               "display": "Literature search"
             }
           },
@@ -2199,7 +2196,7 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Literature search",
+              "value": "Literature Searches",
               "display": "Literature search"
             }
           }
@@ -2235,7 +2232,7 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Evidence briefing",
+              "value": "Evidence Briefings",
               "display": "Evidence briefing"
             }
           },
@@ -2249,7 +2246,7 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "Current awareness alerts",
+              "value": "Current Awareness",
               "display": "Current awareness alerts"
             }
           }
