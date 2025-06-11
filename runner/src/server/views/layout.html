@@ -1,3 +1,4 @@
+{% set govukRebrand = true %}
 {% extends "template.njk" %}
 
 {% from "back-link/macro.njk" import govukBackLink %}
@@ -6,7 +7,16 @@
 {% from "skip-link/macro.njk" import govukSkipLink -%}
 {% from "cookie-banner/macro.njk" import govukCookieBanner %}
 
-{% set govukRebrand = true %}
+
+{% block headIcons %}
+{# TODO: remove this block when rebrand assets are no longer in /rebrand (likely in v5 upgrade) #}
+  <link rel="icon" sizes="48x48" href="{{ assetPath }}/rebrand/images/favicon.ico">
+  <link rel="icon" sizes="any" href="{{ assetPath }}/rebrand/images/favicon.svg" type="image/svg+xml">
+  <link rel="mask-icon" href="{{ assetPath }}/rebrand/images/govuk-icon-mask.svg" color="{{ themeColor }}">
+  <link rel="apple-touch-icon" href="{{ assetPath }}/rebrand/images/govuk-icon-180.png">
+  <link rel="manifest" href="{{ assetPath }}/manifest.json">
+{% endblock %}
+
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -94,6 +104,7 @@
     useTudorCrown: true,
     rebrand: true
 }) }}
+
 
 {% endblock %}
 
