@@ -77,7 +77,7 @@ export default {
       BROWSER_REFRESH_URL: config.browserRefreshUrl,
       sessionTimeout: config.sessionTimeout,
       skipTimeoutWarning: false,
-      serviceStartPage: config.serviceStartPage || "#",
+      serviceStartPage: config.serviceStartPage,
       privacyPolicyUrl: config.privacyPolicyUrl || "/help/privacy",
       phaseTag: config.phaseTag,
       navigation: request?.auth.isAuthenticated

@@ -166,7 +166,7 @@ export class PageControllerBase {
       }
 
       label.isPageHeading = true;
-      label.classes = "govuk-label--l";
+      label.classes = "govuk-fieldset__legend--l";
       pageTitle = pageTitle || label.text;
       showTitle = false;
     }

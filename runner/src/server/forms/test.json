@@ -464,7 +464,9 @@
       "title": "Applicant 4"
     }
   ],
-  "phaseBanner": {},
+  "phaseBanner": {
+    "phase": "beta"
+  },
   "fees": [],
   "payApiKey": "",
   "outputs": [

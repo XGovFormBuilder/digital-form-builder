@@ -5,6 +5,7 @@ const govukFolder = path.join(
   runnerFolder,
   "node_modules",
   "govuk-frontend",
+  "dist",
   "govuk"
 );
 
