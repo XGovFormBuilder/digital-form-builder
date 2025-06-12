@@ -1,7 +1,12 @@
 import path from "path";
 
 const runnerFolder = path.join(__dirname, "..", "..", "..");
-const rootNodeModules = path.join(runnerFolder, "..", "node_modules");
+const govukFolder = path.join(
+  runnerFolder,
+  "node_modules",
+  "govuk-frontend",
+  "govuk"
+);
 
 export default [
   {
@@ -13,8 +18,9 @@ export default [
           path: [
             path.join(runnerFolder, "public", "static"),
             path.join(runnerFolder, "public", "build"),
-            path.join(rootNodeModules, "govuk-frontend", "govuk"),
-            path.join(rootNodeModules, "govuk-frontend", "govuk", "assets"),
+            govukFolder,
+            path.join(govukFolder, "assets"),
+            path.join(govukFolder, "assets", "rebrand"),
             path.join(
               runnerFolder,
               "node_modules",

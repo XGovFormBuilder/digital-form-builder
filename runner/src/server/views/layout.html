@@ -1,3 +1,4 @@
+{% set govukRebrand = true %}
 {% extends "template.njk" %}
 
 {% from "back-link/macro.njk" import govukBackLink %}
@@ -5,6 +6,18 @@
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "skip-link/macro.njk" import govukSkipLink -%}
 {% from "cookie-banner/macro.njk" import govukCookieBanner %}
+
+
+{% block headIcons %}
+{# TODO: remove this block when rebrand assets are no longer in /rebrand (likely in v5 upgrade) #}
+  <link rel="icon" sizes="48x48" href="{{ assetPath }}/rebrand/images/favicon.ico">
+  <link rel="icon" sizes="any" href="{{ assetPath }}/rebrand/images/favicon.svg" type="image/svg+xml">
+  <link rel="mask-icon" href="{{ assetPath }}/rebrand/images/govuk-icon-mask.svg" color="{{ themeColor }}">
+  <link rel="apple-touch-icon" href="{{ assetPath }}/rebrand/images/govuk-icon-180.png">
+  <link rel="manifest" href="{{ assetPath }}/manifest.json">
+{% endblock %}
+
+
 {% block head %}
   <!--[if !IE 8]><!-->
     <link rel="preload" as="font" href="{{ assetPath }}/fonts/light-94a07e06a1-v2.woff2" type="font/woff2" crossorigin="anonymous">
@@ -72,6 +85,7 @@
   {{ pageTitle }}
 {% endblock %}
 
+
 {% block skipLink %}
   {{ govukSkipLink({
     href: '#main-content',
@@ -87,8 +101,10 @@
     serviceName: name if name else serviceName,
     serviceUrl: serviceStartPage,
     navigation: navigation,
-    useTudorCrown: true
+    useTudorCrown: true,
+    rebrand: true
 }) }}
+
 
 {% endblock %}
 
@@ -172,6 +188,7 @@
 
 {% block footer %}
     {{ govukFooter({
+        rebrand: true,
         meta: {
             items: [{
                 href: privacyPolicyUrl,

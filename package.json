@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.21.0",
-    "govuk-frontend": "^4.9.0",
+    "govuk-frontend": "^4.10.0",
     "hmpo-components": "^5.2.1"
   },
   "resolutions": {

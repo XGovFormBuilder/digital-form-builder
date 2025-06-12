@@ -61,7 +61,7 @@
     "dotenv": "8.2.0",
     "expr-eval": "^2.0.2",
     "google-libphonenumber": "^3.2.34",
-    "govuk-frontend": "^4.9.0",
+    "govuk-frontend": "^4.10.0",
     "hapi-pino": "8.0.0",
     "hapi-pulse": "3.0.0",
     "hapi-rate-limit": "4.1.0",

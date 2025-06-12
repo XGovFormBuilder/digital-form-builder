@@ -1,3 +1,4 @@
 $govuk-global-styles: true;
-
-@import "node_modules/govuk-frontend/govuk/all";
+$govuk-rebrand-background-colour: #f4f8fb;
+$govuk-canvas-background-colour: $govuk-rebrand-background-colour;
+@import "./../../../node_modules/govuk-frontend/govuk/all";
