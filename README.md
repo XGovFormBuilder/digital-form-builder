@@ -1,10 +1,15 @@
 # XGov Digital Form Builder
 
-[![Gitter](https://badges.gitter.im/XGovFormBuilder/Public.svg)](https://gitter.im/XGovFormBuilder/Public?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+## Support
+
+- Join the [community on slack](https://join.slack.com/t/xgov-digital-form-bld/shared_invite/zt-xn5ltztf-3_oBzZaziV4sCpDDOGuP6Q)
+- Contact [support@cautionyourblast.com](mailto:support@cautionyourblast.com) if you are unable to join Slack in your organisation.
 
 ## contributions
 
 Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
+
+## Context
 
 This repository is a mono repo for
 
