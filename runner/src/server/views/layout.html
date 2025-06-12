@@ -105,7 +105,8 @@
   {{ govukServiceNavigation({
       serviceName: name if name else serviceName,
       serviceUrl: serviceStartPage,
-      navigation: navigation if navigation
+      navigation: navigation if navigation,
+      rebrand: true
     })
   }}
 
