@@ -358,6 +358,7 @@ export const Schema = joi
     invalidDomainRedirect: joi.string().optional(),
     analytics: analyticsSchema.optional(),
     webhookHmacSharedKey: joi.string().optional(),
+    fileUploadHmacSharedKey: joi.string().optional(),
     fullStartPage: joi.string().optional(),
     serviceName: joi.string().optional(),
   });

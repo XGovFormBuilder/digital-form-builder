@@ -46,7 +46,7 @@ export async function handleUpload(
     let response;
 
     try {
-      response = await uploadService.uploadDocuments(streams);
+      response = await uploadService.uploadDocuments(streams,request);
     } catch (err) {
       if (err.data?.res) {
         const { error } = uploadService.parsedDocumentUploadResponse(err.data);

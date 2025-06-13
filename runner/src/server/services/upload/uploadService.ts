@@ -2,6 +2,7 @@ import FormData from "form-data";
 
 import config from "../../config";
 import { get, post } from "../httpService";
+import { createHmacRaw } from "../../utils/hmac";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
 
 type Payload = HapiRequest["payload"];
@@ -104,7 +105,7 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(streams: any[]) {
+  async uploadDocuments(streams: any[], request: HapiRequest) {
     const form = new FormData();
     for (const stream of streams) {
       form.append("files", stream, {
@@ -113,14 +114,35 @@ export class UploadService {
       });
     }
 
-    const requestData = { headers: form.getHeaders(), payload: form };
-    const responseData = await post(
-      `${config.documentUploadApiUrl}/v1/files`,
-      requestData
-    );
+  const formHeaders = form.getHeaders();
 
-    return this.parsedDocumentUploadResponse(responseData);
-  }
+
+  const id = request.params?.id;
+  const forms = request.server?.app?.forms;
+  const model = id && forms?.[id];
+  const hmacKey = model?.def?.fileUploadHmacSharedKey;
+ 
+  const [hmacSignature, requestTime] = await createHmacRaw(
+    request.yar.id,
+    hmacKey
+  );
+
+  const customSecurityHeaders = {
+    "X-Request-ID": request.yar.id.toString(),
+    "X-HMAC-Signature": hmacSignature.toString(),
+    "X-HMAC-Time": requestTime.toString(),
+  };
+
+  const headers = {
+    ...formHeaders, 
+    ...customSecurityHeaders, 
+  };
+
+  const requestData = { headers, payload: form };
+  const responseData = await post(`${config.documentUploadApiUrl}/v1/files`, requestData);
+
+  return this.parsedDocumentUploadResponse(responseData);
+}
 
   parsedDocumentUploadResponse({ res, payload }) {
     const warning = payload?.toString?.();
@@ -155,23 +177,30 @@ export class UploadService {
     return h.continue;
   }
 
-  validateContentType(
-    file: HapiReadableStream,
-    customAcceptedTypes?: string[]
-  ) {
-    const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
+validateContentType(
+  file: HapiReadableStream,
+  customAcceptedTypes?: string[]
+) {
+  const contentType = file?.hapi?.headers?.["content-type"];
+  const filename = file?.hapi?.filename;
+  const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
-    return acceptedTypes.includes(file?.hapi?.headers?.["content-type"]);
+  let isValid = acceptedTypes.includes(contentType);
+
+  // Fallback: allow .ris files with 'application/octet-stream' 
+  // API BACKEND - Will be used to scan if this is actually what it claims to be ...
+  if (!isValid && filename?.endsWith(".ris")) {
+    this.logger.warn("UPLOAD_WARNING", {
+      reason: "RIS file had generic content type",
+      filename,
+      contentType
+    });
+    isValid = true;
   }
 
-  invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
-    return parsedError(
-      fieldName,
-      this.validFiletypesString(customAcceptedTypes)
-    );
-  }
 
-  downloadDocuments(paths: string[]) {
+  return isValid;
+}  downloadDocuments(paths: string[]) {
     const promises = paths.map((path) => get<string>(path, {}));
     return Promise.all(promises);
   }
@@ -191,9 +220,21 @@ export class UploadService {
 const contentTypeToName = {
   "image/jpeg": "jpg, jpeg",
   "image/png": "png",
-  "application/pdf": "pdf",
-  "application/vnd.oasis.opendocument.text": "odt",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-    "docx",
+  "image/gif": "gif",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
   "text/csv": "csv",
+  "application/vnd.ms-excel.sheet.macroEnabled.12": "xlsm",
+  "application/xml": "xml",
+  "application/pdf": "pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+  "application/rtf": "rtf",
+  "text/rtf": "rtf", 
+  "application/msword": "doc",
+  "application/x-research-info-systems": "ris",
+  "text/ris": "ris",
+  "text/plain": "txt",
+  "application/vnd.ms-outlook": "msg",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
+  "application/vnd.ms-excel": "xls"
+  // "application/zip": "zip"
 };

@@ -226,6 +226,7 @@ export type FormDefinition = {
   invalidDomainRedirect?: string | undefined;
   analytics?: Analytics;
   webhookHmacSharedKey?: string | undefined;
+  fileUploadHmacSharedKey?: string | undefined;
   fullStartPage?: string | undefined;
   serviceName?: string | undefined;
 };
