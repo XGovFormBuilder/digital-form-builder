@@ -109,7 +109,7 @@ module.exports = {
   // If both the api env and node env are set to "production", the pay return url will need to be secure.
   // This is not the case if either are set to "test", or if the node env is set to "development"
   // payReturnUrl: "http://localhost:3009"
-  // documentUploadApiUrl: "",
+  documentUploadApiUrl: "${KLSUploadAPILink}",
   // ordnanceSurveyKey: "", // deprecated - this API is deprecated
   // browserRefreshUrl: "", // deprecated - idk what this does
 
