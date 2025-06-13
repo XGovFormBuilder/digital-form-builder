@@ -1,6 +1,10 @@
 {
   "startPage": "/start",
   "skipSummary": true,
+  "authentication": true,
+  "toggle": true,
+  "toggleRedirect": "/kls-path-1/which-organisation-do-you-work-for-DUPE",
+
   "retryTimeoutSeconds": 300,
     "analytics": {
     "matomoId": "11",
@@ -85,7 +89,7 @@
           "name": "SentAnotherEmail",
           "options": {},
           "type": "Para",
-          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to report an outbreak.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email in 5 minutes.</p>",
+          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to access the Knowledge and Library Services form.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email in 5 minutes.</p>",
           "schema": {}
         },
         {
@@ -230,7 +234,7 @@
       }
     }
   ],
-  "jwtKey": "sdasdsadsasdasasdasdsdsdsdas",
+  "jwtKey": "${KLSJwtKey}",
   "feedback": {
     "feedbackForm": true,
     "url": "/feedback"

@@ -2,17 +2,21 @@
   "metadata": {},
   "startPage": "/start",
   "fullStartPage": "/kls-path-1/start",
+  "authentication": true,
+  "toggle": true,
   "serviceName": "Knowledge and Library Services",
   "analytics": {
     "matomoUrl": "https://ukhsakls.matomo.cloud",
     "matomoId": "11"
   },
   "webhookHmacSharedKey": "${KLSkey}",
+  "fileUploadHmacSharedKey": "${KLSFileUploadKey}",
   "magicLinkConfig": "kls-magic-link",
   "pages": [
     {
       "title": "Contact the Knowledge and Library Services team",
       "path": "/start",
+      "unauthenticated": true,
       "components": [],
       "next": [
         {
@@ -23,6 +27,7 @@
     },
     {
       "path": "/which-organisation-do-you-work-for",
+      "unauthenticated": true,
       "title": "Which organisation do you work for?",
       "components": [
         {
@@ -51,6 +56,7 @@
     },
     {
       "path": "/please-contact-us-via-email",
+      "unauthenticated": true,
       "title": "Please contact us via email",
       "components": [
         {
@@ -93,7 +99,12 @@
         {
           "name": "RpctHr",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter job title",
+              "any.only": "Enter job title",
+              "string.empty": "Enter job title"
+            }
           },
           "type": "TextField",
           "title": "Job title",
@@ -195,15 +206,16 @@
           "schema": {}
         },
         {
-          "name": "aazUpS",
-          "options": {
-            "required": false
-          },
-          "type": "FileUploadField",
-          "title": "Please attach any supporting information, for example a protocol or list of references.",
-          "schema": {},
-          "hint": ""
-        }
+               "name":"bYWcrH",
+               "options":{
+                  "multiple":true,
+                      "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel"
+                    },
+               "type":"FileUploadField",
+               "title":"CHANGE Me 1 :)!"
+            }
+            
+
       ],
       "next": [
         {
@@ -272,7 +284,12 @@
         {
           "name": "bhBuDQ",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter relevant concepts",
+              "any.only": "Enter relevant concepts",
+              "string.empty": "Enter relevant concepts"
+            }
           },
           "type": "MultilineTextField",
           "title": "Explain any relevant concepts",
@@ -397,7 +414,12 @@
         {
           "name": "WNVZzn",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter what you will use the results for",
+              "any.only": "Enter what you will use the results for",
+              "string.empty": "Enter what you will use the results for"
+            }
           },
           "type": "SelectField",
           "title": "What will you primarily use the results of this search for?",
@@ -420,7 +442,12 @@
         {
           "name": "qwQlWP",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your preferred results format",
+              "any.only": "Enter your preferred results format",
+              "string.empty": "Enter your preferred results format"
+            }
           },
           "type": "CheckboxesField",
           "title": "What is your preferred results format?",
@@ -448,7 +475,13 @@
         },
         {
           "name": "lIUPMw",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter type of review",
+              "any.only": "Enter type of review",
+              "string.empty": "Enter type of review"
+            }
+          },
           "type": "SelectField",
           "title": "What type of review are you doing?",
           "list": "cZlqVP",
@@ -470,7 +503,12 @@
         {
           "name": "byRMpb",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter reason for review",
+              "any.only": "Enter reason review",
+              "string.empty": "Enter reason review"
+            }
           },
           "type": "SelectField",
           "title": "What is the reason for conducting this review?",
@@ -492,7 +530,12 @@
         {
           "name": "diftRU",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter where to publish review",
+              "any.only": "Enter where to publish review",
+              "string.empty": "Enter where to publish review"
+            }
           },
           "type": "SelectField",
           "title": "Where do you intend to publish your review?",
@@ -521,7 +564,12 @@
         {
           "name": "dmgVPY",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter if you have written a protocol",
+              "any.only": "Enter if you have written a protocol",
+              "string.empty": "Enter if you have written a protocol"
+            }
           },
           "type": "YesNoField",
           "title": "Have you written a protocol?",
@@ -569,7 +617,12 @@
         {
           "name": "TNXqpA",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for population",
+              "any.only": "Enter your inclusion criteria for population",
+              "string.empty": "Enter your inclusion criteria for population"
+            }
           },
           "type": "MultilineTextField",
           "title": "What are your inclusion criteria for population?",
@@ -578,7 +631,12 @@
         {
           "name": "KXXNzf",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for intervention or exposure",
+              "any.only": "Enter your inclusion criteria for intervention or exposure",
+              "string.empty": "Enter your inclusion criteria for intervention or exposure"
+            }
           },
           "type": "MultilineTextField",
           "title": "What are your inclusion criteria for intervention or exposure?",
@@ -587,7 +645,12 @@
         {
           "name": "GjCFLx",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for setting/location",
+              "any.only": "Enter your inclusion criteria for setting/location",
+              "string.empty": "Enter your inclusion criteria for setting/location"
+            }
           },
           "type": "MultilineTextField",
           "title": "What are your inclusion criteria for setting/location?",
@@ -596,7 +659,12 @@
         {
           "name": "MgKlsM",
           "options": {
-            "required": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for outcomes",
+              "any.only": "Enter your inclusion criteria for outcomes",
+              "string.empty": "Enter your inclusion criteria for outcomes"
+            }
           },
           "type": "MultilineTextField",
           "title": "What are your inclusion criteria for outcomes?",
@@ -638,16 +706,17 @@
           "title": "Enquiry title",
           "schema": {}
         },
-        {
-          "name": "FIvjTg",
-          "options": {
-            "required": false
-          },
-          "type": "FileUploadField",
-          "title": "Upload a file",
-          "hint": "To support the KLS team in dealing with your query, you may upload a file here.",
-          "schema": {}
-        }
+{
+  "name": "FIvjTg",
+  "type": "FileUploadField",
+  "title": "Upload a file v2",
+  "hint": "To support the KLS team in dealing with your query, you may upload a file here.",
+  "schema": {},
+  "options": {
+    "multiple": true,
+    "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel"
+  }
+}
       ],
       "next": [
         {
@@ -1529,7 +1598,7 @@
       "items": [
         {
           "text": "Peer reviewed journal",
-          "value": "Journal"
+          "value": "Peer reviewed journal"
         },
         {
           "description": "",
@@ -2297,5 +2366,5 @@
     "feedbackForm": true,
     "url": "/kls-feedback"
   },
-  "jwtKey": "23029328asdasd3923208902de902"
+  "jwtKey": "${KLSJwtKey}"
 }
