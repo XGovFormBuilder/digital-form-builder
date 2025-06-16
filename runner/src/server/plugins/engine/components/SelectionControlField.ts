@@ -1,6 +1,6 @@
 import { ListFormComponent } from "server/plugins/engine/components/ListFormComponent";
 import { FormData, FormSubmissionErrors } from "server/plugins/engine/types";
-import { Label, ListItem } from "server/plugins/engine/components/types";
+import { ListItem } from "server/plugins/engine/components/types";
 
 /**
  * "Selection controls" are checkboxes and radios (and switches), as per Material UI nomenclature.
