@@ -169,9 +169,7 @@ export class PageControllerBase {
       label.classes = "govuk-fieldset__legend--l";
 
       if (singleFormComponent.model.fieldset) {
-        const fieldset = singleFormComponent.model.fieldset;
-        fieldset.legend.classes =
-          "govuk-fieldset__legend govuk-fieldset__legend--l";
+        singleFormComponent.model.fieldset.legend = label;
       }
 
       pageTitle = pageTitle || label.text;
