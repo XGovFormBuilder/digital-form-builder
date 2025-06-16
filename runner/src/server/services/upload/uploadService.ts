@@ -198,6 +198,16 @@ validateContentType(
     isValid = true;
   }
 
+  // Fallback: allow .msg files with 'application/octet-stream' 
+  if (!isValid && filename?.endsWith(".msg")) {
+    this.logger.warn("UPLOAD_WARNING", {
+      reason: "RIS file had generic content type",
+      filename,
+      contentType
+    });
+    isValid = true;
+  }
+
 
   return isValid;
 }  downloadDocuments(paths: string[]) {
@@ -235,6 +245,6 @@ const contentTypeToName = {
   "text/plain": "txt",
   "application/vnd.ms-outlook": "msg",
   "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
-  "application/vnd.ms-excel": "xls"
+  "application/vnd.ms-excel": "xls",
   // "application/zip": "zip"
 };

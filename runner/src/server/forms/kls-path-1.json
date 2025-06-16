@@ -210,7 +210,7 @@
                "options":{
                   "multiple": true,
                   "required": false,
-                  "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel"
+    "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
                     },
                "type":"FileUploadField",
                "title":"CHANGE Me 1 :)!"
@@ -348,7 +348,7 @@
             "maxDaysInPast": "0",
             "customValidationMessages": {
               "nonNumeric": "The date must be in the format of DD/MM/YYYY",
-              "date.min": "Desired completion date can’t be before today - Ask colin/Jahdiel to look at this"
+              "date.min": "Desired completion date cannot be before today"
             }
           },
           "type": "DatePartsField",
@@ -506,9 +506,9 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Enter reason for review",
-              "any.only": "Enter reason review",
-              "string.empty": "Enter reason review"
+              "any.required": "Enter reason for the review",
+              "any.only": "Enter reason for the review",
+              "string.empty": "Enter reason for the review"
             }
           },
           "type": "SelectField",
@@ -716,7 +716,7 @@
   "options": {
     "multiple": true,
     "required": false,
-    "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel"
+    "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
   }
 }
       ],
@@ -736,7 +736,7 @@
     },
     {
       "path": "/which-organisation-do-you-work-for-DUPE",
-      "title": "Which organisation do you work for-DUPE?",
+      "title": "Which organisation do you work for?",
       "components": [
         {
           "name": "wyvXTj",
