@@ -167,6 +167,13 @@ export class PageControllerBase {
 
       label.isPageHeading = true;
       label.classes = "govuk-fieldset__legend--l";
+
+      if (singleFormComponent.model.fieldset) {
+        const fieldset = singleFormComponent.model.fieldset;
+        fieldset.legend.classes =
+          "govuk-fieldset__legend govuk-fieldset__legend--l";
+      }
+
       pageTitle = pageTitle || label.text;
       showTitle = false;
     }
