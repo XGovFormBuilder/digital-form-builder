@@ -5160,7 +5160,7 @@ __metadata:
     flat: 5.0.2
     form-data: ^4.0.0
     google-libphonenumber: ^3.2.34
-    govuk-frontend: ^4.10.0
+    govuk-frontend: ^5.10.2
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -11411,6 +11411,13 @@ __metadata:
   version: 4.10.0
   resolution: "govuk-frontend@npm:4.10.0"
   checksum: 2c0b0be3b6661173839057bd025bda181d99f4d93678be4e9640c67bfb4a63a4f7a366fdbde3f1c634dd45ca48a3dc4c095e625af45e4b30d2c18378a2e5857c
+  languageName: node
+  linkType: hard
+
+"govuk-frontend@npm:^5.10.2":
+  version: 5.10.2
+  resolution: "govuk-frontend@npm:5.10.2"
+  checksum: d7b9c788a4dee8ecc0dbb0b6ed0866e97822af8b3f7390824626835e920905c48e40f2e250505dc2d9bb66ad9efc96abffc63bb5cfa68f4e4e6c29f4e910321b
   languageName: node
   linkType: hard
 
