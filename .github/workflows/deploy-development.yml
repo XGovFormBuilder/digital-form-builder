@@ -1,3 +1,14 @@
+# This is a reusable workflow unit which can be used to deploy to heroku.
+# To deploy, add the following to your workflow
+#deploy:
+#  needs: [calculate-version, assign-semver, build-and-publish-images]
+#  uses: ./.github/workflows/deploy-development.yml
+#  secrets: inherit
+#  with:
+#    repository: # heroku repository to push to
+#    app: runner
+#    tag: ${{ needs.assign-semver.outputs.SEMVER }}
+
 name: Deploy Development Environment
 
 on:
