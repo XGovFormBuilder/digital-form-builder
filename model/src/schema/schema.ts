@@ -125,6 +125,7 @@ const pageSchema = joi.object().keys({
   repeatField: joi.string().optional(),
   options: joi.object().optional(),
   backLinkFallback: joi.string().optional(),
+  disableBackLink: joi.bool().optional(),
 });
 
 const startNavigationLinkSchema = joi.object().keys({
