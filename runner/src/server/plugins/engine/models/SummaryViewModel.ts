@@ -12,6 +12,9 @@ import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types
 import { Outputs } from "server/plugins/engine/models/submission/Outputs";
 import { FormTransformationMap } from "./FormTransformationMap";
 
+import pino from "pino";
+const logger = pino().child({ name: "SummaryViewModel" });
+
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
  * skipSummary (replace with reference to this.def.skipSummary?)
@@ -106,8 +109,15 @@ export class SummaryViewModel {
     }
 
     this.details = details;
-    for (const [key, value] of Object.entries(FormTransformationMap)) {
-      if (model.basePath.startsWith(key)) this.details = value(details);
+
+    const transformSummary = FormTransformationMap[model.basePath];
+
+    if (transformSummary) {
+      try {
+        this.details = transformSummary(details);
+      } catch (err) {
+        logger.error({ err }, "Error transforming summary");
+      }
     }
 
     this.result = result;
