@@ -12,6 +12,7 @@ export type Link = Next;
 export interface Page {
   title: string;
   path: string;
+  disableBackLink?: boolean;
   controller: string;
   components?: ComponentDef[];
   section?: string; // the section ID
