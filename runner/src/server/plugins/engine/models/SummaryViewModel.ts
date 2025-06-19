@@ -10,6 +10,8 @@ import { FeesModel } from "server/plugins/engine/models/submission";
 import { HapiRequest } from "src/server/types";
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
 import { Outputs } from "server/plugins/engine/models/submission/Outputs";
+import summaryTransformations from "./summaryTransformations.json";
+import * as converters from "./converters";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -104,8 +106,13 @@ export class SummaryViewModel {
       }
     }
 
+    const transformSummaryKey = summaryTransformations[model.basePath];
+    const transformSummary = transformSummaryKey
+      ? converters[transformSummaryKey]
+      : null;
+    this.details = transformSummary ? transformSummary(details) : details;
+
     this.result = result;
-    this.details = details;
     this.state = state;
     this.value = result.value;
     this.callback = state.callback;
