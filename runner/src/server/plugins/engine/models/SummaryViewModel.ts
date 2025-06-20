@@ -10,7 +10,7 @@ import { FeesModel } from "server/plugins/engine/models/submission";
 import { HapiRequest } from "src/server/types";
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
 import { Outputs } from "server/plugins/engine/models/submission/Outputs";
-import { FormTransformationMap } from "./FormTransformationMap";
+import { summaryDetailsTransformationMap } from "./SummaryViewModel.detailsTransformationMap";
 
 import pino from "pino";
 const logger = pino().child({ name: "SummaryViewModel" });
@@ -110,11 +110,10 @@ export class SummaryViewModel {
 
     this.details = details;
 
-    const transformSummary = FormTransformationMap[model.basePath];
-
-    if (transformSummary) {
+    const transformDetails = summaryDetailsTransformationMap[model.basePath];
+    if (transformDetails) {
       try {
-        this.details = transformSummary(details);
+        this.details = transformDetails(details);
       } catch (err) {
         logger.error({ err }, "Error transforming summary");
       }
@@ -167,6 +166,7 @@ export class SummaryViewModel {
     state: FormSubmissionState,
     relevantPages
   ) {
+    // TODO: add more declarative types
     const details: object[] = [];
 
     [undefined, ...model.sections].forEach((section) => {
