@@ -23,8 +23,7 @@ This is the recommended approach if you are not using any custom code (i.e. usin
 > You may write your transforms in TypeScript, but they must be compiled to commonjs before being used in the form runner.
 
 1. Create the directory `summaryDetails` in your project
-2. Add an `index.js` file in the `summaryDetails` which exports your transformations, which is an object that is keyed by form basePath.
-
+2. Add an `index.js` file in the `summaryDetails` which exports your transformations, which is an object that is keyed by form basePath
    ```js
    // summaryDetails/index.js
    "use strict";
@@ -60,6 +59,18 @@ This is the recommended approach if you are not using any custom code (i.e. usin
    // A default export for the transformations are required (not named exports!)
    module.exports = summaryDetailsTransformations;
    ```
+3. In your Dockerfile, copy the `summaryDetails` directory to the `runner/dist/server/transforms/summaryDetails` directory:
+  ```dockerfile
+ARG BASE_IMAGE_TAG="3.26.1-rc.964"
+FROM ghcr.io/xgovformbuilder/digital-form-builder-runner:$BASE_IMAGE_TAG as base
+ARG FORMS_DIR="forms"
+WORKDIR /usr/src/app
+RUN rm -r runner/dist/server/forms && rm -r runner/src
+COPY $FORMS_DIR runner/dist/server/forms
+COPY transforms/summaryDetails runner/dist/server/transforms/summaryDetails
 
-3. Create a file for each transform you want to add, e.g. `my-transform.js`.
-4. Write your transform function in the file, ensuring it exports the function as a Common
+CMD [ "yarn", "runner", "start"]
+  ```
+4. Build your Docker image and run it. You should see the transformed summary details when you go to the summary page of your form
+   
+    
