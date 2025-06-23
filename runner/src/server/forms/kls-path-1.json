@@ -116,7 +116,8 @@
             "customValidationMessages": {
               "any.required": "Enter email address",
               "any.only": "Enter email address",
-              "string.empty": "Enter email address"
+              "string.empty": "Enter email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           },
           "type": "EmailAddressField",
@@ -194,7 +195,7 @@
             "required": false
           },
           "type": "MultilineTextField",
-          "title": "If you need to tell us more, please do so in this text box",
+          "title": "If there is any more information that you think will help the team in dealing with your enquiry, please enter it below",
           "schema": {}
         },
         {
@@ -210,10 +211,10 @@
                "options":{
                   "multiple": true,
                   "required": false,
-    "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
+                  "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
                     },
                "type":"FileUploadField",
-               "title":"CHANGE Me 1 :)!"
+               "title":"If you need to upload a file to help us deal with your enquiry, do so here. (optional)"
             }
             
 
@@ -1039,7 +1040,8 @@
             "customValidationMessages": {
               "any.required": "Enter email address",
               "any.only": "Enter email address",
-              "string.empty": "Enter email address"
+              "string.empty": "Enter email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           },
           "type": "EmailAddressField",
@@ -1386,6 +1388,11 @@
           "description": "",
           "text": "RIS (for reference management software)",
           "value": "RIS (for reference management software)"
+        },
+        {
+          "description": "",
+          "text": "Regular email alert",
+          "value": "Regular email alert"
         }
       ]
     },
