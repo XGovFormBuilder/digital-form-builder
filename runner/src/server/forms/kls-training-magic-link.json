@@ -227,16 +227,16 @@
             "title": "KLS Training MagicLink",
             "type": "notify",
             "outputConfiguration": {
-                "apiKey": "klsdevapikeys-c3c1543d-5025-4560-9766-46f5827a6811-f5d1bc8f-803e-4701-a6fe-840e1209fde8",
-                "templateId": "7b61b152-8648-4e5b-af0c-81f7c3889bb2",
+            "name": "magiclink",
+            "title": "KLS Training MagicLink",
+            "type": "notify",
+            "outputConfiguration": {
+                "apiKey": "${KLSTrainingNotifyApiKey}",
+                "templateId": "${KLSTrainingNotifyTemplateId}",
                 "emailField": "email",
                 "addReferencesToPersonalisation": false,
-                "personalisation": [
-                "email",
-                "hmacSignature",
-                "hmacExpiryTime"
-                ],
-                "hmacKey": "hmacnkeyyyyyys"
+                "personalisation": ["email", "hmacSignature", "hmacExpiryTime"],
+                "hmacKey": "${KLSTrainingMagicLinkHmacKey}"
             }     
         }
     ],
