@@ -13,6 +13,7 @@ export interface Page {
   title: string;
   path: string;
   unauthenticated?: boolean;
+  disableBackLink?: boolean;
   controller: string;
   components?: ComponentDef[];
   section?: string; // the section ID
