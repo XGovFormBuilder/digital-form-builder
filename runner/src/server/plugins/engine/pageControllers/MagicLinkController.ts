@@ -23,6 +23,11 @@ export class MagicLinkController extends PageController {
 
       const validation = await validateHmac(email, hmac, requestTime, hmacKey);
 
+     //Outlook safelink consumes magic link - This bypasses it
+     if (!request.headers["user-agent"]) {
+      return h.response("Ignored bot request").code(200);
+    }
+
       const { cacheService } = request.services([]);
 
       const state = await cacheService.getState(request);
@@ -131,7 +136,11 @@ export class MagicLinkController extends PageController {
       const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
       const validation = await validateHmac(email, hmac, requestTime, hmacKey);
-
+     
+      //Outlook safelink consumes magic link - This bypasses it
+      if (!request.headers["user-agent"]) {
+      return h.response("Ignored bot request").code(200);
+    }
       if (validation.isValid) {
         const token = Jwt.token.generate(
           { email: request.query.email },
