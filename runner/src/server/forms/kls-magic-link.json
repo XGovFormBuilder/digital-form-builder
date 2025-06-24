@@ -161,11 +161,11 @@
     {
       "path": "/email-confirmed",
       "title": "Thank you for verifying your email",
+      "disableBackLink": true,
       "components": [
         {
           "name": "EmailConfirmed",
           "options": {},
-          "disableBackLink": true,
           "type": "Para",
           "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-path-1/which-organisation-do-you-work-for-DUPE' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
           "schema": {}
