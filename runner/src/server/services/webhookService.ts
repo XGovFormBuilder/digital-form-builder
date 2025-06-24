@@ -41,7 +41,7 @@ export class WebhookService {
       if (!sendAdditionalPayMetadata) {
         delete data?.metadata?.pay;
       }
-      const { payload } = await request(url, {
+      const { payload, res } = await request(url, {
         ...DEFAULT_OPTIONS,
         headers: {
           ...DEFAULT_OPTIONS.headers,
@@ -54,11 +54,13 @@ export class WebhookService {
         return payload.reference;
       }
 
-      const Name = JSON.parse(payload)[0].Name;
+      const Name = JSON.parse(payload)[0]?.Name;
 
       if (Name) {
         return Name;
       }
+
+      console.log(res.statusCode, "status of the request is here");
 
       const { reference } = JSON.parse(payload);
 

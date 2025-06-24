@@ -1,0 +1,83 @@
+{
+  "metadata": {},
+  "startPage": "/start",
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Start",
+      "components": [],
+      "next": [
+        {
+          "path": "/question"
+        }
+      ]
+    },
+    {
+      "path": "/question",
+      "title": "Question",
+      "sectionForEndSummaryPages": "ServiceUsersAndStaff",
+      "components": [
+        {
+          "name": "Question",
+          "options": {
+            "summaryTitle": "",
+            "customValidationMessages": {
+              "number.base": "Enter a number between 0 and 999",
+              "number.max": "The number must be between 0 and 999",
+              "number.min": "The number must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Enter a number between 0 and 999",
+          "hint": "This is to send to the API",
+          "list": "ServiceUsersTypes"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "BsGFLT",
+      "title": "Execute API",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://2aq9044u5l.execute-api.eu-west-2.amazonaws.com/prod/v1/echo",
+        "allowRetry": true
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {},
+  "feedback": {},
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "nextSteps": "<h2></h2>",
+        "title": "API returned",
+        "referenceTitle": "Api returned",
+        "referenceContent": "Go check the console for the status code"
+      }
+    }
+  }
+}
