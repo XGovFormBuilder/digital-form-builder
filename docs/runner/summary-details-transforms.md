@@ -76,7 +76,7 @@ This is the recommended approach if you are not using any custom code (i.e. usin
 3. In the Dockerfile, copy the `summaryDetails` directory to the `runner/dist/server/transforms/summaryDetails` directory:
 
    ```dockerfile
-   ARG BASE_IMAGE_TAG="3.26.1-rc.964"
+   ARG BASE_IMAGE_TAG="latest"
    FROM ghcr.io/xgovformbuilder/digital-form-builder-runner:$BASE_IMAGE_TAG as base
    ARG FORMS_DIR="forms"
    WORKDIR /usr/src/app
