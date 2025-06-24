@@ -112,8 +112,12 @@ export class SummaryViewModel {
 
     const transformDetails = summaryDetailsTransformationMap[model.basePath];
     if (transformDetails) {
+      /**
+       * Clone the details to avoid mutating the original object.
+       */
+      const clonedDetails = clone(details);
       try {
-        this.details = transformDetails(details);
+        this.details = transformDetails(clonedDetails);
       } catch (err) {
         logger.error({ err }, "Error transforming summary");
       }
