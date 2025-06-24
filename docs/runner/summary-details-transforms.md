@@ -22,10 +22,17 @@ This is the recommended approach if you are not using any custom code (i.e. usin
 >
 > You may write your transforms in TypeScript, but they must be compiled to commonjs before being used in the form runner.
 
-1. Create the directory `summaryDetails` in your project
-2. Add an `index.js` file in the `summaryDetails` which exports your transformations, which is an object that is keyed by form basePath
+1. Create the directory `transforms/summaryDetails` in your project
+   ```
+   .
+   └── transforms
+       └── summaryDetails
+           └── index.js
+   ```
+2. Add an `index.js` file in the `summaryDetails` which exports the transformations, which is an object that is keyed by form basePath
+
    ```js
-   // summaryDetails/index.js
+   // transforms/summaryDetails/index.js
    "use strict";
 
    const summaryDetailsTransformations = {
@@ -59,18 +66,109 @@ This is the recommended approach if you are not using any custom code (i.e. usin
    // A default export for the transformations are required (not named exports!)
    module.exports = summaryDetailsTransformations;
    ```
-3. In your Dockerfile, copy the `summaryDetails` directory to the `runner/dist/server/transforms/summaryDetails` directory:
-  ```dockerfile
-ARG BASE_IMAGE_TAG="3.26.1-rc.964"
-FROM ghcr.io/xgovformbuilder/digital-form-builder-runner:$BASE_IMAGE_TAG as base
-ARG FORMS_DIR="forms"
-WORKDIR /usr/src/app
-RUN rm -r runner/dist/server/forms && rm -r runner/src
-COPY $FORMS_DIR runner/dist/server/forms
-COPY transforms/summaryDetails runner/dist/server/transforms/summaryDetails
 
-CMD [ "yarn", "runner", "start"]
-  ```
-4. Build your Docker image and run it. You should see the transformed summary details when you go to the summary page of your form
-   
-    
+3. In the Dockerfile, copy the `summaryDetails` directory to the `runner/dist/server/transforms/summaryDetails` directory:
+
+   ```dockerfile
+   ARG BASE_IMAGE_TAG="3.26.1-rc.964"
+   FROM ghcr.io/xgovformbuilder/digital-form-builder-runner:$BASE_IMAGE_TAG as base
+   ARG FORMS_DIR="forms"
+   WORKDIR /usr/src/app
+   RUN rm -r runner/dist/server/forms && rm -r runner/src
+   COPY $FORMS_DIR runner/dist/server/forms
+   COPY transforms/summaryDetails runner/dist/server/transforms/summaryDetails
+
+   CMD [ "yarn", "runner", "start"]
+   ```
+
+4. Build the Docker image and run it. The transformed summary details will appear when navigating to the summary page of the form.
+
+#### Reusing transforms across multiple forms
+
+To reuse the same transforms, or reduce the size of `summaryDetailsTransformations`, transforms can be split across multiple files.
+
+1. Create a new file for the transform that should be abstracted, for example `marriage.js`, the directory structure should look like this:
+   ```
+   .
+   └── transforms
+       └── summaryDetails
+           ├── index.js
+           └── marriage.js
+   ```
+2. In the new transform file (in this example `marriage.js`), create add the transform and default export it in the commonjs format:
+
+   ```js
+   // transforms/summaryDetails/marriage.js
+   "use strict";
+
+   function marriageTransform(details) {
+     // modify details
+   }
+
+   module.exports = marriageTransform;
+   ```
+
+3. In the `index.js` file, import the transform and add it to the `summaryDetailsTransformations` object:
+   ```js
+   // transforms/summaryDetails/index.js
+   "use strict";
+   const marriageTransform = require("./marriage");
+   const summaryDetailsTransformations = {
+     "marriage-in-spain": marriageTransform,
+     "marriage-in-france": marriageTransform,
+     feedback: (details) => {},
+   };
+   ```
+
+### Write transforms in the form runner source code
+
+This is suited for organisations that use a fork XGovFormBuilder, and already have significant custom source code.
+These organisations typically build their docker images from source code.
+
+For this method, you may write your transforms in TypeScript, and they will be compiled to commonjs when the form runner is built.
+You will also be able to unit test transforms since forks have the additional tooling to run tests.
+
+1. Write the transforms in `runner/src/server/transforms/summaryDetails/index.ts`. The boilerplate is provided, you only need to update `summaryDetailsTransformations`
+
+   ```ts
+   import { SummaryDetailsTransformationMap } from "server/transforms/summaryDetails/types";
+   export { SummaryDetailsTransformationMap };
+
+   const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
+     "marriage-in-spain": (details: any[]) => {
+       //..
+     },
+   };
+   module.exports = summaryDetailsTransformations;
+   ```
+
+2. (Optional) Split the transforms across multiple files
+
+   1. create a new file for the transform that should be abstracted, for example `marriage.ts`, and export the transform in the commonjs format:
+
+      ```ts
+      // runner/src/server/transforms/summaryDetails/marriage.ts
+      import { SummaryDetailsTransformation } from "server/transforms/summaryDetails/types";
+
+      export const marriageTransform: SummaryDetailsTransformation = (
+        details
+      ) => {
+        // modify details
+      };
+      ```
+
+   2. In the `index.ts` file, import the transform and add it to the `summaryDetailsTransformations` object:
+
+      ```ts
+      // runner/src/server/transforms/summaryDetails/index.ts
+      import { marriageTransform } from "./marriage";
+
+      import { SummaryDetailsTransformation } from "server/transforms/summaryDetails/types";
+      const summaryDetailsTransformations = {
+        "marriage-in-spain": marriageTransform,
+        "marriage-in-france": marriageTransform,
+        feedback: (details) => {},
+      };
+      ```
+
+3. (Optional) Write unit tests for transforms, create a new file in `runner/src/server/transforms/summaryDetails/__tests__/marriage.jest.ts` and write the tests with Jest.
