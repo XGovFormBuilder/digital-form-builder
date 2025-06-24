@@ -56,9 +56,10 @@ This is the recommended approach if you are not using any custom code (i.e. usin
 
        // Uppercase all the answers
        return modifiedSections.map((section) => {
-         return section.items.map((item) => {
+         section.items = items.map((item) => {
            return { ...item, value: item.value.toUpperCase() };
          });
+         return section;
        });
      },
    };
