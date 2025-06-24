@@ -35,7 +35,7 @@ test("it transforms the details if a transformation exists", () => {
   expect(details.transformed).toStrictEqual(true);
 });
 
-test("it does not transform the details if a transformation exists", () => {
+test("it does not transform the details if a transformation does not exist", () => {
   const basePath = "some-other-path";
   const formModel = new FormModel(formDef, { basePath });
 
