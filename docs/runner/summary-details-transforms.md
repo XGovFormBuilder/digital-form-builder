@@ -6,10 +6,15 @@ This can be achieved by using transforms. Transforms allow you to manipulate the
 Transforms are keyed by `FormModel.basePath`. In most cases, this will be filename of the form's JSON.
 
 Each transform is a function that takes the `SummaryViewModel.details` as an argument and returns the modified details.
+Transform functions are given a deep _copy_ of details, rather than a reference to prevent accidental mutations.
+
+Transforms are placed in the `runner/src/server/transforms` directory. This is so that they can be easily replaced using the Docker `COPY` command.
+They are imported by [`SummaryViewModel.detailsTransformationMap.ts`](./../../runner/src/server/plugins/engine/models/SummaryViewModel.detailsTransformationMap.ts),
+which will either load the [source code transforms](./../../runner/src/server/transforms/summaryDetails/index.ts) checked into the repository, or the aforementioned replacement.
 
 ## Configuring transforms
 
-Transforms can be configured in two ways depending on your setup.
+Transforms can be configured in two ways depending on how you build the runner docker image.
 
 ### Replace `runner/dist/server/transforms/summaryDetails` using the docker `COPY` command
 
