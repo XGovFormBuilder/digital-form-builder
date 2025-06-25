@@ -82,6 +82,7 @@
         {
             "path": "/training-request-part-1",
             "title": "Training request part 1",
+            "disableBackLink": true,
             "components": [
                 {
                     "name": "sqQXGM",
