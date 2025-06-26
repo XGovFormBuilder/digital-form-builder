@@ -118,6 +118,7 @@
             "backLinkFallback": "/kls-training-magic-link",
             "path": "/your-email-is-not-on-our-approved-list",
             "title": "Your email is not on our approved list",
+            "unauthenticated": true,
             "components": [
                 {
                     "name": "GVrjNV",
