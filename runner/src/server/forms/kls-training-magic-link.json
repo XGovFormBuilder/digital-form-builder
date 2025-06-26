@@ -118,6 +118,7 @@
             "backLinkFallback": "/kls-training-magic-link",
             "path": "/your-email-is-not-on-our-approved-list",
             "title": "Your email is not on our approved list",
+            "unauthenticated": true,
             "components": [
                 {
                     "name": "GVrjNV",
@@ -161,11 +162,11 @@
         {
             "title": "Thank you for verifying your email",
             "path": "/email-confirmed",
+            "disableBackLink": true,
             "components": [
                 {
                     "name": "EmailConfirmed",
                     "options": {},
-                    "disableBackLink": true,
                     "type": "Para",
                     "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-training/training-request-part-1' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
                     "schema": {}
@@ -227,17 +228,12 @@
             "title": "KLS Training MagicLink",
             "type": "notify",
             "outputConfiguration": {
-            "name": "magiclink",
-            "title": "KLS Training MagicLink",
-            "type": "notify",
-            "outputConfiguration": {
                 "apiKey": "${KLSTrainingNotifyApiKey}",
                 "templateId": "${KLSTrainingNotifyTemplateId}",
                 "emailField": "email",
                 "addReferencesToPersonalisation": false,
                 "personalisation": ["email", "hmacSignature", "hmacExpiryTime"],
                 "hmacKey": "${KLSTrainingMagicLinkHmacKey}"
-                }     
             }
         }
     ],
