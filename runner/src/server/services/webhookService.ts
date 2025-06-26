@@ -1,5 +1,6 @@
 import { post, put } from "./httpService";
 import { HapiServer } from "../types";
+import config from "../config";
 
 const DEFAULT_OPTIONS = {
   headers: {
@@ -60,7 +61,9 @@ export class WebhookService {
         return Name;
       }
 
-      console.log(`Request status code: ${res.statusCode}`);
+      if (config.isDev) {
+        console.log(`Request status code: ${res.statusCode}`);
+      }
 
       const { reference } = JSON.parse(payload);
 
