@@ -149,6 +149,8 @@ export default {
             if (referrer) {
               redirectPath = new URL(referrer).pathname;
             }
+            
+            const cookieName = form?.name || `${url}Page`;
 
             return h.redirect(redirectPath).state(
               "cookies_policy",
@@ -158,7 +160,7 @@ export default {
                 essential: true,
                 analytics: accept ? "on" : "off",
                 usage: accept,
-                name: form.name,
+                name: cookieName,
               },
               {
                 isHttpOnly: false,
