@@ -1,0 +1,40 @@
+{% from "./summary-row.html" import summaryRow %} {% macro summaryCard(data, hideRemove)
+%} {% set isRepeatableSection = (data.items[0] | isArray) %}
+
+<div class="govuk-summary-card">
+  {% if not isRepeatableSection %}
+    <div class="govuk-summary-card__title-wrapper">
+      <h2 class="govuk-summary-card__title" name="{{data.title}}" id="{{data.title}}">{{ data.title }}</h2>
+      <ul class="govuk-summary-card__actions">
+        <li class="govuk-summary-card__action">
+          <a class="govuk-link" href="{{ data.card }}">
+            Change<span class="govuk-visually-hidden"> {{data.title}}</span>
+          </a>
+        </li>
+        {% if not hideRemove %}
+          <li class="govuk-summary-card__action">
+            <a class="govuk-link" href="?remove={{ data.name }}">
+              Remove<span class="govuk-visually-hidden"> {{data.title}}</span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <div class="govuk-summary-card__content">
+    <dl class="govuk-summary-list">
+      {% for item in data.items %} {% if not hide %} {%- if item | isArray %}
+        <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-0">
+          {{ data.title }}
+        </h2>
+        {% for repeated in item %}
+          {{ summaryRow(repeated) }}
+        {% endfor %} {% else %}
+          {{ summaryRow(item) }}
+      {% endif %} {% endif %} {% endfor %}
+    </dl>
+  </div>
+</div>
+
+{% endmacro %}

@@ -10,6 +10,10 @@ import { FeesModel } from "server/plugins/engine/models/submission";
 import { HapiRequest } from "src/server/types";
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
 import { Outputs } from "server/plugins/engine/models/submission/Outputs";
+import { summaryDetailsTransformationMap } from "./SummaryViewModel.detailsTransformationMap";
+
+import pino from "pino";
+const logger = pino().child({ name: "SummaryViewModel" });
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -104,8 +108,22 @@ export class SummaryViewModel {
       }
     }
 
-    this.result = result;
     this.details = details;
+
+    const transformDetails = summaryDetailsTransformationMap[model.basePath];
+    if (transformDetails) {
+      /**
+       * Clone the details to avoid mutating the original object.
+       */
+      const clonedDetails = clone(details);
+      try {
+        this.details = transformDetails(clonedDetails);
+      } catch (err) {
+        logger.error({ err }, "Error transforming summary");
+      }
+    }
+
+    this.result = result;
     this.state = state;
     this.value = result.value;
     this.callback = state.callback;
@@ -152,6 +170,7 @@ export class SummaryViewModel {
     state: FormSubmissionState,
     relevantPages
   ) {
+    // TODO: add more declarative types
     const details: object[] = [];
 
     [undefined, ...model.sections].forEach((section) => {
