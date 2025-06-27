@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block pageTitle %}
+    Terms and conditions – {{ name if name else serviceName }}
+{% endblock %}
+
 {% block content %}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

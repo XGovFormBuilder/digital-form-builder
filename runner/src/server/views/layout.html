@@ -1,3 +1,4 @@
+{% set govukRebrand = true %}
 {% extends "template.njk" %}
 
 {% from "back-link/macro.njk" import govukBackLink %}
@@ -5,6 +6,18 @@
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "skip-link/macro.njk" import govukSkipLink -%}
 {% from "cookie-banner/macro.njk" import govukCookieBanner %}
+{% from "service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% block headIcons %}
+{# TODO: remove this block when rebrand assets are no longer in /rebrand (likely in v5 upgrade) #}
+  <link rel="icon" sizes="48x48" href="{{ assetPath }}/rebrand/images/favicon.ico">
+  <link rel="icon" sizes="any" href="{{ assetPath }}/rebrand/images/favicon.svg" type="image/svg+xml">
+  <link rel="mask-icon" href="{{ assetPath }}/rebrand/images/govuk-icon-mask.svg" color="{{ themeColor }}">
+  <link rel="apple-touch-icon" href="{{ assetPath }}/rebrand/images/govuk-icon-180.png">
+  <link rel="manifest" href="{{ assetPath }}/manifest.json">
+{% endblock %}
+
+
 {% block head %}
   <!--[if !IE 8]><!-->
     <link rel="preload" as="font" href="{{ assetPath }}/fonts/light-94a07e06a1-v2.woff2" type="font/woff2" crossorigin="anonymous">
@@ -69,7 +82,7 @@
 {% endblock %}
 
 {% block pageTitle %}
-  {{ pageTitle }}
+  {{ pageTitle }} – {{ name if name else serviceName }}
 {% endblock %}
 
 {% block skipLink %}
@@ -84,11 +97,17 @@
   {{ govukHeader({
     homepageUrl: "https://gov.uk",
     containerClasses: "govuk-width-container",
-    serviceName: name if name else serviceName,
-    serviceUrl: serviceStartPage,
-    navigation: navigation,
-    useTudorCrown: true
-}) }}
+    useTudorCrown: true,
+    rebrand: true
+    })
+  }}
+  {{ govukServiceNavigation({
+      serviceName: name if name else serviceName,
+      serviceUrl: serviceStartPage,
+      navigation: navigation if navigation,
+      rebrand: true
+    })
+  }}
 
 {% endblock %}
 
@@ -115,14 +134,14 @@
         {% if feedbackLink %}
             {{ govukPhaseBanner({
                 tag: {
-                    text: phaseTag
+                    text: phaseTag | title
                 },
                 html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
             }) }}
         {% else %}
             {{ govukPhaseBanner({
                 tag: {
-                    text: phaseTag
+                    text: phaseTag | title
                 }
             }) }}
         {% endif %}
@@ -145,7 +164,7 @@
   {% include "partials/modal-dialog.html" %}
   <script src="{{ assetPath }}/jquery-3.5.1.min.js"></script>
   <script src="{{ assetPath }}/object-from-entries-polyfill.js"></script>
-  <script src="{{ assetPath }}/all.js"></script>
+  <script src="{{ assetPath }}/all.bundle.js"></script>
   <script src="{{ assetPath }}/govuk-template.js"></script>
   <script src="{{ assetPath }}/dialog-polyfill.0.4.3.js"></script>
   <script src="{{ assetPath }}/modal-dialog.js"></script>
@@ -172,6 +191,7 @@
 
 {% block footer %}
     {{ govukFooter({
+        rebrand: true,
         meta: {
             items: [{
                 href: 'privacy',

@@ -25,7 +25,20 @@
         {% endif %}
 
         {% for detail in details %}
-          {{ summaryDetail(detail) }}
+          {% if detail.card %}
+            {{ summaryCard(detail, true) }}
+            {% if not details[loop.index].card %}
+              {% set splitDash = detail.items[0].pageId.split("-") %}
+              {% set toAdd = ["added", splitDash[splitDash.length - 1]] %}
+              {% set addOrRemoveLink = splitDash.slice(0, -1).concat(toAdd).join("-") %}
+
+              <a href="{{ addOrRemoveLink }}" class="govuk-button govuk-button--secondary">
+                Add or remove {{ detail.title.split(" ").slice(0, -1).join(" ") | lower }}
+              </a>
+            {% endif %}
+          {% else %}
+            {{ summaryDetail(detail) }}
+          {% endif %}
         {% endfor %}
 
         {% if fees and fees.details|length %}
@@ -44,8 +57,8 @@
               <input type="hidden" name="crumb" value="{{crumb}}"/>
 
                 {%if declaration %}
-                <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
-                  {{ declaration | safe  }}
+                <h2 class="govuk-fieldset__legend govuk-fieldset__legend--m" id="declaration">Declaration</h2>
+                  {{ declaration | safe }}
                   <div class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}">
                     {% if declarationError %}
                         <span id="nationality-error" class="govuk-error-message">

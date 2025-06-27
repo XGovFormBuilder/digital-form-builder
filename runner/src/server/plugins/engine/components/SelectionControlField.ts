@@ -129,8 +129,13 @@ export class SelectionControlField extends ListFormComponent {
     const options: any = this.options;
     const viewModel = super.getViewModel(formData, errors);
 
+    const { label } = viewModel;
+
     viewModel.fieldset = {
-      legend: viewModel.label,
+      legend: {
+        ...label,
+        classes: "govuk-fieldset__legend govuk-fieldset__legend--s",
+      },
     };
 
     viewModel.items = items.map((item: any) => {
