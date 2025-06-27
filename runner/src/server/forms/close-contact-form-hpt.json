@@ -98,24 +98,25 @@
           "type": "TextField",
           "title": "Disease",
           "schema": {}
-        },
+        }
+      ],
+      "next": [{ "path": "/case-id" }],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/case-id",
+      "title": "Enter the case ID of the person who needs contact tracing",
+      "components": [
         {
-          "name": "reference_id",
-          "options": {
-            "allowPrePopulation": true,
-            "allowPrePopulationOverwrite": true,
-            "classes": "govuk-visually-hidden",
-            "hideTitle": true,
-            "disableChangingFromSummary": true,
-            "required": false
-          },
+          "name": "case_id",
+          "options": {},
           "type": "TextField",
-          "title": "Reference ID",
+          "title": "Case ID",
           "schema": {}
         }
       ],
       "next": [{ "path": "/personal-details" }],
-      "controller": "./pages/start.js"
+      "section": "CaseID"
     },
     {
       "path": "/personal-details",
