@@ -29,11 +29,11 @@ export function closeContact(
     if (getSection("TheirDetails")) {
       personalDetails.items.splice(2, 0, yourOrTheirDetails("TheirDetails"));
     }
-    const filtered = details.filter(
+    const detailsContainingName = details.filter(
       (detail) => detail.name && !detail.name.includes("Details")
     );
-    filtered.unshift(personalDetails);
-    return filtered.map((detail) => {
+    detailsContainingName.unshift(personalDetails);
+    return detailsContainingName.map((detail) => {
       const { url } = detail.items[0];
       if (detail.name.match(/CloseContact\d/)) return { ...detail, card: url };
       return detail;
