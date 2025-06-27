@@ -7,7 +7,7 @@ export function closeContact(
   const getSection = (name: string) =>
     details.find((detail) => detail.name === name);
 
-  const yourOrTheirDetails = (name: string) =>
+  const convertSectionToRow = (name: string) =>
     Object.assign(
       getSection(name)!.items.find((item) => item.name === "first_name"),
       {
@@ -25,9 +25,9 @@ export function closeContact(
 
   const personalDetails = getSection("PersonalDetails");
   if (personalDetails) {
-    personalDetails.items.unshift(yourOrTheirDetails("YourDetails"));
+    personalDetails.items.unshift(convertSectionToRow("YourDetails"));
     if (getSection("TheirDetails")) {
-      personalDetails.items.splice(2, 0, yourOrTheirDetails("TheirDetails"));
+      personalDetails.items.splice(2, 0, convertSectionToRow("TheirDetails"));
     }
     const detailsContainingName = details.filter(
       (detail) => detail.name && !detail.name.includes("Details")
