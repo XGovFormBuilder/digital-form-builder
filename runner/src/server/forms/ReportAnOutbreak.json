@@ -1,7 +1,7 @@
 {
   "metadata": {},
   "authentication": true,
-  "toggle": "${magicLinkToggle}",
+  "toggle": "false",
   "analytics": {
     "gtmId1": "GTM-MM6VPCXX"
   },
@@ -2378,7 +2378,7 @@
           "type": "NumberField",
           "name": "ServiceUsersCovidTestPositive",
           "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Service users: confirmed positive COVID-19 test results",
@@ -2396,8 +2396,8 @@
         {
           "type": "NumberField",
           "name": "ServiceUsersSymptomsNotTested",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "title": "How many other service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Do not include cases that have been confirmed by a test as COVID-19<br>Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Service users: with symptoms, but not tested",
@@ -2430,13 +2430,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+          "content": "You do not have to test your staff."
         },
         {
           "type": "NumberField",
           "name": "StaffCovidTestPositive",
           "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "hint": "Include those who are currently in hospital<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Staff: confirmed positive COVID-19 test results",
@@ -2454,8 +2454,8 @@
         {
           "type": "NumberField",
           "name": "StaffSymptomsNotTested",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "title": "How many other staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Do not include cases that have been confirmed by a test as COVID-19<br>Include those who are currently in hospital<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Staff: with symptoms, but not tested",
