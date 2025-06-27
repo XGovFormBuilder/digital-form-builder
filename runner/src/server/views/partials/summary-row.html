@@ -8,7 +8,7 @@
             {% if item.type == 'FileUploadField' %}
                 {{ item.filename if item.filename else "Uploaded" }}
             {% else %}
-                {{item.value}}
+                {{ item.value | striptags(true) | escape | nl2br }}
             {% endif %}
         {% else %}
             Not supplied

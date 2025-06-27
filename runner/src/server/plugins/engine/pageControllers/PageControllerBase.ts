@@ -64,6 +64,7 @@ export class PageControllerBase {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
   backLinkFallback?: string;
+  details?: any;
   disableBackLink?: boolean;
 
   // TODO: pageDef type
@@ -89,9 +90,7 @@ export class PageControllerBase {
     this.section = model.sections?.find(
       (section) => section.name === pageDef.section
     );
-
-    this.sectionForExitJourneySummaryPages =
-      pageDef.sectionForExitJourneySummaryPages;
+    this.sectionForExitJourneySummaryPages = pageDef.sectionForExitJourneySummaryPages;
     this.sectionForMultiSummaryPages = pageDef.sectionForMultiSummaryPages;
     this.sectionForEndSummaryPages = pageDef.sectionForEndSummaryPages;
     this.sidebarContent = pageDef.sidebarContent;
@@ -153,6 +152,7 @@ export class PageControllerBase {
     startPage?: HapiResponseObject;
     backLink?: string;
     phaseTag?: string | undefined;
+    details?: any;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -177,14 +177,17 @@ export class PageControllerBase {
 
     if (singleFormComponent && singleFormComponentIsFirst) {
       const label: any = singleFormComponent.model.label;
-
       if (!this.disableSingleComponentAsHeading) {
         if (pageTitle) {
           label.text = pageTitle;
         }
 
+        if (singleFormComponent.model?.fieldset) {
+        singleFormComponent.model.fieldset.legend = label;
+          }
+
         label.isPageHeading = true;
-        label.classes = "govuk-label--l";
+        label.classes = "govuk-fieldset__legend--l";
         pageTitle = pageTitle || label.text;
         showTitle = false;
       }
@@ -199,6 +202,7 @@ export class PageControllerBase {
       components,
       errors,
       isStartPage: false,
+      details: this.details || undefined,
     };
   }
 
@@ -664,7 +668,7 @@ export class PageControllerBase {
       });
 
       formResult.errors = Object.is(formResult.errors, null)
-        ? { titleText: "There is a problem" }
+        ? { titleText: "Fix the following errors" }
         : formResult.errors;
       formResult.errors.errorList = reformattedErrors;
     }
@@ -691,7 +695,7 @@ export class PageControllerBase {
       });
 
       formResult.errors = Object.is(formResult.errors, null)
-        ? { titleText: "There is a problem" }
+        ? { titleText: "Fix the following errors" }
         : formResult.errors;
       formResult.errors.errorList = reformattedErrors;
     }
@@ -915,7 +919,7 @@ export class PageControllerBase {
   }
 
   get errorSummaryTitle() {
-    return "There is a problem";
+    return "Fix the following errors";
   }
 
   /**
@@ -963,7 +967,7 @@ export class PageControllerBase {
   private renderWithErrors(request, h, payload, num, progress, errors) {
     const viewModel = this.getViewModel(payload, num, errors);
 
-      if (this.disableBackLink) {
+    if (this.disableBackLink) {
       viewModel.backLink = undefined;
     } else {
       viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;

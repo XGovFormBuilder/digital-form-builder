@@ -11,6 +11,7 @@ import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
 import { Page } from "@xgovformbuilder/model";
 import { UploadPageController } from "server/plugins/engine/pageControllers/UploadPageController";
 import { MultiStartPageController } from "server/plugins/engine/pageControllers/MultiStartPageController";
+import { RepeatingSectionSummaryPageController } from "./RepeatingSectionSummaryPageController";
 import { CheckpointSummaryPageController } from "src/server/plugins/engine/pageControllers/CheckpointSummaryPageController";
 import { MagicLinkFirstSubmitPageController } from "./MagicLinkFirstSubmitPageController";
 import { MagicLinkSecondSubmitPageController } from "./MagicLinkSecondSubmitPageController";
@@ -31,6 +32,7 @@ const PageControllers = {
   RepeatingFieldPageController,
   UploadPageController,
   MultiStartPageController,
+  RepeatingSectionSummaryPageController,
   CheckpointSummaryPageController,
   MagicLinkFirstSubmitPageController,
   MagicLinkSecondSubmitPageController,
