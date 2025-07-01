@@ -10,6 +10,11 @@ export { SummaryDetailsTransformationMap };
  */
 const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
   "close-contact-form": sectionsOnlyAndCardConversion,
+  "close-contact-form-uat": sectionsOnlyAndCardConversion,
+  "close-contact-form-nl5": sectionsOnlyAndCardConversion,
+  "close-contact-form-hpt": sectionsOnlyAndCardConversion,
+  "close-contact-form-hpt-uat": sectionsOnlyAndCardConversion,
+  "close-contact-form-hpt-nl5": sectionsOnlyAndCardConversion,
 };
 
 module.exports = summaryDetailsTransformations;
