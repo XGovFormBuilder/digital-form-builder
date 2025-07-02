@@ -736,7 +736,6 @@ export class PageControllerBase {
     }
     // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
     if (this.def.feedback?.url) {
-      // if externalFeedback is set to true, use the url as is instead of relative url
       viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
     }
     if (this.def.feedback?.emailAddress) {
