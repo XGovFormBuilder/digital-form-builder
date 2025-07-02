@@ -843,16 +843,26 @@ export class PageControllerBase {
   }
 
   feedbackUrlFromRequest(request: HapiRequest): string | void {
-    if (this.def.feedback?.url) {
-      let feedbackLink = new RelativeUrl(this.def.feedback.url);
+    const feedbackUrl = this.model.def.feedback?.url;
+    if (feedbackUrl) {
+      if (feedbackUrl.startsWith("http")) {
+        return feedbackUrl;
+      }
+
+      const relativeFeedbackUrl = new RelativeUrl(feedbackUrl);
       const returnInfo = new FeedbackContextInfo(
         this.model.name,
         this.pageDef.title,
         `${request.url.pathname}${request.url.search}`
       );
-      feedbackLink.setParam(feedbackReturnInfoKey, returnInfo.toString());
-      return feedbackLink.toString();
+      relativeFeedbackUrl.setParam(
+        feedbackReturnInfoKey,
+        returnInfo.toString()
+      );
+      return relativeFeedbackUrl.toString();
     }
+
+    return undefined;
   }
 
   makeGetRoute() {

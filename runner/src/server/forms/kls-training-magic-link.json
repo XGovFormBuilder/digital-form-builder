@@ -4,7 +4,9 @@
     "skipSummary": true,
     "authentication": true,
     "toggle": true,
-    "toggleRedirect": "/kls-training/training-request-part-1",
+    "serviceName": "UKHSA Knowledge and Library Services (KLS)",
+    "name": "UKHSA Knowledge and Library Services (KLS)",
+    "toggleRedirect": "/kls-training-request/training-request-part-1",
     "magicLinkConfig": "kls-training-magic-link",
     "allowedDomains": [
         "ukhsa.gov.uk",
@@ -14,8 +16,7 @@
         "gov.uk"
     ],
     "invalidDomainRedirect": "/kls-training-magic-link/your-email-is-not-on-our-approved-list",
-    "serviceName": "Knowledge and Library Services",
-    "fullStartPage": "/kls-training/start",
+    "fullStartPage": "/kls-training-request/start",
     "pages": [
         {
             "path": "/start",
@@ -28,7 +29,7 @@
             "unauthenticated": true,
             "continueButtonText": "Continue",
             "showContinueButton": true,
-            "backLinkFallback": "/kls-training/training-request-part-1",
+            "backLinkFallback": "/kls-training-request/training-request-part-1",
             "components": [
                 {
                     "name": "EmailIntro",
@@ -168,7 +169,7 @@
                     "name": "EmailConfirmed",
                     "options": {},
                     "type": "Para",
-                    "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-training/training-request-part-1' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
+                    "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-training-request/training-request-part-1' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
                     "schema": {}
                 }
             ]
@@ -239,7 +240,7 @@
     ],
     "feedback": {
         "feedbackForm": true,
-        "url": "/feedback"
+        "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
     },
     "version": 2,
     "feeOptions": {

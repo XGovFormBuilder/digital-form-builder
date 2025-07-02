@@ -1,10 +1,11 @@
 {
     "metadata": {},
     "startPage": "/start",
-    "fullStartPage": "/kls-training/start",
+    "fullStartPage": "/kls-training-request/start",
     "authentication": true,
     "toggle": true,
-    "serviceName": "Knowledge and Library Services",
+    "serviceName": "UKHSA Knowledge and Library Services (KLS)",
+    "name": "UKHSA Knowledge and Library Services (KLS)",
     "magicLinkConfig": "kls-training-magic-link",
     "webhookHmacSharedKey": "${KLSTrainingKey}",
     "pages": [
@@ -115,14 +116,14 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                        "number.base": "Enter number of participants",
-                        "number.min": "Number of participants must be greater than 0"
+                            "number.base": "Enter number of participants",
+                            "number.min": "Number of participants must be greater than 0"
                         }
                     },
                     "hint": "Enter number of participants",
                     "type": "NumberField",
                     "title": "What is the approximate number of participants?",
-                              "schema": {
+                    "schema": {
                         "min": 1
                     }
                 },
@@ -926,15 +927,15 @@
     ],
     "fees": [],
     "outputs": [
-            {
+        {
             "name": "eBBQeD",
             "title": "test-output",
             "type": "webhook",
             "outputConfiguration": {
                 "url": "${KLSTrainingWebhook}",
                 "allowRetry": true
-      }
-    }
+            }
+        }
     ],
     "version": 2,
     "skipSummary": false,
@@ -942,6 +943,10 @@
         "allowSubmissionWithoutPayment": true,
         "maxAttempts": 3,
         "showPaymentSkippedWarningPage": false
+    },
+    "feedback": {
+        "feedbackForm": true,
+        "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
     },
     "jwtKey": "${KLSTrainingJwtKey}"
 }

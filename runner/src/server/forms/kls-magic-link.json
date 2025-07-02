@@ -3,8 +3,7 @@
   "skipSummary": true,
   "authentication": true,
   "toggle": true,
-  "toggleRedirect": "/kls-path-1/which-organisation-do-you-work-for-DUPE",
-
+  "toggleRedirect": "/kls-enquiries/which-organisation-do-you-work-for-DUPE",
   "retryTimeoutSeconds": 300,
     "analytics": {
     "matomoId": "11",
@@ -13,8 +12,9 @@
   "magicLinkConfig": "kls-magic-link",
   "allowedDomains": ["ukhsa.gov.uk", "dhsc.gov.uk", "nhs.net", "nhs.uk", "gov.uk", "nccpentest.com", "nccgroup.com"],
   "invalidDomainRedirect": "/kls-magic-link/your-email-is-not-on-our-approved-list",
-  "serviceName": "Knowledge and Library Services",
-  "fullStartPage": "/kls-path-1/start",
+  "serviceName": "UKHSA Knowledge and Library Services (KLS)",
+  "name": "UKHSA Knowledge and Library Services (KLS)",
+  "fullStartPage": "/kls-enquiries/start",
   "pages": [
     {
       "path": "/start",
@@ -27,7 +27,7 @@
       "unauthenticated": true,
       "continueButtonText": "Continue",
       "showContinueButton": true,
-      "backLinkFallback": "/kls-path-1/which-organisation-do-you-work-for",
+      "backLinkFallback": "/kls-enquiries/which-organisation-do-you-work-for",
       "components": [
         {
           "name": "EmailIntro",
@@ -167,7 +167,7 @@
           "name": "EmailConfirmed",
           "options": {},
           "type": "Para",
-          "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-path-1/which-organisation-do-you-work-for-DUPE' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
+          "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-enquiries/which-organisation-do-you-work-for-DUPE' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
           "schema": {}
         }
       ]
@@ -239,7 +239,7 @@
   "jwtKey": "${KLSJwtKey}",
   "feedback": {
     "feedbackForm": true,
-    "url": "/feedback"
+    "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
   },
   "version": 2,
   "conditions": []
