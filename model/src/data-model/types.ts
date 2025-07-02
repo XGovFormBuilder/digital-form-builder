@@ -194,5 +194,4 @@ export type FormDefinition = {
   paymentReferenceFormat?: string;
   feeOptions: FeeOptions;
   exitOptions: ExitOptions;
-  externalFeedback?: boolean | undefined;
 };
