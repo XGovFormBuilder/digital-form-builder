@@ -1,4 +1,4 @@
-export function filterSections(details) {
+export function sectionsOnlyAndCardConversion(details) {
   return details
     .filter((detail) => detail.name)
     .map((detail) => {
