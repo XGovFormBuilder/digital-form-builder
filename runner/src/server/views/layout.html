@@ -85,6 +85,7 @@
   {{ pageTitle }} – {{ name if name else serviceName }}
 {% endblock %}
 
+
 {% block skipLink %}
   {{ govukSkipLink({
     href: '#main-content',
@@ -94,6 +95,9 @@
 
 
 {% block header %}
+  {% if not cookiesPolicy.isSet %}
+    {% include "partials/cookie-banner.html" %}
+  {% endif %}
   {{ govukHeader({
     homepageUrl: "https://gov.uk",
     containerClasses: "govuk-width-container",
@@ -108,14 +112,9 @@
       rebrand: true
     })
   }}
-
 {% endblock %}
 
 {% block bodyStart %}
-  {% if not cookiesPolicy.isSet %}
-    {% include "partials/cookie-banner.html" %}
-  {% endif %}
-
   {% if gtmId1 %}
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmId1 }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
