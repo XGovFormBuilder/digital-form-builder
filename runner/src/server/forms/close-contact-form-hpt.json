@@ -185,7 +185,7 @@
         { "path": "/other-persons-details", "condition": "lGzwuI" },
         { "path": "/close-contact-you", "condition": "SypzMi" }
       ],
-      "section": "PersonalDetails"
+      "section": "WhoThisFormIsFor"
     },
     {
       "path": "/other-persons-details",
@@ -265,7 +265,7 @@
         }
       ],
       "next": [{ "path": "/close-contact" }],
-      "section": "PersonalDetails"
+      "section": "WhoThisFormIsFor"
     },
     {
       "path": "/close-contact",
@@ -2413,18 +2413,18 @@
   ],
   "sections": [
     {
-      "name": "PersonalDetails",
-      "title": "Personal details",
-      "hideTitle": true
-    },
-    {
       "name": "YourDetails",
-      "title": "Enter your details",
+      "title": "Your details",
       "hideTitle": false
     },
     {
+      "name": "WhoThisFormIsFor",
+      "title": "Who this form is for",
+      "hideTitle": true
+    },
+    {
       "name": "TheirDetails",
-      "title": "Enter the details for the person who is being contact traced",
+      "title": "Details for the person who is being contact traced",
       "hideTitle": false
     },
     {
@@ -2511,7 +2511,7 @@
         "conditions": [
           {
             "field": {
-              "name": "PersonalDetails.completing_form_for",
+              "name": "WhoThisFormIsFor.completing_form_for",
               "type": "RadiosField",
               "display": "Who this form is for"
             },
@@ -2533,7 +2533,7 @@
         "conditions": [
           {
             "field": {
-              "name": "PersonalDetails.completing_form_for",
+              "name": "WhoThisFormIsFor.completing_form_for",
               "type": "RadiosField",
               "display": "Who this form is for"
             },
