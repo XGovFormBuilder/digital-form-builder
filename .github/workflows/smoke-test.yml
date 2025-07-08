@@ -59,6 +59,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check images
+        run: docker images
+
       - name: start containers
         run: |
           docker compose -f docker-compose.smoke.yml up redis designer -d

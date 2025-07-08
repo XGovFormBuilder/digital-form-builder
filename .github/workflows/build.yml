@@ -80,7 +80,9 @@ jobs:
           file: ${{inputs.app}}/Dockerfile
           push: false
           context: .
-          tags: ${{ steps.hashFile.outputs.tag }}
+          tags: |
+            ${{ steps.hashFile.outputs.tag }}
+            digital-form-builder-${{inputs.app}}:latest
 
       - name: Build ${{inputs.app}} and push
         if: ${{inputs.semver && inputs.publish == true }}
