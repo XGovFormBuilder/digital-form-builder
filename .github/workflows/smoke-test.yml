@@ -76,6 +76,11 @@ jobs:
       - name: Check images
         run: docker images
 
+      - name: build containers
+        run: |
+          docker compose -f docker-compose.smoke.yml build designer runner
+          sleep 10
+
       - name: start containers
         run: |
           docker compose -f docker-compose.smoke.yml up redis designer -d
