@@ -3,14 +3,6 @@ name: smoke tests
 on:
   workflow_call:
     inputs:
-      runner-cache-ref:
-        description: cache ref for the runner app
-        required: true
-        type: string
-      designer-cache-ref:
-        description: cache ref for the designer app
-        required: true
-        type: string
       build:
         description: whether or not to build the images. Defaults to true
         required: false
@@ -64,22 +56,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      #      - name: Build ${{inputs.app}}
-      #        if: ${{inputs.build}}
-      #        uses: docker/bake-action@v6
-      #        with:
-      #          push: false
-      #          set: |
-      #            runner.tags=digital-form-builder-runner:latest
-      #            designer.tags=digital-form-builder-designer:latest
-
-      - name: Check images
-        run: docker images
-
       - name: build containers
-        run: |
-          docker compose -f docker-compose.smoke.yml build designer runner
-          sleep 10
+        if: ${{ inputs.build }}
+        run: docker compose -f docker-compose.smoke.yml build designer runner
 
       - name: start containers
         run: |
