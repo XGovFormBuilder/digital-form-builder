@@ -7,7 +7,7 @@ on:
         description: whether or not to build the images. Defaults to true
         required: false
         type: boolean
-        default: false
+        default: true
 
 jobs:
   smoke-test:
@@ -57,6 +57,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: build containers
+        # if inputs.build is set to false, the latest images will be pulled from ghcr.io
         if: ${{ inputs.build }}
         run: docker compose -f docker-compose.smoke.yml build designer runner
 
