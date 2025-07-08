@@ -32,18 +32,45 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Validate build configuration
+      - name: Modify config for build
+        run: |
+          cd ./builder/runner
+          # Comment out specific Redis + sessionCookiePassword configuration lines
+          sed -i 's/^  sessionCookiePassword:/  \/\/ sessionCookiePassword:/' config/default.js
+          sed -i 's/^  redisHost:/  \/\/ redisHost:/' config/default.js
+          sed -i 's/^  redisPort:/  \/\/ redisPort:/' config/default.js
+          sed -i 's/^  redisPassword:/  \/\/ redisPassword:/' config/default.js
+          sed -i 's/^  redisTls:/  \/\/ redisTls:/' config/default.js
+
+      - name: Build and cache
         uses: docker/build-push-action@v6
         with:
-          call: check
-          context: ./builder
-          file: ./builder/runner/Dockerfile
-
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
           push: false
-          tags: user/app:latest
+          load: true
+          tags: user/app:test
           context: ./builder
           file: ./builder/runner/Dockerfile
           platforms: linux/amd64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Check
+        run: |
+          echo "Starting container..."
+
+          # Start container and immediately check if it's running
+          docker run --rm -d --name quick-test -p 8080:8080 user/app:test
+
+          # Wait a moment
+          sleep 5
+
+          # Check if still running
+          if docker ps | grep -q quick-test; then
+            echo "✅ Container started successfully"
+            docker logs quick-test
+            docker stop quick-test
+          else
+            echo "❌ Container failed to start or exited"
+            docker logs quick-test 2>&1 || echo "No logs available"
+            exit 1
+          fi
