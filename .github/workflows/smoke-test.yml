@@ -11,6 +11,10 @@ on:
         description: cache ref for the designer app
         required: true
         type: string
+      build:
+        description: whether or not to build the images. Defaults to true
+        required: false
+        type: boolean
 
 jobs:
   smoke-test:
@@ -58,6 +62,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build ${{inputs.app}}
+        if: ${{inputs.build == true }}
+        uses: docker/bake-action@v6
+        with:
+          push: false
+          set: |
+            runner.tags=digital-form-builder-runner:latest
+            designer.tags=digital-form-builder-designer:latest
 
       - name: Check images
         run: docker images
