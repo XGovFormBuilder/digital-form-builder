@@ -3,13 +3,6 @@ name: smoke tests
 on:
   workflow_call:
     inputs:
-      runner-cache-ref:
-        description: cache ref for the runner app
-        required: true
-        type: string
-      designer-cache-ref:
-        description: cache ref for the designer app
-        required: true
         type: string
 
 jobs:
