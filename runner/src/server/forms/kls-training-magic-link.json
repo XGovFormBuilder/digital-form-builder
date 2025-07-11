@@ -4,6 +4,9 @@
     "skipSummary": true,
     "authentication": true,
     "toggle": true,
+    "analytics": {
+        "gtmId1": "GTM-WLKKLMQB"
+    },
     "serviceName": "UKHSA Knowledge and Library Services (KLS)",
     "name": "UKHSA Knowledge and Library Services (KLS)",
     "toggleRedirect": "/kls-training-request/training-request-part-1",
@@ -16,7 +19,7 @@
         "gov.uk"
     ],
     "invalidDomainRedirect": "/kls-training-magic-link/your-email-is-not-on-our-approved-list",
-    "fullStartPage": "/kls-training-request/start",
+    "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
     "pages": [
         {
             "path": "/start",

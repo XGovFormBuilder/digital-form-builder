@@ -5,16 +5,15 @@
   "toggle": true,
   "toggleRedirect": "/kls-enquiries/which-organisation-do-you-work-for-DUPE",
   "retryTimeoutSeconds": 300,
-    "analytics": {
-    "matomoId": "11",
-    "matomoUrl": "https://ukhsakls.matomo.cloud"
+  "analytics": {
+    "gtmId1": "GTM-WLKKLMQB"
   },
   "magicLinkConfig": "kls-magic-link",
   "allowedDomains": ["ukhsa.gov.uk", "dhsc.gov.uk", "nhs.net", "nhs.uk", "gov.uk", "nccpentest.com", "nccgroup.com"],
   "invalidDomainRedirect": "/kls-magic-link/your-email-is-not-on-our-approved-list",
   "serviceName": "UKHSA Knowledge and Library Services (KLS)",
   "name": "UKHSA Knowledge and Library Services (KLS)",
-  "fullStartPage": "/kls-enquiries/start",
+  "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
   "pages": [
     {
       "path": "/start",
