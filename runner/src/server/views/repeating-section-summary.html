@@ -15,7 +15,9 @@
         {{ govukErrorSummary(errors) }}
       {% endif %}
 
-      {% include "partials/heading.html" %}
+      <h1 class="govuk-heading-l">
+        Check these details are correct before continuing
+      </h1>
 
       {% for detail in details %}
         {{ summaryCard(detail) }}
