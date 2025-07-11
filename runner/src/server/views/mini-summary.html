@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block templateImports %}
+  {{ super() }}
+{% endblock %}}
+
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "partials/components.html" import componentList with context %}
+{% from "partials/summary-detail.html" import summaryDetail %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors %}
+        {{ govukErrorSummary(errors) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">
+        Check these details are correct before continuing
+      </h1>
+
+      {% for detail in details %}
+        {{ summaryDetail(detail) }}
+      {% endfor %}
+
+      {% include "partials/form.html" %}
+    </div>
+  </div>
+{% endblock %}
