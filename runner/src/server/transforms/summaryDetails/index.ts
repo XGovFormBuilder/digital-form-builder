@@ -13,7 +13,7 @@ export { SummaryDetailsTransformationMap };
 const mergeRowsParams1 = [
   { names: ["first_name", "last_name"], to: "Full name", joiner: " " },
   {
-    names: ["mobile_number", "landline_number", "email_address"],
+    names: ["phone_number", "email_address"],
     to: "Contact details",
     joiner: "\n",
   },
