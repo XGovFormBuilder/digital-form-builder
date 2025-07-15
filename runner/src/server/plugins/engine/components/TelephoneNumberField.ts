@@ -6,20 +6,22 @@ import { addClassOptionIfNone, internationalPhoneValidator } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 import joi, { Schema } from "joi";
 
-const TELEPHONE_REGEX = "(?!0{5,})(((\\\+44\\s?(?!4|6)\\d{4}|\\(?0(?!4|6)\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\\+44\\s?(?!4|6)\\d{3}|\\(?0(?!4|6)\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\\+44\\s?(?!4|6)\\d{2}|\\(?0(?!4|6)\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?";
+const PATTERN = /^[0-9\\\s+()-]*$/;
+const DEFAULT_MESSAGE = "Enter a telephone number in the correct format";
 export class TelephoneNumberField extends FormComponent {
   constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
     super(def, model);
 
     const { options = {}, schema = {} } = def;
+    const pattern = schema.regex ? new RegExp(schema.regex) : PATTERN;
     let componentSchema = joi.string();
 
     if (options.required === false) {
       componentSchema = componentSchema.allow("").allow(null);
     }
-
-    const pattern = new RegExp(TELEPHONE_REGEX);
-    componentSchema = componentSchema.pattern(pattern);
+    componentSchema = componentSchema
+      .pattern(pattern)
+      .label(def.title.toLowerCase());
 
     if (schema.max) {
       componentSchema = componentSchema.max(schema.max);
@@ -37,6 +39,11 @@ export class TelephoneNumberField extends FormComponent {
       componentSchema = componentSchema.messages(
         options.customValidationMessages
       );
+    } else {
+      componentSchema = componentSchema.messages({
+        "string.pattern.base":
+          def.options?.customValidationMessage ?? DEFAULT_MESSAGE,
+      });
     }
     this.schema = componentSchema;
 
