@@ -12,6 +12,7 @@ import { MiniSummaryPageController } from "./MiniSummaryPageController";
 import { Page } from "@xgovformbuilder/model";
 import { UploadPageController } from "server/plugins/engine/pageControllers/UploadPageController";
 import { MultiStartPageController } from "server/plugins/engine/pageControllers/MultiStartPageController";
+import { RepeatingSectionSummaryPageController } from "./RepeatingSectionSummaryPageController";
 
 const PageControllers = {
   DobPageController,
@@ -25,6 +26,7 @@ const PageControllers = {
   MiniSummaryPageController,
   UploadPageController,
   MultiStartPageController,
+  RepeatingSectionSummaryPageController,
 };
 
 export const controllerNameFromPath = (filePath: string) => {

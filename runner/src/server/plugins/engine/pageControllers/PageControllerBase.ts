@@ -57,6 +57,7 @@ export class PageControllerBase {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
   backLinkFallback?: string;
+  details?: any;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -136,6 +137,7 @@ export class PageControllerBase {
     startPage?: HapiResponseObject;
     backLink?: string;
     phaseTag?: string | undefined;
+    details?: any;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -166,7 +168,12 @@ export class PageControllerBase {
       }
 
       label.isPageHeading = true;
-      label.classes = "govuk-label--l";
+      label.classes = "govuk-fieldset__legend--l";
+
+      if (singleFormComponent.model?.fieldset) {
+        singleFormComponent.model.fieldset.legend = label;
+      }
+
       pageTitle = pageTitle || label.text;
       showTitle = false;
     }
@@ -180,6 +187,7 @@ export class PageControllerBase {
       components,
       errors,
       isStartPage: false,
+      details: this.details || undefined,
     };
   }
 
@@ -747,16 +755,26 @@ export class PageControllerBase {
   }
 
   feedbackUrlFromRequest(request: HapiRequest): string | void {
-    if (this.def.feedback?.url) {
-      let feedbackLink = new RelativeUrl(this.def.feedback.url);
+    const feedbackUrl = this.model.def.feedback?.url;
+    if (feedbackUrl) {
+      if (feedbackUrl.startsWith("http")) {
+        return feedbackUrl;
+      }
+
+      const relativeFeedbackUrl = new RelativeUrl(feedbackUrl);
       const returnInfo = new FeedbackContextInfo(
         this.model.name,
         this.pageDef.title,
         `${request.url.pathname}${request.url.search}`
       );
-      feedbackLink.setParam(feedbackReturnInfoKey, returnInfo.toString());
-      return feedbackLink.toString();
+      relativeFeedbackUrl.setParam(
+        feedbackReturnInfoKey,
+        returnInfo.toString()
+      );
+      return relativeFeedbackUrl.toString();
     }
+
+    return undefined;
   }
 
   makeGetRoute() {

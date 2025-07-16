@@ -32,7 +32,7 @@ suite(`Phase banner`, () => {
     const $ = cheerio.load(response.payload);
 
     expect($(".govuk-phase-banner__content__tag").text().trim()).to.equal(
-      "beta"
+      "Beta"
     );
   });
 
@@ -54,7 +54,7 @@ suite(`Phase banner`, () => {
     const $ = cheerio.load(response.payload);
 
     expect($(".govuk-phase-banner__content__tag").text().trim()).to.equal(
-      "alpha"
+      "Alpha"
     );
   });
 
