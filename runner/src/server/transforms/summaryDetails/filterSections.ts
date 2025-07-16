@@ -1,3 +1,6 @@
+// Removes rows that don't belong to sections
+// Transforms sections with names where a number follows a letter into a card
+
 export function filterSections(details) {
   return details
     .filter((detail) => detail.name)
