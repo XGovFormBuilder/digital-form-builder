@@ -1,3 +1,5 @@
+// Find fields in each section, create a row with a value that combines the values of those fields, then remove the original fields
+
 export function mergeRows(
   details: any,
   fields: Array<{ names: Array<string>; to: string; joiner: string }>
