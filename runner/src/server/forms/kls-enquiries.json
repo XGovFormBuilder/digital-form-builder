@@ -1,13 +1,12 @@
 {
   "metadata": {},
   "startPage": "/start",
-  "fullStartPage": "/kls-enquiries/start",
+  "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
   "authentication": true,
   "toggle": true,
   "serviceName": "UKHSA Knowledge and Library Services (KLS)",
   "analytics": {
-    "matomoUrl": "https://ukhsakls.matomo.cloud",
-    "matomoId": "11"
+    "gtmId1": "GTM-WLKKLMQB"
   },
   "webhookHmacSharedKey": "${KLSkey}",
   "fileUploadHmacSharedKey": "${KLSFileUploadKey}",
@@ -18,7 +17,14 @@
       "title": "Contact the Knowledge and Library Services team",
       "path": "/start",
       "unauthenticated": true,
-      "components": [],
+      "components": [
+        {
+            "name": "mainContent",
+            "options": {},
+            "type": "Para",
+            "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+        }
+      ],
       "next": [
         {
           "path": "/which-organisation-do-you-work-for"
@@ -128,7 +134,10 @@
         {
           "name": "ZjyQtC",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
           },
           "type": "EmailAddressField",
           "title": "Should anyone else be included in emails about this enquiry?",
@@ -215,7 +224,8 @@
                   "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
                     },
                "type":"FileUploadField",
-               "title":"If you need to upload a file to help us deal with your enquiry, do so here."
+               "title":"If you need to upload a file to help us deal with your enquiry, do so here.",
+               "hint": "To support the KLS team in dealing with your query, you may upload a file here. You can upload multiple files but the maximum size of all files combined cannot exceed 10 MB"
             }
             
 
@@ -712,8 +722,8 @@
 {
   "name": "FIvjTg",
   "type": "FileUploadField",
-  "title": "Upload a file v2",
-  "hint": "To support the KLS team in dealing with your query, you may upload a file here.",
+  "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
+  "hint": "To support the KLS team in dealing with your query, you may upload a file here. You can upload multiple files but the maximum size of all files combined cannot exceed 10 MB",
   "schema": {},
   "options": {
     "multiple": true,
@@ -1052,7 +1062,10 @@
         {
           "name": "rqzRcc",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
           },
           "type": "EmailAddressField",
           "title": "Should anyone else be included in emails about this enquiry?"
@@ -1086,7 +1099,8 @@
             "customValidationMessages": {
               "any.required": "Enter email address",
               "any.only": "Enter email address",
-              "string.empty": "Enter email address"
+              "string.empty": "Enter email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           },
           "type": "EmailAddressField",
@@ -1095,7 +1109,10 @@
         {
           "name": "YeDsms",
           "options": {
-            "required": false
+            "required": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
           },
           "type": "EmailAddressField",
           "title": "Should anyone else be included in emails about this enquiry?"
