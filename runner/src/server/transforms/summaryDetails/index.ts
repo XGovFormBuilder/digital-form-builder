@@ -11,20 +11,38 @@ export { SummaryDetailsTransformationMap };
  */
 
 const closeContactParams = [
-  { names: ["first_name", "last_name"], to: "Full name", joiner: " " },
+  {
+    names: ["first_name", "last_name"],
+    to: "Full name",
+    joiner: " ",
+  },
   {
     names: ["phone_number", "email_address"],
+    to: "Contact details",
+    joiner: "\n",
+  },
+  {
+    names: ["contact_first_name", "contact_last_name"],
+    to: "Full name",
+    joiner: " ",
+  },
+  {
+    names: ["contact_phone_number", "contact_email"],
     to: "Contact details",
     joiner: "\n",
   },
 ];
 
 const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
-  "close-contact-form": (details) => {
+  "close-contact-form-nl1-dev": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
-  "close-contact-form-uat": (details) => {
+  "close-contact-form-nl1-test": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-nl4": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
@@ -32,15 +50,43 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
-  "close-contact-form-hpt": (details) => {
+  "close-contact-form-nl7": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
-  "close-contact-form-hpt-uat": (details) => {
+  "close-contact-form-nl8": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-uat": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-hpt-nl1-dev": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-hpt-nl1-test": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-hpt-nl4": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
   "close-contact-form-hpt-nl5": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-hpt-nl7": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-hpt-nl8": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-hpt-uat": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
