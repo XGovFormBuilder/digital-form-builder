@@ -37,8 +37,9 @@ export function NotifyModel(
     personalisationFieldCustomisation = {},
     emailReplyToIdConfiguration,
     escapeURLs = false,
-    templateId,
   } = outputConfiguration;
+
+  let { templateId } = outputConfiguration;
 
   // @ts-ignore - eslint does not report this as an error, only tsc
   const personalisation: NotifyModel["personalisation"] = personalisationConfiguration.reduce(

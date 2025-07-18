@@ -1,0 +1,3323 @@
+{
+  "metadata": {},
+  "startPage": "/start",
+  "pages": [
+    {
+      "title": "Identify close contacts of bird flu",
+      "path": "/start",
+      "components": [
+        {
+          "name": "ooHdDj",
+          "options": {},
+          "type": "Para",
+          "content": "You can use this service if we sent an email or text asking you to complete this form. You can do this for yourself or for someone else.",
+          "schema": {}
+        },
+        {
+          "name": "tKEFcw",
+          "options": {},
+          "type": "Para",
+          "content": "Use this service to report:",
+          "schema": {}
+        },
+        {
+          "name": "NYuNvb",
+          "options": {},
+          "type": "List",
+          "title": "Close contacts",
+          "list": "yRnBmv",
+          "schema": {}
+        },
+        {
+          "name": "QlWuFo",
+          "options": {},
+          "type": "Para",
+          "content": "It should take about 10 minutes to complete.",
+          "schema": {}
+        },
+        {
+          "name": "ifAKep",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">Before you start</h2>",
+          "schema": {}
+        },
+        {
+          "name": "VCwJTN",
+          "options": {},
+          "type": "Para",
+          "content": "We will need some details of the people that you will list in this form. These details include:",
+          "schema": {}
+        },
+        {
+          "name": "ksyXub",
+          "options": {},
+          "type": "List",
+          "title": "Details required",
+          "list": "rcWCzy",
+          "schema": {}
+        },
+        {
+          "name": "Qkjtcn",
+          "options": {},
+          "type": "Para",
+          "content": "You will need the details of the close contacts ready.",
+          "schema": {}
+        },
+        {
+          "name": "TqEyQM",
+          "options": {},
+          "type": "Para",
+          "content": "The information you give will be handled in strict confidence and will only be kept and used in line with data protection laws.",
+          "schema": {}
+        },
+        {
+          "name": "gfOVOL",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-m\">If you need help completing this form</h2>",
+          "schema": {}
+        },
+        {
+          "name": "jmslVl",
+          "options": {},
+          "type": "Para",
+          "content": "If you need help to complete this form, contact <a href=\"#\">111</a> for help.",
+          "schema": {}
+        },
+        {
+          "name": "disease_name",
+          "options": {
+            "allowPrePopulation": true,
+            "allowPrePopulationOverwrite": true,
+            "classes": "govuk-visually-hidden",
+            "hideTitle": true,
+            "disableChangingFromSummary": true,
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Disease",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/case-id" }],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/case-id",
+      "title": "Enter the case ID of the person who needs contact tracing",
+      "components": [
+        {
+          "name": "case_id",
+          "options": {},
+          "type": "TextField",
+          "title": "Case ID",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/personal-details" }],
+      "section": "CaseID"
+    },
+    {
+      "path": "/personal-details",
+      "title": "Personal details",
+      "components": [
+        {
+          "name": "lcOnmo",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "pcOnmo",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "phone_number",
+          "options": {},
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "email_address",
+          "options": { "required": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "hint": "For example, sarah.philips@example.com",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/completing-form-for" }],
+      "section": "YourDetails"
+    },
+    {
+      "title": "Who are you completing this form for?",
+      "path": "/completing-form-for",
+      "components": [
+        {
+          "name": "completing_form_for",
+          "options": { "hideTitle": true },
+          "type": "RadiosField",
+          "title": "Who this form is for",
+          "list": "AVoXlG",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/other-persons-details", "condition": "lGzwuI" },
+        { "path": "/close-contact-you", "condition": "SypzMi" }
+      ],
+      "section": "WhoThisFormIsFor"
+    },
+    {
+      "path": "/other-persons-details",
+      "title": "Other person's details",
+      "components": [
+        {
+          "name": "lcOnmo",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "pcOnmo",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "TLaaZQ",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If you are the parent, guardian or carer of this person, put down your contact details below.\n  </strong>\n</div>"
+        },
+        {
+          "name": "phone_number",
+          "options": {},
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "email_address",
+          "options": { "required": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "hint": "For example, sarah.philips@example.com",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/who-should-we-contact" }],
+      "section": "TheirDetails"
+    },
+    {
+      "path": "/who-should-we-contact",
+      "title": "Who should we contact if we need to follow up?",
+      "components": [
+        {
+          "name": "who_should_we_contact",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Who we should follow up with",
+          "hint": "Select 'Me' if you are the parent, guardian or carer of the other person",
+          "list": "lNoBeE",
+          "schema": {}
+        },
+        {
+          "name": "JJOVvQ",
+          "options": {},
+          "type": "InsetText",
+          "content": "If you select 'Them' we may still contact you if we are unable to get a hold of them.",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/close-contact" }],
+      "section": "WhoThisFormIsFor"
+    },
+    {
+      "path": "/close-contact",
+      "title": "Have they been in close contact with anyone in the last 7 days?",
+      "components": [
+        {
+          "name": "EiNVay",
+          "options": {},
+          "type": "Para",
+          "content": "A close contact is anyone they've been near long enough to risk spreading the virus. This includes:"
+        },
+        {
+          "name": "TCnLHZ",
+          "options": {},
+          "type": "List",
+          "title": "Close contact (other) list",
+          "list": "oDwqlv"
+        },
+        {
+          "name": "been_in_contact",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessage": "Select 'yes' if they've been in close contact"
+          },
+          "type": "RadiosField",
+          "title": "Have they been in close contact with anyone in the last 7 days?",
+          "list": "YQUrgI",
+          "values": { "type": "listRef" },
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-1", "condition": "IfContactsYes" },
+        { "path": "/summary", "condition": "IfContactsNo" }
+      ],
+      "section": "BeenInContact"
+    },
+    {
+      "path": "/close-contact-you",
+      "title": "Have you been in close contact with anyone in the last 7 days?",
+      "components": [
+        {
+          "name": "EiNVay",
+          "options": {},
+          "type": "Para",
+          "content": "A close contact is anyone you've been near long enough to risk spreading the virus. This includes:"
+        },
+        {
+          "name": "TCnLHZ",
+          "options": {},
+          "type": "List",
+          "title": "Close contact (you) list",
+          "list": "yDwqlv"
+        },
+        {
+          "name": "been_in_contact",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessage": "Select 'yes' if you've been in close contact"
+          },
+          "type": "RadiosField",
+          "title": "Have you been in close contact with anyone in the last 7 days?",
+          "list": "YQUrgI",
+          "values": { "type": "listRef" },
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-1", "condition": "IfContactsYes" },
+        { "path": "/summary", "condition": "IfContactsNo" }
+      ],
+      "section": "BeenInContact"
+    },
+    {
+      "path": "/close-contact-1",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-1" }],
+      "section": "CloseContact1"
+    },
+    {
+      "path": "/close-contact-added-1",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson1",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-2", "condition": "AddAnotherYes1" },
+        { "path": "/summary", "condition": "AddAnotherNo1" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-2",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-2" }],
+      "section": "CloseContact2"
+    },
+    {
+      "path": "/close-contact-added-2",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson2",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-3", "condition": "AddAnotherYes2" },
+        { "path": "/summary", "condition": "AddAnotherNo2" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-3",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-3" }],
+      "section": "CloseContact3"
+    },
+    {
+      "path": "/close-contact-added-3",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson3",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-4", "condition": "AddAnotherYes3" },
+        { "path": "/summary", "condition": "AddAnotherNo3" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-4",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-4" }],
+      "section": "CloseContact4"
+    },
+    {
+      "path": "/close-contact-added-4",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson4",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-5", "condition": "AddAnotherYes4" },
+        { "path": "/summary", "condition": "AddAnotherNo4" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-5",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-5" }],
+      "section": "CloseContact5"
+    },
+    {
+      "path": "/close-contact-added-5",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson5",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-6", "condition": "AddAnotherYes5" },
+        { "path": "/summary", "condition": "AddAnotherNo5" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-6",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-6" }],
+      "section": "CloseContact6"
+    },
+    {
+      "path": "/close-contact-added-6",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson6",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-7", "condition": "AddAnotherYes6" },
+        { "path": "/summary", "condition": "AddAnotherNo6" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-7",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-7" }],
+      "section": "CloseContact7"
+    },
+    {
+      "path": "/close-contact-added-7",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson7",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-8", "condition": "AddAnotherYes7" },
+        { "path": "/summary", "condition": "AddAnotherNo7" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-8",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-8" }],
+      "section": "CloseContact8"
+    },
+    {
+      "path": "/close-contact-added-8",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson8",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-9", "condition": "AddAnotherYes8" },
+        { "path": "/summary", "condition": "AddAnotherNo8" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-9",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-9" }],
+      "section": "CloseContact9"
+    },
+    {
+      "path": "/close-contact-added-9",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson9",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-10", "condition": "AddAnotherYes9" },
+        { "path": "/summary", "condition": "AddAnotherNo9" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-10",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-10" }],
+      "section": "CloseContact10"
+    },
+    {
+      "path": "/close-contact-added-10",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson10",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-11", "condition": "AddAnotherYes10" },
+        { "path": "/summary", "condition": "AddAnotherNo10" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-11",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-11" }],
+      "section": "CloseContact11"
+    },
+    {
+      "path": "/close-contact-added-11",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson11",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-12", "condition": "AddAnotherYes11" },
+        { "path": "/summary", "condition": "AddAnotherNo11" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-12",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-12" }],
+      "section": "CloseContact12"
+    },
+    {
+      "path": "/close-contact-added-12",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson12",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-13", "condition": "AddAnotherYes12" },
+        { "path": "/summary", "condition": "AddAnotherNo12" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-13",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-13" }],
+      "section": "CloseContact13"
+    },
+    {
+      "path": "/close-contact-added-13",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson13",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-14", "condition": "AddAnotherYes13" },
+        { "path": "/summary", "condition": "AddAnotherNo13" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-14",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-14" }],
+      "section": "CloseContact14"
+    },
+    {
+      "path": "/close-contact-added-14",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson14",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-15", "condition": "AddAnotherYes14" },
+        { "path": "/summary", "condition": "AddAnotherNo14" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-15",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-15" }],
+      "section": "CloseContact15"
+    },
+    {
+      "path": "/close-contact-added-15",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson15",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-16", "condition": "AddAnotherYes15" },
+        { "path": "/summary", "condition": "AddAnotherNo15" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-16",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-16" }],
+      "section": "CloseContact16"
+    },
+    {
+      "path": "/close-contact-added-16",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson16",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-17", "condition": "AddAnotherYes16" },
+        { "path": "/summary", "condition": "AddAnotherNo16" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-17",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-17" }],
+      "section": "CloseContact17"
+    },
+    {
+      "path": "/close-contact-added-17",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson17",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-18", "condition": "AddAnotherYes17" },
+        { "path": "/summary", "condition": "AddAnotherNo17" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-18",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-18" }],
+      "section": "CloseContact18"
+    },
+    {
+      "path": "/close-contact-added-18",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson18",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-19", "condition": "AddAnotherYes18" },
+        { "path": "/summary", "condition": "AddAnotherNo18" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-19",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/close-contact-added-19" }],
+      "section": "CloseContact19"
+    },
+    {
+      "path": "/close-contact-added-19",
+      "title": "Close contact",
+      "components": [
+        {
+          "name": "AnotherPersonSubheading",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Is there another person that lives at the same address who is experiencing symptoms?</h2>",
+          "schema": {}
+        },
+        {
+          "name": "AnotherPerson19",
+          "options": { "hideTitle": true, "disableChangingFromSummary": true },
+          "type": "YesNoField",
+          "title": "'Yes' if there is another close contact",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/close-contact-20", "condition": "AddAnotherYes19" },
+        { "path": "/summary", "condition": "AddAnotherNo19" }
+      ],
+      "controller": "RepeatingSectionSummaryPageController"
+    },
+    {
+      "path": "/close-contact-20",
+      "title": "Enter the contact details for the close contact",
+      "components": [
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
+        },
+        {
+          "name": "contact_first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "contact_last_name",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        },
+        {
+          "name": "Subheader",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>Contact details</h2>"
+        },
+        {
+          "name": "ContactWarningText",
+          "options": {},
+          "type": "Html",
+          "content": "<div class='govuk-warning-text'>\n  <span class='govuk-warning-text__icon' aria-hidden='true'>!</span>\n  <strong class='govuk-warning-text__text'>\n    <span class='govuk-visually-hidden'>Note</span>\n    If this person is under 18, put down the contact detail of their parent or legal guardian.\n  </strong>\n</div>"
+        },
+        {
+          "name": "ContactHintText",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-hint'>Please provide at least one contact detail for the close contact.<br/><br/></span>",
+          "schema": {}
+        },
+        {
+          "name": "contact_phone_number",
+          "options": { "required": false, "optionalText": false },
+          "type": "TelephoneNumberField",
+          "title": "Phone number",
+          "hint": "For example, 07700 900000",
+          "schema": {}
+        },
+        {
+          "name": "contact_email",
+          "options": { "required": false, "optionalText": false },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ContactPara",
+          "type": "Para",
+          "content": "You can add more close contacts after you contact.",
+          "schema": {}
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+        }
+      ],
+      "next": [{ "path": "/summary" }],
+      "section": "CloseContact20"
+    },
+    {
+      "path": "/summary",
+      "title": "Check the details before submitting",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Start list 1",
+      "name": "yRnBmv",
+      "type": "string",
+      "items": [
+        {
+          "text": "close contacts in the last 7 days of ordering a test",
+          "value": "Text"
+        }
+      ]
+    },
+    {
+      "title": "Start list 2",
+      "name": "rcWCzy",
+      "type": "string",
+      "items": [
+        {
+          "text": "the name of the close contact",
+          "value": "the name of the close contact"
+        },
+        {
+          "text": "at least one method of contact for the close contact",
+          "value": "at least one method of contact for the close contact"
+        }
+      ]
+    },
+    {
+      "title": "Who are you completing this form for?",
+      "name": "AVoXlG",
+      "type": "string",
+      "items": [
+        { "text": "Myself", "value": "Myself" },
+        { "text": "Someone else", "value": "Someone else" }
+      ]
+    },
+    {
+      "title": "Who we should follow up with",
+      "name": "lNoBeE",
+      "type": "string",
+      "items": [
+        { "text": "Me", "value": "Me" },
+        { "text": "Them", "value": "Them" }
+      ]
+    },
+    {
+      "title": "Close contact (other) list",
+      "name": "oDwqlv",
+      "type": "string",
+      "items": [
+        { "text": "people they live with", "value": "people they live with" },
+        {
+          "text": "friends, family, or colleagues they met indoors",
+          "value": "friends, family, or colleagues they met indoors"
+        },
+        {
+          "text": "anyone they had face-to-face contact with",
+          "value": "anyone they had face-to-face contact with"
+        },
+        {
+          "text": "anyone they were within 2 metres of for more than 15 minutes",
+          "value": "anyone they were within 2 metres of for more than 15 minutes"
+        },
+        {
+          "text": "someone they travelled with in the same vehicle",
+          "value": "someone they travelled with in the same vehicle"
+        }
+      ]
+    },
+    {
+      "title": "Close contact (you) list",
+      "name": "yDwqlv",
+      "type": "string",
+      "items": [
+        { "text": "people you live with", "value": "people you live with" },
+        {
+          "text": "friends, family, or colleagues you met indoors",
+          "value": "friends, family, or colleagues you met indoors"
+        },
+        {
+          "text": "anyone you had face-to-face contact with",
+          "value": "anyone you had face-to-face contact with"
+        },
+        {
+          "text": "anyone you were within 2 metres of for more than 15 minutes",
+          "value": "anyone you were within 2 metres of for more than 15 minutes"
+        },
+        {
+          "text": "someone you travelled with in the same vehicle",
+          "value": "someone you travelled with in the same vehicle"
+        }
+      ]
+    },
+    {
+      "title": "Yes or no",
+      "name": "YQUrgI",
+      "type": "string",
+      "items": [
+        { "text": "Yes", "value": "Yes" },
+        { "text": "No", "value": "No" }
+      ]
+    },
+    {
+      "title": "Yes",
+      "name": "YESrgI",
+      "type": "string",
+      "items": [{ "text": "Yes", "value": "Yes" }]
+    }
+  ],
+  "sections": [
+    {
+      "name": "YourDetails",
+      "title": "Your details",
+      "hideTitle": false
+    },
+    {
+      "name": "WhoThisFormIsFor",
+      "title": "Who this form is for",
+      "hideTitle": true
+    },
+    {
+      "name": "TheirDetails",
+      "title": "Details for the person who is being contact traced",
+      "hideTitle": false
+    },
+    {
+      "name": "CaseID",
+      "title": "Case ID",
+      "hideTitle": true
+    },
+    {
+      "name": "BeenInContact",
+      "title": "Close contacts",
+      "hideTitle": true
+    },
+    { "name": "CloseContact1", "title": "Close contact 1", "hideTitle": false },
+    { "name": "CloseContact2", "title": "Close contact 2", "hideTitle": false },
+    { "name": "CloseContact3", "title": "Close contact 3", "hideTitle": false },
+    { "name": "CloseContact4", "title": "Close contact 4", "hideTitle": false },
+    { "name": "CloseContact5", "title": "Close contact 5", "hideTitle": false },
+    { "name": "CloseContact6", "title": "Close contact 6", "hideTitle": false },
+    { "name": "CloseContact7", "title": "Close contact 7", "hideTitle": false },
+    { "name": "CloseContact8", "title": "Close contact 8", "hideTitle": false },
+    { "name": "CloseContact9", "title": "Close contact 9", "hideTitle": false },
+    {
+      "name": "CloseContact10",
+      "title": "Close contact 10",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact11",
+      "title": "Close contact 11",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact12",
+      "title": "Close contact 12",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact13",
+      "title": "Close contact 13",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact14",
+      "title": "Close contact 14",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact15",
+      "title": "Close contact 15",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact16",
+      "title": "Close contact 16",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact17",
+      "title": "Close contact 17",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact18",
+      "title": "Close contact 18",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact19",
+      "title": "Close contact 19",
+      "hideTitle": false
+    },
+    {
+      "name": "CloseContact20",
+      "title": "Close contact 20",
+      "hideTitle": false
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "If someone else",
+      "name": "lGzwuI",
+      "value": {
+        "name": "If someone else",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhoThisFormIsFor.completing_form_for",
+              "type": "RadiosField",
+              "display": "Who this form is for"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Someone else",
+              "display": "Someone else"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If myself",
+      "name": "SypzMi",
+      "value": {
+        "name": "If myself",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhoThisFormIsFor.completing_form_for",
+              "type": "RadiosField",
+              "display": "Who this form is for"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "Myself", "display": "Myself" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If contacts",
+      "name": "IfContactsYes",
+      "value": {
+        "name": "If contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "BeenInContact.been_in_contact",
+              "type": "RadiosField",
+              "display": "Close contacts option"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "Yes", "display": "Yes" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no contacts",
+      "name": "IfContactsNo",
+      "value": {
+        "name": "If no contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "BeenInContact.been_in_contact",
+              "type": "RadiosField",
+              "display": "Close contacts option"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "No", "display": "No" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes1",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson1",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo1",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson1",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes2",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson2",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo2",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson2",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes3",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson3",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo3",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson3",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes4",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson4",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo4",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson4",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes5",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson5",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo5",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson5",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes6",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson6",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo6",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson6",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes7",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson7",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo7",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson7",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes8",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson8",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo8",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson8",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes9",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson9",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo9",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson9",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes10",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson10",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo10",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson10",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes11",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson11",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo11",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson11",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes12",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson12",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo12",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson12",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes13",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson13",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo13",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson13",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes14",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson14",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo14",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson14",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes15",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson15",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo15",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson15",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes16",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson16",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo16",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson16",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes17",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson17",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo17",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson17",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes18",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson18",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo18",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson18",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes19",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson19",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo19",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson19",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If more contacts needed",
+      "name": "AddAnotherYes20",
+      "value": {
+        "name": "If more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson20",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "If no more contacts needed",
+      "name": "AddAnotherNo20",
+      "value": {
+        "name": "If no more contacts needed",
+        "conditions": [
+          {
+            "field": {
+              "name": "AnotherPerson20",
+              "type": "YesNoField",
+              "display": "'Yes' if there is another close contact"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "BsGFLT",
+      "title": "Execute API",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://api.nl1.dev.srs.test-and-trace.nhs.uk/v1/forms",
+        "allowRetry": true
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {
+    "allowSubmissionWithoutPayment": true,
+    "maxAttempts": 3,
+    "showPaymentSkippedWarningPage": false
+  },
+  "feedback": {}
+}

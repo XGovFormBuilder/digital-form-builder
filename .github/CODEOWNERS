@@ -1,0 +1,9 @@
+# Each line is a file pattern followed by one or more owners.
+
+# L3 Engineering are the default owners for everything excluding team specific forms (unless it's for a product supported by L3, in which
+# case they are owners for those specific forms too)
+
+* @ukhsa-collaboration/L3-Engineering
+/runner/src/server/forms/ReportAnOutbreak @ukhsa-collaboration/L3-Engineering
+
+/runner/src/server/forms

@@ -1,0 +1,69 @@
+name: Sync Upstream Main Tag
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # Runs daily at midnight UTC; adjust as needed
+
+jobs:
+  sync-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Ensure full history and all tags are fetched
+
+      - name: Add Upstream Remote
+        run: |
+          # Add the upstream remote; change the URL if needed.
+          git remote add upstream https://github.com/XGovFormBuilder/digital-form-builder.git || echo "Upstream remote already exists."
+
+      - name: Fetch Upstream Main and Tags
+        run: |
+          git fetch upstream main --tags
+
+      - name: Sync Tags for Upstream Main Commit with Original Message using IFS read loop
+        run: |
+          #!/bin/bash
+          set -e
+
+          # Fetch all refs from upstream and origin
+          git fetch upstream --tags
+          git fetch origin --tags
+
+          # Get all tags from upstream
+          upstream_tags=$(git ls-remote --tags upstream | grep -v '\^{}' | awk '{print $2}' | sed 's|refs/tags/||')
+
+          # Get all tags from origin
+          origin_tags=$(git ls-remote --tags origin | grep -v '\^{}' | awk '{print $2}' | sed 's|refs/tags/||')
+
+          echo "Found upstream tags: $upstream_tags"
+          echo "Found origin tags: $origin_tags"
+
+          # Loop through each upstream tag
+          for tag in $upstream_tags; do
+          # Check if tag exists on origin remote
+          if echo "$origin_tags" | grep -q "^$tag$"; then
+              echo "Tag $tag already exists on origin remote, skipping."
+          else
+              # Fetch the specific tag from upstream
+              git fetch upstream "refs/tags/$tag:refs/tags/$tag"
+              
+              # Check if it's an annotated tag
+              if git cat-file -t "refs/tags/$tag" 2>/dev/null | grep -q "^tag$"; then
+              # It's an annotated tag, we've already fetched it correctly
+              echo "Fetched annotated tag: $tag"
+              else
+              # It's a lightweight tag, get the commit it points to
+              commit=$(git rev-parse "$tag^{commit}")
+              echo "Fetched lightweight tag: $tag (points to $commit)"
+              fi
+              
+              # Push the tag to origin
+              git push origin "refs/tags/$tag"
+              echo "Successfully pushed tag $tag to origin"
+          fi
+          done
+
+          echo "All upstream tags have been synced to origin."

@@ -19,7 +19,7 @@ export class TextField extends FormComponent {
 
     addClassOptionIfNone(this.options, "govuk-input--width-20");
 
-    let componentSchema = joi.string().required();
+    let componentSchema = joi.string();
     if (options.required === false) {
       componentSchema = componentSchema.optional().allow("").allow(null);
     }
