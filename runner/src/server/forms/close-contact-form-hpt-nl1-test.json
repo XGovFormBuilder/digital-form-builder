@@ -350,14 +350,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -383,7 +383,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -391,7 +391,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -449,14 +449,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -482,7 +482,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -490,7 +490,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -548,14 +548,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -581,7 +581,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -589,7 +589,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -647,14 +647,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -680,7 +680,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -688,7 +688,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -746,14 +746,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -779,7 +779,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -787,7 +787,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -845,14 +845,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -878,7 +878,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -886,7 +886,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -944,14 +944,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -977,7 +977,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -985,7 +985,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1043,14 +1043,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1076,7 +1076,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1084,7 +1084,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1142,14 +1142,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1175,7 +1175,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1183,7 +1183,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1241,14 +1241,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1274,7 +1274,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1282,7 +1282,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1340,14 +1340,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1373,7 +1373,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1381,7 +1381,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1439,14 +1439,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1472,7 +1472,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1480,7 +1480,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1538,14 +1538,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1571,7 +1571,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1579,7 +1579,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1637,14 +1637,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1670,7 +1670,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1678,7 +1678,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1736,14 +1736,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1769,7 +1769,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1777,7 +1777,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1835,14 +1835,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1868,7 +1868,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1876,7 +1876,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1934,14 +1934,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1967,7 +1967,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1975,7 +1975,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -2033,14 +2033,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -2066,7 +2066,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -2074,7 +2074,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -2132,14 +2132,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -2165,7 +2165,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -2173,7 +2173,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -2231,14 +2231,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "first_name",
+          "name": "contact_first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "last_name",
+          "name": "contact_last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -2264,7 +2264,7 @@
           "schema": {}
         },
         {
-          "name": "phone_number",
+          "name": "contact_phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -2272,7 +2272,7 @@
           "schema": {}
         },
         {
-          "name": "email_address",
+          "name": "contact_email",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
