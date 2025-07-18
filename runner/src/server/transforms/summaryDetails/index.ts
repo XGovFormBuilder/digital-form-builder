@@ -11,9 +11,23 @@ export { SummaryDetailsTransformationMap };
  */
 
 const closeContactParams = [
-  { names: ["first_name", "last_name"], to: "Full name", joiner: " " },
+  {
+    names: ["first_name", "last_name"],
+    to: "Full name",
+    joiner: " ",
+  },
   {
     names: ["phone_number", "email_address"],
+    to: "Contact details",
+    joiner: "\n",
+  },
+  {
+    names: ["contact_first_name", "contact_last_name"],
+    to: "Full name",
+    joiner: " ",
+  },
+  {
+    names: ["contact_phone_number", "contact_email_address"],
     to: "Contact details",
     joiner: "\n",
   },
