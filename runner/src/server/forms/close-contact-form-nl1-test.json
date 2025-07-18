@@ -349,14 +349,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -382,7 +382,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -390,7 +390,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -406,7 +406,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-1" }],
@@ -448,14 +448,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -481,7 +481,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -489,7 +489,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -505,7 +505,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-2" }],
@@ -547,14 +547,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -580,7 +580,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -588,7 +588,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -604,7 +604,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-3" }],
@@ -646,14 +646,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -679,7 +679,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -687,7 +687,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -703,7 +703,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-4" }],
@@ -745,14 +745,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -778,7 +778,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -786,7 +786,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -802,7 +802,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-5" }],
@@ -844,14 +844,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -877,7 +877,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -885,7 +885,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -901,7 +901,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-6" }],
@@ -943,14 +943,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -976,7 +976,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -984,7 +984,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1000,7 +1000,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-7" }],
@@ -1042,14 +1042,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1075,7 +1075,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1083,7 +1083,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1099,7 +1099,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-8" }],
@@ -1141,14 +1141,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1174,7 +1174,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1182,7 +1182,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1198,7 +1198,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-9" }],
@@ -1240,14 +1240,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1273,7 +1273,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1281,7 +1281,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1297,7 +1297,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-10" }],
@@ -1339,14 +1339,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1372,7 +1372,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1380,7 +1380,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1396,7 +1396,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-11" }],
@@ -1438,14 +1438,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1471,7 +1471,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1479,7 +1479,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1495,7 +1495,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-12" }],
@@ -1537,14 +1537,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1570,7 +1570,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1578,7 +1578,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1594,7 +1594,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-13" }],
@@ -1636,14 +1636,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1669,7 +1669,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1677,7 +1677,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1693,7 +1693,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-14" }],
@@ -1735,14 +1735,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1768,7 +1768,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1776,7 +1776,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1792,7 +1792,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-15" }],
@@ -1834,14 +1834,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1867,7 +1867,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1875,7 +1875,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1891,7 +1891,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-16" }],
@@ -1933,14 +1933,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -1966,7 +1966,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -1974,7 +1974,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -1990,7 +1990,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-17" }],
@@ -2032,14 +2032,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -2065,7 +2065,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -2073,7 +2073,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -2089,7 +2089,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-18" }],
@@ -2131,14 +2131,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -2164,7 +2164,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -2172,7 +2172,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -2188,7 +2188,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-19" }],
@@ -2230,14 +2230,14 @@
           "content": "<h2 class='govuk-heading-m'>Personal details</h2>"
         },
         {
-          "name": "contact_first_name",
+          "name": "first_name",
           "options": {},
           "type": "TextField",
           "title": "First name",
           "schema": {}
         },
         {
-          "name": "contact_last_name",
+          "name": "last_name",
           "options": {},
           "type": "TextField",
           "title": "Last name",
@@ -2263,7 +2263,7 @@
           "schema": {}
         },
         {
-          "name": "contact_phone_number",
+          "name": "phone_number",
           "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Phone number",
@@ -2271,7 +2271,7 @@
           "schema": {}
         },
         {
-          "name": "contact_email",
+          "name": "email_address",
           "options": { "required": false, "optionalText": false },
           "type": "EmailAddressField",
           "title": "Email address",
@@ -2287,7 +2287,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"phone_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/summary" }],
