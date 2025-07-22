@@ -23,7 +23,7 @@ export class RepeatingSectionSummaryPageController extends PageController {
           detail.items[0].value
       );
 
-      if (remove && state[remove] && summaryFiltered.length !== 1) {
+      if (remove && state[remove]) {
         const newState = {};
         Object.entries(state).forEach(([key, value]) => {
           if (key.includes(noInt(remove))) {
