@@ -22,7 +22,7 @@
             "name": "mainContent",
             "options": {},
             "type": "Para",
-            "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+            "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry. You can do this by closing your browser and reopening it to access this enquiry form.</p>"
         }
       ],
       "next": [
@@ -225,7 +225,7 @@
                     },
                "type":"FileUploadField",
                "title":"If you need to upload a file to help us deal with your enquiry, do so here.",
-               "hint": "To support the KLS team in dealing with your query, you may upload a file here. You can upload multiple files but the maximum size of all files combined cannot exceed 10 MB"
+               "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes"
             }
             
 
@@ -723,7 +723,7 @@
   "name": "FIvjTg",
   "type": "FileUploadField",
   "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
-  "hint": "To support the KLS team in dealing with your query, you may upload a file here. You can upload multiple files but the maximum size of all files combined cannot exceed 10 MB",
+  "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes",
   "schema": {},
   "options": {
     "multiple": true,

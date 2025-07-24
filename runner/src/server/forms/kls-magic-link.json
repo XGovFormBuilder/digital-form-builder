@@ -60,7 +60,7 @@
           "name": "PrivacyNotice",
           "options": {},
           "type": "Para",
-          "content": "By continuing, you agree to our <a href='https://www.gov.uk/government/publications/ukhsa-privacy-notice' target='_blank'>privacy notice</a>.",
+          "content": "By continuing, you agree to our <a href='/kls-magic-link/privacy' target='_blank'>privacy notice (opens in a new tab)</a>.",
           "schema": {}
         }
       ],
