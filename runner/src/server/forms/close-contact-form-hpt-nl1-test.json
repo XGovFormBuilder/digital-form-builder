@@ -155,13 +155,13 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
           "name": "email_address",
           "options": {
-            "optionalText": false,
+            "required": false,
             "customValidationMessages": {
               "string.empty": "Enter a valid email address",
               "string.pattern.base": "Enter a valid email address"
@@ -238,13 +238,13 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
           "name": "email_address",
           "options": {
-            "optionalText": false,
+            "required": false,
             "customValidationMessages": {
               "string.empty": "Enter a valid email address",
               "string.pattern.base": "Enter a valid email address"
@@ -405,7 +405,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -513,7 +513,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -621,7 +621,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -729,7 +729,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -837,7 +837,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -945,7 +945,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1053,7 +1053,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1161,7 +1161,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1269,7 +1269,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1377,7 +1377,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1485,7 +1485,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1593,7 +1593,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1701,7 +1701,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1809,7 +1809,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -1917,7 +1917,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -2025,7 +2025,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -2133,7 +2133,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -2241,7 +2241,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -2349,7 +2349,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
@@ -2457,7 +2457,7 @@
           "title": "Phone number",
           "hint": "For example, 07700 900000",
           "schema": {
-            "regex": "/^[0-9\\s+()-]*$/"
+            "regex": "^[0-9\\s+()-]*$"
           }
         },
         {
