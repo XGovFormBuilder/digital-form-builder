@@ -87,7 +87,7 @@ Generally, you should include
 - Screenshots or videos of the change
 - Documentation
   - Add inline comments for hard-to-understand areas
-  - Update [docs](./../docs) if your change requires additional explanation or steps to use/configure the feature
+  - Update [docs](./../docs) (and the [docs contents page](./../docs/contents.md)) if your change requires additional explanation or steps to use/configure the feature
 - Include your motivations for the change
 
 Request the XGovFormBuilder/admins team to review your pull request once ready. You can additionally ping on #general on

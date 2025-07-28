@@ -5,7 +5,7 @@
 Before asking a question, consult the following resources
 
 - [README.md](/README.md) for general information about the project, and how to get started
-- [docs](/docs/contents.md) for an overview of documentation features and how to configure them
+- [docs](/docs/contents.md) for an overview of documentation of features and how to configure them
 - [examples](https://github.com/XGovFormBuilder/form-builder-examples) for example configurations or features
 
 ## Questions
