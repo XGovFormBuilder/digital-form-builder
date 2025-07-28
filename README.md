@@ -7,7 +7,7 @@
 
 ## contributions
 
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](.github/CONTRIBUTING.md) first!
 
 ## Context
 
