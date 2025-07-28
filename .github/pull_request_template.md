@@ -38,6 +38,7 @@ TODO..
 ### PR title
 
 PR titles should be prefixed with the type of change you are making, based on the [README.md#versioning](https://github.com/XGovFormBuilder/digital-form-builder?tab=readme-ov-file#versioning).
+This is so that when performing a squash merge, the PR title is automatically used as the commit message.
 
 I have updated the PR title to match the type of change I am making
 
