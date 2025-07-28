@@ -32,6 +32,8 @@ Also see the individual repo README files for additional info:
 - [model README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model/README.md)
 - [e2e (smoke tests) README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/e2e/README.md)
 
+Additional documentation such as ADRs and features can be found in [docs](./docs/contents.md).
+
 ## Setup
 
 **Always run scripts from the root directory.**
