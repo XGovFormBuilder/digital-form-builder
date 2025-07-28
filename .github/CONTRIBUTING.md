@@ -91,6 +91,16 @@ Generally, you should include
 Request the XGovFormBuilder/admins team to review your pull request once ready. You can additionally ping on #general on
 slack or support@cautionyourblast.com.
 
+##### Merging pull requests
+
+Pull requests will be merged using the [squash and merge](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges#squash-and-merge) strategy.
+This will ensure that the commit history is clean and that each pull request is represented by a single commit in the main branch.
+
+PR titles should be prefixed with the type of change you are making, based on the [README.md#versioning](https://github.com/XGovFormBuilder/digital-form-builder?tab=readme-ov-file#versioning).
+This is so that when performing a squash merge, the PR title is automatically used as the commit message.
+
+Maintainers should ensure that the PR title is updated to match the type of change being made before merging.
+
 #### Accessibility
 
 As a minimum requirement, you must check all code that touches the front-end to ensure it is accessible
