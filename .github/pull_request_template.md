@@ -99,10 +99,8 @@ If uploading a form JSON, use the "attach files" feature in GitHub PR.
 
 Have you updated the documentation?
 
-- [ ] Yes, I have updated [./docs](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs) for this
-      change since additional explanation or steps to use/configure the feature is required
-- [ ] Yes, I have added or updated an [ADR](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs/adr)
-      for this change since it is large, complex, or has significant architectural implications
+- [ ] Yes, I have updated [./docs](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs) for this change since additional explanation or steps to use/configure the feature is required
+- [ ] Yes, I have added or updated an [ADR](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs/adr) for this change since it is large, complex, or has significant architectural implications
 - [ ] Yes, I have added inline comments for hard-to-understand areas
 - [ ] No, I am not sure if documentation is required
 - [ ] No, documentation is not required for this change
