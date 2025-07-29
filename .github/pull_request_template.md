@@ -107,11 +107,9 @@ Have you updated the documentation?
 
 # Discussion
 
-Large or complex changes may require discussion with the maintainers before they can be merged.
-
 > [!WARNING]
 >
-> If this large change has not been discussed, it may delay the review process
+> Large or complex changes may require discussion with the maintainers before they can be merged. If it has not yet been discussed, it may delay the review process
 
 Have you discussed this change with the maintainers?
 
