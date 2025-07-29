@@ -207,10 +207,17 @@ validateContentType(
     });
     isValid = true;
   }
-
-
   return isValid;
-}  downloadDocuments(paths: string[]) {
+}
+
+  invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
+    return parsedError(
+      fieldName,
+      this.validFiletypesString(customAcceptedTypes)
+    );
+  }
+
+  downloadDocuments(paths: string[]) {
     const promises = paths.map((path) => get<string>(path, {}));
     return Promise.all(promises);
   }
