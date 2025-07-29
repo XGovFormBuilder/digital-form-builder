@@ -1,8 +1,10 @@
 > [!NOTE]
-> This template is designed to help both contributors and maintainers. It is a checklist to ensure all necessary information is provided, and prompts contributors on any contribution guidelines they have missed.
+> This template is designed to help both contributors and maintainers. It is a checklist to ensure all necessary
+> information is provided, and prompts contributors on any contribution guidelines they have missed.
 >
 > Do not remove sections.
-> They are important for the review process and help maintainers ensure quality and good documentation across the project.
+> They are important for the review process and help maintainers ensure quality and good documentation across the
+> project.
 >
 > Some checkboxes will not apply to every change, so feel free to leave them unchecked if they are not relevant.
 
@@ -37,7 +39,8 @@ TODO..
 
 ### PR title
 
-PR titles should be prefixed with the type of change you are making, based on the [README.md#versioning](https://github.com/XGovFormBuilder/digital-form-builder?tab=readme-ov-file#versioning).
+PR titles should be prefixed with the type of change you are making, based on
+the [README.md#versioning](https://github.com/XGovFormBuilder/digital-form-builder?tab=readme-ov-file#versioning).
 This is so that when performing a squash merge, the PR title is automatically used as the commit message.
 
 I have updated the PR title to match the type of change I am making
@@ -46,6 +49,13 @@ I have updated the PR title to match the type of change I am making
 - [ ] No, I need help or guidance
 
 # Testing
+
+<!--
+Several departments use XGovFormBuilder in production.
+Automated tests help ensure that changes do not break existing functionality for another department.
+
+Maintainers are sympathetic to the time constraints of government departments, but please try to be good citizens and add tests when possible.
+-->
 
 ## Automated tests
 
@@ -89,8 +99,10 @@ If uploading a form JSON, use the "attach files" feature in GitHub PR.
 
 Have you updated the documentation?
 
-- [ ] Yes, I have updated [./docs](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs) for this change since additional explanation or steps to use/configure the feature is required
-- [ ] Yes, I have added or updated an [ADR](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs/adr) for this change since it is large, complex, or has significant architectural implications
+- [ ] Yes, I have updated [./docs](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs) for this
+      change since additional explanation or steps to use/configure the feature is required
+- [ ] Yes, I have added or updated an [ADR](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/docs/adr)
+      for this change since it is large, complex, or has significant architectural implications
 - [ ] Yes, I have added inline comments for hard-to-understand areas
 - [ ] No, I am not sure if documentation is required
 - [ ] No, documentation is not required for this change

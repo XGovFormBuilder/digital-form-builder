@@ -83,6 +83,8 @@ Generally, you should include
 - Tests
   - We have a suite of automated tests. Aim to add automated tests. However, you may also provide instructions for
     manual testing
+  - Tests are important since several departments use this code in production. Automated tests help ensure that
+    changes do not break existing functionality for another department
 - An example JSON form to demonstrate your changes
 - Screenshots or videos of the change
 - Documentation
@@ -91,7 +93,7 @@ Generally, you should include
 - Include your motivations for the change
 
 Request the XGovFormBuilder/admins team to review your pull request once ready. You can additionally ping on #general on
-slack or support@cautionyourblast.com.
+slack or [support@cautionyourblast.com](mailto:support@cautionyourblast.com).
 
 ##### Merging pull requests
 
