@@ -30,6 +30,8 @@ TODO..
 
 ## Type of change
 
+What is the type of change you are making?
+
 - [ ] Chore or documentation (non-breaking change that does not add functionality)
 - [ ] ADR (Architectural Decision Record, non-breaking change that documents or proposes a decision)
 - [ ] Refactor (non-breaking change that improves code quality)
@@ -39,11 +41,10 @@ TODO..
 
 ### PR title
 
-PR titles should be prefixed with the type of change you are making, based on
-the [README.md#versioning](https://github.com/XGovFormBuilder/digital-form-builder?tab=readme-ov-file#versioning).
+PR titles should be prefixed with the type of change you are making, based on the [README.md#versioning](https://github.com/XGovFormBuilder/digital-form-builder?tab=readme-ov-file#versioning).
 This is so that when performing a squash merge, the PR title is automatically used as the commit message.
 
-I have updated the PR title to match the type of change I am making
+Have you updated the PR title to match the type of change you are making?
 
 - [ ] Yes
 - [ ] No, I need help or guidance
