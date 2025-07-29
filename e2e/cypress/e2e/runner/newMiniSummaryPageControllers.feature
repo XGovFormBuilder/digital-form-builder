@@ -4,8 +4,7 @@ Feature: New page controllers that display summaries of parts of the form data
   Scenario: MiniSummaryPageController displays the correct content
     When a page utilises the MiniSummaryPageController
     And data has already been provided in the journey
-    Then I see a summary of data that doesn't belong to a section
-    Or, if all data provided belongs to a section, I'll instead see a summary of the first section
+    Then I see a summary of data that doesn't belong to a section or, if the latter doesn't exist, a summary of the first section
 
   Scenario: RepeatingSectionSummaryPageController displays the correct content
     When a page utilises the RepeatingSectionSummaryPageController
