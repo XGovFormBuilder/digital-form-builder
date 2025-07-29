@@ -1,3 +1,5 @@
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
+
 Given("a page utilises the MiniSummaryPageController", function () {
   return "pending";
 });
