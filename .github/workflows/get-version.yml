@@ -27,6 +27,6 @@ jobs:
   print-semver:
     runs-on: ubuntu-latest
     needs: [calculate-version]
-    env: ${{ steps.calc-semver.outputs.SEMVER }}
+    env: ${{ needs.calculate-version.outputs.SEMVER }}
     steps:
       - run: echo $SEMVER
