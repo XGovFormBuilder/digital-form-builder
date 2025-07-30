@@ -19,15 +19,15 @@ It is also possible to hide the row titles in the summaries.
 
 ### Repeating summary on the same page
 
-![Repeating summary on the same page](https://github.com/user-attachments/assets/50538af6-f431-493c-8f68-63323d41d7e6)
+<img width="967" height="576" alt="Repeating field on the same page" src="https://github.com/user-attachments/assets/e0831f2b-f511-4ede-b975-7c6367011a22" />
 
 ### Repeating summary on a separate page
 
-![Repeating summary on a separate page](https://github.com/user-attachments/assets/c8807cbc-a287-481d-a3af-560227848418)
+<img width="736" height="404" alt="Repeating summary on a separate page" src="https://github.com/user-attachments/assets/58a2acdb-18a2-4e6b-ad29-6d6b3198f83a" />
 
 ### Final summary page (end of the form)
 
-![Final summary page (end of the form)](https://github.com/user-attachments/assets/77a32e83-7367-4803-9435-735dd4b1774f)
+<img width="672" height="256" alt="Final summary page (end of the form)" src="https://github.com/user-attachments/assets/79985578-10db-4438-b192-1b004d206411" />
 
 ## Configuration
 
