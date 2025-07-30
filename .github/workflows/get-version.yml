@@ -8,8 +8,7 @@ jobs:
   calculate-version:
     runs-on: ubuntu-latest
     outputs:
-      semVer: ${{ steps.gitversion.outputs.semVer }}
-      majorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}
+      SEMVER: ${{ steps.gitversion.outputs.majorMinorPatch }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -25,21 +24,9 @@ jobs:
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.7
 
-  assign-semver:
+  print-semver:
     runs-on: ubuntu-latest
     needs: [calculate-version]
-    env:
-      SEMVER: ${{ needs.calculate-version.outputs.semVer }}
-      MAJOR: ${{ needs.calculate-version.outputs.Major }}
-      MMP: ${{ needs.calculate-version.outputs.majorMinorPatch }}
-    outputs:
-      SEMVER: ${{ steps.calc-semver.outputs.semver }}
+    env: ${{ steps.calc-semver.outputs.SEMVER }}
     steps:
-      - run: echo $MMP
       - run: echo $SEMVER
-      - name: Add 3 to calculated semver
-        run: |
-          echo SEMVER="$((3 + MAJOR))${SEMVER:1}" >> $GITHUB_ENV
-      - name: Set semver to output
-        id: calc-semver
-        run: echo "::set-output name=semver::$(echo $SEMVER)"
