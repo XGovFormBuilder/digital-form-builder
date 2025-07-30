@@ -31,3 +31,4 @@ jobs:
       SEMVER: ${{ needs.calculate-version.outputs.SEMVER }}
     steps:
       - run: echo $SEMVER
+      - run: echo ""
