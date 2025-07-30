@@ -85,7 +85,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GHCR_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Tag branch with run number
         run: |
           git tag ${{ env.SEMVER }}
