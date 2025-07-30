@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       semVer: ${{ steps.gitversion.outputs.semVer }}
+      majorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -30,7 +31,7 @@ jobs:
     env:
       SEMVER: ${{ needs.calculate-version.outputs.semVer }}
       MAJOR: ${{ needs.calculate-version.outputs.Major }}
-      MMP: ${{ needs.calculate-version.outputs.MajorMinorPatch }}
+      MMP: ${{ needs.calculate-version.outputs.majorMinorPatch }}
     outputs:
       SEMVER: ${{ steps.calc-semver.outputs.semver }}
     steps:
