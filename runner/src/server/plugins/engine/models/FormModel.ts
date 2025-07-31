@@ -22,6 +22,7 @@ import { ExecutableCondition } from "server/plugins/engine/models/types";
 import { DEFAULT_FEE_OPTIONS } from "server/plugins/engine/models/FormModel.feeOptions";
 import { ContextComponentCollection } from "server/plugins/engine/components/ContextComponentCollection";
 import { ExitOptions } from "server/plugins/engine/models/FormModel.exitOptions";
+import config from "../../../config";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -49,6 +50,13 @@ export class FormModel {
   sections: FormDefinition["sections"] = [];
   options: any;
   name: any;
+  serviceName: any;
+  serviceStartPage: any;
+  feedbackUrl: any;
+  matomoUrl: any;
+  matomoId: any;
+  gtmId1: any;
+  gtmId2: any;
   values: any;
   DefaultPageController: any = PageController;
   /** the id of the form used for the first url parameter eg localhost:3009/test */
@@ -98,6 +106,13 @@ export class FormModel {
     this.sections = def.sections;
     this.options = options;
     this.name = def.name;
+    this.serviceName = def.serviceName;
+    this.serviceStartPage = def.fullStartPage || config.serviceStartPage || config.serviceName || "#";
+    this.feedbackUrl = def.feedback?.url;
+    this.matomoUrl = def.analytics?.matomoUrl;
+    this.matomoId = def.analytics?.matomoId;
+    this.gtmId1 = def.analytics?.gtmId1;
+    this.gtmId2 = def.analytics?.gtmId2;
     this.values = result.value;
 
     if (options.defaultPageController) {
