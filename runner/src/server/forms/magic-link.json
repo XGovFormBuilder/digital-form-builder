@@ -1,0 +1,217 @@
+{
+  "startPage": "/start",
+  "skipSummary": true,
+  "toggle": "${magicLinkToggle}",
+  "toggleRedirect": "/ReportAnOutbreak/setting",
+  "retryTimeoutSeconds": 300,
+  "pages": [
+    {
+      "path": "/start",
+      "controller": "MagicLinkStartPageController",
+      "unauthenticated": true
+    },
+    {
+      "title": "What is your email address?",
+      "path": "/email",
+      "unauthenticated": true,
+      "continueButtonText": "Continue",
+      "showContinueButton": true,
+      "backLinkFallback": "/ReportAnOutbreak/hpt-region",
+      "components": [
+        {
+          "name": "EmailIntro",
+          "options": {},
+          "type": "Para",
+          "content": "We need to email you a secure link to the service.<br><br>The link expires after 20 minutes.<br><br>If you're returning to a report that you started in the last 3 days, use the same email address.<br>",
+          "schema": {}
+        },
+        {
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "name": "email",
+          "options": {
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "string.empty": "Enter an email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          }
+        },
+        {
+          "name": "alert",
+          "type": "ContentWithState",
+          "options": {
+            "exposeToContext": true,
+            "stateVariable": "minutesRemaining"
+          },
+          "content": "{% if minutesRemaining %}<div class='alert'><div class='govuk-warning-text'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><strong class='govuk-warning-text__text'><span class='govuk-visually-hidden'>Warning</span>You must wait {% if minutesRemaining == 1 %}1 minute{% else %}{{ minutesRemaining }} minutes{% endif %} before resubmitting the email</strong></div></div>{% endif %}"
+        },
+        {
+          "name": "PrivacyNotice",
+          "options": {},
+          "type": "Para",
+          "content": "By continuing, you agree to our <a href='https://www.gov.uk/government/publications/ukhsa-privacy-notice' target='_blank'>privacy notice</a>.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/submit1"
+        }
+      ]
+    },
+    {
+      "path": "/submit1",
+      "controller": "MagicLinkFirstSubmitPageController"
+    },
+    {
+      "path": "/submit2",
+      "controller": "MagicLinkSecondSubmitPageController"
+    },
+    {
+      "path": "/check-your-email",
+      "title": "Check your email",
+      "unauthenticated": true,
+      "backLinkFallback": "/magic-link/magic-link",
+      "components": [
+        {
+          "name": "SentAnotherEmail",
+          "options": {},
+          "type": "Para",
+          "content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to report an outbreak.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email in 5 minutes.</p>",
+          "schema": {}
+        },
+        {
+          "name": "alert",
+          "type": "ContentWithState",
+          "options": {
+            "exposeToContext": true,
+            "stateVariable": "minutesRemaining"
+          },
+          "content": "{% if minutesRemaining %}<div class='alert'><div class='govuk-warning-text'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><strong class='govuk-warning-text__text'><span class='govuk-visually-hidden'>Warning</span>You must wait {% if minutesRemaining == 1 %}1 minute{% else %}{{ minutesRemaining }} minutes{% endif %} before resubmitting the email</strong></div></div>{% endif %}"
+        },
+        {
+          "name": "SentAnotherEmailButton",
+          "options": {},
+          "type": "Para",
+          "content": "<a href='/magic-link/submit2' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
+          "schema": {}
+        }
+      ]
+    },
+    {
+      "path": "/resubmit-email",
+      "title": "We've sent you another email",
+      "unauthenticated": true,
+      "backLinkFallback": "/check-your-email",
+      "components": [
+        {
+          "name": "SentAnotherEmail",
+          "options": {},
+          "type": "Para",
+          "content": "We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to report an outbreak. <br><br>",
+          "schema": {}
+        },
+        {
+          "name": "NotReceivedEmail",
+          "options": {},
+          "type": "Para",
+          "title": "If you've not received an email",
+          "content": "<h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "title": "summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    },
+    {
+      "path": "/email-confirmed",
+      "title": "Email confirmed",
+      "components": [
+        {
+          "name": "EmailConfirmed",
+          "options": {},
+          "type": "Para",
+          "content": "You have successfully confirmed your email address. You can continue to Report an outbreak.<br><br><a href='/ReportAnOutbreak/setting' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
+          "schema": {}
+        }
+      ]
+    },
+    {
+      "title": "return",
+      "path": "/return",
+      "controller": "MagicLinkController",
+      "components": []
+    },
+    {
+      "path": "/incorrect-email",
+      "title": "Incorrect email link",
+      "components": [
+        {
+          "name": "IncorrectEmail",
+          "options": {},
+          "type": "Para",
+          "content": "The email you used does not match the email associated with this link.<br><br><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "schema": {}
+        }
+      ]
+    },
+    {
+      "path": "/expired",
+      "title": "This link has expired",
+      "components": [
+        {
+          "type": "Para",
+          "title": "This link has expired",
+          "content": "<a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "name": "blarGGH",
+          "options": {},
+          "schema": {}
+        }
+      ]
+    }
+  ],
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "hidePanel": true,
+        "nextSteps": "<a href='/magic-link/check-your-email' class='govuk-back-link'>Back</a><h1 class='govuk-heading-l'>We've sent you another email</h1><p class=\"govuk-body\">We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to report an outbreak. </p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>"
+      }
+    }
+  },
+  "lists": [],
+  "sections": [],
+  "name": "Report an outbreak",
+  "phaseBanner": {
+    "phase": "beta"
+  },
+  "metadata": {},
+  "fees": [],
+  "outputs": [
+    {
+      "name": "magiclink",
+      "title": "CareOBRA MagicLink",
+      "type": "notify",
+      "outputConfiguration": {
+        "apiKey": "${notifyApiKey}",
+        "templateId": "${NotifyTemplateId}",
+        "emailField": "email",
+        "addReferencesToPersonalisation": false,
+        "personalisation": ["email", "hmacSignature", "hmacExpiryTime"],
+        "hmacKey": "${HmacKey}"
+      }
+    }
+  ],
+  "jwtKey": "${jwtKey}",
+  "feedback": {
+    "feedbackForm": true,
+    "url": "/feedback"
+  },
+  "version": 2,
+  "conditions": []
+}

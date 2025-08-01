@@ -235,6 +235,9 @@ export class PageEdit extends React.Component {
               <option value="./pages/summary.js">
                 {i18n("page.types.summary")}
               </option>
+              <option value="CheckpointSummaryPage">
+                Non-submitting Summary Page
+              </option>
             </select>
           </div>
           <Input

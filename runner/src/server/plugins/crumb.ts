@@ -13,7 +13,7 @@ export const configureCrumbPlugin = (
       enforce: routeConfig?.enforceCsrf ?? config?.enforceCsrf,
       cookieOptions: {
         path: "/",
-        isSecure: !config.isDev,
+        isSecure: config.httpsCookieSecureAttribute,
         isHttpOnly: true,
         isSameSite: "Strict",
       },
