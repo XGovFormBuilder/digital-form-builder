@@ -1,0 +1,34 @@
+name: get-version.yml
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  calculate-version:
+    runs-on: ubuntu-latest
+    outputs:
+      SEMVER: ${{ steps.gitversion.outputs.majorMinorPatch }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          branches: main
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: "5.x"
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+
+  print-semver:
+    runs-on: ubuntu-latest
+    needs: [calculate-version]
+    env:
+      SEMVER: ${{ needs.calculate-version.outputs.SEMVER }}
+    steps:
+      - run: echo $SEMVER
+      - run: echo ""
