@@ -20,7 +20,7 @@
                     "name": "mainContent",
                     "options": {},
                     "type": "Para",
-                    "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+                    "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry. You can do this by closing your browser and reopening it to access this enquiry form.</p>"
                 }
             ],
             "next": [
@@ -302,14 +302,13 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter group",
-                            "any.only": "Enter group",
-                            "string.empty": "Enter group"
+                            "any.required": "Select the UKHSA group to which you belong",
+                            "any.only": "Select the UKHSA group to which you belong",
+                            "string.empty": "Select the UKHSA group to which you belong"
                         }
                     },
                     "type": "SelectField",
-                    "title": "Group",
-                    "hint": "Tell us which UKHSA work group you belong to",
+                    "title": "UKHSA Group",
                     "list": "TjWRyC",
                     "values": {
                         "type": "listRef"
@@ -320,14 +319,13 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter directorate",
-                            "any.only": "Enter directorate",
-                            "string.empty": "Enter directorate"
+                            "any.required": "Select the UKHSA directorate to which you belong",
+                            "any.only": "Select the UKHSA directorate to which you belong",
+                            "string.empty": "Select the UKHSA directorate to which you belong"
                         }
                     },
                     "type": "SelectField",
-                    "title": "Directorate",
-                    "hint": "Tell us which directorate you belong to",
+                    "title": "UKHSA Directorate",
                     "list": "likBcc",
                     "values": {
                         "type": "listRef"
@@ -371,7 +369,7 @@
                         }
                     },
                     "type": "EmailAddressField",
-                    "title": "If you would like to copy someone into emails about this enquiry, enter their email address here"
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
                 }
             ],
             "next": [
@@ -433,7 +431,7 @@
                         }
                     },
                     "type": "EmailAddressField",
-                    "title": "If you would like to copy someone into emails about this enquiry, enter their email address here"
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
                 },
                 {
                     "name": "GjKMBs",
@@ -508,7 +506,7 @@
                         }
                     },
                     "type": "EmailAddressField",
-                    "title": "If you would like to copy someone into emails about this enquiry, enter their email address here"
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
                 }
             ],
             "next": [
@@ -740,7 +738,7 @@
             ]
         },
         {
-            "title": "Directorate",
+            "title": "UKHSA Directorate",
             "name": "likBcc",
             "type": "string",
             "items": [
