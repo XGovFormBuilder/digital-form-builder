@@ -140,7 +140,7 @@
             }
           },
           "type": "EmailAddressField",
-          "title": "Should anyone else be included in emails about this enquiry?",
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below ",
           "schema": {}
         }
       ],
@@ -344,28 +344,14 @@
           "name": "etcpxo",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter UK only or international",
-              "any.only": "Enter UK only or international",
-              "string.empty": "Enter UK only or international"
+              "any.required": "Enter the geographic scope of the research",
+              "any.only": "Enter the geographic scope of the research",
+              "string.empty": "Enter the geographic scope of the research"
             }
           },
           "type": "TextField",
-          "title": "UK only or international?",
-          "hint": "Help the KLS team understand the geographic scope of your work by entering the relevant country/countries",
-          "schema": {}
-        },
-        {
-          "name": "hQXIgL",
-          "options": {
-            "maxDaysInPast": "0",
-            "customValidationMessages": {
-              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
-              "date.min": "Desired completion date cannot be before today"
-            }
-          },
-          "type": "DatePartsField",
-          "title": "Desired completion date",
-          "hint": "The KLS team will be in touch to discuss the feasibility of this date",
+          "title": "Do you want UK only or international research?",
+          "hint": "Indicate the geographic scope for which the evidence should be sourced",
           "schema": {}
         },
         {
@@ -438,7 +424,7 @@
           "title": "What will you primarily use the results of this search for?",
           "list": "PxpncX",
           "schema": {},
-          "hint": "If more than one option apply, please select the most relevant",
+          "hint": "If more than one option applies, please select the most relevant",
           "values": {
             "type": "listRef"
           }
@@ -457,14 +443,30 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Enter your preferred results format",
-              "any.only": "Enter your preferred results format",
-              "string.empty": "Enter your preferred results format"
+              "any.required": "Select your preferred results format(s)",
+              "any.only": "Select your preferred results format(s)",
+              "string.empty": "Select your preferred results format(s)"
             }
           },
           "type": "CheckboxesField",
-          "title": "What is your preferred results format?",
+          "title": "How would you like to receive your results?",
           "list": "LgzPJy",
+          "schema": {}
+        },
+        {
+          "name": "hQXIgL",
+          "options": {
+            "bold": true,
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date cannot be before today"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
           "schema": {}
         }
       ],
@@ -568,13 +570,6 @@
           "schema": {}
         },
         {
-          "name": "oXOJJZ",
-          "options": {},
-          "type": "InsetText",
-          "content": "A protocol describes the planned methods for your review. It should be written before your review begins and followed when you conduct the review. Guidance on writing a protocol is available in <a href=\"https://www.prisma-statement.org/protocols\"> PRISMA for systematic review protocols</a> or contact us for help.",
-          "schema": {}
-        },
-        {
           "name": "dmgVPY",
           "options": {
             "required": true,
@@ -590,7 +585,22 @@
             "type": "listRef"
           },
           "schema": {},
-          "hint": "If so, please use the file upload facility on the next page to share it with the KLS team"
+          "hint": "A protocol describes the planned methods for your review. It should be written before your review begins and followed when you conduct the review. Guidance on writing a protocol is available in <a href=\"https://www.prisma-statement.org/protocols\"> PRISMA for systematic review protocols</a> or contact us for help."
+        },
+                {
+          "name": "hQXIgL",
+          "options": {
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date cannot be before today"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
+          "schema": {}
         }
       ],
       "next": [
@@ -691,6 +701,21 @@
           "type": "MultilineTextField",
           "title": "Should anything be excluded?",
           "schema": {}
+        },
+        {
+          "name": "hQXIgL",
+          "options": {
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date cannot be before today"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
+          "schema": {}
         }
       ],
       "next": [
@@ -705,10 +730,15 @@
       "components": [
         {
           "name": "CKlngs",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Provide information on how the KLS team can help you",
+              "any.only": "Provide information on how the KLS team can help you",
+              "string.empty": "Provide information on how the KLS team can help you"
+            }
+          },
           "type": "MultilineTextField",
-          "hint": "Please share as much information about your query as possible in this text box",
-          "title": "How might we help?",
+          "title": "Please share as much information as possible to help the KLS team deal with your enquiry",
           "schema": {}
         },
         {
@@ -874,25 +904,14 @@
           "name": "UjGoiE",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter UK only or international",
-              "any.only": "Enter UK only or international",
-              "string.empty": "Enter UK only or international"
+              "any.required": "Enter the geographic scope of the research",
+              "any.only": "Enter the geographic scope of the research",
+              "string.empty": "Enter the geographic scope of the research"
             }
           },
           "type": "TextField",
-          "hint": "Help the KLS team understand the geographic scope of your work by entering the relevant country/countries",
-          "title": "UK only or international?",
-          "schema": {}
-        },
-        {
-          "name": "kgNqhg",
-          "options": {
-            "maxDaysInFuture": "",
-            "maxDaysInPast": "0"
-          },
-          "type": "DatePartsField",
-          "hint": "The KLS team will be in touch to discuss the feasibility of this date",
-          "title": "Desired completion date",
+          "hint": "Indicate the geographic scope for which the evidence should be sourced",
+          "title": "Do you want UK only or international research?",
           "schema": {}
         },
         {
@@ -999,14 +1018,13 @@
           "name": "nmlFzr",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter group",
-              "any.only": "Enter group",
-              "string.empty": "Enter group"
+              "any.required": "Select the UKHSA group to which you belong",
+              "any.only": "Select the UKHSA group to which you belong",
+              "string.empty": "Select the UKHSA group to which you belong"
             }
           },
           "type": "SelectField",
-          "hint": "Tell us which work group you belong to",
-          "title": "Group",
+          "title": "UKHSA Group",
           "list": "sYQQmN",
           "values": {
             "type": "listRef"
@@ -1016,14 +1034,13 @@
           "name": "oUmeSI",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter directorate",
-              "any.only": "Enter directorate",
-              "string.empty": "Enter directorate"
+              "any.required": "Select the UKHSA directorate to which you belong",
+              "any.only": "Select the UKHSA directorate to which you belong",
+              "string.empty": "Select the UKHSA directorate to which you belong"
             }
           },
           "type": "SelectField",
-          "hint": "Tell us which directorate you belong to",
-          "title": "Directorate",
+          "title": "UKHSA Directorate",
           "list": "pTYDbB",
           "schema": {
             "required": true
@@ -1039,7 +1056,6 @@
             }
           },
           "type": "SelectField",
-          "hint": "Tell us your work location",
           "title": "Location",
           "list": "wrhJNi",
           "values": {
@@ -1068,7 +1084,7 @@
             }
           },
           "type": "EmailAddressField",
-          "title": "Should anyone else be included in emails about this enquiry?"
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below "
         }
       ],
       "next": [
@@ -1115,7 +1131,7 @@
             }
           },
           "type": "EmailAddressField",
-          "title": "Should anyone else be included in emails about this enquiry?"
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below "
         },
         {
           "name": "oCVslj",
@@ -1192,7 +1208,7 @@
       ]
     },
     {
-      "title": "Group",
+      "title": "UKHSA Group",
       "name": "sYQQmN",
       "type": "string",
       "items": [
@@ -1219,7 +1235,7 @@
       ]
     },
     {
-      "title": "Directorate",
+      "title": "UKHSA Directorate",
       "name": "pTYDbB",
       "type": "string",
       "items": [
@@ -1577,6 +1593,11 @@
         },
         {
           "description": "",
+          "text": "Rapid review",
+          "value": "Rapid review"
+        },
+        {
+          "description": "",
           "text": "Scoping review",
           "value": "Scoping review"
         },
@@ -1765,10 +1786,6 @@
         {
           "text": "last 5 years",
           "value": "5 years"
-        },
-        {
-          "text": "Not applicable",
-          "value": "Not applicable"
         },
         {
           "text": "Other",
