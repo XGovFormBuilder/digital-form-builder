@@ -7,7 +7,7 @@
 
 ## contributions
 
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](.github/CONTRIBUTING.md) first!
 
 ## Context
 
@@ -31,6 +31,8 @@ Also see the individual repo README files for additional info:
 - [designer README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/designer/README.md)
 - [model README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model/README.md)
 - [e2e (smoke tests) README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/e2e/README.md)
+
+Additional documentation such as ADRs and features can be found in [docs](./docs/contents.md).
 
 ## Setup
 
