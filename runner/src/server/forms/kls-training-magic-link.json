@@ -4,6 +4,9 @@
     "skipSummary": true,
     "authentication": true,
     "toggle": true,
+    "analytics": {
+        "gtmId1": "GTM-WLKKLMQB"
+    },
     "serviceName": "UKHSA Knowledge and Library Services (KLS)",
     "name": "UKHSA Knowledge and Library Services (KLS)",
     "toggleRedirect": "/kls-training-request/training-request-part-1",
@@ -13,10 +16,11 @@
         "dhsc.gov.uk",
         "nhs.net",
         "nhs.uk",
-        "gov.uk"
+        "gov.uk",
+        "digitalaccessibilitycentre.org"
     ],
     "invalidDomainRedirect": "/kls-training-magic-link/your-email-is-not-on-our-approved-list",
-    "fullStartPage": "/kls-training-request/start",
+    "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
     "pages": [
         {
             "path": "/start",
@@ -66,7 +70,7 @@
                     "name": "PrivacyNotice",
                     "options": {},
                     "type": "Para",
-                    "content": "By continuing, you agree to our <a href='https://www.gov.uk/government/publications/ukhsa-privacy-notice' target='_blank'>privacy notice</a>.",
+                    "content": "By continuing, you agree to our <a href='/kls-training-magic-link/privacy' target='_blank'>privacy notice (opens in a new tab)</a>.",
                     "schema": {}
                 }
             ],

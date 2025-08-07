@@ -32,10 +32,10 @@
     "eslint": "^8.10.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-tsdoc": "^0.2.14",
-    "prisma": "^6.1.0",
+    "prisma": "6.12.0",
     "typescript": "4.9.5"
   },
   "dependencies": {
-    "@prisma/client": "^6.1.0"
+    "@prisma/client": "6.12.0"
   }
 }

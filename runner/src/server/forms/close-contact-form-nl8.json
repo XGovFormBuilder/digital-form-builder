@@ -153,11 +153,19 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "email_address",
-          "options": { "required": false },
+          "options": {
+            "required": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com",
@@ -184,7 +192,7 @@
         { "path": "/other-persons-details", "condition": "lGzwuI" },
         { "path": "/close-contact-you", "condition": "SypzMi" }
       ],
-      "section": "PersonalDetails"
+      "section": "WhoThisFormIsFor"
     },
     {
       "path": "/other-persons-details",
@@ -228,11 +236,19 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "email_address",
-          "options": { "required": false },
+          "options": {
+            "required": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com",
@@ -264,7 +280,7 @@
         }
       ],
       "next": [{ "path": "/close-contact" }],
-      "section": "PersonalDetails"
+      "section": "WhoThisFormIsFor"
     },
     {
       "path": "/close-contact",
@@ -387,11 +403,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -486,11 +511,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -585,11 +619,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -684,11 +727,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -783,11 +835,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -882,11 +943,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -981,11 +1051,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1080,11 +1159,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1179,11 +1267,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1278,11 +1375,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1377,11 +1483,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1476,11 +1591,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1575,11 +1699,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1674,11 +1807,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1773,11 +1915,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1872,11 +2023,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1971,11 +2131,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -2070,11 +2239,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -2169,11 +2347,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -2268,11 +2455,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -2412,18 +2608,18 @@
   ],
   "sections": [
     {
-      "name": "PersonalDetails",
-      "title": "Personal details",
-      "hideTitle": true
-    },
-    {
       "name": "YourDetails",
-      "title": "Enter your details",
+      "title": "Your details",
       "hideTitle": false
     },
     {
+      "name": "WhoThisFormIsFor",
+      "title": "Who this form is for",
+      "hideTitle": true
+    },
+    {
       "name": "TheirDetails",
-      "title": "Enter the details for the person who is being contact traced",
+      "title": "Details for the person who is being contact traced",
       "hideTitle": false
     },
     {
@@ -2510,7 +2706,7 @@
         "conditions": [
           {
             "field": {
-              "name": "PersonalDetails.completing_form_for",
+              "name": "WhoThisFormIsFor.completing_form_for",
               "type": "RadiosField",
               "display": "Who this form is for"
             },
@@ -2532,7 +2728,7 @@
         "conditions": [
           {
             "field": {
-              "name": "PersonalDetails.completing_form_for",
+              "name": "WhoThisFormIsFor.completing_form_for",
               "type": "RadiosField",
               "display": "Who this form is for"
             },
@@ -3306,7 +3502,7 @@
       "title": "Execute API",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://api.nl1.test.srs.test-and-trace.nhs.uk/v1/forms",
+        "url": "https://api.nl8.test.srs.test-and-trace.nhs.uk/v1/forms",
         "allowRetry": true
       }
     }

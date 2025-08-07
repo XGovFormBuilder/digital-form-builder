@@ -153,11 +153,19 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "email_address",
-          "options": { "required": false },
+          "options": {
+            "required": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com",
@@ -184,7 +192,7 @@
         { "path": "/other-persons-details", "condition": "lGzwuI" },
         { "path": "/close-contact-you", "condition": "SypzMi" }
       ],
-      "section": "PersonalDetails"
+      "section": "WhoThisFormIsFor"
     },
     {
       "path": "/other-persons-details",
@@ -228,11 +236,19 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "email_address",
-          "options": { "required": false },
+          "options": {
+            "required": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com",
@@ -264,7 +280,7 @@
         }
       ],
       "next": [{ "path": "/close-contact" }],
-      "section": "PersonalDetails"
+      "section": "WhoThisFormIsFor"
     },
     {
       "path": "/close-contact",
@@ -387,11 +403,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -406,7 +431,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-1" }],
@@ -486,11 +511,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -505,7 +539,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-2" }],
@@ -585,11 +619,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -604,7 +647,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-3" }],
@@ -684,11 +727,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -703,7 +755,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-4" }],
@@ -783,11 +835,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -802,7 +863,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-5" }],
@@ -882,11 +943,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -901,7 +971,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-6" }],
@@ -981,11 +1051,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1000,7 +1079,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-7" }],
@@ -1080,11 +1159,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1099,7 +1187,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-8" }],
@@ -1179,11 +1267,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1198,7 +1295,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-9" }],
@@ -1278,11 +1375,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1297,7 +1403,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-10" }],
@@ -1377,11 +1483,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1396,7 +1511,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-11" }],
@@ -1476,11 +1591,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1495,7 +1619,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-12" }],
@@ -1575,11 +1699,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1594,7 +1727,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-13" }],
@@ -1674,11 +1807,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1693,7 +1835,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-14" }],
@@ -1773,11 +1915,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1792,7 +1943,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-15" }],
@@ -1872,11 +2023,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1891,7 +2051,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-16" }],
@@ -1971,11 +2131,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -1990,7 +2159,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-17" }],
@@ -2070,11 +2239,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -2089,7 +2267,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-18" }],
@@ -2169,11 +2347,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -2188,7 +2375,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-19" }],
@@ -2268,11 +2455,20 @@
           "type": "TelephoneNumberField",
           "title": "Phone number",
           "hint": "For example, 07700 900000",
-          "schema": {}
+          "schema": {
+            "regex": "^[0-9\\s+()-]*$"
+          }
         },
         {
           "name": "contact_email",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "schema": {}
@@ -2287,7 +2483,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"contact_phone_number\").value===\"\"&&document.getElementById(\"contact_email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/summary" }],
@@ -2412,18 +2608,18 @@
   ],
   "sections": [
     {
-      "name": "PersonalDetails",
-      "title": "Personal details",
-      "hideTitle": true
-    },
-    {
       "name": "YourDetails",
-      "title": "Enter your details",
+      "title": "Your details",
       "hideTitle": false
     },
     {
+      "name": "WhoThisFormIsFor",
+      "title": "Who this form is for",
+      "hideTitle": true
+    },
+    {
       "name": "TheirDetails",
-      "title": "Enter the details for the person who is being contact traced",
+      "title": "Details for the person who is being contact traced",
       "hideTitle": false
     },
     {
@@ -2510,7 +2706,7 @@
         "conditions": [
           {
             "field": {
-              "name": "PersonalDetails.completing_form_for",
+              "name": "WhoThisFormIsFor.completing_form_for",
               "type": "RadiosField",
               "display": "Who this form is for"
             },
@@ -2532,7 +2728,7 @@
         "conditions": [
           {
             "field": {
-              "name": "PersonalDetails.completing_form_for",
+              "name": "WhoThisFormIsFor.completing_form_for",
               "type": "RadiosField",
               "display": "Who this form is for"
             },

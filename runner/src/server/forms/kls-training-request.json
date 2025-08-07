@@ -1,9 +1,12 @@
 {
     "metadata": {},
     "startPage": "/start",
-    "fullStartPage": "/kls-training-request/start",
+    "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
     "authentication": true,
     "toggle": true,
+    "analytics": {
+        "gtmId1": "GTM-WLKKLMQB"
+    },
     "serviceName": "UKHSA Knowledge and Library Services (KLS)",
     "name": "UKHSA Knowledge and Library Services (KLS)",
     "magicLinkConfig": "kls-training-magic-link",
@@ -12,7 +15,14 @@
         {
             "title": "Contact the Knowledge and Library Services team",
             "path": "/start",
-            "components": [],
+            "components": [
+                {
+                    "name": "mainContent",
+                    "options": {},
+                    "type": "Para",
+                    "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry. You can do this by closing your browser and reopening it to access this enquiry form.</p>"
+                }
+            ],
             "next": [
                 {
                     "path": "/which-organisation-do-you-work-for"
@@ -30,9 +40,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select an organisation",
-                            "any.only": "Select an organisation",
-                            "string.empty": "Select an organisation"
+                            "any.required": "Select which organisation do you belong to",
+                            "any.only": "Select which organisation do you belong to",
+                            "string.empty": "Select which organisation do you belong to"
                         }
                     },
                     "type": "RadiosField",
@@ -98,9 +108,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select training session type",
-                            "any.only": "Select training session type",
-                            "string.empty": "Select training session type"
+                            "any.required": "Select what training session would you like us to provide",
+                            "any.only": "Select what training session would you like us to provide",
+                            "string.empty": "Select what training session would you like us to provide"
                         }
                     },
                     "type": "RadiosField",
@@ -116,8 +126,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "number.base": "Enter number of participants",
-                            "number.min": "Number of participants must be greater than 0"
+                            "number.base": "What is the approximate number of participants? (must be a number)",
+                            "number.min": "Number of participants must be greater than 0",
+                            "number.empty": "What is the approximate number of participants? (must be a number)"
                         }
                     },
                     "hint": "Enter number of participants",
@@ -132,9 +143,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select preferred delivery type",
-                            "any.only": "Select preferred delivery type",
-                            "string.empty": "Select preferred delivery type"
+                            "any.required": "Select what is your preferred delivery type",
+                            "any.only": "Select what is your preferred delivery type",
+                            "string.empty": "Select what is your preferred delivery type"
                         }
                     },
                     "type": "RadiosField",
@@ -196,9 +207,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select topic(s)",
-                            "any.only": "Select topics(s)",
-                            "string.empty": "Select topics(s)"
+                            "any.required": "Select what topic(s) would you like to cover",
+                            "any.only": "Select what topic(s) would you like to cover",
+                            "string.empty": "Select what topic(s) would you like to cover"
                         }
                     },
                     "type": "CheckboxesField",
@@ -220,22 +231,22 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter team specialty",
-                            "any.only": "Enter team specialty",
-                            "string.empty": "Enter team specialty"
+                            "any.required": "Describe your team’s area of specialism and any specific topic you would like the training to focus on",
+                            "any.only": "Describe your team’s area of specialism and any specific topic you would like the training to focus on",
+                            "string.empty": "Describe your team’s area of specialism and any specific topic you would like the training to focus on"
                         }
                     },
                     "type": "MultilineTextField",
-                    "title": "Please let us know your team’s area of specialism and any specific topic you would like the training to focus on. Alternatively, indicate if you would prefer a more generic training session. "
+                    "title": "Please let us know your team’s area of specialism and any specific topic you would like the training to focus on. Alternatively, indicate if you would prefer a more generic training session."
                 },
                 {
                     "name": "ojkYsn",
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter suggested date",
-                            "any.only": "Enter suggested date",
-                            "string.empty": "Enter suggested date"
+                            "any.required": "Enter suggested date(s) for the session",
+                            "any.only": "Enter suggested date(s) for the session",
+                            "string.empty": "Enter suggested date(s) for the session"
                         }
                     },
                     "type": "TextField",
@@ -291,14 +302,13 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter group",
-                            "any.only": "Enter group",
-                            "string.empty": "Enter group"
+                            "any.required": "Select the UKHSA group to which you belong",
+                            "any.only": "Select the UKHSA group to which you belong",
+                            "string.empty": "Select the UKHSA group to which you belong"
                         }
                     },
                     "type": "SelectField",
-                    "title": "Group",
-                    "hint": "Tell us which UKHSA work group you belong to",
+                    "title": "UKHSA Group",
                     "list": "TjWRyC",
                     "values": {
                         "type": "listRef"
@@ -309,14 +319,13 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter directorate",
-                            "any.only": "Enter directorate",
-                            "string.empty": "Enter directorate"
+                            "any.required": "Select the UKHSA directorate to which you belong",
+                            "any.only": "Select the UKHSA directorate to which you belong",
+                            "string.empty": "Select the UKHSA directorate to which you belong"
                         }
                     },
                     "type": "SelectField",
-                    "title": "Directorate",
-                    "hint": "Tell us which directorate you belong to",
+                    "title": "UKHSA Directorate",
                     "list": "likBcc",
                     "values": {
                         "type": "listRef"
@@ -354,10 +363,13 @@
                 {
                     "name": "lZOKDY",
                     "options": {
-                        "required": false
+                        "required": false,
+                        "customValidationMessages": {
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
                     },
                     "type": "EmailAddressField",
-                    "title": "If you would like to copy someone into emails about this enquiry, enter their email address here"
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
                 }
             ],
             "next": [
@@ -413,10 +425,13 @@
                 {
                     "name": "AOadZe",
                     "options": {
-                        "required": false
+                        "required": false,
+                        "customValidationMessages": {
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
                     },
                     "type": "EmailAddressField",
-                    "title": "If you would like to copy someone into emails about this enquiry, enter their email address here"
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
                 },
                 {
                     "name": "GjKMBs",
@@ -485,10 +500,13 @@
                 {
                     "name": "cEhUTE",
                     "options": {
-                        "required": false
+                        "required": false,
+                        "customValidationMessages": {
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
                     },
                     "type": "EmailAddressField",
-                    "title": "If you would like to copy someone into emails about this enquiry, enter their email address here"
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
                 }
             ],
             "next": [
@@ -720,7 +738,7 @@
             ]
         },
         {
-            "title": "Directorate",
+            "title": "UKHSA Directorate",
             "name": "likBcc",
             "type": "string",
             "items": [
