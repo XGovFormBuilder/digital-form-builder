@@ -275,6 +275,7 @@
                     "name": "zmJhdG",
                     "options": {
                         "required": true,
+                        "autocomplete": "name",
                         "customValidationMessages": {
                             "any.required": "Enter full name",
                             "any.only": "Enter full name",
@@ -288,6 +289,7 @@
                     "name": "XpqMGU",
                     "options": {
                         "required": true,
+                        "autocomplete": "organization-title",
                         "customValidationMessages": {
                             "any.required": "Enter job title",
                             "any.only": "Enter job title",
@@ -386,6 +388,7 @@
                     "name": "kGNuQf",
                     "options": {
                         "required": true,
+                        "autocomplete": "name",
                         "customValidationMessages": {
                             "any.required": "Enter full name",
                             "any.only": "Enter full name",
@@ -399,6 +402,7 @@
                     "name": "IqdqPY",
                     "options": {
                         "required": true,
+                        "autocomplete": "organization-title",
                         "customValidationMessages": {
                             "any.required": "Enter job title",
                             "any.only": "Enter job title",
@@ -461,6 +465,7 @@
                     "name": "eRUvFD",
                     "options": {
                         "required": true,
+                        "autocomplete": "name",
                         "customValidationMessages": {
                             "any.required": "Enter full name",
                             "any.only": "Enter full name",
@@ -474,6 +479,7 @@
                     "name": "fPTkAc",
                     "options": {
                         "required": true,
+                        "autocomplete": "organization-title",
                         "customValidationMessages": {
                             "any.required": "Enter job title",
                             "any.only": "Enter job title",
