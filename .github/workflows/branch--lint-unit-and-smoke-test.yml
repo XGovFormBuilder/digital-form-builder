@@ -47,7 +47,4 @@ jobs:
 
   smoke-test:
     uses: ./.github/workflows/smoke-test.yml
-    with:
-      runner-cache-ref: ${{needs.build-runner.outputs.tag}}
-      designer-cache-ref: ${{needs.build-designer.outputs.tag}}
     secrets: inherit

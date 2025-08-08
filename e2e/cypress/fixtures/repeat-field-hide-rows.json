@@ -1,0 +1,78 @@
+{
+  "startPage": "/which-languages-hidden",
+  "pages": [
+    {
+      "title": "Check your answers",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/which-languages-hidden",
+      "title": "Which languages do you translate?",
+      "controller": "RepeatingFieldPageController",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": true,
+          "hideRowTitles": true
+        },
+        "customText": {
+          "separatePageTitle": "You have selected these languages"
+        }
+      },
+      "components": [
+        {
+          "name": "languagesProvided",
+          "options": {
+            "hideTitle": true
+          },
+          "list": "languages",
+          "type": "AutocompleteField",
+          "title": "Language",
+          "hint": "Start typing and select a language. Add each language separately. Include all the languages you provide a service in, apart from English.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "title": "Languages",
+      "name": "languages",
+      "type": "string",
+      "items": [
+        {
+          "value": "fr",
+          "text": "French"
+        },
+        {
+          "value": "es",
+          "text": "Spanish; Castilian"
+        },
+        {
+          "value": "it",
+          "text": "Italian"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "phaseBanner": {
+    "phase": "beta"
+  },
+  "metadata": {
+    "type": "translators-interpreters"
+  },
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "conditions": [],
+  "skipSummary": false
+}
