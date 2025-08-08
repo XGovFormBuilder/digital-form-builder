@@ -78,6 +78,7 @@ const optionsSchema: joi.ObjectSchema<
       title: joi.string().optional().allow(false, ""),
       paymentSkipped: joi.string().optional().allow(false, ""),
       nextSteps: joi.string().optional().allow(false, ""),
+      hidePanel: joi.boolean().optional(),
     })
     .optional(),
   components: joi.array().items(componentSchema),

@@ -70,6 +70,8 @@ const index = {
               form,
               newReference
             );
+            viewModel.name = form.name;
+            viewModel.feedbackLink = form.def.feedback.url;
 
             await cacheService.setConfirmationState(request, {
               confirmation: viewModel,
