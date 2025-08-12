@@ -1,0 +1,101 @@
+{
+  "metadata": {},
+  "startPage": "/give-feedback-on-surge-response-service",
+  "pages": [
+    {
+      "title": "Give feedback on Surge Response Service",
+      "path": "/give-feedback-on-surge-response-service",
+      "components": [
+        {
+          "name": "czEhuv",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Overall, how do you feel about this service?",
+          "list": "bJAhcr",
+          "schema": {}
+        },
+        {
+          "name": "JDcVLN",
+          "options": {},
+          "type": "MultilineTextField",
+          "title": "How could we improve this service?",
+          "hint": "Do not include any personal or sensitive information.",
+          "schema": {}
+        },
+        {
+          "name": "nlsnaO",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class='govuk-heading-m'>If you want a reply (optional)</h2>"
+        },
+        {
+          "name": "nXASKT",
+          "options": {},
+          "type": "Para",
+          "content": "If you'd like us to get back to you, please leave your details below.\n",
+          "schema": {}
+        },
+        {
+          "name": "wVLIXA",
+          "options": {},
+          "type": "TextField",
+          "title": "Your name",
+          "schema": {}
+        },
+        {
+          "name": "FjmgiN",
+          "options": {},
+          "type": "EmailAddressField",
+          "title": "Your email address",
+          "hint": "We'll only use this to reply to your message",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/second-page" }]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "Overall, how do you feel about this service?",
+      "name": "bJAhcr",
+      "type": "string",
+      "items": [
+        { "text": "Very satisfied", "value": "very-satisfied" },
+        { "text": "Satisfied", "value": "satisfied" },
+        {
+          "text": "Neither satisfied nor dissatisfied",
+          "value": "neither-satisfied-nor-dissatisfied"
+        },
+        { "text": "Dissatisfied", "value": "dissatisfied" },
+        { "text": "Very dissatisfied", "value": "very-dissatisfied" }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {
+    "allowSubmissionWithoutPayment": true,
+    "maxAttempts": 3,
+    "showPaymentSkippedWarningPage": false
+  },
+  "name": "Give feedback on Surge Response Service",
+  "feedback": { "feedbackForm": true, "url": "" },
+  "phaseBanner": {}
+}
