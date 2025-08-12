@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "caseType": "generic"
+  },
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "firstName",
+          "options": {},
+          "type": "TextField",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "name": "lastName",
+          "options": {},
+          "type": "TextField",
+          "title": "Last name",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-details"
+        }
+      ]
+    },
+    {
+      "title": "Check these details are correct before continuing",
+      "path": "/check-your-details",
+      "components": [],
+      "next": [{ "path": "/summary" }],
+      "controller": "MiniSummaryPageController"
+    }
+  ],
+  "specialPages": {},
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "exitOptions": {},
+  "name": "exit test"
+}
