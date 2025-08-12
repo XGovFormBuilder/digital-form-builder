@@ -7,4 +7,5 @@ Feature: MiniSummaryPageController, a page controller that display summaries of 
     When I enter "Joe{enter}" for "First name"
     And I enter "Bloggs{enter}" for "Last name"
     And I continue
-    Then I see "Check these details are correct before continuing"
+    Then I see "Joe"
+    And I see "Bloggs"
