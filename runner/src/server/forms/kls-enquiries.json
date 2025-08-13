@@ -98,7 +98,9 @@
         },
         {
           "name": "WWpyux",
-          "options": {},
+          "options": {
+            "autocomplete":"name"
+          },
           "type": "TextField",
           "title": "Full name",
           "schema": {}
@@ -107,6 +109,7 @@
           "name": "RpctHr",
           "options": {
             "required": true,
+            "autocomplete": "organization-title",
             "customValidationMessages": {
               "any.required": "Enter job title",
               "any.only": "Enter job title",
@@ -1013,7 +1016,8 @@
         {
           "name": "dagbPo",
           "options": {
-            "required": true
+            "required": true,
+            "autocomplete": "name"
           },
           "type": "TextField",
           "title": "Full name"
@@ -1021,7 +1025,8 @@
         {
           "name": "uksayz",
           "options": {
-            "required": true
+            "required": true,
+            "autocomplete": "organization-title"
           },
           "type": "TextField",
           "title": "Job title"
@@ -1111,13 +1116,17 @@
       "components": [
         {
           "name": "nBYObd",
-          "options": {},
+          "options": {
+            "autocomplete": "name"
+          },
           "type": "TextField",
           "title": "Full name"
         },
         {
           "name": "CNbJUr",
-          "options": {},
+          "options": {
+            "autocomplete": "organization-title"
+          },
           "type": "TextField",
           "title": "Job title"
         },
