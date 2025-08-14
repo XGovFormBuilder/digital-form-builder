@@ -75,7 +75,7 @@
                     "name": "ryhwUr",
                     "options": {},
                     "type": "Html",
-                    "content": "<p>You are not eligable to use this service, however you can still contact the KLS team via the following email: <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk\">libraries@kls.ukhsa.gov.uk</a></strong></p>"
+                    "content": "<p>You are not eligible to use this service, however you can still contact the KLS team via the following email: <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk\">libraries@kls.ukhsa.gov.uk</a></strong></p>"
                 }
             ],
             "next": []
@@ -551,8 +551,8 @@
             "type": "string",
             "items": [
                 {
-                    "text": "Online via teams",
-                    "value": "Online via teams"
+                    "text": "Online via Teams",
+                    "value": "Online via Teams"
                 },
                 {
                     "text": "In person",

@@ -70,7 +70,7 @@
           "name": "ryhwUr",
           "options": {},
           "type": "Html",
-          "content": "<p>You are not eligable to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a></strong></p>"
+          "content": "<p>You are not eligible to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a></strong></p>"
         }
       ],
       "next": []
@@ -228,7 +228,7 @@
                     },
                "type":"FileUploadField",
                "title":"If you need to upload a file to help us deal with your enquiry, do so here.",
-               "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes"
+               "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes"
             }
             
 
@@ -608,7 +608,7 @@
           },
           "type": "DatePartsField",
           "title": "Desired completion date",
-          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
+          "hint": "For example, 20 01 2025. Timeframe for completion will vary based on the review’s complexity, and will be discussed on a case-by-case basis.",
           "schema": {}
         }
       ],
@@ -762,7 +762,7 @@
   "name": "FIvjTg",
   "type": "FileUploadField",
   "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
-  "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes",
+  "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes",
   "schema": {},
   "options": {
     "multiple": true,
