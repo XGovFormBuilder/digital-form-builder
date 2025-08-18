@@ -26,9 +26,10 @@ const parsedError = (key: string, error?: string) => {
 };
 
 const ERRORS = {
-  fileSizeError: 'The selected file for "%s" is too large',
+  fileSizeError: 'The selected files are too large',
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
-  virusError: 'The selected file for "%s" contained a virus',
+  fileCountError: 'You have selected too many files for "%s"',
+  virusError: 'The selected files contained a virus',
   default: "There was an error uploading your file",
 };
 
@@ -60,7 +61,7 @@ export class UploadService {
       .join(", ");
     const lastAcceptedTypeName = acceptedTypeNames.slice(-1);
 
-    return `The selected file for "%s" must be a ${acceptedTypesNameWithoutLast} or ${lastAcceptedTypeName}`;
+    return `The selected files must be a ${acceptedTypesNameWithoutLast} or ${lastAcceptedTypeName}`;
   }
 
   get fileSizeLimit() {
@@ -127,7 +128,19 @@ export class UploadService {
   }
 
   parsedDocumentUploadResponse({ res, payload }) {
-    const warning = payload?.toString?.();
+    const payloadString = payload?.toString?.();
+    let payloadJson: any;
+    let warning: string | undefined;
+    let errorCode: string | undefined;
+
+    try {
+      payloadJson = payloadString ? JSON.parse(payloadString) : undefined;
+      errorCode = payloadJson?.errorCode;
+      warning = payloadJson?.warning;
+    } catch (e) {
+      warning = payloadString;
+    }
+
     let error: string | undefined;
     let location: string | undefined;
     switch (res.statusCode) {
@@ -138,7 +151,15 @@ export class UploadService {
         error = ERRORS.fileTypeError;
         break;
       case 413:
-        error = ERRORS.fileSizeError;
+        if(errorCode === "TOO_MANY_FILES") {
+          if (payloadJson?.maxFilesPerUpload) {
+            error = `You can only select up to ${payloadJson?.maxFilesPerUpload} files at the same time`;
+          } else {
+            error = ERRORS.fileCountError;
+          }
+        } else {
+          error = ERRORS.fileSizeError;
+        }
         break;
       case 422:
         error = ERRORS.virusError;
