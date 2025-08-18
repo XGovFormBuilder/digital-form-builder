@@ -66,7 +66,11 @@ function dateComponent(name, width) {
     name: `myComponent__${name.toLowerCase()}`,
     value: undefined,
     classes: `govuk-input--width-${width}`,
-    type: "number",
+
+    // note that the DateTimePartsField creates NumberFields which are mapped to `items` and passed to the
+    // govukdateinput macro, the type and inputmode are therefore not used
+    type: "text",
+    inputmode: "numeric",
     attributes: {},
   };
 }
