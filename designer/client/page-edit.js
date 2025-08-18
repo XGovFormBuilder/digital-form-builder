@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "@govuk-jsx/input";
+import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 import randomId from "./randomId";
 
@@ -16,6 +17,7 @@ import FeatureToggle from "./FeatureToggle";
 import { FeatureFlags } from "./context/FeatureFlagContext";
 import { findPage, updateLinksTo } from "./data";
 import logger from "../client/plugins/logger";
+import ComponentListSelect from "./components/ComponentListSelect/ComponentListSelect";
 
 export class PageEdit extends React.Component {
   static contextType = DataContext;
@@ -29,13 +31,21 @@ export class PageEdit extends React.Component {
       title: page?.title ?? "",
       section: page?.section ?? "",
       isEditingSection: false,
+      isSummaryPage: false,
       errors: {},
     };
     this.formEditSection = React.createRef();
   }
 
+  componentDidMount() {
+    const { title } = this.state;
+    this.setState({ isSummaryPage: title === "Summary" });
+  }
+
   onSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const formData = new window.FormData(form);
     const { save, data } = this.context;
     const { title, path, section, controller } = this.state;
     const { page } = this.props;
@@ -61,10 +71,12 @@ export class PageEdit extends React.Component {
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
 
+    copy.declaration = formData.get("declaration") ?? "";
+
     copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
-      this.props.onEdit();
+      this.props.closeFlyout();
     } catch (err) {
       logger.error("PageEdit", err);
     }
@@ -170,6 +182,7 @@ export class PageEdit extends React.Component {
 
   editSection = (e, newSection = false) => {
     e.preventDefault();
+
     this.setState({
       isEditingSection: true,
       isNewSection: newSection,
@@ -206,6 +219,7 @@ export class PageEdit extends React.Component {
       controller,
       section,
       isEditingSection,
+      isSummaryPage,
       isNewSection,
       errors,
     } = this.state;
@@ -309,6 +323,19 @@ export class PageEdit extends React.Component {
               </a>
             )}
           </div>
+          {isSummaryPage && (
+            <div className="govuk-form-group">
+              <label className="govuk-label" htmlFor="declaration">
+                Declaration
+              </label>
+              <span className="govuk-hint">
+                The declaration can include HTML and the `govuk-prose-scope` css
+                class is available. Use this on a wrapping element to apply
+                default govuk styles.
+              </span>
+              <Editor name="declaration" />
+            </div>
+          )}
           <button className="govuk-button" type="submit">
             {i18n("save")}
           </button>{" "}
