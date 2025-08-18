@@ -49,10 +49,10 @@ export async function handleUpload(
       response = await uploadService.uploadDocuments(streams);
     } catch (err) {
       if (err.data?.res) {
-        const { error } = uploadService.parsedDocumentUploadResponse(err.data);
+        response = uploadService.parsedDocumentUploadResponse(err.data);
         request.pre.errors = [
           ...request.pre.errors,
-          parsedError(fieldName, error),
+          parsedError(fieldName, response.error),
         ];
       } else if (err.code === "EPIPE") {
         // ignore this error, it happens when the request is responded to by the doc upload service before the
@@ -108,10 +108,6 @@ export async function handleUpload(
         loggerIdentifier,
         `Document upload API responded with an error ${error}`
       );
-      request.pre.errors = [
-        ...(request.pre.errors || []),
-        parsedError(fieldName, error),
-      ];
     }
   }
 
