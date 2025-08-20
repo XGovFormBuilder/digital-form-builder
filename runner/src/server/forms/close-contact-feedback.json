@@ -37,14 +37,20 @@
         },
         {
           "name": "wVLIXA",
-          "options": {},
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "type": "TextField",
           "title": "Your name",
           "schema": {}
         },
         {
           "name": "FjmgiN",
-          "options": {},
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "type": "EmailAddressField",
           "title": "Your email address",
           "hint": "We'll only use this to reply to your message",
