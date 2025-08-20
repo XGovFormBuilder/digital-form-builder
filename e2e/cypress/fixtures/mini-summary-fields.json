@@ -27,19 +27,51 @@
         {
           "path": "/check-your-details"
         }
+      ],
+      "section": "YourDetails"
+    },
+    {
+      "title": "Second page",
+      "path": "/second-page",
+      "components": [
+        {
+          "name": "code",
+          "options": {},
+          "type": "TextField",
+          "title": "Code",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/check-your-details"
+        }
       ]
     },
     {
       "title": "Check these details are correct before continuing",
       "path": "/check-your-details",
       "components": [],
-      "next": [{ "path": "/summary" }],
-      "controller": "MiniSummaryPageController"
+      "next": [{ "path": "/fourth-page" }],
+      "controller": "MiniSummaryPageController",
+      "section": "YourDetails"
+    },
+    {
+      "title": "Fourth page",
+      "path": "/fourth-page",
+      "components": [],
+      "next": []
     }
   ],
   "specialPages": {},
   "lists": [],
-  "sections": [],
+  "sections": [
+    {
+      "name": "YourDetails",
+      "title": "Your details",
+      "hideTitle": false
+    }
+  ],
   "conditions": [],
   "fees": [],
   "outputs": [],
