@@ -35,6 +35,12 @@
       "path": "/second-page",
       "components": [
         {
+          "name": "CIzhto",
+          "options": {},
+          "type": "Html",
+          "content": "<p>Provide a code</p>"
+        },
+        {
           "name": "code",
           "options": {},
           "type": "TextField",
