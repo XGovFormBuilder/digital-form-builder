@@ -15,13 +15,12 @@ export class MiniSummaryPageController extends PageController {
       const { title, model } = this;
 
       const summary = new SummaryViewModel(title, model, state, request);
-      const url = (str) => str.replace("summary", this.path.replace("/", ""));
       const sectionDetails = this.pageDef.section
         ? summary.details.find((detail) => detail.name === this.pageDef.section)
         : summary.details[0];
 
       const items = sectionDetails.items.map((item) => {
-        return { ...item, url: url(item.url) };
+        return { ...item, url: `item.pageId?returnUrl=${this.path}` };
       });
       this.details = [{ items }];
 
