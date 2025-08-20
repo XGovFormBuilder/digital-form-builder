@@ -47,10 +47,14 @@ export class UploadService {
   validFiletypesString(customAcceptedTypes?: string[]) {
     const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
-    const acceptedTypeNames = acceptedTypes
+    let acceptedTypeNames = acceptedTypes
       .map((type) => contentTypeToName[type])
-      .filter(Boolean);
+      .filter(Boolean)
+      .map((type) => type.toUpperCase());
 
+    const namesSet = new Set(acceptedTypeNames);
+    acceptedTypeNames = Array.from(namesSet);
+    
     const acceptedTypesNameWithoutLast = acceptedTypeNames
       .slice(0, -1)
       .join(", ");
