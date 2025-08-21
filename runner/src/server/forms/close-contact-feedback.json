@@ -1,10 +1,10 @@
 {
   "metadata": {},
-  "startPage": "/give-feedback-on-surge-response-service",
+  "startPage": "/feedback",
   "pages": [
     {
       "title": "Give feedback on Surge Response Service",
-      "path": "/give-feedback-on-surge-response-service",
+      "path": "/feedback",
       "components": [
         {
           "name": "czEhuv",
@@ -37,26 +37,26 @@
         },
         {
           "name": "wVLIXA",
-          "options": {},
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "type": "TextField",
           "title": "Your name",
           "schema": {}
         },
         {
           "name": "FjmgiN",
-          "options": {},
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "type": "EmailAddressField",
           "title": "Your email address",
           "hint": "We'll only use this to reply to your message",
           "schema": {}
         }
       ],
-      "next": [{ "path": "/second-page" }]
-    },
-    {
-      "path": "/second-page",
-      "title": "Second page",
-      "components": [],
       "next": [{ "path": "/summary" }]
     },
     {
@@ -87,7 +87,16 @@
   "sections": [],
   "conditions": [],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "Ric43H5Ctwl4NBDC9x1_4",
+      "title": "email",
+      "type": "email",
+      "outputConfiguration": {
+        "emailAddress": "calum.hemphill@ukhsa.gov.uk"
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false,
   "feeOptions": {
