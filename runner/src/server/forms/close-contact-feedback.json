@@ -5,7 +5,6 @@
     {
       "title": "Give feedback on Surge Response Service",
       "path": "/feedback",
-      "controller": "MultiStartPageController",
       "continueButtonText": "Send feedback",
       "showContinueButton": true,
       "components": [
@@ -92,16 +91,18 @@
   "fees": [],
   "outputs": [
     {
-      "name": "Ric43H5Ctwl4NBDC9x1_4",
-      "title": "email",
+      "name": "FeedbackForm",
+      "title": "Close contact FeedbackForm",
       "type": "email",
       "outputConfiguration": {
-        "emailAddress": "calum.hemphill@ukhsa.gov.uk"
+        "apiKey": "chemphill-74015135-6bdb-40ea-bea1-6c538f593925-9e2ac643-bc90-4552-b856-cd3ecac99ce7",
+        "emailAddress": "calum.hemphill@ukhsa.gov.uk",
+        "notifyTemplateId": "2218d301-9005-472c-8116-cb5e533a8bf1"
       }
     }
   ],
   "version": 2,
-  "skipSummary": false,
+  "skipSummary": true,
   "feeOptions": {
     "allowSubmissionWithoutPayment": true,
     "maxAttempts": 3,
