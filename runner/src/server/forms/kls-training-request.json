@@ -40,9 +40,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select which organisation do you belong to",
-                            "any.only": "Select which organisation do you belong to",
-                            "string.empty": "Select which organisation do you belong to"
+                            "any.required": "Select the organisation you work for",
+                            "any.only": "Select the organisation you work for",
+                            "string.empty": "Select the organisation you work for"
                         }
                     },
                     "type": "RadiosField",
@@ -108,9 +108,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select what training session would you like us to provide",
-                            "any.only": "Select what training session would you like us to provide",
-                            "string.empty": "Select what training session would you like us to provide"
+                            "any.required": "Select a training format",
+                            "any.only": "Select a training format",
+                            "string.empty": "Select a training format"
                         }
                     },
                     "type": "RadiosField",
@@ -126,9 +126,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "number.base": "What is the approximate number of participants? (must be a number)",
+                            "number.base": "Enter number of participants",
                             "number.min": "Number of participants must be greater than 0",
-                            "number.empty": "What is the approximate number of participants? (must be a number)"
+                            "number.empty": "Enter number of participants"
                         }
                     },
                     "hint": "Enter number of participants",
@@ -143,9 +143,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select what is your preferred delivery type",
-                            "any.only": "Select what is your preferred delivery type",
-                            "string.empty": "Select what is your preferred delivery type"
+                            "any.required": "Select your preferred delivery type",
+                            "any.only": "Select your preferred delivery type",
+                            "string.empty": "Select your preferred delivery typee"
                         }
                     },
                     "type": "RadiosField",
@@ -193,9 +193,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select an organisation",
-                            "any.only": "Select an organisation",
-                            "string.empty": "Select an organisation"
+                            "any.required": "Select the organisation you belong to",
+                            "any.only": "Select the organisation you belong to",
+                            "string.empty": "Select the organisation you belong to"
                         }
                     },
                     "type": "RadiosField",
@@ -207,9 +207,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select what topic(s) would you like to cover",
-                            "any.only": "Select what topic(s) would you like to cover",
-                            "string.empty": "Select what topic(s) would you like to cover"
+                            "any.required": "Select the topic(s) you would like to cover",
+                            "any.only": "Select the topic(s) you would like to cover",
+                            "string.empty": "Select the topic(s) you would like to cover"
                         }
                     },
                     "type": "CheckboxesField",
@@ -338,9 +338,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter location",
-                            "any.only": "Enter location",
-                            "string.empty": "Enter location"
+                            "any.required": "Select location",
+                            "any.only": "Select location",
+                            "string.empty": "Select location"
                         }
                     },
                     "type": "SelectField",
@@ -352,9 +352,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter an email address",
-                            "any.only": "Enter an email address",
-                            "string.empty": "Enter an email address",
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
@@ -417,9 +417,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter an email address",
-                            "any.only": "Enter an email address",
-                            "string.empty": "Enter an email address",
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
@@ -441,9 +441,9 @@
                     "name": "GjKMBs",
                     "options": {
                         "customValidationMessages": {
-                            "any.required": "Enter location",
-                            "any.only": "Enter location",
-                            "string.empty": "Enter location"
+                            "any.required": "Select location",
+                            "any.only": "Select location",
+                            "string.empty": "Select location"
                         }
                     },
                     "type": "SelectField",
@@ -494,9 +494,9 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter an email address",
-                            "any.only": "Enter an email address",
-                            "string.empty": "Enter an email address",
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
