@@ -3515,5 +3515,8 @@
     "maxAttempts": 3,
     "showPaymentSkippedWarningPage": false
   },
-  "feedback": {}
+  "feedback": {
+    "feedbackForm": false,
+    "url": "/close-contact-feedback"
+  }
 }

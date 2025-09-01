@@ -70,7 +70,7 @@
           "name": "ryhwUr",
           "options": {},
           "type": "Html",
-          "content": "<p>You are not eligable to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a></strong></p>"
+          "content": "<p>You are not eligible to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a></strong></p>"
         }
       ],
       "next": []
@@ -98,7 +98,9 @@
         },
         {
           "name": "WWpyux",
-          "options": {},
+          "options": {
+            "autocomplete":"name"
+          },
           "type": "TextField",
           "title": "Full name",
           "schema": {}
@@ -107,6 +109,7 @@
           "name": "RpctHr",
           "options": {
             "required": true,
+            "autocomplete": "organization-title",
             "customValidationMessages": {
               "any.required": "Enter job title",
               "any.only": "Enter job title",
@@ -225,7 +228,7 @@
                     },
                "type":"FileUploadField",
                "title":"If you need to upload a file to help us deal with your enquiry, do so here.",
-               "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes"
+               "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes"
             }
             
 
@@ -344,33 +347,39 @@
           "name": "etcpxo",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter the geographic scope of the research",
-              "any.only": "Enter the geographic scope of the research",
-              "string.empty": "Enter the geographic scope of the research"
+              "any.required": "Select the geographic scope of the research"
             }
           },
-          "type": "TextField",
+          "type": "RadiosField",
           "title": "Do you want UK only or international research?",
           "hint": "Indicate the geographic scope for which the evidence should be sourced",
+          "list": "zDtSLo",
+          "schema": {}
+        },
+        {
+          "name": "thfczP",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If you selected ‘other’ above, please give details",
           "schema": {}
         },
         {
           "name": "RCdnGJ",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share the results with other public health professionals?",
           "list": "IQAoJu"
         },
         {
           "name": "oNDRUt",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share your contact details so other public health professionals can contact you with queries about the work you are doing?",
           "list": "IQAoJu"
         }
@@ -461,7 +470,7 @@
             "maxDaysInPast": "0",
             "customValidationMessages": {
               "nonNumeric": "The date must be in the format of DD/MM/YYYY",
-              "date.min": "Desired completion date cannot be before today"
+              "date.min": "Desired completion date must be in the future"
             }
           },
           "type": "DatePartsField",
@@ -594,12 +603,12 @@
             "maxDaysInPast": "0",
             "customValidationMessages": {
               "nonNumeric": "The date must be in the format of DD/MM/YYYY",
-              "date.min": "Desired completion date cannot be before today"
+              "date.min": "Desired completion date must be in the future"
             }
           },
           "type": "DatePartsField",
           "title": "Desired completion date",
-          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
+          "hint": "For example, 20 01 2025. Timeframe for completion will vary based on the review’s complexity, and will be discussed on a case-by-case basis.",
           "schema": {}
         }
       ],
@@ -624,7 +633,7 @@
           "name": "ZKqQHi",
           "options": {},
           "type": "RadiosField",
-          "title": "Evidence briefing criteria",
+          "title": "Evidence briefing eligibility",
           "list": "VPAkeH",
           "schema": {}
         },
@@ -709,12 +718,12 @@
             "maxDaysInPast": "0",
             "customValidationMessages": {
               "nonNumeric": "The date must be in the format of DD/MM/YYYY",
-              "date.min": "Desired completion date cannot be before today"
+              "date.min": "Desired completion date must be in the future"
             }
           },
           "type": "DatePartsField",
           "title": "Desired completion date",
-          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
+          "hint": "For example, 20 01 2025. Standard time to produce an Evidence Briefing is at least 3 working weeks",
           "schema": {}
         }
       ],
@@ -753,7 +762,7 @@
   "name": "FIvjTg",
   "type": "FileUploadField",
   "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
-  "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes",
+  "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes",
   "schema": {},
   "options": {
     "multiple": true,
@@ -904,33 +913,39 @@
           "name": "UjGoiE",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter the geographic scope of the research",
-              "any.only": "Enter the geographic scope of the research",
-              "string.empty": "Enter the geographic scope of the research"
+              "any.required": "Select the geographic scope of the research"
             }
           },
-          "type": "TextField",
+          "type": "RadiosField",
           "hint": "Indicate the geographic scope for which the evidence should be sourced",
           "title": "Do you want UK only or international research?",
+          "list": "zDtSLo",
+          "schema": {}
+        },
+        {
+          "name": "thfczP",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If you selected ‘other’ above, please give details",
           "schema": {}
         },
         {
           "name": "GxImes",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share the results with other public health professionals?",
           "list": "IQAoJu"
         },
         {
           "name": "DdsEuf",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share your contact details so other public health professionals can contact you with queries about the work you are doing?",
           "list": "IQAoJu"
         }
@@ -1001,7 +1016,8 @@
         {
           "name": "dagbPo",
           "options": {
-            "required": true
+            "required": true,
+            "autocomplete": "name"
           },
           "type": "TextField",
           "title": "Full name"
@@ -1009,7 +1025,8 @@
         {
           "name": "uksayz",
           "options": {
-            "required": true
+            "required": true,
+            "autocomplete": "organization-title"
           },
           "type": "TextField",
           "title": "Job title"
@@ -1099,13 +1116,17 @@
       "components": [
         {
           "name": "nBYObd",
-          "options": {},
+          "options": {
+            "autocomplete": "name"
+          },
           "type": "TextField",
           "title": "Full name"
         },
         {
           "name": "CNbJUr",
-          "options": {},
+          "options": {
+            "autocomplete": "organization-title"
+          },
           "type": "TextField",
           "title": "Job title"
         },
@@ -1520,12 +1541,12 @@
       "items": [
         {
           "description": "It usually takes the KLS team at least 1 working week to complete this work.",
-          "text": "Option 1. A list of relevant literature search results in either chronological or author order.",
+          "text": "A list of relevant literature search results in either chronological or author order.",
           "value": "Search option 1: a list of the relevant results of a literature search, in chronological or author order. Usually takes at least 1 working week."
         },
         {
           "description": "It usually takes the KLS team at least 2 working weeks to complete this request.",
-          "text": "Option 2. A list of the relevant literature search results, organised or annotated by theme or study type.",
+          "text": "A list of the relevant literature search results, organised or annotated by theme or study type.",
           "value": "Search option 2: a list of relevant results of a literature search, organised or annotated, by theme or study type. Usually takes at least 2 working weeks."
         }
       ]
@@ -1588,8 +1609,8 @@
       "items": [
         {
           "description": "",
-          "text": "Full systematic review",
-          "value": "Full systematic review"
+          "text": "Systematic review",
+          "value": "Systematic review"
         },
         {
           "description": "",
@@ -1922,8 +1943,31 @@
       "type": "string",
       "items": [
         {
-          "text": "Agree",
-          "value": "Agree"
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        }
+      ]
+    },
+    {
+      "title":"Geographic scope",
+      "name": "zDtSLo",
+      "type": "string",
+      "items": [
+        {
+          "text": "UK only",
+          "value": "UK only"
+        },
+        {
+          "text": "International",
+          "value": "International"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
         }
       ]
     },
