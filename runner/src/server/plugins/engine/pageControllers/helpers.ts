@@ -8,6 +8,7 @@ import { StartPageController } from "./StartPageController";
 import { SummaryPageController } from "./SummaryPageController";
 import { PageControllerBase } from "./PageControllerBase";
 import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
+import { MiniSummaryPageController } from "./MiniSummaryPageController";
 import { Page } from "@xgovformbuilder/model";
 import { UploadPageController } from "server/plugins/engine/pageControllers/UploadPageController";
 import { MultiStartPageController } from "server/plugins/engine/pageControllers/MultiStartPageController";
@@ -30,6 +31,7 @@ const PageControllers = {
   SummaryPageController,
   PageControllerBase,
   RepeatingFieldPageController,
+  MiniSummaryPageController,
   UploadPageController,
   MultiStartPageController,
   RepeatingSectionSummaryPageController,

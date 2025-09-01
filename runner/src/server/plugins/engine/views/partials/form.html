@@ -18,6 +18,8 @@
   {% if not (components[0].type == "FlashCard") %}
     {% if isStartPage %}
       {{ govukButton({ attributes: { id: "submit" }, text: "Start now", isStartButton: true }) }}
+    {% elseif page.isMiniSummaryPageController %}
+      {{ govukButton({ attributes: { id: "submit" }, text: "Confirm and continue" }) }}
     {% else %}
       {% if page.isRepeatingFieldPageController and page.isSamePageDisplayMode %}
         {% if details.rows.length %}
