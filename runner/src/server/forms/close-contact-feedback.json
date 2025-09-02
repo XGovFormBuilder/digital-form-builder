@@ -5,12 +5,14 @@
     {
       "title": "Give feedback on Surge Response Service",
       "path": "/feedback",
-      "continueButtonText": "Send feedback",
-      "showContinueButton": true,
       "components": [
         {
           "name": "czEhuv",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select how you feel about this service"
+            }
+          },
           "type": "RadiosField",
           "title": "Overall, how do you feel about this service?",
           "list": "bJAhcr",
@@ -18,7 +20,12 @@
         },
         {
           "name": "JDcVLN",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter details about how we could improve this service",
+              "string.pattern.base": "Enter details about how we could improve this service"
+            }
+          },
           "type": "MultilineTextField",
           "title": "How could we improve this service?",
           "hint": "Do not include any personal or sensitive information.",
@@ -110,5 +117,13 @@
   },
   "name": "Give feedback on Surge Response Service",
   "feedback": { "feedbackForm": true, "url": "" },
-  "phaseBanner": {}
+  "phaseBanner": {},
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "nextSteps": "<h1 class='govuk-heading-l'>Thank you for submitting feedback</h1><p class='govuk-body'>If you gave us your name and email, we will respond within 5 working days.</p><p class='govuk-body'><a class='govuk-link' href='#'>Return to the homepage</a></p>",
+        "hidePanel": true
+      }
+    }
+  }
 }
