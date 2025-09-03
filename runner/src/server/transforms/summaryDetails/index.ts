@@ -17,17 +17,7 @@ const closeContactParams = [
     joiner: " ",
   },
   {
-    names: ["phone_number", "email_address"],
-    to: "Contact details",
-    joiner: "\n",
-  },
-  {
-    names: ["contact_first_name", "contact_last_name"],
-    to: "Full name",
-    joiner: " ",
-  },
-  {
-    names: ["contact_phone_number", "contact_email"],
+    names: ["mobile_number", "landline_number", "email_address"],
     to: "Contact details",
     joiner: "\n",
   },
@@ -93,3 +83,4 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
 };
 
 module.exports = summaryDetailsTransformations;
+
