@@ -17,7 +17,7 @@
           "name": "para2",
           "options": {},
           "type": "Para",
-          "content": "This is so we can provide the right advice and guidance to those that ngiteed it.",
+          "content": "This is so we can provide the right advice and guidance to those that need it.",
           "schema": {}
         },
         {
@@ -1831,7 +1831,7 @@
         { "path": "/close-contact-1", "condition": "IfCloseContacts" },
         { "path": "/summary", "condition": "IfNoCloseContacts" }
       ],
-      "section": "OtherCloseContacts"
+      "section": "OtherContacts"
     },
     {
       "path": "/close-contact-1",
@@ -3326,7 +3326,7 @@
       "hideTitle": true
     },
     {
-      "name": "OtherCloseContacts",
+      "name": "OtherContacts",
       "title": "Other close contacts in the last 7 days",
       "hideTitle": true
     },
@@ -3462,7 +3462,7 @@
         "conditions": [
           {
             "field": {
-              "name": "OtherCloseContacts.been_in_contact",
+              "name": "OtherContacts.been_in_contact",
               "type": "YesNoField",
               "display": "Have you been in close contact with other people in the last 7 days?"
             },
@@ -3480,7 +3480,7 @@
         "conditions": [
           {
             "field": {
-              "name": "OtherCloseContacts.been_in_contact",
+              "name": "OtherContacts.been_in_contact",
               "type": "YesNoField",
               "display": "Have you been in close contact with other people in the last 7 days?"
             },
