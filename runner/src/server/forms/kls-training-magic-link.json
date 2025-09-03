@@ -49,9 +49,9 @@
                     "options": {
                         "exposeToContext": true,
                         "customValidationMessages": {
-                            "any.required": "Enter an email address",
-                            "any.only": "Enter an email address",
-                            "string.empty": "Enter an email address",
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },

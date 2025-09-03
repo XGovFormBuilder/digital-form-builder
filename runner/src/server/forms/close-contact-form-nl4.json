@@ -4154,6 +4154,13 @@
   ],
   "version": 2,
   "skipSummary": false,
-  "feeOptions": {},
-  "feedback": {}
+  "feeOptions": {
+    "allowSubmissionWithoutPayment": true,
+    "maxAttempts": 3,
+    "showPaymentSkippedWarningPage": false
+  },
+  "feedback": {
+    "feedbackForm": false,
+    "url": "/close-contact-feedback"
+  }
 }

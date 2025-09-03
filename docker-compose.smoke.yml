@@ -1,9 +1,8 @@
 # This file is used for the smoke tests
-version: "3.9"
 services:
   designer:
     container_name: designer
-    image: digital-form-builder-designer
+    image: ghcr.io/xgovformbuilder/digital-form-builder-designer:latest
     build:
       context: .
       dockerfile: ./designer/Dockerfile
@@ -22,7 +21,7 @@ services:
       - runner
   runner:
     container_name: runner
-    image: digital-form-builder-runner
+    image: ghcr.io/xgovformbuilder/digital-form-builder-runner:latest
     build:
       context: .
       dockerfile: ./runner/Dockerfile

@@ -3,14 +3,11 @@ name: smoke tests
 on:
   workflow_call:
     inputs:
-      runner-cache-ref:
-        description: cache ref for the runner app
-        required: true
-        type: string
-      designer-cache-ref:
-        description: cache ref for the designer app
-        required: true
-        type: string
+      build:
+        description: whether or not to build the images. Defaults to true
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   smoke-test:
@@ -58,6 +55,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build containers
+        # if inputs.build is set to false, the latest images will be pulled from ghcr.io (see docker-compose.smoke.yml)
+        if: ${{ inputs.build }}
+        run: docker compose -f docker-compose.smoke.yml build designer runner
 
       - name: start containers
         run: |

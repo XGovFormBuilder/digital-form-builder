@@ -90,7 +90,8 @@ export class PageControllerBase {
     this.section = model.sections?.find(
       (section) => section.name === pageDef.section
     );
-    this.sectionForExitJourneySummaryPages = pageDef.sectionForExitJourneySummaryPages;
+    this.sectionForExitJourneySummaryPages =
+      pageDef.sectionForExitJourneySummaryPages;
     this.sectionForMultiSummaryPages = pageDef.sectionForMultiSummaryPages;
     this.sectionForEndSummaryPages = pageDef.sectionForEndSummaryPages;
     this.sidebarContent = pageDef.sidebarContent;
@@ -182,12 +183,13 @@ export class PageControllerBase {
           label.text = pageTitle;
         }
 
-        if (singleFormComponent.model?.fieldset) {
-        singleFormComponent.model.fieldset.legend = label;
-          }
-
         label.isPageHeading = true;
         label.classes = "govuk-fieldset__legend--l";
+
+        if (singleFormComponent.model?.fieldset) {
+          singleFormComponent.model.fieldset.legend = label;
+        }
+
         pageTitle = pageTitle || label.text;
         showTitle = false;
       }
@@ -616,9 +618,10 @@ export class PageControllerBase {
       await cacheService.mergeState(request, { progress });
 
       if (this.disableBackLink) {
-        viewModel.backLink = undefined; 
+        viewModel.backLink = undefined;
       } else {
-        viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
+        viewModel.backLink =
+          progress[progress.length - 2] ?? this.backLinkFallback;
       }
 
       viewModel.allowExit = this.model.allowExit;
@@ -980,7 +983,8 @@ export class PageControllerBase {
     if (this.disableBackLink) {
       viewModel.backLink = undefined;
     } else {
-      viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
+      viewModel.backLink =
+        progress[progress.length - 2] ?? this.backLinkFallback;
     }
 
     this.setPhaseTag(viewModel);

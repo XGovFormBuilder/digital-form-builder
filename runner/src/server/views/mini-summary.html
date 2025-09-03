@@ -6,7 +6,7 @@
 
 {% from "error-summary/macro.njk" import govukErrorSummary %}
 {% from "partials/components.html" import componentList with context %}
-{% from "partials/summary-card.html" import summaryCard %}
+{% from "partials/summary-detail.html" import summaryDetail %}
 
 {% block content %}
   <div class="govuk-grid-row">
@@ -15,16 +15,10 @@
         {{ govukErrorSummary(errors) }}
       {% endif %}
 
-      <h1 class="govuk-heading-l">
-        Check these details are correct before continuing
-      </h1>
+      {% include "partials/heading.html" %}
 
       {% for detail in details %}
-        {% if details.length === 1 %}
-          {{ summaryCard(detail, true) }}
-        {% else %}
-          {{ summaryCard(detail) }}
-        {% endif %}
+        {{ summaryDetail(detail) }}
       {% endfor %}
 
       {% include "partials/form.html" %}

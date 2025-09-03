@@ -42,7 +42,9 @@
           "options": {
             "exposeToContext": true,
             "customValidationMessages": {
-              "string.empty": "Enter an email address",
+              "any.required": "Enter email address",
+              "any.only": "Enter email address",
+              "string.empty": "Enter email address",
               "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           }
@@ -119,7 +121,7 @@
           "name": "GVrjNV",
           "options": {},
           "type": "Para",
-          "content": " The email you provided does not match our approved email criteria. We only accept emails from goverment orgainsation limited to UKHSA, OHID, Local Authorities and the NHS (nhs.uk and nhs.net).<br>You can still contact the Knowledge and Library Services team via their <b>email</b>:<br> libraries@kls.ukhsa.gov.uk ",
+          "content": "We only accept email addresses from organisations eligible to use our services (UKHSA, OHID, Local Authority Public Health teams and NHS England Public Health staff).<br>You can still contact the Knowledge and Library Services team via their email:<br><strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a><strong>",
           "schema": {}
         }
               ]

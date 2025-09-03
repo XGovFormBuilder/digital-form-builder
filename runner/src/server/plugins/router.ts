@@ -4,6 +4,9 @@ import { healthCheckRoute, publicRoutes } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
 import config from "../config";
 import getRequestInfo from "server/utils/getRequestInfo";
+import { FormModel } from "server/plugins/engine/models";
+import { feedbackReturnInfoKey } from "./engine/helpers";
+import { FeedbackContextInfo, RelativeUrl } from "./engine/feedback";
 
 import fs from "fs";
 import path from "path";
@@ -55,7 +58,13 @@ export default {
               return h.redirect("/help/privacy");
             }
 
-            return h.view(`${url}/privacy`, { name: form.name });
+            const title = `${url}/privacy`;
+            return h.view(title, {
+              name: form.name,
+              serviceName: form.def.serviceName,
+              serviceStartPage: form.serviceStartPage,
+              feedbackLink: feedbackUrlFromRequest(_request, form, title)
+            });
           },
         },
         {
@@ -87,9 +96,17 @@ export default {
               return h.redirect("/help/cookies");
             }
 
-            return h.view(`${url}/cookies`, {
+            const title = `${url}/cookies`;
+            return h.view(title, {
               analytics,
               name: form.name,
+              serviceName: form.def.serviceName,
+              serviceStartPage: form.serviceStartPage,
+              feedbackLink: feedbackUrlFromRequest(request, form, title),
+              matomoUrl: form.def.analytics.matomoUrl,
+              matomoId: form.def.analytics.matomoId,
+              gtmId1: form.def.analytics.gtmId1,
+              gtmId2: form.def.analytics.gtmId2
             });
           },
         },
@@ -197,7 +214,13 @@ export default {
             return h.redirect("/help/terms-and-conditions");
           }
 
-          return h.view(`${url}/terms-and-conditions`, { name: form.name });
+          const title = `${url}/terms-and-conditions`;
+          return h.view(title, {
+            name: form.name,
+            serviceName: form.def.serviceName,
+            serviceStartPage: form.serviceStartPage,
+            feedbackLink: feedbackUrlFromRequest(_request, form, title)
+          });
         },
       });
 
@@ -227,7 +250,13 @@ export default {
             return h.redirect("/help/accessibility-statement");
           }
 
-          return h.view(`${url}/accessibility-statement`, { name: form.name });
+          const title = `${url}/accessibility-statement`;
+          return h.view(title, {
+            name: form.name,
+            serviceName: form.serviceName,
+            serviceStartPage: form.serviceStartPage,
+            feedbackLink: feedbackUrlFromRequest(_request, form, title)
+          });
         },
       });
 
@@ -270,3 +299,26 @@ export default {
     },
   },
 };
+
+function feedbackUrlFromRequest(request: HapiRequest, form: FormModel, title: string): string | void {
+  const feedbackUrl = (form.def.feedback?.url as any);
+  if (feedbackUrl) {
+    if (feedbackUrl.startsWith("http")) {
+      return feedbackUrl;
+    }
+
+    const relativeFeedbackUrl = new RelativeUrl(feedbackUrl);
+    const returnInfo = new FeedbackContextInfo(
+      form.name,
+      title,
+      `${request.url.pathname}${request.url.search}`
+    );
+    relativeFeedbackUrl.setParam(
+      feedbackReturnInfoKey,
+      returnInfo.toString()
+    );
+    return relativeFeedbackUrl.toString();
+  }
+
+  return undefined;
+}

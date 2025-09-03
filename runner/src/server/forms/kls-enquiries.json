@@ -39,7 +39,13 @@
       "components": [
         {
           "name": "ZpmVWP",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the organisation you work for",
+              "any.only": "Select the organisation you work for",
+              "string.empty": "Select the organisation you work for"
+            }
+          },
           "type": "RadiosField",
           "title": "Organisation",
           "hint": "The KLS service is available to staff from: UK Health Security Agency, Office for Health Improvement and Disparities, NHS England Public Health, and Local Authority Public Health. \n\nIf you do not belong to one of these organisations you can still contact the KLS team by selecting the 'Other' option to find the team's email address.",
@@ -70,7 +76,7 @@
           "name": "ryhwUr",
           "options": {},
           "type": "Html",
-          "content": "<p>You are not eligable to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a></strong></p>"
+          "content": "<p>You are not eligible to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a></strong></p>"
         }
       ],
       "next": []
@@ -98,7 +104,9 @@
         },
         {
           "name": "WWpyux",
-          "options": {},
+          "options": {
+            "autocomplete":"name"
+          },
           "type": "TextField",
           "title": "Full name",
           "schema": {}
@@ -107,6 +115,7 @@
           "name": "RpctHr",
           "options": {
             "required": true,
+            "autocomplete": "organization-title",
             "customValidationMessages": {
               "any.required": "Enter job title",
               "any.only": "Enter job title",
@@ -140,7 +149,7 @@
             }
           },
           "type": "EmailAddressField",
-          "title": "Should anyone else be included in emails about this enquiry?",
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below ",
           "schema": {}
         }
       ],
@@ -165,6 +174,11 @@
         {
           "name": "tUKBgj",
           "options": {
+            "customValidationMessages":{
+              "any.required": "Select the option that best matches your enquiry",
+              "any.only": "Select the option that best matches your enquiry",
+              "string.empty": "Select the option that best matches your enquiry"
+            },
             "exposeToContext": false
           },
           "type": "RadiosField",
@@ -225,7 +239,7 @@
                     },
                "type":"FileUploadField",
                "title":"If you need to upload a file to help us deal with your enquiry, do so here.",
-               "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes"
+               "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window."
             }
             
 
@@ -252,14 +266,29 @@
           "name": "voCgKn",
           "options": {},
           "type": "InsetText",
-          "content": "Sign up to comprehensive alerts highlighting the latest research from peer-reviewed publications about important public health topics. Select the topics you want to sign up for below."
+          "content": "Sign up to comprehensive alerts that bring together the latest research from peer-reviewed publications about important public health priorities. Select the topics you want to sign up for below."
         },
         {
           "name": "Nuedpc",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the alert(s) you want to subscribe to",
+              "any.only": "Select the alert(s) you want to subscribe to",
+              "string.empty": "Select the alert(s) you want to subscribe to"
+            }
+          },
           "type": "CheckboxesField",
           "title": "Which alerts do you want to subscribe to?",
           "list": "gTPicc"
+        },
+        {
+          "name": "QiohsW",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "If you selected 'other' above, please describe the topic of your requested current awareness alert",
+          "hint": "Any new alert request will be considered on a case-by-case basis. A member of the KLS team will be in touch to discuss the best option to meet your requirements."
         }
       ],
       "next": [
@@ -284,12 +313,18 @@
           "name": "yYKOmJ",
           "options": {},
           "type": "Para",
-          "content": "Please complete as many fields as you can, otherwise the KLS team will need to contact you for more information ",
+          "content": "Please share as much information as possible to help the KLS team deal with your enquiry",
           "schema": {}
         },
         {
           "name": "LuoKqU",
-          "options": {},
+          "options": {
+              "customValidationMessages": {
+              "any.required": "Provide your focussed question",
+              "any.only": "Provide your focussed question",
+              "string.empty": "Provide your focussed question"
+            }
+          },
           "type": "MultilineTextField",
           "title": "What is your focussed question?",
           "schema": {}
@@ -344,47 +379,49 @@
           "name": "etcpxo",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter UK only or international",
-              "any.only": "Enter UK only or international",
-              "string.empty": "Enter UK only or international"
+              "any.required": "Select the geographic scope of the research"
             }
           },
-          "type": "TextField",
-          "title": "UK only or international?",
-          "hint": "Help the KLS team understand the geographic scope of your work by entering the relevant country/countries",
+          "type": "RadiosField",
+          "title": "Do you want UK only or international research?",
+          "hint": "Indicate the geographic scope for which the evidence should be sourced",
+          "list": "zDtSLo",
           "schema": {}
         },
         {
-          "name": "hQXIgL",
+          "name": "thfczP",
           "options": {
-            "maxDaysInPast": "0",
-            "customValidationMessages": {
-              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
-              "date.min": "Desired completion date cannot be before today"
-            }
+            "required": false
           },
-          "type": "DatePartsField",
-          "title": "Desired completion date",
-          "hint": "The KLS team will be in touch to discuss the feasibility of this date",
+          "type": "TextField",
+          "title": "If you selected ‘other’ above, please give details",
           "schema": {}
         },
         {
           "name": "RCdnGJ",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share the results with other public health professionals",
+              "any.only": "Select whether we can share the results with other public health professionals",
+              "string.empty": "Select whether we can share the results with other public health professionals"
+            }
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share the results with other public health professionals?",
           "list": "IQAoJu"
         },
         {
           "name": "oNDRUt",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share your contact details with other public health professionals",
+              "any.only": "Select whether we can share your contact details with other public health professionals",
+              "string.empty": "Select whether we can share your contact details with other public health professionals"
+            }
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share your contact details so other public health professionals can contact you with queries about the work you are doing?",
           "list": "IQAoJu"
         }
@@ -429,16 +466,16 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Enter what you will use the results for",
-              "any.only": "Enter what you will use the results for",
-              "string.empty": "Enter what you will use the results for"
+              "any.required": "Select the primary use for the results",
+              "any.only": "Select the primary use for the results",
+              "string.empty": "Select the primary use for the results"
             }
           },
           "type": "SelectField",
           "title": "What will you primarily use the results of this search for?",
           "list": "PxpncX",
           "schema": {},
-          "hint": "If more than one option apply, please select the most relevant",
+          "hint": "If more than one option applies, please select the most relevant",
           "values": {
             "type": "listRef"
           }
@@ -457,14 +494,30 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Enter your preferred results format",
-              "any.only": "Enter your preferred results format",
-              "string.empty": "Enter your preferred results format"
+              "any.required": "Select your preferred results format(s)",
+              "any.only": "Select your preferred results format(s)",
+              "string.empty": "Select your preferred results format(s)"
             }
           },
           "type": "CheckboxesField",
-          "title": "What is your preferred results format?",
+          "title": "How would you like to receive your results?",
           "list": "LgzPJy",
+          "schema": {}
+        },
+        {
+          "name": "hQXIgL",
+          "options": {
+            "bold": true,
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date must be in the future"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
           "schema": {}
         }
       ],
@@ -490,9 +543,9 @@
           "name": "lIUPMw",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter what type of review you are doing",
-              "any.only": "Enter what type of review you are doing",
-              "string.empty": "Enter what type of review you are doing"
+              "any.required": "Select the type of review you are doing",
+              "any.only": "Select the type of review you are doing",
+              "string.empty": "Select the type of review you are doing"
             }
           },
           "type": "SelectField",
@@ -518,9 +571,9 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Enter the reason for conducting this review",
-              "any.only": "Enter the reason for conducting this review",
-              "string.empty": "Enter the reason for conducting this review"
+              "any.required": "Select the reason for conducting this review",
+              "any.only": "Select the reason for conducting this review",
+              "string.empty": "Select the reason for conducting this review"
             }
           },
           "type": "SelectField",
@@ -545,9 +598,9 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Enter where you intend to publish your review",
-              "any.only": "Enter where you intend to publish your review",
-              "string.empty": "Enter where you intend to publish your review"
+              "any.required": "Select where you intend to publish your review",
+              "any.only": "Select where you intend to publish your review",
+              "string.empty": "Select where you intend to publish your review"
             }
           },
           "type": "SelectField",
@@ -568,20 +621,13 @@
           "schema": {}
         },
         {
-          "name": "oXOJJZ",
-          "options": {},
-          "type": "InsetText",
-          "content": "A protocol describes the planned methods for your review. It should be written before your review begins and followed when you conduct the review. Guidance on writing a protocol is available in <a href=\"https://www.prisma-statement.org/protocols\"> PRISMA for systematic review protocols</a> or contact us for help.",
-          "schema": {}
-        },
-        {
           "name": "dmgVPY",
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Select have you written a protocol",
-              "any.only": "Select have you written a protocol",
-              "string.empty": "Select have you written a protocol"
+              "any.required": "Select whether you have written a protocol",
+              "any.only": "Select whether you have written a protocol",
+              "string.empty": "Select whether you have written a protocol"
             }
           },
           "type": "YesNoField",
@@ -590,7 +636,22 @@
             "type": "listRef"
           },
           "schema": {},
-          "hint": "If so, please use the file upload facility on the next page to share it with the KLS team"
+          "hint": "A protocol describes the planned methods for your review. It should be written before your review begins and followed when you conduct the review. Guidance on writing a protocol is available in <a href=\"https://www.prisma-statement.org/protocols\"> PRISMA for systematic review protocols</a> or contact us for help."
+        },
+                {
+          "name": "hQXIgL",
+          "options": {
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date must be in the future"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "For example, 20 01 2025. Timeframe for completion will vary based on the review’s complexity, and will be discussed on a case-by-case basis.",
+          "schema": {}
         }
       ],
       "next": [
@@ -612,9 +673,15 @@
         },
         {
           "name": "ZKqQHi",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select evidence briefing eligibility",
+              "any.only": "Select evidence briefing eligibility",
+              "string.empty": "Select evidence briefing eligibility"
+            }
+          },
           "type": "RadiosField",
-          "title": "Evidence briefing criteria",
+          "title": "Evidence briefing eligibility",
           "list": "VPAkeH",
           "schema": {}
         },
@@ -691,6 +758,21 @@
           "type": "MultilineTextField",
           "title": "Should anything be excluded?",
           "schema": {}
+        },
+        {
+          "name": "hQXIgL",
+          "options": {
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date must be in the future"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "For example, 20 01 2025. Standard time to produce an Evidence Briefing is at least 3 working weeks",
+          "schema": {}
         }
       ],
       "next": [
@@ -705,10 +787,15 @@
       "components": [
         {
           "name": "CKlngs",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Provide information on how the KLS team can help you",
+              "any.only": "Provide information on how the KLS team can help you",
+              "string.empty": "Provide information on how the KLS team can help you"
+            }
+          },
           "type": "MultilineTextField",
-          "hint": "Please share as much information about your query as possible in this text box",
-          "title": "How might we help?",
+          "title": "Please share as much information as possible to help the KLS team deal with your enquiry",
           "schema": {}
         },
         {
@@ -723,7 +810,7 @@
   "name": "FIvjTg",
   "type": "FileUploadField",
   "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
-  "hint": "You can upload multiple files but the maximum size of all files combined cannot exceed 4.95 megabytes",
+  "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window.",
   "schema": {},
   "options": {
     "multiple": true,
@@ -753,7 +840,13 @@
       "components": [
         {
           "name": "wyvXTj",
-          "options": {},
+          "options": {
+              "customValidationMessages": {
+              "any.required": "Select the organisation you work for",
+              "any.only": "Select the organisation you work for",
+              "string.empty": "Select the organisation you work for"
+            }
+          },
           "type": "RadiosField",
           "title": "Which organisation do you work for?",
           "hint": "",
@@ -792,7 +885,13 @@
         },
         {
           "name": "VeQCVM",
-          "options": {},
+          "options": {
+            "customValidationMessages":{
+              "any.required": "Select the option that best matches your enquiry",
+              "any.only": "Select the option that best matches your enquiry",
+              "string.empty": "Select the option that best matches your enquiry"
+            }
+          },
           "type": "RadiosField",
           "list": "AUYYCW",
           "title": "Which option best matches your enquiry?",
@@ -824,12 +923,18 @@
           "name": "fXvmRh",
           "options": {},
           "type": "Para",
-          "content": "Please complete as many fields as you can, otherwise the KLS team will need to contact you for more information ",
+          "content": "Please share as much information as possible to help the KLS team deal with your enquiry",
           "schema": {}
         },
         {
           "name": "qvJHYP",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Provide your focussed question",
+              "any.only": "Provide your focussed question",
+              "string.empty": "Provide your focussed question"
+            }
+          },
           "type": "MultilineTextField",
           "title": "What is your focussed question?",
           "schema": {}
@@ -874,44 +979,49 @@
           "name": "UjGoiE",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter UK only or international",
-              "any.only": "Enter UK only or international",
-              "string.empty": "Enter UK only or international"
+              "any.required": "Select the geographic scope of the research"
             }
           },
-          "type": "TextField",
-          "hint": "Help the KLS team understand the geographic scope of your work by entering the relevant country/countries",
-          "title": "UK only or international?",
+          "type": "RadiosField",
+          "hint": "Indicate the geographic scope for which the evidence should be sourced",
+          "title": "Do you want UK only or international research?",
+          "list": "zDtSLo",
           "schema": {}
         },
         {
-          "name": "kgNqhg",
+          "name": "thfczP",
           "options": {
-            "maxDaysInFuture": "",
-            "maxDaysInPast": "0"
+            "required": false
           },
-          "type": "DatePartsField",
-          "hint": "The KLS team will be in touch to discuss the feasibility of this date",
-          "title": "Desired completion date",
+          "type": "TextField",
+          "title": "If you selected ‘other’ above, please give details",
           "schema": {}
         },
         {
           "name": "GxImes",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share the results with other public health professionals",
+              "any.only": "Select whether we can share the results with other public health professionals",
+              "string.empty": "Select whether we can share the results with other public health professionals"
+            }
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share the results with other public health professionals?",
           "list": "IQAoJu"
         },
         {
           "name": "DdsEuf",
           "options": {
-            "required": false,
-            "optionalText": true
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share your contact details with other public health professionals",
+              "any.only": "Select whether we can share your contact details with other public health professionals",
+              "string.empty": "Select whether we can share your contact details with other public health professionals"
+            }
           },
-          "type": "CheckboxesField",
+          "type": "RadiosField",
           "title": "Can we share your contact details so other public health professionals can contact you with queries about the work you are doing?",
           "list": "IQAoJu"
         }
@@ -982,7 +1092,8 @@
         {
           "name": "dagbPo",
           "options": {
-            "required": true
+            "required": true,
+            "autocomplete": "name"
           },
           "type": "TextField",
           "title": "Full name"
@@ -990,7 +1101,8 @@
         {
           "name": "uksayz",
           "options": {
-            "required": true
+            "required": true,
+            "autocomplete": "organization-title"
           },
           "type": "TextField",
           "title": "Job title"
@@ -999,14 +1111,13 @@
           "name": "nmlFzr",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter group",
-              "any.only": "Enter group",
-              "string.empty": "Enter group"
+              "any.required": "Select the UKHSA group to which you belong",
+              "any.only": "Select the UKHSA group to which you belong",
+              "string.empty": "Select the UKHSA group to which you belong"
             }
           },
           "type": "SelectField",
-          "hint": "Tell us which work group you belong to",
-          "title": "Group",
+          "title": "UKHSA Group",
           "list": "sYQQmN",
           "values": {
             "type": "listRef"
@@ -1016,14 +1127,13 @@
           "name": "oUmeSI",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter directorate",
-              "any.only": "Enter directorate",
-              "string.empty": "Enter directorate"
+              "any.required": "Select the UKHSA directorate to which you belong",
+              "any.only": "Select the UKHSA directorate to which you belong",
+              "string.empty": "Select the UKHSA directorate to which you belong"
             }
           },
           "type": "SelectField",
-          "hint": "Tell us which directorate you belong to",
-          "title": "Directorate",
+          "title": "UKHSA Directorate",
           "list": "pTYDbB",
           "schema": {
             "required": true
@@ -1033,13 +1143,12 @@
           "name": "EkwRix",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter location",
-              "any.only": "Enter location",
-              "string.empty": "Enter location"
+              "any.required": "Select location",
+              "any.only": "Select location",
+              "string.empty": "Select location"
             }
           },
           "type": "SelectField",
-          "hint": "Tell us your work location",
           "title": "Location",
           "list": "wrhJNi",
           "values": {
@@ -1068,7 +1177,7 @@
             }
           },
           "type": "EmailAddressField",
-          "title": "Should anyone else be included in emails about this enquiry?"
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below "
         }
       ],
       "next": [
@@ -1083,13 +1192,17 @@
       "components": [
         {
           "name": "nBYObd",
-          "options": {},
+          "options": {
+            "autocomplete": "name"
+          },
           "type": "TextField",
           "title": "Full name"
         },
         {
           "name": "CNbJUr",
-          "options": {},
+          "options": {
+            "autocomplete": "organization-title"
+          },
           "type": "TextField",
           "title": "Job title"
         },
@@ -1115,15 +1228,15 @@
             }
           },
           "type": "EmailAddressField",
-          "title": "Should anyone else be included in emails about this enquiry?"
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below "
         },
         {
           "name": "oCVslj",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter location",
-              "any.only": "Enter location",
-              "string.empty": "Enter location"
+              "any.required": "Select location",
+              "any.only": "Select location",
+              "string.empty": "Select location"
             }
           },
           "type": "SelectField",
@@ -1192,7 +1305,7 @@
       ]
     },
     {
-      "title": "Group",
+      "title": "UKHSA Group",
       "name": "sYQQmN",
       "type": "string",
       "items": [
@@ -1219,7 +1332,7 @@
       ]
     },
     {
-      "title": "Directorate",
+      "title": "UKHSA Directorate",
       "name": "pTYDbB",
       "type": "string",
       "items": [
@@ -1504,12 +1617,12 @@
       "items": [
         {
           "description": "It usually takes the KLS team at least 1 working week to complete this work.",
-          "text": "Option 1. A list of relevant literature search results in either chronological or author order.",
+          "text": "A list of relevant literature search results in either chronological or author order.",
           "value": "Search option 1: a list of the relevant results of a literature search, in chronological or author order. Usually takes at least 1 working week."
         },
         {
           "description": "It usually takes the KLS team at least 2 working weeks to complete this request.",
-          "text": "Option 2. A list of the relevant literature search results, organised or annotated by theme or study type.",
+          "text": "A list of the relevant literature search results, organised or annotated by theme or study type.",
           "value": "Search option 2: a list of relevant results of a literature search, organised or annotated, by theme or study type. Usually takes at least 2 working weeks."
         }
       ]
@@ -1533,6 +1646,11 @@
           "description": "",
           "text": "Guidelines",
           "value": "Guidelines"
+        },
+        {
+          "description": "",
+          "text": "Incident support",
+          "value": "Incident support"
         },
         {
           "description": "",
@@ -1572,8 +1690,13 @@
       "items": [
         {
           "description": "",
-          "text": "Full systematic review",
-          "value": "Full systematic review"
+          "text": "Systematic review",
+          "value": "Systematic review"
+        },
+        {
+          "description": "",
+          "text": "Rapid review",
+          "value": "Rapid review"
         },
         {
           "description": "",
@@ -1767,10 +1890,6 @@
           "value": "5 years"
         },
         {
-          "text": "Not applicable",
-          "value": "Not applicable"
-        },
-        {
           "text": "Other",
           "value": "Other"
         }
@@ -1905,8 +2024,31 @@
       "type": "string",
       "items": [
         {
-          "text": "Agree",
-          "value": "Agree"
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        }
+      ]
+    },
+    {
+      "title":"Geographic scope",
+      "name": "zDtSLo",
+      "type": "string",
+      "items": [
+        {
+          "text": "UK only",
+          "value": "UK only"
+        },
+        {
+          "text": "International",
+          "value": "International"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
         }
       ]
     },
@@ -1922,10 +2064,6 @@
         {
           "text": "Antimicrobial Resistance",
           "value": "Antimicrobial Resistance"
-        },
-        {
-          "text": "COVID-19 Re-infection",
-          "value": "COVID-19 Re-infection"
         },
         {
           "text": "Global Public Health Security",
@@ -1958,6 +2096,10 @@
         {
           "text": "Vector Borne Disease",
           "value": "Vector Borne Disease"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
         }
       ]
     }
