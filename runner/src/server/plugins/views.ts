@@ -66,12 +66,18 @@ export default {
       const forms = request.server?.app?.forms;
       const model = id && forms?.[id];
       const analytics = model?.def?.analytics || {};
+      const capital = /^[A-Z]/
+
+      let name = request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName
+      if(!capital.test(name)){
+        name = capitalize(name);
+      }
 
       return {
         appVersion: pkg.version,
         assetPath: "/assets",
         cookiesPolicy: request?.state?.cookies_policy,
-        serviceName: capitalize(request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName),
+        serviceName: name,
         feedbackLink: config.feedbackLink,
         pageTitle: (request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName) + " - GOV.UK",
         analyticsAccount: config.analyticsAccount,
