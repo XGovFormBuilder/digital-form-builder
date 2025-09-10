@@ -168,7 +168,7 @@
           "options": {},
           "type": "Details",
           "title": "Click here to learn about the types of enquiry that the KLS team support",
-          "content": "<strong>Literature search:</strong> a detailed, comprehensive and systematic search of the literature from a variety of quality sources. Literature searches take between 1 and 2 weeks to complete.\n<br><br>\n\n<strong>Systematic review:</strong> the provision of complex literature searches to help in the production of a systematic review, with associated guidance on the stages of conducting a review. The time taken to deliver the search and advice will be dependent on the type of review.\n<br><br>\n\n<strong>Evidence briefing:</strong> outlines the main messages taken from evidence that has been identified and selected using systematic methods and strict inclusion criteria. It usually takes at least 3 weeks to produce an Evidence Briefing and they are subject to certain eligibility criteria\n<br><br>\n\n<strong>Current awareness alerts:</strong> support to access a range of current awareness products to be kept regularly up to date with the latest research in your field of work.\n<br><br>\n\n<strong>General enquiry:</strong> select this option for support with any other queries.",
+          "content": "<dl><dt><strong>Literature search:</strong> a detailed, comprehensive and systematic search of the literature from a variety of quality sources. Literature searches take between 1 and 2 weeks to complete.</dt><br><dt><strong>Systematic review:</strong> the provision of complex literature searches to help in the production of a systematic review, with associated guidance on the stages of conducting a review. The time taken to deliver the search and advice will be dependent on the type of review.</dt><br><dt><strong>Evidence briefing:</strong> outlines the main messages taken from evidence that has been identified and selected using systematic methods and strict inclusion criteria. It usually takes at least 3 weeks to produce an Evidence Briefing and they are subject to certain eligibility criteria</dt><br><dt><strong>Current awareness alerts:</strong> support to access a range of current awareness products to be kept regularly up to date with the latest research in your field of work.</dt><br><dt><strong>General enquiry:</strong> select this option for support with any other queries.</dt></dl>",
           "schema": {}
         },
         {
@@ -192,7 +192,7 @@
       ],
       "next": [
         {
-          "path": "/about-your-current-awareness-alerts-query",
+          "path": "/current-awareness",
           "condition": "OchNDo"
         },
         {
@@ -259,7 +259,7 @@
       ]
     },
     {
-      "path": "/about-your-current-awareness-alerts-query",
+      "path": "/current-awareness",
       "title": "About your current awareness alerts query",
       "components": [
         {
@@ -287,7 +287,7 @@
             "required": false
           },
           "type": "MultilineTextField",
-          "title": "If you selected 'other' above, please describe the topic of your requested current awareness alert",
+          "title": "If you selected 'Other', describe the topic on which you wish to be alerted",
           "hint": "Any new alert request will be considered on a case-by-case basis. A member of the KLS team will be in touch to discuss the best option to meet your requirements."
         }
       ],
@@ -372,7 +372,7 @@
             "required": false
           },
           "type": "TextField",
-          "title": "If you selected 'other' above, please give details",
+          "title": "If you selected ‘Other’, indicate the specific desired publication date range",
           "schema": {}
         },
         {
@@ -394,7 +394,7 @@
             "required": false
           },
           "type": "TextField",
-          "title": "If you selected ‘other’ above, please give details",
+          "title": "If you selected ‘Other’, provide further details of the desired geographical scope",
           "schema": {}
         },
         {
@@ -486,7 +486,7 @@
             "required": false
           },
           "type": "MultilineTextField",
-          "title": "If you selected 'other' above, please give details",
+          "title": "If you selected ‘Other’, provide further details on the primary use of the search results",
           "schema": {}
         },
         {
@@ -517,7 +517,7 @@
           },
           "type": "DatePartsField",
           "title": "Desired completion date",
-          "hint": "For example, 20 01 2025. The completion time will be at least 1-2 working weeks depending on your chosen search type",
+          "hint": "The completion time will be at least 1-2 working weeks depending on your chosen search type. Please provide a future date.",
           "schema": {}
         }
       ],
@@ -563,7 +563,7 @@
             "required": false
           },
           "type": "MultilineTextField",
-          "title": "If you selected 'other' above, please give details",
+          "title": "If you selected ‘Other’, provide further details on the type of review you are doing",
           "schema": {}
         },
         {
@@ -590,7 +590,7 @@
             "required": false
           },
           "type": "MultilineTextField",
-          "title": "If you selected 'other' above, please give details",
+          "title": "If you selected ‘Other’, explain the reason for conducting this review",
           "schema": {}
         },
         {
@@ -617,7 +617,7 @@
             "required": false
           },
           "type": "MultilineTextField",
-          "title": "If you answered 'other', please give details",
+          "title": "If you selected ‘Other’, provide further details on where you intend to publish your review",
           "schema": {}
         },
         {
@@ -650,7 +650,7 @@
           },
           "type": "DatePartsField",
           "title": "Desired completion date",
-          "hint": "For example, 20 01 2025. Timeframe for completion will vary based on the review’s complexity, and will be discussed on a case-by-case basis.",
+          "hint": "Timeframe for completion will vary based on the review's complexity, and will be discussed on a case-by-case basis. Please provide a future date.",
           "schema": {}
         }
       ],
@@ -691,7 +691,7 @@
             "required": false
           },
           "type": "TextField",
-          "title": "If you answered 'Other' above, please give details",
+          "title": "If you selected ‘Other’, explain why this evidence briefing request is essential for your work",
           "schema": {}
         },
         {
@@ -771,7 +771,7 @@
           },
           "type": "DatePartsField",
           "title": "Desired completion date",
-          "hint": "For example, 20 01 2025. Standard time to produce an Evidence Briefing is at least 3 working weeks",
+          "hint": "Standard time to produce an Evidence Briefing is at least 3 working weeks. Please provide a future date.",
           "schema": {}
         }
       ],
@@ -880,7 +880,7 @@
           "options": {},
           "type": "Details",
           "title": "Click here to learn about the types of enquiry that the KLS team support",
-          "content": "<strong>Literature search:</strong> a detailed, comprehensive and systematic search of the literature from a variety of quality sources. Literature searches take between 1 and 2 weeks to complete.\n<br><br>\n\n<strong>Current awareness alerts:</strong> support to access a range of current awareness products to be kept regularly up to date with the latest research in your field of work.\n<br><br>\n\n<strong>General enquiry:</strong> select this option for support with any other queries.",
+          "content": "<dl><dt><strong>Literature search:</strong> a detailed, comprehensive and systematic search of the literature from a variety of quality sources. Literature searches take between 1 and 2 weeks to complete.</dt><br><dt><strong>Current awareness alerts:</strong> support to access a range of current awareness products to be kept regularly up to date with the latest research in your field of work.</dt><br><dt><strong>General enquiry:</strong> select this option for support with any other queries.</dt></dl>",
           "schema": {}
         },
         {
@@ -907,7 +907,7 @@
           "condition": "lsHzLP"
         },
         {
-          "path": "/about-your-current-awareness-alerts-query",
+          "path": "/current-awareness",
           "condition": "MQeZyE"
         },
         {
@@ -972,7 +972,7 @@
             "required": false
           },
           "type": "TextField",
-          "title": "If you selected 'other' above, please give details",
+          "title": "If you selected ‘Other’, indicate the specific desired publication date range",
           "schema": {}
         },
         {
@@ -994,7 +994,7 @@
             "required": false
           },
           "type": "TextField",
-          "title": "If you selected ‘other’ above, please give details",
+          "title": "If you selected ‘Other’, provide further details of the desired geographical scope",
           "schema": {}
         },
         {
