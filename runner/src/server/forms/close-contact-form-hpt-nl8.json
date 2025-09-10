@@ -17,7 +17,7 @@
           "name": "para2",
           "options": {},
           "type": "Para",
-          "content": "This is so we can provide the right advice and guidance to those that need it.",
+          "content": "This is so we can provide the right advice and guidance to those that ngiteed it.",
           "schema": {}
         },
         {
@@ -190,9 +190,14 @@
         },
         {
           "name": "email_address",
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          }
         }
       ],
       "next": [{ "path": "/check-your-details" }],
@@ -1832,7 +1837,7 @@
         { "path": "/close-contact-1", "condition": "IfCloseContacts" },
         { "path": "/summary", "condition": "IfNoCloseContacts" }
       ],
-      "section": "OtherContacts"
+      "section": "OtherCloseContacts"
     },
     {
       "path": "/close-contact-1",
@@ -3327,7 +3332,7 @@
       "hideTitle": true
     },
     {
-      "name": "OtherContacts",
+      "name": "OtherCloseContacts",
       "title": "Other close contacts in the last 7 days",
       "hideTitle": true
     },
@@ -3463,7 +3468,7 @@
         "conditions": [
           {
             "field": {
-              "name": "OtherContacts.been_in_contact",
+              "name": "OtherCloseContacts.been_in_contact",
               "type": "YesNoField",
               "display": "Have you been in close contact with other people in the last 7 days?"
             },
@@ -3481,7 +3486,7 @@
         "conditions": [
           {
             "field": {
-              "name": "OtherContacts.been_in_contact",
+              "name": "OtherCloseContacts.been_in_contact",
               "type": "YesNoField",
               "display": "Have you been in close contact with other people in the last 7 days?"
             },
