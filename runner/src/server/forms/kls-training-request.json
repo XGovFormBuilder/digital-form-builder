@@ -224,7 +224,7 @@
                         "required": false
                     },
                     "type": "TextField",
-                    "title": "If Other, please specify."
+                    "title": "If you selected ‘Other’, provide further details on the topic you would like to cover"
                 },
                 {
                     "name": "gpIAot",
