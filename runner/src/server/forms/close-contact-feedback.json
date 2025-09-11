@@ -102,8 +102,8 @@
       "title": "Close contact FeedbackForm",
       "type": "email",
       "outputConfiguration": {
-        "apiKey": "chemphill-74015135-6bdb-40ea-bea1-6c538f593925-9e2ac643-bc90-4552-b856-cd3ecac99ce7",
-        "emailAddress": "calum.hemphill@ukhsa.gov.uk",
+        "apiKey": "${closeContactFeedbackAPI}",
+        "emailAddress": "${closeContactFeedbackEmail}",
         "notifyTemplateId": "2218d301-9005-472c-8116-cb5e533a8bf1"
       }
     }
