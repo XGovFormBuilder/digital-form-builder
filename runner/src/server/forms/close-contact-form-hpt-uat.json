@@ -197,7 +197,10 @@
               "string.empty": "Enter a valid email address",
               "string.pattern.base": "Enter a valid email address"
             }
-          }
+          },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "hint": "For example, sarah.philips@example.com"
         }
       ],
       "next": [{ "path": "/check-your-details" }],
