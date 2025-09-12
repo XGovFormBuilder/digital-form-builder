@@ -167,7 +167,7 @@ export class UploadService {
   invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
     return parsedError(
       fieldName,
-      this.validFiletypesString(customAcceptedTypes)
+      this.validFiletypesString(customAcceptedTypes) 
     );
   }
 
