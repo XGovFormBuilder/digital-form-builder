@@ -92,7 +92,7 @@
           "schema": {}
         }
       ],
-      "next": [{ "path": "/completing-form-for" }],
+      "next": [{ "path": "/case-id" }],
       "controller": "./pages/start.js"
     },
     {
@@ -107,7 +107,7 @@
           "schema": {}
         }
       ],
-      "next": [{ "path": "/personal-details" }],
+      "next": [{ "path": "/completing-form-for" }],
       "section": "CaseID"
     },
     {
