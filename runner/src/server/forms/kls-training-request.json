@@ -949,6 +949,14 @@
             }
         }
     ],
+    "specialPages": {
+      "confirmationPage": {
+        "customText": {
+          "hidePanel": false,
+          "nextSteps": "You will receive an email to confirm that your enquiry has been received. You may need to check your mailbox’s junk folder to retrieve the email."
+      }
+    }
+   },
     "fees": [],
     "outputs": [
         {
