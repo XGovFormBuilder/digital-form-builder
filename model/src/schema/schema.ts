@@ -328,6 +328,7 @@ export const Schema = joi
     feeOptions: feeOptionSchema,
     exitOptions: exitSchema.optional(),
     showFilenamesOnSummaryPage: joi.boolean().optional(),
+    confirmationTimeout: joi.number().optional()
   });
 
 /**
