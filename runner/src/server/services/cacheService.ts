@@ -73,9 +73,10 @@ export class CacheService {
     return await this.cache.get(key);
   }
 
-  async setConfirmationState(request: HapiRequest, viewModel) {
+  async setConfirmationState(request: HapiRequest, viewModel, ttl?: number) {
     const key = this.Key(request, ADDITIONAL_IDENTIFIER.Confirmation);
-    return this.cache.set(key, viewModel, confirmationSessionTimeout);
+    const timeout = ttl ?? confirmationSessionTimeout;
+    return this.cache.set(key, viewModel, timeout);
   }
 
   async createSession(
