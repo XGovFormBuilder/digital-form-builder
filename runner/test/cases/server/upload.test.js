@@ -150,7 +150,7 @@ suite("uploads", () => {
 
     const $ = cheerio.load(response.payload);
     expect($("[href='#file1']").text().trim()).to.contain(
-      'The selected file for "Passport photo" must be a jpg, jpeg, png or pdf'
+      'The selected file for "Passport photo" must be a JPG, JPEG, PNG or PDF'
     );
   });
 
