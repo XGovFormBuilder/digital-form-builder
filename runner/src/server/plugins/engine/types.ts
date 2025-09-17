@@ -61,7 +61,7 @@ export type FormSubmissionState = {
 };
 
 export type FormSubmissionErrors = {
-  titleText: string; // e.b: "Fix the following errors"
+  titleText: string; // e.b: "There is a problem"
   errorList: {
     path: string; // e.g: "firstName"
     href: string; // e.g: "#firstName"

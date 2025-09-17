@@ -19,7 +19,7 @@ export function errorListFromValidationResult(
   const errorList = errors.details.map(errorListItemToErrorVM);
 
   return {
-    titleText: "Fix the following errors",
+    titleText: "There is a problem",
     errorList: errorList.filter(
       ({ text }, index) =>
         index === errorList.findIndex((err) => err.text === text)
