@@ -136,7 +136,6 @@ export class UploadService {
     } catch (e) {
       warning = payloadString;
     }
-
     let error: string | undefined;
     let location: string | undefined;
     switch (res.statusCode) {
