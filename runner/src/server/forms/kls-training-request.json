@@ -20,7 +20,7 @@
                     "name": "mainContent",
                     "options": {},
                     "type": "Para",
-                    "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry. You can do this by closing your browser and reopening it to access this enquiry form.</p>"
+                    "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
                 }
             ],
             "next": [
