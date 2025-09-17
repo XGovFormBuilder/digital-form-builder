@@ -62,7 +62,7 @@ suite("Date parts field", () => {
       type: "DatePartsField",
     };
     const errors = {
-      titleText: "Fix the following errors",
+      titleText: "There is a problem",
       errorList: [
         {
           path: "approximate__day",

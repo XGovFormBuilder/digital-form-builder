@@ -6,7 +6,7 @@ Feature: Initialise session - prepopulate a session
       | form              | callbackUrl                                                | redirectPath | message | htmlMessage | title |
       | initialiseSession | https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io | /summary     |         |             |       |
     And I go to the initialised session URL
-    Then I see "Summary"
+    Then I see the heading "Summary"
 
 
   Scenario: The configured message is displayed
@@ -15,7 +15,7 @@ Feature: Initialise session - prepopulate a session
       | form              | callbackUrl                                                | redirectPath | message                     | htmlMessage | title |
       | initialiseSession | https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io | /summary     | your favourite egg is wrong |             |       |
     And I go to the initialised session URL
-    Then I see "Summary"
+    Then I see the heading "Summary"
     And I see "your favourite egg is wrong"
 
   Scenario: The configured htmlMessage is displayed
@@ -24,7 +24,7 @@ Feature: Initialise session - prepopulate a session
       | form              | callbackUrl                                                 | redirectPath | message | htmlMessage                      | title |
       | initialiseSession | https://61bca17e-fe74-40e0-9c15-a901ad120eca.mock.pstmn.io | /summary     |         | <p>This is not a type of egg</p> |       |
     And I go to the initialised session URL
-    Then I see "Summary"
+    Then I see the heading "Summary"
     And I see "This is not a type of egg"
     And I don't see "<p>"
 
