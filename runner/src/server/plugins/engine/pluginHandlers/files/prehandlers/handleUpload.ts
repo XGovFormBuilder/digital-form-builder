@@ -108,6 +108,10 @@ export async function handleUpload(
         loggerIdentifier,
         `Document upload API responded with an error ${error}`
       );
+      request.pre.errors = [
+        ...(request.pre.errors || []),
+        parsedError(fieldName, error),
+      ];
     }
   }
 
