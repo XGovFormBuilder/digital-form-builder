@@ -8,6 +8,7 @@ import { Field } from "server/schemas/types";
 import { PageControllerBase } from "server/plugins/engine/pageControllers";
 import { SelectionControlField } from "server/plugins/engine/components/SelectionControlField";
 import nunjucks from "nunjucks";
+
 export function WebhookModel(model: FormModel, state: FormSubmissionState) {
   let englishName = `${config.serviceName} ${model.basePath}`;
 
@@ -31,26 +32,43 @@ export function WebhookModel(model: FormModel, state: FormSubmissionState) {
 }
 
 function createToFieldsMap(state: FormSubmissionState) {
-  return function (component: FormComponent | SelectionControlField): Field {
-    // @ts-ignore - This block of code should not be hit since childrenCollection no
-    if (component.items?.childrenCollection?.formItems) {
-      const toField = createToFieldsMap(state);
+  return function (component: FormComponent | SelectionControlField): Field[] {
+    if (component instanceof SelectionControlField) {
+      const selectedValue = state[component.name];
+      const baseField = {
+        key: component.name,
+        title: component.title,
+        type: "list",
+        answer: fieldAnswerFromComponent(component, state),
+      };
 
-      /**
-       * This is currently deprecated whilst GDS fix a known issue with accessibility and conditionally revealed fields
-       */
-      // @ts-ignore
-      const nestedComponent = component?.items?.childrenCollection.formItems;
-      const nestedFields = nestedComponent?.map(toField);
+      // Check if there are conditional components for the selected value
+      const selectedItem = component.items.find(
+        (item) =>
+          item.value === selectedValue &&
+          item.hasConditionallyRevealedComponents
+      );
 
-      return nestedFields;
+      if (selectedItem?.conditionallyRevealedComponents) {
+        const toField = createToFieldsMap(state);
+        const nestedFields = selectedItem.conditionallyRevealedComponents.formItems.flatMap(
+          toField
+        );
+
+        return [baseField, ...nestedFields];
+      }
+
+      return [baseField];
     }
-    return {
-      key: component.name,
-      title: component.title,
-      type: component.dataType,
-      answer: fieldAnswerFromComponent(component, state),
-    };
+
+    return [
+      {
+        key: component.name,
+        title: component.title,
+        type: component.dataType,
+        answer: fieldAnswerFromComponent(component, state),
+      },
+    ];
   };
 }
 
@@ -59,8 +77,6 @@ function pagesToQuestions(
   state: FormSubmissionState,
   index = 0
 ) {
-  // TODO - index should come from the current iteration of the section.
-
   let sectionState = state;
   if (page.section) {
     sectionState = state[page.section.name];
@@ -82,7 +98,7 @@ function pagesToQuestions(
 }
 
 function fieldAnswerFromComponent(
-  component: FormComponent,
+  component: FormComponent | SelectionControlField,
   state: FormSubmissionState = {}
 ) {
   if (!component) {
@@ -90,15 +106,33 @@ function fieldAnswerFromComponent(
   }
   const rawValue = state?.[component.name];
 
+  // Handle SelectionControlField
+  if (component instanceof SelectionControlField) {
+    // If it's a selection control, we want to return both the selected value
+    // and any conditional component values
+    const selectedValue = rawValue;
+
+    // Find the selected item to get its display text
+    const selectedItem = component.items.find(
+      (item) => item.value === selectedValue
+    );
+
+    return selectedItem ? selectedItem.text : selectedValue;
+  }
+
   switch (component.dataType) {
     case "list":
       return rawValue;
     case "date":
-      return format(new Date(rawValue), "yyyy-MM-dd");
+      return rawValue ? format(new Date(rawValue), "yyyy-MM-dd") : undefined;
     case "monthYear":
+      if (!rawValue) return undefined;
       const [month, year] = Object.values(rawValue);
       return format(new Date(`${year}-${month}-1`), "yyyy-MM");
     default:
-      return component.getDisplayStringFromState(state);
+      if (typeof component.getDisplayStringFromState === "function") {
+        return component.getDisplayStringFromState(state);
+      }
+      return rawValue;
   }
 }
