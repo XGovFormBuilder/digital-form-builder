@@ -92,7 +92,7 @@
           "schema": {}
         }
       ],
-      "next": [{ "path": "/completing-form-for" }],
+      "next": [{ "path": "/case-id" }],
       "controller": "./pages/start.js"
     },
     {
@@ -107,7 +107,7 @@
           "schema": {}
         }
       ],
-      "next": [{ "path": "/personal-details" }],
+      "next": [{ "path": "/completing-form-for" }],
       "section": "CaseID"
     },
     {
@@ -190,6 +190,14 @@
         },
         {
           "name": "email_address",
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.empty": "Enter a valid email address",
+              "string.pattern.base": "Enter a valid email address"
+            }
+          },
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com"
