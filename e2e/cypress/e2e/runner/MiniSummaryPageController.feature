@@ -12,7 +12,7 @@ Feature: New page controller that display summaries of parts of the form data
     And I see "Bloggs"
     And I don't see "123"
     And I see "Confirm and continue"
-    Then I click the link "Change"
+    Then I click the link "Change First name"
     And I enter "Joel{enter}" for "First name"
     And I see "Joel"
     Then I continue
