@@ -22,7 +22,7 @@ Then("I see the date parts error {string}", (error) => {
   /**
    * Date parts only show one error at a time.
    */
-  cy.findByText("Fix the following errors");
+  cy.findByText("There is a problem");
   cy.findByRole("link", { name: error, exact: false });
 });
 
@@ -32,7 +32,7 @@ Then(
     /**
      * Date parts only show one error at a time.
      */
-    cy.findByText("Fix the following errors");
+    cy.findByText("There is a problem");
     cy.get(`#${fieldName}-error`).within(() => {
       cy.findByText(error, { exact: false });
     });
