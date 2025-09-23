@@ -53,7 +53,7 @@
           "name": "QlWuFo",
           "options": {},
           "type": "Para",
-          "content": "It should take about 10 minutes to complete.",
+          "content": "This form should take about 10 minutes to complete.",
           "schema": {}
         },
         {
@@ -219,13 +219,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Their first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Their last (family) name"
         },
         {
           "name": "VnYxYja",
@@ -370,7 +370,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with who may be at risk. We may contact them to offer advice and guidance on how to protect themselves and others."
+          "content": "We ask this to identify people you live with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -397,7 +397,7 @@
           "options": {},
           "type": "List",
           "title": "This includes:",
-          "list": "BfWivE",
+          "list": "BfWivF",
           "values": { "type": "listRef" }
         },
         {
@@ -417,7 +417,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people they live with who may be at risk. We may contact them to offer advice and guidance on how to protect themselves and others."
+          "content": "We ask this to identify people the person you're completing this form for lives with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -437,7 +437,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -577,7 +577,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -717,7 +717,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -857,7 +857,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -997,7 +997,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1137,7 +1137,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1277,7 +1277,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1417,7 +1417,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1557,7 +1557,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1697,7 +1697,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1832,7 +1832,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people who may be at risk. We may contact them to offer advice and guidance on how to protect themselves and others."
+          "content": "We ask this to identify people who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -1861,13 +1861,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -1998,13 +1998,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2135,13 +2135,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2272,13 +2272,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2409,13 +2409,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2546,13 +2546,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2683,13 +2683,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2820,13 +2820,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2957,13 +2957,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -3094,13 +3094,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -3234,8 +3234,23 @@
       "type": "string",
       "items": [
         {
-          "text": "people who live at the same address",
-          "value": "people who live at the same address"
+          "text": "people who live at the same address as you",
+          "value": "people who live at the same address as you"
+        },
+        {
+          "text": "people who have stayed overnight in the last 7 days",
+          "value": "people who have stayed overnight in the last 7 days"
+        }
+      ]
+    },
+    {
+      "title": "Do they live with other people?",
+      "name": "BfWivF",
+      "type": "string",
+      "items": [
+        {
+          "text": "people who live at the same address as them",
+          "value": "people who live at the same address as them"
         },
         {
           "text": "people who have stayed overnight in the last 7 days",
