@@ -172,10 +172,11 @@
           "name": "VnYxYi",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Provide at least one contact detail</h2>"
+          "content": "<br/><h2 class='govuk-heading-m' id='at-least-one'>Provide at least one contact detail</h2>"
         },
         {
           "name": "mobile_number",
+          "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -185,7 +186,7 @@
         },
         {
           "name": "landline_number",
-          "options": { "required": false },
+          "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Landline number",
           "hint": "For example, 020 7123 4567",
@@ -206,6 +207,12 @@
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com"
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").style.color=\"#d4351c\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/check-your-details" }],
