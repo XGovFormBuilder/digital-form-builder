@@ -169,7 +169,14 @@
           "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
         },
         {
+          "name": "dieFHl",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-!-display-none'>Provide a mobile number, email or both</span>"
+        },
+        {
           "name": "mobile_number",
+          "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -200,6 +207,12 @@
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com"
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
         }
       ],
       "next": [{ "path": "/check-your-details" }],
