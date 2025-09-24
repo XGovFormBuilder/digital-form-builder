@@ -3508,7 +3508,7 @@
         },
         {
           "text": "Yorkshire and the Humber",
-          "value": "Yorkshire and the Humber"
+          "value": "Yorkshire and the Humber HPT"
         },
         {
           "text": "East Midlands",
@@ -3656,6 +3656,20 @@
               "type": "Value",
               "value": "South West HPT",
               "display": "South West"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Yorkshire and the Humber HPT",
+              "display": "Yorkshire and the Humber"
             }
           }
         ]
