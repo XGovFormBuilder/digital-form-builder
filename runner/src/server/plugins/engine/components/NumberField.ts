@@ -63,7 +63,8 @@ export class NumberField extends FormComponent {
     const viewModelSuffix = { suffix: { text: suffix } };
     const viewModel = {
       ...super.getViewModel(formData, errors),
-      type: "number",
+      type: "text",
+      inputmode: "numeric",
       // ...False returns nothing, so only adds content when
       // the given options are present.
       ...(options.prefix && viewModelPrefix),
@@ -72,6 +73,11 @@ export class NumberField extends FormComponent {
 
     if (this.schemaOptions.precision) {
       viewModel.attributes.step = "0." + "1".padStart(schema.precision, "0");
+
+      // the `step` attribute will not work with input type "text"
+      // only set to "number" if we need to support existing `precision` config
+      // https://design-system.service.gov.uk/components/text-input/#avoid-using-inputs-with-a-type-of-number
+      viewModel.type = "number";
     }
 
     return viewModel;
