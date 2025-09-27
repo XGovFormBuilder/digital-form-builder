@@ -1,6 +1,7 @@
 "use strict";
 
 import { mergeRows } from "./mergeRows";
+import { removeRows } from "./removeRows";
 import { filterSections } from "./filterSections";
 
 import { SummaryDetailsTransformationMap } from "server/transforms/summaryDetails/types";
@@ -22,6 +23,8 @@ const closeContactParams = [
     joiner: "\n",
   },
 ];
+
+const klsParams = ["ZpmVWP"];
 
 const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
   "close-contact-form-nl1-dev": (details) => {
@@ -107,6 +110,12 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
   "close-contact-form-hpt-uat": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
+  },
+  "kls-enquiries": (details) => {
+    return removeRows(details, klsParams);
+  },
+  "kls-training-request": (details) => {
+    return removeRows(details, klsParams);
   },
 };
 
