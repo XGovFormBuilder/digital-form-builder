@@ -320,13 +320,13 @@
           "name": "LuoKqU",
           "options": {
               "customValidationMessages": {
-              "any.required": "Provide your focussed question",
-              "any.only": "Provide your focussed question",
-              "string.empty": "Provide your focussed question"
+              "any.required": "Provide your focused question",
+              "any.only": "Provide your focused question",
+              "string.empty": "Provide your focused question"
             }
           },
           "type": "MultilineTextField",
-          "title": "What is your focussed question?",
+          "title": "What is your focused question?",
           "schema": {}
         },
         {
@@ -630,15 +630,12 @@
               "string.empty": "Select whether you have written a protocol"
             }
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
           "title": "Have you written a protocol?",
-          "values": {
-            "type": "listRef"
-          },
-          "schema": {},
+          "list": "IQAoJu",
           "hint": "A protocol describes the planned methods for your review. It should be written before your review begins and followed when you conduct the review. Guidance on writing a protocol is available in <a href=\"https://www.prisma-statement.org/protocols\"> PRISMA for systematic review protocols</a> or contact us for help."
         },
-                {
+        {
           "name": "hQXIgL",
           "options": {
             "required": true,
@@ -930,13 +927,13 @@
           "name": "qvJHYP",
           "options": {
             "customValidationMessages": {
-              "any.required": "Provide your focussed question",
-              "any.only": "Provide your focussed question",
-              "string.empty": "Provide your focussed question"
+              "any.required": "Provide your focused question",
+              "any.only": "Provide your focused question",
+              "string.empty": "Provide your focused question"
             }
           },
           "type": "MultilineTextField",
-          "title": "What is your focussed question?",
+          "title": "What is your focused question?",
           "schema": {}
         },
         {
