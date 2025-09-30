@@ -213,7 +213,20 @@
       "next": [
         { "path": "/2-or-more-covid", "condition": "WhichARI:COVID19" },
         { "path": "/cases-of-flu", "condition": "WhichARI:FLU" },
-        { "path": "/2-or-more-cases-not-covid-or-flu" }
+        { "path": "/2-or-more-cases-not-covid-or-flu", "condition": "WhichARI:Other"},
+        { "path": "/service-not-available-error"}
+      ]
+    },
+    {
+      "path": "/service-not-available-error",
+      "unauthenticated": true,
+      "title": "This service is not available",
+      "components": [
+        {
+          "name": "ServiceNotAvailableErrorContent",
+          "type": "Para",
+          "content": "Phone your local <a href='https://www.gov.uk/health-protection-team'>UKHSA health protection team</a> to report:<br><ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li>"
+        }
       ]
     },
     {
