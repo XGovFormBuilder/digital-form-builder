@@ -2,7 +2,6 @@ import path from "path";
 import resolve from "resolve";
 import nunjucks from "nunjucks";
 import vision from "@hapi/vision";
-import { capitalize } from "lodash";
 
 import pkg from "../../../package.json";
 import config from "../config";
@@ -71,7 +70,7 @@ export default {
         appVersion: pkg.version,
         assetPath: "/assets",
         cookiesPolicy: request?.state?.cookies_policy,
-        serviceName: capitalize(request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName),
+        serviceName: request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName,
         feedbackLink: config.feedbackLink,
         pageTitle: (request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName) + " - GOV.UK",
         analyticsAccount: config.analyticsAccount,
