@@ -1,0 +1,75 @@
+{% from "pagination/macro.njk" import govukPagination %}
+{% from "button/macro.njk" import govukButton %}
+{% extends 'layout.html' %}
+
+{% block templateImports %}
+{{ super() }}
+{% endblock %}
+
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "partials/components.html" import componentList with context %}
+
+{% block content %}
+
+{% set gridSize = "full" %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-{{gridSize}}">
+    {% if errors %}
+    {{ govukErrorSummary(errors) }}
+    {% endif %}
+
+    <div class="govuk-grid-column-two-thirds">
+
+    {% include "partials/heading.html" %}
+
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-{{gridSize}}">
+
+        <div class="govuk-grid-column-two-thirds">
+
+        <form method="post" enctype="multipart/form-data" autocomplete="on">
+          <input type="hidden" name="crumb" value="{{crumb}}"/>
+          {{ componentList(components) }}
+    
+          {% if continueButtonText %}
+            {{ govukButton({ attributes: { id: "submit" }, text: continueButtonText })}}
+          {% endif %}
+    
+          {{ govukPagination(startPageNavigation) }}
+        </form>
+        </div>
+          <div class="govuk-grid-column-one-third">
+    <div class="govuk-grid-column-full">
+      <br><br><br><br><br>
+      <hr style="border: 2px solid #1D70B8">
+      <h2 class="govuk-heading-s" style="margin: 15px 0">{{sidebarContent.title}}</h2>
+      <hr class="govuk-section-break govuk-section-break--visible">
+      <ul class="govuk-list">
+          <li>
+            <p class="govuk-body govuk-!-font-size-16" style="padding: 15px 0 0 0">{{sidebarContent.subtitle}}</p>
+          </li>
+          {% for item in sidebarContent.links %}
+            <li>
+              <b>
+                <a href="{{ item.link }}" class="govuk-link govuk-!-font-size-16" {% if loop.first %}style="margin: 15px 0 0 0"{% endif %}>
+                  {{ item.title }}
+                </a>
+              </b>
+            </li>
+          {% endfor %}      
+      </ul>
+    </div>  
+  </div>
+      </div>
+    </div>
+
+
+
+    <pre>{{ value | dump(2) | safe }}</pre>
+  </div>
+
+      </div>
+</div>
+{% endblock %}

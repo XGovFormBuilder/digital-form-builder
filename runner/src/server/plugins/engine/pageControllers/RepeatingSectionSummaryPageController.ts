@@ -43,7 +43,13 @@ export class RepeatingSectionSummaryPageController extends PageController {
         return h.redirect(`/${this.model.basePath}${this.path}`);
       }
 
-      this.details = summaryFiltered;
+      this.details = summaryFiltered.map((detail) => {
+        const currentPath = this.path.replace("/", "");
+        return {
+          ...detail,
+          card: detail.items[0].url.replace("summary", currentPath),
+        };
+      });
       return super.makeGetRouteHandler()(request, h);
     };
   }

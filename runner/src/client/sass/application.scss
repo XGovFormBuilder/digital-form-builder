@@ -105,3 +105,43 @@
 .govuk-summary-card .govuk-summary-list__actions {
   display: none;
 }
+
+.govuk-radios__conditional--hidden {
+  display: none;
+}
+
+.govuk-checkboxes__conditional--hidden {
+  display: none;
+}
+
+.govuk-phase-banner__content__tag {
+  background-color: #1d70b8; /* Example blue background */
+  padding: 5px 8px;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-transform: lowercase;
+  letter-spacing: normal;
+}
+
+.govuk-phase-banner__content__tag::first-letter {
+  text-transform: uppercase;
+}
+
+.govuk-tag {
+  font-family: GDS Transport, arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.25;
+  display: inline-block;
+  max-width: 160px;
+  margin-top: -2px;
+  margin-bottom: -3px;
+  padding: 2px 8px 3px;
+  color: #0c2d4a;
+  background-color: #bbd4ea;
+  text-decoration: none;
+  overflow-wrap: break-word;
+  letter-spacing: 0;
+}

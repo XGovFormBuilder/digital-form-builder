@@ -126,3 +126,11 @@ A suite of smoke tests are run against all PRs. There is a Cron Job that execute
 A legacy suite of smoke tests can be found in this [repository](https://github.com/XGovFormBuilder/digital-form-builder-legacy-smoke-tests). They have been removed so that the project can run on node 18.
 
 Smoke tests will be migrated to use [cypress.io](https://cypress.io) in the coming months.
+
+### L3 Webhook
+
+The webhook JSON is here: digital-form-builder/runner/src/server/forms/L3Webhook.json
+
+Add the URL of the client webhook that you are currently working with into the JSON (line 64)
+
+Run the system locally and make your way through the screens as you would with other forms. Then navigate to the console and search for "status of the request is here" to see the request status. You can also see the status in multiple info logs throughout the console. Look for logs like 'INFO (74824 on Burendo-C6XDQM96PK): request completed' and there will be a sub section of '"statusCode": 200.'

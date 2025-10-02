@@ -70,11 +70,29 @@ const index = {
               form,
               newReference
             );
+            viewModel.name = form.name;
+            viewModel.feedbackLink = form.def.feedback.url;
 
             await cacheService.setConfirmationState(request, {
               confirmation: viewModel,
             });
             await cacheService.clearState(request);
+
+            h.unstate("magicLinkRetry", {
+            path: "/",
+            isSecure: true,
+            isHttpOnly: true,
+            encoding: "base64json",
+            strictHeader: true,
+            });
+
+            h.unstate("auth_token", {
+            path: "/",
+            isSecure: true,
+            isHttpOnly: true,
+            encoding: "none",
+            isSameSite: "Lax",
+            });
 
             return h.view("confirmation", viewModel);
           },
