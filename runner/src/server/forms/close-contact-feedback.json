@@ -65,6 +65,12 @@
           "title": "Your email address",
           "hint": "We'll only use this to reply to your message",
           "schema": {}
+        },
+        {
+          "name": "ButtonRenameScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.addEventListener(\"DOMContentLoaded\",function(){document.getElementById(\"submit\").innerHTML=\"Send feedback\"});</script>"
         }
       ],
       "next": [{ "path": "/summary" }]
