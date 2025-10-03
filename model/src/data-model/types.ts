@@ -194,4 +194,5 @@ export type FormDefinition = {
   paymentReferenceFormat?: string;
   feeOptions: FeeOptions;
   exitOptions: ExitOptions;
+  confirmationSessionTimeout: number | undefined;
 };
