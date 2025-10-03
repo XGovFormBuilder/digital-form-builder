@@ -53,7 +53,7 @@
           "name": "QlWuFo",
           "options": {},
           "type": "Para",
-          "content": "It should take about 10 minutes to complete.",
+          "content": "This form should take about 10 minutes to complete.",
           "schema": {}
         },
         {
@@ -82,7 +82,7 @@
           "options": {
             "allowPrePopulation": true,
             "allowPrePopulationOverwrite": true,
-            "classes": "govuk-visually-hidden",
+            "classes": "govuk-!-display-none",
             "hideTitle": true,
             "disableChangingFromSummary": true,
             "required": false
@@ -96,7 +96,7 @@
           "options": {
             "allowPrePopulation": true,
             "allowPrePopulationOverwrite": true,
-            "classes": "govuk-visually-hidden",
+            "classes": "govuk-!-display-none",
             "hideTitle": true,
             "disableChangingFromSummary": true,
             "required": false
@@ -169,7 +169,14 @@
           "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
         },
         {
+          "name": "dieFHl",
+          "options": {},
+          "type": "Html",
+          "content": "<span id='at-least-one' class='govuk-!-display-none'>Provide a mobile number, email or both</span>"
+        },
+        {
           "name": "mobile_number",
+          "options": { "required": false, "optionalText": false },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -200,6 +207,12 @@
           "type": "EmailAddressField",
           "title": "Email address",
           "hint": "For example, sarah.philips@example.com"
+        },
+        {
+          "name": "ValidationScript",
+          "options": {},
+          "type": "Html",
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/check-your-details" }],
@@ -219,13 +232,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Their first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Their last (family) name"
         },
         {
           "name": "VnYxYja",
@@ -315,7 +328,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/check-their-details" }],
@@ -370,7 +383,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with who may be at risk. We may contact them to offer advice and guidance on how to protect themselves and others."
+          "content": "We ask this to identify people you live with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -397,7 +410,7 @@
           "options": {},
           "type": "List",
           "title": "This includes:",
-          "list": "BfWivE",
+          "list": "BfWivF",
           "values": { "type": "listRef" }
         },
         {
@@ -417,7 +430,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people they live with who may be at risk. We may contact them to offer advice and guidance on how to protect themselves and others."
+          "content": "We ask this to identify people the person you're completing this form for lives with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -437,7 +450,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -532,7 +545,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-1" }],
@@ -577,7 +590,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -672,7 +685,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-2" }],
@@ -717,7 +730,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -812,7 +825,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-3" }],
@@ -857,7 +870,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -952,7 +965,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-4" }],
@@ -997,7 +1010,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1092,7 +1105,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-5" }],
@@ -1137,7 +1150,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1232,7 +1245,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-6" }],
@@ -1277,7 +1290,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1372,7 +1385,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-7" }],
@@ -1417,7 +1430,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1512,7 +1525,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-8" }],
@@ -1557,7 +1570,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1652,7 +1665,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/person-live-with-added-9" }],
@@ -1697,7 +1710,7 @@
           "name": "iulooA",
           "options": {},
           "type": "Para",
-          "content": "You can add more than one person. You will be asked if you want to add another after you continue."
+          "content": "You can add more than one person. You will be asked if you want to add another person after you've added this one."
         },
         {
           "name": "CIzhtn",
@@ -1792,7 +1805,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact" }],
@@ -1832,7 +1845,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people who may be at risk. We may contact them to offer advice and guidance on how to protect themselves and others."
+          "content": "We ask this to identify people who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -1861,13 +1874,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -1944,7 +1957,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-1" }],
@@ -1998,13 +2011,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2081,7 +2094,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-2" }],
@@ -2135,13 +2148,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2218,7 +2231,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-3" }],
@@ -2272,13 +2285,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2355,7 +2368,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-4" }],
@@ -2409,13 +2422,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2492,7 +2505,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-5" }],
@@ -2546,13 +2559,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2629,7 +2642,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-6" }],
@@ -2683,13 +2696,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2766,7 +2779,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-7" }],
@@ -2820,13 +2833,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -2903,7 +2916,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-8" }],
@@ -2957,13 +2970,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -3040,7 +3053,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/close-contact-added-9" }],
@@ -3094,13 +3107,13 @@
           "name": "first_name",
           "options": {},
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "Close contact first (given) name"
         },
         {
           "name": "last_name",
           "options": {},
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Close contact last (family) name"
         },
         {
           "name": "mWvTOY",
@@ -3177,7 +3190,7 @@
           "name": "ValidationScript",
           "options": {},
           "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");}});</script>"
+          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
       "next": [{ "path": "/summary" }],
@@ -3234,8 +3247,23 @@
       "type": "string",
       "items": [
         {
-          "text": "people who live at the same address",
-          "value": "people who live at the same address"
+          "text": "people who live at the same address as you",
+          "value": "people who live at the same address as you"
+        },
+        {
+          "text": "people who have stayed overnight in the last 7 days",
+          "value": "people who have stayed overnight in the last 7 days"
+        }
+      ]
+    },
+    {
+      "title": "Do they live with other people?",
+      "name": "BfWivF",
+      "type": "string",
+      "items": [
+        {
+          "text": "people who live at the same address as them",
+          "value": "people who live at the same address as them"
         },
         {
           "text": "people who have stayed overnight in the last 7 days",
