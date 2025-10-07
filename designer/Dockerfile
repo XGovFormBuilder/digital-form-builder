@@ -48,6 +48,10 @@ ARG LAST_TAG="NOT_DEFINED"
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 ENV NODE_OPTIONS="--openssl-legacy-provider"
+# This change in corepack https://github.com/zertosh/v8-compile-cache/issues/41 seems to break the build.
+# Fix is from  https://github.com/nodejs/corepack/issues/342 / https://github.com/yarnpkg/berry/issues/5987
+ENV DISABLE_V8_COMPILE_CACHE=1
+
 COPY --chown=appuser:appuser designer/package.json ./designer/
 RUN yarn workspaces focus @xgovformbuilder/designer
 COPY --chown=appuser:appuser ./designer ./designer/

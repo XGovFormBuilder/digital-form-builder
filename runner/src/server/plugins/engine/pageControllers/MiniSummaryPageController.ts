@@ -20,7 +20,8 @@ export class MiniSummaryPageController extends PageController {
         : summary.details[0];
 
       const items = sectionDetails.items.map((item) => {
-        return { ...item, url: `${item.pageId}?returnUrl=${this.path}` };
+        const returnURL = encodeURIComponent(`/${model.basePath}${this.path}`);
+        return { ...item, url: `${item.pageId}?returnUrl=${returnURL}` };
       });
       this.details = [{ items }];
 
