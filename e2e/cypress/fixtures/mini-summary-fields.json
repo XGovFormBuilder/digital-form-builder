@@ -9,6 +9,30 @@
       "path": "/first-page",
       "components": [
         {
+          "name": "CIzhto",
+          "options": {},
+          "type": "Html",
+          "content": "<p>Provide a code</p>"
+        },
+        {
+          "name": "code",
+          "options": {},
+          "type": "TextField",
+          "title": "Code",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "title": "Second page",
+      "path": "/second-page",
+      "components": [
+        {
           "name": "firstName",
           "options": {},
           "type": "TextField",
@@ -25,34 +49,10 @@
       ],
       "next": [
         {
-          "path": "/second-page"
+          "path": "/check-your-details"
         }
       ],
       "section": "YourDetails"
-    },
-    {
-      "title": "Second page",
-      "path": "/second-page",
-      "components": [
-        {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<p>Provide a code</p>"
-        },
-        {
-          "name": "code",
-          "options": {},
-          "type": "TextField",
-          "title": "Code",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/check-your-details"
-        }
-      ]
     },
     {
       "title": "Check these details are correct before continuing",
