@@ -4,10 +4,10 @@ Feature: New page controller that display summaries of parts of the form data
   Scenario: MiniSummaryPageController works as expected
     Given the form "mini-summary-fields" exists
     And I navigate to the "mini-summary-fields" form
-    When I enter "Joe" for "First name"
-    And I enter "Bloggs" for "Last name"
+    When I enter "123" for "Code"
     And I continue
-    And I enter "123" for "Code"
+    And I enter "Joe" for "First name"
+    And I enter "Bloggs" for "Last name"
     And I continue
     Then I see "Check these details are correct before continuing"
     And I see "Joe"
