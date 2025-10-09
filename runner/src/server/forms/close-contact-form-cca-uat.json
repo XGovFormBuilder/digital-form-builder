@@ -4176,6 +4176,9 @@
   ],
   "declaration": "<p class=\"govuk-body\">By submitting this form you're confirming that, to the best of your knowledge, the answers you have provided are correct.</p>",
   "fees": [],
+  "analytics": {
+    "gtmId1": "G-2709VW7GCD"
+  },
   "outputs": [
     {
       "name": "BsGFLT",
