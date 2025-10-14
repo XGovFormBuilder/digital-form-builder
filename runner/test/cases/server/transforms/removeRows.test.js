@@ -4,7 +4,7 @@ const { before, test, suite, after } = (exports.lab = Lab.script());
 
 import { removeRows } from "../../../../src/server/transforms/summaryDetails/removeRows";
 
-suite("mergeRows", () => {
+suite("removeRows", () => {
   const details = [
     {
       name: "Detail1",
@@ -57,7 +57,7 @@ suite("mergeRows", () => {
     "organisation", "dob",
   ];
 
-  test("mergeRows correctly transforms ", () => {
+  test("removeRows correctly transforms ", () => {
     expect(removeRows(details, fields)).to.equal([
       {
         name: "Detail1",
