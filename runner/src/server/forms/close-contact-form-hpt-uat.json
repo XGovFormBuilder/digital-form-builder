@@ -332,21 +332,17 @@
           "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}});</script>"
         }
       ],
-      "next": [{ "path": "/check-their-details" }],
+      "next": [{ "path": "/check-your-details" }],
       "section": "PersonalInformation"
     },
     {
       "title": "Check these details are correct before continuing",
       "path": "/check-your-details",
       "components": [],
-      "next": [{ "path": "/do-you-live-with-other-people" }],
-      "controller": "MiniSummaryPageController"
-    },
-    {
-      "title": "Check these details are correct before continuing",
-      "path": "/check-their-details",
-      "components": [],
-      "next": [{ "path": "/do-they-live-with-other-people" }],
+      "next": [
+        { "path": "/do-you-live-with-other-people", "condition": "atPVdy" },
+        { "path": "/do-they-live-with-other-people", "condition": "Dpirys" }
+      ],
       "controller": "MiniSummaryPageController"
     },
     {
@@ -4178,6 +4174,9 @@
   ],
   "declaration": "<p class=\"govuk-body\">By submitting this form you're confirming that, to the best of your knowledge, the answers you have provided are correct.</p>",
   "fees": [],
+  "analytics": {
+    "gtmId1": "G-2709VW7GCD"
+  },
   "outputs": [
     {
       "name": "BsGFLT",
