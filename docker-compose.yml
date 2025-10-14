@@ -40,6 +40,8 @@ services:
       - PREVIEW_MODE=true
       - LAST_COMMIT
       - LAST_TAG
+      - MAGIC_LINK_TOGGLE="false"
+      - ENFORCE_CSRF=true
     #      - ENABLE_QUEUE_SERVICE=true
     #      - QUEUE_DATABASE_URL=mysql://root:root@mysql:3306/queue # or postgres://user:root@postgres:5432/queue
     #      - DEBUG="prisma*"

@@ -1,0 +1,5103 @@
+{
+  "metadata": {},
+  "authentication": true,
+  "toggle": "${magicLinkToggle}",
+  "analytics": {
+    "gtmId1": "GTM-MM6VPCXX"
+  },
+  "startPage": "/start",
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Report an outbreak of acute respiratory infection in an adult social care setting",
+      "components": [
+        {
+          "name": "mainContent",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\">From: <a href=\"https://www.gov.uk/government/organisations/uk-health-security-agency\">UK Health Security Agency</a><br>Applies to England</p>\n<p class=\"govuk-body-m\">You can use this service if you provide adult social care. This includes a care home, supported living or extra care.</p>\n<p class=\"govuk-body-m\">Use this service to report:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>a single confirmed case of flu in your setting</li>\n<li>a new outbreak of acute respiratory infection (ARI) - 2 or more people in your setting with symptoms that started within 5 days of each other</li>\n</ul>\n<p class=\"govuk-body-m\">ARIs include COVID-19, flu, respiratory syncytial virus (RSV), and other respiratory infections.</p>\n<p class=\"govuk-body-m\">It should take about 10 minutes to complete.</p>\n<h3 class=\"govuk-heading-m\">Before you start</h3>\n<p class=\"govuk-body\">If possible, test all service users with symptoms who are <a href=\"https://www.nhs.uk/conditions/covid-19/treatments-for-covid-19/\" target=\"_blank\" class=\"govuk-link\">eligible for COVID-19 treatments</a> using a COVID-19 rapid lateral flow test. Staff with symptoms who are eligible for COVID-19 treatments should test themselves at home.</p>\n<p class=\"govuk-body\">If you cannot test people, do not wait. Report as soon as possible.</p>\n<p class=\"govuk-body\">You'll need to know the:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>setting postcode</li>\n<li>Care Quality Commission (CQC) location ID, if you are CQC registered</li>\n<li>total number of service users and staff in your setting</li>\n<li>number of service users and staff with symptoms</li>\n<li>dates when people's symptoms started</li>\n<li>test results for anyone tested for any ARI, for example COVID-19, flu or RSV</li>\n<li>number of service users and staff vaccinated for COVID-19 and flu</li>\n<li>number of service users vaccinated for RSV</li>\n</ul>\n<p>You’ll need to give your email address to access this service.</p>\n<a href='/ReportAnOutbreak/hpt-region' role='button' draggable='false' class='govuk-button govuk-button--start' data-module='govuk-button' id='submit'>Start now<svg class='govuk-button__start-icon' xmlns='http://www.w3.org/2000/svg' width='17.5' height='19' viewBox='0 0 33 40' aria-hidden='true' focusable='false'><path fill='currentColor' d='M0 0h13l20 20-20 20H0l20-20z'></path></svg></a>\n<h3 class=\"govuk-heading-m\">Updating about an existing outbreak</h3>\n<p class=\"govuk-body\">Do not use this online service to give an update on an outbreak that you have already reported. If you need to give an update, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> or your community infection control team.</p>\n<h3 class=\"govuk-heading-m\">Identifying an ARI outbreak</h3>\n<p class=\"govuk-body\">You only need to report 2 or more ARI cases if they could be linked by spread in your setting. If the infection could not have been spread in your setting, you should not report it as an outbreak. If in doubt, report as an outbreak.</p>\n<h3 class=\"govuk-heading-m\">Why you should report</h3>\n<p class=\"govuk-body\">Your local UKHSA health protection team, or the community infection control team, will use your information to assess your outbreak. They will help you manage the outbreak and prevent further spread.</p>\n<h3 class=\"govuk-heading-m\">Get help</h3>\n<p class=\"govuk-body\">If you need help using the service or have any other questions, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a>.</p>\n<h3 class=\"govuk-heading-m\">If you need urgent medical advice</h3>\n<p class=\"govuk-body\">If you need urgent medical advice, you should call NHS 111 or <a href=\"https://111.nhs.uk/\" target=\"_blank\" class=\"govuk-link\">visit 111.nhs.uk</a>. For life-threatening emergencies, call 999.</p>"
+        }
+      ],
+      "sidebarContent": {
+        "title": "Related content",
+        "subtitle": "Detailed guidance",
+        "links": [
+          {
+            "title": "Infection prevention and control in adult social care: acute respiratory infection",
+            "link": "https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection"
+          },
+          {
+            "title": "Identifying and treating respiratory tract infections on the NHS website",
+            "link": "https://www.nhs.uk/conditions/respiratory-tract-infection/"
+          }
+        ]
+      },
+      "controller": "MultiStartPageController",
+      "showContinueButton": false,
+      "next": [
+        {
+          "path": "/hpt-region"
+        }
+      ]
+    },
+    {
+      "path": "/hpt-region",
+      "title": "Where is your adult social care setting?",
+      "sectionForEndSummaryPages": "SettingDetails",
+      "unauthenticated": true,
+      "components": [
+        {
+          "name": "IntroPara",
+          "type": "Para",
+          "content": "This service is only available in some regions of England."
+        },
+        {
+          "name": "HPT",
+          "options": {
+            "summaryTitle": "Local UKHSA health protection team",
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "any.required": "Select where your adult social care setting is"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": " ",
+          "hint": "Select your local UKHSA health protection team",
+          "list": "HPTs",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "HPTLink",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>\n Use your postcode to find your local health protection team (opens in a new tab)</a>\n",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/magic-link-redirect", "condition": "HPTRegionActive" },
+        {
+          "path": "/service-not-available"
+        }
+      ]
+    },
+    {
+      "path": "/magic-link-redirect",
+      "unauthenticated": true,
+      "controller": "MagicLinkRedirectController",
+      "next": [
+        {
+          "path": "/setting"
+        }
+      ]
+    },
+    {
+      "path": "/service-not-available",
+      "unauthenticated": true,
+      "title": "This service is not available in the {{ HPT }} region",
+      "components": [
+        {
+          "name": "ServiceNotAvailableContent",
+          "type": "Para",
+          "content": "Phone your local <a href='https://www.gov.uk/health-protection-team'>UKHSA health protection team</a> to report:<br><ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li>"
+        }
+      ]
+    },
+    {
+      "path": "/setting",
+      "title": "What type of adult social care do you provide?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
+      "sectionForEndSummaryPages": "SettingDetails",
+      "components": [
+        {
+          "name": "CareSettingType",
+          "options": {
+            "summaryTitle": "Setting type",
+            "conditionallyRevealedComponents": {
+              "OtherAdultSocialCare": {
+                "type": "TextField",
+                "name": "OtherAdultSocialCare",
+                "title": "Enter your setting type",
+                "options": {
+                  "customValidationMessages": {
+                    "string.empty": "Enter the type of adult social care you provide"
+                  }
+                },
+                "schema": {}
+              }
+            },
+            "customValidationMessages": {
+              "any.required": "Select the type of adult social care you provide"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "What type of adult social care do you provide?",
+          "list": "MpSRIP",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/setting-details"
+        }
+      ]
+    },
+    {
+      "path": "/positive-ari",
+      "title": "Do you have any positive test results for an acute respiratory infection?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "PositiveARI",
+          "options": {
+            "summaryTitle": "Positive test result",
+            "customValidationMessages": {
+              "any.required": "Select yes if you have any positive test results for an acute respiratory infection"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Do you have any positive test results for an acute respiratory infection?",
+          "hint": "The infection must have been confirmed by a test, for example a lateral flow test, flu swab test or a laboratory test",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/2-or-more-ari",
+          "condition": "PositiveARI:No"
+        },
+        {
+          "path": "/which-ari"
+        }
+      ]
+    },
+    {
+      "path": "/which-ari",
+      "title": "Which acute respiratory infection do you have a positive test result for?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "WhichARI",
+          "options": {
+            "summaryTitle": "Infection",
+            "customValidationMessages": {
+              "any.required": "Select which acute respiratory infections you have a positive test result for"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Which acute respiratory infection do you have a positive test result for? ",
+          "list": "InfectionTypes",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        { "path": "/2-or-more-covid", "condition": "WhichARI:COVID19" },
+        { "path": "/cases-of-flu", "condition": "WhichARI:FLU" },
+        { "path": "/2-or-more-cases-not-covid-or-flu", "condition": "WhichARI:Other"},
+        { "path": "/service-not-available-error"}
+      ]
+    },
+    {
+      "path": "/service-not-available-error",
+      "unauthenticated": true,
+      "title": "This service is not available",
+      "components": [
+        {
+          "name": "ServiceNotAvailableErrorContent",
+          "type": "Para",
+          "content": "Phone your local <a href='https://www.gov.uk/health-protection-team'>UKHSA health protection team</a> to report:<br><ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li>"
+        }
+      ]
+    },
+    {
+      "path": "/2-or-more-covid",
+      "title": "Are you reporting 2 or more cases?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Include cases confirmed by a test and people with symptoms of acute respiratory infections, including chest infections</p>"
+        },
+        {
+          "name": "TwoOrMoreCovid",
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "options": {
+            "summaryTitle": "COVID-19: 2 or more cases",
+            "customValidationMessages": {
+              "any.required": "Select yes if you are reporting 2 or more cases"
+            }
+          },
+          "title": " ",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-not-need-to-report",
+          "condition": "TwoOrMoreCovid:No"
+        },
+        {
+          "path": "/2-or-more-covid-details"
+        }
+      ]
+    },
+    {
+      "path": "/2-or-more-covid-descriptive",
+      "title": "Are you reporting 2 or more cases of COVID-19?",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+        },
+        {
+          "name": "TwoOrMoreCovid",
+          "options": {
+            "summaryTitle": "2 or more cases"
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": " ",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/2-or-more-cases-not-covid-or-flu",
+          "condition": "TwoOrMoreCovid:No"
+        },
+        {
+          "path": "/2-or-more-covid-details"
+        }
+      ]
+    },
+    {
+      "path": "/2-or-more-covid-details",
+      "title": "Acute respiratory infections in your setting",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Include cases confirmed by a test and people with symptoms of acute respiratory infections, including chest infections</p>"
+        },
+        {
+          "name": "TwoOrMoreCovid5days",
+          "options": {
+            "summaryTitle": "COVID-19: symptoms started within 5 days of each other",
+            "customValidationMessages": {
+              "any.required": "Select yes if symptoms in 2 or more cases started within 5 days of each other"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Did symptoms in 2 or more cases start within 5 days of each other?",
+          "list": "YesNoSure",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "TwoOrMoreCovidSpread",
+          "options": {
+            "summaryTitle": "COVID-19: cases are linked by spread",
+            "customValidationMessages": {
+              "any.required": "Select yes if it is possible that at least 2 of the cases are linked by spread"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Is it possible that at least 2 of the cases are linked by spread in your setting?​",
+          "list": "YesNoSure",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">Read <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection/infection-prevention-and-control-ipc-in-adult-social-care-acute-respiratory-infection-ari#What_to_do\" target=”_blank”>guidance on when cases may be linked by spread in the care setting (opens in a new tab).</a></p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-not-need-to-report",
+          "condition": "ReportCovid:No"
+        },
+        {
+          "path": "/ari-confirmed-cases-setting"
+        }
+      ]
+    },
+    {
+      "path": "/2-or-more-ari",
+      "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "TwoOrMoreARI",
+          "options": {
+            "summaryTitle": "2 or more cases",
+            "customValidationMessages": {
+              "any.required": "Select yes if you are reporting 2 or more cases of an acute respiratory infection"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-not-need-to-report",
+          "condition": "TwoOrMoreARI:No"
+        },
+        {
+          "path": "/ari-confirmed-cases-setting"
+        }
+      ]
+    },
+    {
+      "path": "/do-not-need-to-report",
+      "title": "You do not need to report",
+      "controller": "CheckpointSummaryPageController",
+      "options": {
+        "customText": {
+          "insetText": "Based on your answers, you do not need to report this acute respiratory infection.",
+          "details": "<p>You only need to report:<ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li></ul></p><p class=\"govuk-body\">Read guidance on <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection\">infection prevention and control in adult social care settings.</a></p>"
+        }
+      },
+      "components": []
+    },
+    {
+      "path": "/2-or-more-cases-not-covid-or-flu",
+      "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "OtherInYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "TwoOrMoreCasesNotCovidFlu",
+          "options": {
+            "summaryTitle": "Other acute respiratory infection: 2 or more cases"
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Are you reporting 2 or more cases of an acute respiratory infection?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "TwoOrMoreCasesNotCovidFlu:YES",
+          "path": "/ari-infection-type"
+        },
+        {
+          "path": "/do-not-need-to-report"
+        }
+      ]
+    },
+    {
+      "path": "/ari-infection-type",
+      "title": "What infection are you reporting?",
+      "sectionForMultiSummaryPages": "OtherInYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "ARIInfectionType",
+          "options": {
+            "summaryTitle": "Other acute respiratory infection: infection type",
+            "customValidationMessages": {
+              "any.required": "Select the infection you are reporting"
+            }
+          },
+          "type": "CheckboxesField",
+          "nameHasError": false,
+          "title": "What infection are you reporting?",
+          "hint": "You can select more than one option",
+          "list": "ARIInfectionType",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/other-ari-confirmed-cases-setting"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-confirmed",
+      "title": "Service users: number of other cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersSymptomsNotTested",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "ServiceUsersTestedCovid",
+          "type": "NumberField",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test results",
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "ServiceUsersTestedFlu",
+          "type": "NumberField",
+          "title": "How many service users have been tested for flu and had a negative test result?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: negative flu test results",
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "OtherARIServiceOrStaff:Both",
+          "path": "/staff-ari-confirmed"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-adenovirus",
+      "title": "Service users: number of adenovirus cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersAdenovirus",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive adenovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for adenovirus",
+              "number.max": "The number of service users that have tested positive for adenovirus must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for adenovirus must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-adenovirus",
+      "title": "Staff: number of adenovirus cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "StaffAdenovirus",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive adenovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for adenovirus",
+              "number.max": "The number of staff that have tested positive for adenovirus must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for adenovirus must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/staff-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/both-ari-adenovirus",
+      "title": "Number of adenovirus cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersAdenovirus",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive adenovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for adenovirus",
+              "number.max": "The number of service users that have tested positive for adenovirus must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for adenovirus must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffAdenovirus",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for adenovirus?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive adenovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for adenovirus",
+              "number.max": "The number of staff that have tested positive for adenovirus must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for adenovirus must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-hmpv",
+      "title": "Service users: number of human Metapneumovirus (hMPV) cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersHmpv",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for human Metapneumovirus (hMPV)?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive human Metapneumovirus (hMPV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for human Metapneumovirus (hMPV)",
+              "number.max": "The number of service users that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-hmpv",
+      "title": "Staff: number of human Metapneumovirus (hMPV) cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "StaffHmpv",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for human Metapneumovirus (hMPV)?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive human Metapneumovirus (hMPV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for human Metapneumovirus (hMPV)",
+              "number.max": "The number of staff that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/staff-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/both-ari-hmpv",
+      "title": "Number of human Metapneumovirus (hMPV) cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersHmpv",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for human Metapneumovirus (hMPV)?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive human Metapneumovirus (hMPV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for human Metapneumovirus (hMPV)",
+              "number.max": "The number of service users that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffHmpv",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for human Metapneumovirus (hMPV)?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive human Metapneumovirus (hMPV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for human Metapneumovirus (hMPV)",
+              "number.max": "The number of staff that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for human Metapneumovirus (hMPV) must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-parainfluenza",
+      "title": "Service users: number of parainfluenza cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersParainfluenza",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for parainfluenza?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive parainfluenza test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for parainfluenza",
+              "number.max": "The number of service users that have tested positive for parainfluenza must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for parainfluenza must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-parainfluenza",
+      "title": "Staff: number of parainfluenza cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "StaffParainfluenza",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for parainfluenza?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive parainfluenza test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for parainfluenza",
+              "number.max": "The number of staff that have tested positive for parainfluenza must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for parainfluenza must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/staff-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/both-ari-parainfluenza",
+      "title": "Number of parainfluenza cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersParainfluenza",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for parainfluenza?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive parainfluenza test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for parainfluenza",
+              "number.max": "The number of service users that have tested positive for parainfluenza must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for parainfluenza must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffParainfluenza",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for parainfluenza?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive parainfluenza test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for parainfluenza",
+              "number.max": "The number of staff that have tested positive for parainfluenza must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for parainfluenza must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-rsv",
+      "title": "Service users: number of Respiratory Syncytial Virus (RSV) cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersRSV",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for Respiratory Syncytial Virus (RSV)?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive Respiratory Syncytial Virus (RSV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for Respiratory Syncytial Virus (RSV)",
+              "number.max": "The number of service users that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-rsv",
+      "title": "Staff: number of Respiratory Syncytial Virus (RSV) cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "StaffRSV",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for Respiratory Syncytial Virus (RSV)?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive Respiratory Syncytial Virus (RSV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for Respiratory Syncytial Virus (RSV)",
+              "number.max": "The number of staff that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/staff-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/both-ari-rsv",
+      "title": "Number of Respiratory Syncytial Virus (RSV) cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersRSV",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for Respiratory Syncytial Virus (RSV)?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive Respiratory Syncytial Virus (RSV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for Respiratory Syncytial Virus (RSV)",
+              "number.max": "The number of service users that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffRSV",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for Respiratory Syncytial Virus (RSV)?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive Respiratory Syncytial Virus (RSV) test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for Respiratory Syncytial Virus (RSV)",
+              "number.max": "The number of staff that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for Respiratory Syncytial Virus (RSV) must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-rhinovirus",
+      "title": "Service users: number of rhinovirus cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersRhinovirus",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for rhinovirus?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive rhinovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for rhinovirus",
+              "number.max": "The number of service users that have tested positive for rhinovirus must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for rhinovirus must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-rhinovirus",
+      "title": "Staff: number of rhinovirus cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "StaffRhinovirus",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for rhinovirus?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive rhinovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for rhinovirus",
+              "number.max": "The number of staff that have tested positive for rhinovirus must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for rhinovirus must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        },
+        {
+          "path": "/staff-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/both-ari-rhinovirus",
+      "title": "Number of rhinovirus cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersRhinovirus",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for rhinovirus?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive rhinovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for rhinovirus",
+              "number.max": "The number of service users that have tested positive for rhinovirus must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for rhinovirus must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffRhinovirus",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for rhinovirus?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive rhinovirus test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for rhinovirus",
+              "number.max": "The number of staff that have tested positive for rhinovirus must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for rhinovirus must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-other"
+        },
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-other",
+      "title": "Service users: number of other acute respiratory infection cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersOtherARI",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for an other acute respiratory infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive other acute respiratory infection test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for an other acute respiratory infection",
+              "number.max": "The number of service users that have tested positive for an other acute respiratory infection must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for an other acute respiratory infection must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-other",
+      "title": "Staff: number of other acute respiratory infection cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "StaffOtherARI",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for an other acute respiratory infection?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive other acute respiratory infection test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for an other acute respiratory infection",
+              "number.max": "The number of staff that have tested positive for an other acute respiratory infection must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for an other acute respiratory infection must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/both-ari-other",
+      "title": "Number of other acute respiratory infection cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersOtherARI",
+          "type": "NumberField",
+          "title": "How many service users have tested positive for an other acute respiratory infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: confirmed positive other acute respiratory infection test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have tested positive for an other acute respiratory infection",
+              "number.max": "The number of service users that have tested positive for an other acute respiratory infection must be between 0 and 999",
+              "number.min": "The number of service users that have tested positive for an other acute respiratory infection must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffOtherARI",
+          "type": "NumberField",
+          "title": "How many staff have tested positive for an other acute respiratory infection?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: confirmed positive other acute respiratory infection test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have tested positive for an other acute respiratory infection",
+              "number.max": "The number of staff that have tested positive for an other acute respiratory infection must be between 0 and 999",
+              "number.min": "The number of staff that have tested positive for an other acute respiratory infection must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-users-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-unknown",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersConfirmedARI",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "ServiceUsersTestedCovid",
+          "type": "NumberField",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: negative COVID-19 test results",
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "ServiceUsersTestedFlu",
+          "type": "NumberField",
+          "title": "How many service users have been tested for flu and had a negative test result?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: negative flu test results",
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for flu and had a negative test result must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-ari-unknown",
+          "condition": "ARIServiceOrStaff:Staff"
+        },
+        {
+          "path": "/severity-of-illness-unknown"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-unknown",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+        },
+        {
+          "name": "StaffSymptomsNotTested",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffTestedCovid",
+          "type": "NumberField",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
+          "hint": "If none, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test results",
+            "required": false,
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "name": "StaffTestedFlu",
+          "type": "NumberField",
+          "title": "How many staff have been tested for flu and had a negative test result?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: negative flu test results",
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness-unknown"
+        }
+      ]
+    },
+    {
+      "path": "/cases-of-flu",
+      "title": "How many cases are you reporting?",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "NumberOfCasesOfFlu",
+          "options": {
+            "summaryTitle": "Flu: number of cases"
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How many cases are you reporting?",
+          "hint": "Include cases confirmed by a test and people with symptoms of acute respiratory infections.",
+          "list": "OneOrMore",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/single-case-of-flu",
+          "condition": "NumberOfCasesOfFlu:One"
+        },
+        {
+          "path": "/ari-confirmed-cases-setting"
+        }
+      ]
+    },
+    {
+      "path": "/single-case-of-flu",
+      "title": "Who has the case of flu?",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "SingleCaseOfFluServiceOrStaff",
+          "options": {
+            "summaryTitle": "Who has the flu?"
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Who has the case of flu?",
+          "list": "ServiceOrStaff",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/flu-severity",
+          "condition": "SingleCaseOfFluServiceOrStaff:ServiceUser"
+        },
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-flu",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "ServiceUsersFluSwabTest",
+          "options": {
+            "summaryTitle": "Service users: confirmed positive flu test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have flu confirmed by a positive swab test",
+              "number.max": "The number of service users that have flu confirmed by a positive swab test must be between 0 and 999",
+              "number.min": "The number of service users that have flu confirmed by a positive swab test must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have flu confirmed by a positive swab test?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
+        },
+        {
+          "name": "ServiceUsersChestInfection",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: diagnosed with a chest infection by a GP",
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999",
+              "number.min": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have been diagnosed with a chest infection by a GP?",
+          "hint": "Do not include cases that have been confirmed by a test as flu<br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
+        },
+        {
+          "name": "ServiceUsersSymptomsNotTested",
+          "options": {
+            "summaryTitle": "Service users: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
+        },
+        {
+          "name": "ServiceUsersChestInfectionCovid19",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: negative COVID-19 test results",
+            "customValidationMessages": {
+              "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
+          "hint": "If none, enter 0"
+        }
+      ],
+      "next": [
+        {
+          "path": "/staff-flu",
+          "condition": "ARIServiceOrStaff:Staff"
+        },
+        {
+          "path": "/flu-severity-multiple-cases"
+        }
+      ]
+    },
+    {
+      "path": "/staff-flu",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+        },
+
+        {
+          "name": "StaffFluSwabTest",
+          "options": {
+            "summaryTitle": "Staff: confirmed positive flu test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have flu confirmed by a positive swab test",
+              "number.max": "The number of staff that have flu confirmed by a positive swab test must be between 0 and 999",
+              "number.min": "The number of staff that have flu confirmed by a positive swab test must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have flu confirmed by a positive swab test?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0"
+        },
+        {
+          "name": "StaffSymptomsNotTested",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0"
+        },
+        {
+          "name": "StaffChestInfectionCovid19",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: negative COVID-19 test results",
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
+          "hint": "If none, enter 0"
+        }
+      ],
+      "next": [
+        {
+          "path": "/flu-severity-multiple-cases"
+        }
+      ]
+    },
+    {
+      "path": "/symptom-onset-flu",
+      "title": "Symptom onset for the case of flu",
+      "sectionForEndSummaryPages": "SymptomOnset",
+      "controller": "DateComparisonPageController",
+      "options": {
+        "firstDateComponent": "FluSymptomOnsetDate"
+      },
+      "components": [
+        {
+          "name": "intro",
+          "type": "Para",
+          "content": "If you do not know the exact date, give an estimate."
+        },
+        {
+          "name": "FluSymptomOnsetDate",
+          "errorLabel": "The date symptoms started",
+          "options": {
+            "maxDaysInFuture": "0",
+            "summaryTitle": "Symptoms started",
+            "customValidationMessages": {
+              "dayMonthYear": "Enter the date symptoms started",
+              "nonNumeric": "The date symptoms started must be a real date",
+              "date.max": "The date symptoms started must be in the past",
+              "date.base": "The date symptoms started must be a real date",
+              "date.min": "The date symptoms started must be in the past two months"
+            }
+          },
+          "type": "DatePartsField",
+          "nameHasError": false,
+          "title": "When did symptoms start?",
+          "hint": "For example, 31 3 2024",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/flu-severity",
+      "title": "Severity of the case of flu",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "SingleCaseOfFluSeverityCalledGP",
+          "options": {
+            "summaryTitle": "Have called the GP about",
+            "customValidationMessages": {
+              "any.required": "Select yes if you have called the GP because of the severity of illness"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Have you called the GP because of the severity of illness in this case?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "SingleCaseOfFluSeverityHospitalised",
+          "options": {
+            "summaryTitle": "Has been hospitalised",
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has been hospitalised with the flu"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Has the person been hospitalised with the flu?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "SingleCaseOfFluSeverityDeath",
+          "options": {
+            "summaryTitle": "Has died",
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has died with flu"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Has the person died with flu in this case?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptom-onset-flu"
+        }
+      ]
+    },
+    {
+      "path": "/vaccination",
+      "title": "Vaccination among your service users and staff",
+      "sectionForEndSummaryPages": "Vaccinations",
+      "components": [
+        {
+          "name": "ServiceUsersCovid19Vaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: up to date with COVID-19 vaccinations",
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for COVID-19 must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Service users: how many are up to date with the current COVID-19 vaccination schedule?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "ServiceUsersFluVaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: had the current seasonal flu vaccine ",
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for flu must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Service users: how many have had the flu vaccine for this current winter season?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "ServiceUsersRSVVaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: had the respiratory syncytial virus (RSV) vaccine",
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for RSV must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for RSV must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Service users: how many have had the respiratory syncytial virus (RSV) vaccine?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "Spacing",
+          "type": "Para",
+          "content": "<br>"
+        },
+        {
+          "name": "StaffCovid19Vaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: up to date with COVID-19 vaccinations",
+            "customValidationMessages": {
+              "number.max": "The number of staff vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for COVID-19 must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Staff: how many are up to date with the current COVID-19 vaccination schedule?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "StaffFluVaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: had the current seasonal flu vaccine",
+            "customValidationMessages": {
+              "number.max": "The number of staff vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for flu must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Staff: how many have had the flu vaccine for this current winter season?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/ipc"
+        }
+      ]
+    },
+    {
+      "path": "/other-ari-confirmed-cases-setting",
+      "title": "Who has an acute respiratory infection?",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+        },
+        {
+          "name": "OtherARIServiceOrStaff",
+          "type": "CheckboxesField",
+          "title": " ",
+          "hint": "You can select more than one option",
+          "list": "ServiceOrStaffMultiple",
+          "options": {
+            "summaryTitle": "Who has the infection",
+            "required": true
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+          "path": "/both-ari-other"
+        },
+        {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+          "path": "/service-users-ari-other"
+        },
+        {
+          "condition": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-adenovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-hmpv"
+        },
+        {
+          "condition": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-parainfluenza"
+        },
+        {
+          "condition": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rsv"
+        },
+        {
+          "condition": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-rhinovirus"
+        },
+        {
+          "condition": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+          "path": "/staff-ari-other"
+        }
+      ]
+    },
+    {
+      "path": "/ari-confirmed-cases-setting",
+      "title": "Who has an acute respiratory infection?",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+        },
+        {
+          "name": "ARIServiceOrStaff",
+          "type": "CheckboxesField",
+          "title": " ",
+          "hint": "You can select more than one option",
+          "list": "ServiceOrStaffMultiple",
+          "options": {
+            "summaryTitle": "Who has the infection",
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select if your service users or staff have an acute respiratory infection"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "UnknownARI&ServiceOrStaff:ServiceUsers",
+          "path": "/service-users-ari-unknown"
+        },
+        {
+          "condition": "UnknownARI&ServiceOrStaff:Staff",
+          "path": "/staff-ari-unknown"
+        },
+        {
+          "path": "/service-users-flu",
+          "condition": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers"
+        },
+        {
+          "path": "/staff-flu",
+          "condition": "WhichARI:Flu&ARIServiceOrStaff:Staff"
+        },
+        {
+          "path": "/service-users-covid",
+          "condition": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers"
+        },
+        {
+          "path": "/staff-covid",
+          "condition": "WhichARI:Covid&ARIServiceOrStaff:Staff"
+        },
+        {
+          "path": "/staff-ari-confirmed"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-confirmed",
+      "title": "Staff: number of other cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+        },
+        {
+          "name": "StaffSymptomsNotTested",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "OtherARIStaffTestedCovid",
+          "type": "NumberField",
+          "title": "How many staff have been tested for COVID-19 and had a negative test result?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: negative COVID-19 test results",
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "OtherARIStaffTestedFlu",
+          "type": "NumberField",
+          "title": "How many staff have been tested for flu and had a negative test result?",
+          "hint": "If none, enter 0",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: negative flu test results",
+            "customValidationMessages": {
+              "number.max": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999",
+              "number.min": "The number of staff that have been tested for flu and had a negative test result must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/ipc",
+      "title": "Infection prevention and control (IPC) and outbreak management in your setting",
+      "sectionForEndSummaryPages": "IPC",
+      "components": [
+        {
+          "name": "IPCPractices",
+          "options": {
+            "summaryTitle": "How often you monitor staff IPC practices",
+            "customValidationMessages": {
+              "any.required": "Select how often you monitor staff infection prevention and control practices"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How often do you monitor staff infection prevention and control practices?",
+          "hint": "For example, hand hygiene, use of personal protective equipment (PPE) and cleaning",
+          "list": "IPCPractices",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "Issues",
+          "options": {
+            "summaryTitle": "Issues you need support with",
+            "customValidationMessages": {
+              "any.required": "Select the issues you currently need support with",
+              "any.invalid": "Select the issues you currently need support with, or select ‘no issues’"
+            },
+            "divider": true,
+            "finalValue": "No issues"
+          },
+          "type": "CheckboxesField",
+          "nameHasError": false,
+          "title": "What issues do you currently need support with?",
+          "hint": "You can select more than one option",
+          "list": "Issues",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "AGPs",
+          "options": {
+            "summaryTitle": "Your setting undertakes aerosol generating procedures",
+            "customValidationMessages": {
+              "any.required": "Select yes if your setting undertakes aerosol generating procedures (AGPs)"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Does your setting undertake aerosol generating procedures (AGPs)?",
+          "hint": "For example, inserting or removing a tracheotomy or ostomy, sputum induction, respiratory tract suctioning below the oro-pharynx (mouth suctioning is not an AGP)",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "MediaInterest",
+          "options": {
+            "summaryTitle": "Media interest",
+            "required": false
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Are you aware of any media interest in this outbreak?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/agps",
+          "condition": "AGPs:yes"
+        },
+        {
+          "path": "/agency-staff"
+        }
+      ]
+    },
+    {
+      "path": "/flu-severity-multiple-cases",
+      "title": "Severity of illness",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections."
+        },
+        {
+          "name": "FluSeverityCalledGPMultipleCases",
+          "options": {
+            "summaryTitle": "People you have called the GP about",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users you have called the GP about because of the severity of illness"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
+          "list": "CaseNumbers",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "FluSeverityAntibiotics",
+          "title": "How many service users or staff have been given antibiotics for their respiratory symptoms?",
+          "type": "NumberField",
+          "options": {
+            "summaryTitle": "People who have been given antibiotics",
+            "required": false,
+            "customValidationMessages": {
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "FluSeverityHospitalisedMultipleCases",
+          "options": {
+            "summaryTitle": "People who have been hospitalised",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been hospitalised because of an acute respiratory infection"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "FluSeverityDeathMultipleCases",
+          "options": {
+            "summaryTitle": "People who have died",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have died because of an acute respiratory infection"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "FluSeveritySpecificArea",
+          "title": "Are the cases linked to a specific area of the setting?",
+          "type": "RadiosField",
+          "nameHasError": false,
+          "list": "FluSeveritySpecificArea",
+          "options": {
+            "summaryTitle": "Cases linked to specific area",
+            "customValidationMessages": {
+              "any.required": "Select if the cases are linked to a specific area of the setting"
+            }
+          },
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/ari-unknown-cases-setting",
+          "condition": "WhichARI:Other"
+        },
+        {
+          "path": "/symptom-onset"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-covid",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "NumberField",
+          "name": "ServiceUsersCovidTestPositive",
+          "title": "How many service users have COVID-19 confirmed by a positive test?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Service users: confirmed positive COVID-19 test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have COVID-19 confirmed by a positive test",
+              "number.max": "The number of service users that have COVID-19 confirmed by a positive test must be between 0 and 999",
+              "number.min": "The number of service users that have COVID-19 confirmed by a positive test must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "NumberField",
+          "name": "ServiceUsersSymptomsNotTested",
+          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Service users: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+          "path": "/staff-covid"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/staff-covid",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+        },
+        {
+          "type": "NumberField",
+          "name": "StaffCovidTestPositive",
+          "title": "How many staff have COVID-19 confirmed by a positive test?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: confirmed positive COVID-19 test results",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have COVID-19 confirmed by a positive test",
+              "number.max": "The number of staff that have COVID-19 confirmed by a positive test must be between 0 and 999",
+              "number.min": "The number of staff that have COVID-19 confirmed by a positive test must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "NumberField",
+          "name": "StaffSymptomsNotTested",
+          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
+          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: with symptoms, but not tested",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection",
+              "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/severity-of-illness",
+      "title": "Severity of illness in this outbreak",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "severityIntro",
+          "type": "Para",
+          "content": "Include cases confirmed by a test and people with symptoms of acute respiratory infections.",
+          "options": {}
+        },
+        {
+          "name": "SeverityGPCalls",
+          "type": "RadiosField",
+          "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true,
+            "summaryTitle": "People you have called the GP about",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users you have called the GP about because of the severity of illness"
+            }
+          }
+        },
+        {
+          "name": "SeverityHospitalisations",
+          "type": "RadiosField",
+          "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true,
+            "summaryTitle": "People who have been hospitalised",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been hospitalised because of an acute respiratory infection"
+            }
+          }
+        },
+        {
+          "name": "SeverityDeaths",
+          "type": "RadiosField",
+          "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true,
+            "summaryTitle": "People who have died",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been died because of an acute respiratory infection"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptom-onset"
+        }
+      ]
+    },
+    {
+      "path": "/severity-of-illness-unknown",
+      "title": "Severity of illness in this outbreak",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "SeverityGPCalls",
+          "type": "RadiosField",
+          "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true,
+            "summaryTitle": "People you have called the GP about"
+          }
+        },
+        {
+          "name": "SeverityAntibiotics",
+          "title": "How many service users or staff have been given antibiotics for their respiratory symptoms?",
+          "type": "NumberField",
+          "options": {
+            "summaryTitle": "People who have been given antibiotics",
+            "required": false,
+            "customValidationMessages": {
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "SeverityHospitalisations",
+          "type": "RadiosField",
+          "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "summaryTitle": "People who have been hospitalised",
+            "required": true
+          }
+        },
+        {
+          "name": "SeverityDeaths",
+          "type": "RadiosField",
+          "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "summaryTitle": "People who have died",
+            "required": true
+          }
+        },
+        {
+          "name": "SeveritySpecificArea",
+          "title": "Are the cases linked to a specific area of the setting?",
+          "type": "RadiosField",
+          "nameHasError": false,
+          "list": "FluSeveritySpecificArea",
+          "options": {
+            "summaryTitle": "Cases linked to specific area"
+          },
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptom-onset"
+        }
+      ]
+    },
+    {
+      "path": "/symptom-onset",
+      "title": "Symptom onset of cases in this outbreak",
+      "sectionForEndSummaryPages": "SymptomOnset",
+      "controller": "DateComparisonPageController",
+      "options": {
+        "firstDateComponent": "FirstCaseOnset",
+        "secondDateComponent": "MostRecentCaseOnset"
+      },
+      "components": [
+        {
+          "name": "introText1",
+          "type": "Para",
+          "content": "Include cases confirmed by a test and also service users and staff with symptoms of acute respiratory infections.",
+          "options": {}
+        },
+        {
+          "name": "introText2",
+          "type": "Para",
+          "content": "If you do not know the exact date, give an estimate.",
+          "options": {}
+        },
+        {
+          "name": "FirstCaseOnset",
+          "type": "DatePartsField",
+          "title": "When did symptoms start in the first case in this outbreak?",
+          "errorLabel": "The date symptoms started in the first case of this outbreak",
+          "hint": "For example, 31 3 2024",
+          "options": {
+            "summaryTitle": "First case: symptoms started",
+            "required": true,
+            "maxDaysInFuture": 0,
+            "customValidationMessages": {
+              "nonNumeric": "The date symptoms started in the first case of this outbreak must be a real date",
+              "dayMonthYear": "Enter the date symptoms started in the first case of this outbreak",
+              "date.max": "The date symptoms started in the first case of this outbreak must be in the past",
+              "date.base": "The date symptoms started in the first case of this outbreak must be a real date",
+              "date.min": "The date symptoms started in the first case of this outbreak must be in the past two months"
+            }
+          }
+        },
+        {
+          "name": "MostRecentCaseOnset",
+          "type": "DatePartsField",
+          "errorLabel": "The date symptoms started in the most recent case of this outbreak",
+          "title": "When did symptoms start in the most recent case in this outbreak?",
+          "hint": "For example, 31 3 2024",
+          "options": {
+            "summaryTitle": "Most recent case: symptoms started",
+            "required": true,
+            "maxDaysInFuture": 0,
+            "customValidationMessages": {
+              "dayMonthYear": "Enter the date symptoms started in the most recent case of this outbreak",
+              "nonNumeric": "The date symptoms started in the most recent case of this outbreak must be a real date",
+              "date.max": "The date symptoms started in the most recent case of this outbreak must be in the past",
+              "date.base": "The date symptoms started in the most recent case of this outbreak must be a real date",
+              "date.min": "The date symptoms started in the most recent case of this outbreak must be the same as or after the first case"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/vaccination"
+        }
+      ]
+    },
+    {
+      "path": "/agps",
+      "title": "Do staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks?",
+      "sectionForEndSummaryPages": "IPC",
+      "components": [
+        {
+          "name": "FFP3Masks",
+
+          "options": {
+            "summaryTitle": "Staff wear fit-tested FFP3 masks",
+            "customValidationMessages": {
+              "any.required": "Select if staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Do staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks?",
+          "list": "FFP3Masks",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/agency-staff"
+        }
+      ]
+    },
+    {
+      "path": "/agency-staff",
+      "title": "Do you use agency staff or share staff with other care settings?",
+      "sectionForEndSummaryPages": "Staffing",
+      "components": [
+        {
+          "name": "AgencyStaff",
+          "options": {
+            "summaryTitle": "You use agency staff or share staff with other settings",
+            "customValidationMessages": {
+              "any.required": "Select yes if you use agency staff or share staff with other care settings"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Do you use agency staff or share staff with other care settings?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details",
+          "condition": "AgencyStaff:No"
+        },
+        {
+          "path": "/additional-staff"
+        }
+      ]
+    },
+    {
+      "path": "/additional-staff",
+      "title": "How many additional agency staff or staff from other care settings have you used during this outbreak?",
+      "sectionForEndSummaryPages": "Staffing",
+      "components": [
+        {
+          "name": "AdditionalStaff",
+          "options": {
+            "summaryTitle": "Agency staff or staff from other settings",
+            "customValidationMessages": {
+              "any.required": "Select the number of additional agency staff or staff from other care settings you have used during this outbreak"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How many additional agency staff or staff from other care settings have you used during this outbreak?",
+          "list": "AdditionalStaff",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/setting-details",
+      "title": "Setting details",
+      "sectionForEndSummaryPages": "SettingDetails",
+      "components": [
+        {
+          "name": "SettingName",
+          "options": {
+            "summaryTitle": "Setting name",
+            "customValidationMessages": {
+              "string.empty": "Enter your setting name",
+              "string.base": "Enter your setting name"
+            }
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Your setting name",
+
+          "hint": "The name of the setting where the cases are located, not the management company",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "SettingPostcode",
+          "options": {
+            "summaryTitle": "Setting postcode",
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode"
+            }
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Your setting postcode",
+          "hint": "The postcode of the setting where the cases are located, not the management company.",
+          "schema": {
+            "regex": "^[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}$"
+          }
+        },
+        {
+          "name": "CQCRegistered",
+          "options": {
+            "summaryTitle": "Registered with the Care Quality Commission (CQC)",
+            "customValidationMessages": {
+              "any.required": "Select yes if your setting is registered with the Care Quality Commission (CQC)"
+            },
+            "conditionallyRevealedComponents": {
+              "CQCLocationID": {
+                "type": "TextField",
+                "name": "CQCLocationID",
+                "title": "Enter your CQC location ID, for example, 1-123456789",
+                "sectionForEndSummaryPages": "SettingDetails",
+                "options": {
+                  "summaryTitle": "CQC location ID",
+                  "customValidationMessages": {
+                    "string.empty": "CQC location ID cannot be blank",
+                    "string.pattern.base": "Enter a CQC location ID in the correct format"
+                  }
+                },
+                "schema": {
+                  "regex": "^(?:1-\\d{9,11}|[A-Z][A-Z0-9]{4,6})$"
+                }
+              }
+            }
+          },
+          "type": "RadiosField",
+          "list": "CQCYesNo",
+          "nameHasError": false,
+          "title": "Is your care setting registered with the Care Quality Commission (CQC)?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "nMOTdlmry",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.cqc.org.uk/search/all?filters%5B%5D=services%3Acare-home&radius=all\" target=”_blank”>\n Find your CQC location ID in the care directory on the CQC website (opens in a new tab)</a>. The CQC location ID is listed on the ‘Registration details’ page for your care setting.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/positive-ari"
+        }
+      ]
+    },
+    {
+      "path": "/contact-details",
+      "title": "Contact details",
+      "sectionForEndSummaryPages": "ContactDetails",
+      "components": [
+        {
+          "name": "heading1",
+          "options": {
+            "required": false
+          },
+          "type": "Para",
+          "content": "<p>Enter a contact to receive: <ul class=\"govuk-list govuk-list--bullet\"><li>an acknowledgment email including a copy of the answers submitted</li><li>advice by email</li><li> a follow up phone call (depending on the risk level)</li></ul></p> <p> If possible, provide a work phone number and email address instead of personal contact details.</p><h2 class=\"govuk-heading-m\">Main contact</h2>",
+          "schema": {}
+        },
+        {
+          "name": "MainContactName",
+          "options": {
+            "summaryTitle": "Main contact",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's full name",
+              "string.max": "Main contact's name must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Full name",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "MainContactJobTitle",
+          "options": {
+            "required": false,
+            "summaryTitle": "Job title",
+            "customValidationMessages": {
+              "string.max": "Main contact's job title must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Job title",
+          "hint": "For example, manager, senior carer",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "MainContactPhoneNumber",
+          "options": {
+            "summaryTitle": "Phone number",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's phone number",
+              "string.pattern.base": "Enter a main contact's phone number, like 01632 960 001 or 07700 900 982"
+            }
+          },
+          "type": "TelephoneNumberField",
+          "nameHasError": false,
+          "title": "Phone number",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {
+            "regex": "(?!0{5,})(((\\+44\\s?(?!4|6)\\d{4}|\\(?0(?!4|6)\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?(?!4|6)\\d{3}|\\(?0(?!4|6)\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?(?!4|6)\\d{2}|\\(?0(?!4|6)\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?"
+          }
+        },
+        {
+          "name": "MainContactEmailAddress",
+          "options": {
+            "exposeToContext": true,
+            "summaryTitle": "Email address",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's email address",
+              "string.pattern.base": "Enter a main contact's email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "nameHasError": false,
+          "title": "Email address",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "heading1",
+          "options": {
+            "required": false
+          },
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-m\">Additional contact</h2><p>Enter another contact to also receive the emails. We will use this phone number if the main contact is not available.</p>",
+          "schema": {}
+        },
+        {
+          "name": "AltContactName",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional contact",
+            "customValidationMessages": {
+              "string.max": "Additional contact's name must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Full name",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "AltContactJobTitle",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional contact’s job title",
+            "customValidationMessages": {
+              "string.max": "Additional contact's job title must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Job title",
+          "hint": "For example, manager, senior carer",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "AltContactPhoneNumber",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional phone number",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an additional contact's phone number, like 01632 960 001 or 07700 900 982"
+            }
+          },
+          "type": "TelephoneNumberField",
+          "nameHasError": false,
+          "title": "Phone number",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {
+            "regex": "(?!0{5,})(((\\+44\\s?(?!4|6)\\d{4}|\\(?0(?!4|6)\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?(?!4|6)\\d{3}|\\(?0(?!4|6)\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?(?!4|6)\\d{2}|\\(?0(?!4|6)\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?"
+          }
+        },
+        {
+          "name": "AltContactEmailAddress",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional email address",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an additional contact's email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "nameHasError": false,
+          "title": "Email address",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-users"
+        }
+      ]
+    },
+    {
+      "path": "/service-users",
+      "title": "Service users and staff",
+      "sectionForEndSummaryPages": "ServiceUsersAndStaff",
+      "components": [
+        {
+          "name": "ServiceUsersTypes",
+          "options": {
+            "summaryTitle": "The majority of your service users",
+            "customValidationMessages": {
+              "any.required": "Select the options that best describe the majority of your service users"
+            }
+          },
+          "type": "CheckboxesField",
+          "nameHasError": false,
+          "title": "Select the options that best describe the majority of your service users",
+          "hint": "You can select more than one option",
+          "list": "ServiceUsersTypes",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "ServiceUsersCurrentlyLive",
+          "options": {
+            "summaryTitle": "People that live in your setting or use your service",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that currently live in your care setting or use your service",
+              "number.max": "The number of service users that currently live in your care setting or use your service must be between 0 and 999",
+              "number.min": "The number of service users that currently live in your care setting or use your service must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "How many service users currently live in your care setting or use your service?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "list": "ServiceUsersTypes"
+        },
+        {
+          "name": "StaffNumber",
+          "options": {
+            "summaryTitle": "Staff that work in your care setting or service",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that currently work in your care setting or service",
+              "number.max": "The number of staff that currently work in your care setting or service must be between 0 and 999",
+              "number.min": "The number of staff that currently work in your care setting or service must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff currently work in your care setting or service?"
+        },
+        {
+          "name": "EmptyBeds",
+          "options": {
+            "required": false,
+            "summaryTitle": "Empty beds",
+            "customValidationMessages": {
+              "number.max": "The number of empty beds that you have in your care setting must be between 0 and 999",
+              "number.min": "The number of empty beds that you have in your care setting must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many empty beds do you have in your care setting?",
+          "hint": "If you do not know, leave this blank"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "CustomSummaryPageController",
+      "title": "Check your answers before sending your report",
+      "options": {
+        "customText": {
+          "insetText": "You will only see answers to questions that are relevant to your report.",
+          "endContent": "<h2 class='govuk-heading-m'>Now send your report</h2><p class='govuk-body'>Your responses will be shared with your local UKHSA health protection team, local authority, local community infection prevention control team and the NHS. They will use your information to help you manage your situation. <br><br>By submitting this report you confirm that the details are correct to the best of your knowledge. You confirm that you have not included any personally identifiable information for service users, for example names or dates of birth. </p>"
+        }
+      },
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "cqc-yes-no",
+      "name": "CQCYesNo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "CQCLocationID"
+        },
+        {
+          "text": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "title": "yes-no",
+      "name": "YesNo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "true"
+        },
+        {
+          "text": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "title": "yes-no-sure",
+      "name": "YesNoSure",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        },
+        {
+          "text": "Not sure",
+          "value": "Not sure"
+        }
+      ]
+    },
+    {
+      "title": "infection-types",
+      "name": "InfectionTypes",
+      "type": "string",
+      "items": [
+        {
+          "text": "COVID-19",
+          "value": "COVID-19"
+        },
+        {
+          "text": "Flu",
+          "value": "Flu"
+        },
+        {
+          "text": "Any other acute respiratory infection",
+          "value": "Any other acute respiratory infection",
+          "checkpointDisplayValue": "Other acute respiratory infection (not COVID-19 or flu)",
+          "description": "including viruses such as respiratory syncytial virus (RSV), adenovirus, human metapneumovirus (hMPV), parainfluenza and rhinovirus"
+        }
+      ]
+    },
+    {
+      "title": "ari-infection-types",
+      "name": "ARIInfectionType",
+      "type": "string",
+      "items": [
+        {
+          "text": "Adenovirus",
+          "value": "Adenovirus"
+        },
+        {
+          "text": "Human Metapneumovirus (hMPV)",
+          "value": "Human Metapneumovirus (hMPV)"
+        },
+        {
+          "text": "Parainfluenza",
+          "value": "Parainfluenza"
+        },
+        {
+          "text": "Respiratory Syncytial Virus (RSV)",
+          "value": "Respiratory Syncytial Virus (RSV)"
+        },
+        {
+          "text": "Rhinovirus",
+          "value": "Rhinovirus"
+        },
+        {
+          "text": "Other acute respiratory infection",
+          "value": "Other acute respiratory infection"
+        }
+      ]
+    },
+    {
+      "title": "social-care-provider-type",
+      "name": "MpSRIP",
+      "type": "string",
+      "items": [
+        {
+          "text": "Residential care home",
+          "value": "Residential care home"
+        },
+        {
+          "text": "Nursing care home",
+          "value": "Nursing care home"
+        },
+        {
+          "text": "Residential and nursing care home",
+          "value": "Residential and nursing care home"
+        },
+        {
+          "text": "Supported living",
+          "value": "Supported living or extra care (not high risk)"
+        },
+        {
+          "text": "Extra care",
+          "value": "Extra care"
+        },
+        {
+          "text": "Rehabilitation, reablement or respite",
+          "value": "Rehabilitation, reablement or respite"
+        },
+        {
+          "text": "Other adult social care",
+          "value": "OtherAdultSocialCare"
+        }
+      ]
+    },
+    {
+      "title": "one-or-more",
+      "name": "OneOrMore",
+      "type": "string",
+      "items": [
+        {
+          "text": "1",
+          "value": "One"
+        },
+        {
+          "text": "2 or more",
+          "value": "2 or more"
+        }
+      ]
+    },
+    {
+      "title": "service-or-staff",
+      "name": "ServiceOrStaff",
+      "type": "string",
+      "items": [
+        {
+          "text": "Service user",
+          "value": "Service user"
+        },
+        {
+          "text": "Staff",
+          "value": "Staff"
+        }
+      ]
+    },
+    {
+      "title": "service-or-staff-multiple",
+      "name": "ServiceOrStaffMultiple",
+      "type": "string",
+      "items": [
+        {
+          "text": "Service users",
+          "value": "Service users"
+        },
+        {
+          "text": "Staff",
+          "value": "Staff"
+        }
+      ]
+    },
+    {
+      "title": "ipc-practices",
+      "name": "IPCPractices",
+      "type": "string",
+      "items": [
+        {
+          "text": "more than once a month",
+          "value": "more than once a month"
+        },
+        {
+          "text": "every 1 to 6 months",
+          "value": "every 1 to 6 months"
+        },
+        {
+          "text": "every 7 to 12 months",
+          "value": "every 7 to 12 months"
+        },
+        {
+          "text": "less than every 12 months",
+          "value": "less than every 12 months"
+        },
+        {
+          "text": "we do not monitor infection prevention and control practices",
+          "value": "we do not monitor infection prevention and control practices"
+        }
+      ]
+    },
+    {
+      "title": "case-numbers",
+      "name": "CaseNumbers",
+      "type": "string",
+      "items": [
+        {
+          "text": "0",
+          "value": "None"
+        },
+        {
+          "text": "1",
+          "value": "One"
+        },
+        {
+          "text": "2 to 3",
+          "value": "2 to 3"
+        },
+        {
+          "text": "4 to 5",
+          "value": "4 to 5"
+        },
+        {
+          "text": "More than 5",
+          "value": "More than 5"
+        },
+        {
+          "text": "I do not know",
+          "value": "I do not know"
+        }
+      ]
+    },
+    {
+      "title": "issues",
+      "name": "Issues",
+      "type": "string",
+      "items": [
+        {
+          "text": "COVID-19: access to treatments",
+          "value": "COVID-19 - access to treatments"
+        },
+        {
+          "text": "COVID-19: LFD test kit supply",
+          "value": "COVID-19 - LFD test kit supply"
+        },
+        {
+          "text": "Hand hygiene",
+          "value": "Hand hygiene"
+        },
+        {
+          "text": "Keeping symptomatic service users away from others",
+          "value": "Keeping symptomatic service users away from others"
+        },
+        {
+          "text": "New admissions or transfer of service users",
+          "value": "New admissions or transfer of service users"
+        },
+        {
+          "text": "Staffing",
+          "value": "Staffing"
+        },
+        {
+          "text": "Supply of PPE",
+          "value": "Supply of PPE"
+        },
+        {
+          "text": "Use of PPE",
+          "value": "Use of PPE"
+        },
+        {
+          "text": "Visits",
+          "value": "Visits"
+        },
+        {
+          "text": "Waste, cleaning or laundry",
+          "value": "Waste, cleaning or laundry"
+        },
+        {
+          "text": "No issues",
+          "value": "No issues"
+        }
+      ]
+    },
+    {
+      "title": "ffp3-masks",
+      "name": "FFP3Masks",
+      "type": "string",
+      "items": [
+        {
+          "text": "All",
+          "value": "All"
+        },
+        {
+          "text": "Some",
+          "value": "Some"
+        },
+        {
+          "text": "None",
+          "value": "None"
+        },
+        {
+          "text": "I do not know",
+          "value": "I do not know"
+        }
+      ]
+    },
+    {
+      "title": "additional-staff",
+      "name": "AdditionalStaff",
+      "type": "string",
+      "items": [
+        {
+          "text": "Fewer than 5",
+          "value": "Fewer than 5"
+        },
+        {
+          "text": "5 or more",
+          "value": "5 or more"
+        }
+      ]
+    },
+    {
+      "title": "service-users-types",
+      "name": "ServiceUsersTypes",
+      "type": "string",
+      "items": [
+        {
+          "text": "People with learning difficulties or learning disabilities",
+          "value": "People with learning difficulties or learning disabilities"
+        },
+        {
+          "text": "People with physical disabilities or severe medical conditions",
+          "value": "People with physical disabilities or severe medical conditions"
+        },
+        {
+          "text": "People with mental health needs",
+          "value": "People with mental health needs"
+        },
+        {
+          "text": "People with substance misuse issues",
+          "value": "People with substance misuse issues"
+        },
+        {
+          "text": "People living with dementia",
+          "value": "People living with dementia"
+        },
+        {
+          "text": "Under 65 years",
+          "value": "Under 65 years"
+        },
+        {
+          "text": "65 years or over",
+          "value": "65 years or over"
+        }
+      ]
+    },
+    {
+      "title": "HPTs",
+      "name": "HPTs",
+      "type": "string",
+      "items": [
+        {
+          "text": "North East",
+          "value": "North East"
+        },
+        {
+          "text": "North West",
+          "value": "North West"
+        },
+        {
+          "text": "Yorkshire and the Humber",
+          "value": "Yorkshire and the Humber HPT"
+        },
+        {
+          "text": "East Midlands",
+          "value": "East Midlands"
+        },
+        {
+          "text": "West Midlands",
+          "value": "West Midlands HPT"
+        },
+        {
+          "text": "East of England",
+          "value": "East of England HPT"
+        },
+        {
+          "text": "London",
+          "value": "London HPT"
+        },
+        {
+          "text": "South East",
+          "value": "South East"
+        },
+        {
+          "text": "South West",
+          "value": "South West HPT"
+        }
+      ]
+    },
+    {
+      "title": "flu-severity-specific-area",
+      "name": "FluSeveritySpecificArea",
+      "type": "string",
+      "items": [
+        {
+          "text": "Cases are all within one specific area",
+          "value": "Cases are all within one specific area"
+        },
+        {
+          "text": "Cases are across more than one area",
+          "value": "Cases are across more than one area"
+        },
+        {
+          "text": "Not sure",
+          "value": "Not sure"
+        },
+        {
+          "text": "Not applicable to my setting (for example, not residential)",
+          "value": "Not applicable to my setting (for example, not residential)"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "Staffing",
+      "title": "Staffing"
+    },
+    {
+      "name": "IPC",
+      "title": "Infection prevention and control (IPC) and outbreak management in your setting"
+    },
+    {
+      "name": "ServiceUsersAndStaff",
+      "title": "Service users and staff"
+    },
+    {
+      "name": "Vaccinations",
+      "title": "Vaccinations"
+    },
+    {
+      "name": "SymptomOnset",
+      "title": "Symptom onset"
+    },
+    {
+      "name": "ContactDetails",
+      "title": "Contact details"
+    },
+    {
+      "name": "SettingDetails",
+      "title": "Setting details"
+    },
+    {
+      "name": "AcuteInfections",
+      "title": "Acute respiratory infections in your setting"
+    },
+    {
+      "name": "Covid19InYourSetting",
+      "title": "COVID-19 in your setting"
+    },
+    {
+      "name": "OtherInYourSetting",
+      "title": "Other infections in your setting"
+    },
+    {
+      "name": "InfectionYouAreReporting",
+      "title": "Infection you are reporting"
+    },
+    {
+      "name": "InfectionsInYourSetting",
+      "title": "Infections in your setting"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "HPTRegionActive",
+      "name": "HPTRegionActive",
+      "value": {
+        "name": "HPTRegionActive",
+        "conditions": [
+          {
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "West Midlands HPT",
+              "display": "West Midlands"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "East of England HPT",
+              "display": "East of England"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "South West HPT",
+              "display": "South West"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Yorkshire and the Humber HPT",
+              "display": "Yorkshire and the Humber"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "London HPT",
+              "display": "London"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "UnknownARI&ServiceOrStaff:ServiceUsers",
+      "name": "UnknownARI&ServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "UnknownARI&ServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "PositiveARI",
+              "type": "RadiosField",
+              "display": "Do you have any positive test results for an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "No"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "UnknownARI&ServiceOrStaff:Staff",
+      "name": "UnknownARI&ServiceOrStaff:Staff",
+      "value": {
+        "name": "UnknownARI&ServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "PositiveARI",
+              "type": "RadiosField",
+              "display": "Do you have any positive test results for an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "No"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "OtherARIServiceOrStaff:ServiceUsers",
+      "name": "OtherARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "OtherARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "OtherARIServiceOrStaff:Both",
+      "name": "OtherARIServiceOrStaff:Both",
+      "value": {
+        "name": "OtherARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Both",
+      "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Both",
+      "value": {
+        "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Adenovirus",
+              "display": "Adenovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Adenovirus",
+              "display": "Adenovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Human Metapneumovirus (hMPV)",
+              "display": "Human Metapneumovirus (hMPV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Parainfluenza",
+              "display": "Parainfluenza"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Respiratory Syncytial Virus (RSV)",
+              "display": "Respiratory Syncytial Virus (RSV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Rhinovirus",
+              "display": "Rhinovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+      "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Other acute respiratory infection",
+              "display": "Other acute respiratory infection"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+      "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+      "value": {
+        "name": "ARIInfectionType:Adenovirus&OtherARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Adenovirus",
+              "display": "Adenovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+      "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+      "value": {
+        "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Human Metapneumovirus (hMPV)",
+              "display": "Human Metapneumovirus (hMPV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+      "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+      "value": {
+        "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Parainfluenza",
+              "display": "Parainfluenza"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+      "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+      "value": {
+        "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Respiratory Syncytial Virus (RSV)",
+              "display": "Respiratory Syncytial Virus (RSV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+      "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+      "value": {
+        "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Rhinovirus",
+              "display": "Rhinovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+      "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+      "value": {
+        "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Other acute respiratory infection",
+              "display": "Other acute respiratory infection"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Both",
+      "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Both",
+      "value": {
+        "name": "ARIInfectionType:Hmpv&OtherARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Human Metapneumovirus (hMPV)",
+              "display": "Human Metapneumovirus (hMPV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Both",
+      "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Both",
+      "value": {
+        "name": "ARIInfectionType:Parainfluenza&OtherARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Parainfluenza",
+              "display": "Parainfluenza"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Both",
+      "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Both",
+      "value": {
+        "name": "ARIInfectionType:RSV&OtherARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Respiratory Syncytial Virus (RSV)",
+              "display": "Respiratory Syncytial Virus (RSV)"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+      "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+      "value": {
+        "name": "ARIInfectionType:Rhinovirus&OtherARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Rhinovirus",
+              "display": "Rhinovirus"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+      "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+      "value": {
+        "name": "ARIInfectionType:Unknown&OtherARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIInfectionType",
+              "type": "CheckboxesField",
+              "display": "What infection are you reporting?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Other acute respiratory infection",
+              "display": "Other acute respiratory infection"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "OtherARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "PositiveARI:No",
+      "name": "PositiveARI:No",
+      "value": {
+        "name": "PositiveARI:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "PositiveARI",
+              "type": "RadiosField",
+              "display": "Do you have any positive test results for an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "TwoOrMoreARI:No",
+      "name": "TwoOrMoreARI:No",
+      "value": {
+        "name": "TwoOrMoreARI:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "TwoOrMoreARI",
+              "type": "RadiosField",
+              "display": "Are you reporting 2 or more cases of an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "TwoOrMoreCovid:No",
+      "name": "TwoOrMoreCovid:No",
+      "value": {
+        "name": "TwoOrMoreCovid:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "TwoOrMoreCovid",
+              "type": "RadiosField",
+              "display": "Are you reporting 2 or more cases?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:FLU",
+      "name": "WhichARI:FLU",
+      "value": {
+        "name": "WhichARI:FLU",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:COVID19",
+      "name": "WhichARI:COVID19",
+      "value": {
+        "name": "WhichARI:COVID19",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Other",
+      "name": "WhichARI:Other",
+      "value": {
+        "name": "WhichARI:Other",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Any other acute respiratory infection",
+              "display": "Any other acute respiratory infection"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ReportCovid:No",
+      "name": "ReportCovid:No",
+      "value": {
+        "name": "ReportCovid:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "TwoOrMoreCovid5days",
+              "type": "RadiosField",
+              "display": "Did symptoms in 2 or more cases of COVID-19 start within 5 days of each other?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "No",
+              "display": "No"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "TwoOrMoreCovidSpread",
+              "type": "RadiosField",
+              "display": "Is it possible that at least 2 of the cases of COVID-19 are linked by spread in your setting?​"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "No",
+              "display": "No"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+      "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "WhichARI:Covid&ARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+      "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+      "value": {
+        "name": "WhichARI:Covid&ARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+      "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "WhichARI:Flu&ARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+      "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+      "value": {
+        "name": "WhichARI:Flu&ARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "RadiosField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "displayName": "TwoOrMoreCasesNotCovidFlu:YES",
+      "name": "TwoOrMoreCasesNotCovidFlu:YES",
+      "value": {
+        "name": "TwoOrMoreCasesNotCovidFlu:YES",
+        "conditions": [
+          {
+            "field": {
+              "name": "TwoOrMoreCasesNotCovidFlu",
+              "type": "RadiosField",
+              "display": "Are you reporting 2 or more cases of an acute respiratory infection that is not COVID-19 or flu?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "SingleCaseOfFluServiceOrStaff:ServiceUser",
+      "name": "SingleCaseOfFluServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "SingleCaseOfFluServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "SingleCaseOfFluServiceOrStaff",
+              "type": "RadiosField",
+              "display": "Who has the case of flu?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Service user",
+              "display": "Service user"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "NumberOfCasesOfFlu:One",
+      "name": "NumberOfCasesOfFlu:One",
+      "value": {
+        "name": "NumberOfCasesOfFlu:One",
+        "conditions": [
+          {
+            "field": {
+              "name": "NumberOfCasesOfFlu",
+              "type": "RadiosField",
+              "display": "How many cases of flu are you reporting?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "One",
+              "display": "1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIServiceOrStaff:ServiceUsers",
+      "name": "ARIServiceOrStaff:ServiceUsers",
+      "value": {
+        "name": "ARIServiceOrStaff:ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIServiceOrStaff:Staff",
+      "name": "ARIServiceOrStaff:Staff",
+      "value": {
+        "name": "ARIServiceOrStaff:Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ARIServiceOrStaff:Both",
+      "name": "ARIServiceOrStaff:Both",
+      "value": {
+        "name": "ARIServiceOrStaff:Both",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "AGPs:yes",
+      "name": "AGPs:yes",
+      "value": {
+        "name": "AGPs:yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "AGPs",
+              "type": "RadiosField",
+              "display": "Does your setting undertake aerosol generating procedures (AGPs)?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "AgencyStaff:No",
+      "name": "AgencyStaff:No",
+      "value": {
+        "name": "AgencyStaff:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "AgencyStaff",
+              "type": "RadiosField",
+              "display": "Do you use agency staff or share staff with other care settings?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "WEBHOOOK",
+      "title": "CareOBRA SalesForce",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "${Webhook.URL}"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Report an outbreak",
+  "feedback": {
+    "feedbackForm": true,
+    "url": "/feedback"
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  },
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We will send 2 automated emails to {{ MainContactEmailAddress }}.<br><br> An acknowledgement email will give you your reference number and a copy of the information you've provided. The email will tell you if you have a low-risk COVID-19 outbreak, a medium-risk COVID-19 outbreak, a high-priority outbreak, or a single case of flu. <br><br> An advice email will give you information specific to your situation to help you prevent the spread of infection. It explains what to expect from your local UKHSA health protection team or the community infection control team. <br><br>If these emails do not arrive within one hour, or you need urgent advice, telephone your local <a href='https://www.gov.uk/health-protection-team' target=”_blank”>UKHSA health protection team (opens in a new tab)</a> or community infection control team.</p><h2 class='govuk-heading-m'>If your outbreak is high priority on a weekend or bank holiday</h2><p class='govuk-body'>If your acknowledgement or advice email tells you that your outbreak is assessed as high priority on a weekend or a bank holiday, you also need to telephone your local <a href='https://www.gov.uk/health-protection-team' target=”_blank”>UKHSA health protection team (opens in a new tab)</a>. Call during the daytime if possible. If you do not call the health protection team, a member of the health protection team will only call you on the next working day. </p><h2 class='govuk-heading-m'>If you need urgent medical advice</h2><p class='govuk-body'>If you need urgent medical advice, you can call NHS 111 or visit <a href='https://111.nhs.uk' target=”_blank”>111.nhs.uk (opens in a new tab)</a>. For life-threatening emergencies, call 999.</p><h2 class='govuk-heading-m'>Give feedback on this service</h2><p class='govuk-body'>This is a new service. Help us improve it and <a href='/feedback' target=”_blank”>give your feedback (opens in new tab)</a>.</p>",
+        "title": "Report sent",
+        "referenceTitle": "Your outbreak reference number",
+        "referenceContent": "Use this number if you need to contact the UKHSA health protection team about your outbreak."
+      }
+    }
+  },
+  "jwtKey": "${jwtKey}"
+}

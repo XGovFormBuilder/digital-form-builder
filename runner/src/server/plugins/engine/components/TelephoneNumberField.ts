@@ -47,7 +47,7 @@ export class TelephoneNumberField extends FormComponent {
     }
     this.schema = componentSchema;
 
-    addClassOptionIfNone(this.options, "govuk-input--width-10");
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
 
   getFormSchemaKeys() {
