@@ -72,7 +72,7 @@ const index = {
               newReference
             );
 
-            const confirmationTimeout = form.def.confirmationTimeout ?? config.confirmationSessionTimeout;    
+            const confirmationTimeout = form.def.confirmationSessionTimeout ?? config.confirmationSessionTimeout;    
             
             await cacheService.setConfirmationState(request, { confirmation: viewModel }, confirmationTimeout);
             
