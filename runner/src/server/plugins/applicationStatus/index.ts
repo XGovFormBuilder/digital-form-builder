@@ -3,6 +3,7 @@ import { HapiRequest, HapiResponseToolkit } from "../../types";
 import { retryPay } from "./retryPay";
 import { handleUserWithConfirmationViewModel } from "./handleUserWithConfirmationViewModel";
 import { checkUserCompletedSummary } from "./checkUserCompletedSummary";
+import config from "../../config";
 
 import Joi from "joi";
 import {
@@ -71,9 +72,10 @@ const index = {
               newReference
             );
 
-            await cacheService.setConfirmationState(request, {
-              confirmation: viewModel,
-            });
+            const confirmationTimeout = form.def.confirmationSessionTimeout ?? config.confirmationSessionTimeout;    
+            
+            await cacheService.setConfirmationState(request, { confirmation: viewModel }, confirmationTimeout);
+            
             await cacheService.clearState(request);
 
             return h.view("confirmation", viewModel);
