@@ -1,6 +1,7 @@
 {
   "metadata": {},
   "startPage": "/start",
+  "name": "Close contact form",
   "pages": [
     {
       "title": "Record close contact details for a member of the public",
@@ -257,7 +258,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they over 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they over 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -470,7 +471,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -610,7 +611,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -750,7 +751,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -890,7 +891,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -1030,7 +1031,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -1170,7 +1171,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -1310,7 +1311,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -1450,7 +1451,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -1590,7 +1591,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -1730,7 +1731,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -1809,7 +1810,7 @@
     },
     {
       "path": "/close-contact",
-      "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 7 days?",
+      "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 14 days?",
       "components": [
         {
           "name": "EiNVay",
@@ -1833,7 +1834,7 @@
             }
           },
           "type": "YesNoField",
-          "title": "Are there other close contacts from the last 7 days?",
+          "title": "Are there other close contacts from the last 14 days?",
           "schema": {}
         },
         {
@@ -1882,7 +1883,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2019,7 +2020,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2156,7 +2157,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2293,7 +2294,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2430,7 +2431,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2567,7 +2568,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2704,7 +2705,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2841,7 +2842,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -2978,7 +2979,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -3115,7 +3116,7 @@
           "name": "mWvTOY",
           "options": {},
           "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 18 and able to speak for themselves?</h2>"
+          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
         },
         {
           "name": "iulooD",
@@ -3211,8 +3212,8 @@
           "value": "the name and contact details of people they live with"
         },
         {
-          "text": "the name and contact details of other people they were in close contact with in the last 7 days",
-          "value": "the name and contact details of other people they were in close contact with in the last 7 days"
+          "text": "the name and contact details of other people they were in close contact with in the last 14 days",
+          "value": "the name and contact details of other people they were in close contact with in the last 14 days"
         }
       ]
     },
@@ -3250,8 +3251,8 @@
           "value": "people who live at the same address as you"
         },
         {
-          "text": "people who have stayed overnight in the last 7 days",
-          "value": "people who have stayed overnight in the last 7 days"
+          "text": "people who have stayed overnight in the last 14 days",
+          "value": "people who have stayed overnight in the last 14 days"
         }
       ]
     },
@@ -3265,8 +3266,8 @@
           "value": "people who live at the same address as them"
         },
         {
-          "text": "people who have stayed overnight in the last 7 days",
-          "value": "people who have stayed overnight in the last 7 days"
+          "text": "people who have stayed overnight in the last 14 days",
+          "value": "people who have stayed overnight in the last 14 days"
         }
       ]
     },
@@ -3362,7 +3363,7 @@
     },
     {
       "name": "OtherContacts",
-      "title": "Other close contacts in the last 7 days",
+      "title": "Other close contacts in the last 14 days",
       "hideTitle": true
     },
     { "name": "CloseContact1", "title": "Close contact 1", "hideTitle": true },
@@ -3499,7 +3500,7 @@
             "field": {
               "name": "OtherContacts.been_in_contact",
               "type": "YesNoField",
-              "display": "Have you been in close contact with other people in the last 7 days?"
+              "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "true", "display": "true" }
@@ -3517,7 +3518,7 @@
             "field": {
               "name": "OtherContacts.been_in_contact",
               "type": "YesNoField",
-              "display": "Have you been in close contact with other people in the last 7 days?"
+              "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "false", "display": "false" }
@@ -4176,9 +4177,6 @@
   ],
   "declaration": "<p class=\"govuk-body\">By submitting this form you're confirming that, to the best of your knowledge, the answers you have provided are correct.</p>",
   "fees": [],
-  "analytics": {
-    "gtmId1": "G-2709VW7GCD"
-  },
   "outputs": [
     {
       "name": "BsGFLT",
@@ -4202,4 +4200,3 @@
     "url": "/close-contact-feedback"
   }
 }
-

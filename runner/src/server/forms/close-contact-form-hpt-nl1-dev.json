@@ -1,6 +1,7 @@
 {
   "metadata": {},
   "startPage": "/start",
+  "name": "Close contact form",
   "pages": [
     {
       "title": "Tell us about people you've been in close contact with",
@@ -264,7 +265,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -477,7 +478,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -617,7 +618,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -757,7 +758,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -897,7 +898,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -1037,7 +1038,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -1177,7 +1178,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -1317,7 +1318,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -1457,7 +1458,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -1597,7 +1598,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -1737,7 +1738,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -1810,7 +1811,7 @@
     },
     {
       "path": "/close-contact",
-      "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 7 days?",
+      "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 14 days?",
       "components": [
         {
           "name": "EiNVay",
@@ -1834,7 +1835,7 @@
             }
           },
           "type": "YesNoField",
-          "title": "Are there other close contacts from the last 7 days?",
+          "title": "Are there other close contacts from the last 14 days?",
           "schema": {}
         },
         {
@@ -1889,7 +1890,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2026,7 +2027,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2163,7 +2164,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2300,7 +2301,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2437,7 +2438,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2574,7 +2575,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2711,7 +2712,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2848,7 +2849,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -2985,7 +2986,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -3122,7 +3123,7 @@
           "name": "iulooD",
           "options": {},
           "type": "Para",
-          "content": "If the person is under 18 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
+          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
         },
         {
           "name": "contact_directly",
@@ -3212,8 +3213,8 @@
           "value": "the name and contact details of people you live with"
         },
         {
-          "text": "the name and contact details of other people you were in close contact with in the last 7 days",
-          "value": "the name and contact details of other people you were in close contact with in the last 7 days"
+          "text": "the name and contact details of other people you were in close contact with in the last 14 days",
+          "value": "the name and contact details of other people you were in close contact with in the last 14 days"
         }
       ]
     },
@@ -3248,8 +3249,8 @@
           "value": "people who live at the same address as you"
         },
         {
-          "text": "people who have stayed overnight in the last 7 days",
-          "value": "people who have stayed overnight in the last 7 days"
+          "text": "people who have stayed overnight in the last 14 days",
+          "value": "people who have stayed overnight in the last 14 days"
         }
       ]
     },
@@ -3263,8 +3264,8 @@
           "value": "people who live at the same address as them"
         },
         {
-          "text": "people who have stayed overnight in the last 7 days",
-          "value": "people who have stayed overnight in the last 7 days"
+          "text": "people who have stayed overnight in the last 14 days",
+          "value": "people who have stayed overnight in the last 14 days"
         }
       ]
     },
@@ -3360,7 +3361,7 @@
     },
     {
       "name": "OtherContacts",
-      "title": "Other close contacts in the last 7 days",
+      "title": "Other close contacts in the last 14 days",
       "hideTitle": true
     },
     { "name": "CloseContact1", "title": "Close contact 1", "hideTitle": true },
@@ -3497,7 +3498,7 @@
             "field": {
               "name": "OtherContacts.been_in_contact",
               "type": "YesNoField",
-              "display": "Have you been in close contact with other people in the last 7 days?"
+              "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "true", "display": "true" }
@@ -3515,7 +3516,7 @@
             "field": {
               "name": "OtherContacts.been_in_contact",
               "type": "YesNoField",
-              "display": "Have you been in close contact with other people in the last 7 days?"
+              "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "false", "display": "false" }
