@@ -116,7 +116,11 @@
       "components": [
         {
           "name": "for",
-          "options": { "hideTitle": true, "exposeToContext": true },
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "disableChangingFromSummary": true
+          },
           "type": "RadiosField",
           "title": "Who this form is for",
           "list": "ApjoNd"

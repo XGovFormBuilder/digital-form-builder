@@ -119,6 +119,7 @@
           "options": {
             "hideTitle": true,
             "exposeToContext": true,
+            "disableChangingFromSummary": true,
             "customValidationMessages": {
               "any.required": "Select 'yes' if you have received a positive test result for bird (avian) flu"
             }
