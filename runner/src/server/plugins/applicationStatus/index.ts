@@ -3,6 +3,7 @@ import { HapiRequest, HapiResponseToolkit } from "../../types";
 import { retryPay } from "./retryPay";
 import { handleUserWithConfirmationViewModel } from "./handleUserWithConfirmationViewModel";
 import { checkUserCompletedSummary } from "./checkUserCompletedSummary";
+import config from "../../config";
 
 import Joi from "joi";
 import {
@@ -73,25 +74,32 @@ const index = {
             viewModel.name = form.name;
             viewModel.feedbackLink = form.def.feedback.url;
 
-            await cacheService.setConfirmationState(request, {
-              confirmation: viewModel,
-            });
+            const confirmationTimeout =
+              form.def.confirmationSessionTimeout ??
+              config.confirmationSessionTimeout;
+
+            await cacheService.setConfirmationState(
+              request,
+              { confirmation: viewModel },
+              confirmationTimeout
+            );
+
             await cacheService.clearState(request);
 
             h.unstate("magicLinkRetry", {
-            path: "/",
-            isSecure: true,
-            isHttpOnly: true,
-            encoding: "base64json",
-            strictHeader: true,
+              path: "/",
+              isSecure: true,
+              isHttpOnly: true,
+              encoding: "base64json",
+              strictHeader: true,
             });
 
             h.unstate("auth_token", {
-            path: "/",
-            isSecure: true,
-            isHttpOnly: true,
-            encoding: "none",
-            isSameSite: "Lax",
+              path: "/",
+              isSecure: true,
+              isHttpOnly: true,
+              encoding: "none",
+              isSameSite: "Lax",
             });
 
             return h.view("confirmation", viewModel);
