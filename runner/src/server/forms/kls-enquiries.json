@@ -1,6 +1,7 @@
 {
   "metadata": {},
   "startPage": "/start",
+  "confirmationSessionTimeout": 2000,
   "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
   "authentication": true,
   "toggle": true,
