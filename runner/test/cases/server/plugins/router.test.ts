@@ -30,7 +30,7 @@ suite("Server Router", () => {
     expect(res.statusCode).to.equal(200);
     expect(
       res.result.indexOf(
-        `<h1 class="govuk-heading-l">Cookies on Digital form builder - runner</h1>`
+        `<h1 class="govuk-heading-l">Cookies on Digital Form Builder - Runner</h1>`
       ) > -1
     ).to.equal(true);
   });
