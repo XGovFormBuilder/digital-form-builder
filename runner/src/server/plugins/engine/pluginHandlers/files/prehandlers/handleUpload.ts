@@ -105,11 +105,11 @@ export async function handleUpload(
       errors.add(error)
     }
 
-    for (let e of errors) {
-        request.pre.errors = [
-        ...(h.request.pre.errors || []),
-        parsedError(fieldName, e),
-      ];
+    if(errors.size > 0) {
+      let errorsArray = Array.from(errors);
+      request.pre.errors = [ 
+        ...(h.request.pre.errors || []), 
+        ...errorsArray.map(e => parsedError(fieldName, e)), ];
     }
   }
 
