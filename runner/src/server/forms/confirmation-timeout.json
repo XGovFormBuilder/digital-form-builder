@@ -1,0 +1,52 @@
+{
+  "startPage": "/start",
+  "confirmationSessionTimeout": 10,
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Start",
+      "components": [
+        {
+          "name": "Filler",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Filler question",
+          "schema": {},
+          "list": "YesNo"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "Yes",
+      "name": "YesNo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
+}
