@@ -30,8 +30,10 @@
             {% if not details[loop.index].card %}
               {% set splitDash = detail.items[0].pageId.split("-") %}
               {% set lastEntry = splitDash.slice(-1)[0] %}
+              {% set formAction = splitDash.slice(0, -1).concat(["added", lastEntry]).join("-") %}
 
-              <form action="{{ splitDash.slice(0, -1).concat(["added", lastEntry]).join("-") }}" method="get">
+              <form action="{{ formAction }}" method="get">
+                <input type="hidden" name="returnUrl" value="{{ returnUrl }}" />
                 <button class="govuk-button govuk-button--secondary">
                   Add {% if lastEntry !== "1" %} or delete {% endif %}
                   {{ detail.title.split(" ").slice(0, -1).join(" ") | lower }}

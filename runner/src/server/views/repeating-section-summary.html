@@ -23,7 +23,7 @@
         {% if details.length === 1 %}
           {{ summaryCard(detail, true) }}
         {% else %}
-          {{ summaryCard(detail) }}
+          {{ summaryCard(detail, false, returnUrl) }}
         {% endif %}
       {% endfor %}
 
