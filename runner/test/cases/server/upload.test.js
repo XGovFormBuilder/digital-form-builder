@@ -70,7 +70,7 @@ suite("uploads", () => {
 
     stub(UploadService.prototype, "uploadDocuments").callsFake(async () => {
       return {
-        error: 'The selected file for "%s" contained a virus',
+        error: 'The selected files contained a virus',
       };
     });
 
@@ -87,7 +87,7 @@ suite("uploads", () => {
 
     const $ = cheerio.load(response.payload);
     expect($("[href='#file1']").text().trim()).to.equal(
-      'The selected file for "Passport photo" contained a virus'
+      'The selected files contained a virus'
     );
   });
 
@@ -112,7 +112,7 @@ suite("uploads", () => {
     const $ = cheerio.load(response.payload);
 
     expect($("[href='#file1']").text().trim()).to.contain(
-      "The selected file must be smaller than"
+      "The selected files must be smaller than"
     );
   });
 
@@ -150,7 +150,7 @@ suite("uploads", () => {
 
     const $ = cheerio.load(response.payload);
     expect($("[href='#file1']").text().trim()).to.contain(
-      'The selected file for "Passport photo" must be a JPG, JPEG, PNG or PDF'
+      'The selected files must be a JPG, JPEG, PNG or PDF'
     );
   });
 

@@ -44,16 +44,13 @@ export async function handleUpload(
     }
 
     let response;
-
+    let errors = new Set<any>();
     try {
       response = await uploadService.uploadDocuments(streams);
     } catch (err) {
       if (err.data?.res) {
-        const { error } = uploadService.parsedDocumentUploadResponse(err.data);
-        request.pre.errors = [
-          ...request.pre.errors,
-          parsedError(fieldName, error),
-        ];
+        response = uploadService.parsedDocumentUploadResponse(err.data);
+        errors.add(response.error);
       } else if (err.code === "EPIPE") {
         // ignore this error, it happens when the request is responded to by the doc upload service before the
         // body has finished being sent. A valid response is still received.
@@ -63,10 +60,7 @@ export async function handleUpload(
           { ...loggerIdentifier, err },
           `Error uploading document: ${err.message}`
         );
-        request.pre.errors = [
-          ...(h.request.pre.errors || []),
-          parsedError(fieldName, err),
-        ];
+        errors.add(err);
       }
     }
 
@@ -108,10 +102,14 @@ export async function handleUpload(
         loggerIdentifier,
         `Document upload API responded with an error ${error}`
       );
-      request.pre.errors = [
-        ...(request.pre.errors || []),
-        parsedError(fieldName, error),
-      ];
+      errors.add(error)
+    }
+
+    if(errors.size > 0) {
+      let errorsArray = Array.from(errors);
+      request.pre.errors = [ 
+        ...(h.request.pre.errors || []), 
+        ...errorsArray.map(e => parsedError(fieldName, e)), ];
     }
   }
 
