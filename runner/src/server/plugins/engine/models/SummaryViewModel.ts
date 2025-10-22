@@ -56,6 +56,7 @@ export class SummaryViewModel {
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
   showPaymentSkippedWarningPage: boolean = false;
+  returnUrl: string;
   constructor(
     pageTitle: string,
     model: FormModel,
@@ -130,6 +131,7 @@ export class SummaryViewModel {
     const { feeOptions } = model;
     this.showPaymentSkippedWarningPage =
       feeOptions.showPaymentSkippedWarningPage ?? false;
+    this.returnUrl = `/${model.basePath}/summary`;
   }
 
   private processErrors(result, details) {
