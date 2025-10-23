@@ -27,9 +27,10 @@ const parsedError = (key: string, error?: string) => {
 };
 
 const ERRORS = {
-  fileSizeError: 'The selected file for "%s" is too large',
+  fileSizeError: "The selected files are too large",
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
-  virusError: 'The selected file for "%s" contained a virus',
+  fileCountError: 'You have selected too many files for "%s"',
+  virusError: "The selected files contained a virus",
   default: "There was an error uploading your file",
 };
 
@@ -55,13 +56,13 @@ export class UploadService {
 
     const namesSet = new Set(acceptedTypeNames);
     acceptedTypeNames = Array.from(namesSet);
-    
+
     const acceptedTypesNameWithoutLast = acceptedTypeNames
       .slice(0, -1)
       .join(", ");
     const lastAcceptedTypeName = acceptedTypeNames.slice(-1);
 
-    return `The selected file for "%s" must be a ${acceptedTypesNameWithoutLast} or ${lastAcceptedTypeName}`;
+    return `The selected files must be a ${acceptedTypesNameWithoutLast} or ${lastAcceptedTypeName}`;
   }
 
   get fileSizeLimit() {
@@ -118,38 +119,52 @@ export class UploadService {
       });
     }
 
-  const formHeaders = form.getHeaders();
+    const formHeaders = form.getHeaders();
 
+    const id = request.params?.id;
+    const forms = request.server?.app?.forms;
+    const model = id && forms?.[id];
+    const hmacKey = model?.def?.fileUploadHmacSharedKey;
 
-  const id = request.params?.id;
-  const forms = request.server?.app?.forms;
-  const model = id && forms?.[id];
-  const hmacKey = model?.def?.fileUploadHmacSharedKey;
- 
-  const [hmacSignature, requestTime] = await createHmacRaw(
-    request.yar.id,
-    hmacKey
-  );
+    const [hmacSignature, requestTime] = await createHmacRaw(
+      request.yar.id,
+      hmacKey
+    );
 
-  const customSecurityHeaders = {
-    "X-Request-ID": request.yar.id.toString(),
-    "X-HMAC-Signature": hmacSignature.toString(),
-    "X-HMAC-Time": requestTime.toString(),
-  };
+    const customSecurityHeaders = {
+      "X-Request-ID": request.yar.id.toString(),
+      "X-HMAC-Signature": hmacSignature.toString(),
+      "X-HMAC-Time": requestTime.toString(),
+    };
 
-  const headers = {
-    ...formHeaders, 
-    ...customSecurityHeaders, 
-  };
+    const headers = {
+      ...formHeaders,
+      ...customSecurityHeaders,
+    };
 
-  const requestData = { headers, payload: form };
-  const responseData = await post(`${config.documentUploadApiUrl}/v1/files`, requestData);
+    const requestData = { headers, payload: form };
+    const responseData = await post(
+      `${config.documentUploadApiUrl}/v1/files`,
+      requestData
+    );
 
-  return this.parsedDocumentUploadResponse(responseData);
-}
+    return this.parsedDocumentUploadResponse(responseData);
+  }
 
   parsedDocumentUploadResponse({ res, payload }) {
-    const warning = payload?.toString?.();
+    const payloadString = payload?.toString?.();
+    let payloadJson: any;
+    let warning: string | undefined;
+    let errorCode: string | undefined;
+
+    try {
+      payloadJson = payloadString ? JSON.parse(payloadString) : undefined;
+      errorCode = payloadJson?.errorCode;
+      warning = payloadJson?.warning;
+    } catch (e) {
+      warning = payloadString;
+    }
+
     let error: string | undefined;
     let location: string | undefined;
     switch (res.statusCode) {
@@ -160,7 +175,15 @@ export class UploadService {
         error = ERRORS.fileTypeError;
         break;
       case 413:
-        error = ERRORS.fileSizeError;
+        if (errorCode === "TOO_MANY_FILES") {
+          if (payloadJson?.maxFilesPerUpload) {
+            error = `You can only select up to ${payloadJson?.maxFilesPerUpload} files at the same time`;
+          } else {
+            error = ERRORS.fileCountError;
+          }
+        } else {
+          error = ERRORS.fileSizeError;
+        }
         break;
       case 422:
         error = ERRORS.virusError;
@@ -181,38 +204,38 @@ export class UploadService {
     return h.continue;
   }
 
-validateContentType(
-  file: HapiReadableStream,
-  customAcceptedTypes?: string[]
-) {
-  const contentType = file?.hapi?.headers?.["content-type"];
-  const filename = file?.hapi?.filename;
-  const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
+  validateContentType(
+    file: HapiReadableStream,
+    customAcceptedTypes?: string[]
+  ) {
+    const contentType = file?.hapi?.headers?.["content-type"];
+    const filename = file?.hapi?.filename;
+    const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
-  let isValid = acceptedTypes.includes(contentType);
+    let isValid = acceptedTypes.includes(contentType);
 
-  // Fallback: allow .ris files with 'application/octet-stream' 
-  // API BACKEND - Will be used to scan if this is actually what it claims to be ...
-  if (!isValid && filename?.endsWith(".ris")) {
-    this.logger.warn("UPLOAD_WARNING", {
-      reason: "RIS file had generic content type",
-      filename,
-      contentType
-    });
-    isValid = true;
+    // Fallback: allow .ris files with 'application/octet-stream'
+    // API BACKEND - Will be used to scan if this is actually what it claims to be ...
+    if (!isValid && filename?.endsWith(".ris")) {
+      this.logger.warn("UPLOAD_WARNING", {
+        reason: "RIS file had generic content type",
+        filename,
+        contentType,
+      });
+      isValid = true;
+    }
+
+    // Fallback: allow .msg files with 'application/octet-stream'
+    if (!isValid && filename?.endsWith(".msg")) {
+      this.logger.warn("UPLOAD_WARNING", {
+        reason: "RIS file had generic content type",
+        filename,
+        contentType,
+      });
+      isValid = true;
+    }
+    return isValid;
   }
-
-  // Fallback: allow .msg files with 'application/octet-stream' 
-  if (!isValid && filename?.endsWith(".msg")) {
-    this.logger.warn("UPLOAD_WARNING", {
-      reason: "RIS file had generic content type",
-      filename,
-      contentType
-    });
-    isValid = true;
-  }
-  return isValid;
-}
 
   invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
     return parsedError(
@@ -247,15 +270,17 @@ const contentTypeToName = {
   "application/vnd.ms-excel.sheet.macroEnabled.12": "xlsm",
   "application/xml": "xml",
   "application/pdf": "pdf",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    "docx",
   "application/rtf": "rtf",
-  "text/rtf": "rtf", 
+  "text/rtf": "rtf",
   "application/msword": "doc",
   "application/x-research-info-systems": "ris",
   "text/ris": "ris",
   "text/plain": "txt",
   "application/vnd.ms-outlook": "msg",
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+    "pptx",
   "application/vnd.ms-excel": "xls",
   // "application/zip": "zip"
 };
