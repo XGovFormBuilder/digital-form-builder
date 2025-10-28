@@ -202,7 +202,6 @@
           "options": {
             "required": false,
             "optionalText": false,
-            "exposeToContext": true,
             "customValidationMessages": {
               "string.empty": "Enter a valid email address",
               "string.pattern.base": "Enter a valid email address"
@@ -319,7 +318,6 @@
           "options": {
             "required": false,
             "optionalText": false,
-            "exposeToContext": true,
             "customValidationMessages": {
               "string.empty": "Enter a valid email address",
               "string.pattern.base": "Enter a valid email address"
@@ -4213,3 +4211,4 @@
     }
   }
 }
+
