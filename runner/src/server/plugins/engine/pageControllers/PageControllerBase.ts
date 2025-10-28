@@ -666,7 +666,7 @@ export class PageControllerBase {
           path: field.name,
           href: `#${field.name}`,
           name: field.name,
-          text: `The selected file must be smaller than ${config.maxFileSizeStringInMb}MB`,
+          text: `The selected files must be smaller than ${config.maxFileSizeStringInMb}MB`,
         };
       });
 
