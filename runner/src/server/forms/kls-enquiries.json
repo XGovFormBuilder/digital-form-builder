@@ -145,6 +145,7 @@
           "name": "ZjyQtC",
           "options": {
             "required": false,
+            "autocomplete": "section-copy email",
             "customValidationMessages": {
               "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
@@ -273,9 +274,9 @@
           "name": "Nuedpc",
           "options": {
             "customValidationMessages": {
-              "any.required": "Select the alert(s) you want to subscribe to",
-              "any.only": "Select the alert(s) you want to subscribe to",
-              "string.empty": "Select the alert(s) you want to subscribe to"
+              "any.required": "Select the alerts you want to subscribe to",
+              "any.only": "Select the alerts you want to subscribe to",
+              "string.empty": "Select the alerts you want to subscribe to"
             }
           },
           "type": "CheckboxesField",
@@ -328,6 +329,7 @@
           },
           "type": "MultilineTextField",
           "title": "What is your focused question?",
+          "hint": "A focused question enables the KLS team to provide you with a manageable number of relevant results. To focus your question, think about the population/problem, exposure, setting and outcomes. We can help you to refine your question.",
           "schema": {}
         },
         {
@@ -409,7 +411,8 @@
             }
           },
           "type": "RadiosField",
-          "title": "Can we share the results with other public health professionals?",
+          "title": "Can we share the search results with other public health professionals?",
+          "hint": "Sometimes we get similar search requests from different public health professionals. If you agree, we can share the results of our search with other professionals. This avoids duplication of our work.",
           "list": "IQAoJu"
         },
         {
@@ -423,7 +426,8 @@
             }
           },
           "type": "RadiosField",
-          "title": "Can we share your contact details so other public health professionals can contact you with queries about the work you are doing?",
+          "title": "Can we share your contact details with other public health professionals interested in your work?",
+          "hint": "We only share your email address if you agree, and only when it could help other public health professionals working on similar topics. We will only share your email address with people who are eligible to use KLS services.",
           "list": "IQAoJu"
         }
       ],
@@ -495,9 +499,9 @@
           "options": {
             "required": true,
             "customValidationMessages": {
-              "any.required": "Select your preferred results format(s)",
-              "any.only": "Select your preferred results format(s)",
-              "string.empty": "Select your preferred results format(s)"
+              "any.required": "Select your preferred results formats",
+              "any.only": "Select your preferred results formats",
+              "string.empty": "Select your preferred results formats"
             }
           },
           "type": "CheckboxesField",
@@ -935,6 +939,7 @@
           },
           "type": "MultilineTextField",
           "title": "What is your focused question?",
+          "hint": "A focused question enables the KLS team to provide you with a manageable number of relevant results. To focus your question, think about the population/problem, exposure, setting and outcomes. We can help you to refine your question.",
           "schema": {}
         },
         {
@@ -1006,7 +1011,8 @@
             }
           },
           "type": "RadiosField",
-          "title": "Can we share the results with other public health professionals?",
+          "title": "Can we share the search results with other public health professionals?",
+          "hint": "Sometimes we get similar search requests from different public health professionals. If you agree, we can share the results of our search with other professionals. This avoids duplication of our work.",
           "list": "IQAoJu"
         },
         {
@@ -1020,7 +1026,8 @@
             }
           },
           "type": "RadiosField",
-          "title": "Can we share your contact details so other public health professionals can contact you with queries about the work you are doing?",
+          "title": "Can we share your contact details with other public health professionals interested in your work?",
+          "hint": "We only share your email address if you agree, and only when it could help other public health professionals working on similar topics. We will only share your email address with people who are eligible to use KLS services.",
           "list": "IQAoJu"
         }
       ],
@@ -1170,6 +1177,7 @@
           "name": "rqzRcc",
           "options": {
             "required": false,
+            "autocomplete": "section-copy email",
             "customValidationMessages": {
               "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
@@ -1221,6 +1229,7 @@
           "name": "YeDsms",
           "options": {
             "required": false,
+            "autocomplete": "section-copy email",
             "customValidationMessages": {
               "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
