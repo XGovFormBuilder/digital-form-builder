@@ -7,6 +7,10 @@
 {% from "skip-link/macro.njk" import govukSkipLink -%}
 {% from "cookie-banner/macro.njk" import govukCookieBanner %}
 {% from "service-navigation/macro.njk" import govukServiceNavigation %}
+{% set bannerName = name or serviceName %}
+{%if returnTo %}
+  {% set bannerName = 'Return to ' ~ bannerName %}
+{% endif %}
 
 {% block headIcons %}
 {# TODO: remove this block when rebrand assets are no longer in /rebrand (likely in v5 upgrade) #}
@@ -106,7 +110,7 @@
     })
   }}
   {{ govukServiceNavigation({
-      serviceName: name if name else serviceName,
+      serviceName: bannerName,
       serviceUrl: serviceStartPage,
       navigation: navigation if navigation,
       rebrand: true

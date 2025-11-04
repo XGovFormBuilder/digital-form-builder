@@ -329,6 +329,7 @@ export const Schema = joi
     exitOptions: exitSchema.optional(),
     showFilenamesOnSummaryPage: joi.boolean().optional(),
     confirmationSessionTimeout: joi.number().optional(),
+    returnTo: joi.boolean().optional(),
   });
 
 /**
