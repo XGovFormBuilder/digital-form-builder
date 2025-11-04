@@ -53,6 +53,11 @@ export default {
               return h.view("help/privacy");
             }
 
+            // If one of the close-contact forms, display the close-contact privacy
+            if (url.includes("close-contact-form")) {
+              return h.view("close-contact-form/privacy");
+            }
+
             // Check if the file exists
             if (!form || !fs.existsSync(viewPath)) {
               return h.redirect("/help/privacy");
@@ -89,6 +94,11 @@ export default {
             // Catch the default help page before processing further
             if (url === "help") {
               return h.view("help/cookies");
+            }
+
+            // If one of the close-contact forms, display the close-contact cookies
+            if (url.includes("close-contact-form")) {
+              return h.view("close-contact-form/cookies");
             }
 
             // Check if the file exists
@@ -243,6 +253,11 @@ export default {
           // Catch the default help page before processing further
           if (url === "help") {
             return h.view("help/accessibility-statement");
+          }
+
+          // If one of the close-contact forms, display the close-contact accessibility statement
+          if (url.includes("close-contact-form")) {
+            return h.view("close-contact-form/accessibility-statement");
           }
 
           // Check if the file exists, if it doesn't, redirect to the default accessibility statement
