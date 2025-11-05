@@ -124,10 +124,10 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
     return filterSections(firstTransform);
   },
   "kls-enquiries": (details) => {
-    return removeRows(details, klsParams);
+    return removeRows(details, klsRemoveParams);
   },
   "kls-training-request": (details) => {
-    return removeRows(details, klsParams);
+    return removeRows(details, klsRemoveParams);
   },
 };
 
