@@ -208,13 +208,13 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Select the topic(s) you would like to cover",
-                            "any.only": "Select the topic(s) you would like to cover",
-                            "string.empty": "Select the topic(s) you would like to cover"
+                            "any.required": "Select the topics you would like to cover",
+                            "any.only": "Select the topics you would like to cover",
+                            "string.empty": "Select the topics you would like to cover"
                         }
                     },
                     "type": "CheckboxesField",
-                    "title": "What topic(s) would you like to cover?",
+                    "title": "What topics would you like to cover?",
                     "hint": "Select all that apply",
                     "list": "mwdJGV",
                     "schema": {}
@@ -245,13 +245,13 @@
                     "options": {
                         "required": true,
                         "customValidationMessages": {
-                            "any.required": "Enter suggested date(s) for the session",
-                            "any.only": "Enter suggested date(s) for the session",
-                            "string.empty": "Enter suggested date(s) for the session"
+                            "any.required": "Enter suggested dates for the session",
+                            "any.only": "Enter suggested dates for the session",
+                            "string.empty": "Enter suggested dates for the session"
                         }
                     },
                     "type": "TextField",
-                    "title": "Suggested date(s) for the session:"
+                    "title": "Suggested dates for the session:"
                 }
             ],
             "next": [
@@ -368,6 +368,7 @@
                     "options": {
                         "required": false,
                         "customValidationMessages": {
+                            "autocomplete": "section-copy email",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
@@ -432,6 +433,7 @@
                     "options": {
                         "required": false,
                         "customValidationMessages": {
+                            "autocomplete": "section-copy email",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
@@ -509,6 +511,7 @@
                     "options": {
                         "required": false,
                         "customValidationMessages": {
+                            "autocomplete": "section-copy email",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
