@@ -1414,9 +1414,9 @@
           "text": "CDO: Digital and Technology Transition"
         },
         {
-          "value": "COO: Commercial, Vaccines and Countermeasures Supply",
+          "value": "COO: Commercial, Vaccines and Countermeasures Delivery",
           "description": "",
-          "text": "COO: Commercial, Vaccines and Countermeasures Supply"
+          "text": "COO: Commercial, Vaccines and Countermeasures Delivery"
         },
         {
           "value": "COO: Communications",
@@ -1510,8 +1510,8 @@
       "items": [
         {
           "description": "",
-          "text": "Endnote",
-          "value": "Endnote"
+          "text": "EndNote",
+          "value": "EndNote"
         },
         {
           "description": "",
@@ -1525,8 +1525,8 @@
         },
         {
           "description": "",
-          "text": "RIS (for reference management software)",
-          "value": "RIS (for reference management software)"
+          "text": "RIS (file format to import in a reference management software)",
+          "value": "RIS (file format to import in a reference management software)"
         },
         {
           "description": "",
