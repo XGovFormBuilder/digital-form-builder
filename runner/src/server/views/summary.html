@@ -79,7 +79,7 @@
                   </div>
                 {% endif %}
 
-                <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                <button type="submit" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
                     {% if fees and fees.details|length %}
                         Submit and pay
                     {% else %}
@@ -89,7 +89,7 @@
 
                 {% if showPaymentSkippedWarningPage %}
                 <div class="govuk-body">
-                  <button data-prevent-double-click="true" class="govuk-body govuk-button--link" name="skipPayment" value="true" data-module="govuk-button">
+                  <button type="submit" data-prevent-double-click="true" class="govuk-body govuk-button--link" name="skipPayment" value="true" data-module="govuk-button">
                     Unable to pay online
                   </button>
                 </div>
@@ -100,4 +100,22 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const button = document.querySelector('button[data-prevent-double-click="true"]');
+      if (button) {
+        button.addEventListener('click', function (e) {
+          e.preventDefault();
+          button.disabled = true;
+
+          const form = button.closest('form');
+          if (form) {
+            form.submit();
+          }
+        });
+      }
+    });
+  </script>
+
 {% endblock %}

@@ -54,8 +54,10 @@ export class EmailAddressField extends FormComponent {
       };
     }
 
-    viewModel.type = "text";
-    viewModel.autocomplete = "email";
+    viewModel.type = "email";
+    viewModel.autocomplete = this.options.autocomplete
+      ? this.options.autocomplete
+      : "email";
 
     return viewModel;
   }
