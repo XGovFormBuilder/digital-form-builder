@@ -1525,8 +1525,8 @@
         },
         {
           "description": "",
-          "text": "RIS (file format to import in a reference management software)",
-          "value": "RIS (file format to import in a reference management software)"
+          "text": "RIS (file format to import into reference management software)",
+          "value": "RIS (file format to import into reference management software)"
         },
         {
           "description": "",
