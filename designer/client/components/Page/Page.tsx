@@ -74,7 +74,13 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       : page.title);
 
   return (
-    <div id={page.path} title={page.path} className={"page"} style={layout}>
+    <div
+      id={page.path}
+      data-testid={page.path}
+      title={page.path}
+      className={"page"}
+      style={layout}
+    >
       <div className="page__heading">
         <h3>
           {section && <span>{section.title}</span>}
