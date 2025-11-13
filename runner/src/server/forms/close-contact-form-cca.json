@@ -4185,7 +4185,7 @@
       "title": "Execute API",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://azgw.apiman.sit.uksouth.01.az.ukhsa.gov.uk/srs-xgov-forms/v1/forms/",
+        "url": "${Webhook.URL}",
         "allowRetry": true
       }
     }
@@ -4211,4 +4211,5 @@
     }
   }
 }
+
 
