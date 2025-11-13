@@ -4185,7 +4185,7 @@
       "title": "Execute API",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "${Webhook.URL}",
+        "url": "${closeContactWebhookURL}",
         "allowRetry": true
       }
     }
@@ -4211,4 +4211,5 @@
     }
   }
 }
+
 
