@@ -28,8 +28,8 @@ const parsedError = (key: string, error?: string) => {
 const ERRORS = {
   fileSizeError: 'The selected files are too large',
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
-  fileCountError: 'You have selected too many files for "%s"',
-  virusError: 'The selected files contained a virus',
+  fileCountError: 'You have selected too many files',
+  virusError: 'The selected files contain a virus',
   default: "There was an error uploading your file",
 };
 

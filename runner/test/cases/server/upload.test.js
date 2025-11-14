@@ -70,7 +70,7 @@ suite("uploads", () => {
 
     stub(UploadService.prototype, "uploadDocuments").callsFake(async () => {
       return {
-        error: 'The selected files contained a virus',
+        error: 'The selected files contain a virus',
       };
     });
 
@@ -87,7 +87,7 @@ suite("uploads", () => {
 
     const $ = cheerio.load(response.payload);
     expect($("[href='#file1']").text().trim()).to.equal(
-      'The selected files contained a virus'
+      'The selected files contain a virus'
     );
   });
 
