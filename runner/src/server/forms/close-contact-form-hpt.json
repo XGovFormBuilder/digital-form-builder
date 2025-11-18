@@ -92,24 +92,25 @@
           "type": "TextField",
           "title": "Disease",
           "schema": {}
-        },
+        }
+      ],
+      "next": [{ "path": "/case-id" }],
+      "controller": "./pages/start.js"
+    },
+    {
+      "title": "Enter the case ID of the person who needs contact tracing",
+      "path": "/case-id",
+      "components": [
         {
-          "name": "reference_id",
-          "options": {
-            "allowPrePopulation": true,
-            "allowPrePopulationOverwrite": true,
-            "classes": "govuk-!-display-none",
-            "hideTitle": true,
-            "disableChangingFromSummary": true,
-            "required": false
-          },
+          "name": "case_id",
+          "options": {},
           "type": "TextField",
-          "title": "Reference ID",
+          "title": "Case ID",
           "schema": {}
         }
       ],
       "next": [{ "path": "/completing-form-for" }],
-      "controller": "./pages/start.js"
+      "section": "CaseID"
     },
     {
       "title": "Who are you completing this form for?",
@@ -4185,7 +4186,7 @@
       "title": "Execute API",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://api.nl1.dev.srs.test-and-trace.nhs.uk/v1/forms",
+        "url": "${closeContactWebhookURL}",
         "allowRetry": true
       }
     }
@@ -4211,3 +4212,4 @@
     }
   }
 }
+

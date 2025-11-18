@@ -4185,7 +4185,7 @@
       "title": "Execute API",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://api.nl7.dev.srs.test-and-trace.nhs.uk/v1/forms",
+        "url": "${closeContactWebhookURL}",
         "allowRetry": true
       }
     }
@@ -4211,3 +4211,5 @@
     }
   }
 }
+
+

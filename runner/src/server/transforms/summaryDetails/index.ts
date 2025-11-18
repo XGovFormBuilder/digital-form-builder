@@ -27,99 +27,15 @@ const closeContactParams = [
 const klsRemoveParams = ["ZpmVWP"];
 
 const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
-  "close-contact-form-nl1-dev": (details) => {
+  "close-contact-form": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
-  "close-contact-form-nl1-test": (details) => {
+  "close-contact-form-hpt": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
-  "close-contact-form-nl4": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-nl5": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-nl7": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-nl8": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-uat": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-apim": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-nl1-dev": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-nl1-test": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-nl4": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-nl5": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-nl7": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-nl8": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-uat": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-cca-apim": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-nl1-dev": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-nl1-test": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-nl4": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-nl5": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-nl7": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-nl8": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-uat": (details) => {
-    const firstTransform = mergeRows(details, closeContactParams);
-    return filterSections(firstTransform);
-  },
-  "close-contact-form-hpt-apim": (details) => {
+  "close-contact-form-cca": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
@@ -132,5 +48,6 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
 };
 
 module.exports = summaryDetailsTransformations;
+
 
 
