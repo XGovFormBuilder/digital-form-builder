@@ -8,7 +8,7 @@ import { PageController } from "./PageController";
 export class RepeatingSectionSummaryPageController extends PageController {
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { remove } = request.query;
+      const { remove, returnUrl } = request.query;
       const { cacheService } = request.services([]);
       const state = await cacheService.getState(request);
       const noInt = (str: string) => str.replace(/\d+/g, "");
@@ -34,22 +34,27 @@ export class RepeatingSectionSummaryPageController extends PageController {
           }
         });
         await cacheService.mergeState(request, newState);
+        let param = "";
+        if (returnUrl) param = `?returnUrl=${encodeURIComponent(returnUrl)}`;
 
         if (int(this.path) === summaryFiltered.length) {
+          const newPath = noInt(this.path) + (int(this.path) - 1);
           return h.redirect(
-            `/${this.model.basePath}${noInt(this.path)}${int(this.path) - 1}`
+            `/${this.model.basePath}${newPath}${param}`
           );
         }
-        return h.redirect(`/${this.model.basePath}${this.path}`);
+        return h.redirect(`/${this.model.basePath}${this.path}${param}`);
       }
 
       this.details = summaryFiltered.map((detail) => {
+        if (returnUrl) return detail;
         const currentPath = this.path.replace("/", "");
         return {
           ...detail,
           card: detail.items[0].url.replace("summary", currentPath),
         };
       });
+      this.returnUrl = returnUrl;
       return super.makeGetRouteHandler()(request, h);
     };
   }
