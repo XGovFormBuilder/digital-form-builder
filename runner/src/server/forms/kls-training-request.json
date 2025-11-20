@@ -367,8 +367,8 @@
                     "name": "lZOKDY",
                     "options": {
                         "required": false,
+                        "autocomplete": "section-copy email",
                         "customValidationMessages": {
-                            "autocomplete": "section-copy email",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
@@ -432,8 +432,8 @@
                     "name": "AOadZe",
                     "options": {
                         "required": false,
+                        "autocomplete": "section-copy email",
                         "customValidationMessages": {
-                            "autocomplete": "section-copy email",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },
@@ -510,8 +510,8 @@
                     "name": "cEhUTE",
                     "options": {
                         "required": false,
+                        "autocomplete": "section-copy email",
                         "customValidationMessages": {
-                            "autocomplete": "section-copy email",
                             "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
                         }
                     },

@@ -9,7 +9,7 @@
     "gtmId1": "GTM-WLKKLMQB"
   },
   "magicLinkConfig": "kls-magic-link",
-  "allowedDomains": ["ukhsa.gov.uk", "dhsc.gov.uk", "nhs.net", "nhs.uk", "gov.uk", "nccpentest.com", "nccgroup.com", "digitalaccessibilitycentre.org"],
+  "allowedDomains": ["ukhsa.gov.uk", "dhsc.gov.uk", "nhs.net", "nhs.uk", "gov.uk"],
   "invalidDomainRedirect": "/kls-magic-link/your-email-is-not-on-our-approved-list",
   "serviceName": "UKHSA Knowledge and Library Services (KLS)",
   "name": "UKHSA Knowledge and Library Services (KLS)",
