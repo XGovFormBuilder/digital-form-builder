@@ -60,35 +60,29 @@ export default {
       `${path.dirname(resolve.sync("hmpo-components"))}/components`,
     ],
     isCached: !config.isDev,
-    context: (request: HapiRequest) => {
-      const id = request.params?.id;
-      const forms = request.server?.app?.forms;
-      const model = id && forms?.[id];
-      const analytics = model?.def?.analytics || {};
-      return {
-        appVersion: pkg.version,
-        assetPath: "/assets",
-        cookiesPolicy: request?.state?.cookies_policy,
-        serviceName: config.serviceName,
-        returnTo: request.server?.app?.forms?.[request.params?.id]?.def?.returnTo || false,
-        feedbackLink: config.feedbackLink,
-        pageTitle: config.serviceName + " - GOV.UK",
-        analyticsAccount: config.analyticsAccount,
-        gtmId1: config.gtmId1,
-        gtmId2: config.gtmId2,
-        location: request?.app.location,
-        matomoId: config.matomoId,
-        matomoUrl: config.matomoUrl,
-        BROWSER_REFRESH_URL: config.browserRefreshUrl,
-        sessionTimeout: config.sessionTimeout,
-        skipTimeoutWarning: false,
-        serviceStartPage: config.serviceStartPage,
-        privacyPolicyUrl: config.privacyPolicyUrl || "/help/privacy",
-        phaseTag: config.phaseTag,
-        navigation: request?.auth.isAuthenticated
-          ? [{ text: "Sign out", href: "/logout" }]
-          : null,
-      };
-    },
+    context: (request: HapiRequest) => ({
+      appVersion: pkg.version,
+      assetPath: "/assets",
+      cookiesPolicy: request?.state?.cookies_policy,
+      serviceName: config.serviceName,
+      returnTo: request?.server?.app?.forms?.[request.params?.id]?.def?.returnTo || false,
+      feedbackLink: config.feedbackLink,
+      pageTitle: config.serviceName + " - GOV.UK",
+      analyticsAccount: config.analyticsAccount,
+      gtmId1: config.gtmId1,
+      gtmId2: config.gtmId2,
+      location: request?.app.location,
+      matomoId: config.matomoId,
+      matomoUrl: config.matomoUrl,
+      BROWSER_REFRESH_URL: config.browserRefreshUrl,
+      sessionTimeout: config.sessionTimeout,
+      skipTimeoutWarning: false,
+      serviceStartPage: config.serviceStartPage,
+      privacyPolicyUrl: config.privacyPolicyUrl || "/help/privacy",
+      phaseTag: config.phaseTag,
+      navigation: request?.auth.isAuthenticated
+        ? [{ text: "Sign out", href: "/logout" }]
+        : null,
+    }),
   },
 };
