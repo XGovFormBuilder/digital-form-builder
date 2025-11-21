@@ -26,14 +26,6 @@ suite(
         formFilePath: path.join(__dirname, "../../../"),
         enforceCsrf: false,
       });
-      server.route({
-        method: "GET",
-        path: "/first-page",
-        handler: () => {
-          return {};
-        },
-        options: {},
-      });
     });
     after(async () => {
       await server.stop();
