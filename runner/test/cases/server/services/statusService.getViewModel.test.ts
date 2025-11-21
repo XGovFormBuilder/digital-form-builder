@@ -107,7 +107,6 @@ suite("StatusService getViewModel renders custom text correctly", () => {
       formFilePath: path.join(__dirname, ".."),
       enforceCsrf: false,
     });
-
     statusService = server.services().statusService;
   });
 
