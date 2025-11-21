@@ -27,7 +27,6 @@ suite(
         enforceCsrf: false,
       });
     });
-
     after(async () => {
       await server.stop();
     });

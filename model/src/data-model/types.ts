@@ -195,4 +195,5 @@ export type FormDefinition = {
   feeOptions: FeeOptions;
   exitOptions: ExitOptions;
   confirmationSessionTimeout: number | undefined;
+  returnTo?: boolean | undefined;
 };
