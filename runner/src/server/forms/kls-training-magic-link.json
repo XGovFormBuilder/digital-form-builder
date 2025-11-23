@@ -16,8 +16,7 @@
         "dhsc.gov.uk",
         "nhs.net",
         "nhs.uk",
-        "gov.uk",
-        "digitalaccessibilitycentre.org"
+        "gov.uk"
     ],
     "invalidDomainRedirect": "/kls-training-magic-link/your-email-is-not-on-our-approved-list",
     "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
