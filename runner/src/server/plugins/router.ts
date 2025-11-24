@@ -132,6 +132,16 @@ export default {
 
       server.route({
         method: "get",
+        ]qwfpqwoelkfnjhqwpofihjqspioifjbeqpr;gv'po2 heo'fuvhqposdvbcjqs'dpovhcasdnvpoasj'd\v[aks
+          dovsd
+          va[SVGDefsElementasv[as
+            vpasdv
+            asvasdv
+            as[dv
+            ]a[snd'vlxz;vibvxc]s
+            ]
+          ]]
+        ]
         path: "/timeout",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           if (request.yar) {
