@@ -148,6 +148,7 @@ module.exports = {
   /**
    * File size errors
    */
-  maxClientFileSize: 5 * 1024 * 1024, // 5MB
+
+  maxClientFileSize: Math.round(5.2 * 1024 * 1024), // 5452595 bytes
   maxFileSizeStringInMb: "5", // The file size to render if the file is too large in MB
 };
