@@ -1,0 +1,2555 @@
+{
+  "metadata": {},
+  "startPage": "/start",
+  "confirmationSessionTimeout": 2000,
+  "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
+  "authentication": true,
+  "toggle": true,
+  "serviceName": "UKHSA Knowledge and Library Services (KLS)",
+  "analytics": {
+    "gtmId1": "GTM-WLKKLMQB"
+  },
+  "webhookHmacSharedKey": "${KLSkey}",
+  "fileUploadHmacSharedKey": "${KLSFileUploadKey}",
+  "magicLinkConfig": "kls-magic-link",
+  "name": "UKHSA Knowledge and Library Services (KLS)",
+  "pages": [
+    {
+      "title": "Contact the Knowledge and Library Services team",
+      "path": "/start",
+      "unauthenticated": true,
+      "components": [
+        {
+            "name": "mainContent",
+            "options": {},
+            "type": "Para",
+            "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-organisation-do-you-work-for"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/which-organisation-do-you-work-for",
+      "unauthenticated": true,
+      "title": "Which organisation do you work for?",
+      "components": [
+        {
+          "name": "ZpmVWP",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the organisation you work for",
+              "any.only": "Select the organisation you work for",
+              "string.empty": "Select the organisation you work for"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Organisation",
+          "hint": "The KLS service is available to staff from: UK Health Security Agency, Office for Health Improvement and Disparities, NHS England Public Health, and Local Authority Public Health. \n\nIf you do not belong to one of these organisations you can still contact the KLS team by selecting the 'Other' option to find the team's email address.",
+          "list": "uIwkHV",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/please-contact-us-via-email",
+          "condition": "BOkxIN"
+        },
+        {
+          "path": "/magic-link-redirect",
+          "condition": "dhBTmP"
+        }
+      ]
+    },
+    {
+      "path": "/please-contact-us-via-email",
+      "unauthenticated": true,
+      "title": "Please contact us via email",
+      "components": [
+        {
+          "name": "ryhwUr",
+          "options": {},
+          "type": "Html",
+          "content": "<p>You are not eligible to use this service, however you can still contact the KLS team via the following email <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a></strong></p>"
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/magic-link-redirect",
+      "unauthenticated": true,
+      "controller": "MagicLinkRedirectController",
+      "next": [
+        {
+          "path": "/which-organisation-do-you-work-for-DUPE"
+        }
+      ]
+    },
+    {
+      "path": "/about-you",
+      "title": "About you",
+      "components": [
+        {
+          "name": "xnYXNM",
+          "options": {},
+          "type": "Para",
+          "content": "Please complete as many fields as you can so that the KLS team will be able to contact you about your enquiry.",
+          "schema": {}
+        },
+        {
+          "name": "WWpyux",
+          "options": {
+            "autocomplete":"name"
+          },
+          "type": "TextField",
+          "title": "Full name",
+          "schema": {}
+        },
+        {
+          "name": "RpctHr",
+          "options": {
+            "required": true,
+            "autocomplete": "organization-title",
+            "customValidationMessages": {
+              "any.required": "Enter job title",
+              "any.only": "Enter job title",
+              "string.empty": "Enter job title"
+            }
+          },
+          "type": "TextField",
+          "title": "Job title",
+          "schema": {}
+        },
+        {
+          "name": "afZPpL",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter email address",
+              "any.only": "Enter email address",
+              "string.empty": "Enter email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "name": "ZjyQtC",
+          "options": {
+            "required": false,
+            "autocomplete": "section-copy email",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below ",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/type-of-enquiry",
+      "title": "Type of enquiry",
+      "components": [
+        {
+          "name": "iAFhFY",
+          "options": {},
+          "type": "Details",
+          "title": "Click here to learn about the types of enquiry that the KLS team support",
+          "content": "<dl class=\"govuk-summary-list\"><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">Literature search</dt><dd class=\"govuk-summary-list__value\">A detailed, comprehensive and systematic search of the literature from a variety of quality sources. Literature searches take between 1 and 2 weeks to complete.</dd></div><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">Systematic review</dt><dd class=\"govuk-summary-list__value\">The provision of complex literature searches to help in the production of a systematic review, with associated guidance on the stages of conducting a review. The time taken to deliver the search and advice will be dependent on the type of review.</dd></div><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">Evidence briefing</dt><dd class=\"govuk-summary-list__value\">Outlines the main messages taken from evidence that has been identified and selected using systematic methods and strict inclusion criteria. It usually takes at least 3 weeks to produce an Evidence Briefing and they are subject to certain eligibility criteria.</dd></div><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">Current awareness alerts</dt><dd class=\"govuk-summary-list__value\">Support to access a range of current awareness products to be kept regularly up to date with the latest research in your field of work.</dd></div><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">General enquiry</dt><dd class=\"govuk-summary-list__value\">Select this option for support with any other queries.</dd></div></dl>",
+          "schema": {}
+        },
+        {
+          "name": "tUKBgj",
+          "options": {
+            "customValidationMessages":{
+              "any.required": "Select the option that best matches your enquiry",
+              "any.only": "Select the option that best matches your enquiry",
+              "string.empty": "Select the option that best matches your enquiry"
+            },
+            "exposeToContext": false
+          },
+          "type": "RadiosField",
+          "title": "Which option best matches your enquiry?",
+          "list": "eKfmVf",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/current-awareness",
+          "condition": "OchNDo"
+        },
+        {
+          "path": "/how-can-we-help",
+          "condition": "mZdZMC"
+        },
+        {
+          "path": "/evidence-briefing-information",
+          "condition": "eiTtgM"
+        },
+        {
+          "path": "/about-your-enquiry",
+          "condition": "XvwdpX"
+        }
+      ]
+    },
+    {
+      "path": "/additional-information",
+      "title": "Additional information",
+      "components": [
+        {
+          "name": "YIrnKT",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "If there is any more information that you think will help the team in dealing with your enquiry, please enter it below",
+          "schema": {}
+        },
+        {
+          "name": "KefoiX",
+          "options": {},
+          "type": "TextField",
+          "hint": "We will use this title as the subject line if we need to contact you by email",
+          "title": "Enquiry title",
+          "schema": {}
+        },
+        {
+               "name":"bYWcrH",
+               "options":{
+                  "multiple": true,
+                  "required": false,
+                  "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
+                    },
+               "type":"FileUploadField",
+               "title":"If you need to upload a file to help us deal with your enquiry, do so here.",
+               "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window."
+            }
+            
+
+      ],
+      "next": [
+        {
+          "path": "/about-you"
+        },
+        {
+          "path": "/about-you-GXSFdb",
+          "condition": "EgJCgx"
+        },
+        {
+          "path": "/about-you-dHykmu",
+          "condition": "IbKdRK"
+        }
+      ]
+    },
+    {
+      "path": "/current-awareness",
+      "title": "About your current awareness alerts query",
+      "components": [
+        {
+          "name": "voCgKn",
+          "options": {},
+          "type": "InsetText",
+          "content": "Sign up to comprehensive alerts that bring together the latest research from peer-reviewed publications about important public health priorities. Select the topics you want to sign up for below."
+        },
+        {
+          "name": "Nuedpc",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the alerts you want to subscribe to",
+              "any.only": "Select the alerts you want to subscribe to",
+              "string.empty": "Select the alerts you want to subscribe to"
+            }
+          },
+          "type": "CheckboxesField",
+          "title": "Which alerts do you want to subscribe to?",
+          "list": "gTPicc"
+        },
+        {
+          "name": "QiohsW",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "If you selected 'Other', describe the topic on which you wish to be alerted",
+          "hint": "Any new alert request will be considered on a case-by-case basis. A member of the KLS team will be in touch to discuss the best option to meet your requirements."
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-you"
+        },
+        {
+          "path": "/about-you-GXSFdb",
+          "condition": "EgJCgx"
+        },
+        {
+          "path": "/about-you-dHykmu",
+          "condition": "IbKdRK"
+        }
+      ]
+    },
+    {
+      "path": "/about-your-enquiry",
+      "title": "About your enquiry",
+      "components": [
+        {
+          "name": "yYKOmJ",
+          "options": {},
+          "type": "Para",
+          "content": "Please share as much information as possible to help the KLS team deal with your enquiry",
+          "schema": {}
+        },
+        {
+          "name": "LuoKqU",
+          "options": {
+              "customValidationMessages": {
+              "any.required": "Provide your focused question",
+              "any.only": "Provide your focused question",
+              "string.empty": "Provide your focused question"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "What is your focused question?",
+          "hint": "A focused question enables the KLS team to provide you with a manageable number of relevant results. To focus your question, think about the population/problem, exposure, setting and outcomes. We can help you to refine your question.",
+          "schema": {}
+        },
+        {
+          "name": "bhBuDQ",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter relevant concepts",
+              "any.only": "Enter relevant concepts",
+              "string.empty": "Enter relevant concepts"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "Explain any relevant concepts",
+          "schema": {},
+          "hint": "Consider the questions: Who? What? Where? Why? When? How?"
+        },
+        {
+          "name": "uBPfQS",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "Give an example of a paper that should be included in the output",
+          "schema": {},
+          "hint": "Enter a relevant publication or key author you would expect to be included"
+        },
+        {
+          "name": "VbhnXH",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Publication date range",
+          "list": "OGYVAD",
+          "hint": "Indicate the time period from which evidence should be sourced",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "MArgxL",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If you selected ‘Other’, indicate the specific desired publication date range",
+          "schema": {}
+        },
+        {
+          "name": "etcpxo",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the geographic scope of the research"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Do you want UK only or international research?",
+          "hint": "Indicate the geographic scope for which the evidence should be sourced",
+          "list": "zDtSLo",
+          "schema": {}
+        },
+        {
+          "name": "thfczP",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If you selected ‘Other’, provide further details of the desired geographical scope",
+          "schema": {}
+        },
+        {
+          "name": "RCdnGJ",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share the results with other public health professionals",
+              "any.only": "Select whether we can share the results with other public health professionals",
+              "string.empty": "Select whether we can share the results with other public health professionals"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Can we share the search results with other public health professionals?",
+          "hint": "Sometimes we get similar search requests from different public health professionals. If you agree, we can share the results of our search with other professionals. This avoids duplication of our work.",
+          "list": "IQAoJu"
+        },
+        {
+          "name": "oNDRUt",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share your contact details with other public health professionals",
+              "any.only": "Select whether we can share your contact details with other public health professionals",
+              "string.empty": "Select whether we can share your contact details with other public health professionals"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Can we share your contact details with other public health professionals interested in your work?",
+          "hint": "We only share your email address if you agree, and only when it could help other public health professionals working on similar topics. We will only share your email address with people who are eligible to use KLS services.",
+          "list": "IQAoJu"
+        }
+      ],
+      "next": [
+        {
+          "path": "/systematic-review-questions",
+          "condition": "dCqSKz"
+        },
+        {
+          "path": "/literature-search-questions",
+          "condition": "fNTYcH"
+        },
+        {
+          "path": "/evidence-briefing-questions",
+          "condition": "eiTtgM"
+        }
+      ]
+    },
+    {
+      "path": "/literature-search-questions",
+      "title": "Literature search questions",
+      "components": [
+        {
+          "name": "BPoIas",
+          "options": {},
+          "type": "Details",
+          "title": "What is a literature search?",
+          "content": "<p>A literature search is a detailed, comprehensive and systematic search of the literature (published and unpublished) from a variety of quality sources about specific topics or conditions.</p>\n\n<p>The search yields a set of results on the topic in question – usually a list of journal articles and reports, each containing a summary (known as an abstract). Reading the results enables you to get an overview of what is known about the topic. This is often referred to as the ‘evidence base’ and is an integral part of the methodology for any UKHSA project.</p>",
+          "schema": {}
+        },
+        {
+          "name": "PrVeBZ",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Literature search type",
+          "list": "aGVTgz",
+          "schema": {}
+        },
+        {
+          "name": "WNVZzn",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the primary use for the results",
+              "any.only": "Select the primary use for the results",
+              "string.empty": "Select the primary use for the results"
+            }
+          },
+          "type": "SelectField",
+          "title": "What will you primarily use the results of this search for?",
+          "list": "PxpncX",
+          "schema": {},
+          "hint": "If more than one option applies, please select the most relevant",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "nPBXNt",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "If you selected ‘Other’, provide further details on the primary use of the search results",
+          "schema": {}
+        },
+        {
+          "name": "qwQlWP",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select your preferred results formats",
+              "any.only": "Select your preferred results formats",
+              "string.empty": "Select your preferred results formats"
+            }
+          },
+          "type": "CheckboxesField",
+          "title": "How would you like to receive your results?",
+          "list": "LgzPJy",
+          "schema": {}
+        },
+        {
+          "name": "hQXIgL",
+          "options": {
+            "bold": true,
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date must be in the future"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "The completion time will be at least 1-2 working weeks depending on your chosen search type. Please provide a future date.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/additional-information"
+        }
+      ]
+    },
+    {
+      "path": "/systematic-review-questions",
+      "title": "Systematic review questions",
+      "components": [
+        {
+          "name": "tXsvXF",
+          "options": {},
+          "type": "Details",
+          "title": "Types of systematic review",
+          "content": "<p>The main types of evidence synthesis products are systematic reviews, rapid reviews, mapping reviews, scoping reviews and umbrella reviews. They all follow explicit, systematic methods to collate and synthesise findings of studies that address a clear question.</p>\n \n<p>Systematic reviews are the gold standard in evidence synthesis. However, they are time-consuming and resource-intensive. Rapid systematic methodologies use modified systematic review methods to accelerate the review process, and can be applied to all the types of reviews listed here.</p>\n \n<p><strong>Systematic review</strong><br>\nSystematic reviews should have a clearly defined question and eligibility criteria. Study data is summarised using narrative text and tables; or sometimes as a meta-analysis, a statistical technique that provides an overall summary measure of effect.</p>\n \n<p><strong>Scoping review</strong><br>\nScoping reviews are concerned with the ‘state of the evidence’. They are appropriate when exploring a topic to inform future research or policy development by clarifying key concepts or methods, using a broad review question. They usually have in-depth data extraction. Synthesis can include qualitative analysis, narrative synthesis, maps or a table.</p>\n \n<p><strong>Mapping review</strong><br>\nMapping reviews are used to map out and categorise the literature. They are appropriate when information is required on where the evidence is, usually through a visual summary known as an evidence gap map, to inform research priorities. Study data is coded for use in the evidence gap map. Data extraction tends to be more limited than for a scoping review.</p>\n \n<p><strong>Umbrella review</strong><br>\nAn umbrella review or “review of reviews” identifies multiple systematic reviews on related research questions and analyses their results across agreed outcomes. Umbrella reviews normally address a broad scope. Meta-analysis may be performed in order to provide an overall summary measure of effect.</p>",
+          "schema": {}
+        },
+        {
+          "name": "lIUPMw",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the type of review you are doing",
+              "any.only": "Select the type of review you are doing",
+              "string.empty": "Select the type of review you are doing"
+            }
+          },
+          "type": "SelectField",
+          "title": "What type of review are you doing?",
+          "list": "cZlqVP",
+          "hint": "",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "IdTRkf",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "If you selected ‘Other’, provide further details on the type of review you are doing",
+          "schema": {}
+        },
+        {
+          "name": "byRMpb",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select the reason for conducting this review",
+              "any.only": "Select the reason for conducting this review",
+              "string.empty": "Select the reason for conducting this review"
+            }
+          },
+          "type": "SelectField",
+          "title": "What is the reason for conducting this review?",
+          "list": "tOKEMX",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "mBSuvI",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "If you selected ‘Other’, explain the reason for conducting this review",
+          "schema": {}
+        },
+        {
+          "name": "diftRU",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select where you intend to publish your review",
+              "any.only": "Select where you intend to publish your review",
+              "string.empty": "Select where you intend to publish your review"
+            }
+          },
+          "type": "SelectField",
+          "title": "Where do you intend to publish your review?",
+          "list": "Zappeq",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "NeCvDK",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "If you selected ‘Other’, provide further details on where you intend to publish your review",
+          "schema": {}
+        },
+        {
+          "name": "dmgVPY",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether you have written a protocol",
+              "any.only": "Select whether you have written a protocol",
+              "string.empty": "Select whether you have written a protocol"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Have you written a protocol?",
+          "list": "IQAoJu",
+          "hint": "A protocol describes the planned methods for your review. It should be written before your review begins and followed when you conduct the review. Guidance on writing a protocol is available in <a href=\"https://www.prisma-statement.org/protocols\"> PRISMA for systematic review protocols</a> or contact us for help."
+        },
+        {
+          "name": "hQXIgL",
+          "options": {
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date must be in the future"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "Timeframe for completion will vary based on the review's complexity, and will be discussed on a case-by-case basis. Please provide a future date.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/additional-information"
+        }
+      ]
+    },
+    {
+      "path": "/evidence-briefing-questions",
+      "title": "Evidence briefing questions",
+      "components": [
+        {
+          "name": "XxwIGa",
+          "options": {},
+          "type": "InsetText",
+          "content": "In order for the KLS team to undertake the evidence briefing you must have a focused question which is feasible for KLS to answer in the form of a briefing within the standard timeframe of 3 weeks. Your request must also meet one of the criteria below in order to be eligible.",
+          "schema": {}
+        },
+        {
+          "name": "ZKqQHi",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select evidence briefing eligibility",
+              "any.only": "Select evidence briefing eligibility",
+              "string.empty": "Select evidence briefing eligibility"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Evidence briefing eligibility",
+          "list": "VPAkeH",
+          "schema": {}
+        },
+        {
+          "name": "rcGqoK",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If you selected ‘Other’, explain why this evidence briefing request is essential for your work",
+          "schema": {}
+        },
+        {
+          "name": "TNXqpA",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for population",
+              "any.only": "Enter your inclusion criteria for population",
+              "string.empty": "Enter your inclusion criteria for population"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "What are your inclusion criteria for population?",
+          "schema": {}
+        },
+        {
+          "name": "KXXNzf",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for intervention or exposure",
+              "any.only": "Enter your inclusion criteria for intervention or exposure",
+              "string.empty": "Enter your inclusion criteria for intervention or exposure"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "What are your inclusion criteria for intervention or exposure?",
+          "schema": {}
+        },
+        {
+          "name": "GjCFLx",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for setting/location",
+              "any.only": "Enter your inclusion criteria for setting/location",
+              "string.empty": "Enter your inclusion criteria for setting/location"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "What are your inclusion criteria for setting/location?",
+          "schema": {}
+        },
+        {
+          "name": "MgKlsM",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Enter your inclusion criteria for outcomes",
+              "any.only": "Enter your inclusion criteria for outcomes",
+              "string.empty": "Enter your inclusion criteria for outcomes"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "What are your inclusion criteria for outcomes?",
+          "schema": {}
+        },
+        {
+          "name": "iYKvoN",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "Should anything be excluded?",
+          "schema": {}
+        },
+        {
+          "name": "hQXIgL",
+          "options": {
+            "required": true,
+            "maxDaysInPast": "0",
+            "customValidationMessages": {
+              "nonNumeric": "The date must be in the format of DD/MM/YYYY",
+              "date.min": "Desired completion date must be in the future"
+            }
+          },
+          "type": "DatePartsField",
+          "title": "Desired completion date",
+          "hint": "Standard time to produce an Evidence Briefing is at least 3 working weeks. Please provide a future date.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/additional-information"
+        }
+      ]
+    },
+    {
+      "path": "/how-can-we-help",
+      "title": "How can we help?",
+      "components": [
+        {
+          "name": "CKlngs",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Provide information on how the KLS team can help you",
+              "any.only": "Provide information on how the KLS team can help you",
+              "string.empty": "Provide information on how the KLS team can help you"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "Please share as much information as possible to help the KLS team deal with your enquiry",
+          "schema": {}
+        },
+        {
+          "name": "OYYaPc",
+          "options": {},
+          "type": "TextField",
+          "hint": "We will use this title as the subject line if we need to contact you by email",
+          "title": "Enquiry title",
+          "schema": {}
+        },
+{
+  "name": "FIvjTg",
+  "type": "FileUploadField",
+  "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
+  "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window.",
+  "schema": {},
+  "options": {
+    "multiple": true,
+    "required": false,
+    "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
+  }
+}
+      ],
+      "next": [
+        {
+          "path": "/about-you"
+        },
+        {
+          "path": "/about-you-GXSFdb",
+          "condition": "EgJCgx"
+        },
+        {
+          "path": "/about-you-dHykmu",
+          "condition": "IbKdRK"
+        }
+      ]
+    },
+    {
+      "path": "/which-organisation-do-you-work-for-DUPE",
+      "title": "Which organisation do you work for?",
+      "disableBackLink": true,
+      "components": [
+        {
+          "name": "wyvXTj",
+          "options": {
+              "customValidationMessages": {
+              "any.required": "Select the organisation you work for",
+              "any.only": "Select the organisation you work for",
+              "string.empty": "Select the organisation you work for"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Which organisation do you work for?",
+          "hint": "",
+          "list": "ULmwPo",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/type-of-enquiry"
+        },
+        {
+          "path": "/how-can-we-help",
+          "condition": "CRsuUh"
+        },
+        {
+          "path": "/type-of-enquiry-JpEYIe",
+          "condition": "IbKdRK"
+        }
+      ]
+    },
+    {
+      "path": "/type-of-enquiry-JpEYIe",
+      "title": "Type of enquiry",
+      "components": [
+        {
+          "name": "RlHHWZ",
+          "options": {},
+          "type": "Details",
+          "title": "Click here to learn about the types of enquiry that the KLS team support",
+          "content": "<dl class=\"govuk-summary-list\"><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">Literature search</dt><dd class=\"govuk-summary-list__value\">A detailed, comprehensive and systematic search of the literature from a variety of quality sources. Literature searches take between 1 and 2 weeks to complete.</dd></div><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">Current awareness alerts</dt><dd class=\"govuk-summary-list__value\">Support to access a range of current awareness products to be kept regularly up to date with the latest research in your field of work.</dd></div><div class=\"govuk-summary-list__row\"><dt class=\"govuk-summary-list__key\">General enquiry</dt><dd class=\"govuk-summary-list__value\">Select this option for support with any other queries.</dd></div></dl>",
+          "schema": {}
+        },
+        {
+          "name": "VeQCVM",
+          "options": {
+            "customValidationMessages":{
+              "any.required": "Select the option that best matches your enquiry",
+              "any.only": "Select the option that best matches your enquiry",
+              "string.empty": "Select the option that best matches your enquiry"
+            }
+          },
+          "type": "RadiosField",
+          "list": "AUYYCW",
+          "title": "Which option best matches your enquiry?",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-can-we-help",
+          "condition": "lsHzLP"
+        },
+        {
+          "path": "/current-awareness",
+          "condition": "MQeZyE"
+        },
+        {
+          "path": "/about-your-enquiry-RPOaaR"
+        }
+      ]
+    },
+    {
+      "path": "/about-your-enquiry-RPOaaR",
+      "title": "About your enquiry",
+      "components": [
+        {
+          "name": "fXvmRh",
+          "options": {},
+          "type": "Para",
+          "content": "Please share as much information as possible to help the KLS team deal with your enquiry",
+          "schema": {}
+        },
+        {
+          "name": "qvJHYP",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Provide your focused question",
+              "any.only": "Provide your focused question",
+              "string.empty": "Provide your focused question"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "What is your focused question?",
+          "hint": "A focused question enables the KLS team to provide you with a manageable number of relevant results. To focus your question, think about the population/problem, exposure, setting and outcomes. We can help you to refine your question.",
+          "schema": {}
+        },
+        {
+          "name": "WYbcGt",
+          "options": {},
+          "type": "MultilineTextField",
+          "title": "Explain any relevant concepts",
+          "hint": "Consider the questions: Who? What? Where? Why? When? How?",
+          "schema": {}
+        },
+        {
+          "name": "Ercwfj",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "Give an example of a paper that should be included in the output",
+          "hint": "Enter a relevant publication or key author you would expect to be included",
+          "schema": {}
+        },
+        {
+          "name": "scPrBh",
+          "options": {},
+          "type": "RadiosField",
+          "hint": "Indicate the time period from which evidence should be sourced",
+          "title": "Publication date range",
+          "list": "OGYVAD",
+          "schema": {}
+        },
+        {
+          "name": "zVphJY",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If you selected ‘Other’, indicate the specific desired publication date range",
+          "schema": {}
+        },
+        {
+          "name": "UjGoiE",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the geographic scope of the research"
+            }
+          },
+          "type": "RadiosField",
+          "hint": "Indicate the geographic scope for which the evidence should be sourced",
+          "title": "Do you want UK only or international research?",
+          "list": "zDtSLo",
+          "schema": {}
+        },
+        {
+          "name": "thfczP",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "If you selected ‘Other’, provide further details of the desired geographical scope",
+          "schema": {}
+        },
+        {
+          "name": "GxImes",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share the results with other public health professionals",
+              "any.only": "Select whether we can share the results with other public health professionals",
+              "string.empty": "Select whether we can share the results with other public health professionals"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Can we share the search results with other public health professionals?",
+          "hint": "Sometimes we get similar search requests from different public health professionals. If you agree, we can share the results of our search with other professionals. This avoids duplication of our work.",
+          "list": "IQAoJu"
+        },
+        {
+          "name": "DdsEuf",
+          "options": {
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select whether we can share your contact details with other public health professionals",
+              "any.only": "Select whether we can share your contact details with other public health professionals",
+              "string.empty": "Select whether we can share your contact details with other public health professionals"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Can we share your contact details with other public health professionals interested in your work?",
+          "hint": "We only share your email address if you agree, and only when it could help other public health professionals working on similar topics. We will only share your email address with people who are eligible to use KLS services.",
+          "list": "IQAoJu"
+        }
+      ],
+      "next": [
+        {
+          "path": "/literature-search-questions"
+        }
+      ]
+    },
+    {
+      "path": "/evidence-briefing-information",
+      "title": "Evidence briefing information",
+      "components": [
+        {
+          "name": "jojhvk",
+          "options": {},
+          "type": "Para",
+          "content": "Before proceeding with your request, please review the following criteria and expectations to ensure your request is suitable for an evidence briefing.",
+          "schema": {}
+        },
+        {
+          "name": "ADkeed",
+          "options": {},
+          "type": "Para",
+          "content": "To be eligible for an evidence briefing, the purpose of your request must fall into at least one of the following categories:",
+          "schema": {}
+        },
+        {
+          "name": "sLYgMF",
+          "options": {},
+          "type": "List",
+          "title": "EB purpose",
+          "list": "GNXXmY",
+          "schema": {}
+        },
+        {
+          "name": "BrQyCZ",
+          "options": {},
+          "type": "Para",
+          "content": "In addition, your request should have a clear, focused question that is feasible to address within the standard 3-week timeframe.",
+          "schema": {}
+        },
+        {
+          "name": "lhetvO",
+          "options": {},
+          "type": "Para",
+          "content": "Please note that if your request is too broad, outside the eligibility criteria, or time-sensitive, it may be more appropriate to conduct a literature search instead. ",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-your-enquiry"
+        }
+      ]
+    },
+    {
+      "path": "/about-you-GXSFdb",
+      "title": "About you",
+      "components": [
+        {
+          "name": "nwLDox",
+          "options": {},
+          "type": "Para",
+          "content": "Please complete as many fields as you can so that the KLS team will be able to contact you about your enquiry."
+        },
+        {
+          "name": "dagbPo",
+          "options": {
+            "required": true,
+            "autocomplete": "name"
+          },
+          "type": "TextField",
+          "title": "Full name"
+        },
+        {
+          "name": "uksayz",
+          "options": {
+            "required": true,
+            "autocomplete": "organization-title"
+          },
+          "type": "TextField",
+          "title": "Job title"
+        },
+        {
+          "name": "nmlFzr",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the UKHSA group to which you belong",
+              "any.only": "Select the UKHSA group to which you belong",
+              "string.empty": "Select the UKHSA group to which you belong"
+            }
+          },
+          "type": "SelectField",
+          "title": "UKHSA Group",
+          "list": "sYQQmN",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "oUmeSI",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the UKHSA directorate to which you belong",
+              "any.only": "Select the UKHSA directorate to which you belong",
+              "string.empty": "Select the UKHSA directorate to which you belong"
+            }
+          },
+          "type": "SelectField",
+          "title": "UKHSA Directorate",
+          "list": "pTYDbB",
+          "schema": {
+            "required": true
+          }
+        },
+        {
+          "name": "EkwRix",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select location",
+              "any.only": "Select location",
+              "string.empty": "Select location"
+            }
+          },
+          "type": "SelectField",
+          "title": "Location",
+          "list": "wrhJNi",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "SPKrpE",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter email address",
+              "any.only": "Enter email address",
+              "string.empty": "Enter email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "Email address"
+        },
+        {
+          "name": "rqzRcc",
+          "options": {
+            "required": false,
+            "autocomplete": "section-copy email",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below "
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/about-you-dHykmu",
+      "title": "About you",
+      "components": [
+        {
+          "name": "nBYObd",
+          "options": {
+            "autocomplete": "name"
+          },
+          "type": "TextField",
+          "title": "Full name"
+        },
+        {
+          "name": "CNbJUr",
+          "options": {
+            "autocomplete": "organization-title"
+          },
+          "type": "TextField",
+          "title": "Job title"
+        },
+        {
+          "name": "PIjqqt",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter email address",
+              "any.only": "Enter email address",
+              "string.empty": "Enter email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "Email address"
+        },
+        {
+          "name": "YeDsms",
+          "options": {
+            "required": false,
+            "autocomplete": "section-copy email",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below "
+        },
+        {
+          "name": "oCVslj",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select location",
+              "any.only": "Select location",
+              "string.empty": "Select location"
+            }
+          },
+          "type": "SelectField",
+          "title": "Location",
+          "list": "iTBoCy",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Check the details before submitting",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Organisation",
+      "name": "uIwkHV",
+      "type": "string",
+      "items": [
+        {
+          "text": "UK Health Security Agency",
+          "value": "UKHSA"
+        },
+        {
+          "text": "Office for Health Improvement and Disparities",
+          "value": "Office for Health Improvement and Disparities (OHID)"
+        },
+        {
+          "text": "NHS England Public Health",
+          "value": "NHS England Public Health"
+        },
+        {
+          "text": "Local Authority Public Health",
+          "value": "Local Authority Public Health"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Preferred contact method",
+      "name": "slVZMW",
+      "type": "string",
+      "items": [
+        {
+          "text": "email",
+          "value": "email"
+        },
+        {
+          "text": "telephone",
+          "value": "telephone"
+        }
+      ]
+    },
+    {
+      "title": "UKHSA Group",
+      "name": "sYQQmN",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "Chief Scientific Officer (CSO)",
+          "value": "Chief Scientific Officer (CSO)"
+        },
+        {
+          "description": "",
+          "text": "Chief Medical Advisor (CMA)",
+          "value": "Chief Medical Advisor (CMA)"
+        },
+        {
+          "description": "",
+          "text": "Chief Data Officer (CDO)",
+          "value": "Chief Data Officer (CDO)"
+        },
+        {
+          "description": "",
+          "text": "Chief Operating Officer (COO)",
+          "value": "Chief Operating Officer (COO)"
+        }
+      ]
+    },
+    {
+      "title": "UKHSA Directorate",
+      "name": "pTYDbB",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "CSO: Public Health Microbiology",
+          "value": "CSO: Public Health Microbiology"
+        },
+        {
+          "description": "",
+          "text": "CSO: Radiation, Chemicals, Climate and Environmental Hazards",
+          "value": "CSO: Radiation, Chemicals, Climate and Environmental Hazards"
+        },
+        {
+          "value": "CSO: Scientific Facilities and Performance",
+          "description": "",
+          "text": "CSO: Scientific Facilities and Performance"
+        },
+        {
+          "value": "CSO: Science Strategy and Evidence",
+          "description": "",
+          "text": "CSO: Science Strategy and Evidence"
+        },
+        {
+          "value": "CMA: Emergency Preparedness, Resilience and Response (EPRR) and Response Operations",
+          "description": "",
+          "text": "CMA: Emergency Preparedness, Resilience and Response (EPRR) and Response Operations"
+        },
+        {
+          "description": "",
+          "text": "CMA: Epidemic and Emerging Infections",
+          "value": "CMA: Epidemic and Emerging Infections"
+        },
+        {
+          "value": "CMA: Global Health Protection",
+          "description": "",
+          "text": "CMA: Global Health Protection"
+        },
+        {
+          "description": "",
+          "value": "CMA: Health Equity and Clinical Governance",
+          "text": "CMA: Health Equity and Clinical Governance"
+        },
+        {
+          "value": "CMA: Health Protection in Regions",
+          "description": "",
+          "text": "CMA: Health Protection in Regions"
+        },
+        {
+          "value": "CMA: Public Health Programmes",
+          "description": "",
+          "text": "CMA: Public Health Programmes"
+        },
+        {
+          "value": "CDO: Analysis and Intelligence Assessment",
+          "description": "",
+          "text": "CDO: Analysis and Intelligence Assessment"
+        },
+        {
+          "value": "CDO: Data Protection, Security and Technology Services",
+          "description": "",
+          "text": "CDO: Data Protection, Security and Technology Services"
+        },
+        {
+          "value": "CDO: Digital and Data",
+          "description": "",
+          "text": "CDO: Digital and Data"
+        },
+        {
+          "value": "CDO: Digital and Technology Transition",
+          "description": "",
+          "text": "CDO: Digital and Technology Transition"
+        },
+        {
+          "value": "COO: Commercial, Vaccines and Countermeasures Delivery",
+          "description": "",
+          "text": "COO: Commercial, Vaccines and Countermeasures Delivery"
+        },
+        {
+          "value": "COO: Communications",
+          "description": "",
+          "text": "COO: Communications"
+        },
+        {
+          "value": "COO: Finance, Performance, Risk and Assurance",
+          "description": "",
+          "text": "COO: Finance, Performance, Risk and Assurance"
+        },
+        {
+          "value": "COO: People and Workplace",
+          "description": "",
+          "text": "COO: People and Workplace"
+        },
+        {
+          "value": "COO: Public Inquiry",
+          "description": "",
+          "text": "COO: Public Inquiry"
+        },
+        {
+          "value": "COO: Strategy and Policy",
+          "description": "",
+          "text": "COO: Strategy and Policy"
+        },
+        {
+          "value": "COO: Transformation",
+          "text": "COO: Transformation"
+        }
+      ]
+    },
+    {
+      "title": "Location",
+      "name": "wrhJNi",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "Chilton",
+          "value": "Chilton"
+        },
+        {
+          "description": "",
+          "text": "Colindale",
+          "value": "Colindale"
+        },
+        {
+          "description": "",
+          "text": "Porton",
+          "value": "Porton"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Enquiry type",
+      "name": "eKfmVf",
+      "type": "string",
+      "items": [
+        {
+          "text": "Literature search",
+          "value": "Literature Searches"
+        },
+        {
+          "text": "Systematic review",
+          "value": "Systematic Reviews"
+        },
+        {
+          "text": "Evidence briefing",
+          "value": "Evidence Briefings"
+        },
+        {
+          "text": "Current awareness alerts",
+          "value": "Current Awareness"
+        },
+        {
+          "text": "General enquiry",
+          "value": "General",
+          "description": "Select this for all other enquiries"
+        }
+      ]
+    },
+    {
+      "title": "Preferred results format",
+      "name": "LgzPJy",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "EndNote (reference management software)",
+          "value": "EndNote (reference management software)"
+        },
+        {
+          "description": "",
+          "text": "Word",
+          "value": "Word"
+        },
+        {
+          "description": "",
+          "text": "Excel",
+          "value": "Excel"
+        },
+        {
+          "description": "",
+          "text": "RIS (file format to import into reference management software)",
+          "value": "RIS (file format to import into reference management software)"
+        },
+        {
+          "description": "",
+          "text": "Regular email alert",
+          "value": "Regular email alert"
+        }
+      ]
+    },
+    {
+      "title": "Priority or strategic objective",
+      "name": "RMetHZ",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "Achieve more equitable outcomes",
+          "value": "Achieve more equitable outcomes"
+        },
+        {
+          "description": "",
+          "text": "Covid-19 response",
+          "value": "Covid-19 response"
+        },
+        {
+          "description": "",
+          "text": "Drive international efforts to strengthen global surveillance and systems",
+          "value": "Drive international efforts to strengthen global surveillance and systems"
+        },
+        {
+          "description": "",
+          "text": "Drive the development of countermeasures",
+          "value": "Drive the development of countermeasures"
+        },
+        {
+          "description": "",
+          "text": "Eliminate Hepatitis C as a public health threat",
+          "value": "Eliminate Hepatitis C as a public health threat"
+        },
+        {
+          "description": "",
+          "text": "Enhance the resilience and scalability of national and local public health systems",
+          "value": "Enhance the resilience and scalability of national and local public health systems"
+        },
+        {
+          "description": "",
+          "text": "Ensure robust response capacity and capability to respond to Chemical, Biological, Radiological and Nuclear (CBRN) incidents",
+          "value": "Ensure robust response capacity and capability to respond to Chemical, Biological, Radiological and Nuclear (CBRN) incidents"
+        },
+        {
+          "description": "",
+          "text": "Reduce the health harm from air pollution",
+          "value": "Reduce the health harm from air pollution"
+        },
+        {
+          "description": "",
+          "text": "Reduce the impact of Antimicrobial Resistance (AMR)",
+          "value": "Reduce the impact of Antimicrobial Resistance (AMR)"
+        },
+        {
+          "description": "",
+          "text": "Reduce vaccine preventable diseases",
+          "value": "Reduce vaccine preventable diseases"
+        },
+        {
+          "description": "",
+          "text": "Strengthen preparedness across UKHSA for all hazards to health",
+          "value": "Strengthen preparedness across UKHSA for all hazards to health"
+        },
+        {
+          "description": "",
+          "text": "Strengthen surveillance of health hazards",
+          "value": "Strengthen surveillance of health hazards"
+        },
+        {
+          "description": "",
+          "text": "Support communities and services to adapt to and respond to climate and environmental change health",
+          "value": "Support communities and services to adapt to and respond to climate and environmental change health"
+        },
+        {
+          "description": "If you select this item, please enter details below.",
+          "text": "OHID priority or objective",
+          "value": "OHID priority or objective - enter details"
+        },
+        {
+          "text": "NHSE Public Health priority or objective",
+          "value": "NHSE Public Health priority or objective",
+          "description": "If you select this item, please enter details below"
+        }
+      ]
+    },
+    {
+      "title": "Lit search type",
+      "name": "aGVTgz",
+      "type": "string",
+      "items": [
+        {
+          "description": "It usually takes the KLS team at least 1 working week to complete this work.",
+          "text": "A list of relevant literature search results in either chronological or author order.",
+          "value": "Search option 1: a list of the relevant results of a literature search, in chronological or author order. Usually takes at least 1 working week."
+        },
+        {
+          "description": "It usually takes the KLS team at least 2 working weeks to complete this request.",
+          "text": "A list of the relevant literature search results, organised or annotated by theme or study type.",
+          "value": "Search option 2: a list of relevant results of a literature search, organised or annotated, by theme or study type. Usually takes at least 2 working weeks."
+        }
+      ]
+    },
+    {
+      "title": "Literature search results purpose",
+      "name": "PxpncX",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "Collaborative project",
+          "value": "Collaborative project"
+        },
+        {
+          "description": "",
+          "text": "Evidence summary",
+          "value": "Evidence summary"
+        },
+        {
+          "description": "",
+          "text": "Guidelines",
+          "value": "Guidelines"
+        },
+        {
+          "description": "",
+          "text": "Incident support",
+          "value": "Incident support"
+        },
+        {
+          "description": "",
+          "text": "Keeping up to date",
+          "value": "Keeping up to date"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        },
+        {
+          "description": "",
+          "text": "Policy and strategy development",
+          "value": "Policy and strategy development"
+        },
+        {
+          "description": "",
+          "text": "Report writing",
+          "value": "Report writing"
+        },
+        {
+          "description": "",
+          "text": "Research and development",
+          "value": "Research and development"
+        },
+        {
+          "description": "",
+          "text": "Service development",
+          "value": "Service development"
+        }
+      ]
+    },
+    {
+      "title": "Type of systematic review",
+      "name": "cZlqVP",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "Systematic review",
+          "value": "Systematic review"
+        },
+        {
+          "description": "",
+          "text": "Rapid review",
+          "value": "Rapid review"
+        },
+        {
+          "description": "",
+          "text": "Scoping review",
+          "value": "Scoping review"
+        },
+        {
+          "description": "",
+          "text": "Mapping review",
+          "value": "Mapping review"
+        },
+        {
+          "text": "Umbrella review",
+          "value": "Umbrella review"
+        },
+        {
+          "description": "",
+          "text": "Unsure/to be confirmed",
+          "value": "Unsure/to be confirmed"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Yes, No, Unsure",
+      "name": "wYJotW",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        },
+        {
+          "text": "Unsure",
+          "value": "Unsure"
+        }
+      ]
+    },
+    {
+      "title": "Publication location",
+      "name": "Zappeq",
+      "type": "string",
+      "items": [
+        {
+          "text": "Peer reviewed journal",
+          "value": "Peer reviewed journal"
+        },
+        {
+          "description": "",
+          "text": "GOV.UK",
+          "value": "GOV.UK"
+        },
+        {
+          "description": "",
+          "text": "Internal only",
+          "value": "Internal only"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Language",
+      "name": "rZyXKL",
+      "type": "string",
+      "items": [
+        {
+          "text": "English language only",
+          "value": "English language only"
+        },
+        {
+          "text": "English and other",
+          "value": "English and other"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Type of information requested",
+      "name": "bROvBS",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "Direction/Guidance",
+          "value": "Direction/Guidance"
+        },
+        {
+          "description": "",
+          "text": "Secondary Evidence",
+          "value": "Secondary Evidence"
+        },
+        {
+          "description": "",
+          "text": "Primary Research",
+          "value": "Primary Research"
+        },
+        {
+          "description": "",
+          "text": "Ongoing Trials and Research",
+          "value": "Ongoing Trials and Research"
+        },
+        {
+          "description": "",
+          "text": "Implementation Support",
+          "value": "Implementation Support"
+        },
+        {
+          "text": "Information for the Public",
+          "value": "Information for the Public"
+        }
+      ]
+    },
+    {
+      "title": "Affiliation",
+      "name": "ULmwPo",
+      "type": "string",
+      "items": [
+        {
+          "text": "UK Health Security Agency",
+          "value": "UKHSA"
+        },
+        {
+          "text": "Office for Health Improvement and Disparities",
+          "value": "Office for Health Improvement and Disparities (OHID)"
+        },
+        {
+          "text": "NHS England Public Health",
+          "value": "NHS England Public Health"
+        },
+        {
+          "text": "Local Authority Public Health",
+          "value": "Local Authority Public Health"
+        }
+      ]
+    },
+    {
+      "title": "Reason for conducting review",
+      "name": "tOKEMX",
+      "type": "string",
+      "items": [
+        {
+          "text": "Evidence gap",
+          "description": "",
+          "value": "Evidence gap"
+        },
+        {
+          "description": "",
+          "text": "Updating previous evidence",
+          "value": "Updating previous evidence"
+        },
+        {
+          "description": "",
+          "text": "Personal interest",
+          "value": "Personal interest"
+        },
+        {
+          "description": "",
+          "text": "UKHSA priority topic",
+          "value": "UKHSA priority topic"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Publication date range",
+      "name": "OGYVAD",
+      "type": "string",
+      "items": [
+        {
+          "text": "last 3 years",
+          "value": "3 years"
+        },
+        {
+          "text": "last 5 years",
+          "value": "5 years"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Evidence briefing criteria",
+      "name": "VPAkeH",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "Strategy, policy or guideline development",
+          "value": "Strategy, policy or guideline development"
+        },
+        {
+          "description": "",
+          "text": "Immediate action to improve or implement services",
+          "value": "Immediate action to improve or implement services"
+        },
+        {
+          "description": "",
+          "text": "To contribute to an organisational priority or strategic objective",
+          "value": "To contribute to an organisational priority or strategic objective"
+        },
+        {
+          "description": "",
+          "text": "Incident response",
+          "value": "Incident response"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Enquiry type LAPH",
+      "name": "AUYYCW",
+      "type": "string",
+      "items": [
+        {
+          "text": "Literature search",
+          "value": "Literature Searches"
+        },
+        {
+          "text": "Current awareness alerts",
+          "value": "Current Awareness"
+        },
+        {
+          "text": "General enquiry",
+          "value": "General",
+          "description": "Select this for all other enquiries"
+        }
+      ]
+    },
+    {
+      "title": "EB purpose list",
+      "name": "GNXXmY",
+      "type": "string",
+      "items": [
+        {
+          "text": "Strategy, policy, or guideline development",
+          "value": "Strategy, policy, or guideline development"
+        },
+        {
+          "text": "Immediate action to improve or implement services",
+          "value": "Immediate action to improve or implement services"
+        },
+        {
+          "text": "Contribution to an organisational priority or strategic objective",
+          "value": "Contribution to an organisational priority or strategic objective"
+        },
+        {
+          "text": "An incident response",
+          "value": "An incident response"
+        }
+      ]
+    },
+    {
+      "title": "Location: LAPH",
+      "name": "iTBoCy",
+      "type": "string",
+      "items": [
+        {
+          "description": "",
+          "text": "North East",
+          "value": "North East"
+        },
+        {
+          "description": "",
+          "text": "North West",
+          "value": "North West"
+        },
+        {
+          "text": "Yorkshire & Humber",
+          "value": "Yorkshire & Humber"
+        },
+        {
+          "text": "East Midlands",
+          "value": "East Midlands"
+        },
+        {
+          "text": "West Midlands",
+          "value": "West Midlands"
+        },
+        {
+          "description": "",
+          "text": "East of England",
+          "value": "East of England"
+        },
+        {
+          "description": "",
+          "text": "London",
+          "value": "London"
+        },
+        {
+          "description": "",
+          "text": "South East",
+          "value": "South East"
+        },
+        {
+          "description": "",
+          "text": "South West",
+          "value": "South West"
+        }
+      ]
+    },
+    {
+      "title": "Yes",
+      "name": "IQAoJu",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        }
+      ]
+    },
+    {
+      "title":"Geographic scope",
+      "name": "zDtSLo",
+      "type": "string",
+      "items": [
+        {
+          "text": "UK only",
+          "value": "UK only"
+        },
+        {
+          "text": "International",
+          "value": "International"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Current awareness alerts options",
+      "name": "gTPicc",
+      "type": "string",
+      "items": [
+        {
+          "text": "Adverse Weather and Health",
+          "value": "Adverse Weather and Health"
+        },
+        {
+          "text": "Antimicrobial Resistance",
+          "value": "Antimicrobial Resistance"
+        },
+        {
+          "text": "Global Public Health Security",
+          "value": "Global Public Health Security"
+        },
+        {
+          "text": "Healthy Ageing",
+          "value": "Healthy Ageing"
+        },
+        {
+          "text": "Infection",
+          "value": "Infection"
+        },
+        {
+          "text": "Long-COVID",
+          "value": "Long-COVID"
+        },
+        {
+          "text": "Mental Health",
+          "value": "Mental Health"
+        },
+        {
+          "text": "Musculoskeletal Health",
+          "value": "Musculoskeletal Health"
+        },
+        {
+          "text": "Nutrition, Diet & Obesity",
+          "value": "Nutrition, Diet & Obesity"
+        },
+        {
+          "text": "Vector Borne Disease",
+          "value": "Vector Borne Disease"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "Other",
+      "name": "BOkxIN",
+      "value": {
+        "name": "Other",
+        "conditions": [
+          {
+            "field": {
+              "name": "ZpmVWP",
+              "type": "RadiosField",
+              "display": "Organisation"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Other",
+              "display": "Other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Not other",
+      "name": "dhBTmP",
+      "value": {
+        "name": "Not other",
+        "conditions": [
+          {
+            "field": {
+              "name": "ZpmVWP",
+              "type": "RadiosField",
+              "display": "Organisation"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "Other",
+              "display": "Other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "General route",
+      "name": "mZdZMC",
+      "value": {
+        "name": "General route",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your query?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "General",
+              "display": "General"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Current awareness route",
+      "name": "OchNDo",
+      "value": {
+        "name": "Current awareness route",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your query?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Current Awareness",
+              "display": "Current awareness alerts"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Literature search",
+      "name": "fNTYcH",
+      "value": {
+        "name": "Literature search",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your query?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Literature Searches",
+              "display": "Literature search"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Evidence briefing",
+      "name": "eiTtgM",
+      "value": {
+        "name": "Evidence briefing",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your query?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Evidence Briefings",
+              "display": "Evidence briefing"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Systematic review",
+      "name": "dCqSKz",
+      "value": {
+        "name": "Systematic review",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your query?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Systematic Reviews",
+              "display": "Systematic review"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Not general or current awareness",
+      "name": "DsFDDA",
+      "value": {
+        "name": "Not general or current awareness",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your query?"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "General",
+              "display": "General"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your query?"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "Current Awareness",
+              "display": "Current awareness alerts"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "LAPH user",
+      "name": "IbKdRK",
+      "value": {
+        "name": "LAPH user",
+        "conditions": [
+          {
+            "field": {
+              "name": "wyvXTj",
+              "type": "RadiosField",
+              "display": "Which organisation do you work for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Local Authority Public Health",
+              "display": "LAPH"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Other user",
+      "name": "CRsuUh",
+      "value": {
+        "name": "Other user",
+        "conditions": [
+          {
+            "field": {
+              "name": "wyvXTj",
+              "type": "RadiosField",
+              "display": "Which organisation do you work for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Other",
+              "display": "Other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "LAPH general enquiry",
+      "name": "lsHzLP",
+      "value": {
+        "name": "LAPH general enquiry",
+        "conditions": [
+          {
+            "field": {
+              "name": "VeQCVM",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry? - LAPH user"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "General",
+              "display": "General"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "LAPH lit search",
+      "name": "lxGNAu",
+      "value": {
+        "name": "LAPH lit search",
+        "conditions": [
+          {
+            "field": {
+              "name": "VeQCVM",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry? - LAPH user"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Literature Searches",
+              "display": "Literature search"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "LAPH current awareness enquiry",
+      "name": "MQeZyE",
+      "value": {
+        "name": "LAPH current awareness enquiry",
+        "conditions": [
+          {
+            "field": {
+              "name": "VeQCVM",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry? - LAPH user"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Current Awareness",
+              "display": "Current awareness alerts"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Lit search 2",
+      "name": "CHaqWw",
+      "value": {
+        "name": "Lit search 2",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Literature Searches",
+              "display": "Literature search"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "VeQCVM",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry? - LAPH user"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Literature Searches",
+              "display": "Literature search"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Not G, EB, CA",
+      "name": "XvwdpX",
+      "value": {
+        "name": "Not G, EB, CA",
+        "conditions": [
+          {
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry?"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "General",
+              "display": "General"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry?"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "Evidence Briefings",
+              "display": "Evidence briefing"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "tUKBgj",
+              "type": "RadiosField",
+              "display": "Which option best matches your enquiry?"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "Current Awareness",
+              "display": "Current awareness alerts"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "UKHSA staff",
+      "name": "EgJCgx",
+      "value": {
+        "name": "UKHSA staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "wyvXTj",
+              "type": "RadiosField",
+              "display": "Which organisation do you work for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "UKHSA",
+              "display": "UKHSA"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "hidePanel": false,
+        "nextSteps": "You will receive an email to confirm that your enquiry has been received. You may need to check your mailbox’s junk folder to retrieve the email."
+      }
+    }
+  },
+  "fees": [],
+  "outputs": [
+    {
+      "name": "eBBQeD",
+      "title": "test-output",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "${KLSwebhook}",
+        "allowRetry": true
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "phaseBanner": {
+    "phase": "beta"
+  },
+  "feedback": {
+    "feedbackForm": true,
+    "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
+  },
+  "jwtKey": "${KLSJwtKey}"
+}

@@ -9,7 +9,7 @@ export default {
     },
     cookieOptions: {
       password: config.sessionCookiePassword || generateCookiePassword(),
-      isSecure: !config.isDev,
+      isSecure: config.httpsCookieSecureAttribute,
       isHttpOnly: true,
       isSameSite: "Lax",
     },

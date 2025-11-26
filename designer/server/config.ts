@@ -22,6 +22,7 @@ export interface Config {
   lastTag: string;
   sessionTimeout: number;
   sessionCookiePassword: string;
+  httpsCookieSecureAttribute: boolean;
   awsCredentials?: CredentialsOptions;
 }
 
@@ -49,6 +50,7 @@ const schema = joi.object({
   lastTag: joi.string().default("undefined"),
   sessionTimeout: joi.number().default(sessionSTimeoutInMilliseconds),
   sessionCookiePassword: joi.string().optional(),
+  httpsCookieSecureAttribute: joi.boolean().optional(),
 });
 
 // Build config
@@ -66,6 +68,7 @@ const config = {
   lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
   sessionTimeout: process.env.SESSION_TIMEOUT,
   sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
+  httpsCookieSecureAttribute: process.env.HTTPS_COOKIE_SECURE_ATTRIBUTE,
 };
 
 // Validate config

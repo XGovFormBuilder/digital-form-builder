@@ -54,6 +54,7 @@ export const configSchema = Joi.object({
   sslCert: Joi.string().optional(),
   sessionTimeout: Joi.number(),
   sessionCookiePassword: Joi.string().optional(),
+  httpsCookieSecureAttribute: Joi.boolean().optional(),
   rateLimit: Joi.boolean().optional(),
   fromEmailAddress: Joi.string().optional().allow(""),
   serviceStartPage: Joi.string().optional().allow(""),

@@ -1,0 +1,988 @@
+{
+    "metadata": {},
+    "startPage": "/start",
+    "confirmationSessionTimeout": 2000,
+    "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
+    "authentication": true,
+    "toggle": true,
+    "analytics": {
+        "gtmId1": "GTM-WLKKLMQB"
+    },
+    "serviceName": "UKHSA Knowledge and Library Services (KLS)",
+    "name": "UKHSA Knowledge and Library Services (KLS)",
+    "magicLinkConfig": "kls-training-magic-link",
+    "webhookHmacSharedKey": "${KLSTrainingKey}",
+    "pages": [
+        {
+            "title": "Contact the Knowledge and Library Services team",
+            "path": "/start",
+            "components": [
+                {
+                    "name": "mainContent",
+                    "options": {},
+                    "type": "Para",
+                    "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/which-organisation-do-you-work-for"
+                }
+            ],
+            "controller": "./pages/start.js"
+        },
+        {
+            "path": "/which-organisation-do-you-work-for",
+            "unauthenticated": true,
+            "title": "Which organisation do you work for?",
+            "components": [
+                {
+                    "name": "ZpmVWP",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select the organisation you work for",
+                            "any.only": "Select the organisation you work for",
+                            "string.empty": "Select the organisation you work for"
+                        }
+                    },
+                    "type": "RadiosField",
+                    "title": "Organisation",
+                    "hint": "The KLS service is available to staff from: UK Health Security Agency, Office for Health Improvement and Disparities, NHS England Public Health, and Local Authority Public Health. \n\nIf you do not belong to one of these organisations you can still contact the KLS team by selecting the 'Other' option to find the team's email address.",
+                    "list": "uIwkHV",
+                    "schema": {},
+                    "values": {
+                        "type": "listRef"
+                    }
+                }
+            ],
+            "next": [
+                {
+                    "path": "/please-contact-us-via-email",
+                    "condition": "BOkxIN"
+                },
+                {
+                    "path": "/magic-link-redirect",
+                    "condition": "dhBTmP"
+                }
+            ]
+        },
+        {
+            "path": "/please-contact-us-via-email",
+            "unauthenticated": true,
+            "title": "Please contact us via email",
+            "components": [
+                {
+                    "name": "ryhwUr",
+                    "options": {},
+                    "type": "Html",
+                    "content": "<p>You are not eligible to use this service, however you can still contact the KLS team via the following email: <strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk\">libraries@kls.ukhsa.gov.uk</a></strong></p>"
+                }
+            ],
+            "next": []
+        },
+        {
+            "path": "/magic-link-redirect",
+            "unauthenticated": true,
+            "controller": "MagicLinkRedirectController",
+            "next": [
+                {
+                    "path": "/training-request-part-1"
+                }
+            ]
+        },
+        {
+            "path": "/training-request-part-1",
+            "title": "Training request part 1",
+            "disableBackLink": true,
+            "components": [
+                {
+                    "name": "sqQXGM",
+                    "options": {},
+                    "type": "Details",
+                    "title": "What types of training sessions are available?",
+                    "content": "<p><strong>1:1 Session:</strong> A personalised session tailored to your individual needs.</p>\n\n\n<p><strong>Small Group Session:</strong> Training for 2–6 participants tailored to the needs of the group.</p>\n\n\n<p><strong>Team Session:</strong> Selecting elements from our core programme this session can be tailored to the needs of the team and will support the team in developing essential information literacy skills. The session can be developed to help the team find reliable and relevant information efficiently, understand and evaluate sources critically and to use information effectively in research and decision making.</p>",
+                    "schema": {}
+                },
+                {
+                    "name": "dQAIPE",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select a training format",
+                            "any.only": "Select a training format",
+                            "string.empty": "Select a training format"
+                        }
+                    },
+                    "type": "RadiosField",
+                    "title": "What training session would you like us to provide?",
+                    "list": "oegZub",
+                    "values": {
+                        "type": "listRef"
+                    },
+                    "schema": {}
+                },
+                {
+                    "name": "WIIAQE",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "number.base": "Enter number of participants",
+                            "number.min": "Number of participants must be greater than 0",
+                            "number.empty": "Enter number of participants"
+                        }
+                    },
+                    "hint": "Enter number of participants",
+                    "type": "NumberField",
+                    "title": "What is the approximate number of participants?",
+                    "schema": {
+                        "min": 1
+                    }
+                },
+                {
+                    "name": "FaHtQr",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select your preferred delivery type",
+                            "any.only": "Select your preferred delivery type",
+                            "string.empty": "Select your preferred delivery typee"
+                        }
+                    },
+                    "type": "RadiosField",
+                    "title": "What is your preferred delivery type?",
+                    "list": "eVlDbd",
+                    "values": {
+                        "type": "listRef"
+                    }
+                },
+                {
+                    "name": "CncFtZ",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If you selected \"In person\", please indicate a region or site"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/training-request-part-2"
+                }
+            ]
+        },
+        {
+            "title": "Enquiry summary",
+            "path": "/summary",
+            "controller": "./pages/summary.js",
+            "components": [
+                {
+                    "name": "PdoDpO",
+                    "options": {},
+                    "type": "Para",
+                    "content": "Please check your details and click the 'Submit' button."
+                }
+            ],
+            "next": []
+        },
+        {
+            "path": "/training-request-part-2",
+            "title": "Training request part 2",
+            "components": [
+                {
+                    "name": "BpuPgW",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select the organisation you belong to",
+                            "any.only": "Select the organisation you belong to",
+                            "string.empty": "Select the organisation you belong to"
+                        }
+                    },
+                    "type": "RadiosField",
+                    "title": "Which organisation do you belong to?",
+                    "list": "UzXxgh"
+                },
+                {
+                    "name": "hMxELK",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select the topics you would like to cover",
+                            "any.only": "Select the topics you would like to cover",
+                            "string.empty": "Select the topics you would like to cover"
+                        }
+                    },
+                    "type": "CheckboxesField",
+                    "title": "What topics would you like to cover?",
+                    "hint": "Select all that apply",
+                    "list": "mwdJGV",
+                    "schema": {}
+                },
+                {
+                    "name": "ftUkbz",
+                    "options": {
+                        "required": false
+                    },
+                    "type": "TextField",
+                    "title": "If you selected ‘Other’, provide further details on the topic you would like to cover"
+                },
+                {
+                    "name": "gpIAot",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Describe your team’s area of specialism and any specific topic you would like the training to focus on",
+                            "any.only": "Describe your team’s area of specialism and any specific topic you would like the training to focus on",
+                            "string.empty": "Describe your team’s area of specialism and any specific topic you would like the training to focus on"
+                        }
+                    },
+                    "type": "MultilineTextField",
+                    "title": "Please let us know your team’s area of specialism and any specific topic you would like the training to focus on. Alternatively, indicate if you would prefer a more generic training session."
+                },
+                {
+                    "name": "ojkYsn",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Enter suggested dates for the session",
+                            "any.only": "Enter suggested dates for the session",
+                            "string.empty": "Enter suggested dates for the session"
+                        }
+                    },
+                    "type": "TextField",
+                    "title": "Suggested dates for the session:"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/about-you",
+                    "condition": "jXoEVp"
+                },
+                {
+                    "path": "/about-you-kyBsdt",
+                    "condition": "bzXkMZ"
+                },
+                {
+                    "path": "/about-you-bHKmvx"
+                }
+            ]
+        },
+        {
+            "path": "/about-you",
+            "title": "About you",
+            "components": [
+                {
+                    "name": "zmJhdG",
+                    "options": {
+                        "required": true,
+                        "autocomplete": "name",
+                        "customValidationMessages": {
+                            "any.required": "Enter full name",
+                            "any.only": "Enter full name",
+                            "string.empty": "Enter full name"
+                        }
+                    },
+                    "type": "TextField",
+                    "title": "Full name"
+                },
+                {
+                    "name": "XpqMGU",
+                    "options": {
+                        "required": true,
+                        "autocomplete": "organization-title",
+                        "customValidationMessages": {
+                            "any.required": "Enter job title",
+                            "any.only": "Enter job title",
+                            "string.empty": "Enter job title"
+                        }
+                    },
+                    "type": "TextField",
+                    "title": "Job title"
+                },
+                {
+                    "name": "UlQfrt",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select the UKHSA group to which you belong",
+                            "any.only": "Select the UKHSA group to which you belong",
+                            "string.empty": "Select the UKHSA group to which you belong"
+                        }
+                    },
+                    "type": "SelectField",
+                    "title": "UKHSA Group",
+                    "list": "TjWRyC",
+                    "values": {
+                        "type": "listRef"
+                    }
+                },
+                {
+                    "name": "DMyqPG",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select the UKHSA directorate to which you belong",
+                            "any.only": "Select the UKHSA directorate to which you belong",
+                            "string.empty": "Select the UKHSA directorate to which you belong"
+                        }
+                    },
+                    "type": "SelectField",
+                    "title": "UKHSA Directorate",
+                    "list": "likBcc",
+                    "values": {
+                        "type": "listRef"
+                    }
+                },
+                {
+                    "name": "QUKKlr",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Select location",
+                            "any.only": "Select location",
+                            "string.empty": "Select location"
+                        }
+                    },
+                    "type": "SelectField",
+                    "title": "Location",
+                    "list": "TqrOXp"
+                },
+                {
+                    "name": "YkNqCD",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
+                    },
+                    "type": "EmailAddressField",
+                    "title": "Email address",
+                    "nameHasError": false
+                },
+                {
+                    "name": "lZOKDY",
+                    "options": {
+                        "required": false,
+                        "autocomplete": "section-copy email",
+                        "customValidationMessages": {
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
+                    },
+                    "type": "EmailAddressField",
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/summary"
+                }
+            ]
+        },
+        {
+            "path": "/about-you-kyBsdt",
+            "title": "About you",
+            "components": [
+                {
+                    "name": "kGNuQf",
+                    "options": {
+                        "required": true,
+                        "autocomplete": "name",
+                        "customValidationMessages": {
+                            "any.required": "Enter full name",
+                            "any.only": "Enter full name",
+                            "string.empty": "Enter full name"
+                        }
+                    },
+                    "type": "TextField",
+                    "title": "Full name"
+                },
+                {
+                    "name": "IqdqPY",
+                    "options": {
+                        "required": true,
+                        "autocomplete": "organization-title",
+                        "customValidationMessages": {
+                            "any.required": "Enter job title",
+                            "any.only": "Enter job title",
+                            "string.empty": "Enter job title"
+                        }
+                    },
+                    "type": "TextField",
+                    "title": "Job title"
+                },
+                {
+                    "name": "YkNqCD",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
+                    },
+                    "type": "EmailAddressField",
+                    "title": "Email address"
+                },
+                {
+                    "name": "AOadZe",
+                    "options": {
+                        "required": false,
+                        "autocomplete": "section-copy email",
+                        "customValidationMessages": {
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
+                    },
+                    "type": "EmailAddressField",
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
+                },
+                {
+                    "name": "GjKMBs",
+                    "options": {
+                        "customValidationMessages": {
+                            "any.required": "Select location",
+                            "any.only": "Select location",
+                            "string.empty": "Select location"
+                        }
+                    },
+                    "type": "SelectField",
+                    "title": "Location",
+                    "list": "WyDhtv"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/summary"
+                }
+            ]
+        },
+        {
+            "path": "/about-you-bHKmvx",
+            "title": "About you",
+            "components": [
+                {
+                    "name": "eRUvFD",
+                    "options": {
+                        "required": true,
+                        "autocomplete": "name",
+                        "customValidationMessages": {
+                            "any.required": "Enter full name",
+                            "any.only": "Enter full name",
+                            "string.empty": "Enter full name"
+                        }
+                    },
+                    "type": "TextField",
+                    "title": "Full name"
+                },
+                {
+                    "name": "fPTkAc",
+                    "options": {
+                        "required": true,
+                        "autocomplete": "organization-title",
+                        "customValidationMessages": {
+                            "any.required": "Enter job title",
+                            "any.only": "Enter job title",
+                            "string.empty": "Enter job title"
+                        }
+                    },
+                    "type": "TextField",
+                    "title": "Job title"
+                },
+                {
+                    "name": "UpNOKZ",
+                    "options": {
+                        "required": true,
+                        "customValidationMessages": {
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
+                    },
+                    "type": "EmailAddressField",
+                    "title": "Email address"
+                },
+                {
+                    "name": "cEhUTE",
+                    "options": {
+                        "required": false,
+                        "autocomplete": "section-copy email",
+                        "customValidationMessages": {
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
+                    },
+                    "type": "EmailAddressField",
+                    "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
+                }
+            ],
+            "next": [
+                {
+                    "path": "/summary"
+                }
+            ]
+        }
+    ],
+    "lists": [
+        {
+            "title": "Training session options",
+            "name": "oegZub",
+            "type": "string",
+            "items": [
+                {
+                    "text": "1:1 session",
+                    "description": "",
+                    "value": "1:1 session"
+                },
+                {
+                    "text": "Small group session ",
+                    "description": "",
+                    "value": "Small group session "
+                },
+                {
+                    "description": "",
+                    "text": "Team session",
+                    "value": "Team session"
+                }
+            ]
+        },
+        {
+            "title": "Delivery type",
+            "name": "eVlDbd",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Online via Teams",
+                    "value": "Online via Teams"
+                },
+                {
+                    "text": "In person",
+                    "description": "",
+                    "value": "In person"
+                }
+            ]
+        },
+        {
+            "title": "Topic list",
+            "name": "mwdJGV",
+            "type": "string",
+            "items": [
+                {
+                    "text": "KLS overview",
+                    "value": "KLS overview"
+                },
+                {
+                    "text": "Literature searching: finding the evidence",
+                    "value": "Literature searching: finding the evidence"
+                },
+                {
+                    "text": "Searching for grey literature",
+                    "value": "Searching for grey literature"
+                },
+                {
+                    "text": "EndNote: an introduction",
+                    "value": "EndNote: an introduction"
+                },
+                {
+                    "text": "EndNote: cite while you write",
+                    "value": "EndNote: cite while you write"
+                },
+                {
+                    "text": "EndNote: collaboration and sharing",
+                    "value": "EndNote: collaboration and sharing"
+                },
+                {
+                    "text": "Accessing resources",
+                    "value": "Accessing resources"
+                },
+                {
+                    "text": "Other",
+                    "value": "Other"
+                }
+            ]
+        },
+        {
+            "title": "user group",
+            "name": "UzXxgh",
+            "type": "string",
+            "items": [
+                {
+                    "text": "UK Health Security Agency",
+                    "value": "UKHSA"
+                },
+                {
+                    "text": "Office for Health Improvement and Disparities",
+                    "value": "OHID"
+                },
+                {
+                    "text": "NHS England Public Health",
+                    "value": "NHSE"
+                },
+                {
+                    "text": "Local Authority Public Health",
+                    "value": "LAPH"
+                }
+            ]
+        },
+        {
+            "title": "user groups",
+            "name": "tlYKzK",
+            "type": "string",
+            "items": [
+                {
+                    "text": "UKHSA",
+                    "value": "UKHSA"
+                },
+                {
+                    "text": "OHID",
+                    "value": "OHID"
+                },
+                {
+                    "text": "NHSE",
+                    "value": "NHSE"
+                },
+                {
+                    "text": "LAPH",
+                    "value": "LAPH"
+                },
+                {
+                    "text": "Other",
+                    "value": "Other"
+                }
+            ]
+        },
+        {
+            "title": "Organisation",
+            "name": "uIwkHV",
+            "type": "string",
+            "items": [
+                {
+                    "text": "UK Health Security Agency",
+                    "value": "UKHSA"
+                },
+                {
+                    "text": "Office for Health Improvement and Disparities",
+                    "value": "Office for Health Improvement and Disparities (OHID)"
+                },
+                {
+                    "text": "NHS England Public Health",
+                    "value": "NHS England Public Health"
+                },
+                {
+                    "text": "Local Authority Public Health",
+                    "value": "Local Authority Public Health"
+                },
+                {
+                    "text": "Other",
+                    "value": "Other"
+                }
+            ]
+        },
+        {
+            "title": "Location: LAPH",
+            "name": "WyDhtv",
+            "type": "string",
+            "items": [
+                {
+                    "text": "North East",
+                    "value": "North East"
+                },
+                {
+                    "text": "North West",
+                    "value": "North West"
+                },
+                {
+                    "text": "Yorkshire & Humber",
+                    "value": "Yorkshire & Humber"
+                },
+                {
+                    "text": "East Midlands",
+                    "value": "East Midlands"
+                },
+                {
+                    "text": "West Midlands",
+                    "value": "West Midlands"
+                },
+                {
+                    "text": "East of England",
+                    "value": "East of England"
+                },
+                {
+                    "text": "London",
+                    "value": "London"
+                },
+                {
+                    "text": "South East",
+                    "value": "South East"
+                },
+                {
+                    "text": "South West",
+                    "value": "South West"
+                }
+            ]
+        },
+        {
+            "title": "UKHSA Group",
+            "name": "TjWRyC",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Chief Scientific Officer (CSO)",
+                    "value": "Chief Scientific Officer (CSO)"
+                },
+                {
+                    "text": "Chief Medical Advisor (CMA)",
+                    "value": "Chief Medical Advisor (CMA)"
+                },
+                {
+                    "text": "Chief Data Officer (CDO)",
+                    "value": "Chief Data Officer (CDO)"
+                },
+                {
+                    "text": "Chief Operating Officer (COO)",
+                    "value": "Chief Operating Officer (COO)"
+                }
+            ]
+        },
+        {
+            "title": "UKHSA Directorate",
+            "name": "likBcc",
+            "type": "string",
+            "items": [
+                {
+                    "text": "CDO: Analysis and Intelligence Assessment",
+                    "value": "CDO: Analysis and Intelligence Assessment"
+                },
+                {
+                    "text": "CDO: Data Protection, Security and Technology Services",
+                    "value": "CDO: Data Protection, Security and Technology Services"
+                },
+                {
+                    "text": "CDO: Digital and Data",
+                    "value": "CDO: Digital and Data"
+                },
+                {
+                    "text": "CDO: Digital and Technology Transition",
+                    "value": "CDO: Digital and Technology Transition"
+                },
+                {
+                    "text": "CMA: Emergency Preparedness, Resilience and Response (EPRR) and Response Operations",
+                    "value": "CMA: Emergency Preparedness, Resilience and Response (EPRR) and Response Operations"
+                },
+                {
+                    "text": "CMA: Epidemic and Emerging Infections",
+                    "value": "CMA: Epidemic and Emerging Infections"
+                },
+                {
+                    "text": "CMA: Global Health Protection",
+                    "value": "CMA: Global Health Protection"
+                },
+                {
+                    "text": "CMA: Health Equity and Clinical Governance",
+                    "value": "CMA: Health Equity and Clinical Governance"
+                },
+                {
+                    "text": "CMA: Health Protection in Regions",
+                    "value": "CMA: Health Protection in Regions"
+                },
+                {
+                    "text": "CMA: Public Health Programmes",
+                    "value": "CMA: Public Health Programmes"
+                },
+                {
+                    "text": "COO: Commercial, Vaccines and Countermeasures Delivery",
+                    "value": "COO: Commercial, Vaccines and Countermeasures Delivery"
+                },
+                {
+                    "text": "COO: Communications",
+                    "value": "COO: Communications"
+                },
+                {
+                    "text": "COO: Finance, Performance, Risk and Assurance",
+                    "value": "COO: Finance, Performance, Risk and Assurance"
+                },
+                {
+                    "text": "COO: People and Workplace",
+                    "value": "COO: People and Workplace"
+                },
+                {
+                    "text": "COO: Public Inquiry",
+                    "value": "COO: Public Inquiry"
+                },
+                {
+                    "text": "COO: Strategy and Policy",
+                    "value": "COO: Strategy and Policy"
+                },
+                {
+                    "text": "COO: Transformation",
+                    "value": "COO: Transformation"
+                },
+                {
+                    "text": "CSO: Public Health Microbiology",
+                    "value": "CSO: Public Health Microbiology"
+                },
+                {
+                    "text": "CSO: Radiation, Chemicals, Climate and Environmental Hazards",
+                    "value": "CSO: Radiation, Chemicals, Climate and Environmental Hazards"
+                },
+                {
+                    "text": "CSO: Science Strategy and Evidence",
+                    "value": "CSO: Science Strategy and Evidence"
+                },
+                {
+                    "text": "CSO: Scientific Facilities and Performance",
+                    "value": "CSO: Scientific Facilities and Performance"
+                }
+            ]
+        },
+        {
+            "title": "Location: UKHSA",
+            "name": "TqrOXp",
+            "type": "string",
+            "items": [
+                {
+                    "text": "Chilton",
+                    "value": "Chilton"
+                },
+                {
+                    "text": "Colindale",
+                    "value": "Colindale"
+                },
+                {
+                    "text": "Porton",
+                    "value": "Porton"
+                },
+                {
+                    "text": "Other",
+                    "value": "Other"
+                }
+            ]
+        }
+    ],
+    "sections": [],
+    "conditions": [
+        {
+            "displayName": "UKHSA path",
+            "name": "jXoEVp",
+            "value": {
+                "name": "UKHSA path",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "BpuPgW",
+                            "type": "RadiosField",
+                            "display": "Which organisation do you belong to?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "UKHSA",
+                            "display": "UKHSA"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "LAPH path",
+            "name": "bzXkMZ",
+            "value": {
+                "name": "LAPH path",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "BpuPgW",
+                            "type": "RadiosField",
+                            "display": "Which organisation do you belong to?"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "LAPH",
+                            "display": "LAPH"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "Other",
+            "name": "BOkxIN",
+            "value": {
+                "name": "Other",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "ZpmVWP",
+                            "type": "RadiosField",
+                            "display": "Organisation"
+                        },
+                        "operator": "is",
+                        "value": {
+                            "type": "Value",
+                            "value": "Other",
+                            "display": "Other"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "displayName": "Not other",
+            "name": "dhBTmP",
+            "value": {
+                "name": "Not other",
+                "conditions": [
+                    {
+                        "field": {
+                            "name": "ZpmVWP",
+                            "type": "RadiosField",
+                            "display": "Organisation"
+                        },
+                        "operator": "is not",
+                        "value": {
+                            "type": "Value",
+                            "value": "Other",
+                            "display": "Other"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "specialPages": {
+      "confirmationPage": {
+        "customText": {
+          "hidePanel": false,
+          "nextSteps": "You will receive an email to confirm that your enquiry has been received. You may need to check your mailbox’s junk folder to retrieve the email."
+      }
+    }
+   },
+    "fees": [],
+    "outputs": [
+        {
+            "name": "eBBQeD",
+            "title": "test-output",
+            "type": "webhook",
+            "outputConfiguration": {
+                "url": "${KLSTrainingWebhook}",
+                "allowRetry": true
+            }
+        }
+    ],
+    "version": 2,
+    "skipSummary": false,
+    "feeOptions": {
+        "allowSubmissionWithoutPayment": true,
+        "maxAttempts": 3,
+        "showPaymentSkippedWarningPage": false
+    },
+    "feedback": {
+        "feedbackForm": true,
+        "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
+    },
+    "jwtKey": "${KLSTrainingJwtKey}"
+}

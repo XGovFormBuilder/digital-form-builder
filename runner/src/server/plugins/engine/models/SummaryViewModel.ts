@@ -214,8 +214,9 @@ export class SummaryViewModel {
             const selectedItem = component.items.filter(
               (i) => i.value === selectedValue
             )[0];
-            if (selectedItem && selectedItem.childrenCollection) {
-              for (const cc of selectedItem.childrenCollection.formItems) {
+            if (selectedItem && selectedItem.conditionallyRevealedComponents) {
+              for (const cc of selectedItem.conditionallyRevealedComponents
+                .formItems) {
                 const cItem = Item(request, cc, sectionState, page, model);
                 items.push(cItem);
               }

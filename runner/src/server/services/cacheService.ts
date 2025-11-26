@@ -128,6 +128,44 @@ export class CacheService {
     }
   }
 
+  async createMagicLinkRecord(
+    email: string,
+    hmac: string,
+    currentTimestamp: string
+  ) {
+    const key = email;
+    const value = {
+      hmac: hmac,
+      active: currentTimestamp,
+    };
+    return this.cache.set(key, value, config.sessionTimeout);
+  }
+
+  async updateMagicLinkRecord(
+    email: string,
+    hmac: string,
+    currentTimestamp: string
+  ) {
+    const key = email;
+
+    const value = {
+      hmac: hmac,
+      active: currentTimestamp,
+    };
+    return this.cache.set(key, value, config.sessionTimeout);
+  }
+
+  async searchForMagicLinkRecord(email: string) {
+    const key = email;
+    const emailCached = await this.cache.get(key);
+    return emailCached ?? null;
+  }
+
+  async deleteMagicLinkRecord(email: string) {
+    const key = email;
+    return await this.cache.drop(key);
+  }
+
   /**
    * The key used to store user session data against.
    * If there are multiple forms on the same runner instance, for example `form-a` and `form-a-feedback` this will prevent CacheService from clearing data from `form-a` if a user gave feedback before they finished `form-a`

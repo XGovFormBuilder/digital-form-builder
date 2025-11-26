@@ -16,7 +16,7 @@ export const configureYarPlugin = (): ServerRegisterPluginObject<yar> => {
             .fill(0)
             .map(() => Math.random().toString(36).charAt(2))
             .join(""),
-        isSecure: config.isProd,
+        isSecure: config.httpsCookieSecureAttribute,
         isHttpOnly: true,
         isSameSite: "Lax",
       },

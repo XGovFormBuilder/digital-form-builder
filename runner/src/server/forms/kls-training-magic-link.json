@@ -1,0 +1,255 @@
+{
+    "metadata": {},
+    "startPage": "/start",
+    "skipSummary": true,
+    "authentication": true,
+    "toggle": true,
+    "analytics": {
+        "gtmId1": "GTM-WLKKLMQB"
+    },
+    "serviceName": "UKHSA Knowledge and Library Services (KLS)",
+    "name": "UKHSA Knowledge and Library Services (KLS)",
+    "toggleRedirect": "/kls-training-request/training-request-part-1",
+    "magicLinkConfig": "kls-training-magic-link",
+    "allowedDomains": [
+        "ukhsa.gov.uk",
+        "dhsc.gov.uk",
+        "nhs.net",
+        "nhs.uk",
+        "gov.uk"
+    ],
+    "invalidDomainRedirect": "/kls-training-magic-link/your-email-is-not-on-our-approved-list",
+    "fullStartPage": "https://gov.uk/guidance/ukhsa-knowledge-and-library-services",
+    "pages": [
+        {
+            "path": "/start",
+            "controller": "MagicLinkStartPageController",
+            "unauthenticated": true
+        },
+        {
+            "title": "Enter your email address",
+            "path": "/email",
+            "unauthenticated": true,
+            "continueButtonText": "Continue",
+            "showContinueButton": true,
+            "backLinkFallback": "/kls-training-request/training-request-part-1",
+            "components": [
+                {
+                    "name": "EmailIntro",
+                    "options": {},
+                    "type": "Para",
+                    "content": "We need to email you a secure link to the service.<br><br>The link expires after 20 minutes.<br>",
+                    "schema": {}
+                },
+                {
+                    "type": "EmailAddressField",
+                    "title": "Enter your email address",
+                    "name": "email",
+                    "options": {
+                        "exposeToContext": true,
+                        "customValidationMessages": {
+                            "any.required": "Enter email address",
+                            "any.only": "Enter email address",
+                            "string.empty": "Enter email address",
+                            "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+                        }
+                    },
+                    "hint": "Only email addresses that end in .gov.uk, nhs.uk, or nhs.net can be accepted."
+                },
+                {
+                    "name": "alert",
+                    "type": "ContentWithState",
+                    "options": {
+                        "exposeToContext": true,
+                        "stateVariable": "minutesRemaining"
+                    },
+                    "content": "{% if minutesRemaining %}<div class='alert'><div class='govuk-warning-text'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><strong class='govuk-warning-text__text'><span class='govuk-visually-hidden'>Warning</span>You must wait {% if minutesRemaining == 1 %}1 minute{% else %}{{ minutesRemaining }} minutes{% endif %} before resubmitting the email</strong></div></div>{% endif %}"
+                },
+                {
+                    "name": "PrivacyNotice",
+                    "options": {},
+                    "type": "Para",
+                    "content": "By continuing, you agree to our <a href='/kls-training-magic-link/privacy' target='_blank'>privacy notice (opens in a new tab)</a>.",
+                    "schema": {}
+                }
+            ],
+            "next": [
+                {
+                    "path": "/submit1"
+                }
+            ]
+        },
+        {
+            "path": "/submit1",
+            "controller": "MagicLinkFirstSubmitPageController"
+        },
+        {
+            "path": "/submit2",
+            "controller": "MagicLinkSecondSubmitPageController"
+        },
+        {
+            "path": "/check-your-email",
+            "title": "Check your email",
+            "unauthenticated": true,
+            "backLinkFallback": "/start",
+            "components": [
+                {
+                    "name": "SentAnotherEmail",
+                    "options": {},
+                    "type": "Para",
+"content": "We’ve sent an email to {{ email }}. <p class=\"govuk-body\">Click the link in the email to continue to access the Knowledge and Library Services form.</p><p>NOTE: You will need to access the link in the same browser you’ve used to initiate this query.</p> <br><br> <h2 class=\"govuk-heading-m\">If you've not received an email</h2><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve not received the email, you can resubmit the email in 5 minutes.</p>",
+                    "schema": {}
+                },
+                {
+                    "name": "alert",
+                    "type": "ContentWithState",
+                    "options": {
+                        "exposeToContext": true,
+                        "stateVariable": "minutesRemaining"
+                    },
+                    "content": "{% if minutesRemaining %}<div class='alert'><div class='govuk-warning-text'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><strong class='govuk-warning-text__text'><span class='govuk-visually-hidden'>Warning</span>You must wait {% if minutesRemaining == 1 %}1 minute{% else %}{{ minutesRemaining }} minutes{% endif %} before resubmitting the email</strong></div></div>{% endif %}"
+                },
+                {
+                    "name": "SentAnotherEmailButton",
+                    "options": {},
+                    "type": "Para",
+                    "content": "<a href='/kls-training-magic-link/submit2' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Send a new email</button></a>",
+                    "schema": {}
+                }
+            ]
+        },
+        {
+            "backLinkFallback": "/kls-training-magic-link",
+            "path": "/your-email-is-not-on-our-approved-list",
+            "title": "Your email is not on our approved list",
+            "unauthenticated": true,
+            "components": [
+                {
+                    "name": "GVrjNV",
+                    "options": {},
+                    "type": "Para",
+                    "content": "We only accept email addresses from organisations eligible to use our services (UKHSA, OHID, Local Authority Public Health teams and NHS England Public Health staff).<br>You can still contact the Knowledge and Library Services team via their email:<br><strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a><strong>",
+                    "schema": {}
+                }
+            ]
+        },
+        {
+            "path": "/resubmit-email",
+            "title": "We've sent you another email",
+            "unauthenticated": true,
+            "backLinkFallback": "/check-your-email",
+            "components": [
+                {
+                    "name": "SentAnotherEmail",
+                    "options": {},
+                    "type": "Para",
+                    "content": "We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to report an access the Knowledge and Library Services. <br><br>",
+                    "schema": {}
+                },
+                {
+                    "name": "NotReceivedEmail",
+                    "options": {},
+                    "type": "Para",
+                    "title": "If you've not received an email",
+                    "content": "<h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/kls-training-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+                    "schema": {}
+                }
+            ],
+            "next": []
+        },
+        {
+            "title": "Summary",
+            "path": "/summary",
+            "controller": "./pages/summary.js",
+            "components": []
+        },
+        {
+            "title": "Thank you for verifying your email",
+            "path": "/email-confirmed",
+            "disableBackLink": true,
+            "components": [
+                {
+                    "name": "EmailConfirmed",
+                    "options": {},
+                    "type": "Para",
+                    "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-training-request/training-request-part-1' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
+                    "schema": {}
+                }
+            ]
+        },
+        {
+            "title": "return",
+            "path": "/return",
+            "controller": "MagicLinkController",
+            "components": []
+        },
+        {
+            "path": "/incorrect-email",
+            "title": "Incorrect email link",
+            "components": [
+                {
+                    "name": "IncorrectEmail",
+                    "options": {},
+                    "type": "Para",
+                    "content": "The email you used does not match the email associated with this link.<br><br><a href='/kls-training-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+                    "schema": {}
+                }
+            ]
+        },
+        {
+            "path": "/expired",
+            "title": "This link has expired",
+            "components": [
+                {
+                    "type": "Para",
+                    "title": "This link has expired",
+                    "content": "<a href='/kls-magic-training-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+                    "name": "blarGGH",
+                    "options": {},
+                    "schema": {}
+                }
+            ]
+        }
+    ],
+    "specialPages": {
+        "confirmationPage": {
+            "customText": {
+                "hidePanel": true,
+                "nextSteps": "<a href='/kls-training-magic-link/check-your-email' class='govuk-back-link'>Back</a><h1 class='govuk-heading-l'>We've sent you another email</h1><p class=\"govuk-body\">We’ve sent another email to {{ email }}. <br><br> Click the link in the email to continue to access the Knowledge and Library Services. </p><h3 class=\"govuk-heading-m\">If you've not received an email</h3><p class=\"govuk-body\">Check your spam or junk folder.<br><br>If you’ve still not received the email in 5 minutes, you need to request a new link.</p><a href='/kls-training-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>"
+            }
+        }
+    },
+    "lists": [],
+    "sections": [],
+    "phaseBanner": {
+        "phase": "beta"
+    },
+    "conditions": [],
+    "fees": [],
+    "outputs": [
+        {
+            "name": "magiclink",
+            "title": "KLS Training MagicLink",
+            "type": "notify",
+            "outputConfiguration": {
+                "apiKey": "${KLSTrainingNotifyApiKey}",
+                "templateId": "${KLSTrainingNotifyTemplateId}",
+                "emailField": "email",
+                "addReferencesToPersonalisation": false,
+                "personalisation": ["email", "hmacSignature", "hmacExpiryTime"],
+                "hmacKey": "${KLSTrainingMagicLinkHmacKey}"
+            }
+        }
+    ],
+    "feedback": {
+        "feedbackForm": true,
+        "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
+    },
+    "version": 2,
+    "feeOptions": {
+        "allowSubmissionWithoutPayment": true,
+        "maxAttempts": 3,
+        "showPaymentSkippedWarningPage": false
+    },
+    "jwtKey": "${KLSTrainingJwtKey}"
+}

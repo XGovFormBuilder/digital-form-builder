@@ -24,6 +24,7 @@ export enum ComponentTypeEnum {
   FlashCard = "FlashCard",
   List = "List",
   ContextComponent = "ContextComponent",
+  ContentWithState = "ContentWithState",
 }
 
 export type ComponentType =
@@ -52,7 +53,8 @@ export type ComponentType =
   | "FlashCard"
   | "List"
   | "WebsiteField"
-  | "ContextComponent";
+  | "ContextComponent"
+  | "ContentWithState";
 
 export type ComponentSubType = "field" | "content";
 
@@ -112,6 +114,7 @@ interface NumberFieldBase {
     min?: number;
     max?: number;
     precision?: number;
+    integer?: boolean;
   };
 }
 
@@ -132,6 +135,9 @@ interface ListFieldBase {
     allowPrePopulationOverwrite?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    summaryTitle?: string;
+    divider?: boolean;
+    finalValue?: string;
   };
   list: string;
   schema: {};
@@ -176,6 +182,9 @@ export interface TextFieldComponent extends TextFieldBase {
 
 export interface EmailAddressFieldComponent extends TextFieldBase {
   type: "EmailAddressField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
 }
 
 export interface NumberFieldComponent extends NumberFieldBase {
@@ -271,6 +280,10 @@ export interface ParaComponent extends ContentFieldBase {
   type: "Para";
 }
 
+export interface ContentWithStateComponent extends ContentFieldBase {
+  type: "ContentWithState";
+}
+
 export interface DetailsComponent extends ContentFieldBase {
   type: "Details";
 }
@@ -345,7 +358,8 @@ export type ComponentDef =
   | UkAddressFieldComponent
   | YesNoFieldComponent
   | WebsiteFieldComponent
-  | ContextComponent;
+  | ContextComponent
+  | ContentWithStateComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -371,7 +385,8 @@ export type ContentComponentsDef =
   | HtmlComponent
   | InsetTextComponent
   | ListComponent
-  | FlashCardComponent;
+  | FlashCardComponent
+  | ContentWithStateComponent;
 
 // Components that render Lists
 export type ListComponentsDef =

@@ -1,0 +1,141 @@
+{
+  "metadata": {},
+  "startPage": "/start",
+  "name": "Report an outbreak",
+  "skipSummary": true,
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Give feedback on Report an outbreak",
+      "components": [
+        {
+          "name": "Feedback",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select how you would describe Report an outbreak"
+            }
+          },
+          "type": "CheckboxesField",
+          "title": "How would you describe Report an outbreak?",
+          "hint": "Select all that apply",
+          "list": "FeedbackOptions"
+        },
+        {
+          "name": "OtherFeedbackTextBox",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter your feedback about any difficulties or highlights you experienced, and how we could improve the service",
+              "string.max": "Your feedback about any difficulties or highlights you experienced, and how we could improve the service, must be 2000 characters or less"
+            }
+          },
+          "type": "MultilineTextField",
+          "schema": {
+            "maxlength": 2000
+          },
+          "title": "Tell us about any difficulties or highlights you experienced, and how we could improve the service.",
+          "hint": "Do not include any personal information here, for example patient or disease details."
+        },
+        {
+          "name": "FeedbackPara",
+          "options": {},
+          "type": "Para",
+          "content": "<label class='govuk-label govuk-label--s'>Can we contact you for feedback?</label><br>We would like to discuss your experience or test new features with you.<br><br>Provide your email address if we can contact you for research. We will store your email address as explained in our <a href='https://www.gov.uk/government/publications/ukhsa-privacy-notice' target='_blank'>UKHSA privacy notice (opens in a new tab)</a><br><br>"
+        },
+        {
+          "name": "FeedbackEmailAddress",
+          "options": {
+            "required": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "title": "Email address for a researcher to contact you",
+          "type": "EmailAddressField"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "feedback-options",
+      "name": "FeedbackOptions",
+      "type": "string",
+      "items": [
+        {
+          "text": "Useful resource",
+          "value": "Useful resource"
+        },
+        {
+          "text": "Easy to understand",
+          "value": "Easy to understand"
+        },
+        {
+          "text": "Easy to complete",
+          "value": "Easy to complete"
+        },
+        {
+          "text": "Quick to complete",
+          "value": "Quick to complete"
+        },
+        {
+          "text": "Some questions were unclear",
+          "value": "Some questions were unclear"
+        },
+        {
+          "text": "Not detailed enough",
+          "value": "Not detailed enough"
+        },
+        {
+          "text": "Too detailed",
+          "value": "Too detailed"
+        },
+        {
+          "text": "Too time consuming",
+          "value": "Too time consuming"
+        },
+        {
+          "text": "Other (specify below)",
+          "value": "Other (specify below)"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "name": "FeedbackForm",
+      "title": "CareOBRA FeedbackForm",
+      "type": "email",
+      "outputConfiguration": {
+        "apiKey": "${notifyApiKey}",
+        "emailAddress": "${feedbackEmail}",
+        "notifyTemplateId": "83d1c036-dfeb-4d5b-b4e3-e8125810c663"
+      }
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "phaseBanner": {
+    "phase": "beta"
+  },
+  "feedback": {
+    "feedbackForm": true,
+    "url": "/feedback"
+  },
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "nextSteps": "<h1 class='govuk-heading-l'>Thank you for completing this survey</h1><p class='govuk-body'>You can now close this page.</p>",
+        "hidePanel": true
+      }
+    }
+  }
+}

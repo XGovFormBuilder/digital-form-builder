@@ -12,9 +12,15 @@ export type Link = Next;
 export interface Page {
   title: string;
   path: string;
+  unauthenticated?: boolean;
+  disableBackLink?: boolean;
   controller: string;
   components?: ComponentDef[];
   section?: string; // the section ID
+  sectionForExitJourneySummaryPages?: string;
+  sectionForMultiSummaryPages?: string;
+  sectionForEndSummaryPages?: string;
+  sidebarContent?: any;
   next?: { path: string; condition?: string }[];
 }
 
@@ -29,6 +35,12 @@ export interface RepeatingFieldPage extends Page {
     customText?: {
       separatePageTitle?: string;
     };
+  };
+}
+export interface CheckpointSummaryPage extends Page {
+  controller: "CheckpointSummaryPageController";
+  options: {
+    customText: any;
   };
 }
 
@@ -75,6 +87,8 @@ export enum OutputType {
 }
 
 export type EmailOutputConfiguration = {
+  apiKey: string;
+  notifyTemplateId: string;
   emailAddress: string;
 };
 
@@ -117,6 +131,9 @@ export type ConfirmationPage = {
     title: string;
     paymentSkipped: Toggleable<string>;
     nextSteps: Toggleable<string>;
+    referenceTitle: string;
+    referenceContent: string;
+    hidePanel?: boolean;
   };
   components: ComponentDef[];
 };
@@ -172,6 +189,13 @@ export type ExitOptions = {
   format?: "STATE" | "WEBHOOK";
 };
 
+export type Analytics = {
+  gtmId1: string;
+  gtmId2: string;
+  matomoId: string;
+  matomoUrl: string;
+};
+
 /**
  * `FormDefinition` is a typescript representation of `Schema`
  */
@@ -181,6 +205,7 @@ export type FormDefinition = {
   lists: List[];
   sections: Section[];
   startPage?: Page["path"] | undefined;
+  authentication?: boolean | undefined;
   name?: string | undefined;
   feedback?: Feedback;
   phaseBanner?: PhaseBanner;
@@ -194,6 +219,17 @@ export type FormDefinition = {
   paymentReferenceFormat?: string;
   feeOptions: FeeOptions;
   exitOptions: ExitOptions;
+  jwtKey?: string | undefined;
+  toggle?: boolean | string | undefined;
+  retryTimeoutSeconds?: number | undefined;
+  magicLinkConfig?: string | undefined;
+  allowedDomains?: string[] | undefined;
+  invalidDomainRedirect?: string | undefined;
+  analytics?: Analytics;
+  webhookHmacSharedKey?: string | undefined;
+  fileUploadHmacSharedKey?: string | undefined;
+  fullStartPage?: string | undefined;
+  serviceName?: string | undefined;
   confirmationSessionTimeout: number | undefined;
   returnTo?: boolean | undefined;
 };

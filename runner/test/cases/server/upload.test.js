@@ -150,7 +150,7 @@ suite("uploads", () => {
 
     const $ = cheerio.load(response.payload);
     expect($("[href='#file1']").text().trim()).to.contain(
-      'The selected files must be a JPG, JPEG, PNG or PDF'
+      "The selected files must be a JPG, JPEG, PNG or PDF"
     );
   });
 

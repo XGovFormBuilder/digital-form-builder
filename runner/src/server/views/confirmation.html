@@ -14,49 +14,66 @@
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    {% set tmpl = 'Your reference number<br><strong>' + reference + '</strong>' if reference else '' %}
-    {% if not customText %}
-      {{ govukPanel({
-        titleText: "Application complete",
-        html: tmpl
-      }) }}
-      {% if paymentSkipped %}
-        <p class="govuk-body">
-          Someone will be in touch to make a payment.
-        </p>
-      {% else %}
-        <p class="govuk-body">
-          You will receive an email with details with the next steps.
-        </p>
-      {% endif %}
-      {% if components.length > 0 %}
-      <h2 class="govuk-heading-m">What happens next</h2>
-      {% endif %}
-    {% else %}
-      {{ govukPanel({
-        titleText: customText.title,
-        html: tmpl
-      }) }}
-      {% if paymentSkipped and customText.paymentSkipped %}
-        <p class="govuk-body">
-          {{ customText.paymentSkipped | safe }}
-        </p>
-      {% else %}
-        {% if customText.nextSteps %}
-          <p class="govuk-body">
-            {{ customText.nextSteps | safe }}
-          </p>
+      {% set tmpl = 'Your reference number<br><strong>' + reference + '</strong>' if reference else '' %}
+        {% if reference %}
+          <p class="govuk-body">Your reference number is: <strong>{{ reference }}</strong></p>
+        {% endif %}
+      {% if not customText.hidePanel %}        <!-- Original panel version -->
+        {% if not customText %}
+          {{ govukPanel({
+            titleText: "Application complete",
+            html: tmpl
+          }) }}
+        {% else %}
+          {{ govukPanel({
+            titleText: customText.title,
+            html: tmpl
+          }) }}
         {% endif %}
       {% endif %}
+      
+      <!-- Common content and conditionals regardless of panel/heading choice -->
+      {% if not customText %}
+        {% if paymentSkipped %}
+          <p class="govuk-body">
+            Someone will be in touch to make a payment.
+          </p>
+        {% else %}
+          <p class="govuk-body">
+            You will receive an email with details with the next steps.
+          </p>
+        {% endif %}
+      {% else %}
+        {% if paymentSkipped and customText.paymentSkipped %}
+          <p class="govuk-body">
+            {{ customText.paymentSkipped | safe }}
+          </p>
+        {% else %}
+          {% if reference and not useNormalHeading %}
+            <h2 class="govuk-heading-m">
+              {{ customText.referenceTitle }}
+            </h2>
+            <p class="govuk-body">
+              Your reference number is: {{ reference }}.
+              {{ customText.referenceContent }}
+            </p>
+          {% endif %}
+          
+          {% if customText.nextSteps %}
+            <p class="govuk-body">
+              {{ customText.nextSteps | safe }}
+            </p>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      
       {% if components.length > 0 %}
         <h2 class="govuk-heading-m">What happens next</h2>
       {% endif %}
-    {% endif %}
-
-    {{ componentList(components) }}
+      
+      {{ componentList(components) }}
     </div>
   </div>
 {% endblock %}

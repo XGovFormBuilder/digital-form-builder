@@ -1,0 +1,159 @@
+{% from "components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "summary-list/macro.njk" import govukSummaryList %}
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">
+          {% if callback and callback.title %}
+            {{ callback.title }}
+          {% else %}
+            {{ pageTitle }}
+          {% endif %}
+        </h1>
+
+        {% if callback and callback.message %}
+          <div class="govuk-inset-text">
+            {{ callback.message }}
+          </div>
+        {% endif %}
+
+        {% if customText.insetText %}
+          <div class="govuk-inset-text">
+            {{ customText.insetText | safe }}
+          </div>
+        {% endif %}
+
+        {% if callback and callback.htmlMessage %}
+          {{ callback.htmlMessage | safe }}
+        {% endif %}
+
+        {% for detail in details %}
+          <div>
+            <h2 class="govuk-heading-m">{{ detail.title }}</h2>
+            <div>
+              {% set rows = [] %}
+              {% for item in detail.items %}
+                {% set changeUrl = item.url %}
+                {% if not item.immutable %}
+                  {% set actions = [{
+                    text: "Change",
+                    href: changeUrl,
+                    visuallyHiddenText: item.label
+                  }] %}
+                {% else %}
+                  {% set actions = [] %}
+                {% endif %}
+                
+                {% set rows = (rows.push({
+                  key: {
+                    text: item.label
+                  },
+                  value: {
+                    text: item.value
+                  },
+                  actions: {
+                    items: actions
+                  }
+                }), rows) %}
+              {% endfor %}
+              
+              {{ govukSummaryList({
+                rows: rows
+              }) }}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for list in summaryLists %}
+          <div>
+            <h2 class="govuk-heading-m">
+              {{list.sectionTitle}}
+            </h2>
+            <div>
+              {{ govukSummaryList(list) }}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% if fees and fees.details|length %}
+          <h2 class="govuk-heading-m">Fees</h2>
+          <ul class="govuk-list govuk-list--bullet">
+            {% for fee in fees.details %}
+              <li>{{ fee.description }}: £{{fee.amount / 100}}</li>
+            {% endfor %}
+          </ul>
+          <p class="govuk-body">Total cost: £{{fees.total / 100 }}</p>
+          <p class="govuk-body">You should not be charged an exchange fee if you pay with a UK credit or debit card.</p>
+        {% endif %}
+
+        {% if customText.endContent %}
+          {{ customText.endContent | safe }}
+        {% endif %}
+
+        {% if not result.error  %}
+            <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
+              <input type="hidden" name="crumb" value="{{crumb}}"/>
+
+                {%if declaration %}
+                <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
+                  {{ declaration | safe  }}
+                  <div class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}">
+                    {% if declarationError %}
+                        <span id="nationality-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> {{declarationError}}
+                        </span>
+                    {% endif %}
+                    <div class="govuk-checkboxes">
+                     <div class="govuk-checkboxes__item">
+                       <input class="govuk-checkboxes__input" id="declaration-1" name="declaration" type="checkbox" value="true">
+                       <label class="govuk-label govuk-checkboxes__label" for="declaration-1">
+                         Confirm
+                       </label>
+                     </div>
+                    </div>
+                  </div>
+                {% endif %}
+
+                <button type="submit" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                    {% if fees and fees.details|length %}
+                        Submit and pay
+                    {% else %}
+                        Confirm and send
+                    {% endif %}
+                </button>
+
+                {% if showPaymentSkippedWarningPage %}
+                <div class="govuk-body">
+                  <button data-prevent-double-click="true" class="govuk-body govuk-button--link" name="skipPayment" value="true" data-module="govuk-button">
+                    Unable to pay online
+                  </button>
+                </div>
+              {% endif %}
+
+            </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const button = document.querySelector('button[data-prevent-double-click="true"]');
+      if (button) {
+        button.addEventListener('click', function (e) {
+          e.preventDefault();
+          button.disabled = true;
+
+          const form = button.closest('form');
+          if (form) {
+            form.submit();
+          }
+        });
+      }
+    });
+  </script>
+
+{% endblock %}

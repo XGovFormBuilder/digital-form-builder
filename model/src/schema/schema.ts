@@ -88,7 +88,7 @@ export const componentSchema = joi
     hint: localisedString.optional(),
     options: joi.object().default({}),
     schema: joi
-      .object({ min: joi.number(), max: joi.number() })
+      .object({ min: joi.number(), max: joi.number(), integer: joi.boolean() })
       .unknown(true)
       .default({}),
     list: joi.string().optional(),
@@ -112,13 +112,20 @@ const nextSchema = joi.object().keys({
 const pageSchema = joi.object().keys({
   path: joi.string().required().disallow("/status"),
   title: localisedString,
+  unauthenticated: joi.boolean().optional(),
   section: joi.string(),
+  sectionForExitJourneySummaryPages: joi.string(),
+  sectionForMultiSummaryPages: joi.string(),
+  sectionForEndSummaryPages: joi.string(),
+  sidebarContent: joi.object().optional(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
+  disableSingleComponentAsHeading: joi.boolean(),
   next: joi.array().items(nextSchema),
   repeatField: joi.string().optional(),
   options: joi.object().optional(),
   backLinkFallback: joi.string().optional(),
+  disableBackLink: joi.bool().optional(),
 });
 
 const startNavigationLinkSchema = joi.object().keys({
@@ -148,6 +155,9 @@ const confirmationPageSchema = joi.object({
       nextSteps: toggleableString.default(
         "You will receive an email with details with the next steps."
       ),
+      referenceTitle: joi.string(),
+      referenceContent: joi.string(),
+      hidePanel: joi.boolean().optional(),
     })
     .default(),
   components: joi.array().items(componentSchema),
@@ -169,6 +179,7 @@ const specialPagesSchema = joi.object().keys({
 const listItemSchema = joi.object().keys({
   text: localisedString,
   value: joi.alternatives().try(joi.number(), joi.string()),
+  checkpointDisplayValue: joi.alternatives().try(joi.number(), joi.string()),
   description: localisedString.optional(),
   conditional: joi
     .object()
@@ -199,6 +210,13 @@ const feeSchema = joi.object().keys({
   prefix: joi.string().optional(),
 });
 
+const analyticsSchema = joi.object().keys({
+  gtmId1: joi.string().allow("").optional(),
+  gtmId2: joi.string().allow("").optional(),
+  matomoId: joi.string().allow("").optional(),
+  matomoUrl: joi.string().uri().allow("").optional(),
+});
+
 const multiApiKeySchema = joi.object({
   test: joi.string().optional(),
   smoke: joi.string().optional(),
@@ -222,10 +240,13 @@ const notifySchema = joi.object().keys({
   addReferencesToPersonalisation: joi.boolean().optional(),
   emailReplyToIdConfiguration: joi.array().items(replyToConfigurationSchema),
   escapeURLs: joi.boolean().default(false),
+  hmacKey: joi.string().optional(),
 });
 
 const emailSchema = joi.object().keys({
+  apiKey: [joi.string().allow("").optional(), multiApiKeySchema],
   emailAddress: joi.string(),
+  notifyTemplateId: joi.string(),
 });
 
 const webhookSchema = joi.object().keys({
@@ -307,6 +328,7 @@ export const Schema = joi
     name: localisedString.optional(),
     feedback: feedbackSchema,
     startPage: joi.string().required(),
+    authentication: joi.boolean().optional(),
     pages: joi
       .array()
       .required()
@@ -325,9 +347,21 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    jwtKey: joi.string().optional(),
     feeOptions: feeOptionSchema,
     exitOptions: exitSchema.optional(),
     showFilenamesOnSummaryPage: joi.boolean().optional(),
+    toggle: joi.alternatives().try(joi.boolean(), joi.string()).optional(),
+    toggleRedirect: joi.string().optional(),
+    retryTimeoutSeconds: joi.number().optional(),
+    magicLinkConfig: joi.string().optional(),
+    allowedDomains: joi.array().items(joi.string()).optional(),
+    invalidDomainRedirect: joi.string().optional(),
+    analytics: analyticsSchema.optional(),
+    webhookHmacSharedKey: joi.string().optional(),
+    fileUploadHmacSharedKey: joi.string().optional(),
+    fullStartPage: joi.string().optional(),
+    serviceName: joi.string().optional(),
     confirmationSessionTimeout: joi.number().optional(),
     returnTo: joi.boolean().optional(),
   });

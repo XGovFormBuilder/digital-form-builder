@@ -46,7 +46,7 @@ export async function handleUpload(
     let response;
     let errors = new Set<any>();
     try {
-      response = await uploadService.uploadDocuments(streams);
+      response = await uploadService.uploadDocuments(streams, request);
     } catch (err) {
       if (err.data?.res) {
         response = uploadService.parsedDocumentUploadResponse(err.data);
@@ -102,14 +102,15 @@ export async function handleUpload(
         loggerIdentifier,
         `Document upload API responded with an error ${error}`
       );
-      errors.add(error)
+      errors.add(error);
     }
 
-    if(errors.size > 0) {
+    if (errors.size > 0) {
       let errorsArray = Array.from(errors);
-      request.pre.errors = [ 
-        ...(h.request.pre.errors || []), 
-        ...errorsArray.map(e => parsedError(fieldName, e)), ];
+      request.pre.errors = [
+        ...(h.request.pre.errors || []),
+        ...errorsArray.map((e) => parsedError(fieldName, e)),
+      ];
     }
   }
 
