@@ -231,4 +231,5 @@ export type FormDefinition = {
   fullStartPage?: string | undefined;
   serviceName?: string | undefined;
   confirmationSessionTimeout: number | undefined;
+  returnTo?: boolean | undefined;
 };
