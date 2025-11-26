@@ -363,6 +363,7 @@ export const Schema = joi
     fullStartPage: joi.string().optional(),
     serviceName: joi.string().optional(),
     confirmationSessionTimeout: joi.number().optional(),
+    returnTo: joi.boolean().optional(),
   });
 
 /**

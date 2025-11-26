@@ -71,6 +71,7 @@ export default {
         assetPath: "/assets",
         cookiesPolicy: request?.state?.cookies_policy,
         serviceName: request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName,
+        returnTo: request?.server?.app?.forms?.[request.params?.id]?.def?.returnTo || false,
         feedbackLink: config.feedbackLink,
         pageTitle: (request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName) + " - GOV.UK",
         analyticsAccount: config.analyticsAccount,
