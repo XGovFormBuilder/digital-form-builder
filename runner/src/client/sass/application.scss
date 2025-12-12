@@ -102,6 +102,12 @@
   }
 }
 
+.govuk-details__text ul {
+  padding-left: inherit;
+   list-style-type: disc; 
+}
+
+
 .govuk-summary-card .govuk-summary-list__actions {
   display: none;
 }

@@ -208,6 +208,11 @@
           "values": {
             "type": "listRef"
           }
+        },
+        {
+          "type": "Details",
+          "title": "Help with infection options",
+          "content": "If you have positive test results for more than one infection type: <ul><li><b> select flu </b> if you have positive tests for flu and also COVID-19 or any other acute respiratory infection</li> <li><b>select COVID-19</b> if you have positive tests for COVID-19 and any other acute respiratory infection that is not flu </li> <li> <b>select any other</b> acute respiratory infection if you have positive tests for acute respiratory infections that are not flu or COVID-19</li></ul>"
         }
       ],
       "next": [
@@ -3201,13 +3206,13 @@
       "name": "InfectionTypes",
       "type": "string",
       "items": [
+                {
+          "text": "Flu",
+          "value": "Flu"
+        },
         {
           "text": "COVID-19",
           "value": "COVID-19"
-        },
-        {
-          "text": "Flu",
-          "value": "Flu"
         },
         {
           "text": "Any other acute respiratory infection",
