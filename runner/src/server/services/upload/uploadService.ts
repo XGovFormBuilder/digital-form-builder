@@ -1,9 +1,10 @@
 import FormData from "form-data";
 
 import config from "../../config";
-import { get, post } from "../httpService";
-import { createHmacRaw } from "../../utils/hmac";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
+import { createHmacRaw } from "../../utils/hmac";
+import { get, post } from "../httpService";
+
 
 type Payload = HapiRequest["payload"];
 type HapiReadableStream = ReadableStream & {
@@ -143,8 +144,12 @@ export class UploadService {
     };
 
     const requestData = { headers, payload: form };
+
+    const documentUploadApiBaseUrl = 
+        model?.def?.documentUploadApiUrl ?? config.documentUploadApiUrl;
+
     const responseData = await post(
-      `${config.documentUploadApiUrl}/v1/files`,
+      `${documentUploadApiBaseUrl}/v1/files`,
       requestData
     );
 

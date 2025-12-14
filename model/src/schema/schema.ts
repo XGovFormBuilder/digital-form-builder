@@ -364,6 +364,7 @@ export const Schema = joi
     serviceName: joi.string().optional(),
     confirmationSessionTimeout: joi.number().optional(),
     returnTo: joi.boolean().optional(),
+    documentUploadApiUrl: joi.string().optional(),
   });
 
 /**
