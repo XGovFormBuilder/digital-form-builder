@@ -131,7 +131,7 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "nextSteps": "<h1 class='govuk-heading-l'>Thank you for submitting feedback</h1><p class='govuk-body'>If you gave us your name and email, we will respond within 5 working days.</p><p class='govuk-body'><a class='govuk-link' href='https://d3vbwknwvcdqog.cloudfront.net/'>Return to the homepage</a></p>",",
+        "nextSteps": "<h1 class='govuk-heading-l'>Thank you for submitting feedback</h1><p class='govuk-body'>If you gave us your name and email, we will respond within 5 working days.</p><p class='govuk-body'><a class='govuk-link' href='https://d3vbwknwvcdqog.cloudfront.net/'>Return to the homepage</a></p>",
         "hidePanel": true
       }
     }
