@@ -10,8 +10,8 @@
   "analytics": {
     "gtmId1": "GTM-WLKKLMQB"
   },
-  "webhookHmacSharedKey": "${KLSkey}",
-  "fileUploadHmacSharedKey": "${KLSFileUploadKey}",
+  "webhookHmacSharedKey": "micolvalue_KLSkey",
+  "fileUploadHmacSharedKey": "micolvalue_KLSFileUploadKey",
   "magicLinkConfig": "kls-magic-link",
   "name": "UKHSA Knowledge and Library Services (KLS)",
   "pages": [
@@ -21,10 +21,10 @@
       "unauthenticated": true,
       "components": [
         {
-          "name": "mainContent",
-          "options": {},
-          "type": "Para",
-          "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+        "name": "mainContent",
+        "options": {},
+        "type": "Para",
+        "content" : "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\"></p><p class=\"govuk-body-m\">You can use this form to submit a training request to Knowledge and Library Services (KLS).</p><p class=\"govuk-body-m\">Staff employed by the following organisations are eligible to request training:</p><ul class=\"govuk-list govuk-list--bullet\"><li>UK Health Security Agency</li><li>Office for Health Improvement and Disparities</li><li>NHS England Public Health teams</li><li>Local Authority Public Health teams</li></ul><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">You will need to verify your email address to access this enquiry form.</p><p class=\"govuk-body-m\">You will be asked a series of questions based on the type of enquiry you are submitting.</p><div class=\"govuk-warning-text\"><span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span><strong class=\"govuk-warning-text__text\"><span class=\"govuk-visually-hidden\">Warning</span> You must complete your enquiry form in the same browser you used to access this page. You must submit each page of the form within 20 minutes, or it will time out.</strong></div><h3 class=\"govuk-heading-m\">Lititure search</h3><p class=\"govuk-body-m\">To request a literature search, you will need to provide:</p><ul class=\"govuk-list govuk-list--bullet\"><li>a focused question</li><li>relevant population or setting, exposure, and outcomes</li><li>publication date range for your results (for example, last 5 years)</li><li>geographic scope for your results (for example, UK only)</li><li>your requested completion date</li><li>information about you including your name, job title, and email addres</li></ul><h3 class=\"govuk-heading-m\">Systematic review</h3><p class=\"govuk-body-m\">To request support with a systematic review, you will need to provide the same information as for a literature search. Additionally, you can add a protocol if you have written one.</p><h3 class=\"govuk-heading-m\">Evidence briefing</h3><p class=\"govuk-body-m\">To request an evidence briefing, you will need to provide the same information as for a literature search. Additionally, you need to specify inclusion and exclusion criteria.</p><h3 class=\"govuk-heading-m\">Current awareness alerts</h3><p class=\"govuk-body-m\">To sign up for current awareness alerts, you will need to:</p><ul class=\"govuk-list govuk-list--bullet\"><li>use tick boxes to select the alerts you want to subscribe to</li><li>provide information about you including your name, job title, and email address</li></ul><h3 class=\"govuk-heading-m\">Other enquiries</h3><p class=\"govuk-body-m\">Use the general enquiry option for anything else, including article requests.</p><h1>TODO: CHANGE TO CORRECT STAT BUTTON</h1><a href=\"/ReportAnOutbreak/hpt-region\" role=\"button\" draggable=\"false\" class=\"govuk-button govuk-button--start\" data-module=\"govuk-button\" id=\"submit\">Start now<svg class=\"govuk-button__start-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"17.5\" height=\"19\" viewBox=\"0 0 33 40\" aria-hidden=\"true\" focusable=\"false\"><path fill=\"currentColor\" d=\"M0 0h13l20 20-20 20H0l20-20z\"></path></svg></a>"
         }
       ],
       "next": [
@@ -2550,5 +2550,5 @@
     "feedbackForm": true,
     "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
   },
-  "jwtKey": "${KLSJwtKey}"
+  "jwtKey": "miolvalue_kls_enquiry_KLSJwtKey"
 }
