@@ -10,8 +10,8 @@
   "analytics": {
     "gtmId1": "GTM-WLKKLMQB"
   },
-  "webhookHmacSharedKey": "${KLSTrainingKey}",
-  "fileUploadHmacSharedKey":"${KLSFileUploadKey}",
+  "webhookHmacSharedKey": "${KLSkey}",
+  "fileUploadHmacSharedKey": "${KLSFileUploadKey}",
   "magicLinkConfig": "kls-magic-link",
   "name": "UKHSA Knowledge and Library Services (KLS)",
   "pages": [
