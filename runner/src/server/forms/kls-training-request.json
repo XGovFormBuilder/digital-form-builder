@@ -12,7 +12,7 @@
     "serviceName": "UKHSA Knowledge and Library Services (KLS)",
     "name": "UKHSA Knowledge and Library Services (KLS)",
     "magicLinkConfig": "kls-training-magic-link",
-    "webhookHmacSharedKey": "micolvalue_KLSkey",
+    "webhookHmacSharedKey": "${KLSTrainingKey}",
     "pages": [
         {
             "title": "Contact the Knowledge and Library Services team",
