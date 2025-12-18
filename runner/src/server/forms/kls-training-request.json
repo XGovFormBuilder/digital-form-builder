@@ -12,20 +12,20 @@
     "serviceName": "UKHSA Knowledge and Library Services (KLS)",
     "name": "UKHSA Knowledge and Library Services (KLS)",
     "magicLinkConfig": "kls-training-magic-link",
-    "webhookHmacSharedKey": "${KLSTrainingKey}",
+    "webhookHmacSharedKey": "micolvalue_KLSkey",
     "pages": [
         {
             "title": "Contact the Knowledge and Library Services team",
             "path": "/start",
             "components": [
                 {
-                    "name": "mainContent",
-                    "options": {},
-                    "type": "Para",
-                    "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+                "name": "mainContent",
+                "options": {},
+                "type": "Para",
+                "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\"></p><p class=\"govuk-body-m\">You can use this form to submit a training request to Knowledge and Library Services (KLS).</p><p class=\"govuk-body-m\">Staff employed by the following organisations are eligible to request training:</p><ul class=\"govuk-list govuk-list--bullet\"><li>UK Health Security Agency</li><li>Office for Health Improvement and Disparities</li><li>NHS England Public Health teams</li><li>Local Authority Public Health teams</li></ul><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">You will need to verify your email address to access this enquiry form.</p><p class=\"govuk-body-m\">You will be asked a series of questions about the type of training session you are interested in, including:</p><ul class=\"govuk-list govuk-list--bullet\"><li>number of participants</li><li>online or in person</li><li>your team’s area of specialism</li><li>preferred dates</li><li>information about you including your name, job title, and email address</li></ul><div class=\"govuk-warning-text\"><span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span><strong class=\"govuk-warning-text__text\"><span class=\"govuk-visually-hidden\">Warning</span>You must complete your enquiry form in the same browser you used to access this page. You must submit each page of the form within 20 minutes, or it will time out.</strong></div>"
                 }
             ],
-            "next": [
+            "next" : [
                 {
                     "path": "/which-organisation-do-you-work-for"
                 }
