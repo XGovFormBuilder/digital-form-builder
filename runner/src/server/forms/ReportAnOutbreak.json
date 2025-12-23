@@ -3707,6 +3707,20 @@
               "value": "London HPT",
               "display": "London"
             }
+          },
+                    {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "East Midlands HPT",
+              "display": "East Midlands"
+            }
           }
         ]
       }
