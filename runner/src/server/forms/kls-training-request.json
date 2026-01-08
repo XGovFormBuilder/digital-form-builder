@@ -15,7 +15,7 @@
     "webhookHmacSharedKey": "${KLSTrainingKey}",
     "pages": [
         {
-            "title": "Request training from Knowledge and Library Service",
+            "title": "Request training from Knowledge and Library Services",
             "path": "/start",
             "components": [
                 {
