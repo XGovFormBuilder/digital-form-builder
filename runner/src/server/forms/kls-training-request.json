@@ -15,7 +15,7 @@
     "webhookHmacSharedKey": "${KLSTrainingKey}",
     "pages": [
         {
-            "title": "Contact the Knowledge and Library Services team",
+            "title": " MICOL -- Contact the Knowledge and Library Services team",
             "path": "/start",
             "components": [
                 {
