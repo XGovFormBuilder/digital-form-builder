@@ -4,7 +4,7 @@
   "fullStartPage": "/close-contact-feedback",
   "pages": [
     {
-      "title": "Give feedback on Surge Response Service",
+      "title": "Give feedback on contact tracing",
       "path": "/feedback",
       "components": [
         {
@@ -122,13 +122,16 @@
     "maxAttempts": 3,
     "showPaymentSkippedWarningPage": false
   },
-  "name": "Surge Response Service feedback",
-  "feedback": { "feedbackForm": true, "url": "" },
+  "name": "Contact tracing feedback",
+  "feedback": {
+    "feedbackForm": false,
+    "url": "/close-contact-feedback"
+  },
   "phaseBanner": {},
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "nextSteps": "<h1 class='govuk-heading-l'>Thank you for submitting feedback</h1><p class='govuk-body'>If you gave us your name and email, we will respond within 5 working days.</p><p class='govuk-body'><a class='govuk-link' href='#'>Return to the homepage</a></p>",
+        "nextSteps": "<h1 class='govuk-heading-l'>Thank you for submitting feedback</h1><p class='govuk-body'>If you gave us your name and email, we will respond within 5 working days.</p><p class='govuk-body'><a class='govuk-link' href='https://d3vbwknwvcdqog.cloudfront.net/'>Return to the homepage</a></p>",
         "hidePanel": true
       }
     }

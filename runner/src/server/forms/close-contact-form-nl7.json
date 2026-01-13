@@ -2,7 +2,7 @@
   "metadata": {},
   "startPage": "/start",
   "fullStartPage": "start",
-  "name": "Close contact form",
+  "name": "Contract tracing",
   "pages": [
     {
       "title": "Tell us about people you've been in close contact with",
@@ -76,7 +76,7 @@
           "name": "jmslVl",
           "options": {},
           "type": "Para",
-          "content": "If you need help to complete this form, contact <a href=\"#\">111</a>.",
+          "content": "If you need help to complete this form, contact <a href=\"tel:111\">111</a>.",
           "schema": {}
         },
         {
