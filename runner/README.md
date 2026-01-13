@@ -35,7 +35,7 @@ Install dependencies
 
 You are now ready to start.
 
-`$ yarn run dev`
+`$ yarn runner dev`
 
 Open your browser at
 
