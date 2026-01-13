@@ -4,7 +4,7 @@
   "fullStartPage": "/close-contact-feedback",
   "pages": [
     {
-      "title": "Give feedback on Surge Response Service",
+      "title": "Give feedback on contact tracing",
       "path": "/feedback",
       "components": [
         {
@@ -122,7 +122,7 @@
     "maxAttempts": 3,
     "showPaymentSkippedWarningPage": false
   },
-  "name": "Surge Response Service feedback",
+  "name": "Contact tracing feedback",
   "feedback": {
     "feedbackForm": false,
     "url": "/close-contact-feedback"
