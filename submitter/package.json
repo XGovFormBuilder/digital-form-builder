@@ -20,7 +20,7 @@
     "test-cov": "jest --coverage"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "dependencies": {
     "@hapi/hapi": "^21.3.2",
