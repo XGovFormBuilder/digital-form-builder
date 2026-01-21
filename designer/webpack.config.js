@@ -6,7 +6,6 @@ const CopyPlugin = require("copy-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-const autoprefixer = require("autoprefixer");
 
 const devMode = process.env.NODE_ENV !== "production";
 const prodMode = process.env.NODE_ENV === "production";
@@ -28,21 +27,20 @@ const client = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname, "../node_modules")],
-  },
-  node: {
-    __dirname: false,
+    mainFiles: ["index"],
   },
   devtool: "eval-cheap-module-source-map",
   module: {
     rules: [
       {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false,
+        },
+      },
+      {
         test: /\.(js|jsx|tsx|ts)$/,
-        exclude: [
-          {
-            test: /node_modules/,
-            exclude: /pino/,
-          },
-        ],
+        exclude: /node_modules\/(?!pino)/,
         loader: "babel-loader",
       },
       {
@@ -51,8 +49,6 @@ const client = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              hmr: devMode,
-              reloadAll: true,
               publicPath: "../../",
             },
           },
@@ -75,16 +71,16 @@ const client = {
       },
       {
         test: /\.(png|svg|jpg|gif|ico)$/,
-        loader: "file-loader",
-        options: {
-          name: "assets/images/[name].[ext]",
+        type: "asset/resource",
+        generator: {
+          filename: "assets/images/[name][ext]",
         },
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        loader: "file-loader",
-        options: {
-          name: "assets/fonts/[name].[ext]",
+        type: "asset/resource",
+        generator: {
+          filename: "assets/fonts/[name][ext]",
         },
       },
     ],
@@ -137,9 +133,7 @@ const server = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname, "../node_modules")],
-  },
-  node: {
-    __dirname: false,
+    mainFiles: ["index"],
   },
   watchOptions: {
     poll: 1000, // enable polling since fsevents are not supported in docker

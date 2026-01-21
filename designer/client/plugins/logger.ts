@@ -1,5 +1,5 @@
 import pino from "pino";
-const logLevel = process.env.REACT_LOG_LEVEL;
+const logLevel = REACT_LOG_LEVEL || "info";
 
 export default pino({
   name: "designer",
