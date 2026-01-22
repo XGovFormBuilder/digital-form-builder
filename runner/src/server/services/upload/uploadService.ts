@@ -5,7 +5,6 @@ import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
 import { createHmacRaw } from "../../utils/hmac";
 import { get, post } from "../httpService";
 
-
 type Payload = HapiRequest["payload"];
 type HapiReadableStream = ReadableStream & {
   hapi: {
@@ -112,6 +111,16 @@ export class UploadService {
   }
 
   async uploadDocuments(streams: any[], request: HapiRequest) {
+    const form = this.buildFormData(streams);
+    const uploadUrl = this.getUploadUrl(request);
+    const requestData = await this.buildUploadRequest(form, request);
+
+    const responseData = await post(uploadUrl, requestData);
+
+    return this.parsedDocumentUploadResponse(responseData);
+  }
+
+  private buildFormData(streams: any[]): FormData {
     const form = new FormData();
     for (const stream of streams) {
       form.append("files", stream, {
@@ -119,7 +128,39 @@ export class UploadService {
         contentType: stream.hapi.headers["content-type"],
       });
     }
+    return form;
+  }
 
+  private getUploadUrl(request: HapiRequest): string {
+    const id = request.params?.id;
+    const forms = request.server?.app?.forms;
+    const model = id && forms?.[id];
+    const resourceEndpoint = "v1/files";
+
+    const baseUrl =
+      model?.def?.documentUploadApiUrl ?? config.documentUploadApiUrl;
+
+    this.validateUploadUrl(baseUrl);
+
+    // TODO: I didn't want to introduce a breaking change, but maybe the versioning should be handled differently
+    return `${baseUrl}/${resourceEndpoint}`;
+  }
+
+  private validateUploadUrl(
+    baseUrl: string | undefined
+  ): asserts baseUrl is string {
+    if (!baseUrl) {
+      throw new Error(
+        "Document upload API URL is not configured. Please set documentUploadApiUrl in config or model definition."
+      );
+    }
+
+    if (typeof baseUrl !== "string" || baseUrl.trim() === "") {
+      throw new Error("Document upload API URL must be a non-empty string.");
+    }
+  }
+
+  private async buildUploadRequest(form: FormData, request: HapiRequest) {
     const formHeaders = form.getHeaders();
 
     const id = request.params?.id;
@@ -132,28 +173,16 @@ export class UploadService {
       hmacKey
     );
 
-    const customSecurityHeaders = {
+    const securityHeaders = {
       "X-Request-ID": request.yar.id.toString(),
       "X-HMAC-Signature": hmacSignature.toString(),
       "X-HMAC-Time": requestTime.toString(),
     };
 
-    const headers = {
-      ...formHeaders,
-      ...customSecurityHeaders,
+    return {
+      headers: { ...formHeaders, ...securityHeaders },
+      payload: form,
     };
-
-    const requestData = { headers, payload: form };
-
-    const documentUploadApiBaseUrl = 
-        model?.def?.documentUploadApiUrl ?? config.documentUploadApiUrl;
-
-    const responseData = await post(
-      `${documentUploadApiBaseUrl}/v1/files`,
-      requestData
-    );
-
-    return this.parsedDocumentUploadResponse(responseData);
   }
 
   parsedDocumentUploadResponse({ res, payload }) {
@@ -172,6 +201,7 @@ export class UploadService {
 
     let error: string | undefined;
     let location: string | undefined;
+
     switch (res.statusCode) {
       case 201:
         location = res.headers.location;
@@ -233,7 +263,7 @@ export class UploadService {
     // Fallback: allow .msg files with 'application/octet-stream'
     if (!isValid && filename?.endsWith(".msg")) {
       this.logger.warn("UPLOAD_WARNING", {
-        reason: "RIS file had generic content type",
+        reason: "MSG file had generic content type",
         filename,
         contentType,
       });
