@@ -232,5 +232,5 @@ export type FormDefinition = {
   serviceName?: string | undefined;
   confirmationSessionTimeout: number | undefined;
   returnTo?: boolean | undefined;
-  documentUploadApiUrl?: string | undefined,
+  documentUploadApiUrl?: string | undefined;
 };
