@@ -30,7 +30,6 @@ import {
   PayService,
   StatusService,
   UploadService,
-  MockUploadService,
   WebhookService,
   ExitService,
 } from "./services";
@@ -114,14 +113,8 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     AddressService,
     ExitService,
+    UploadService,
   ]);
-  if (!config.documentUploadApiUrl) {
-    server.registerService([
-      Schmervice.withName("uploadService", MockUploadService),
-    ]);
-  } else {
-    server.registerService([UploadService]);
-  }
 
   if (config.enableQueueService) {
     const queueType = config.queueType;
