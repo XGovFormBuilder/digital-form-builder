@@ -11,6 +11,7 @@
   },
   "webhookHmacSharedKey": "${KLSkey}",
   "fileUploadHmacSharedKey": "${KLSFileUploadKey}",
+  "documentUploadApiUrl": "${KLSUploadAPILink}",
   "magicLinkConfig": "kls-magic-link",
   "name": "UKHSA Knowledge and Library Services (KLS)",
   "pages": [
@@ -20,10 +21,10 @@
       "unauthenticated": true,
       "components": [
         {
-            "name": "mainContent",
-            "options": {},
-            "type": "Para",
-            "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
+          "name": "mainContent",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-body-m\">If you have recently submitted an enquiry using this form, please ensure you clear your cookies before starting a new enquiry.</p>"
         }
       ],
       "next": [
@@ -106,7 +107,7 @@
         {
           "name": "WWpyux",
           "options": {
-            "autocomplete":"name"
+            "autocomplete": "name"
           },
           "type": "TextField",
           "title": "Full name",
@@ -176,7 +177,7 @@
         {
           "name": "tUKBgj",
           "options": {
-            "customValidationMessages":{
+            "customValidationMessages": {
               "any.required": "Select the option that best matches your enquiry",
               "any.only": "Select the option that best matches your enquiry",
               "string.empty": "Select the option that best matches your enquiry"
@@ -233,18 +234,16 @@
           "schema": {}
         },
         {
-               "name":"bYWcrH",
-               "options":{
-                  "multiple": true,
-                  "required": false,
-                  "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
-                    },
-               "type":"FileUploadField",
-               "title":"If you need to upload a file to help us deal with your enquiry, do so here.",
-               "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window."
-            }
-            
-
+          "name": "bYWcrH",
+          "options": {
+            "multiple": true,
+            "required": false,
+            "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
+          },
+          "type": "FileUploadField",
+          "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
+          "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window."
+        }
       ],
       "next": [
         {
@@ -321,7 +320,7 @@
         {
           "name": "LuoKqU",
           "options": {
-              "customValidationMessages": {
+            "customValidationMessages": {
               "any.required": "Provide your focused question",
               "any.only": "Provide your focused question",
               "string.empty": "Provide your focused question"
@@ -808,18 +807,18 @@
           "title": "Enquiry title",
           "schema": {}
         },
-{
-  "name": "FIvjTg",
-  "type": "FileUploadField",
-  "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
-  "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window.",
-  "schema": {},
-  "options": {
-    "multiple": true,
-    "required": false,
-    "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
-  }
-}
+        {
+          "name": "FIvjTg",
+          "type": "FileUploadField",
+          "title": "If you need to upload a file to help us deal with your enquiry, do so here.",
+          "hint": "You can upload up to 10 files but the combined size must not exceed 4.95 megabytes. To remove uploaded files, click 'Choose Files' again, select nothing and close the window.",
+          "schema": {},
+          "options": {
+            "multiple": true,
+            "required": false,
+            "accept": "image/png,image/jpeg,image/gif,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel.sheet.macroEnabled.12,text/csv,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/rtf,text/rtf,application/msword,application/x-research-info-systems,text/plain,application/vnd.ms-outlook,application/vnd.openxmlformats-officedocument.presentationml.presentation,.ris,application/vnd.ms-excel,.msg"
+          }
+        }
       ],
       "next": [
         {
@@ -843,7 +842,7 @@
         {
           "name": "wyvXTj",
           "options": {
-              "customValidationMessages": {
+            "customValidationMessages": {
               "any.required": "Select the organisation you work for",
               "any.only": "Select the organisation you work for",
               "string.empty": "Select the organisation you work for"
@@ -888,7 +887,7 @@
         {
           "name": "VeQCVM",
           "options": {
-            "customValidationMessages":{
+            "customValidationMessages": {
               "any.required": "Select the option that best matches your enquiry",
               "any.only": "Select the option that best matches your enquiry",
               "string.empty": "Select the option that best matches your enquiry"
@@ -2041,7 +2040,7 @@
       ]
     },
     {
-      "title":"Geographic scope",
+      "title": "Geographic scope",
       "name": "zDtSLo",
       "type": "string",
       "items": [

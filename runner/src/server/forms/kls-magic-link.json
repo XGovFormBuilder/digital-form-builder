@@ -9,7 +9,13 @@
     "gtmId1": "GTM-WLKKLMQB"
   },
   "magicLinkConfig": "kls-magic-link",
-  "allowedDomains": ["ukhsa.gov.uk", "dhsc.gov.uk", "nhs.net", "nhs.uk", "gov.uk"],
+  "allowedDomains": [
+    "ukhsa.gov.uk",
+    "dhsc.gov.uk",
+    "nhs.net",
+    "nhs.uk",
+    "gov.uk"
+  ],
   "invalidDomainRedirect": "/kls-magic-link/your-email-is-not-on-our-approved-list",
   "serviceName": "UKHSA Knowledge and Library Services (KLS)",
   "name": "UKHSA Knowledge and Library Services (KLS)",
@@ -124,12 +130,10 @@
           "content": "We only accept email addresses from organisations eligible to use our services (UKHSA, OHID, Local Authority Public Health teams and NHS England Public Health staff).<br>You can still contact the Knowledge and Library Services team via their email:<br><strong><a href=\"mailto:libraries@kls.ukhsa.gov.uk \">libraries@kls.ukhsa.gov.uk</a><strong>",
           "schema": {}
         }
-              ]
-
-            },
+      ]
+    },
 
     {
-
       "path": "/resubmit-email",
       "title": "We've sent you another email",
       "unauthenticated": true,
