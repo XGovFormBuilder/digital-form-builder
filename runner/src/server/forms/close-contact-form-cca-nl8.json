@@ -2,7 +2,7 @@
   "metadata": {},
   "startPage": "/start",
   "fullStartPage": "start",
-  "name": "Close contact form CCA",
+  "name": "Contract tracing CCA",
   "pages": [
     {
       "title": "Record close contact details for a member of the public",
@@ -76,7 +76,7 @@
           "name": "jmslVl",
           "options": {},
           "type": "Para",
-          "content": "If you need help completing this form, contact <a href=\"#\">111</a>.",
+          "content": "If you need help completing this form, contact <a href=\"tel:111\">111</a>.",
           "schema": {}
         },
         {

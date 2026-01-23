@@ -1,5 +1,6 @@
 {
   "startPage": "/start",
+  "returnTo": true,
   "skipSummary": true,
   "authentication": true,
   "toggle": true,

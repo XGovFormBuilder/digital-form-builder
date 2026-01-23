@@ -1,5 +1,6 @@
 {
   "metadata": {},
+  "returnTo": true,
   "startPage": "/start",
   "skipSummary": true,
   "authentication": true,
