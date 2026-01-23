@@ -135,7 +135,6 @@ export class UploadService {
     const id = request.params?.id;
     const forms = request.server?.app?.forms;
     const model = id && forms?.[id];
-    const resourceEndpoint = "v1/files";
 
     const baseUrl =
       model?.def?.documentUploadApiUrl ?? config.documentUploadApiUrl;
@@ -143,7 +142,7 @@ export class UploadService {
     this.validateUploadUrl(baseUrl);
 
     // TODO: I didn't want to introduce a breaking change, but maybe the versioning should be handled differently
-    return `${baseUrl}/${resourceEndpoint}`;
+    return `${baseUrl}`;
   }
 
   private validateUploadUrl(
