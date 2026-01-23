@@ -1,8 +1,9 @@
 import FormData from "form-data";
 
 import config from "../../config";
-import { get, post } from "../httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
+import { createHmacRaw } from "../../utils/hmac";
+import { get, post } from "../httpService";
 
 type Payload = HapiRequest["payload"];
 type HapiReadableStream = ReadableStream & {
@@ -26,10 +27,10 @@ const parsedError = (key: string, error?: string) => {
 };
 
 const ERRORS = {
-  fileSizeError: 'The selected files are too large',
+  fileSizeError: "The selected files are too large",
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
-  fileCountError: 'You have selected too many files',
-  virusError: 'The selected files contain a virus',
+  fileCountError: "You have selected too many files",
+  virusError: "The selected files contain a virus",
   default: "There was an error uploading your file",
 };
 
@@ -55,7 +56,7 @@ export class UploadService {
 
     const namesSet = new Set(acceptedTypeNames);
     acceptedTypeNames = Array.from(namesSet);
-    
+
     const acceptedTypesNameWithoutLast = acceptedTypeNames
       .slice(0, -1)
       .join(", ");
@@ -109,7 +110,17 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(streams: any[]) {
+  async uploadDocuments(streams: any[], request: HapiRequest) {
+    const form = this.buildFormData(streams);
+    const uploadUrl = this.getUploadUrl(request);
+    const requestData = await this.buildUploadRequest(form, request);
+
+    const responseData = await post(uploadUrl, requestData);
+
+    return this.parsedDocumentUploadResponse(responseData);
+  }
+
+  private buildFormData(streams: any[]): FormData {
     const form = new FormData();
     for (const stream of streams) {
       form.append("files", stream, {
@@ -117,14 +128,61 @@ export class UploadService {
         contentType: stream.hapi.headers["content-type"],
       });
     }
+    return form;
+  }
 
-    const requestData = { headers: form.getHeaders(), payload: form };
-    const responseData = await post(
-      `${config.documentUploadApiUrl}/v1/files`,
-      requestData
+  private getUploadUrl(request: HapiRequest): string {
+    const id = request.params?.id;
+    const forms = request.server?.app?.forms;
+    const model = id && forms?.[id];
+    const resourceEndpoint = "v1/files";
+
+    const baseUrl =
+      model?.def?.documentUploadApiUrl ?? config.documentUploadApiUrl;
+
+    this.validateUploadUrl(baseUrl);
+
+    // TODO: I didn't want to introduce a breaking change, but maybe the versioning should be handled differently
+    return `${baseUrl}/${resourceEndpoint}`;
+  }
+
+  private validateUploadUrl(
+    baseUrl: string | undefined
+  ): asserts baseUrl is string {
+    if (!baseUrl) {
+      throw new Error(
+        "Document upload API URL is not configured. Please set documentUploadApiUrl in config or model definition."
+      );
+    }
+
+    if (typeof baseUrl !== "string" || baseUrl.trim() === "") {
+      throw new Error("Document upload API URL must be a non-empty string.");
+    }
+  }
+
+  private async buildUploadRequest(form: FormData, request: HapiRequest) {
+    const formHeaders = form.getHeaders();
+
+    const id = request.params?.id;
+    const forms = request.server?.app?.forms;
+    const model = id && forms?.[id];
+    const hmacKey = model?.def?.fileUploadHmacSharedKey;
+
+    const [hmacSignature, requestTime] = await createHmacRaw(
+      request.yar.id,
+      hmacKey
     );
 
-    return this.parsedDocumentUploadResponse(responseData);
+    const securityHeaders = {
+      "X-Request-ID": request.yar.id.toString(),
+      "X-HMAC-Signature": hmacSignature.toString(),
+      "X-HMAC-Time": requestTime.toString(),
+    };
+
+    return {
+      headers: { ...formHeaders, ...securityHeaders },
+      payload: form,
+    };
   }
 
   parsedDocumentUploadResponse({ res, payload }) {
@@ -143,6 +201,7 @@ export class UploadService {
 
     let error: string | undefined;
     let location: string | undefined;
+
     switch (res.statusCode) {
       case 201:
         location = res.headers.location;
@@ -151,7 +210,7 @@ export class UploadService {
         error = ERRORS.fileTypeError;
         break;
       case 413:
-        if(errorCode === "TOO_MANY_FILES") {
+        if (errorCode === "TOO_MANY_FILES") {
           if (payloadJson?.maxFilesPerUpload) {
             error = `You can only select up to ${payloadJson?.maxFilesPerUpload} files at the same time`;
           } else {
@@ -184,9 +243,33 @@ export class UploadService {
     file: HapiReadableStream,
     customAcceptedTypes?: string[]
   ) {
+    const contentType = file?.hapi?.headers?.["content-type"];
+    const filename = file?.hapi?.filename;
     const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
-    return acceptedTypes.includes(file?.hapi?.headers?.["content-type"]);
+    let isValid = acceptedTypes.includes(contentType);
+
+    // Fallback: allow .ris files with 'application/octet-stream'
+    // API BACKEND - Will be used to scan if this is actually what it claims to be ...
+    if (!isValid && filename?.endsWith(".ris")) {
+      this.logger.warn("UPLOAD_WARNING", {
+        reason: "RIS file had generic content type",
+        filename,
+        contentType,
+      });
+      isValid = true;
+    }
+
+    // Fallback: allow .msg files with 'application/octet-stream'
+    if (!isValid && filename?.endsWith(".msg")) {
+      this.logger.warn("UPLOAD_WARNING", {
+        reason: "MSG file had generic content type",
+        filename,
+        contentType,
+      });
+      isValid = true;
+    }
+    return isValid;
   }
 
   invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
@@ -216,9 +299,23 @@ export class UploadService {
 const contentTypeToName = {
   "image/jpeg": "jpg, jpeg",
   "image/png": "png",
+  "image/gif": "gif",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+  "text/csv": "csv",
+  "application/vnd.ms-excel.sheet.macroEnabled.12": "xlsm",
+  "application/xml": "xml",
   "application/pdf": "pdf",
-  "application/vnd.oasis.opendocument.text": "odt",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
     "docx",
-  "text/csv": "csv",
+  "application/rtf": "rtf",
+  "text/rtf": "rtf",
+  "application/msword": "doc",
+  "application/x-research-info-systems": "ris",
+  "text/ris": "ris",
+  "text/plain": "txt",
+  "application/vnd.ms-outlook": "msg",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+    "pptx",
+  "application/vnd.ms-excel": "xls",
+  // "application/zip": "zip"
 };
