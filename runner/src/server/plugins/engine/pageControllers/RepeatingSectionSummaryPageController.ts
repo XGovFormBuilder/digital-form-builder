@@ -1,65 +1,108 @@
-import { HapiRequest, HapiResponseToolkit } from "server/types";
-import { SummaryViewModel } from "../models";
-import { PageController } from "./PageController";
-
-/**
- * RepeatingSectionSummaryPageController is for pages summarising a set of sections
- */
+import { PageController } from "server/plugins/engine/pageControllers/PageController";
+import {
+  HapiRequest,
+  HapiResponseToolkit,
+  HapiLifecycleMethod,
+} from "server/types";
+import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
 export class RepeatingSectionSummaryPageController extends PageController {
+  private getRoute!: HapiLifecycleMethod;
+  private postRoute!: HapiLifecycleMethod;
+  nextIndex!: RepeatingFieldPageController["nextIndex"];
+  getPartialState!: RepeatingFieldPageController["getPartialState"];
+  options!: RepeatingFieldPageController["options"];
+  removeAtIndex!: RepeatingFieldPageController["removeAtIndex"];
+  hideRowTitles!: RepeatingFieldPageController["hideRowTitles"];
+
+  inputComponent;
+
+  constructor(model, pageDef, inputComponent) {
+    super(model, pageDef);
+    this.inputComponent = inputComponent;
+  }
+
+  get getRouteHandler() {
+    this.getRoute ??= this.makeGetRouteHandler();
+    return this.getRoute;
+  }
+
+  get postRouteHandler() {
+    this.postRoute ??= this.makePostRouteHandler();
+    return this.postRoute;
+  }
+
+  /**
+   * The controller which is used when Page["controller"] is defined as "./pages/summary.js"
+   */
+
+  /**
+   * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`,
+   */
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { remove, returnUrl } = request.query;
       const { cacheService } = request.services([]);
-      const state = await cacheService.getState(request);
-      const noInt = (str: string) => str.replace(/\d+/g, "");
-      const int = (str: string) => parseInt(str.replace(/^\D+/g, ""));
 
-      const { title, model } = this;
-      const summary = new SummaryViewModel(title, model, state, request);
-      const summaryFiltered = summary.details.filter(
-        (detail) =>
-          detail.title &&
-          detail.title.match(new RegExp(`${title} \\d`)) &&
-          detail.items[0].value
-      );
-
-      if (remove && state[remove]) {
-        const newState = {};
-        Object.entries(state).forEach(([key, value]) => {
-          if (key.includes(noInt(remove))) {
-            const nextSection = state[noInt(key) + (int(key) + 1)];
-            if (int(key) < int(remove)) newState[key] = value;
-            else if (nextSection) newState[key] = nextSection;
-            else newState[key] = null;
-          }
-        });
-        await cacheService.mergeState(request, newState);
-        let param = "";
-        if (returnUrl) param = `?returnUrl=${encodeURIComponent(returnUrl)}`;
-
-        if (int(this.path) === summaryFiltered.length) {
-          const newPath = noInt(this.path) + (int(this.path) - 1);
-          return h.redirect(
-            `/${this.model.basePath}${newPath}${param}`
-          );
-        }
-        return h.redirect(`/${this.model.basePath}${this.path}${param}`);
+      const { removeAtIndex } = request.query;
+      if (removeAtIndex ?? false) {
+        return this.removeAtIndex(request, h);
       }
 
-      this.details = summaryFiltered.map((detail) => {
-        if (returnUrl) return detail;
-        const currentPath = this.path.replace("/", "");
-        return {
-          ...detail,
-          card: detail.items[0].url.replace("summary", currentPath),
-        };
-      });
-      this.returnUrl = returnUrl;
-      return super.makeGetRouteHandler()(request, h);
+      const state = await cacheService.getState(request);
+      const { progress = [] } = state;
+      progress?.push(`/${this.model.basePath}${this.path}?view=summary`);
+      await cacheService.mergeState(request, { progress });
+
+      const viewModel = this.getViewModel(state);
+
+      return h.view("repeating-section-summary", viewModel);
     };
   }
 
-  get viewName() {
-    return "repeating-section-summary";
+  getViewModel(formData) {
+    const baseViewModel = super.getViewModel(formData);
+    const answers = this.getPartialState(formData);
+    const cards = Array.isArray(answers) && this.getCardsFromAnswers(answers);
+
+    return {
+      ...baseViewModel,
+      customText: this.options.customText,
+      details: cards,
+    };
+  }
+
+  getCardsFromAnswers(answers) {
+    const { title = "" } = this.inputComponent;
+
+    return answers?.map((value, i) => {
+      return {
+        title: `${title} ${i + 1}`,
+        rows: Object.keys(value).map((key) => {
+          return {
+            key: { text: key },
+            value: { text: value[key] },
+            actions: {}
+          }
+        })
+      };
+    });
+  }
+
+  /**
+   * Returns an async function. This is called in plugin.ts when there is a POST request at `/{id}/{path*}`.
+   * If a form is incomplete, a user will be redirected to the start page.
+   */
+  makePostRouteHandler() {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
+      const { cacheService } = request.services([]);
+      const state = await cacheService.getState(request);
+
+      if (request.payload?.next === "increment") {
+        return h.redirect(
+          `/${this.model.basePath}/start`
+        );
+      }
+
+      return h.redirect(this.getNext(request.payload));
+    };
   }
 }
