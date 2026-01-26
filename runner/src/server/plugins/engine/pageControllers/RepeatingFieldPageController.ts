@@ -2,6 +2,7 @@ import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { PageController } from "./PageController";
 import { FormModel } from "server/plugins/engine/models";
 import { RepeatingSummaryPageController } from "./RepeatingSummaryPageController";
+import { RepeatingSectionSummaryPageController } from "./RepeatingSectionSummaryPageController";
 import { ComponentDef, RepeatingFieldPage } from "@xgovformbuilder/model";
 import { FormComponent } from "../components";
 
@@ -19,7 +20,8 @@ function isInputType(component) {
   return !contentTypes.includes(component.type);
 }
 
-const DEFAULT_OPTIONS = {
+const DEFAULT_OPTIONS = 
+  isRepeatingSection: false,
   summaryDisplayMode: {
     samePage: false,
     separatePage: true,
@@ -37,6 +39,7 @@ export class RepeatingFieldPageController extends PageController {
   isRepeatingFieldPageController = true;
   isSamePageDisplayMode: boolean;
   isSeparateDisplayMode: boolean;
+  isRepeatingSection: boolean;
   hideRowTitles: boolean;
 
   options: RepeatingFieldPage["options"];
@@ -52,20 +55,30 @@ export class RepeatingFieldPageController extends PageController {
 
     this.options = pageDef?.options ?? DEFAULT_OPTIONS;
     this.options.summaryDisplayMode ??= DEFAULT_OPTIONS.summaryDisplayMode;
+    this.options.isRepeatingSection ??= DEFAULT_OPTIONS.isRepeatingSection;
     this.options.hideRowTitles ??= DEFAULT_OPTIONS.hideRowTitles;
     this.options.customText ??= DEFAULT_OPTIONS.customText;
 
     this.isSamePageDisplayMode = this.options.summaryDisplayMode.samePage!;
     this.isSeparateDisplayMode = this.options.summaryDisplayMode.separatePage!;
+    this.isRepeatingSection = this.options.isRepeatingSection!;
     this.hideRowTitles = this.options.summaryDisplayMode.hideRowTitles!;
 
     this.inputComponent = inputComponent as FormComponent;
 
-    this.summary = new RepeatingSummaryPageController(
-      model,
-      pageDef,
-      this.inputComponent
-    );
+    if (this.isRepeatingSection) {
+      this.summary = new RepeatingSectionSummaryPageController(
+        model,
+        pageDef,
+        this.inputComponent
+      );
+    } else {
+      this.summary = new RepeatingSummaryPageController(
+        model,
+        pageDef,
+        this.inputComponent
+      );
+    }
     this.summary.getPartialState = this.getPartialState;
     this.summary.nextIndex = this.nextIndex;
     this.summary.removeAtIndex = this.removeAtIndex;
@@ -95,7 +108,7 @@ export class RepeatingFieldPageController extends PageController {
         return this.removeAtIndex(request, h);
       }
 
-      if (view === "summary" || returnUrl) {
+      if (view === "summary" || returnUrl || this.isRepeatingSection) {
         return this.summary.getRouteHandler(request, h);
       }
 
