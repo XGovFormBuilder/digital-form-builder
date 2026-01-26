@@ -21,6 +21,7 @@ export interface Page {
 export interface RepeatingFieldPage extends Page {
   controller: "RepeatingFieldPageController";
   options: {
+    isRepeatingSection?: boolean;
     summaryDisplayMode?: {
       samePage?: boolean;
       separatePage?: boolean;
