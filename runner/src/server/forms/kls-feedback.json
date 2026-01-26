@@ -1,12 +1,12 @@
 {
   "metadata": {},
   "startPage": "/start",
-  "name": "Report an outbreak",
+  "name": "XGOV SOW TEST PAGE",
   "skipSummary": true,
   "pages": [
     {
       "path": "/start",
-      "title": "Give feedback on Knowledge and Library Services",
+      "title": "XGOV SOW TEST PAGE",
       "components": [
         {
           "name": "Feedback",
