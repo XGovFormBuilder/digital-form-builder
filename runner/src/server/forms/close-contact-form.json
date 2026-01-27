@@ -2,7 +2,7 @@
   "metadata": {},
   "startPage": "/start",
   "fullStartPage": "start",
-  "name": "Contract tracing",
+  "name": "Contact tracing",
   "pages": [
     {
       "title": "Tell us about people you've been in close contact with",
@@ -145,15 +145,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Your first (given) name"
+          "title": "Your first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Your last (family) name"
+          "title": "Your last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "VnYxYja",
@@ -182,7 +196,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -236,15 +256,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Their first (given) name"
+          "title": "Their first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Their last (family) name"
+          "title": "Their last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "VnYxYja",
@@ -298,7 +332,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -462,15 +502,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -511,7 +565,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -602,15 +662,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -651,7 +725,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -742,15 +822,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -791,7 +885,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -882,15 +982,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -931,7 +1045,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -1022,15 +1142,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -1071,7 +1205,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -1162,15 +1302,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -1211,7 +1365,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -1302,15 +1462,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -1351,7 +1525,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -1442,15 +1622,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -1491,7 +1685,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -1582,15 +1782,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -1631,7 +1845,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -1722,15 +1942,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "First (given) name"
+          "title": "First (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Last (family) name"
+          "title": "Last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -1771,7 +2005,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -1874,15 +2114,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -1923,7 +2177,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2011,15 +2271,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -2060,7 +2334,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2148,15 +2428,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -2197,7 +2491,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2285,15 +2585,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -2334,7 +2648,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2422,15 +2742,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -2471,7 +2805,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2559,15 +2899,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -2608,7 +2962,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2696,15 +3056,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -2745,7 +3119,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2833,15 +3213,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -2882,7 +3276,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -2970,15 +3370,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -3019,7 +3433,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
@@ -3107,15 +3527,29 @@
         },
         {
           "name": "first_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid first (given) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact first (given) name"
+          "title": "Close contact first (given) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "last_name",
-          "options": {},
+          "options": {
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a valid last (family) name"
+            }
+          },
           "type": "TextField",
-          "title": "Close contact last (family) name"
+          "title": "Close contact last (family) name",
+          "schema": {
+            "regex": "^[\\w'\\-,.][^0-9_!¡?÷?¿/\\+=@#$%^&*(){}|~<>;:[\\]]{2,}$"
+          }
         },
         {
           "name": "mWvTOY",
@@ -3156,7 +3590,13 @@
         },
         {
           "name": "mobile_number",
-          "options": { "required": false, "optionalText": false },
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "customValidationMessages": {
+              "string.pattern.base": "Enter a mobile number in the correct format"
+            }
+          },
           "type": "TelephoneNumberField",
           "title": "Mobile number",
           "hint": "For example, 07700 900999",
