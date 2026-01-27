@@ -5,7 +5,8 @@ export class RepeatingSectionPageController extends PageController {
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const modifyUpdate = () => {
-        delete request.payload['crumb'];
+        const payload = Object.assign({}, request.payload);
+        delete payload["crumb"];
         const sectionName = this.section.name;
         const newObj = {};
         newObj[sectionName + 'Container'] = [request.payload];
@@ -21,3 +22,4 @@ export class RepeatingSectionPageController extends PageController {
     }
   }
 }
+
