@@ -26,7 +26,7 @@ jobs:
     - name: Check file paths
       id: check_file_path
       run: |
-        NON_FORM_FILES=$(git diff --name-only HEAD^ HEAD -- ":(exclude)${{ env.FORMS_FOLDER }}" | wc -l)
+        NON_FORM_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- ":(exclude)${{ env.FORMS_FOLDER }}" | wc -l)
         if [ "$NON_FORM_FILES" -eq 0 ]; then
           echo "Only form changes found, able to deploy"
           FORM_ONLY="true"
