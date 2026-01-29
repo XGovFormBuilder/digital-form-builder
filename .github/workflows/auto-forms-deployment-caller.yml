@@ -9,7 +9,6 @@ on:
       - v2
     paths:
       - 'runner/src/server/forms/**'
-  workflow_dispatch:
 
 jobs:
   check_files:
