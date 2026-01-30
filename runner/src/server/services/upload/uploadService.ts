@@ -15,6 +15,7 @@ type HapiReadableStream = ReadableStream & {
     };
   };
 };
+
 export type ReadableStreamEntry = [string, Array<HapiReadableStream>];
 
 const parsedError = (key: string, error?: string) => {
@@ -112,9 +113,14 @@ export class UploadService {
 
   async uploadDocuments(streams: any[], request: HapiRequest) {
     const form = this.buildFormData(streams);
-    const uploadUrl = this.getUploadUrl(request);
-    const requestData = await this.buildUploadRequest(form, request);
 
+    const uploadUrl = this.getUploadUrl(request);
+
+    if (!uploadUrl) {
+      return this.mockUpload(streams);
+    }
+
+    const requestData = await this.buildUploadRequest(form, request);
     const responseData = await post(uploadUrl, requestData);
 
     return this.parsedDocumentUploadResponse(responseData);
@@ -141,7 +147,7 @@ export class UploadService {
 
     this.validateUploadUrl(baseUrl);
 
-    // TODO: I didn't want to introduce a breaking change, but maybe the versioning should be handled differently
+    // TODO check previous code  to see if this has the endpoin attached in others
     return `${baseUrl}`;
   }
 
@@ -184,7 +190,7 @@ export class UploadService {
     };
   }
 
-  parsedDocumentUploadResponse({ res, payload }) {
+  parsedDocumentUploadResponse({ res, payload }: { res: any; payload?: any }) {
     const payloadString = payload?.toString?.();
     let payloadJson: any;
     let warning: string | undefined;
@@ -290,6 +296,25 @@ export class UploadService {
       ...mergedObject,
     };
   }
+
+  // TODO: should this be async?
+  private mockUpload(streams: any[]) {
+    const shouldFailOCR = streams.find(
+      (stream) => stream.hapi.filename === "fails-ocr.png"
+    );
+
+    const responseData = {
+      res: {
+        statusCode: 201,
+        headers: {
+          location: "https://document-upload-endpoint",
+        },
+      },
+      payload: shouldFailOCR && "imageQualityWarning",
+    };
+
+    return this.parsedDocumentUploadResponse(responseData);
+  }
 }
 
 /**
@@ -316,5 +341,6 @@ const contentTypeToName = {
   "application/vnd.openxmlformats-officedocument.presentationml.presentation":
     "pptx",
   "application/vnd.ms-excel": "xls",
+  "application/vnd.oasis.opendocument.text": "odt",
   // "application/zip": "zip"
 };
