@@ -1,6 +1,5 @@
 {
   "startPage": "/do-you-have-a-link-to-the-evidence",
-  "documentUploadApiUrl": "http://localhost:8000/upload",
   "pages": [
     {
       "title": "Do you have a link to the evidence?",

@@ -2,7 +2,6 @@ import FormData from "form-data";
 
 import config from "../../config";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
-import { createHmacRaw } from "../../utils/hmac";
 import { get, post } from "../httpService";
 
 type Payload = HapiRequest["payload"];
@@ -111,16 +110,19 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(streams: any[], request: HapiRequest) {
+  async uploadDocuments(streams: any[], request?: HapiRequest) {
     const form = this.buildFormData(streams);
 
-    const uploadUrl = this.getUploadUrl(request);
+    const uploadUrl = request
+      ? this.getUploadUrl(request)
+      : this.getDefaultUploadUrl();
 
     if (!uploadUrl) {
       return this.mockUpload(streams);
     }
 
-    const requestData = await this.buildUploadRequest(form, request);
+    const requestData = await this.buildUploadRequest(form);
+
     const responseData = await post(uploadUrl, requestData);
 
     return this.parsedDocumentUploadResponse(responseData);
@@ -142,13 +144,24 @@ export class UploadService {
     const forms = request.server?.app?.forms;
     const model = id && forms?.[id];
 
+    // TODO: Kept as previous to avoid breaking, but endpoint should be defined with the URL, not appended here
+    const endpoint = "/v1/files";
     const baseUrl =
       model?.def?.documentUploadApiUrl ?? config.documentUploadApiUrl;
 
     this.validateUploadUrl(baseUrl);
 
-    // TODO check previous code  to see if this has the endpoin attached in others
-    return `${baseUrl}`;
+    return `${baseUrl}${endpoint}`;
+  }
+
+  private getDefaultUploadUrl(): string | undefined {
+    const baseUrl = config.documentUploadApiUrl;
+    if (!baseUrl) {
+      return undefined;
+    }
+    this.validateUploadUrl(baseUrl);
+    const endpoint = "/v1/files";
+    return `${baseUrl}${endpoint}`;
   }
 
   private validateUploadUrl(
@@ -165,27 +178,11 @@ export class UploadService {
     }
   }
 
-  private async buildUploadRequest(form: FormData, request: HapiRequest) {
+  private async buildUploadRequest(form: FormData) {
     const formHeaders = form.getHeaders();
 
-    const id = request.params?.id;
-    const forms = request.server?.app?.forms;
-    const model = id && forms?.[id];
-    const hmacKey = model?.def?.fileUploadHmacSharedKey;
-
-    const [hmacSignature, requestTime] = await createHmacRaw(
-      request.yar.id,
-      hmacKey
-    );
-
-    const securityHeaders = {
-      "X-Request-ID": request.yar.id.toString(),
-      "X-HMAC-Signature": hmacSignature.toString(),
-      "X-HMAC-Time": requestTime.toString(),
-    };
-
     return {
-      headers: { ...formHeaders, ...securityHeaders },
+      headers: { ...formHeaders },
       payload: form,
     };
   }
@@ -249,32 +246,9 @@ export class UploadService {
     customAcceptedTypes?: string[]
   ) {
     const contentType = file?.hapi?.headers?.["content-type"];
-    const filename = file?.hapi?.filename;
     const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
-    let isValid = acceptedTypes.includes(contentType);
-
-    // Fallback: allow .ris files with 'application/octet-stream'
-    // API BACKEND - Will be used to scan if this is actually what it claims to be ...
-    if (!isValid && filename?.endsWith(".ris")) {
-      this.logger.warn("UPLOAD_WARNING", {
-        reason: "RIS file had generic content type",
-        filename,
-        contentType,
-      });
-      isValid = true;
-    }
-
-    // Fallback: allow .msg files with 'application/octet-stream'
-    if (!isValid && filename?.endsWith(".msg")) {
-      this.logger.warn("UPLOAD_WARNING", {
-        reason: "MSG file had generic content type",
-        filename,
-        contentType,
-      });
-      isValid = true;
-    }
-    return isValid;
+    return acceptedTypes.includes(contentType);
   }
 
   invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
