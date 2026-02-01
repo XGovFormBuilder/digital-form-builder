@@ -46,21 +46,26 @@ export async function handleUpload(
     let response;
     let errors = new Set<any>();
     try {
-      response = await uploadService.uploadDocuments(streams);
+      response = await uploadService.uploadDocuments(streams, request);
     } catch (err) {
-      if (err.data?.res) {
-        response = uploadService.parsedDocumentUploadResponse(err.data);
+      const error = err as any;
+
+      if (error.data?.res) {
+        response = uploadService.parsedDocumentUploadResponse(error.data);
         errors.add(response.error);
-      } else if (err.code === "EPIPE") {
+      } else if (error.code === "EPIPE") {
         // ignore this error, it happens when the request is responded to by the doc upload service before the
         // body has finished being sent. A valid response is still received.
-        logger.warn(loggerIdentifier, `Ignoring EPIPE response ${err.message}`);
+        logger.warn(
+          loggerIdentifier,
+          `Ignoring EPIPE response ${error.message}`
+        );
       } else {
         logger.error(
-          { ...loggerIdentifier, err },
-          `Error uploading document: ${err.message}`
+          { ...loggerIdentifier, error },
+          `Error uploading document: ${error.message}`
         );
-        errors.add(err);
+        errors.add(error);
       }
     }
 
@@ -102,14 +107,15 @@ export async function handleUpload(
         loggerIdentifier,
         `Document upload API responded with an error ${error}`
       );
-      errors.add(error)
+      errors.add(error);
     }
 
-    if(errors.size > 0) {
+    if (errors.size > 0) {
       let errorsArray = Array.from(errors);
-      request.pre.errors = [ 
-        ...(h.request.pre.errors || []), 
-        ...errorsArray.map(e => parsedError(fieldName, e)), ];
+      request.pre.errors = [
+        ...(h.request.pre.errors || []),
+        ...errorsArray.map((e) => parsedError(fieldName, e)),
+      ];
     }
   }
 
