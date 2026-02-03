@@ -139,7 +139,7 @@ export class UploadService {
     return form;
   }
 
-  private getUploadUrl(request: HapiRequest): string {
+  private getUploadUrl(request: HapiRequest): string | undefined {
     const id = request.params?.id;
     const forms = request.server?.app?.forms;
     const model = id && forms?.[id];
@@ -149,6 +149,10 @@ export class UploadService {
     const baseUrl =
       model?.def?.documentUploadApiUrl ?? config.documentUploadApiUrl;
 
+    if (!baseUrl) {
+      return undefined;
+    }
+
     this.validateUploadUrl(baseUrl);
 
     return `${baseUrl}${endpoint}`;
@@ -156,6 +160,7 @@ export class UploadService {
 
   private getDefaultUploadUrl(): string | undefined {
     const baseUrl = config.documentUploadApiUrl;
+
     if (!baseUrl) {
       return undefined;
     }
