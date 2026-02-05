@@ -484,8 +484,8 @@
         {
           "name": "ServiceUsersSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -503,7 +503,7 @@
           "name": "ServiceUsersTestedCovid",
           "type": "NumberField",
           "title": "How many service users have been tested for COVID-19 and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -521,7 +521,7 @@
           "name": "ServiceUsersTestedFlu",
           "type": "NumberField",
           "title": "How many service users have been tested for flu and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "options": {
             "required": false,
             "summaryTitle": "Service users: negative flu test results",
@@ -599,15 +599,19 @@
     },
     {
       "path": "/staff-ari-adenovirus",
-      "title": "Staff: number of adenovirus cases",
+      "title": "Staff: number of Adenovirus cases",
       "sectionForEndSummaryPages": "InfectionsInYourSetting",
       "disableSingleComponentAsHeading": true,
       "components": [
         {
+          "type": "Para",
+          "content": "You do not have to test your staff."
+        },
+        {
           "name": "StaffAdenovirus",
           "type": "NumberField",
           "title": "How many staff have tested positive for adenovirus?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "hint": "Include those who are currently in hospital<br>If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -727,7 +731,7 @@
           "name": "ServiceUsersHmpv",
           "type": "NumberField",
           "title": "How many service users have tested positive for human Metapneumovirus (hMPV)?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -821,7 +825,7 @@
           "name": "ServiceUsersHmpv",
           "type": "NumberField",
           "title": "How many service users have tested positive for human Metapneumovirus (hMPV)?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1401,8 +1405,8 @@
         {
           "name": "ServiceUsersConfirmedARI",
           "type": "NumberField",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1420,13 +1424,12 @@
           "name": "ServiceUsersTestedCovid",
           "type": "NumberField",
           "title": "How many service users have been tested for COVID-19 and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
           },
           "options": {
-            "required": false,
             "summaryTitle": "Service users: negative COVID-19 test results",
             "customValidationMessages": {
               "number.max": "The number of service users that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
@@ -1438,7 +1441,7 @@
           "name": "ServiceUsersTestedFlu",
           "type": "NumberField",
           "title": "How many service users have been tested for flu and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "options": {
             "required": false,
             "summaryTitle": "Service users: negative flu test results",
@@ -1471,13 +1474,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+          "content": "You do not have to test your staff."
         },
         {
           "name": "StaffSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include those who are currently in hospital<br>If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
@@ -1495,14 +1498,13 @@
           "name": "StaffTestedCovid",
           "type": "NumberField",
           "title": "How many staff have been tested for COVID-19 and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "schema": {
             "min": 0,
             "max": 999
           },
           "options": {
             "summaryTitle": "Staff: negative COVID-19 test results",
-            "required": false,
             "customValidationMessages": {
               "number.max": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999",
               "number.min": "The number of staff that have been tested for COVID-19 and had a negative test result must be between 0 and 999"
@@ -1513,7 +1515,7 @@
           "name": "StaffTestedFlu",
           "type": "NumberField",
           "title": "How many staff have been tested for flu and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "options": {
             "required": false,
             "summaryTitle": "Staff: negative flu test results",
@@ -1615,26 +1617,7 @@
           },
           "nameHasError": false,
           "title": "How many service users have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0"
-        },
-        {
-          "name": "ServiceUsersChestInfection",
-          "options": {
-            "required": false,
-            "summaryTitle": "Service users: diagnosed with a chest infection by a GP",
-            "customValidationMessages": {
-              "number.max": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999",
-              "number.min": "The number of service users that have been diagnosed with a chest infection by a GP must be between 0 and 999"
-            }
-          },
-          "type": "NumberField",
-          "schema": {
-            "min": 0,
-            "max": 999
-          },
-          "nameHasError": false,
-          "title": "How many service users have been diagnosed with a chest infection by a GP?",
-          "hint": "Do not include cases that have been confirmed by a test as flu<br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0"
         },
         {
           "name": "ServiceUsersSymptomsNotTested",
@@ -1652,8 +1635,8 @@
             "max": 999
           },
           "nameHasError": false,
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Do not include cases that have been confirmed by a test as flu or diagnosed by a GP as a chest infection<br><br>Include those who are currently in hospital or on visits out<br>If none, enter 0"
+          "title": "How many other service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Do not include cases that have been confirmed by a test as flu<br>Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0"
         },
         {
           "name": "ServiceUsersChestInfectionCovid19",
@@ -1672,7 +1655,7 @@
           },
           "nameHasError": false,
           "title": "How many service users have been tested for COVID-19 and had a negative test result?",
-          "hint": "If none, enter 0"
+          "hint": "If none or you do not know, enter 0"
         }
       ],
       "next": [
@@ -1692,7 +1675,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+          "content": "You do not have to test your staff."
         },
 
         {
@@ -1712,12 +1695,12 @@
           },
           "nameHasError": false,
           "title": "How many staff have flu confirmed by a positive swab test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0"
+          "hint": "Include those who are currently in hospital<br>If none or you do not know, enter 0"
         },
         {
           "name": "StaffSymptomsNotTested",
           "options": {
-            "required": false,
+            "required": true,
             "summaryTitle": "Staff: with symptoms, but not tested",
             "customValidationMessages": {
               "number.max": "The number of staff that have symptoms of an acute respiratory infection, but have not been tested for any infection must be between 0 and 999",
@@ -1730,8 +1713,8 @@
             "max": 999
           },
           "nameHasError": false,
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0"
+          "title": "How many other staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Do not include cases that have been confirmed by a test as flu<br>Include those who are currently in hospital<br>If none or you do not know, enter 0"
         },
         {
           "name": "StaffChestInfectionCovid19",
@@ -1750,7 +1733,7 @@
           },
           "nameHasError": false,
           "title": "How many staff have been tested for COVID-19 and had a negative test result?",
-          "hint": "If none, enter 0"
+          "hint": "If none or you do not know, enter 0"
         }
       ],
       "next": [
@@ -2141,13 +2124,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+          "content": "You do not have to test your staff."
         },
         {
           "name": "StaffSymptomsNotTested",
           "type": "NumberField",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "title": "How many other staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include those who are currently in hospital<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Staff: with symptoms, but not tested",
@@ -2166,7 +2149,7 @@
           "name": "OtherARIStaffTestedCovid",
           "type": "NumberField",
           "title": "How many staff have been tested for COVID-19 and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "options": {
             "required": false,
             "summaryTitle": "Staff: negative COVID-19 test results",
@@ -2184,7 +2167,7 @@
           "name": "OtherARIStaffTestedFlu",
           "type": "NumberField",
           "title": "How many staff have been tested for flu and had a negative test result?",
-          "hint": "If none, enter 0",
+          "hint": "If none or you do not know, enter 0",
           "options": {
             "required": false,
             "summaryTitle": "Staff: negative flu test results",
@@ -2400,7 +2383,7 @@
           "type": "NumberField",
           "name": "ServiceUsersCovidTestPositive",
           "title": "How many service users have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Service users: confirmed positive COVID-19 test results",
@@ -2418,8 +2401,8 @@
         {
           "type": "NumberField",
           "name": "ServiceUsersSymptomsNotTested",
-          "title": "How many service users have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital or on visits out<br>If none, enter 0",
+          "title": "How many other service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Do not include cases that have been confirmed by a test as COVID-19<br>Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Service users: with symptoms, but not tested",
@@ -2452,13 +2435,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "You do not have to test staff for COVID-19. Staff that are eligible for COVID-19 treatments should test themselves at home, if they have symptoms."
+          "content": "You do not have to test staff."
         },
         {
           "type": "NumberField",
           "name": "StaffCovidTestPositive",
           "title": "How many staff have COVID-19 confirmed by a positive test?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "hint": "Include those who are currently in hospital<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Staff: confirmed positive COVID-19 test results",
@@ -2476,8 +2459,8 @@
         {
           "type": "NumberField",
           "name": "StaffSymptomsNotTested",
-          "title": "How many staff have symptoms of an acute respiratory infection, but have not been tested for any infection?",
-          "hint": "Include those who are currently in hospital<br>If none, enter 0",
+          "title": "How many other staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Do not include cases that have been confirmed by a test as COVID-19<br>Include those who are currently in hospital<br>If none or you do not know, enter 0",
           "options": {
             "required": true,
             "summaryTitle": "Staff: with symptoms, but not tested",
