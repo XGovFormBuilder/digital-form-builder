@@ -52,7 +52,7 @@ jobs:
         private-key: ${{ secrets.DEPLOYMENT_APP_KEY }}
         owner: ${{ secrets.DEPLOYMENT_OWNER }}
         repositories: ${{ secrets.DEPLOYMENT_REPO }}
-    - name: Call infra repo
+    - name: Call deployment repo
       uses: actions/github-script@v8
       with:
         github-token: ${{ steps.app-token.outputs.token }}
