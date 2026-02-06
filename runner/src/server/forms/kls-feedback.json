@@ -6,7 +6,7 @@
   "pages": [
     {
       "path": "/start",
-      "title": "XGOV SOW TEST PAGE EDIT 1",
+      "title": "XGOV SOW TEST PAGE",
       "components": [
         {
           "name": "Feedback",
