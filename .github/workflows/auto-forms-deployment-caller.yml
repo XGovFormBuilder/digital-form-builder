@@ -6,7 +6,7 @@ name: Automatic Forms Deployment Caller
 on:
   push:
     branches:
-      - v2
+      - xgf-65
     paths:
       - 'runner/src/server/forms/**'
 
