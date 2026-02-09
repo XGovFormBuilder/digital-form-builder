@@ -63,7 +63,7 @@ jobs:
             workflow_id: 'form-only-deployment.yml',
             ref: 'xgf-65', #SOW test branch
             inputs: {
-              branch: 'v2',
+              branch: 'xgf-65',
               environment: 'dev',
             }
           });
