@@ -61,7 +61,7 @@ jobs:
             owner: '${{ secrets.DEPLOYMENT_OWNER }}',
             repo: '${{ secrets.DEPLOYMENT_REPO }}',
             workflow_id: 'form-only-deployment.yml',
-            ref: 'xgf-65', #SOW test branch
+            ref: 'xgf-65',
             inputs: {
               branch: 'xgf-65',
               environment: 'dev',
