@@ -1,0 +1,69 @@
+# This workflow automatically calls to deploy if a change is made to only the forms folder
+
+name: Automatic Forms Deployment Caller
+
+# Workflow runs automatically when the form folder is updated
+on:
+  push:
+    branches:
+      - xgf-65
+    paths:
+      - 'runner/src/server/forms/**'
+
+jobs:
+  check_files:
+    outputs:
+      should_deploy: ${{ steps.check_file_path.outputs.form_only }}
+    runs-on: ubuntu-latest
+    env:
+      FORMS_FOLDER: 'runner/src/server/forms/'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Check file paths
+      id: check_file_path
+      run: |
+        NON_FORM_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- ":(exclude)${{ env.FORMS_FOLDER }}" | wc -l)
+        if [ "$NON_FORM_FILES" -eq 0 ]; then
+          echo "Only form changes found, able to deploy"
+          FORM_ONLY="true"
+        else
+          echo "Non-form changes found, do not deploy"
+          FORM_ONLY="false"
+        fi
+
+        echo "form_only=$FORM_ONLY" >> "$GITHUB_OUTPUT"
+    
+  dispatch:
+    runs-on: ubuntu-latest
+    needs: check_files
+    if: needs.check_files.outputs.should_deploy == 'true'
+    permissions:
+      actions: read
+    steps:
+    - name: Generate token
+      uses: actions/create-github-app-token@v2
+      id: app-token
+      with:
+        app-id: ${{ secrets.DEPLOYMENT_APP_ID }}
+        private-key: ${{ secrets.DEPLOYMENT_APP_KEY }}
+        owner: ${{ secrets.DEPLOYMENT_OWNER }}
+        repositories: ${{ secrets.DEPLOYMENT_REPO }}
+    - name: Call deployment repo
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ steps.app-token.outputs.token }}
+        script: |
+          await github.rest.actions.createWorkflowDispatch({
+            owner: '${{ secrets.DEPLOYMENT_OWNER }}',
+            repo: '${{ secrets.DEPLOYMENT_REPO }}',
+            workflow_id: 'form-only-deployment.yml',
+            ref: 'xgf-65', #SOW test branch
+            inputs: {
+              branch: 'xgf-65',
+              environment: 'dev',
+            }
+          });
