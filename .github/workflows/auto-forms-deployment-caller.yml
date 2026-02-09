@@ -64,6 +64,6 @@ jobs:
             ref: 'xgf-65', #SOW test branch
             inputs: {
               branch: 'v2',
-              environment: 'stg',
+              environment: 'dev',
             }
           });
