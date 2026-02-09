@@ -264,7 +264,7 @@
       "title": "About your current awareness alerts query",
       "components": [
         {
-          "name": "voCgKn",
+          "name": "CovnkG",
           "options": {},
           "type": "InsetText",
           "content": "Sign up to comprehensive alerts that bring together the latest research from peer-reviewed publications about important public health priorities. Select the topics you want to sign up for below."
@@ -290,6 +290,44 @@
           "type": "MultilineTextField",
           "title": "If you selected 'Other', describe the topic on which you wish to be alerted",
           "hint": "Any new alert request will be considered on a case-by-case basis. A member of the KLS team will be in touch to discuss the best option to meet your requirements."
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-you"
+        },
+        {
+          "path": "/about-you-GXSFdb",
+          "condition": "EgJCgx"
+        },
+        {
+          "path": "/about-you-dHykmu",
+          "condition": "IbKdRK"
+        }
+      ]
+    },
+    {
+      "path": "/current-awareness-LAPH",
+      "title": "About your current awareness alerts query",
+      "components": [
+        {
+          "name": "voCgKn",
+          "options": {},
+          "type": "InsetText",
+          "content": "Sign up to email alerts that bring together the latest research from peer-reviewed publications."
+        },
+        {
+          "name": "ecNdpc",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select the alerts you want to subscribe to",
+              "any.only": "Select the alerts you want to subscribe to",
+              "string.empty": "Select the alerts you want to subscribe to"
+            }
+          },
+          "type": "CheckboxesField",
+          "title": "Which alerts do you want to subscribe to?",
+          "list": "hbylXH"
         }
       ],
       "next": [
@@ -867,13 +905,13 @@
           "condition": "CRsuUh"
         },
         {
-          "path": "/type-of-enquiry-JpEYIe",
+          "path": "/type-of-enquiry-LAPH",
           "condition": "IbKdRK"
         }
       ]
     },
     {
-      "path": "/type-of-enquiry-JpEYIe",
+      "path": "/type-of-enquiry-LAPH",
       "title": "Type of enquiry",
       "components": [
         {
@@ -908,7 +946,7 @@
           "condition": "lsHzLP"
         },
         {
-          "path": "/current-awareness",
+          "path": "/current-awareness-LAPH",
           "condition": "MQeZyE"
         },
         {
@@ -2106,6 +2144,53 @@
         {
           "text": "Other",
           "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "Current awareness LAPH alerts options",
+      "name": "hbylXH",
+      "type": "string",
+      "items": [
+        {
+          "text": "Adverse Weather and Health",
+          "value": "Adverse Weather and Health"
+        },
+        {
+          "text": "Antimicrobial Resistance",
+          "value": "Antimicrobial Resistance"
+        },
+        {
+          "text": "Global Public Health Security",
+          "value": "Global Public Health Security"
+        },
+        {
+          "text": "Healthy Ageing",
+          "value": "Healthy Ageing"
+        },
+        {
+          "text": "Infection",
+          "value": "Infection"
+        },
+        {
+          "text": "Long-COVID",
+          "value": "Long-COVID"
+        },
+        {
+          "text": "Mental Health",
+          "value": "Mental Health"
+        },
+        {
+          "text": "Musculoskeletal Health",
+          "value": "Musculoskeletal Health"
+        },
+        {
+          "text": "Nutrition, Diet & Obesity",
+          "value": "Nutrition, Diet & Obesity"
+        },
+        {
+          "text": "Vector Borne Disease",
+          "value": "Vector Borne Disease"
         }
       ]
     }

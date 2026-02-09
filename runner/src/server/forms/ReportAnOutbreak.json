@@ -3189,7 +3189,7 @@
       "name": "InfectionTypes",
       "type": "string",
       "items": [
-                {
+        {
           "text": "Flu",
           "value": "Flu"
         },
@@ -3691,7 +3691,7 @@
               "display": "London"
             }
           },
-                    {
+          {
             "coordinator": "or",
             "field": {
               "name": "HPT",
