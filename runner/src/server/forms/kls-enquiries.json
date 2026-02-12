@@ -182,6 +182,7 @@
               "any.only": "Select the option that best matches your enquiry",
               "string.empty": "Select the option that best matches your enquiry"
             },
+            "disableChangingFromSummary": true,
             "exposeToContext": false
           },
           "type": "RadiosField",
@@ -884,7 +885,8 @@
               "any.required": "Select the organisation you work for",
               "any.only": "Select the organisation you work for",
               "string.empty": "Select the organisation you work for"
-            }
+            },
+            "disableChangingFromSummary": true
           },
           "type": "RadiosField",
           "title": "Which organisation do you work for?",
@@ -925,6 +927,7 @@
         {
           "name": "VeQCVM",
           "options": {
+            "disableChangingFromSummary": true,
             "customValidationMessages": {
               "any.required": "Select the option that best matches your enquiry",
               "any.only": "Select the option that best matches your enquiry",
