@@ -192,7 +192,7 @@
           "name": "IncorrectEmail",
           "options": {},
           "type": "Para",
-          "content": "The email you used does not match the email associated with this link.<br><br><a href='/kls-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a> ",
+          "content": "The email you used does not match the email associated with this link.<br><br><a href='/kls-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
           "schema": {}
         }
       ]
