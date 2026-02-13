@@ -3,7 +3,7 @@
   "skipSummary": true,
   "toggle": "${magicLinkToggle}",
   "toggleRedirect": "/ReportAnOutbreak/setting",
-  "retryTimeoutSeconds": 300,
+  "retryTimeoutSeconds": 20,
   "pages": [
     {
       "path": "/start",
