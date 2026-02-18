@@ -4,8 +4,8 @@
   "skipSummary": true,
   "authentication": true,
   "toggle": true,
-  "toggleRedirect": "/kls-enquiries/which-organisation-do-you-work-for-DUPE",
-  "retryTimeoutSeconds": 300,
+  "toggleRedirect": "/kls-enquiries/which-organisation-do-you-work-for-validated",
+  "retryTimeoutSeconds": 20,
   "analytics": {
     "gtmId1": "GTM-WLKKLMQB"
   },
@@ -173,7 +173,7 @@
           "name": "EmailConfirmed",
           "options": {},
           "type": "Para",
-          "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-enquiries/which-organisation-do-you-work-for-DUPE' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
+          "content": "You will now be asked a series of questions. Please provide as much information as possible as this will help the UKHSA Knowledge and Library Services team deal with your enquiry promptly and accurately.<br><br><a href='/kls-enquiries/which-organisation-do-you-work-for-validated' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Continue</button></a>",
           "schema": {}
         }
       ]
@@ -204,7 +204,7 @@
         {
           "type": "Para",
           "title": "This link has expired",
-          "content": "<a href='/kls-magic-link' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "content": "<p class=\"govuk-body\">This link has expired because it is older than 20 minutes or has already been used. Each link can only be used once</p> <a href='/kls-enquiries/start' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
           "name": "blarGGH",
           "options": {},
           "schema": {}
