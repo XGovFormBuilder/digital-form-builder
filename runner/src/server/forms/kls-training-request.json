@@ -194,7 +194,6 @@
           "name": "BpuPgW",
           "options": {
             "required": true,
-            "disableChangingFromSummary": true,
             "customValidationMessages": {
               "any.required": "Select the organisation you belong to",
               "any.only": "Select the organisation you belong to",
@@ -209,7 +208,6 @@
           "name": "hMxELK",
           "options": {
             "required": true,
-            "disableChangingFromSummary": true,
             "customValidationMessages": {
               "any.required": "Select the topics you would like to cover",
               "any.only": "Select the topics you would like to cover",
