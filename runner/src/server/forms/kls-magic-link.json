@@ -199,6 +199,7 @@
     },
     {
       "path": "/expired",
+      "unauthenticated": true,
       "title": "This link has expired",
       "components": [
         {
