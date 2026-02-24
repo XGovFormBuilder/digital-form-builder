@@ -17,6 +17,7 @@
     {
       "title": "Request training from Knowledge and Library Services",
       "path": "/start",
+      "section": "startPage",
       "components": [
         {
           "name": "mainContent",
@@ -94,6 +95,7 @@
     },
     {
       "path": "/training-request-part-1",
+      "section": "trainingPart1",
       "title": "Training request part 1",
       "disableBackLink": true,
       "components": [
@@ -188,6 +190,7 @@
     },
     {
       "path": "/training-request-part-2",
+      "section": "trainingPart2",
       "title": "Training request part 2",
       "components": [
         {
@@ -271,6 +274,7 @@
     },
     {
       "path": "/about-you",
+      "section": "aboutyou",
       "title": "About you",
       "components": [
         {
@@ -863,7 +867,23 @@
       ]
     }
   ],
-  "sections": [],
+  "sections": [
+    {
+      "name": "trainingPart1",
+      "title": "Training Details",
+      "hideTitle": true
+    },
+    {
+      "name": "trainingPart2",
+      "title": "Training Topics",
+      "hideTitle": true
+    },
+    {
+      "name": "aboutyou",
+      "title": "About you",
+      "hideTitle": true
+    }
+  ],
   "conditions": [
     {
       "displayName": "UKHSA path",
