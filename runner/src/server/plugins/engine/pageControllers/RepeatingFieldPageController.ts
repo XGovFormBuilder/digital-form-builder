@@ -20,7 +20,7 @@ function isInputType(component) {
   return !contentTypes.includes(component.type);
 }
 
-const DEFAULT_OPTIONS = 
+const DEFAULT_OPTIONS = {
   isRepeatingSection: false,
   summaryDisplayMode: {
     samePage: false,
