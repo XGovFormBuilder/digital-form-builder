@@ -44,6 +44,7 @@ export class PageControllerBase {
     phaseBanner?: {
       phase?: string;
     };
+    enableConditionalFieldSupport?: boolean | undefined;
   };
   name: string;
   model: FormModel;
@@ -125,7 +126,7 @@ export class PageControllerBase {
   getViewModel(
     formData: FormData,
     iteration?: any, // TODO
-    errors?: any // TODO
+    errors?: FormSubmissionErrors | undefined
   ): {
     page: PageControllerBase;
     name: string;
@@ -133,13 +134,14 @@ export class PageControllerBase {
     sectionTitle: string;
     showTitle: boolean;
     components: ComponentCollectionViewModel;
-    errors: FormSubmissionErrors;
+    errors: FormSubmissionErrors | undefined;
     isStartPage: boolean;
     startPage?: HapiResponseObject;
     backLink?: string;
     phaseTag?: string | undefined;
     details?: any;
     returnUrl?: string | undefined;
+    allowExit?: boolean;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -390,7 +392,7 @@ export class PageControllerBase {
    * @param value - user's answers
    * @param schema - which schema to validate against
    */
-  validate(value, schema) {
+  validate(value, schema: Joi.Schema) {
     const result = schema.validate(value, this.validationOptions);
     const errors = result.error ? this.getErrors(result) : null;
 
@@ -499,7 +501,7 @@ export class PageControllerBase {
           }
         });
       }
-      const viewModel = this.getViewModel(formData, num);
+      const viewModel = this.getFilteredViewModel(state, formData, num);
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
@@ -596,11 +598,18 @@ export class PageControllerBase {
     const formResult: any = this.validateForm(payload);
     const state = await cacheService.getState(request);
     const originalFilenames = (state || {}).originalFilenames || {};
-    const fileFields = this.getViewModel(formResult)
-      .components.filter((component) => component.type === "FileUploadField")
+    const viewModel = this.getFilteredViewModel(state, formResult);
+    const fileFields = viewModel.components
+      .filter((component) => component.type === "FileUploadField")
       .map((component) => component.model);
     const progress = state.progress || [];
     const { num } = request.query;
+
+    /* Filter errors to visible components */
+    formResult.errors = this.filterErrorsBasedOnVisibleComponents(
+      viewModel.components,
+      formResult.errors ?? undefined
+    );
 
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {
@@ -664,12 +673,19 @@ export class PageControllerBase {
         payload,
         num,
         progress,
-        formResult.errors
+        formResult.errors,
+        state
       );
     }
 
     const newState = this.getStateFromValidForm(formResult.value);
     const stateResult = this.validateState(newState);
+    /* Filter errors to visible components */
+    stateResult.errors = this.filterErrorsBasedOnVisibleComponents(
+      viewModel.components,
+      stateResult.errors ?? undefined
+    );
+
     if (stateResult.errors) {
       return this.renderWithErrors(
         request,
@@ -677,7 +693,8 @@ export class PageControllerBase {
         payload,
         num,
         progress,
-        stateResult.errors
+        stateResult.errors,
+        state
       );
     }
 
@@ -889,8 +906,16 @@ export class PageControllerBase {
     }
   }
 
-  private renderWithErrors(request, h, payload, num, progress, errors) {
-    const viewModel = this.getViewModel(payload, num, errors);
+  private renderWithErrors(
+    request,
+    h,
+    payload,
+    num,
+    progress,
+    errors: FormSubmissionErrors | undefined,
+    state: FormSubmissionState
+  ) {
+    const viewModel = this.getFilteredViewModel(state, payload, num, errors);
 
     viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
     this.setPhaseTag(viewModel);
@@ -898,5 +923,76 @@ export class PageControllerBase {
     viewModel.allowExit = this.model.allowExit;
 
     return h.view(this.viewName, viewModel);
+  }
+
+  private getFilteredViewModel(
+    state: FormSubmissionState,
+    formData: FormData,
+    iteration?: any, // TODO
+    errors?: FormSubmissionErrors | undefined
+  ) {
+    const viewModel = this.getViewModel(formData, iteration, errors);
+
+    if (this.def.enableConditionalFieldSupport) {
+      /* Filter components by condition prior to validation */
+      viewModel.components = this.filterComponentsBasedOnFieldConditionAndGlobalState(
+        viewModel.components,
+        state
+      );
+    }
+    return viewModel;
+  }
+
+  private filterComponentsBasedOnFieldConditionAndGlobalState(
+    components: ComponentCollectionViewModel,
+    state: FormSubmissionState
+  ) {
+    const filteredComponents = components.filter((component) => {
+      if (component.model.condition) {
+        /* Filter components based on global form state
+         * To allow conditional fields based on state from current page and previous pages
+         */
+
+        const condition = this.model.conditions[component.model.condition];
+
+        if (!condition) {
+          return false;
+        }
+
+        return condition.fn(state);
+      }
+
+      return true;
+    });
+
+    return filteredComponents;
+  }
+
+  private filterErrorsBasedOnVisibleComponents(
+    visibleComponents: ComponentCollectionViewModel,
+    errors: FormSubmissionErrors | undefined
+  ): FormSubmissionErrors | undefined {
+    if (!this.def.enableConditionalFieldSupport) {
+      return errors;
+    }
+
+    let filtered: FormSubmissionErrors | undefined = undefined;
+
+    if (errors && errors.errorList?.length) {
+      const filteredErrors = errors.errorList.filter((error) =>
+        visibleComponents.some(
+          (component) => component.model.name === error.name
+        )
+      );
+
+      if (filteredErrors.length) {
+        filtered = {
+          titleText: errors.titleText,
+          errorList: filteredErrors,
+        };
+      }
+    }
+
+    return filtered;
   }
 }
