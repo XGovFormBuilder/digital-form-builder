@@ -17,6 +17,7 @@
     {
       "title": "Request training from Knowledge and Library Services",
       "path": "/start",
+      "section": "startPage",
       "components": [
         {
           "name": "mainContent",
@@ -94,6 +95,7 @@
     },
     {
       "path": "/training-request-part-1",
+      "section": "trainingPart1",
       "title": "Training request part 1",
       "disableBackLink": true,
       "components": [
@@ -168,9 +170,24 @@
       ],
       "next": [
         {
-          "path": "/training-request-part-2"
+          "path": "/training-details-summary"
         }
       ]
+    },
+    {
+      "path": "/training-details-summary",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information below",
+      "section": "trainingPart1",
+      "options": {
+        "multiSummary": true,
+        "content": "Please check your details and click the 'Submit' button.",
+        "sections": ["trainingPart1"],
+        "customText": {
+          "title": "Check your answers"
+        }
+      },
+      "next": [{ "path": "/training-request-part-2" }]
     },
     {
       "title": "Enquiry summary",
@@ -188,6 +205,7 @@
     },
     {
       "path": "/training-request-part-2",
+      "section": "trainingPart2",
       "title": "Training request part 2",
       "components": [
         {
@@ -257,20 +275,38 @@
       ],
       "next": [
         {
-          "path": "/about-you",
-          "condition": "jXoEVp"
-        },
-        {
-          "path": "/about-you-kyBsdt",
-          "condition": "bzXkMZ"
-        },
-        {
-          "path": "/about-you-bHKmvx"
+          "path": "/training-topics-summary"
         }
       ]
     },
     {
-      "path": "/about-you",
+      "path": "/training-topics-summary",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information below",
+      "section": "trainingPart2",
+      "options": {
+        "content": "Please check your details and click the 'Submit' button.",
+        "customText": {
+          "title": "Check your answers"
+        }
+      },
+      "next": [
+        {
+          "path": "/about-you-ukhsa",
+          "condition": "UKHSAselected"
+        },
+        {
+          "path": "/about-you-laph",
+          "condition": "LAPHselected"
+        },
+        {
+          "path": "/about-you"
+        }
+      ]
+    },
+    {
+      "path": "/about-you-ukhsa",
+      "section": "aboutYouUKHSA",
       "title": "About you",
       "components": [
         {
@@ -379,12 +415,30 @@
       ],
       "next": [
         {
+          "path": "/about-you-uksa-summary"
+        }
+      ]
+    },
+    {
+      "path": "/about-you-uksa-summary",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information below",
+      "section": "aboutYouUKHSA",
+      "options": {
+        "content": "Please check your details and click the 'Submit' button.",
+        "customText": {
+          "title": "Check your answers"
+        }
+      },
+      "next": [
+        {
           "path": "/summary"
         }
       ]
     },
     {
-      "path": "/about-you-kyBsdt",
+      "path": "/about-you-laph",
+      "section": "aboutYouLAPH",
       "title": "About you",
       "components": [
         {
@@ -462,7 +516,25 @@
       ]
     },
     {
-      "path": "/about-you-bHKmvx",
+      "path": "/about-you-laph-summary",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information below",
+      "section": "aboutYouLAPH",
+      "options": {
+        "content": "Please check your details and click the 'Submit' button.",
+        "customText": {
+          "title": "Check your answers"
+        }
+      },
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/about-you",
+      "section": "aboutYou",
       "title": "About you",
       "components": [
         {
@@ -520,6 +592,23 @@
           "title": "If you would like someone else to be included in emails about this enquiry, enter their email address below"
         }
       ],
+      "next": [
+        {
+          "path": "/about-you-summary"
+        }
+      ]
+    },
+    {
+      "path": "/about-you-summary",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information below",
+      "section": "aboutYou",
+      "options": {
+        "content": "Please check your details and click the 'Submit' button.",
+        "customText": {
+          "title": "Check your answers"
+        }
+      },
       "next": [
         {
           "path": "/summary"
@@ -863,11 +952,37 @@
       ]
     }
   ],
-  "sections": [],
+  "sections": [
+    {
+      "name": "trainingPart1",
+      "title": "Training Details",
+      "hideTitle": true
+    },
+    {
+      "name": "trainingPart2",
+      "title": "Training Topics",
+      "hideTitle": true
+    },
+    {
+      "name": "aboutYou",
+      "title": "About you",
+      "hideTitle": true
+    },
+    {
+      "name": "aboutYouUKHSA",
+      "title": "About you",
+      "hideTitle": true
+    },
+    {
+      "name": "aboutYouLAPH",
+      "title": "About you",
+      "hideTitle": true
+    }
+  ],
   "conditions": [
     {
       "displayName": "UKHSA path",
-      "name": "jXoEVp",
+      "name": "UKHSAselected",
       "value": {
         "name": "UKHSA path",
         "conditions": [
@@ -889,7 +1004,7 @@
     },
     {
       "displayName": "LAPH path",
-      "name": "bzXkMZ",
+      "name": "LAPHselected",
       "value": {
         "name": "LAPH path",
         "conditions": [
