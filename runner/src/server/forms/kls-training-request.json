@@ -415,12 +415,12 @@
       ],
       "next": [
         {
-          "path": "/aubout-you-uksa-summary"
+          "path": "/about-you-uksa-summary"
         }
       ]
     },
     {
-      "path": "/aubout-you-uksa-summary",
+      "path": "/about-you-uksa-summary",
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information below",
       "section": "aboutYouUKHSA",
@@ -516,7 +516,7 @@
       ]
     },
     {
-      "path": "/aubout-you-laph-summary",
+      "path": "/about-you-laph-summary",
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information below",
       "section": "aboutYouLAPH",
