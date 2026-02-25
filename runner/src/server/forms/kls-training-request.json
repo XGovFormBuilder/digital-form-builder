@@ -293,11 +293,11 @@
       "next": [
         {
           "path": "/about-you-ukhsa",
-          "condition": "UKHSA-selected"
+          "condition": "UKHSAselected"
         },
         {
           "path": "/about-you-laph",
-          "condition": "LAPH-selected"
+          "condition": "LAPHselected"
         },
         {
           "path": "/about-you"
@@ -982,7 +982,7 @@
   "conditions": [
     {
       "displayName": "UKHSA path",
-      "name": "UKHSA-selected",
+      "name": "UKHSAselected",
       "value": {
         "name": "UKHSA path",
         "conditions": [
@@ -1004,7 +1004,7 @@
     },
     {
       "displayName": "LAPH path",
-      "name": "LAPH-selected",
+      "name": "LAPHselected",
       "value": {
         "name": "LAPH path",
         "conditions": [
