@@ -330,6 +330,7 @@ export const Schema = joi
     showFilenamesOnSummaryPage: joi.boolean().optional(),
     confirmationSessionTimeout: joi.number().optional(),
     returnTo: joi.boolean().optional(),
+    enableConditionalFieldSupport: joi.boolean().optional(),
   });
 
 /**
