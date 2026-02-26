@@ -17,7 +17,6 @@
     {
       "title": "Request training from Knowledge and Library Services",
       "path": "/start",
-      "section": "startPage",
       "components": [
         {
           "name": "mainContent",
@@ -988,7 +987,7 @@
         "conditions": [
           {
             "field": {
-              "name": "BpuPgW",
+              "name": "trainingPart2.BpuPgW",
               "type": "RadiosField",
               "display": "Which organisation do you belong to?"
             },
@@ -1010,7 +1009,7 @@
         "conditions": [
           {
             "field": {
-              "name": "BpuPgW",
+              "name": "trainingPart2.BpuPgW",
               "type": "RadiosField",
               "display": "Which organisation do you belong to?"
             },
@@ -1090,7 +1089,7 @@
     }
   ],
   "version": 2,
-  "skipSummary": false,
+  "skipSummary": true,
   "feeOptions": {
     "allowSubmissionWithoutPayment": true,
     "maxAttempts": 3,
