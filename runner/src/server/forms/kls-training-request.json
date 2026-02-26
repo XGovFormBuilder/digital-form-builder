@@ -1089,7 +1089,7 @@
     }
   ],
   "version": 2,
-  "skipSummary": false,
+  "skipSummary": true,
   "feeOptions": {
     "allowSubmissionWithoutPayment": true,
     "maxAttempts": 3,
