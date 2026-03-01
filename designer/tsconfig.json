@@ -20,6 +20,7 @@
     "test/helpers/window-stubbing.js"
   ],
   "paths": {
+    "@govuk-jsx/*": ["../node_modules/@xgovformbuilder/govuk-react-jsx/govuk/components/*"],
     "*": ["node_modules/*", "../node_modules"]
   }
 }
