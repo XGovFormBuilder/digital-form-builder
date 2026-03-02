@@ -7,14 +7,22 @@ import { PageController } from "./PageController";
  */
 export class MiniSummaryPageController extends PageController {
   isMiniSummaryPageController = true;
+  subtitle?: string;
 
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
       const state = await cacheService.getState(request);
-      const { title, model } = this;
+      const { title, subtitle, model } = this;
 
-      const summary = new SummaryViewModel(title, model, state, request);
+      // TODO: add subtitile to be use in summary view
+      const summary = new SummaryViewModel(
+        title,
+        subtitle,
+        model,
+        state,
+        request
+      );
       const sectionDetails = this.pageDef.section
         ? summary.details.find((detail) => detail.name === this.pageDef.section)
         : summary.details[0];
