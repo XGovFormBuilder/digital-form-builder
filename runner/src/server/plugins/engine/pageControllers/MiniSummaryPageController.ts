@@ -18,7 +18,7 @@ export class MiniSummaryPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
       const state = await cacheService.getState(request);
-      const { title, subtitle, model } = this;
+      const { title, model } = this;
 
       const summary = new SummaryViewModel(title, model, state, request);
       const sectionDetails = this.pageDef.section
