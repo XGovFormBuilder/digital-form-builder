@@ -179,6 +179,7 @@
       "title": "Confirm the information below",
       "section": "trainingPart1",
       "options": {
+        "subtitle": "You will not be able to change your answers later once confirmed.",
         "multiSummary": true,
         "content": "Please check your details and click the 'Submit' button.",
         "sections": ["trainingPart1"],
