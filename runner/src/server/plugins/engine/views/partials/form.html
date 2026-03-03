@@ -18,10 +18,10 @@
   {% if not (components[0].type == "FlashCard") %}
     {% if page.isRepeatingFieldPageController and page.isSamePageDisplayMode %}
     {% if details.rows.length %}
-    {{ govukButton({ attributes: { id: "submit" }, text: page.options.customButtonText if page.options.customButtonText else "Continue", name: "next", value: "continue"}) }}
+    {{ govukButton({ attributes: { id: "submit" }, text: page.buttonText if page.buttonText else "Continue", name: "next", value: "continue"}) }}
     {% endif %}
     {% else %}
-    {{ govukButton({ attributes: { id: "submit" }, text: page.options.customButtonText if page.options.customButtonText else "Continue" }) }}
+    {{ govukButton({ attributes: { id: "submit" }, text: page.buttonText if page.buttonText else "Continue" }) }}
     {% if allowExit %}
       <button class="govuk-body govuk-button--link govuk-!-display-block" data-module="govuk-button" name="action" value="exit">
         Save and come back later
