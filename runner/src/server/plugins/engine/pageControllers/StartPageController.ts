@@ -15,4 +15,8 @@ export class StartPageController extends PageController {
       skipTimeoutWarning: true,
     };
   }
+
+  get defaultButtonText() {
+    return "Start now";
+  }
 }
