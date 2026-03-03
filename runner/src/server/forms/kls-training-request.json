@@ -393,6 +393,7 @@
     {
       "path": "/about-you-uksa-summary",
       "controller": "MiniSummaryPageController",
+      "customButtonText": "Submit",
       "title": "Confirm the information before submitting",
       "section": "aboutYouUKHSA",
       "options": {
@@ -491,6 +492,7 @@
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information before submitting",
       "section": "aboutYouLAPH",
+      "customButtonText": "Submit",
       "options": {
         "content": "Please check your details and click the 'Submit' button.",
         "customText": {
@@ -571,6 +573,7 @@
     },
     {
       "path": "/about-you-summary",
+      "customButtonText": "Submit",
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information before submitting",
       "section": "aboutYou",
