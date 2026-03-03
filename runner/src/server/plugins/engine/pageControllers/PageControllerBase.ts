@@ -67,7 +67,7 @@ export class PageControllerBase {
   details?: any;
   disableBackLink?: boolean;
   returnUrl?: string;
-  customButtonText?: string;
+  buttonText?: string;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -87,8 +87,7 @@ export class PageControllerBase {
     this.disableBackLink = pageDef.disableBackLink;
     this.disableSingleComponentAsHeading =
       pageDef.disableSingleComponentAsHeading;
-    this.customButtonText =
-      pageDef.options?.customButtonText ?? this.defaultButtonText;
+    this.buttonText = pageDef.customButtonText ?? this.defaultButtonText;
 
     // Resolve section
     this.section = model.sections?.find(
