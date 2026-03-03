@@ -7,6 +7,12 @@ import { PageController } from "./PageController";
  */
 export class MiniSummaryPageController extends PageController {
   isMiniSummaryPageController = true;
+  subtitle?: string;
+
+  constructor(model, pageDef) {
+    super(model, pageDef);
+    this.subtitle = pageDef.options?.subtitle;
+  }
 
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
