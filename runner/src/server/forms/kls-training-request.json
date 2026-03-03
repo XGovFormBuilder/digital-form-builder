@@ -94,7 +94,7 @@
     },
     {
       "path": "/training-request-part-1",
-      "section": "trainingPart1",
+      "section": "trainingQuestions",
       "title": "Training request part 1",
       "disableBackLink": true,
       "components": [
@@ -169,43 +169,13 @@
       ],
       "next": [
         {
-          "path": "/training-details-summary"
+          "path": "/training-request-part-2"
         }
       ]
     },
     {
-      "path": "/training-details-summary",
-      "controller": "MiniSummaryPageController",
-      "title": "Confirm the information below",
-      "section": "trainingPart1",
-      "options": {
-        "subtitle": "You will not be able to change your answers later once confirmed.",
-        "multiSummary": true,
-        "content": "Please check your details and click the 'Submit' button.",
-        "sections": ["trainingPart1"],
-        "customText": {
-          "title": "Check your answers"
-        }
-      },
-      "next": [{ "path": "/training-request-part-2" }]
-    },
-    {
-      "title": "Enquiry summary",
-      "path": "/summary",
-      "controller": "./pages/summary.js",
-      "components": [
-        {
-          "name": "PdoDpO",
-          "options": {},
-          "type": "Para",
-          "content": "Please check your details and click the 'Submit' button."
-        }
-      ],
-      "next": []
-    },
-    {
       "path": "/training-request-part-2",
-      "section": "trainingPart2",
+      "section": "trainingQuestions",
       "title": "Training request part 2",
       "components": [
         {
@@ -283,8 +253,9 @@
       "path": "/training-topics-summary",
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information below",
-      "section": "trainingPart2",
+      "section": "trainingQuestions",
       "options": {
+        "subtitle": "You will not be able to change your answers later once confirmed.",
         "content": "Please check your details and click the 'Submit' button.",
         "customText": {
           "title": "Check your answers"
@@ -614,6 +585,20 @@
           "path": "/summary"
         }
       ]
+    },
+    {
+      "title": "Enquiry summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [
+        {
+          "name": "PdoDpO",
+          "options": {},
+          "type": "Para",
+          "content": "Please check your details and click the 'Submit' button."
+        }
+      ],
+      "next": []
     }
   ],
   "lists": [
@@ -954,13 +939,8 @@
   ],
   "sections": [
     {
-      "name": "trainingPart1",
+      "name": "trainingQuestions",
       "title": "Training Details",
-      "hideTitle": true
-    },
-    {
-      "name": "trainingPart2",
-      "title": "Training Topics",
       "hideTitle": true
     },
     {
@@ -988,7 +968,7 @@
         "conditions": [
           {
             "field": {
-              "name": "trainingPart2.BpuPgW",
+              "name": "trainingQuestions.BpuPgW",
               "type": "RadiosField",
               "display": "Which organisation do you belong to?"
             },
@@ -1010,7 +990,7 @@
         "conditions": [
           {
             "field": {
-              "name": "trainingPart2.BpuPgW",
+              "name": "trainingQuestions.BpuPgW",
               "type": "RadiosField",
               "display": "Which organisation do you belong to?"
             },
