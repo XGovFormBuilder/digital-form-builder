@@ -38,4 +38,8 @@ export class MiniSummaryPageController extends PageController {
   get viewName() {
     return "mini-summary";
   }
+
+  get defaultButtonText() {
+    return "Confirm and continue";
+  }
 }
