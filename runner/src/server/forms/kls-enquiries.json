@@ -206,13 +206,8 @@
       "section": "typeOfEnquiry",
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information before submitting",
-      "customButtonText": "Confirm and Continue",
-      "subtitle": "You will not be able to change your answer later once confirmed.",
       "options": {
-        "content": "Please check your details and click the 'Submit' button.",
-        "customText": {
-          "title": "Check your answers"
-        }
+        "subtitle": "You will not be able to change your answer later once confirmed."
       },
       "next": [
         {
@@ -930,13 +925,8 @@
       "section": "whichOrganisationValidated",
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information before submitting",
-      "customButtonText": "Confirm and Continue",
-      "subtitle": "You will not be able to change your answer later once confirmed.",
       "options": {
-        "content": "Please check your details and click the 'Submit' button.",
-        "customText": {
-          "title": "Check your answers"
-        }
+        "subtitle": "You will not be able to change your answer later once confirmed."
       },
       "next": [
         {
@@ -995,13 +985,8 @@
       "section": "typeOfEnquiryLAPH",
       "controller": "MiniSummaryPageController",
       "title": "Confirm the information before submitting",
-      "customButtonText": "Confirm and Continue",
-      "subtitle": "You will not be able to change your answer later once confirmed.",
       "options": {
-        "content": "Please check your details and click the 'Submit' button.",
-        "customText": {
-          "title": "Check your answers"
-        }
+        "subtitle": "You will not be able to change your answer later once confirmed."
       },
       "next": [
         {
@@ -2717,5 +2702,5 @@
     "feedbackForm": true,
     "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
   },
-  "jwtKey": "oadfbadosif"
+  "jwtKey": "${KLSJwtKey}"
 }
