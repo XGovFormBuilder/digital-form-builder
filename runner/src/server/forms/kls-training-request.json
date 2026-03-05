@@ -277,6 +277,7 @@
     },
     {
       "path": "/about-you-ukhsa",
+      "disableBackLink": true,
       "section": "aboutYouUKHSA",
       "title": "About you",
       "components": [
@@ -410,6 +411,7 @@
     },
     {
       "path": "/about-you-laph",
+      "disableBackLink": true,
       "section": "aboutYouLAPH",
       "title": "About you",
       "components": [
@@ -507,6 +509,7 @@
     },
     {
       "path": "/about-you",
+      "disableBackLink": true,
       "section": "aboutYou",
       "title": "About you",
       "components": [
