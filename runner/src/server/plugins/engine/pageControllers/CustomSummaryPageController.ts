@@ -30,6 +30,7 @@ export class CustomSummaryPageController extends PageController {
     this.returnUrlParameter = `?returnUrl=${encodeURIComponent(returnPath)}`;
     this.options = pageDef?.options ?? DEFAULT_OPTIONS;
     this.options.customText ??= DEFAULT_OPTIONS.customText;
+    this.options.disabledChangeFields ??= [];
   }
   /**
    * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`,
@@ -360,7 +361,10 @@ export class CustomSummaryPageController extends PageController {
         "Summary",
         `${request.url.pathname}${request.url.search}`
       );
-      relativeFeedbackUrl.setParam(feedbackReturnInfoKey, returnInfo.toString());
+      relativeFeedbackUrl.setParam(
+        feedbackReturnInfoKey,
+        returnInfo.toString()
+      );
       return relativeFeedbackUrl.toString();
     }
 
@@ -397,7 +401,7 @@ export class CustomSummaryPageController extends PageController {
       component: FormComponent,
       parentComponent?: FormComponent
     ): any[] => {
-      const rows = [];
+      const rows: any[] = [];
 
       // Process the current component if it has a name (is a form field)
       if (component.name) {
@@ -427,15 +431,17 @@ export class CustomSummaryPageController extends PageController {
           value: {
             text: valueText || "Not supplied",
           },
-          actions: {
-            items: [
-              {
-                text: "Change",
-                visuallyHiddenText: displayTitle,
-                href: returnPath,
+          actions: this.options.disabledChangeFields.includes(component.name)
+            ? undefined
+            : {
+                items: [
+                  {
+                    text: "Change",
+                    visuallyHiddenText: displayTitle,
+                    href: returnPath,
+                  },
+                ],
               },
-            ],
-          },
         });
       }
 

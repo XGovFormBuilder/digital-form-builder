@@ -164,6 +164,7 @@
     },
     {
       "path": "/type-of-enquiry",
+      "section": "typeOfEnquiry",
       "title": "Type of enquiry",
       "components": [
         {
@@ -182,7 +183,7 @@
               "any.only": "Select the option that best matches your enquiry",
               "string.empty": "Select the option that best matches your enquiry"
             },
-            "disableChangingFromSummary": true,
+            "disableChangingFromSummary": false,
             "exposeToContext": false
           },
           "type": "RadiosField",
@@ -194,6 +195,20 @@
           "schema": {}
         }
       ],
+      "next": [
+        {
+          "path": "/type-of-enquiry-summary"
+        }
+      ]
+    },
+    {
+      "path": "/type-of-enquiry-summary",
+      "section": "typeOfEnquiry",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information before submitting",
+      "options": {
+        "subtitle": "You will not be able to change your answer later once confirmed."
+      },
       "next": [
         {
           "path": "/current-awareness",
@@ -876,6 +891,7 @@
     {
       "path": "/which-organisation-do-you-work-for-validated",
       "title": "Which organisation do you work for?",
+      "section": "whichOrganisationValidated",
       "disableBackLink": true,
       "components": [
         {
@@ -886,7 +902,7 @@
               "any.only": "Select the organisation you work for",
               "string.empty": "Select the organisation you work for"
             },
-            "disableChangingFromSummary": true
+            "disableChangingFromSummary": false
           },
           "type": "RadiosField",
           "title": "Which organisation do you work for?",
@@ -898,6 +914,20 @@
           }
         }
       ],
+      "next": [
+        {
+          "path": "/which-organisation-do-you-work-for-summary"
+        }
+      ]
+    },
+    {
+      "path": "/which-organisation-do-you-work-for-summary",
+      "section": "whichOrganisationValidated",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information before submitting",
+      "options": {
+        "subtitle": "You will not be able to change your answer later once confirmed."
+      },
       "next": [
         {
           "path": "/type-of-enquiry"
@@ -914,6 +944,7 @@
     },
     {
       "path": "/type-of-enquiry-LAPH",
+      "section": "typeOfEnquiryLAPH",
       "title": "Type of enquiry",
       "components": [
         {
@@ -943,6 +974,20 @@
           "schema": {}
         }
       ],
+      "next": [
+        {
+          "path": "/type-of-enquiry-LAPH-summary"
+        }
+      ]
+    },
+    {
+      "path": "/type-of-enquiry-LAPH-summary",
+      "section": "typeOfEnquiryLAPH",
+      "controller": "MiniSummaryPageController",
+      "title": "Confirm the information before submitting",
+      "options": {
+        "subtitle": "You will not be able to change your answer later once confirmed."
+      },
       "next": [
         {
           "path": "/how-can-we-help",
@@ -1302,10 +1347,13 @@
     },
     {
       "path": "/summary",
+      "controller": "CustomSummaryPageController",
       "title": "Check the details before submitting",
       "components": [],
-      "next": [],
-      "controller": "./pages/summary.js"
+      "options": {
+        "disabledChangeFields": ["tUKBgj", "VeQCVM", "wyvXTj"]
+      },
+      "next": []
     }
   ],
   "lists": [
@@ -2198,7 +2246,23 @@
       ]
     }
   ],
-  "sections": [],
+  "sections": [
+    {
+      "name": "whichOrganisationValidated",
+      "title": "whichOrganisationValidated",
+      "hideTitle": true
+    },
+    {
+      "name": "typeOfEnquiry",
+      "title": "Type of enquiry",
+      "hideTitle": true
+    },
+    {
+      "name": "typeOfEnquiryLAPH",
+      "title": "Type of enquiry",
+      "hideTitle": true
+    }
+  ],
   "conditions": [
     {
       "displayName": "Other",
@@ -2252,7 +2316,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your query?"
             },
@@ -2274,7 +2338,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your query?"
             },
@@ -2296,7 +2360,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your query?"
             },
@@ -2318,7 +2382,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your query?"
             },
@@ -2340,7 +2404,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your query?"
             },
@@ -2362,7 +2426,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your query?"
             },
@@ -2376,7 +2440,7 @@
           {
             "coordinator": "or",
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your query?"
             },
@@ -2398,7 +2462,7 @@
         "conditions": [
           {
             "field": {
-              "name": "wyvXTj",
+              "name": "whichOrganisationValidated.wyvXTj",
               "type": "RadiosField",
               "display": "Which organisation do you work for?"
             },
@@ -2420,7 +2484,7 @@
         "conditions": [
           {
             "field": {
-              "name": "wyvXTj",
+              "name": "whichOrganisationValidated.wyvXTj",
               "type": "RadiosField",
               "display": "Which organisation do you work for?"
             },
@@ -2442,7 +2506,7 @@
         "conditions": [
           {
             "field": {
-              "name": "VeQCVM",
+              "name": "typeOfEnquiryLAPH.VeQCVM",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry? - LAPH user"
             },
@@ -2464,7 +2528,7 @@
         "conditions": [
           {
             "field": {
-              "name": "VeQCVM",
+              "name": "typeOfEnquiryLAPH.VeQCVM",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry? - LAPH user"
             },
@@ -2486,7 +2550,7 @@
         "conditions": [
           {
             "field": {
-              "name": "VeQCVM",
+              "name": "typeOfEnquiryLAPH.VeQCVM",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry? - LAPH user"
             },
@@ -2508,7 +2572,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry?"
             },
@@ -2522,7 +2586,7 @@
           {
             "coordinator": "or",
             "field": {
-              "name": "VeQCVM",
+              "name": "typeOfEnquiryLAPH.VeQCVM",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry? - LAPH user"
             },
@@ -2544,7 +2608,7 @@
         "conditions": [
           {
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry?"
             },
@@ -2558,7 +2622,7 @@
           {
             "coordinator": "or",
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry?"
             },
@@ -2572,7 +2636,7 @@
           {
             "coordinator": "or",
             "field": {
-              "name": "tUKBgj",
+              "name": "typeOfEnquiry.tUKBgj",
               "type": "RadiosField",
               "display": "Which option best matches your enquiry?"
             },
@@ -2594,7 +2658,7 @@
         "conditions": [
           {
             "field": {
-              "name": "wyvXTj",
+              "name": "whichOrganisationValidated.wyvXTj",
               "type": "RadiosField",
               "display": "Which organisation do you work for?"
             },
