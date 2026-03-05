@@ -252,7 +252,7 @@
     {
       "path": "/training-topics-summary",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information below",
+      "title": "Confirm your personal details before submitting",
       "section": "trainingQuestions",
       "options": {
         "subtitle": "You will not be able to change your answers later once confirmed.",
@@ -492,7 +492,7 @@
     {
       "path": "/about-you-laph-summary",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information before submitting",
+      "title": "Confirm your personal details before submitting",
       "section": "aboutYouLAPH",
       "customButtonText": "Submit",
       "options": {
@@ -578,7 +578,7 @@
       "path": "/about-you-summary",
       "customButtonText": "Submit",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information before submitting",
+      "title": "Confirm your personal details before submitting",
       "section": "aboutYou",
       "options": {
         "content": "Please check your details and click the 'Submit' button.",
