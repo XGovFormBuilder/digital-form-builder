@@ -117,13 +117,15 @@
                   </div>
                 {% endif %}
 
-                <button type="submit" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
-                    {% if fees and fees.details|length %}
-                        Submit and pay
-                    {% else %}
-                        Confirm and send
-                    {% endif %}
-                </button>
+                {% if fees and fees.details|length %}
+                  <button type="submit" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                    Submit and pay
+                  </button>
+                {% else %}
+                  <button type="submit" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                    {{ page.buttonText if page.buttonText else "Confirm and send" }}
+                  </button>
+                {% endif %}
 
                 {% if showPaymentSkippedWarningPage %}
                 <div class="govuk-body">
