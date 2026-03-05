@@ -516,4 +516,8 @@ export class CustomSummaryPageController extends PageController {
     }
     return payApiKey;
   }
+
+  get defaultButtonText() {
+    return "Confirm and send";
+  }
 }
