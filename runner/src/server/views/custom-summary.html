@@ -46,7 +46,6 @@
                 {% else %}
                   {% set actions = [] %}
                 {% endif %}
-                
                 {% set rows = (rows.push({
                   key: {
                     text: item.label
@@ -59,7 +58,6 @@
                   }
                 }), rows) %}
               {% endfor %}
-              
               {{ govukSummaryList({
                 rows: rows
               }) }}

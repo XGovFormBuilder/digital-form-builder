@@ -205,7 +205,7 @@
       "path": "/type-of-enquiry-summary",
       "section": "typeOfEnquiry",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information before submitting",
+      "title": "Confirm your enquiry type",
       "options": {
         "subtitle": "You will not be able to change your answer later once confirmed."
       },
@@ -924,7 +924,7 @@
       "path": "/which-organisation-do-you-work-for-summary",
       "section": "whichOrganisationValidated",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information before submitting",
+      "title": "Confirm your organisation",
       "options": {
         "subtitle": "You will not be able to change your answer later once confirmed."
       },
@@ -984,7 +984,7 @@
       "path": "/type-of-enquiry-LAPH-summary",
       "section": "typeOfEnquiryLAPH",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information before submitting",
+      "title": "Confirm your enquiry type",
       "options": {
         "subtitle": "You will not be able to change your answer later once confirmed."
       },
@@ -1350,7 +1350,7 @@
       "controller": "CustomSummaryPageController",
       "title": "Check the details before submitting",
       "components": [],
-      "customButtonText": "Confirm and Submit",
+      "customButtonText": "Confirm and submit",
       "options": {
         "hiddenFields": ["ZpmVWP"],
         "disabledChangeFields": ["tUKBgj", "VeQCVM", "wyvXTj"]
