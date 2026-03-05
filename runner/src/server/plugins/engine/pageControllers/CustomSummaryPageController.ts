@@ -285,16 +285,20 @@ export class CustomSummaryPageController extends PageController {
       });
 
       // Process each form item
-      page.components.formItems.forEach((component) => {
-        const result = toRow(component);
-        if (Array.isArray(result)) {
-          // If result is an array (from nested components), add each item
-          section.push(...result);
-        } else {
-          // Otherwise, add the single row
-          section.push(result);
-        }
-      });
+      page.components.formItems
+        .filter(
+          (component) => !this.options.hiddenFields?.includes(component.name)
+        )
+        .forEach((component) => {
+          const result = toRow(component);
+          if (Array.isArray(result)) {
+            // If result is an array (from nested components), add each item
+            section.push(...result);
+          } else {
+            // Otherwise, add the single row
+            section.push(result);
+          }
+        });
 
       prev[displaySectionName] = section;
       return prev;
