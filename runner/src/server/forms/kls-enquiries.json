@@ -166,6 +166,7 @@
       "path": "/type-of-enquiry",
       "section": "typeOfEnquiry",
       "title": "Type of enquiry",
+      "disableBackLink": true,
       "components": [
         {
           "name": "iAFhFY",
@@ -278,6 +279,7 @@
     {
       "path": "/current-awareness",
       "title": "About your current awareness alerts query",
+      "disableBackLink": true,
       "components": [
         {
           "name": "CovnkG",
@@ -325,6 +327,7 @@
     {
       "path": "/current-awareness-LAPH",
       "title": "About your current awareness alerts query",
+      "disableBackLink": true,
       "components": [
         {
           "name": "voCgKn",
@@ -363,6 +366,7 @@
     {
       "path": "/about-your-enquiry",
       "title": "About your enquiry",
+      "disableBackLink": true,
       "components": [
         {
           "name": "yYKOmJ",
@@ -839,6 +843,7 @@
     {
       "path": "/how-can-we-help",
       "title": "How can we help?",
+      "disableBackLink": true,
       "components": [
         {
           "name": "CKlngs",
@@ -946,6 +951,7 @@
       "path": "/type-of-enquiry-LAPH",
       "section": "typeOfEnquiryLAPH",
       "title": "Type of enquiry",
+      "disableBackLink": true,
       "components": [
         {
           "name": "RlHHWZ",
@@ -958,7 +964,7 @@
         {
           "name": "VeQCVM",
           "options": {
-            "disableChangingFromSummary": true,
+            "disableChangingFromSummary": false,
             "customValidationMessages": {
               "any.required": "Select the option that best matches your enquiry",
               "any.only": "Select the option that best matches your enquiry",
@@ -1005,6 +1011,7 @@
     {
       "path": "/about-your-enquiry-RPOaaR",
       "title": "About your enquiry",
+      "disableBackLink": true,
       "components": [
         {
           "name": "fXvmRh",
@@ -1125,6 +1132,7 @@
     {
       "path": "/evidence-briefing-information",
       "title": "Evidence briefing information",
+      "disableBackLink": true,
       "components": [
         {
           "name": "jojhvk",
