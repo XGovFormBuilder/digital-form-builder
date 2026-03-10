@@ -284,21 +284,11 @@ export class CustomSummaryPageController extends PageController {
         fullState: state,
       });
 
-      // Process each form item
-      page.components.formItems
-        .filter(
-          (component) => !this.options.hiddenFields?.includes(component.name)
-        )
-        .forEach((component) => {
-          const result = toRow(component);
-          if (Array.isArray(result)) {
-            // If result is an array (from nested components), add each item
-            section.push(...result);
-          } else {
-            // Otherwise, add the single row
-            section.push(result);
-          }
-        });
+      section.push(
+        ...page.components.formItems
+          .filter((c) => !this.options.hiddenFields?.includes(c.name))
+          .flatMap((c) => toRow(c))
+      );
 
       prev[displaySectionName] = section;
       return prev;
