@@ -295,12 +295,42 @@ export default {
             request.yar.reset();
           }
 
-          const { url } = request.params;
+          const { referer } = request.headers;
+          let startPage = "/";
+          let formId: string | undefined;
+
+          if (referer) {
+            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
+            if (match && match.length > 1) {
+              formId = match[1];
+              startPage = `/${match[1]}`;
+            }
+          }
+
+          const form = formId ? server.app.forms[formId] : undefined;
+
+          const title = "timeout";
+          return h.view(title, {
+            name: form?.name,
+            serviceName: form?.serviceName,
+            startPage: form?.serviceStartPage,
+            feedbackLink: feedbackUrlFromRequest(request, form, title),
+          });
+        },
+      });
+
+      server.route({
+        method: "get",
+        path: "/{url}/timeout",
+        handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
+          if (_request.yar) {
+            _request.yar.reset();
+          }
+          const { url } = _request.params;
           const form = server.app.forms[url];
 
           let startPage = "/";
-          const { referer } = request.headers;
-
+          const { referer } = _request.headers;
           if (referer) {
             const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
             if (match && match.length > 1) {
@@ -312,8 +342,8 @@ export default {
           return h.view(title, {
             name: form.name,
             serviceName: form.serviceName,
-            StartPage: startPage,
-            feedbackLink: feedbackUrlFromRequest(request, form, title),
+            startPage: form.serviceStartPage,
+            feedbackLink: feedbackUrlFromRequest(_request, form, title),
           });
         },
       });
