@@ -295,17 +295,7 @@ export default {
             request.yar.reset();
           }
 
-          const { referer } = request.headers;
-          let startPage = "/";
           let formId: string | undefined;
-
-          if (referer) {
-            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
-            if (match && match.length > 1) {
-              formId = match[1];
-              startPage = `/${match[1]}`;
-            }
-          }
 
           const form = formId ? server.app.forms[formId] : undefined;
 
@@ -328,15 +318,6 @@ export default {
           }
           const { url } = _request.params;
           const form = server.app.forms[url];
-
-          let startPage = "/";
-          const { referer } = _request.headers;
-          if (referer) {
-            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
-            if (match && match.length > 1) {
-              startPage = `/${match[1]}`;
-            }
-          }
 
           const title = "timeout";
           return h.view(title, {
