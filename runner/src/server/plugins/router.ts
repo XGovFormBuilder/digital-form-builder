@@ -295,7 +295,17 @@ export default {
             request.yar.reset();
           }
 
+          const { referer } = request.headers;
+          let startPage = "/";
           let formId: string | undefined;
+
+          if (referer) {
+            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
+            if (match && match.length > 1) {
+              formId = match[1];
+              startPage = `/${match[1]}`;
+            }
+          }
 
           const form = formId ? server.app.forms[formId] : undefined;
 
