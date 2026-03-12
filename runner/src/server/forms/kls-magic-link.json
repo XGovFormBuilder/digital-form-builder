@@ -205,7 +205,7 @@
         {
           "type": "Para",
           "title": "This link has expired",
-          "content": "<p class=\"govuk-body\">This link has expired because it is older than 20 minutes or has already been used. Each link can only be used once</p> <a href='/kls-enquiries/start' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
+          "content": "<p class=\"govuk-body\">This link has expired because it is older than 20 minutes or has already been used. Each link can only be used once.</p> <a href='/kls-enquiries/start' role='button' draggable='false' class='govuk-button' data-module='govuk-button' data-prevent-double-click='true'>Request a new link</button></a>",
           "name": "blarGGH",
           "options": {},
           "schema": {}
