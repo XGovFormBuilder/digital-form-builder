@@ -284,17 +284,11 @@ export class CustomSummaryPageController extends PageController {
         fullState: state,
       });
 
-      // Process each form item
-      page.components.formItems.forEach((component) => {
-        const result = toRow(component);
-        if (Array.isArray(result)) {
-          // If result is an array (from nested components), add each item
-          section.push(...result);
-        } else {
-          // Otherwise, add the single row
-          section.push(result);
-        }
-      });
+      section.push(
+        ...page.components.formItems
+          .filter((c) => !this.options.hiddenFields?.includes(c.name))
+          .flatMap((c) => toRow(c))
+      );
 
       prev[displaySectionName] = section;
       return prev;
@@ -511,5 +505,9 @@ export class CustomSummaryPageController extends PageController {
       return payApiKey[config.apiEnv] ?? payApiKey.test ?? payApiKey.production;
     }
     return payApiKey;
+  }
+
+  get defaultButtonText() {
+    return "Confirm and send";
   }
 }
