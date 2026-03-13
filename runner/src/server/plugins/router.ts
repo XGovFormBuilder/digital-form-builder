@@ -318,26 +318,6 @@ export default {
           });
         },
       });
-
-      server.route({
-        method: "get",
-        path: "/{url}/timeout",
-        handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-          if (_request.yar) {
-            _request.yar.reset();
-          }
-          const { url } = _request.params;
-          const form = server.app.forms[url];
-
-          const title = "timeout";
-          return h.view(title, {
-            name: form.name,
-            serviceName: form.serviceName,
-            startPage: form.serviceStartPage,
-            feedbackLink: feedbackUrlFromRequest(_request, form, title),
-          });
-        },
-      });
     },
   },
 };
