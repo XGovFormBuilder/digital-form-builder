@@ -1360,7 +1360,7 @@
       "components": [],
       "customButtonText": "Confirm and submit",
       "options": {
-        "hiddenFields": ["ZpmVWP", "bYWcrH", "FIvjTg"],
+        "hiddenFields": ["ZpmVWP"],
         "disabledChangeFields": ["tUKBgj", "VeQCVM", "wyvXTj"]
       },
       "next": []
