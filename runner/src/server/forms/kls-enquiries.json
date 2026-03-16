@@ -400,7 +400,7 @@
             }
           },
           "type": "MultilineTextField",
-          "title": "Explain any relevant concepts",
+          "title": "Explain relevant concepts, including any keywords",
           "schema": {},
           "hint": "Consider the questions: Who? What? Where? Why? When? How?"
         },
@@ -1038,7 +1038,7 @@
           "name": "WYbcGt",
           "options": {},
           "type": "MultilineTextField",
-          "title": "Explain any relevant concepts",
+          "title": "Explain relevant concepts, including any keywords",
           "hint": "Consider the questions: Who? What? Where? Why? When? How?",
           "schema": {}
         },
@@ -1360,7 +1360,7 @@
       "components": [],
       "customButtonText": "Confirm and submit",
       "options": {
-        "hiddenFields": ["ZpmVWP"],
+        "hiddenFields": ["ZpmVWP", "bYWcrH", "FIvjTg"],
         "disabledChangeFields": ["tUKBgj", "VeQCVM", "wyvXTj"]
       },
       "next": []
