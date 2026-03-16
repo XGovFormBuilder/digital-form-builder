@@ -68,7 +68,7 @@ export default {
               name: form.name,
               serviceName: form.def.serviceName,
               serviceStartPage: form.serviceStartPage,
-              feedbackLink: feedbackUrlFromRequest(_request, form, title)
+              feedbackLink: feedbackUrlFromRequest(_request, form, title),
             });
           },
         },
@@ -116,7 +116,7 @@ export default {
               matomoUrl: form.def.analytics.matomoUrl,
               matomoId: form.def.analytics.matomoId,
               gtmId1: form.def.analytics.gtmId1,
-              gtmId2: form.def.analytics.gtmId2
+              gtmId2: form.def.analytics.gtmId2,
             });
           },
         },
@@ -176,7 +176,7 @@ export default {
             if (referrer) {
               redirectPath = new URL(referrer).pathname;
             }
-            
+
             const cookieName = form?.name || `${url}Page`;
 
             return h.redirect(redirectPath).state(
@@ -229,7 +229,7 @@ export default {
             name: form.name,
             serviceName: form.def.serviceName,
             serviceStartPage: form.serviceStartPage,
-            feedbackLink: feedbackUrlFromRequest(_request, form, title)
+            feedbackLink: feedbackUrlFromRequest(_request, form, title),
           });
         },
       });
@@ -270,7 +270,7 @@ export default {
             name: form.name,
             serviceName: form.serviceName,
             serviceStartPage: form.serviceStartPage,
-            feedbackLink: feedbackUrlFromRequest(_request, form, title)
+            feedbackLink: feedbackUrlFromRequest(_request, form, title),
           });
         },
       });
@@ -295,19 +295,26 @@ export default {
             request.yar.reset();
           }
 
-          let startPage = "/";
-
           const { referer } = request.headers;
+          let startPage = "/";
+          let formId: string | undefined;
 
           if (referer) {
             const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
             if (match && match.length > 1) {
+              formId = match[1];
               startPage = `/${match[1]}`;
             }
           }
 
-          return h.view("timeout", {
-            startPage,
+          const form = formId ? server.app.forms[formId] : undefined;
+
+          const title = "timeout";
+          return h.view(title, {
+            name: form?.name,
+            serviceName: form?.serviceName,
+            startPage: form?.serviceStartPage,
+            feedbackLink: feedbackUrlFromRequest(request, form, title),
           });
         },
       });
@@ -315,8 +322,12 @@ export default {
   },
 };
 
-function feedbackUrlFromRequest(request: HapiRequest, form: FormModel, title: string): string | void {
-  const feedbackUrl = (form.def.feedback?.url as any);
+function feedbackUrlFromRequest(
+  request: HapiRequest,
+  form: FormModel,
+  title: string
+): string | void {
+  const feedbackUrl = form.def.feedback?.url as any;
   if (feedbackUrl) {
     if (feedbackUrl.startsWith("http")) {
       return feedbackUrl;
@@ -328,10 +339,7 @@ function feedbackUrlFromRequest(request: HapiRequest, form: FormModel, title: st
       title,
       `${request.url.pathname}${request.url.search}`
     );
-    relativeFeedbackUrl.setParam(
-      feedbackReturnInfoKey,
-      returnInfo.toString()
-    );
+    relativeFeedbackUrl.setParam(feedbackReturnInfoKey, returnInfo.toString());
     return relativeFeedbackUrl.toString();
   }
 
