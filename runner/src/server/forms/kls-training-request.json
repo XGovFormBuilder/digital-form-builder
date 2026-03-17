@@ -252,7 +252,7 @@
     {
       "path": "/training-topics-summary",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm your personal details before submitting",
+      "title": "Confirm the information below",
       "section": "trainingQuestions",
       "options": {
         "subtitle": "You will not be able to change your answers later once confirmed.",
