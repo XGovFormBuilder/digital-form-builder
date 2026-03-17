@@ -395,7 +395,7 @@
       "path": "/about-you-uksa-summary",
       "customButtonText": "Confirm and submit",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information before submitting",
+      "title": "Confirm your personal details before submitting",
       "section": "aboutYouUKHSA",
       "options": {
         "content": "Please check your details and click the 'Submit' button.",
