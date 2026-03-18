@@ -306,6 +306,7 @@ export default {
           return h.view(title, {
             name: form?.name,
             serviceName: form?.serviceName,
+            serviceStartPage: form.serviceStartPage,
             startPage: startPage,
             feedbackLink: feedbackUrlFromRequest(request, form, title),
             returnTo: form.returnTo,
