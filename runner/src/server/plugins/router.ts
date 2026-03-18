@@ -69,6 +69,7 @@ export default {
               serviceName: form.def.serviceName,
               serviceStartPage: form.serviceStartPage,
               feedbackLink: feedbackUrlFromRequest(_request, form, title),
+              returnTo: form.returnTo,
             });
           },
         },
@@ -112,6 +113,7 @@ export default {
               name: form.name,
               serviceName: form.def.serviceName,
               serviceStartPage: form.serviceStartPage,
+              returnTo: form.returnTo,
               feedbackLink: feedbackUrlFromRequest(request, form, title),
               matomoUrl: form.def.analytics.matomoUrl,
               matomoId: form.def.analytics.matomoId,
@@ -271,6 +273,7 @@ export default {
             serviceName: form.serviceName,
             serviceStartPage: form.serviceStartPage,
             feedbackLink: feedbackUrlFromRequest(_request, form, title),
+            returnTo: form.returnTo,
           });
         },
       });
@@ -289,32 +292,24 @@ export default {
 
       server.route({
         method: "get",
-        path: "/timeout",
+        path: "/{url}/timeout",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           if (request.yar) {
             request.yar.reset();
           }
 
-          const { referer } = request.headers;
-          let startPage = "/";
-          let formId: string | undefined;
-
-          if (referer) {
-            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
-            if (match && match.length > 1) {
-              formId = match[1];
-              startPage = `/${match[1]}`;
-            }
-          }
-
-          const form = formId ? server.app.forms[formId] : undefined;
+          const { url } = request.params;
+          const form = server.app.forms[url];
+          let startPage = `/${url}`;
 
           const title = "timeout";
           return h.view(title, {
             name: form?.name,
             serviceName: form?.serviceName,
-            startPage: form?.serviceStartPage,
+            serviceStartPage: form.serviceStartPage,
+            startPage: startPage,
             feedbackLink: feedbackUrlFromRequest(request, form, title),
+            returnTo: form.returnTo,
           });
         },
       });

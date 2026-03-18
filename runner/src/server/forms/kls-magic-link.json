@@ -5,7 +5,7 @@
   "authentication": true,
   "toggle": true,
   "toggleRedirect": "/kls-enquiries/which-organisation-do-you-work-for-validated",
-  "retryTimeoutSeconds": 20,
+  "retryTimeoutSeconds": 300,
   "analytics": {
     "gtmId1": "GTM-WLKKLMQB"
   },

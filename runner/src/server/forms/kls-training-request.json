@@ -252,7 +252,7 @@
     {
       "path": "/training-topics-summary",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm your personal details before submitting",
+      "title": "Confirm the information below",
       "section": "trainingQuestions",
       "options": {
         "subtitle": "You will not be able to change your answers later once confirmed.",
@@ -395,7 +395,7 @@
       "path": "/about-you-uksa-summary",
       "customButtonText": "Confirm and submit",
       "controller": "MiniSummaryPageController",
-      "title": "Confirm the information before submitting",
+      "title": "Confirm your personal details before submitting",
       "section": "aboutYouUKHSA",
       "options": {
         "content": "Please check your details and click the 'Submit' button.",

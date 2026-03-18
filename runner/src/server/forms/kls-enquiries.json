@@ -1360,7 +1360,7 @@
       "components": [],
       "customButtonText": "Confirm and submit",
       "options": {
-        "hiddenFields": ["ZpmVWP", "bYWcrH", "FIvjTg"],
+        "hiddenFields": ["ZpmVWP"],
         "disabledChangeFields": ["tUKBgj", "VeQCVM", "wyvXTj"]
       },
       "next": []
@@ -2712,5 +2712,6 @@
     "feedbackForm": true,
     "url": "https://submit.forms.service.gov.uk/form/7932/give-feedback-on-knowledge-and-library-services-kls/30055"
   },
+  "showFilenamesOnSummaryPage": true,
   "jwtKey": "${KLSJwtKey}"
 }
