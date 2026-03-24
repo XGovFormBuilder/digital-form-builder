@@ -59,6 +59,14 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
   },
+  "close-contact-form-mers": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
+  "close-contact-form-cca-mers": (details) => {
+    const firstTransform = mergeRows(details, closeContactParams);
+    return filterSections(firstTransform);
+  },
   "close-contact-form-cca-nl1-dev": (details) => {
     const firstTransform = mergeRows(details, closeContactParams);
     return filterSections(firstTransform);
@@ -132,6 +140,3 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
 };
 
 module.exports = summaryDetailsTransformations;
-
-
-
