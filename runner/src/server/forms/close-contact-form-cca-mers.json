@@ -122,7 +122,7 @@
             "exposeToContext": true,
             "disableChangingFromSummary": true,
             "customValidationMessages": {
-              "any.required": "Select 'yes' if you have received a positive test result forMERS-CoV"
+              "any.required": "Select 'yes' if you have received a positive test result for MERS-CoV"
             }
           },
           "type": "RadiosField",
