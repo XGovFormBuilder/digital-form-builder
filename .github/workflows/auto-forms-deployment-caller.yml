@@ -77,9 +77,9 @@ jobs:
             owner: '${{ secrets.DEPLOYMENT_OWNER }}',
             repo: '${{ secrets.DEPLOYMENT_REPO }}',
             workflow_id: 'form-only-deployment.yml',
-            ref: 'xgf-65',
+            ref: 'trunk',
             inputs: {
-              branch: 'xgf-65',
+              branch: 'v2',
               commit_message: '${{ github.event.head_commit.message }}',
               caller_run_id: '${{ github.run_id }}'
             }
