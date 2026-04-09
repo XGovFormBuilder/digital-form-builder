@@ -2,7 +2,6 @@
   "metadata": {},
   "startPage": "/start",
   "fullStartPage": "start",
-  "confirmationSessionTimeout": 3000,
   "name": "Contact tracing",
   "pages": [
     {

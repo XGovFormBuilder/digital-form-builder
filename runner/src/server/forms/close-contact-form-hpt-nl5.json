@@ -3,7 +3,6 @@
   "startPage": "/start",
   "fullStartPage": "start",
   "name": "Contact tracing",
-  "confirmationSessionTimeout": 3000,
   "pages": [
     {
       "title": "Tell us about people you've been in close contact with",
