@@ -3,6 +3,7 @@
   "startPage": "/start",
   "fullStartPage": "start",
   "name": "Contact tracing CCA",
+  "confirmationSessionTimeout": 2000,
   "pages": [
     {
       "title": "Record close contact details for a member of the public",
