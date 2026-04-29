@@ -2,6 +2,7 @@
   "metadata": {},
   "startPage": "/feedback",
   "fullStartPage": "/close-contact-feedback",
+  "confirmationSessionTimeout": 2000,
   "pages": [
     {
       "title": "Give feedback on this service",
