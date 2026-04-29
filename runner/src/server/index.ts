@@ -115,8 +115,10 @@ async function createServer(routeConfig: RouteConfig) {
     AddressService,
     ExitService,
   ]);
-  if (!config.documentUploadApiUrl) {
+
+  if (config.isE2ETest) {
     server.registerService([
+      /* E2E tests uses MockUploadService */
       Schmervice.withName("uploadService", MockUploadService),
     ]);
   } else {

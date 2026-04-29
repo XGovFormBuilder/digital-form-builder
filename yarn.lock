@@ -4327,6 +4327,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/sinon@npm:^10.0.0":
+  version: 10.0.20
+  resolution: "@types/sinon@npm:10.0.20"
+  dependencies:
+    "@types/sinonjs__fake-timers": "*"
+  checksum: 7322771345c202b90057f8112e0d34b7339e5ae1827fb1bfe385fc9e38ed6a2f18b4c66e88d27d98c775f7f74fb1167c0c14f61ca64155786534541e6c6eb05f
+  languageName: node
+  linkType: hard
+
+"@types/sinonjs__fake-timers@npm:*":
+  version: 15.0.1
+  resolution: "@types/sinonjs__fake-timers@npm:15.0.1"
+  checksum: a4bbc3cf17e016db5c4d02bd3a0437a2d104b73dc90c85b96d9e267a14504601f376f7b559855cfade303f55126283c7e8c43a675ac616bfb696e4f489793555
+  languageName: node
+  linkType: hard
+
 "@types/sinonjs__fake-timers@npm:8.1.1":
   version: 8.1.1
   resolution: "@types/sinonjs__fake-timers@npm:8.1.1"
@@ -5131,6 +5147,7 @@ __metadata:
     "@types/hoek": ^4.1.4
     "@types/mysql": ^2.15.21
     "@types/nodemailer": ^6.4.4
+    "@types/sinon": ^10.0.0
     "@types/url-parse": ^1.4.8
     "@types/wreck": ^14.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
@@ -6958,9 +6975,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001538, caniuse-lite@npm:^1.0.30001565":
-  version: 1.0.30001576
-  resolution: "caniuse-lite@npm:1.0.30001576"
-  checksum: b8b332675fe703d5e57b02df5f100345f2a3796c537a42422f5bfc82d3256b8bad3f4e2788553656d2650006d13a4b5db99725e2a9462cc0c8035ba494ba1857
+  version: 1.0.30001790
+  resolution: "caniuse-lite@npm:1.0.30001790"
+  checksum: e3876ecd542c0832c3cb5113beda9812d702ece445b6bc70a061529b3dce0a4e173eb0437322c553372976940b3b0808cd452adc59e5530dd4ad4c3fd770466f
   languageName: node
   linkType: hard
 

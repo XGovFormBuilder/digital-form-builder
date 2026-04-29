@@ -1,4 +1,6 @@
+import { HapiRequest } from "src/server/types";
 import { UploadService } from "./uploadService";
+import { ServerConfiguration } from "src/server/utils/configSchema";
 
 export class MockUploadService extends UploadService {
   async uploadDocuments(locations: any[]) {
@@ -17,4 +19,11 @@ export class MockUploadService extends UploadService {
 
     return this.parsedDocumentUploadResponse(responseData);
   }
+
+  getFileUploadUrl = (
+    serverConfig: ServerConfiguration,
+    request: HapiRequest
+  ) => {
+    return "https://mock-document-upload-endpoint";
+  };
 }

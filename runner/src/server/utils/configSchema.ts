@@ -16,7 +16,7 @@ export function secureUrl(value: string, helper: CustomHelpers) {
  */
 export const configSchema = Joi.object({
   port: Joi.number(),
-  env: Joi.string().valid("development", "test", "production"),
+  env: Joi.string().valid("development", "test", "production", "e2e_test"),
   logLevel: Joi.string()
     .optional()
     .allow("trace", "debug", "info", "warn", "error"),
@@ -134,7 +134,7 @@ export const configSchema = Joi.object({
   }),
   queueDatabaseSchemaName: Joi.string().optional(),
   allowUserTemplates: Joi.boolean().optional(),
-  maxClientFileSize: Joi.number().default("5242880"), // 5MB
+  maxClientFileSize: Joi.number().default(5242880), // 5MB
   maxFileSizeStringInMb: Joi.string().default("5"),
 });
 
@@ -151,5 +151,15 @@ export function buildConfig(config) {
     throw new Error(`The server config is invalid. ${result.error.message}`);
   }
 
-  return config;
+  return config as ServerConfiguration;
 }
+
+export type ServerConfiguration = NonNullable<
+  Joi.extractType<typeof configSchema>
+> & {
+  isProd: boolean;
+  isDev: boolean;
+  isTest: boolean;
+  isE2ETest: boolean;
+  isSandbox: boolean;
+};
