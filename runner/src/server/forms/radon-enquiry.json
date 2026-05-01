@@ -1,0 +1,295 @@
+{
+  "metadata": {},
+  "startPage": "/request-related-to",
+  "pages": [
+    {
+      "path": "/request-related-to",
+      "title": "What is your request related to?",
+      "components": [
+        {
+          "name": "requestRelation",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "divider": true,
+            "customValidationMessages": {
+              "any.required": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else",
+              "any.only": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else",
+              "string.empty": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else"
+            }
+          },
+          "type": "RadiosField",
+          "title": "What is your request related to?",
+          "nameHasError": false,
+          "list": "krsXcW"
+        }
+      ],
+      "next": [
+        { "path": "/radon-enquiry-start", "condition": "yafSJD" },
+        { "path": "/other-contact-us-form", "condition": "QedsW" },
+        { "path": "/fallback-page" }
+      ]
+    },
+    {
+      "title": "Fallback Page",
+      "path": "/fallback-page",
+      "components": [
+        {
+          "name": "aNNjpD",
+          "options": {},
+          "type": "Para",
+          "content": "You selected {{ requestRelation }}"
+        }
+      ]
+    },
+    {
+      "title": "Contact the Radon Services team",
+      "path": "/radon-enquiry-start",
+      "components": [
+        {
+          "name": "aNNjpD",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-body-m\">Use this form to get in touch about any issues related to radon.</p><p class=\"govuk-body-m\">This could be</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>queries about radon</li><li>issues with an order</li><li>getting a quote</li></ul></p><h2 class=\"govuk-heading-m\">Before you continue</h2><p class=\"govuk-body-m\">You can <a href=\"https://www.ukradon.org/sectors/\">find guidance and information about radon in your home or workplace on our website</a>.</p>"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "AztBAE",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 2622<br>Monday to Friday, 9:00am to 4:30pm</p></div>",
+          "conditions": ""
+        }
+      ],
+      "next": [{ "path": "/radon-contact-us-form" }]
+    },
+    {
+      "path": "/radon-contact-us-form",
+      "title": "Contact us",
+      "components": [
+        {
+          "name": "first-name",
+          "options": {},
+          "type": "TextField",
+          "title": "Your first name",
+          "nameHasError": false
+        },
+        {
+          "name": "last-name",
+          "options": {},
+          "type": "TextField",
+          "title": "Your last name",
+          "nameHasError": false
+        },
+        {
+          "name": "organisation",
+          "options": { "required": false },
+          "type": "TextField",
+          "title": "Your organisation name",
+          "nameHasError": false
+        },
+        {
+          "name": "email",
+          "options": {
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "any.required": "Enter your email address",
+              "any.only": "Enter your email address",
+              "string.empty": "Enter your email address"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "Your email address",
+          "hint": "We'll send our reply to this email address"
+        },
+        {
+          "name": "request-information",
+          "options": {
+              "customValidationMessages": {
+              "any.required": "Enter information about your request",
+              "any.only": "Enter information about your request",
+              "string.empty": "Enter information about your request",
+              "string.max": "Information about your request must be 1000 characters or less"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "Give us some more information about your request",
+          "nameHasError": false,
+          "schema": { "max": "1000" }
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "AztBAF",
+          "options": {},
+          "type": "Para",
+          "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 2622<br>Monday to Friday, 9:00am to 4:30pm</p></div>"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/other-contact-us-form",
+      "title": "Contact us",
+      "components": [
+        {
+          "name": "first-name",
+          "options": {},
+          "type": "TextField",
+          "title": "Your first name",
+          "nameHasError": false
+        },
+        {
+          "name": "last-name",
+          "options": {},
+          "type": "TextField",
+          "title": "Your last name",
+          "nameHasError": false
+        },
+        {
+          "name": "organisation",
+          "options": { "required": false },
+          "type": "TextField",
+          "title": "Your organisation name",
+          "nameHasError": false
+        },
+        {
+          "name": "email",
+          "options": {
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "any.required": "Enter your email address",
+              "any.only": "Enter your email address",
+              "string.empty": "Enter your email address"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "Your email address",
+          "hint": "We'll send our reply to this email address"
+        },
+        {
+          "name": "request-information",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter information about your request",
+              "any.only": "Enter information about your request",
+              "string.empty": "Enter information about your request",
+              "string.max": "Information about your request must be 1000 characters or less"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "Give us some more information about your request",
+          "nameHasError": false,
+          "schema": { "max": "1000" }
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "AztBAF",
+          "options": {},
+          "type": "Para",
+          "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0113 267 9041<br>Monday to Friday, 8:30am to 5:00pm</p></div>"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "title": "Contact request submitted",
+        "nextSteps": "We have sent a confirmation email to {{ email }}.<p class=\"govuk-body-m\"><h2 class=\"govuk-heading-m\">What happens next</h2></p><p class=\"govuk-body-m\">We will review your request and get back to you within 5 days.</p>",
+        "hidePanel": false
+      }
+    }
+  },
+  "lists": [
+    {
+      "title": "requestRelation-list",
+      "name": "krsXcW",
+      "type": "string",
+      "items": [
+        { "text": "Radon Services", "value": "Radon Services" },
+        {
+          "text": "Personal Dosimetry Service",
+          "value": "Personal Dosimetry Service"
+        },
+        { "text": "Something else", "value": "Something else" }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "RadonRequest",
+      "name": "yafSJD",
+      "value": {
+        "name": "RadonRequest",
+        "conditions": [
+          {
+            "field": {
+              "name": "requestRelation",
+              "type": "RadiosField",
+              "display": "What is your request related to?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Radon Services",
+              "display": "Radon Services"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "RadonRequest",
+      "name": "QedsW",
+      "value": {
+        "name": "RadonRequest",
+        "conditions": [
+          {
+            "field": {
+              "name": "requestRelation",
+              "type": "RadiosField",
+              "display": "What is your request related to?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Something else",
+              "display": "Something else"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "AgHhXn",
+      "title": "webhookOutput",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://webhook.site/d94936ab-d57e-4bf1-ba12-591b47c784f6",
+        "allowRetry": true
+      }
+    }
+  ],
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "version": 2,
+  "skipSummary": true,
+  "feeOptions": {}
+}

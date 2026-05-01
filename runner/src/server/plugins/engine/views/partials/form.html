@@ -30,4 +30,7 @@
       {% endif %}
     {% endif %}
   {% endif %}
+  {% if componentsAfter and componentsAfter.length %}
+      {{ componentList(componentsAfter) }}
+  {% endif %}
 </form>
