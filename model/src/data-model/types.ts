@@ -16,6 +16,7 @@ export interface Page {
   disableBackLink?: boolean;
   controller: string;
   components?: ComponentDef[];
+  componentsAfter?: ComponentDef[];
   section?: string; // the section ID
   sectionForExitJourneySummaryPages?: string;
   sectionForMultiSummaryPages?: string;

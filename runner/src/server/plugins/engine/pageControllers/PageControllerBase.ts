@@ -60,6 +60,7 @@ export class PageControllerBase {
   sectionForMultiSummaryPages: any;
   sidebarContent: any;
   components: ComponentCollection;
+  componentsAfter: ComponentCollection;
   disableSingleComponentAsHeading: boolean;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
@@ -123,6 +124,8 @@ export class PageControllerBase {
     this.hasFormComponents = !!components.formItems.length;
     this.hasConditionalFormComponents = !!conditionalFormComponents.length;
 
+    this.componentsAfter = new ComponentCollection(pageDef.componentsAfter ?? [], model)
+
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
 
@@ -151,6 +154,7 @@ export class PageControllerBase {
     sectionTitle: string;
     showTitle: boolean;
     components: ComponentCollectionViewModel;
+    componentsAfter: ComponentCollectionViewModel;
     errors: FormSubmissionErrors;
     isStartPage: boolean;
     startPage?: HapiResponseObject;
@@ -206,6 +210,7 @@ export class PageControllerBase {
       sectionTitle,
       showTitle,
       components,
+      componentsAfter: this.componentsAfter.getViewModel(formData, errors),
       errors,
       isStartPage: false,
       details: this.details || undefined,
