@@ -1,6 +1,8 @@
 {
   "metadata": {},
   "startPage": "/request-related-to",
+  "name": "Contact us",
+  "serviceName": "Contact us",
   "pages": [
     {
       "path": "/request-related-to",
@@ -20,26 +22,13 @@
           },
           "type": "RadiosField",
           "title": "What is your request related to?",
-          "nameHasError": false,
-          "list": "krsXcW"
+          "list": "requestTypesList"
         }
       ],
       "next": [
         { "path": "/radon-enquiry-start", "condition": "yafSJD" },
         { "path": "/other-contact-us-form", "condition": "QedsW" },
-        { "path": "/fallback-page" }
-      ]
-    },
-    {
-      "title": "Fallback Page",
-      "path": "/fallback-page",
-      "components": [
-        {
-          "name": "aNNjpD",
-          "options": {},
-          "type": "Para",
-          "content": "You selected {{ requestRelation }}"
-        }
+        { "path": "/pds-enquiry-start" }
       ]
     },
     {
@@ -55,7 +44,7 @@
       ],
       "componentsAfter": [
         {
-          "name": "AztBAE",
+          "name": "radonContactDetails",
           "options": {},
           "type": "Para",
           "content": "<h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 2622<br>Monday to Friday, 9:00am to 4:30pm</p></div>",
@@ -69,25 +58,35 @@
       "title": "Contact us",
       "components": [
         {
-          "name": "first-name",
-          "options": {},
+          "name": "firstname",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter your first name",
+              "any.only": "Enter your first name",
+              "string.empty": "Enter your first name"
+            }
+          },
           "type": "TextField",
-          "title": "Your first name",
-          "nameHasError": false
+          "title": "Your first name"
         },
         {
-          "name": "last-name",
-          "options": {},
+          "name": "lastname",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter your last name",
+              "any.only": "Enter your last name",
+              "string.empty": "Enter your last name"
+            }
+          },
           "type": "TextField",
-          "title": "Your last name",
-          "nameHasError": false
+          "title": "Your last name"
+
         },
         {
           "name": "organisation",
           "options": { "required": false },
           "type": "TextField",
-          "title": "Your organisation name",
-          "nameHasError": false
+          "title": "Your organisation name"
         },
         {
           "name": "email",
@@ -96,7 +95,8 @@
             "customValidationMessages": {
               "any.required": "Enter your email address",
               "any.only": "Enter your email address",
-              "string.empty": "Enter your email address"
+              "string.empty": "Enter your email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           },
           "type": "EmailAddressField",
@@ -104,27 +104,167 @@
           "hint": "We'll send our reply to this email address"
         },
         {
-          "name": "request-information",
+          "name": "requestInformation",
           "options": {
               "customValidationMessages": {
-              "any.required": "Enter information about your request",
-              "any.only": "Enter information about your request",
-              "string.empty": "Enter information about your request",
+              "any.required": "Enter more information about your request",
+              "any.only": "Enter more information about your request",
+              "string.empty": "Enter more information about your request",
               "string.max": "Information about your request must be 1000 characters or less"
             }
           },
           "type": "MultilineTextField",
           "title": "Give us some more information about your request",
-          "nameHasError": false,
           "schema": { "max": "1000" }
         }
       ],
       "componentsAfter": [
         {
-          "name": "AztBAF",
+          "name": "radonContactDetails",
           "options": {},
           "type": "Para",
           "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 2622<br>Monday to Friday, 9:00am to 4:30pm</p></div>"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Contact the Personal Dosimetry Service team",
+      "path": "/pds-enquiry-start",
+      "components": [
+        {
+          "name": "aNNjpD",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-body-m\">Use this form to reach out to us about enquiries related to the Personal Dosimetry Service (PDS).</p><p class=\"govuk-body-m\">This could be</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>starting to use the service</li><li>getting a copy of your record</li><li>getting a quote</li><li>using the UKHSA Online Dosimetry Portal - CLARA</li><li>any other enquiries</li></ul></p><h2 class=\"govuk-heading-m\">Before you continue</h2><p class=\"govuk-body-m\">You can <a href=\"https://www.ukhsa-protectionservices.org.uk/pds/service/dosemeters/\">find information about our dose measurements, or assessment services</a>.</p><p class=\"govuk-body-m\">You can also for queries about CLARA send an email to <a href=\"mailto:clarasupport@ukhsa.gov.uk\">clarasupport@ukhsa.gov.uk</a>.</p>"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "PDSContactDetails",
+          "options": {},
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 5240<br>Monday to Thursday, 8:00am to 4:00pm<br>Friday, 8:00am to 3:30pm</div></p>"
+        }
+      ],
+      "next": [{"path": "/pds-contact-us-form"}]
+    },
+    {
+      "path": "/pds-contact-us-form",
+      "title": "Contact us",
+      "components": [
+        {
+          "name": "firstname",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter your first name",
+              "any.only": "Enter your first name",
+              "string.empty": "Enter your first name"
+            }
+          },
+          "type": "TextField",
+          "title": "Your first name"
+        },
+        {
+          "name": "lastname",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter your last name",
+              "any.only": "Enter your last name",
+              "string.empty": "Enter your last name"
+            }
+          },
+          "type": "TextField",
+          "title": "Your last name"
+        },
+        {
+          "name": "organisation",
+          "options": { "required": false },
+          "type": "TextField",
+          "title": "Your employer or organisation name"
+        },
+        {
+          "name": "email",
+          "options": {
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "any.required": "Enter your email address",
+              "any.only": "Enter your email address",
+              "string.empty": "Enter your email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "Your email address",
+          "hint": "We'll send our reply to this email address"
+        },
+        {
+          "name": "contactReason",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select a reason for contacting option",
+              "any.only": "Select a reason for contacting option",
+              "string.empty": "Select a reason for contacting option"
+            }
+          },
+          "type": "SelectField",
+          "title": "Reason for contacting",
+          "list": "contactReasonList"
+        },
+        {
+          "name": "CustomerRefNo",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Customer reference number",
+          "hint": "You might find this number on your dosemeter or PDS sent documents"
+        },
+        {
+          "name": "requestInformation",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter more information about your request",
+              "any.only": "Enter more information about your request",
+              "string.empty": "Enter more information about your request",
+              "string.max": "Information about your request must be 1000 characters or less"
+            }
+          },
+          "type": "MultilineTextField",
+          "title": "Give us some more information about your request",
+          
+          "schema": { "max": "1000" }
+        },
+        {
+          "name": "howHear",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select a how did you hear about us option",
+              "any.only": "Select a how did you hear about us option",
+              "string.empty": "Select a how did you hear about us option"
+            }
+          },
+          "type": "SelectField",
+          "title": "How did you hear about us?",
+          "list": "howHearList"
+        },
+        {
+          "name": "newsletters",
+          "options": {
+            "required": false,
+            "hideTitle": true
+          },
+          "type": "CheckboxesField",
+          "title": "Newsletters preference",
+          "list": "newsPref"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "PDSContactDetails",
+          "options": {},
+          "type": "Para",
+          "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 5240<br>Monday to Thursday, 8:00am to 4:00pm<br>Friday, 8:00am to 3:30pm</p></div>"
         }
       ],
       "next": [{ "path": "/summary" }]
@@ -134,25 +274,34 @@
       "title": "Contact us",
       "components": [
         {
-          "name": "first-name",
-          "options": {},
+          "name": "firstname",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter your first name",
+              "any.only": "Enter your first name",
+              "string.empty": "Enter your first name"
+            }
+          },
           "type": "TextField",
-          "title": "Your first name",
-          "nameHasError": false
+          "title": "Your first name"
         },
         {
-          "name": "last-name",
-          "options": {},
+          "name": "lastname",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter your last name",
+              "any.only": "Enter your last name",
+              "string.empty": "Enter your last name"
+            }
+          },
           "type": "TextField",
-          "title": "Your last name",
-          "nameHasError": false
+          "title": "Your last name"
         },
         {
           "name": "organisation",
           "options": { "required": false },
           "type": "TextField",
-          "title": "Your organisation name",
-          "nameHasError": false
+          "title": "Your organisation name"
         },
         {
           "name": "email",
@@ -161,7 +310,8 @@
             "customValidationMessages": {
               "any.required": "Enter your email address",
               "any.only": "Enter your email address",
-              "string.empty": "Enter your email address"
+              "string.empty": "Enter your email address",
+              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
             }
           },
           "type": "EmailAddressField",
@@ -169,24 +319,24 @@
           "hint": "We'll send our reply to this email address"
         },
         {
-          "name": "request-information",
+          "name": "requestInformation",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter information about your request",
-              "any.only": "Enter information about your request",
-              "string.empty": "Enter information about your request",
+              "any.required": "Enter more information about your request",
+              "any.only": "Enter more information about your request",
+              "string.empty": "Enter more information about your request",
               "string.max": "Information about your request must be 1000 characters or less"
             }
           },
           "type": "MultilineTextField",
           "title": "Give us some more information about your request",
-          "nameHasError": false,
+          
           "schema": { "max": "1000" }
         }
       ],
       "componentsAfter": [
         {
-          "name": "AztBAF",
+          "name": "OtherContactDetails",
           "options": {},
           "type": "Para",
           "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0113 267 9041<br>Monday to Friday, 8:30am to 5:00pm</p></div>"
@@ -213,8 +363,8 @@
   },
   "lists": [
     {
-      "title": "requestRelation-list",
-      "name": "krsXcW",
+      "title": "Request Types",
+      "name": "requestTypesList",
       "type": "string",
       "items": [
         { "text": "Radon Services", "value": "Radon Services" },
@@ -223,6 +373,46 @@
           "value": "Personal Dosimetry Service"
         },
         { "text": "Something else", "value": "Something else" }
+      ]
+    },
+    {
+      "title": "Contact Reasons",
+      "name": "contactReasonList",
+      "type": "string",
+      "items": [
+        { "text": "Select an option", "value": "Select an option", "selected": true },
+        { "text": "Clara support", "value": "Clara support" },
+        { "text": "Dose reports and records", "value": "Dose reports and records" },
+        { "text": "General queries", "value": "General queries" },
+        { "text": "New customers", "value": "New customers" },
+        { "text": "Orders", "value": "Orders" },
+        { "text": "Technical queries", "value": "Technical queries" },
+        { "text": "Other", "value": "Other" }
+      ]
+    },
+    {
+      "title": "Hear about us",
+      "name": "howHearList",
+      "type": "string",
+      "items": [
+        { "text": "Select an option", "value": "Select an option", "selected": true },
+        { "text": "Advertising", "value": "Advertising" },
+        { "text": "Conference or Exhibition", "value": "Conference or Exhibition" },
+        { "text": "Existing client", "value": "Existing client" },
+        { "text": "From your Radiation Protection Advisor", "value": "From your Radiation Protection Advisor" },
+        { "text": "Search engine", "value": "Search engine" },
+        { "text": "Word of mouth", "value": "Word of mouth" },
+        { "text": "Other", "value": "Other" }
+
+      ]
+    },
+    {
+      "title": "newsPref",
+      "name": "Newletter Preference",
+      "type": "string",
+      "items": [
+        { "text": "I would like to receive UKHSA Monitor newsletters. Sent twice a year with the latest news and information.", "value": "true" 
+        }
       ]
     }
   ],
@@ -280,7 +470,7 @@
       "title": "webhookOutput",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://webhook.site/d94936ab-d57e-4bf1-ba12-591b47c784f6",
+        "url": "https://webho.ok",
         "allowRetry": true
       }
     }

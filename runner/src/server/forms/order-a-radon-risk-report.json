@@ -1,0 +1,112 @@
+{
+  "metadata": {},
+  "startPage": "/order-a-radon-risk-report-start-now",
+  "name": "Order a radon risk report",
+  "serviceName": "Order a radon risk report",
+  "pages": [
+    {
+      "title": "Order a radon risk report",
+      "path": "/order-a-radon-risk-report-start-now",
+      "backLinkFallback": "https://www.ukhsa-protectionservices.org.uk/",
+      "components": [
+        {
+          "name": "CCtnVb",
+          "options": {},
+          "type": "Para",
+          "content": "Use this service to find out the risk of radon at your address.<br><br>The radon risk report will tell you how likely your address is above the recommended level for radon, called the action level."
+        },
+        {
+          "name": "Nzuthm",
+          "options": {},
+          "type": "InsetText",
+          "content": "The action level for radon is 200 becquerels per cubic metre. A becquerel is a measure or radioactivity. If the radon level of your property is higher than this, you should take steps to reduce this."
+        },
+        {
+          "name": "DIJjRU",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-body-m\">The report tells you the risk that the address may have high levels of radon, but it doesn't tell you the actual radon level. The only way to know this for sure is to <a href=\"https://www.ukradon.org/sectors/\">measure the level of radon in the property</a>.</p><p class=\"govuk-body-m\">You can search for a home or small workplace under 25 metres long.</p><p class=\"govuk-body-m\">This service costs £3.90 per property.</p><p class=\"govuk-body-m\">It should take about 5 minutes.</p><p class=\"govuk-body-m\">You will be sent your risk report using your chosen delivery method.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/sectors/\">Read a sample report</a><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>the address for the risk report</li><li>your email address</li><li>the address you would like the report sent to (optional)</li><li>your payment details</li></ul></p>"
+        }
+      ],
+      "next": [{ "path": "/find-an-address" }],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/find-an-address",
+      "title": "What address are you ordering a risk report for?",
+      "components": [
+        {
+          "name": "postcode",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode",
+              "string.max": "Postcode must be less than 10 characters"
+            }
+          },
+          "schema": { 
+            "max": 10,
+            "regex": "^[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}$"
+          },
+          "type": "TextField",
+          "title": "Postcode",
+          "hint": "For example, AA3 1AB"
+        },
+        {
+          "name": "building",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter building number or name",
+              "string.max": "Building name must be less than 100 characters"
+            }
+          },
+          "schema": { "max": 100 },
+          "type": "TextField",
+          "title": "Building number or name",
+          "hint": "For example, 15 or Prospect cottage"
+        }
+      ],
+      "customButtonText": "Find address",
+      "componentsAfter": [
+        {
+          "name": "QASDF",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.ukradon.org/sectors/\">Enter address manually</a>"
+        }
+      ],
+      "next": [{ "path": "/address-search" }]
+    },
+    {
+      "path": "/address-search",
+      "title": "Address search placeholder",
+      "components": [],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/enter-address-manually",
+      "title": "What is the address you want a risk report for?",
+      "components": [],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {},
+    "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  }
+}
