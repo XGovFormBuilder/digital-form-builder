@@ -26,6 +26,7 @@ import {
   AddressService,
   CacheService,
   catboxProvider,
+  MagicLinkCacheService,
   NotifyService,
   PayService,
   StatusService,
@@ -109,6 +110,7 @@ async function createServer(routeConfig: RouteConfig) {
 
   server.registerService([
     CacheService,
+    MagicLinkCacheService,
     NotifyService,
     PayService,
     WebhookService,

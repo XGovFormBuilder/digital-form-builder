@@ -54,7 +54,10 @@ function formatUnixTimestamp(timestamp: number): string {
 /**
  * Creates an HMAC signature for authentication
  */
-export async function createHmac(email: string, hmacKey: string) {
+export async function createHmac(
+  email: string,
+  hmacKey: string
+): Promise<[string, number, string]> {
   try {
     // Get current timestamp
     const currentTimestamp = Math.floor(Date.now() / 1000);
@@ -85,7 +88,10 @@ export async function createHmac(email: string, hmacKey: string) {
  * making it preferable for cryptographic logic.
  * The other function may benefit from refactoring
  * to separate display logic from core logic. */
-export async function createHmacRaw(message: string, hmacKey: string) {
+export async function createHmacRaw(
+  message: string,
+  hmacKey: string
+): Promise<[string, number, number]> {
   try {
     const currentTimestamp = Math.floor(Date.now() / 1000);
     const dataToHash = message + currentTimestamp;
