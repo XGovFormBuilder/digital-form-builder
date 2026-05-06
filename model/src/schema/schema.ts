@@ -183,6 +183,7 @@ const listItemSchema = joi.object().keys({
   value: joi.alternatives().try(joi.number(), joi.string()),
   checkpointDisplayValue: joi.alternatives().try(joi.number(), joi.string()),
   description: localisedString.optional(),
+  selected: joi.boolean().optional(),
   conditional: joi
     .object()
     .keys({
