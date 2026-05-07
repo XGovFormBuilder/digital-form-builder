@@ -196,4 +196,5 @@ export type FormDefinition = {
   exitOptions: ExitOptions;
   confirmationSessionTimeout: number | undefined;
   returnTo?: boolean | undefined;
+  documentUploadApiUrl?: string | undefined;
 };

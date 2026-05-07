@@ -1,8 +1,9 @@
 import FormData from "form-data";
 
 import config from "../../config";
-import { get, post } from "../httpService";
+import { get, post, Response } from "../httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
+import { ServerConfiguration } from "src/server/utils/configSchema";
 
 type Payload = HapiRequest["payload"];
 type HapiReadableStream = ReadableStream & {
@@ -26,10 +27,10 @@ const parsedError = (key: string, error?: string) => {
 };
 
 const ERRORS = {
-  fileSizeError: 'The selected files are too large',
+  fileSizeError: "The selected files are too large",
   fileTypeError: "Invalid file type. Upload a PNG, JPG or PDF",
-  fileCountError: 'You have selected too many files',
-  virusError: 'The selected files contain a virus',
+  fileCountError: "You have selected too many files",
+  virusError: "The selected files contain a virus",
   default: "There was an error uploading your file",
 };
 
@@ -55,7 +56,7 @@ export class UploadService {
 
     const namesSet = new Set(acceptedTypeNames);
     acceptedTypeNames = Array.from(namesSet);
-    
+
     const acceptedTypesNameWithoutLast = acceptedTypeNames
       .slice(0, -1)
       .join(", ");
@@ -109,7 +110,10 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(streams: any[]) {
+  async uploadDocuments(
+    streams: HapiReadableStream[],
+    uploadConfig: { url: string; additionalHeaders?: Record<string, string> }
+  ) {
     const form = new FormData();
     for (const stream of streams) {
       form.append("files", stream, {
@@ -118,16 +122,20 @@ export class UploadService {
       });
     }
 
-    const requestData = { headers: form.getHeaders(), payload: form };
-    const responseData = await post(
-      `${config.documentUploadApiUrl}/v1/files`,
-      requestData
-    );
+    let formHeaders = form.getHeaders();
+
+    if (uploadConfig.additionalHeaders) {
+      /* Support form specific file upload api security headers */
+      formHeaders = { ...formHeaders, ...uploadConfig.additionalHeaders };
+    }
+
+    const requestData = { headers: formHeaders, payload: form };
+    const responseData = await post(`${uploadConfig.url}`, requestData);
 
     return this.parsedDocumentUploadResponse(responseData);
   }
 
-  parsedDocumentUploadResponse({ res, payload }) {
+  parsedDocumentUploadResponse({ res, payload }: Response<any>) {
     const payloadString = payload?.toString?.();
     let payloadJson: any;
     let warning: string | undefined;
@@ -151,7 +159,7 @@ export class UploadService {
         error = ERRORS.fileTypeError;
         break;
       case 413:
-        if(errorCode === "TOO_MANY_FILES") {
+        if (errorCode === "TOO_MANY_FILES") {
           if (payloadJson?.maxFilesPerUpload) {
             error = `You can only select up to ${payloadJson?.maxFilesPerUpload} files at the same time`;
           } else {
@@ -208,6 +216,34 @@ export class UploadService {
       ...mergedObject,
     };
   }
+
+  getFileUploadUrl = (
+    serverConfig: ServerConfiguration,
+    request: HapiRequest
+  ) => {
+    let url = "";
+
+    /* Prioritize form level url */
+    const formId = request.params?.id;
+    if (formId) {
+      const forms = request.server?.app?.forms;
+      if (forms) {
+        const formModel = forms[formId];
+        if (formModel) {
+          const formLevelUploadUrl = formModel.def.documentUploadApiUrl;
+          if (formLevelUploadUrl && formLevelUploadUrl.trim().length > 0)
+            url = formLevelUploadUrl;
+        }
+      }
+    }
+
+    /* Fall back to server level url */
+    if (!url && serverConfig.documentUploadApiUrl) {
+      url = `${serverConfig.documentUploadApiUrl}/v1/files`;
+    }
+
+    return url;
+  };
 }
 
 /**
@@ -221,4 +257,19 @@ const contentTypeToName = {
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
     "docx",
   "text/csv": "csv",
+
+  "image/gif": "gif",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+  "application/vnd.ms-excel.sheet.macroEnabled.12": "xlsm",
+  "application/xml": "xml",
+  "application/rtf": "rtf",
+  "text/rtf": "rtf",
+  "application/msword": "doc",
+  "application/x-research-info-systems": "ris",
+  "text/ris": "ris",
+  "text/plain": "txt",
+  "application/vnd.ms-outlook": "msg",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+    "pptx",
+  "application/vnd.ms-excel": "xls",
 };

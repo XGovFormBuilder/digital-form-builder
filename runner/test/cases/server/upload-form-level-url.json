@@ -1,0 +1,42 @@
+{
+  "metadata": {},
+  "conditions": [],
+  "documentUploadApiUrl": "http://localhost:9999/form-based-upload-url-test",
+  "startPage": "/upload-file",
+  "pages": [
+    {
+      "path": "/upload-file",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "file1name",
+          "title": {
+            "en": "File 1 name"
+          }
+        },
+        {
+          "type": "FileUploadField",
+          "name": "file1",
+          "title": "File title",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.ts",
+      "components": [],
+      "title": "Summary",
+      "next": []
+    }
+  ],
+  "sections": [],
+  "lists": [],
+  "fees": []
+}
