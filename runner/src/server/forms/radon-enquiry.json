@@ -65,7 +65,8 @@
               "any.required": "Enter your first name",
               "any.only": "Enter your first name",
               "string.empty": "Enter your first name"
-            }
+            },
+            "autocomplete": "given-name"
           },
           "type": "TextField",
           "title": "Your first name"
@@ -77,7 +78,8 @@
               "any.required": "Enter your last name",
               "any.only": "Enter your last name",
               "string.empty": "Enter your last name"
-            }
+            },
+            "autocomplete": "family-name"
           },
           "type": "TextField",
           "title": "Your last name"
@@ -161,7 +163,8 @@
               "any.required": "Enter your first name",
               "any.only": "Enter your first name",
               "string.empty": "Enter your first name"
-            }
+            },
+            "autocomplete": "given-name"
           },
           "type": "TextField",
           "title": "Your first name"
@@ -173,7 +176,8 @@
               "any.required": "Enter your last name",
               "any.only": "Enter your last name",
               "string.empty": "Enter your last name"
-            }
+            },
+            "autocomplete": "family-name"
           },
           "type": "TextField",
           "title": "Your last name"
@@ -283,7 +287,8 @@
               "any.required": "Enter your first name",
               "any.only": "Enter your first name",
               "string.empty": "Enter your first name"
-            }
+            },
+              "autocomplete": "given-name"
           },
           "type": "TextField",
           "title": "Your first name"
@@ -295,7 +300,8 @@
               "any.required": "Enter your last name",
               "any.only": "Enter your last name",
               "string.empty": "Enter your last name"
-            }
+            },
+            "autocomplete": "family-name"
           },
           "type": "TextField",
           "title": "Your last name"

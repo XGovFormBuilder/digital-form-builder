@@ -52,7 +52,7 @@
       "title": "webhookOutput",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://webhook.site/d94936ab-d57e-4bf1-ba12-591b47c784f6",
+        "url": "https://webho.ok",
         "allowRetry": true
       }
     }

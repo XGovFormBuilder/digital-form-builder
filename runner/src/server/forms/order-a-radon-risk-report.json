@@ -43,7 +43,8 @@
               "string.empty": "Enter postcode",
               "string.pattern.base": "Enter a full UK postcode",
               "string.max": "Postcode must be less than 10 characters"
-            }
+            },
+            "autocomplete": "postal-code"
           },
           "schema": { 
             "max": 10,
@@ -102,7 +103,17 @@
   "sections": [],
   "conditions": [],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "AgHhXn",
+      "title": "webhookOutput",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://webho.ok",
+        "allowRetry": true
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false,
   "feeOptions": {},
