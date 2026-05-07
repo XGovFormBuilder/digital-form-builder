@@ -1,7 +1,7 @@
 {% from "button/macro.njk" import govukButton %}
 {% from "summary-list/macro.njk" import govukSummaryList -%}
 
-<form method="post" enctype="multipart/form-data" autocomplete="on">
+<form method="post" enctype="multipart/form-data" autocomplete="on" novalidate>
   <input type="hidden" name="crumb" value="{{crumb}}"/>
   {{ componentList(components) }}
 
