@@ -3,6 +3,7 @@
   "startPage": "/order-a-radon-risk-report-start-now",
   "name": "Order a radon risk report",
   "serviceName": "Order a radon risk report",
+  "confirmationSessionTimeout": 2000,
   "pages": [
     {
       "title": "Order a radon risk report",

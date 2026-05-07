@@ -3,6 +3,7 @@
   "startPage": "/request-related-to",
   "name": "Contact us",
   "serviceName": "Contact us",
+  "confirmationSessionTimeout": 2000,
   "pages": [
     {
       "path": "/request-related-to",
@@ -205,7 +206,8 @@
               "any.required": "Select a reason for contacting option",
               "any.only": "Select a reason for contacting option",
               "string.empty": "Select a reason for contacting option"
-            }
+            },
+            "preselected": { "text": "Select an option", "value": "" }
           },
           "type": "SelectField",
           "title": "Reason for contacting",
@@ -242,7 +244,8 @@
               "any.required": "Select a how did you hear about us option",
               "any.only": "Select a how did you hear about us option",
               "string.empty": "Select a how did you hear about us option"
-            }
+            },
+            "preselected": { "text": "Select an option", "value": "" }
           },
           "type": "SelectField",
           "title": "How did you hear about us?",
@@ -380,7 +383,6 @@
       "name": "contactReasonList",
       "type": "string",
       "items": [
-        { "text": "Select an option", "value": "Select an option", "selected": true },
         { "text": "Clara support", "value": "Clara support" },
         { "text": "Dose reports and records", "value": "Dose reports and records" },
         { "text": "General queries", "value": "General queries" },
@@ -395,7 +397,6 @@
       "name": "howHearList",
       "type": "string",
       "items": [
-        { "text": "Select an option", "value": "Select an option", "selected": true },
         { "text": "Advertising", "value": "Advertising" },
         { "text": "Conference or Exhibition", "value": "Conference or Exhibition" },
         { "text": "Existing client", "value": "Existing client" },
@@ -407,8 +408,8 @@
       ]
     },
     {
-      "title": "newsPref",
-      "name": "Newletter Preference",
+      "title": "Newletter Preference",
+      "name": "newsPref",
       "type": "string",
       "items": [
         { "text": "I would like to receive UKHSA Monitor newsletters. Sent twice a year with the latest news and information.", "value": "true" 
@@ -470,7 +471,7 @@
       "title": "webhookOutput",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://webho.ok",
+        "url": "https://webhook.site/01a1396b-a835-4039-945b-8529a9085e7c",
         "allowRetry": true
       }
     }
