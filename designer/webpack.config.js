@@ -54,7 +54,11 @@ const client = {
           },
           {
             loader: "css-loader",
-            options: {},
+            options: {
+              url: {
+                filter: (url) => !url.startsWith("/"),
+              },
+            },
           },
           {
             loader: "postcss-loader",
@@ -64,6 +68,7 @@ const client = {
             options: {
               sassOptions: {
                 outputStyle: "expanded",
+                loadPaths: [path.resolve(__dirname, "../node_modules")],
               },
             },
           },
