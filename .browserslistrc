@@ -1,9 +1,9 @@
-last 2 Chrome versions
-last 2 Firefox versions
-last 2 Edge versions
-last 2 Safari versions
-last 2 iOS versions
-last 2 ChromeAndroid versions
+> 0.1% in GB and not dead
+last 6 Chrome versions
+last 6 Firefox versions
+last 6 Edge versions
 last 2 Samsung versions
-> 0.5%
-not dead
+Firefox ESR
+Safari >= 11
+iOS >= 11
+ie 11
