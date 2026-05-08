@@ -93,6 +93,7 @@
     "@babel/preset-typescript": "^7.23.3",
     "@babel/register": "^7.22.15",
     "@hapi/code": "8.0.1",
+    "@hapi/eslint-plugin": "^6.0.0",
     "@hapi/lab": "^25.3.2",
     "@oclif/core": "^1.19.0",
     "@types/hapi": "^18.0.7",
