@@ -4,14 +4,15 @@ import { HapiRequest, HapiServer } from "../types";
 import { CacheService } from "./cacheService";
 
 export class MagicLinkCacheService {
-  /* This service is responsible for getting, storing or deleting magic link data in the cache. 
+  /* This service is responsible for getting, setting and deleting magic link data in the cache. 
      This service has been registered by {@link createServer}
    */
   cacheService: CacheService;
-  magicLinkRecordCache: TypedCache<MagicLinkRecord>;
 
+  magicLinkRecordCache: TypedCache<MagicLinkRecord>;
   magicLinkFormIdBySessionCache: TypedCache<FormIdBySessionIdRecord>;
   magicLinkReturnDataByHmacCache: TypedCache<ReturnDataByHmacRecord>;
+
   logger: HapiServer["logger"];
 
   ttl = config.sessionTimeout ?? 1000 * 60 * 10; // 10 minutes
@@ -20,11 +21,22 @@ export class MagicLinkCacheService {
     this.logger = server.logger;
 
     const { cacheService } = server.services([]);
-
     this.cacheService = cacheService;
-    this.magicLinkRecordCache = cacheService.cache as typeof this.magicLinkRecordCache;
-    this.magicLinkFormIdBySessionCache = cacheService.cache as typeof this.magicLinkFormIdBySessionCache;
-    this.magicLinkReturnDataByHmacCache = cacheService.cache as typeof this.magicLinkReturnDataByHmacCache;
+
+    this.magicLinkRecordCache = server.cache<MagicLinkRecord>({
+      segment: "magic-link-records",
+      expiresIn: this.ttl,
+    });
+
+    this.magicLinkFormIdBySessionCache = server.cache<FormIdBySessionIdRecord>({
+      segment: "magic-link-form-id-by-session",
+      expiresIn: this.ttl,
+    });
+
+    this.magicLinkReturnDataByHmacCache = server.cache<ReturnDataByHmacRecord>({
+      segment: "magic-link-return-data-by-hmac",
+      expiresIn: this.ttl,
+    });
   }
 
   async createMagicLinkRecord(
@@ -32,7 +44,7 @@ export class MagicLinkCacheService {
     hmac: string,
     currentTimestamp: number
   ) {
-    const key = email;
+    const key = getMagicLinkRecordKey(email);
     const value = {
       hmac: hmac,
       active: currentTimestamp,
@@ -45,7 +57,7 @@ export class MagicLinkCacheService {
     hmac: string,
     currentTimestamp: number
   ) {
-    const key = email;
+    const key = getMagicLinkRecordKey(email);
 
     const value = {
       hmac: hmac,
@@ -55,13 +67,13 @@ export class MagicLinkCacheService {
   }
 
   async searchForMagicLinkRecord(email: string) {
-    const key = email;
+    const key = getMagicLinkRecordKey(email);
     const emailCached = await this.magicLinkRecordCache.get(key);
     return emailCached ?? null;
   }
 
   async deleteMagicLinkRecord(email: string) {
-    const key = email;
+    const key = getMagicLinkRecordKey(email);
     return await this.magicLinkRecordCache.drop(key);
   }
 
@@ -258,15 +270,17 @@ export class MagicLinkCacheService {
 
 type TypedCache<T> = Policy<T, PolicyOptions<T>>;
 
-type MagicLinkRecord = {
-  hmac: string;
-  active: number;
+type MagicLinkRecord = { hmac: string; active: number };
+const getMagicLinkRecordKey = (email: string) => {
+  return `magic_link:${email.toLocaleLowerCase()}`;
 };
 
 type FormIdBySessionIdRecord = { formId: string };
-const getFormIdBySessionIdKey = (sessionId: string) =>
-  `magic_link_form_id_by_session:${sessionId}`;
+const getFormIdBySessionIdKey = (sessionId: string) => {
+  return `magic_link_form_id_by_session:${sessionId.toLocaleLowerCase()}`;
+};
 
 type ReturnDataByHmacRecord = { sessionId: string; formId: string } | undefined;
-const getReturnDataByHmacKey = (hmac: string) =>
-  `magic_link_return_data_by_hmac:${hmac}`;
+const getReturnDataByHmacKey = (hmac: string) => {
+  return `magic_link_return_data_by_hmac:${hmac.toLocaleLowerCase()}`;
+};
