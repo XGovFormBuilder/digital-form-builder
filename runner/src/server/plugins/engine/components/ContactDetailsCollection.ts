@@ -36,20 +36,31 @@ export class ContactDetailsCollection extends FormComponent {
     this.children = new ComponentCollection(
       [
         {
-          type: "TelephoneNumberField",
           name: "mobile_number",
-          title: "Mobile number",
-          hint: "For example, 07700 900999",
           options: {
             required: false,
             optionalText: false,
             customValidationMessages: {
-              "string.pattern.base": "Enter a valid UK mobile number",
+              "string.pattern.base":
+                "Enter a mobile number in the correct format",
             },
           },
+          type: "TelephoneNumberField",
+          title: "Mobile number",
+          hint: "For example, 07700 900999",
           schema: {
             regex:
-              "(?!0{5,})(((\\+44\\s?(?!4|6)\\d{4}|\\(?0(?!4|6)\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?(?!4|6)\\d{3}|\\(?0(?!4|6)\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?(?!4|6)\\d{2}|\\(?0(?!4|6)\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?\\#(\\d{4}|\\d{3}))?",
+              "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$",
+          },
+        },
+        {
+          name: "landline_number",
+          options: { required: false, optionalText: false },
+          type: "TelephoneNumberField",
+          title: "Landline number",
+          hint: "For example, 020 7123 4567",
+          schema: {
+            regex: "^0([1-6][\\s\\d]{8,12})$",
           },
         },
         {
@@ -66,13 +77,10 @@ export class ContactDetailsCollection extends FormComponent {
           },
         },
         // Hidden carrier field for the "at least one" cross-field rule.
-        // Name MUST match this.name — the synthetic key in getFormSchemaKeys
         // attaches the custom validator to this name, and Joi only runs
         // validators on keys present in the payload. Removing this field
         // silently disables the cross-field check.
         {
-          // Shouldn't this be a bool ?
-          // I believe this is used just to trigger the cross-field validation rule
           type: "TextField",
           name: this.name,
           title: "Contact details",

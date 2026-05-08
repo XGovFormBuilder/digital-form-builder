@@ -188,22 +188,6 @@
           "options": {},
           "type": "ContactDetailsCollection",
           "title": "Contact Details"
-        },
-        {
-          "type": "TelephoneNumberField",
-          "name": "landline_number",
-          "title": "Example Landline number",
-          "hint": "For example, 01632 960999",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.pattern.base": "Enter a valid landline number"
-            },
-            "schema": {
-              "regex": "^0([1-6][\\s\\d]{8,12})$"
-            }
-          }
         }
       ],
       "next": [{ "path": "/check-your-details" }],
