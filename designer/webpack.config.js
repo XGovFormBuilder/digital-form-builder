@@ -12,7 +12,7 @@ const prodMode = process.env.NODE_ENV === "production";
 const environment = prodMode ? "production" : "development";
 const logLevel = process.env.REACT_LOG_LEVEL || (prodMode ? "warn" : "debug");
 const reactEnvVariables = new webpack.DefinePlugin({
-  ["REACT_LOG_LEVEL"]: JSON.stringify(`${logLevel}`),
+  ["process.env.REACT_LOG_LEVEL"]: JSON.stringify(`${logLevel}`),
 });
 const client = {
   target: "web",
