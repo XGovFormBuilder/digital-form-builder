@@ -4,17 +4,22 @@ import { redirectTo } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { createHmac } from "src/server/utils/hmac";
 import { isAllowedDomain } from "src/server/utils/domain";
+import { ServerStateCookieOptions } from "@hapi/hapi";
 
 // Shared options for cookie settings
-const getCookieOptions = (timeRemaining) => ({
-  ttl: timeRemaining * 1000, // Convert remaining seconds to milliseconds
-  isSecure: true,
-  isHttpOnly: true,
-  encoding: "base64json",
-  path: "/",
-  clearInvalid: false,
-  strictHeader: true,
-});
+const getCookieOptions = (timeRemaining: number) => {
+  const options: ServerStateCookieOptions = {
+    ttl: timeRemaining * 1000, // Convert remaining seconds to milliseconds
+    isSecure: true,
+    isHttpOnly: true,
+    encoding: "base64json",
+    path: "/",
+    clearInvalid: false,
+    strictHeader: true,
+  };
+
+  return options;
+};
 
 // Base controller class containing shared functionality
 export class MagicLinkSubmissionPageController extends PageController {
@@ -85,7 +90,7 @@ export class MagicLinkSubmissionPageController extends PageController {
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       this.request = request; // Store request for use in getter methods
-      const { cacheService } = request.services([]);
+      const { cacheService, magicLinkCacheService } = request.services([]);
       const model = this.model;
       const state = await cacheService.getState(request);
       const summaryViewModel = new SummaryViewModel(
@@ -149,7 +154,9 @@ export class MagicLinkSubmissionPageController extends PageController {
       const currentTime = Math.floor(Date.now() / 1000);
 
       // Check if the user already has an active HMAC link
-      const foundHmac = await cacheService.searchForMagicLinkRecord(email);
+      const foundHmac = await magicLinkCacheService.searchForMagicLinkRecord(
+        email
+      );
 
       if (foundHmac && foundHmac.active) {
         const hmacTimestamp = foundHmac.active;
@@ -185,14 +192,22 @@ export class MagicLinkSubmissionPageController extends PageController {
 
       // Store or update the HMAC record
       if (!foundHmac) {
-        await cacheService.createMagicLinkRecord(email, hmac, currentTimestamp);
+        await magicLinkCacheService.createMagicLinkRecord(
+          email,
+          hmac,
+          currentTimestamp
+        );
       } else {
         // Update existing record
-        await cacheService.updateMagicLinkRecord(email, hmac, currentTimestamp);
+        await magicLinkCacheService.updateMagicLinkRecord(
+          email,
+          hmac,
+          currentTimestamp
+        );
       }
 
       // Construct the magic link URL
-      const hmacUrlStart = `/${model.basePath}/return?email=`
+      const hmacUrlStart = `/${model.basePath}/return?email=`;
       const hmacUrl = hmacUrlStart.concat(
         email,
         "&request_time=",
@@ -241,6 +256,12 @@ export class MagicLinkSubmissionPageController extends PageController {
       // Get StatusService and submit the form
       const { statusService } = request.services([]);
       await statusService.outputRequests(request);
+
+      /* In order to allow resume we need to store the current session id, form id and magic link form id */
+      await magicLinkCacheService.saveInformationToAllowMagicLinkResume(
+        request,
+        hmac
+      );
 
       // Redirect to custom page
       return redirectTo(request, h, this.redirectAfterSubmission);

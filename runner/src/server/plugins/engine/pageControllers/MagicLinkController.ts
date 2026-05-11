@@ -5,7 +5,6 @@ import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { validateHmac } from "src/server/utils/hmac";
 import Jwt from "@hapi/jwt";
 import config from "server/config";
-import { configureEnginePlugin } from "../configureEnginePlugin";
 
 export class MagicLinkController extends PageController {
   constructor(model, pageDef) {
@@ -19,22 +18,18 @@ export class MagicLinkController extends PageController {
       const requestTime = request.query.request_time;
       const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
-      debugger;
-
       const validation = await validateHmac(email, hmac, requestTime, hmacKey);
 
-     //Outlook safelink consumes magic link - This bypasses it
-     if (!request.headers["user-agent"]) {
-      return h.response("Ignored bot request").code(200);
-    }
+      //Outlook safelink consumes magic link - This bypasses it
+      if (!request.headers["user-agent"]) {
+        return h.response("Ignored bot request").code(200);
+      }
 
-      const { cacheService } = request.services([]);
-
-      const state = await cacheService.getState(request);
+      const { cacheService, magicLinkCacheService } = request.services([]);
 
       //💣 Issue: As the program scales, this will need updating on a per-form basis.
       // Otherwise active on one form, will mark them active on all.
-      const isMagicLinkRecordActive = await cacheService.searchForMagicLinkRecord(
+      const isMagicLinkRecordActive = await magicLinkCacheService.searchForMagicLinkRecord(
         email
       );
 
@@ -42,7 +37,7 @@ export class MagicLinkController extends PageController {
         return h.redirect(`/${this.model.basePath}/expired`).code(302);
       }
 
-      await cacheService.deleteMagicLinkRecord(email);
+      await magicLinkCacheService.deleteMagicLinkRecord(email);
 
       if (!validation.isValid) {
         // Handle different invalid token cases
@@ -50,7 +45,9 @@ export class MagicLinkController extends PageController {
           case "expired":
             return h.redirect(`/${this.model.basePath}/expired`).code(302);
           case "invalid_signature":
-            return h.redirect(`/${this.model.basePath}/incorrect-email`).code(302);
+            return h
+              .redirect(`/${this.model.basePath}/incorrect-email`)
+              .code(302);
           default:
             return h.redirect(`/${this.model.basePath}/error`).code(302);
         }
@@ -64,6 +61,7 @@ export class MagicLinkController extends PageController {
         return this.makePostRouteHandler()(request, h);
       }
 
+      const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
 
       if (viewModel.endPage) {
@@ -136,11 +134,11 @@ export class MagicLinkController extends PageController {
       const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
       const validation = await validateHmac(email, hmac, requestTime, hmacKey);
-     
+
       //Outlook safelink consumes magic link - This bypasses it
       if (!request.headers["user-agent"]) {
-      return h.response("Ignored bot request").code(200);
-    }
+        return h.response("Ignored bot request").code(200);
+      }
       if (validation.isValid) {
         const token = Jwt.token.generate(
           { email: request.query.email },
@@ -164,6 +162,14 @@ export class MagicLinkController extends PageController {
           isSameSite: "Lax",
         });
       }
+
+      const { magicLinkCacheService } = request.services([]);
+
+      /* Populate the current session with the form state from the session that requested the magic link */
+      await magicLinkCacheService.repopulateFormStateUponMagicLinkReturn(
+        request,
+        hmac
+      );
 
       // Redirect to custom page instead of status
       return redirectTo(request, h, `/${request.params.id}/email-confirmed`);
