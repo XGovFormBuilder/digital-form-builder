@@ -65,6 +65,15 @@ export const ComponentTypes: ComponentDef[] = [
     schema: {},
   },
   {
+    name: "ContactDetailsCollection",
+    type: "ContactDetailsCollection",
+    title: "Contact details collection",
+    subType: "field",
+    hint: "",
+    options: {},
+    schema: {},
+  },
+  {
     name: "DateTimePartsField",
     type: "DateTimePartsField",
     title: "Date time parts field",

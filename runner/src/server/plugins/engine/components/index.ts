@@ -11,6 +11,7 @@ export { ComponentCollection } from "./ComponentCollection";
 // export { ConditionalFormComponent } from "./ConditionalFormComponent";
 export { DateField } from "./DateField";
 export { DatePartsField } from "./DatePartsField";
+export { ContactDetailsCollection } from "./ContactDetailsCollection";
 export { DateTimeField } from "./DateTimeField";
 export { DateTimePartsField } from "./DateTimePartsField";
 export { Details } from "./Details";
