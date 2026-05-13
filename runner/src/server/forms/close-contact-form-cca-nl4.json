@@ -393,10 +393,16 @@
       "title": "Do you live with other people?",
       "components": [
         {
+          "name": "doYouLiveWithOtherPeopleExplanation",
+          "options": {},
+          "type": "Para",
+          "content": "As you've tested positive for bird (avian) flu, it's important for us to know who you live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
+        },
+        {
           "name": "AdEVNK",
           "options": {},
           "type": "Para",
-          "content": "This includes:"
+          "content": "This only includes people who:"
         },
         {
           "name": "kjpRbq",
@@ -423,7 +429,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
+          "content": "We ask this to identify people you live with and may have passed bird (avian) flu on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         }
       ],
       "next": [
@@ -3690,12 +3696,16 @@
       "type": "string",
       "items": [
         {
-          "text": "people who live at the same address as you",
-          "value": "people who live at the same address as you"
+          "text": "usually live in the same address as you",
+          "value": "usually live in the same address as you"
         },
         {
-          "text": "people who have stayed overnight in the last 14 days",
-          "value": "people who have stayed overnight in the last 14 days"
+          "text": "people who have stayed overnight in the last 7 days",
+          "value": "people who have stayed overnight in the last 7 days"
+        },
+        {
+          "text": "you can provide contact details for, or receive communications on behalf of",
+          "value": "you can provide contact details for, or receive communications on behalf of"
         }
       ]
     },
@@ -3705,12 +3715,16 @@
       "type": "string",
       "items": [
         {
-          "text": "people who live at the same address as them",
-          "value": "people who live at the same address as them"
+          "text": "usually live in the same address as them",
+          "value": "usually live in the same address as them"
         },
         {
-          "text": "people who have stayed overnight in the last 14 days",
-          "value": "people who have stayed overnight in the last 14 days"
+          "text": "people who have stayed overnight in the last 7 days",
+          "value": "people who have stayed overnight in the last 7 days"
+        },
+        {
+          "text": "you can provide contact details for, or receive communications on behalf of",
+          "value": "you can provide contact details for, or receive communications on behalf of"
         }
       ]
     },
