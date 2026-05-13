@@ -26,7 +26,7 @@
           "name": "DIJjRU",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\">The report tells you the risk that the address may have high levels of radon, but it doesn't tell you the actual radon level. The only way to know this for sure is to <a href=\"https://www.ukradon.org/sectors/\">measure the level of radon in the property</a>.</p><p class=\"govuk-body-m\">You can search for a home or small workplace under 25 metres long.</p><p class=\"govuk-body-m\">This service costs £3.90 per property.</p><p class=\"govuk-body-m\">It should take about 5 minutes.</p><p class=\"govuk-body-m\">You will be sent your risk report using your chosen delivery method.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/sectors/\">Read a sample report</a><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>the address for the risk report</li><li>your email address</li><li>the address you would like the report sent to (optional)</li><li>your payment details</li></ul></p>"
+          "content": "<p class=\"govuk-body-m\">The report tells you the risk that the address may have high levels of radon, but it doesn't tell you the actual radon level. The only way to know this for sure is to <a href=\"/order-a-gas-test-kit\">measure the level of radon in the property</a>.</p><p class=\"govuk-body-m\">You can search for a home or small workplace under 25 metres long.</p><p class=\"govuk-body-m\">This service costs £3.90 per property.</p><p class=\"govuk-body-m\">It should take about 5 minutes.</p><p class=\"govuk-body-m\">You will be sent your risk report using your chosen delivery method.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/cms/assets/gfx/content/resource_5095cs45be58330c.pdf\">Read a sample report</a><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>the address for the risk report</li><li>your email address</li><li>the address you would like the report sent to (optional)</li><li>your payment details</li></ul></p>"
         }
       ],
       "next": [{ "path": "/find-an-address" }],
@@ -44,7 +44,8 @@
               "string.pattern.base": "Enter a full UK postcode",
               "string.max": "Postcode must be less than 10 characters"
             },
-            "autocomplete": "postal-code"
+            "autocomplete": "postal-code",
+            "exposeToContext": true
           },
           "schema": { 
             "max": 10,
@@ -66,6 +67,24 @@
           "type": "TextField",
           "title": "Building number or name",
           "hint": "For example, 15 or Prospect cottage"
+        },
+        {
+          "name": "numberOfAddresses",
+          "options": {
+            "customValidationMessages": {
+              "number.base": "Enter a number between 1 and 50",
+              "number.max": "The number must be between 1 and 50",
+              "number.min": "The number must be between 1 and 50"
+            },
+            "exposeToContext": true
+          },
+          "type": "NumberField",
+          "title": "How many addresses should be found between 1 and 50",
+          "hint": "This is to mock the API",
+          "schema": {
+            "min": 1,
+            "max": 50
+          }
         }
       ],
       "customButtonText": "Find address",
@@ -74,21 +93,95 @@
           "name": "QASDF",
           "options": {},
           "type": "Para",
-          "content": "<a href=\"https://www.ukradon.org/sectors/\">Enter address manually</a>"
+          "content": "<a href=\"enter-address-manually\">Enter address manually</a>"
         }
       ],
-      "next": [{ "path": "/address-search" }]
+      "next": [
+        { "path": "/is-this-the-correct-address", "condition": "CyWXGW" },
+        { "path": "/select-an-address", "condition": "TnuCEi" }
+      ]
     },
     {
-      "path": "/address-search",
-      "title": "Address search placeholder",
+      "path": "/is-this-the-correct-address",
+      "title": "Found 1 address placeholder",
       "components": [],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/select-an-address",
+      "title": "Select an address draft",
+      "components": [
+        {
+          "name": "CCtnVb",
+          "options": {},
+          "type": "Para",
+          "content": "{{ numberOfAddresses }} addresses found for '{{ postcode }}'"
+        }
+      ],
       "next": [{ "path": "/summary" }]
     },
     {
       "path": "/enter-address-manually",
       "title": "What is the address you want a risk report for?",
-      "components": [],
+      "components": [
+        {
+          "name": "addressLine1",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter address line 1, typically the building and street",
+              "any.only": "Enter address line 1, typically the building and street",
+              "string.empty": "Enter address line 1, typically the building and street"
+            }
+          },
+          "type": "TextField",
+          "title": "Address Line 1"
+        },
+        {
+          "name": "addressLine2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Address Line 2"
+        },
+        {
+          "name": "town",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter a town or city",
+              "any.only": "Enter a town or city",
+              "string.empty": "Enter a town or city"
+            }
+          },
+          "type": "TextField",
+          "title": "Town or city"
+        },
+        {
+          "name": "county",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "County"
+        },
+        {
+          "name": "postcode",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode",
+              "string.max": "Postcode must be less than 10 characters"
+            },
+            "autocomplete": "postal-code"
+          },
+          "schema": { 
+            "max": 10,
+            "regex": "^[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}$"
+          },
+          "type": "TextField",
+          "title": "Postcode"
+        }
+      ],
       "next": [{ "path": "/summary" }]
     },
     {
@@ -101,7 +194,62 @@
   ],
   "lists": [],
   "sections": [],
-  "conditions": [],
+  "conditions": [
+  {
+      "displayName": "noAddresses",
+      "name": "crYxVQ",
+      "value": {
+        "name": "noAddresses",
+        "conditions": [
+          {
+            "field": {
+              "name": "PomKCX",
+              "type": "NumberField",
+              "display": "qwerqw"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "0", "display": "0" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "oneAddress",
+      "name": "CyWXGW",
+      "value": {
+        "name": "oneAddress",
+        "conditions": [
+          {
+            "field": {
+              "name": "numberOfAddresses",
+              "type": "NumberField",
+              "display": "qwerqw"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "1", "display": "1" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "moreAddresses",
+      "name": "TnuCEi",
+      "value": {
+        "name": "moreAddresses",
+        "conditions": [
+          {
+            "field": {
+              "name": "numberOfAddresses",
+              "type": "NumberField",
+              "display": "qwerqw"
+            },
+            "operator": "is more than",
+            "value": { "type": "Value", "value": "1", "display": "1" }
+          }
+        ]
+      }
+    }
+  ],
   "fees": [],
   "outputs": [
     {

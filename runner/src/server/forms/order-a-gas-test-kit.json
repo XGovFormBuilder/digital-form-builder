@@ -1,13 +1,13 @@
 {
   "metadata": {},
-  "startPage": "/order-a-gas-test-kit-start",
+  "startPage": "/order-a-radon-gas-test-kit-start",
   "name": "Order a gas test kit",
-  "serviceName": "Order a gas test kit",
+  "serviceName": "Order a radon gas test kit",
   "confirmationSessionTimeout": 2000,
   "pages": [
     {
-      "title": "Order a gas test kit",
-      "path": "/order-a-gas-test-kit-start",
+      "title": "Order a radon gas test kit",
+      "path": "/order-a-radon-gas-test-kit-start",
       "components": [],
       "next": [{ "path": "/summary" }]
     },

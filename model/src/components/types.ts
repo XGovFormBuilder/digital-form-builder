@@ -327,7 +327,7 @@ export interface RadiosFieldComponent extends ListFieldBase {
 
 export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
-  options: ListFieldBase["options"] & { autocomplete?: string } & { preselected?: { text: string; values: string | number | boolean } };
+  options: ListFieldBase["options"] & { autocomplete?: string } & { preselected?: { text: string; value: string | number | boolean } };
   subType?: "listField";
 }
 
