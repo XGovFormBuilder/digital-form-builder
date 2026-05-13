@@ -23,20 +23,17 @@ export class MagicLinkCacheService {
     const { cacheService } = server.services([]);
     this.cacheService = cacheService;
 
-    this.magicLinkRecordCache = server.cache<MagicLinkRecord>({
-      segment: "magic-link-records",
-      expiresIn: this.ttl,
-    });
+    this.magicLinkRecordCache = cacheService.cache as TypedCache<
+      MagicLinkRecord
+    >;
 
-    this.magicLinkFormIdBySessionCache = server.cache<FormIdBySessionIdRecord>({
-      segment: "magic-link-form-id-by-session",
-      expiresIn: this.ttl,
-    });
+    this.magicLinkFormIdBySessionCache = cacheService.cache as TypedCache<
+      FormIdBySessionIdRecord
+    >;
 
-    this.magicLinkReturnDataByHmacCache = server.cache<ReturnDataByHmacRecord>({
-      segment: "magic-link-return-data-by-hmac",
-      expiresIn: this.ttl,
-    });
+    this.magicLinkReturnDataByHmacCache = cacheService.cache as TypedCache<
+      ReturnDataByHmacRecord
+    >;
   }
 
   async createMagicLinkRecord(
