@@ -29,7 +29,7 @@
       "next": [
         { "path": "/radon-enquiry-start", "condition": "yafSJD" },
         { "path": "/other-contact-us-form", "condition": "QedsW" },
-        { "path": "/pds-enquiry-start" }
+        { "path": "/pds-enquiry-start", "condition":  "XaNsL" }
       ]
     },
     {
@@ -449,6 +449,28 @@
     },
     {
       "displayName": "RadonRequest",
+      "name": "XaNsL",
+      "value": {
+        "name": "RadonRequest",
+        "conditions": [
+          {
+            "field": {
+              "name": "requestRelation",
+              "type": "RadiosField",
+              "display": "What is your request related to?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Personal Dosimetry Service",
+              "display": "Personal Dosimetry Service"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "RadonRequest",
       "name": "QedsW",
       "value": {
         "name": "RadonRequest",
@@ -477,7 +499,7 @@
       "title": "webhookOutput",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://webhook.site/01a1396b-a835-4039-945b-8529a9085e7c",
+        "url": "https://webho.ok",
         "allowRetry": true
       }
     }
