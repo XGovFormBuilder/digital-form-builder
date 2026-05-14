@@ -321,62 +321,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/check-your-details" }],
@@ -397,16 +349,10 @@
       "title": "Do you live with other people?",
       "components": [
         {
-          "name": "doYouLiveWithOtherPeopleExplanation",
-          "options": {},
-          "type": "Para",
-          "content": "As you've tested positive for bird (avian) flu, it's important for us to know who you live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
-        },
-        {
           "name": "AdEVNK",
           "options": {},
           "type": "Para",
-          "content": "This only includes people who:"
+          "content": "This includes:"
         },
         {
           "name": "kjpRbq",
@@ -433,7 +379,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with and may have passed bird (avian) flu on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
+          "content": "We ask this to identify people you live with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -450,16 +396,10 @@
       "title": "Do they live with other people?",
       "components": [
         {
-          "name": "doYouLiveWithOtherPeopleExplanation",
-          "options": {},
-          "type": "Para",
-          "content": "As the person you are completing the form for has tested positive for bird (avian) flu, it's important for us to know who they live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
-        },
-        {
           "name": "AdEVNK",
           "options": {},
           "type": "Para",
-          "content": "This only includes people who:"
+          "content": "This includes:"
         },
         {
           "name": "kjpRbq",
@@ -486,7 +426,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people they live with and may have passed bird (avian) flu on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
+          "content": "We ask this to identify people the person you're completing this form for lives with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
         }
       ],
       "next": [
@@ -566,62 +506,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-1" }],
@@ -726,62 +618,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-2" }],
@@ -886,62 +730,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-3" }],
@@ -1046,62 +842,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-4" }],
@@ -1206,62 +954,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-5" }],
@@ -1366,62 +1066,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-6" }],
@@ -1526,62 +1178,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-7" }],
@@ -1686,62 +1290,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-8" }],
@@ -1846,62 +1402,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/person-live-with-added-9" }],
@@ -2006,62 +1514,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact" }],
@@ -2178,62 +1638,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-1" }],
@@ -2335,62 +1747,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-2" }],
@@ -2492,62 +1856,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-3" }],
@@ -2649,62 +1965,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-4" }],
@@ -2806,62 +2074,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-5" }],
@@ -2963,62 +2183,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-6" }],
@@ -3120,62 +2292,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-7" }],
@@ -3277,62 +2401,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-8" }],
@@ -3434,62 +2510,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/close-contact-added-9" }],
@@ -3591,62 +2619,14 @@
           "schema": {}
         },
         {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
+          "name": "contact_details_collection",
           "options": {
-            "required": false,
-            "optionalText": false,
             "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
+              "any.required": "Provide a mobile number, email or both"
             }
           },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
+          "type": "ContactDetailsCollection",
+          "title": "Contact Details"
         }
       ],
       "next": [{ "path": "/summary" }],
@@ -3703,16 +2683,12 @@
       "type": "string",
       "items": [
         {
-          "text": "usually live in the same address as you",
-          "value": "usually live in the same address as you"
+          "text": "people who live at the same address as you",
+          "value": "people who live at the same address as you"
         },
         {
-          "text": "people who have stayed overnight in the last 7 days",
-          "value": "people who have stayed overnight in the last 7 days"
-        },
-        {
-          "text": "you can provide contact details for, or receive communications on behalf of",
-          "value": "you can provide contact details for, or receive communications on behalf of"
+          "text": "people who have stayed overnight in the last 14 days",
+          "value": "people who have stayed overnight in the last 14 days"
         }
       ]
     },
@@ -3722,16 +2698,12 @@
       "type": "string",
       "items": [
         {
-          "text": "usually live in the same address as them",
-          "value": "usually live in the same address as them"
+          "text": "people who live at the same address as them",
+          "value": "people who live at the same address as them"
         },
         {
-          "text": "people who have stayed overnight in the last 7 days",
-          "value": "people who have stayed overnight in the last 7 days"
-        },
-        {
-          "text": "you can provide contact details for, or receive communications on behalf of",
-          "value": "you can provide contact details for, or receive communications on behalf of"
+          "text": "people who have stayed overnight in the last 14 days",
+          "value": "people who have stayed overnight in the last 14 days"
         }
       ]
     },
@@ -4666,7 +3638,7 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts you listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on avian flu</h2><p class='govuk-body'>If anyone you know develops symptoms of bird (avian) flu, ask them to <a class='govuk-link' href='#'>order a test kit</a>. For urgent medical advice, you can call NHS 111 or visit <a class='govuk-link' href='https://111.nhs.uk/'>111.nhs.uk</a>. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit <a class='govuk-link' href='www.nhs.uk/conditions/bird-flu'>www.nhs.uk/conditions/bird-flu</a>.</p><h2 class='govuk-heading-m'>If you need to contact us</h2><p class='govuk-body'>If you have any concerns or questions about this form, you can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
+        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts you listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on avian flu<</h2><p class='govuk-body'>If anyone you know develops symptoms of bird (avian) flu, ask them to <a class='govuk-link' href='#'>order a test kit</a>. For urgent medical advice, you can call NHS 111 or visit <a class='govuk-link' href='https://111.nhs.uk/'>111.nhs.uk</a>. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit <a class='govuk-link' href='www.nhs.uk/conditions/bird-flu'>www.nhs.uk/conditions/bird-flu</a>.</p><h2 class='govuk-heading-m'>If you need to contact us</h2><p class='govuk-body'>If you have any concerns or questions about this form, you can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
         "title": "Form submitted",
         "referenceTitle": "Your reference number"
       }
