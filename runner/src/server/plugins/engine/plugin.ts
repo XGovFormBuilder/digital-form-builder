@@ -13,7 +13,7 @@ import config from "../../config";
 import * as exit from "./pluginHandlers/exit";
 import {
   getFiles,
-  handleUpload,
+  secureHandleUpload,
   validateContentTypes,
 } from "./pluginHandlers/files/prehandlers";
 
@@ -329,7 +329,7 @@ export const plugin = {
         pre: [
           { method: getFiles, assign: "files" },
           { method: validateContentTypes, assign: "validFiles" },
-          { method: handleUpload },
+          { method: secureHandleUpload },
         ],
         handler: postHandler,
       },
