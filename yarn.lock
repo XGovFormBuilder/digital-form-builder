@@ -29,6 +29,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/msal-common@npm:16.6.1":
+  version: 16.6.1
+  resolution: "@azure/msal-common@npm:16.6.1"
+  checksum: af040c56a36f57ec4c4b4805dfd29ade0657ffe1528287c10d4ae63842cbc7bd39762a826a839084af2bd60e77676dbcd280f2a9ce7e41263fd3cb84c8a034a4
+  languageName: node
+  linkType: hard
+
+"@azure/msal-node@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "@azure/msal-node@npm:5.2.1"
+  dependencies:
+    "@azure/msal-common": 16.6.1
+    jsonwebtoken: ^9.0.0
+  checksum: 0d365356ae1a1092781fba00069ef3d52414df675a00456030459b0accb7463722949c7c4102da5266064533bc2526dc7676eab9dd294b8c498e1776361bf744
+  languageName: node
+  linkType: hard
+
 "@babel/cli@npm:^7.23.3":
   version: 7.23.4
   resolution: "@babel/cli@npm:7.23.4"
@@ -5154,6 +5171,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/runner@workspace:runner"
   dependencies:
+    "@azure/msal-node": ^5.2.1
     "@babel/cli": ^7.23.3
     "@babel/core": ^7.23.3
     "@babel/eslint-parser": ^7.23.3
