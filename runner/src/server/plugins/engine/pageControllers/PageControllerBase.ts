@@ -162,6 +162,7 @@ export class PageControllerBase {
     phaseTag?: string | undefined;
     details?: any;
     returnUrl?: string | undefined;
+    allowExit?: boolean;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -347,7 +348,6 @@ export class PageControllerBase {
    */
   getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
-
     if (this.repeatField) {
       const repeatedPageState =
         pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {};
@@ -365,6 +365,14 @@ export class PageControllerBase {
           newState as FormSubmissionState
         ),
       };
+    }
+    if (state) {
+      if (state.matchedAddress) {
+        formData.matchedAddress = state.matchedAddress; 
+      }
+      if (state.hasMatchedAddress !== undefined) {
+        formData.hasMatchedAddress = state.hasMatchedAddress;
+      }
     }
     return {
       ...this.components.getFormDataFromState(pageState || {}),
@@ -452,6 +460,7 @@ export class PageControllerBase {
     //Note: This function does not support repeatFields right now
 
     let relevantState: FormSubmissionState = {};
+    const virtualKeys = ["hasMatchedAddress", "numberOfAddresses", "matchedAddress", "addresses", "selectedAddress"];
     //Start at our startPage
     let nextPage = model.startPage;
 

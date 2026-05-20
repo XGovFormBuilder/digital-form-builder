@@ -197,6 +197,16 @@ export type Analytics = {
   matomoUrl: string;
 };
 
+export type AddressLookupServiceConfig = {
+  apimBaseUrl: string;
+  callingApplication: string;
+  subscriptionKey?:  string;
+  tenantId: string;
+  clientId: string;
+  clientSecret: string;
+  scopes: string[];
+}
+
 /**
  * `FormDefinition` is a typescript representation of `Schema`
  */
@@ -233,4 +243,5 @@ export type FormDefinition = {
   serviceName?: string | undefined;
   confirmationSessionTimeout: number | undefined;
   returnTo?: boolean | undefined;
+  addressLookupServiceConfig?: AddressLookupServiceConfig;
 };

@@ -19,6 +19,7 @@ import {
   StatusService,
   UploadService,
   WebhookService,
+  AddressLookupService,
 } from "./services";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { QueueService } from "./services/QueueService";
@@ -37,6 +38,7 @@ type Services = (
   queueService: QueueService;
   queueStatusService: QueueStatusService;
   exitService: ExitService;
+  addressLookupService: AddressLookupService;
 };
 
 export type RouteConfig = {

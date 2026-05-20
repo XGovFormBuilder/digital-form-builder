@@ -56,7 +56,8 @@ export type ComponentType =
   | "List"
   | "WebsiteField"
   | "ContextComponent"
-  | "ContentWithState";
+  | "ContentWithState"
+  | "AddressLookupField";
 
 export type ComponentSubType = "field" | "content";
 
@@ -229,6 +230,13 @@ export interface MultilineTextFieldComponent extends TextFieldBase {
   };
 }
 
+export interface AddressLookupFieldComponent extends TextFieldBase {
+  type: "AddressLookupField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
+}
+
 export interface FileUploadFieldComponent {
   subType?: "field";
   type: "FileUploadField";
@@ -360,6 +368,7 @@ export type ComponentDef =
   | SelectFieldComponent
   | TelephoneNumberFieldComponent
   | TextFieldComponent
+  | AddressLookupFieldComponent
   | TimeFieldComponent
   | UkAddressFieldComponent
   | YesNoFieldComponent
@@ -374,6 +383,7 @@ export type InputFieldsComponentsDef =
   | NumberFieldComponent
   | MultilineTextFieldComponent
   | TelephoneNumberFieldComponent
+  | AddressLookupFieldComponent
   | YesNoFieldComponent
   | FileUploadFieldComponent
   | DateFieldComponent

@@ -42,7 +42,8 @@
             "customValidationMessages": {
               "string.empty": "Enter postcode",
               "string.pattern.base": "Enter a full UK postcode",
-              "string.max": "Postcode must be less than 10 characters"
+              "string.max": "Postcode must be less than 10 characters",
+              "findAddress": true
             },
             "autocomplete": "postal-code",
             "exposeToContext": true
@@ -60,7 +61,8 @@
           "options": {
             "customValidationMessages": {
               "string.empty": "Enter building number or name",
-              "string.max": "Building name must be less than 100 characters"
+              "string.max": "Building name must be less than 100 characters",
+              "findAddress": true
             }
           },
           "schema": { "max": 100 },
@@ -395,7 +397,7 @@
       "title": "webhookOutput",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://webho.ok",
+        "url": "",
         "allowRetry": true
       }
     }

@@ -1,0 +1,91 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "confirmationSessionTimeout": 2000,
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [],
+      "next": [{ "path": "/second-page" }]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [
+        {
+          "name": "cGWuVg",
+          "options": {},
+          "type": "TextField",
+          "title": "qwer"
+        },
+        {
+          "name": "preselect",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true
+          },
+          "type": "SelectField",
+          "title": "What is your request related to?",
+          "nameHasError": false,
+          "list": "preselect"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "requestRelation-list",
+      "name": "preselect",
+      "type": "string",
+      "items": [
+        { "text": "Select an option", "value": "preselect"},
+        { "text": "Radon Services", "value": "Radon Services" },
+        {
+          "text": "Personal Dosimetry Service",
+          "value": "Personal Dosimetry Service"
+        },
+        { "text": "Something else", "value": "Something else" }
+      ]
+    }
+  ],
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "title": "Contact request submitted",
+        "nextSteps": "We have sent a confirmation email to {{ requestRelation }}.<p class=\"govuk-body-m\"><h2 class=\"govuk-heading-m\">What happens next</h2></p><p class=\"govuk-body-m\">We will review your request and get back to you within 5 days.</p>",
+        "hidePanel": false
+      }
+    }
+  },
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "AgHhXn",
+      "title": "webhookOutput",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "",
+        "allowRetry": true
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "phaseBanner": {
+  "phase": "beta"
+  },
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  }
+}
