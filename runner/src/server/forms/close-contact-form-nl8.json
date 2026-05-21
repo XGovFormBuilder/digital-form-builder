@@ -13,7 +13,7 @@
           "name": "para1",
           "options": {},
           "type": "Para",
-          "content": "To help us reduce the spread of bird (avian) flu, it's important for us to know who you live with and who you've been in close contact with.",
+          "content": "To help us reduce the spread of {{ disease_name }}, it's important for us to know who you live with and who you've been in close contact with.",
           "schema": {}
         },
         {
@@ -347,7 +347,7 @@
           "name": "doYouLiveWithOtherPeopleExplanation",
           "options": {},
           "type": "Para",
-          "content": "As you've tested positive for bird (avian) flu, it's important for us to know who you live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
+          "content": "As you've tested positive for {{ disease_name }}, it's important for us to know who you live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
         },
         {
           "name": "AdEVNK",
@@ -380,7 +380,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with and may have passed bird (avian) flu on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
+          "content": "We ask this to identify people you live with and may have passed {{ disease_name }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         }
       ],
       "next": [
@@ -400,7 +400,7 @@
           "name": "doYouLiveWithOtherPeopleExplanation",
           "options": {},
           "type": "Para",
-          "content": "As the person you are completing the form for has tested positive for bird (avian) flu, it's important for us to know who they live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
+          "content": "As the person you are completing the form for has tested positive for {{ disease_name }}, it's important for us to know who they live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
         },
         {
           "name": "AdEVNK",
@@ -433,7 +433,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people they live with and may have passed bird (avian) flu on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
+          "content": "We ask this to identify people they live with and may have passed {{ disease_name }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         }
       ],
       "next": [
@@ -3624,6 +3624,20 @@
       ]
     },
     {
+      "title": "Check how I can use this list to store info about each disease",
+      "name": "disease_data",
+      "items": [
+        {
+          "text": "the name and contact details of people you live with",
+          "value": "the name and contact details of people you live with"
+        },
+        {
+          "text": "the name and contact details of other people you were in close contact with in the last 14 days",
+          "value": "the name and contact details of other people you were in close contact with in the last 14 days"
+        }
+      ]
+    },
+    {
       "title": "Who are you completing this form for?",
       "name": "ApjoNd",
       "type": "string",
@@ -4613,7 +4627,7 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts you listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on avian flu</h2><p class='govuk-body'>If anyone you know develops symptoms of bird (avian) flu, ask them to <a class='govuk-link' href='#'>order a test kit</a>. For urgent medical advice, you can call NHS 111 or visit <a class='govuk-link' href='https://111.nhs.uk/'>111.nhs.uk</a>. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit <a class='govuk-link' href='www.nhs.uk/conditions/bird-flu'>www.nhs.uk/conditions/bird-flu</a>.</p><h2 class='govuk-heading-m'>If you need to contact us</h2><p class='govuk-body'>If you have any concerns or questions about this form, you can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
+        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts you listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on avian flu</h2><p class='govuk-body'>If anyone you know develops symptoms of {{ disease_name }}, ask them to <a class='govuk-link' href='#'>order a test kit</a>. For urgent medical advice, you can call NHS 111 or visit <a class='govuk-link' href='https://111.nhs.uk/'>111.nhs.uk</a>. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit <a class='govuk-link' href='www.nhs.uk/conditions/bird-flu'>www.nhs.uk/conditions/bird-flu</a>.</p><h2 class='govuk-heading-m'>If you need to contact us</h2><p class='govuk-body'>If you have any concerns or questions about this form, you can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
         "title": "Form submitted",
         "referenceTitle": "Your reference number"
       }
