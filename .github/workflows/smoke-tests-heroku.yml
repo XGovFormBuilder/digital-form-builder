@@ -7,9 +7,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
           node-version: "16.x"
 
@@ -17,7 +17,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -31,10 +31,9 @@ jobs:
           cypress_DESIGNER_URL: https://digital-form-builder-designer.herokuapp.com
           cypress_RUNNER_URL: https://digital-form-builder-runner.herokuapp.com
 
-
       - name: Send slack CI alert
         id: slack
-        uses: slackapi/slack-github-action@v1.18.0
+        uses: slackapi/slack-github-action@v3
         with:
           # For posting a rich message using Block Kit
           payload: |
@@ -62,21 +61,18 @@ jobs:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
       - name: Scan image
-        uses: anchore/scan-action@v2
+        uses: anchore/scan-action@v7
         with:
           image: "ghcr.io/digital-form-builder-runner:latest"
-          acs-report-enable: true
           fail-build: false
           severity-cutoff: critical
 
       - name: Scan image
-        uses: anchore/scan-action@v2
+        uses: anchore/scan-action@v7
         with:
           image: "ghcr.io/digital-form-builder-designer:latest"
-          acs-report-enable: true
           fail-build: false
           severity-cutoff: critical
-
 
   deploy:
     needs: test
@@ -84,7 +80,7 @@ jobs:
     secrets: inherit
     strategy:
       matrix:
-        app: [ designer, runner ]
+        app: [designer, runner]
     with:
       app: ${{ matrix.app }}
       tag: ${{ needs.assign-semver.outputs.SEMVER }}
