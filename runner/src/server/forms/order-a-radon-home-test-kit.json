@@ -1,0 +1,122 @@
+{
+  "metadata": {},
+  "startPage": "/test-kit-start",
+  "name": "Order a radon gas test kit",
+  "serviceName": "Order a radon risk report",
+  "confirmationSessionTimeout": 2000,
+  "pages": [
+    {
+      "path": "/test-kit-start",
+      "title": "Order a radon home test kit",
+      "backLinkFallback": "https://www.ukhsa-protectionservices.org.uk/",
+      "components": [
+        {
+          "name": "qwplwo",
+          "options": {},
+          "type": "Para",
+          "content": "Use this service to order a radon gas test kit for your home.\n</br></br>\nThis service costs £52.80 including VAT.\n</br></br>\nOrdering a kit takes around 5 minutes. It may take up to 10 working days after you order for the kit to be sent.\n</br></br>\nThe kit contains two detectors. one for the living area and one for the bedroom of a residential property.\n</br></br>\nIt doesn't matter how big the home is or how many rooms there are. The detectors just need to be placed in any regularly used living area and bedroom.\n</br></br>\nOnce your kit arrives, we'll send you instructions on how to carry out the test.\n</br></br>\nYou'll get the results and advice on what to do next within 20 working days after you return the kit.\n</br></br>\n<b>Important information before you continue</b>\n</br></br>\nThe test will not be valid if:</br>",
+          "schema": {}
+        },
+        {
+          "name": "VDzNQL",
+          "options": {},
+          "type": "List",
+          "hint": "",
+          "list": "wnGWzk",
+          "title": "The test will not be valid if",
+          "values": { "type": "listRef" },
+          "schema": {}
+        },
+        {
+          "name": "gkopdo",
+          "options": {},
+          "type": "Para",
+          "content": "\nThis is because the way people live in a home can affect the radon level. For example. how often they open windows and doors, or how they heat the house.\n</br></br>\n<b>Before you start</b>\n</br></br>\nYou'll need your:</br>",
+          "schema": {}
+        },
+        {
+          "name": "xOxwdQ",
+          "options": {},
+          "type": "List",
+          "hint": "",
+          "title": "You'll need your:",
+          "list": "DjwCMK",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/enter-the-address-you-want-to-measure-the-radon-level-of" }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/enter-the-address-you-want-to-measure-the-radon-level-of",
+      "title": "Enter the address you want to measure the radon level of",
+      "components": [
+        {
+          "name": "HfpLGx",
+          "options": {},
+          "type": "Para",
+          "content": "Postcode",
+          "schema": {}
+        },
+        {
+          "name": "ZjoOoy",
+          "options": {},
+          "type": "TextField",
+          "title": "Postcode",
+          "hint": "For example AA3 1AB",
+          "schema": {}
+        }
+      ],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "The test will not be valid if:",
+      "name": "wnGWzk",
+      "type": "string",
+      "items": [
+        {
+          "text": "there's building work going on that changes the structure of the property such as a kitchen fitting or room refurbishment",
+          "description": "",
+          "value": "there's building work going on that changes the structure of the property such as a kitchen fitting or room refurbishment"
+        },
+        {
+          "description": "",
+          "text": "the property is empty for more than two weeks of the test",
+          "value": "the property is empty for more than two weeks of the test"
+        },
+        {
+          "text": "the people living there change during the test",
+          "value": "the people living there change during the test"
+        }
+      ]
+    },
+    {
+      "title": "You'll need your:",
+      "name": "DjwCMK",
+      "type": "string",
+      "items": [
+        { "text": "email address", "value": "email address" },
+        {
+          "text": "delivery address for the kit",
+          "value": "delivery address for the kit"
+        },
+        { "text": "payment details", "value": "payment details" }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {
+    "allowSubmissionWithoutPayment": true,
+    "maxAttempts": 3,
+    "showPaymentSkippedWarningPage": false
+  }
+}
