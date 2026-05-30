@@ -14,7 +14,7 @@ module.exports = {
       "@babel/preset-env",
       {
         debug: false,
-        useBuiltIns: process.env.NODE_ENV === "test" ? false : "usage",
+        useBuiltIns: process.env.NODE_ENV === "test" ? false : "entry",
         corejs: process.env.NODE_ENV === "test" ? false : 3,
       },
     ],
