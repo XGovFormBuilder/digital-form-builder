@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     name: lint and test ${{inputs.workspace}}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
           node-version: "16.x"
 
@@ -24,7 +24,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -52,7 +52,7 @@ jobs:
         run: yarn ${{inputs.workspace}} test-cov
 
       - name: Upload test results artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: ${{ success() || failure() }}
         with:
           name: test-results-${{inputs.workspace}}
@@ -60,7 +60,7 @@ jobs:
           retention-days: 14
 
       - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: ${{ success() || failure() }}
         with:
           name: test-coverage-${{inputs.workspace}}

@@ -20,13 +20,12 @@ on:
         required: true
         type: string
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy development ${{ inputs.app }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
