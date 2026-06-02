@@ -7,15 +7,12 @@
           "@babel/preset-env",
           {
             "targets": {
-              "node": "16"
+              "node": "22"
             }
           }
         ]
       ],
       "plugins": [
-        "@babel/plugin-proposal-export-default-from",
-        "@babel/plugin-transform-class-properties",
-        "@babel/plugin-transform-private-methods",
         "@babel/plugin-transform-runtime"
       ],
       "sourceMaps": true
@@ -23,19 +20,9 @@
     "browser": {
       "presets": [
         "@babel/typescript",
-        [
-          "@babel/preset-env",
-          {
-            "targets": {
-              "browsers": "last 2 versions, ie 10-11"
-            }
-          }
-        ]
+        "@babel/preset-env"
       ],
       "plugins": [
-        "@babel/plugin-proposal-export-default-from",
-        "@babel/plugin-transform-class-properties",
-        "@babel/plugin-transform-private-methods",
         "@babel/plugin-transform-runtime"
       ],
       "sourceMaps": true

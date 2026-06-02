@@ -4,7 +4,7 @@
   "description": "A hapi plugin to provide the queue model for Xgov digital form builder based applications using the queue service",
   "main": "dist/module/index.js",
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "repository": {
     "type": "git",
