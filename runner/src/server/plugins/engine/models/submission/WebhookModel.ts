@@ -8,7 +8,12 @@ import { Field } from "server/schemas/types";
 import { PageControllerBase } from "server/plugins/engine/pageControllers";
 import { SelectionControlField } from "server/plugins/engine/components/SelectionControlField";
 import nunjucks from "nunjucks";
-export function WebhookModel(model: FormModel, state: FormSubmissionState) {
+import { WebhookData } from "server/plugins/engine/models/types";
+
+export function WebhookModel(
+  model: FormModel,
+  state: FormSubmissionState
+): WebhookData {
   let englishName = `${config.serviceName} ${model.basePath}`;
 
   if (model.name) {
@@ -27,7 +32,7 @@ export function WebhookModel(model: FormModel, state: FormSubmissionState) {
     name: englishName,
     questions: questions,
     ...(!!fees && { fees }),
-  };
+  } as WebhookData;
 }
 
 function createToFieldsMap(state: FormSubmissionState) {
