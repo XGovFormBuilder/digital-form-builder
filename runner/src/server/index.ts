@@ -33,7 +33,8 @@ import {
   UploadService,
   MockUploadService,
   WebhookService,
-  ExitService
+  ExitService,
+  AddressLookupService
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
@@ -41,6 +42,7 @@ import { pluginQueue } from "server/plugins/queue";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { MySqlQueueService } from "server/services/mySqlQueueService";
 import { PgBossQueueService } from "server/services/pgBossQueueService";
+import { getLocationServiceInstanceName } from "./plugins/engine/helpers";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -173,11 +175,15 @@ async function createServer(routeConfig: RouteConfig) {
     return h.continue;
   });
 
+  const forms = configureEnginePlugin(
+    formFileName,
+    formFilePath,
+    options
+  );
+
   await server.register(pluginLocale);
   await server.register(pluginViews);
-  await server.register(
-    configureEnginePlugin(formFileName, formFilePath, options)
-  );
+  await server.register(forms);
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
@@ -188,6 +194,16 @@ async function createServer(routeConfig: RouteConfig) {
   });
 
   await server.register(pluginQueue);
+
+  for (const form of forms.options.configs) {
+    if (form.configuration.addressLookupConfig) {
+      console.log("form id: ", form.id);
+      console.log("alc config: ", form.configuration.addressLookupConfig);
+      const addressLookupInstanceName = getLocationServiceInstanceName(form.configuration.addressLookupConfig);
+      const addressLookupService = new AddressLookupService(form.configuration.addressLookupConfig);
+      await server.registerService(Schmervice.withName(addressLookupInstanceName, addressLookupService));
+    }
+  }
 
   return server;
 }

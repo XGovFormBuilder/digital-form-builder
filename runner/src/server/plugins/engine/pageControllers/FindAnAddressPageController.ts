@@ -1,6 +1,7 @@
 import { PageControllerBase } from "./PageControllerBase";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { AddressLookupService } from "../../../services/addressLookupService";
+import { getLocationServiceInstanceName, idFromFilename } from "../helpers";
 
 export class FindAnAddressPageController extends PageControllerBase {
   makePostRouteHandler() {
@@ -24,16 +25,22 @@ export class FindAnAddressPageController extends PageControllerBase {
         return response;
       }
 
+      const addressLookupInstanceName = getLocationServiceInstanceName(config);
+
       // 2. Only pull cacheService from Hapi request services
-      const { cacheService } = request.services(['cacheService']);
+      const { cacheService, ...rest } = request.services([]);
+      const addressLookupService = rest[addressLookupInstanceName] as AddressLookupService;
+      if(!addressLookupService) {
+        if (response.source && response.source.context) {
+          console.log("AddresLookupService not found:", response.source.context.errors);
+        }
+        return response;
+      }
       const state = await cacheService.getState(request);
       
       const postcode = state.postcodeLookup || "";
       const building = state.buildingLookup || "";
       const addressLine1 = state.addressLine1Lookup || "";
-
-      // 3. Manually create an instance of AddressService using the hapi server instance
-      const addressLookupService = new AddressLookupService({...config});
 
       // 4. Call the method on your new local instance
       const addressResponse = await addressLookupService.lookupByPostcode(postcode);
