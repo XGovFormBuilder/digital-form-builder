@@ -37,6 +37,10 @@ export async function validateContentTypes(
       (component) => component.name === fieldName
     );
 
+    if (!component) {
+      continue;
+    }
+
     const customAcceptedTypes = component.customAcceptedTypes;
 
     const originalFilenameLocation = originalFilenames[fieldName]?.location;

@@ -26,6 +26,7 @@ export enum ComponentTypeEnum {
   List = "List",
   ContextComponent = "ContextComponent",
   ContentWithState = "ContentWithState",
+  DisplayAddress = "DisplayAddress",
 }
 
 export type ComponentType =
@@ -57,7 +58,7 @@ export type ComponentType =
   | "WebsiteField"
   | "ContextComponent"
   | "ContentWithState"
-  | "AddressLookupField";
+  | "DisplayAddress";
 
 export type ComponentSubType = "field" | "content";
 
@@ -90,6 +91,10 @@ interface TextFieldBase {
     exposeToContext?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    format?: {
+      trim?: boolean;
+      case?: "upper" | "lower";
+    };
   };
   schema: {
     max?: number;
@@ -230,13 +235,6 @@ export interface MultilineTextFieldComponent extends TextFieldBase {
   };
 }
 
-export interface AddressLookupFieldComponent extends TextFieldBase {
-  type: "AddressLookupField";
-  options: TextFieldBase["options"] & {
-    customValidationMessage?: string;
-  };
-}
-
 export interface FileUploadFieldComponent {
   subType?: "field";
   type: "FileUploadField";
@@ -309,6 +307,10 @@ export interface InsetTextComponent extends ContentFieldBase {
   type: "InsetText";
 }
 
+export interface DisplayAddressComponent extends ContentFieldBase {
+  type: "DisplayAddress";
+}
+
 // List Fields
 export interface ListComponent extends ListFieldBase {
   type: "List";
@@ -368,13 +370,13 @@ export type ComponentDef =
   | SelectFieldComponent
   | TelephoneNumberFieldComponent
   | TextFieldComponent
-  | AddressLookupFieldComponent
   | TimeFieldComponent
   | UkAddressFieldComponent
   | YesNoFieldComponent
   | WebsiteFieldComponent
   | ContextComponent
-  | ContentWithStateComponent;
+  | ContentWithStateComponent
+  | DisplayAddressComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -383,7 +385,6 @@ export type InputFieldsComponentsDef =
   | NumberFieldComponent
   | MultilineTextFieldComponent
   | TelephoneNumberFieldComponent
-  | AddressLookupFieldComponent
   | YesNoFieldComponent
   | FileUploadFieldComponent
   | DateFieldComponent
@@ -402,7 +403,8 @@ export type ContentComponentsDef =
   | InsetTextComponent
   | ListComponent
   | FlashCardComponent
-  | ContentWithStateComponent;
+  | ContentWithStateComponent
+  | DisplayAddressComponent;
 
 // Components that render Lists
 export type ListComponentsDef =

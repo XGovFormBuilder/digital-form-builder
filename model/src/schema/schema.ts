@@ -324,6 +324,16 @@ const exitSchema = joi.object().keys({
   format: joi.string().allow("STATE", "WEBHOOK"),
 });
 
+const addressLookupConfigSchema = joi.object().keys({
+  apimBaseUrl: joi.string(),
+  callingApplication: joi.string(),
+  subscriptionKey: joi.string().optional(),
+  tenantId: joi.string(),
+  clientId: joi.string(),
+  clientSecret: joi.string(),
+  scopes: joi.array().items(joi.string()),
+});
+
 export const Schema = joi
   .object()
   .required()
@@ -367,6 +377,7 @@ export const Schema = joi
     serviceName: joi.string().optional(),
     confirmationSessionTimeout: joi.number().optional(),
     returnTo: joi.boolean().optional(),
+    addressLookupConfig: addressLookupConfigSchema.optional(),
   });
 
 /**

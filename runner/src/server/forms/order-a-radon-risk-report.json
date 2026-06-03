@@ -37,97 +37,160 @@
       "title": "What address are you ordering a risk report for?",
       "components": [
         {
-          "name": "postcode",
+          "name": "postcodeLookup",
           "options": {
             "customValidationMessages": {
               "string.empty": "Enter postcode",
               "string.pattern.base": "Enter a full UK postcode",
-              "string.max": "Postcode must be less than 10 characters",
-              "findAddress": true
+              "string.max": "Postcode must be less than 10 characters"
             },
             "autocomplete": "postal-code",
-            "exposeToContext": true
+            "exposeToContext": true,
+            "format": {
+              "trim": true,
+              "case": "upper"
+            }
           },
           "schema": { 
             "max": 10,
-            "regex": "^[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}$"
+            "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
           },
           "type": "TextField",
           "title": "Postcode",
           "hint": "For example, AA3 1AB"
         },
         {
-          "name": "building",
+          "name": "buildingLookup",
           "options": {
             "customValidationMessages": {
               "string.empty": "Enter building number or name",
-              "string.max": "Building name must be less than 100 characters",
-              "findAddress": true
-            }
+              "string.max": "Building name must be less than 100 characters"
+            },
+            "exposeToContext": true
           },
           "schema": { "max": 100 },
           "type": "TextField",
           "title": "Building number or name",
           "hint": "For example, 15 or Prospect cottage"
         },
-        {
-          "name": "numberOfAddresses",
-          "options": {
-            "customValidationMessages": {
-              "number.base": "Enter a number between 1 and 50",
-              "number.max": "The number must be between 1 and 50",
-              "number.min": "The number must be between 1 and 50"
-            },
-            "exposeToContext": true
-          },
-          "type": "NumberField",
-          "title": "How many addresses should be found between 1 and 50",
-          "hint": "This is to mock the API",
-          "schema": {
-            "min": 1,
-            "max": 50
-          }
-        }
+
       ],
       "customButtonText": "Find address",
       "componentsAfter": [
         {
-          "name": "QASDF",
+          "name": "Ayhiny2",
           "options": {},
-          "type": "Para",
-          "content": "<a href=\"enter-address-manually\">Enter address manually</a>"
+          "type": "Html",
+          "content": "<br><a href=\"enter-address-manually\">Enter address manually</a>"
         }
       ],
+      "controller": "FindAnAddressPageController",
       "next": [
-        { "path": "/is-this-the-correct-address", "condition": "CyWXGW" },
-        { "path": "/select-an-address", "condition": "TnuCEi" }
+        {
+          "path": "/is-this-the-correct-address",
+          "condition": "hasMatchedAddressCondition"
+        },
+        { "path": "/select-an-address" },
+        {
+          "path": "/no-addresses-found",
+          "condition": "noAddressesCondition"
+        }
       ]
     },
     {
       "path": "/is-this-the-correct-address",
-      "title": "Found 1 address placeholder",
-      "components": [],
-      "next": [{ "path": "/how-would-you-like-to-receive-your-report" }]
+      "title": "Is this the correct address?",
+      "components": [
+        {
+          "name": "matchedAddressDisplay",
+          "options": {},
+          "type": "DisplayAddress",
+          "content": "{{ matchedAddress.address }}"
+        },
+        {
+          "name": "isCorrectAddress",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
+              "any.required": "Select an option"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Is this the correct address?",
+          "list": "yesNoList"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-address-manually\">Enter address manually</a>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-would-you-like-to-receive-your-report",
+          "condition": "isCorrectAddressYes"
+        },
+        { "path": "/select-an-address" }
+      ]
     },
     {
       "path": "/select-an-address",
-      "title": "Select an address draft",
+      "title": "Select an address",
       "components": [
         {
-          "name": "CCtnVb",
+          "name": "addressesFoundHeading",
           "options": {},
           "type": "Para",
-          "content": "{{ numberOfAddresses }} addresses found for '{{ postcode }}'"
+          "content": ""
+        },
+        {
+          "name": "selectedAddress",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
+              "any.required": "Select an address from the list"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Select an address",
+          "list": "addressesList"
         }
       ],
-      "next": [{ "path": "/how-would-you-like-to-receive-your-report" }]
+      "next": [{ "path": "/how-would-you-like-to-receive-your-report" }],
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-address-manually\">Enter address manually</a>"
+        }
+      ]
+    },
+    {
+      "path": "/no-addresses-found",
+      "title": "No addresses found",
+      "components": [
+        {
+          "name": "noAddressesFoundMessage",
+          "options": {},
+          "type": "Para",
+          "content": "No addresses found for {{ postcodeLookup }} and {{ buildingLookup }}"
+        }
+      ],
+      "next": [
+        { "path": "/find-an-address" },
+        { "path": "/enter-address-manually" }
+      ]
     },
     {
       "path": "/enter-address-manually",
       "title": "What is the address you want a risk report for?",
       "components": [
         {
-          "name": "addressLine1",
+          "name": "addressLine1Lookup",
           "options": {
             "customValidationMessages": {
               "any.required": "Enter address line 1, typically the building and street",
@@ -139,7 +202,7 @@
           "title": "Address Line 1"
         },
         {
-          "name": "addressLine2",
+          "name": "addressLine2Lookup",
           "options": {
             "required": false
           },
@@ -147,7 +210,7 @@
           "title": "Address Line 2"
         },
         {
-          "name": "town",
+          "name": "townLookup",
           "options": {
             "customValidationMessages": {
               "any.required": "Enter a town or city",
@@ -159,7 +222,7 @@
           "title": "Town or city"
         },
         {
-          "name": "county",
+          "name": "countyLookup",
           "options": {
             "required": false
           },
@@ -167,21 +230,47 @@
           "title": "County"
         },
         {
-          "name": "postcode",
+          "name": "postcodeLookup",
           "options": {
             "customValidationMessages": {
               "string.empty": "Enter postcode",
               "string.pattern.base": "Enter a full UK postcode",
               "string.max": "Postcode must be less than 10 characters"
             },
-            "autocomplete": "postal-code"
+            "autocomplete": "postal-code",
+            "format": {
+              "trim": true,
+              "case": "upper"
+            }
           },
           "schema": { 
             "max": 10,
-            "regex": "^[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}$"
+            "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
           },
           "type": "TextField",
-          "title": "Postcode"
+          "title": "Postcode",
+          "hint": "For example, AA3 1AB"
+        }
+      ],
+      "controller": "FindAnAddressPageController",
+      "next": [
+        {
+          "path": "/is-this-the-correct-address",
+          "condition": "hasMatchedAddressCondition"
+        },
+        { "path": "/select-an-address" }
+      ]
+    },
+    {
+      "path": "/how-would-you-like-to-receive-your-report",
+      "title": "filler page",
+      "components": [
+        {
+          "name": "1sadfa",
+          "options": {},
+          "type": "TextField",
+          "title": "filler field",
+          "hint": "qweqew"
         }
       ],
       "next": [{ "path": "/select-an-address" }]
@@ -294,22 +383,72 @@
       "items": [
         { "text": "Email (free)", "value": "Email" },
         { "text": "Post (£X.XX)", "value": "Post" }
+    },
+    {
+      "name": "addressesList",
+      "title": "addressesList",
+      "type": "string",
+      "items": []
+    },
+    {
+      "name": "yesNoList",
+      "title": "Yes/No",
+      "type": "string",
+      "items": [
+        { "text": "Yes", "value": "Yes" },
+        { "text": "No", "value": "No" }
       ]
     }
   ],
   "sections": [],
   "conditions": [
-  {
-      "displayName": "noAddresses",
-      "name": "crYxVQ",
+    {
+      "name": "hasMatchedAddressCondition",
+      "displayName": "Has Matched Address",
       "value": {
-        "name": "noAddresses",
+        "name": "hasMatchedAddressCondition",
         "conditions": [
           {
             "field": {
-              "name": "PomKCX",
+              "name": "hasMatchedAddress",
+              "type": "YesNoField",
+              "display": "hasMatchedAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "isCorrectAddressYes",
+      "displayName": "Is Correct Address Yes",
+      "value": {
+        "name": "isCorrectAddressYes",
+        "conditions": [
+          {
+            "field": {
+              "name": "isCorrectAddress",
+              "type": "RadiosField",
+              "display": "isCorrectAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "Yes", "display": "Yes" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "noAddressesCondition",
+      "displayName": "No Addresses Found",
+      "value": {
+        "name": "noAddressesCondition",
+        "conditions": [
+          {
+            "field": {
+              "name": "numberOfAddresses",
               "type": "NumberField",
-              "display": "qwerqw"
+              "display": "numberOfAddresses"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "0", "display": "0" }
@@ -318,42 +457,6 @@
       }
     },
     {
-      "displayName": "oneAddress",
-      "name": "CyWXGW",
-      "value": {
-        "name": "oneAddress",
-        "conditions": [
-          {
-            "field": {
-              "name": "numberOfAddresses",
-              "type": "NumberField",
-              "display": "qwerqw"
-            },
-            "operator": "is",
-            "value": { "type": "Value", "value": "1", "display": "1" }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "moreAddresses",
-      "name": "TnuCEi",
-      "value": {
-        "name": "moreAddresses",
-        "conditions": [
-          {
-            "field": {
-              "name": "numberOfAddresses",
-              "type": "NumberField",
-              "display": "qwerqw"
-            },
-            "operator": "is more than",
-            "value": { "type": "Value", "value": "1", "display": "1" }
-          }
-        ]
-      }
-    },
-        {
       "displayName": "Email",
       "name": "xVvzYK",
       "value": {
@@ -405,8 +508,16 @@
   "version": 2,
   "skipSummary": false,
   "feeOptions": {},
-    "feedback": {
+  "feedback": {
     "feedbackForm": false,
     "url": ""
+  },
+  "addressLookupConfig": {
+    "apimBaseUrl": "${RPSapimBaseUrl}",
+    "callingApplication": "RPS",
+    "tenantId": "${RPStenantId}",
+    "clientId": "${RPSclientID}",
+    "clientSecret": "${RPSclientSecret}",
+    "scopes": ["${RPSscopes}"]
   }
 }

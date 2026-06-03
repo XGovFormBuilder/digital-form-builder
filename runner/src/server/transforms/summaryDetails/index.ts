@@ -3,6 +3,7 @@
 import { mergeRows } from "./mergeRows";
 import { removeRows } from "./removeRows";
 import { filterSections } from "./filterSections";
+import { adjustRows } from "./adjustRows";
 
 import { SummaryDetailsTransformationMap } from "server/transforms/summaryDetails/types";
 export { SummaryDetailsTransformationMap };
@@ -25,6 +26,21 @@ const closeContactParams = [
 ];
 
 const klsRemoveParams = ["ZpmVWP"];
+
+const rpsParams = {
+  removeParams: [
+    "postcodeLookup",
+    "buildingLookup",
+    "addressLine1Lookup",
+    "addressLine2Lookup",
+    "townLookup",
+    "countyLookup",
+    "isCorrectAddress"
+  ],
+  adjustParams: {
+    "selectedAddress": { label: "Risk Report Address"}
+  }
+};
 
 const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
   "close-contact-form-nl1-dev": (details) => {
@@ -136,6 +152,11 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
   },
   "kls-training-request": (details) => {
     return removeRows(details, klsRemoveParams);
+  },
+  "order-a-radon-risk-report": (details) => {
+    let firstTransform = removeRows(details, rpsParams.removeParams);
+    const secondTransform = adjustRows(firstTransform, rpsParams.adjustParams);
+    return secondTransform;
   },
 };
 

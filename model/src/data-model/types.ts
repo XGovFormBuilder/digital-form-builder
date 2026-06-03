@@ -197,14 +197,17 @@ export type Analytics = {
   matomoUrl: string;
 };
 
-export type AddressLookupServiceConfig = {
-  apimBaseUrl: string;
-  callingApplication: string;
-  subscriptionKey?:  string;
+export interface MsalAuthorizerConfig {
   tenantId: string;
   clientId: string;
   clientSecret: string;
   scopes: string[];
+}
+
+export interface AddressLookupConfig extends MsalAuthorizerConfig {
+  apimBaseUrl: string;
+  callingApplication: string;
+  subscriptionKey?: string;
 }
 
 /**
@@ -243,5 +246,5 @@ export type FormDefinition = {
   serviceName?: string | undefined;
   confirmationSessionTimeout: number | undefined;
   returnTo?: boolean | undefined;
-  addressLookupServiceConfig?: AddressLookupServiceConfig;
+  addressLookupConfig?: AddressLookupConfig;
 };

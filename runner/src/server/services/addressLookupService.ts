@@ -13,7 +13,9 @@ export interface AddressLookupOptions {
 }
 
 export interface Address {
-  [key: string]: unknown;
+  address: string;
+  postcode: string;
+  uprn: string;
 }
 
 export interface AddressLookupResponse {
@@ -62,6 +64,13 @@ export class AddressLookupService {
       throw new Error(`Request failed with status code ${res.status}`);
     }
 
-    return res.json();
+    const jsonRes = await res.json();
+    return {
+      addresses: jsonRes.matchedAddresses.map((item: any): Address => ({
+        address: item.addressString,
+        postcode: item.postcode,
+        uprn: item.uprn,
+      }))
+    };
   }
 }

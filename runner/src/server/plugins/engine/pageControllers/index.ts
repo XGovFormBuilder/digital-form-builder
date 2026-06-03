@@ -14,3 +14,5 @@ export { MagicLinkStartPageController } from "./MagicLinkStartPageController";
 export { CustomSummaryPageController } from "./CustomSummaryPageController";
 export { DateComparisonPageController } from "./DateComparisonPageController";
 export { MagicLinkRedirectController } from "./MagicLinkRedirectController";
+export { FindAnAddressPageController } from "./FindAnAddressPageController";
+export { SelectAnAddressPageController } from "./SelectAnAddressPageController";

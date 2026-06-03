@@ -348,6 +348,8 @@ export class PageControllerBase {
    */
   getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
+    let formData: any;
+
     if (this.repeatField) {
       const repeatedPageState =
         pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {};
@@ -357,7 +359,7 @@ export class PageControllerBase {
         ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
         : {};
 
-      return {
+      formData = {
         ...this.components.getFormDataFromState(
           newState as FormSubmissionState
         ),
@@ -365,19 +367,26 @@ export class PageControllerBase {
           newState as FormSubmissionState
         ),
       };
+    } else {
+      formData = {
+        ...this.components.getFormDataFromState(pageState || {}),
+        ...this.model.getContextState(state),
+      };
     }
+
     if (state) {
       if (state.matchedAddress) {
-        formData.matchedAddress = state.matchedAddress; 
+        formData.matchedAddress = state.matchedAddress;
       }
       if (state.hasMatchedAddress !== undefined) {
         formData.hasMatchedAddress = state.hasMatchedAddress;
       }
+      if(state.numberOfAddresses !== undefined) {
+        formData.numberOfAddresses = state.numberOfAddresses;
+      }
     }
-    return {
-      ...this.components.getFormDataFromState(pageState || {}),
-      ...this.model.getContextState(state),
-    };
+
+    return formData;
   }
 
   getStateFromValidForm(formData: FormPayload) {
@@ -461,6 +470,11 @@ export class PageControllerBase {
 
     let relevantState: FormSubmissionState = {};
     const virtualKeys = ["hasMatchedAddress", "numberOfAddresses", "matchedAddress", "addresses", "selectedAddress"];
+    for (const key of virtualKeys) {
+      if (state && state[key] !== undefined) {
+        relevantState[key] = state[key];
+      }
+    }
     //Start at our startPage
     let nextPage = model.startPage;
 
@@ -792,6 +806,9 @@ export class PageControllerBase {
     if (modifyUpdate) {
       update = modifyUpdate(update);
     }
+    if (this.path === "/is-this-the-correct-address" && update.isCorrectAddress === "Yes" && state.matchedAddress) {
+      update.selectedAddress = state.matchedAddress.uprn;
+    }
     await cacheService.mergeState(request, update, nullOverride, arrayMerge);
   }
 
@@ -838,7 +855,7 @@ export class PageControllerBase {
       }
 
       const shouldGoToExitPage =
-        this.model.allowExit && request.payload?.action === "exit";
+        this.model.allowExit && (request.payload as any)?.action === "exit";
 
       if (shouldGoToExitPage) {
         await cacheService.setExitState(request, {

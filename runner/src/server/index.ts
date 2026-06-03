@@ -33,8 +33,7 @@ import {
   UploadService,
   MockUploadService,
   WebhookService,
-  ExitService,
-  AddressLookupService
+  ExitService
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
@@ -117,7 +116,6 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     AddressService,
     ExitService,
-    AddressLookupService,
   ]);
   if (!config.documentUploadApiUrl) {
     server.registerService([
