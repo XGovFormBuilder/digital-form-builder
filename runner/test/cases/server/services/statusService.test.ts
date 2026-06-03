@@ -14,6 +14,9 @@ const cacheService = { getState: () => ({}), mergeState: () => {} },
   notifyService = { sendNotification: () => ({}) },
   payService = {
     payStatus: () => {},
+  },
+  formSecurityService = {
+    getSecurityHeaders: () => ({}),
   };
 
 const yar = {
@@ -37,6 +40,7 @@ const server = {
     webhookService,
     payService,
     notifyService,
+    formSecurityService,
   }),
   logger: {
     info: () => {},

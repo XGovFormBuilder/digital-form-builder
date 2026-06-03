@@ -19,6 +19,7 @@ import {
   StatusService,
   UploadService,
   WebhookService,
+  FormSecurityService,
 } from "./services";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { QueueService } from "./services/QueueService";
@@ -32,7 +33,8 @@ type Service =
   | typeof PayService
   | typeof StatusService
   | typeof UploadService
-  | typeof WebhookService;
+  | typeof WebhookService
+  | typeof FormSecurityService;
 
 type Services = (
   services: string[]
@@ -46,6 +48,7 @@ type Services = (
   queueService: QueueService;
   queueStatusService: QueueStatusService;
   exitService: ExitService;
+  formSecurityService: FormSecurityService;
 };
 
 export type RouteConfig = {

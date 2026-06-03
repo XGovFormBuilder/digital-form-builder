@@ -1,6 +1,7 @@
 import { HapiRequest, HapiServer } from "../types";
 import {
   CacheService,
+  FormSecurityService,
   NotifyService,
   PayService,
   WebhookService,
@@ -49,6 +50,7 @@ export class StatusService {
   webhookService: WebhookService;
   notifyService: NotifyService;
   payService: PayService;
+  formSecurityService: FormSecurityService;
 
   constructor(server: HapiServer) {
     this.logger = server.logger;
@@ -57,11 +59,13 @@ export class StatusService {
       webhookService,
       notifyService,
       payService,
+      formSecurityService,
     } = server.services([]);
     this.cacheService = cacheService;
     this.webhookService = webhookService;
     this.notifyService = notifyService;
     this.payService = payService;
+    this.formSecurityService = formSecurityService;
   }
   async shouldShowPayErrorPage(request: HapiRequest): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
@@ -146,6 +150,10 @@ export class StatusService {
       }
     }
 
+    const additionalHeaders = await this.formSecurityService.getSecurityHeaders(
+      request
+    );
+
     const firstWebhook = outputs?.find((output) => output.type === "webhook");
     const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
     if (firstWebhook) {
@@ -153,7 +161,8 @@ export class StatusService {
         firstWebhook.outputData.url,
         { ...formData },
         "POST",
-        firstWebhook.outputData.sendAdditionalPayMetadata
+        firstWebhook.outputData.sendAdditionalPayMetadata,
+        additionalHeaders
       );
       await this.cacheService.mergeState(request, {
         reference: newReference,
@@ -176,7 +185,8 @@ export class StatusService {
             ...formData,
           },
           "POST",
-          sendAdditionalPayMetadata
+          sendAdditionalPayMetadata,
+          additionalHeaders
         )
       ),
     ];
