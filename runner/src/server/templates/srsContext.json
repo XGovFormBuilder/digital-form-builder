@@ -1,0 +1,10 @@
+{
+  "diseaseInfo": {
+    "A": {
+      "disease_name": "Avian Bird Flu"
+    },
+    "B": {
+      "disease_name": "Mers-Cov"
+    }
+  }
+}
