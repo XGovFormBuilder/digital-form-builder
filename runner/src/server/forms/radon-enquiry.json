@@ -7,10 +7,11 @@
   "pages": [
     {
       "path": "/request-related-to",
-      "title": "What is your request related to?",
+      "title": "What type of help or support are you looking for?",
       "components": [
         {
           "name": "requestRelation",
+          "backLinkFallback": "https://www.google.com",
           "options": {
             "hideTitle": true,
             "exposeToContext": true,
@@ -22,15 +23,65 @@
             }
           },
           "type": "RadiosField",
-          "title": "What is your request related to?",
-          "list": "requestTypesList"
+          "title": "What type of help or support are you looking for?",
+          "list": "supportTypesList"
         }
       ],
       "next": [
-        { "path": "/radon-enquiry-start", "condition": "yafSJD" },
-        { "path": "/other-contact-us-form", "condition": "QedsW" },
-        { "path": "/pds-enquiry-start", "condition":  "XaNsL" }
+        { "path": "/testing", "condition": "yafSJD" },
+        { "path": "/compliance", "condition": "htFso" },
+        { "path": "/training", "condition": "gyWLL" },
+        { "path": "/software", "condition": "ffGGs" },
+        { "path": "/research", "condition":  "XaNsL" },
+        { "path": "/other", "condition":  "hpkaS" }
+        
+
+        
       ]
+    },
+    {
+      "path": "/testing",
+      "title": "Testing",
+      "components": [
+        {
+          "name": "uabca",
+          "options": {},
+          "type": "Para",
+          "content": "placeholder",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/compliance",
+      "title": "Compliance",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/training",
+      "title": "Training",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/software",
+      "title": "Software",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/research",
+      "title": "Research",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/other",
+      "title": "Other",
+      "components": [],
+      "next": []
     },
     {
       "title": "Contact the Radon Services team",
@@ -372,16 +423,39 @@
   },
   "lists": [
     {
-      "title": "Request Types",
-      "name": "requestTypesList",
+      "title": "Support Types",
+      "name": "supportTypesList",
       "type": "string",
       "items": [
-        { "text": "Radon Services", "value": "Radon Services" },
         {
-          "text": "Personal Dosimetry Service",
-          "value": "Personal Dosimetry Service"
+          "text": "I need radiation measurements, testing, or dosimetry",
+          "value": "testing", 
+          "description": "Including personal dose monitoring, instrument calibration, dental X-ray equipment testing, laboratory analysis, radon measurement, chromosome dosimetry, or whole body monitoring"
         },
-        { "text": "Something else", "value": "Something else" }
+        {
+          "text": "I work with radiation and need compliance or safety advice",
+          "value": "compliance",
+          "description": "Including Radiation Protection Advisor support, dangerous goods, non-ionising radiation, medical exposures, dental or environmental radiological assessments"
+        },
+        {
+          "text": "I want to enquire about training courses and facilities, or an existing course booking",
+          "value": "training",
+          "description": "Including workplace radiation safety, specialist professional training, emergency preparedness, laser safety, non-ionising radiation courses, or hiring our training facilities"
+        },
+        {
+          "text": "I need help with a software product or tool",
+          "value": "software",
+          "description": "Including PACE, PC-CREAM, Taurus, IMBA, or other dosimetry and radiological impact assessment software"
+        },
+        {
+          "text": "I'm interested in research, collaboration, or specialist consultancy",
+          "value": "research",
+          "description": "Including radiation effects research, medical dosimetry, emergency preparedness, and working with UKHSA"
+        },
+        {
+          "text": "I'm not sure, or my enquiry doesn't fit the above",
+          "value": "other",
+          "description": "If your enquiry does not fit any of the above, tell us in more detail in the next step" }
       ]
     },
     {
@@ -426,10 +500,10 @@
   "sections": [],
   "conditions": [
     {
-      "displayName": "RadonRequest",
+      "displayName": "ServiceRequest",
       "name": "yafSJD",
       "value": {
-        "name": "RadonRequest",
+        "name": "ServiceRequest",
         "conditions": [
           {
             "field": {
@@ -440,18 +514,106 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Radon Services",
-              "display": "Radon Services"
+              "value": "testing",
+              "display": "testing"
             }
           }
         ]
       }
     },
     {
-      "displayName": "RadonRequest",
+      "displayName": "ServiceRequest",
+      "name": "htFso",
+      "value": {
+        "name": "ServiceRequest",
+        "conditions": [
+          {
+            "field": {
+              "name": "requestRelation",
+              "type": "RadiosField",
+              "display": "What is your request related to?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "compliance",
+              "display": "compliance"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ServiceRequest",
+      "name": "gyWLL",
+      "value": {
+        "name": "ServiceRequest",
+        "conditions": [
+          {
+            "field": {
+              "name": "requestRelation",
+              "type": "RadiosField",
+              "display": "What is your request related to?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "training",
+              "display": "training"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ServiceRequest",
+      "name": "ffGGs",
+      "value": {
+        "name": "ServiceRequest",
+        "conditions": [
+          {
+            "field": {
+              "name": "requestRelation",
+              "type": "RadiosField",
+              "display": "What is your request related to?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "software",
+              "display": "software"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ServiceRequest",
+      "name": "hpkaS",
+      "value": {
+        "name": "ServiceRequest",
+        "conditions": [
+          {
+            "field": {
+              "name": "requestRelation",
+              "type": "RadiosField",
+              "display": "What is your request related to?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ServiceRequest",
       "name": "XaNsL",
       "value": {
-        "name": "RadonRequest",
+        "name": "ServiceRequest",
         "conditions": [
           {
             "field": {
@@ -462,30 +624,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Personal Dosimetry Service",
-              "display": "Personal Dosimetry Service"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "RadonRequest",
-      "name": "QedsW",
-      "value": {
-        "name": "RadonRequest",
-        "conditions": [
-          {
-            "field": {
-              "name": "requestRelation",
-              "type": "RadiosField",
-              "display": "What is your request related to?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "Something else",
-              "display": "Something else"
+              "value": "research",
+              "display": "research"
             }
           }
         ]
