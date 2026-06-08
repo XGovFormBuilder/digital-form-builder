@@ -13,7 +13,7 @@
           "name": "para1",
           "options": {},
           "type": "Para",
-          "content": "To help us reduce the spread of {{srsContext.diseaseInfo[disease_code].disease_name | safe}}, it's important for us to know who you live with and who you've been in close contact with.",
+          "content": "To help us reduce the spread of {{additionalContexts.diseaseInfo[disease_code].disease_name | safe}}, it's important for us to know who you live with and who you've been in close contact with.",
           "schema": {}
         },
         {

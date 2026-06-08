@@ -8,5 +8,13 @@
       "additionalInfo": "<p>This content is based on answer 2</p>",
       "listItems": "<li>Item 3</li><li>Item 4</li>"
     }
+  },
+  "diseaseInfo": {
+    "A": {
+      "disease_name": "Avian Bird Flu"
+    },
+    "B": {
+      "disease_name": "Mers-Cov"
+    }
   }
 }
