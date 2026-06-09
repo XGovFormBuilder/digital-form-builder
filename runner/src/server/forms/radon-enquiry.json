@@ -10,13 +10,6 @@
       "title": "What type of help or support are you looking for?",
       "components": [
         {
-          "name": "yeHVWq",
-          "options": {},
-          "type": "Para",
-          "content": "Select the option that best describes your enquiry",
-          "schema": {}
-        },
-        {
           "name": "requestRelation",
           "backLinkFallback": "https://www.google.com",
           "options": {
@@ -31,6 +24,7 @@
           },
           "type": "RadiosField",
           "title": "What type of help or support are you looking for?",
+          "hint": "Select the option that best describes your enquiry",
           "list": "supportTypesList"
         }
       ],
@@ -433,7 +427,6 @@
       "title": "Support Types",
       "name": "supportTypesList",
       "type": "string",
-      "hint": "Select the option that best describes your enquiry",
       "items": [
         {
           "text": "I need radiation measurements, testing, or dosimetry",
