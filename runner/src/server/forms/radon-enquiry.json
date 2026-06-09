@@ -40,46 +40,50 @@
     {
       "path": "/testing",
       "title": "Testing",
-      "components": [
-        {
-          "name": "uabca",
-          "options": {},
-          "type": "Para",
-          "content": "placeholder",
-          "schema": {}
-        }
-      ],
-      "next": []
+      "components": [],
+      "next": [
+        { "path": "/radon-contact-us-form"}
+      ]
     },
     {
       "path": "/compliance",
       "title": "Compliance",
       "components": [],
-      "next": []
+      "next": [
+        { "path": "/radon-contact-us-form"}
+      ]
     },
     {
       "path": "/training",
       "title": "Training",
       "components": [],
-      "next": []
+      "next": [
+        { "path": "/radon-contact-us-form"}
+      ]
     },
     {
       "path": "/software",
       "title": "Software",
       "components": [],
-      "next": []
+      "next": [
+        { "path": "/radon-contact-us-form"}
+      ]
     },
     {
       "path": "/research",
       "title": "Research",
       "components": [],
-      "next": []
+      "next": [
+        { "path": "/radon-contact-us-form"}
+      ]
     },
     {
       "path": "/other",
       "title": "Other",
       "components": [],
-      "next": []
+      "next": [
+        { "path": "/radon-contact-us-form"}
+      ]
     },
     {
       "title": "Contact the Radon Services team",
