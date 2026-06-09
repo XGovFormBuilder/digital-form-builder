@@ -13,7 +13,7 @@ export class DisplayAddress extends ComponentBase {
       content = nunjucks.renderString(content, { ...formData });
     }
 
-    const displayAddress = content.replace(", ", ",<br>");
+    const displayAddress = content.replaceAll(",", "<br>");
     const viewModel = {
       ...super.getViewModel(formData, errors),
       content: displayAddress,

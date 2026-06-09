@@ -45,6 +45,12 @@ export default {
                 .code(statusCode);
             }
 
+            if(response.message.includes('Location lookup')) {
+              return h 
+                .view("location-lookup", { name: form.name,  message: response.message})
+                .code(statusCode);
+            }
+
             // The return the `500` view
             return h
               .view("500", { name: form.name || config.serviceName })

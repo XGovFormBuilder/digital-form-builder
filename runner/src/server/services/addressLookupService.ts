@@ -61,7 +61,7 @@ export class AddressLookupService {
     );
 
     if (!res.ok) {
-      throw new Error(`Request failed with status code ${res.status}`);
+      throw new Error(`Location lookup failed with status code ${res.status}`);
     }
 
     const jsonRes = await res.json();

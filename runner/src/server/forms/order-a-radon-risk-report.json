@@ -14,26 +14,26 @@
           "name": "CCtnVb",
           "options": {},
           "type": "Para",
-          "content": "Use this service to find out the risk of radon at your address.<br><br>The radon risk report will tell you how likely your address is above the recommended level for radon, called the action level."
+          "content": "<p class=\"govuk-body-m\">Use this service to find out the risk of radon at your address.</p><p class=\"govuk-body-m\">The report shows the liklihood, as a percentage, of a property having radon levels above the Action Level advised by the UK Health Security Agency</p>"
         },
         {
           "name": "Nzuthm",
           "options": {},
           "type": "InsetText",
-          "content": "The action level for radon is 200 becquerels per cubic metre. A becquerel is a measure or radioactivity. If the radon level of your property is higher than this, you should take steps to reduce this."
+          "content": "The Action Level for radon in homes is 200 becquerels per cubic metre (Bq m<sup>-3</sup>). A becquerel is a measure of radioactivity. If the radon level in your property is higher than this, you should take steps to reduce it."
         },
         {
           "name": "DIJjRU",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\">The report tells you the risk that the address may have high levels of radon, but it doesn't tell you the actual radon level. The only way to know this for sure is to <a href=\"/order-a-radon-home-test-kit\">measure the level of radon in the property</a>.</p><p class=\"govuk-body-m\">You can search for a home or small workplace under 25 metres long.</p><p class=\"govuk-body-m\">This service costs £3.90 per property.</p><p class=\"govuk-body-m\">It should take about 5 minutes.</p><p class=\"govuk-body-m\">You will be sent your risk report using your chosen delivery method.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/cms/assets/gfx/content/resource_5095cs45be58330c.pdf\">Read a sample report</a><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>the address for the risk report</li><li>your email address</li><li>the address you would like the report sent to (optional)</li><li>your payment details</li></ul></p>"
+          "content": "<p class=\"govuk-body-m\">The report does not tell you the radon level inside the property. To find this out, you need to do a 3‑month test using a <a href=\"/order-a-radon-home-test-kit\">radon gas test pack</a>.</p><p class=\"govuk-body-m\">Basements and cellar rooms are at a higher risk of radon. If a room you use frequently is below ground level, such as a kitchen or office, you should do a radon test, even if the property is not in a radon Affected Area.</p><p class=\"govuk-body-m\">Each report costs £3.90 and will be sent to an email address you provide. Alternatively, you can request a physical report to be sent by post for an additional fee.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/cms/assets/gfx/content/resource_5095cs45be58330c.pdf\">Read a sample report</a></p><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">This service is for buildings up to 25 metres in any direction.</p><p class=\"govuk-body-m\">This report is not suitable for larger buildings. In this case, contact the <a href=\"http://shop.bgs.ac.uk/georeports\">British Geological Survey (BGS)</a>.</p><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>a valid UK address for the risk report</li><li>a valid email address or a UK postal delivery address</li><li>your payment details</li></ul></p>"
         }
       ],
-      "next": [{ "path": "/find-an-address" }],
+      "next": [{ "path": "/order-risk-report-find-an-address" }],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/find-an-address",
+      "path": "/order-risk-report-find-an-address",
       "title": "What address are you ordering a risk report for?",
       "components": [
         {
@@ -72,8 +72,7 @@
           "type": "TextField",
           "title": "Building number or name",
           "hint": "For example, 15 or Prospect cottage"
-        },
-
+        }
       ],
       "customButtonText": "Find address",
       "componentsAfter": [
@@ -112,12 +111,11 @@
           "options": {
             "hideTitle": true,
             "customValidationMessages": {
-              "any.required": "Select an option"
+              "any.required": "Select Yes if this is the correct address"
             }
           },
-          "type": "RadiosField",
-          "title": "Is this the correct address?",
-          "list": "yesNoList"
+          "type": "YesNoField",
+          "title": "Is this the correct address?"
         }
       ],
       "componentsAfter": [
@@ -133,7 +131,7 @@
           "path": "/how-would-you-like-to-receive-your-report",
           "condition": "isCorrectAddressYes"
         },
-        { "path": "/select-an-address" }
+        { "path": "/order-risk-report-find-an-address" }
       ]
     },
     {
@@ -144,14 +142,20 @@
           "name": "addressesFoundHeading",
           "options": {},
           "type": "Para",
-          "content": ""
+          "content": "{{ numberOfAddresses }} addresses found for ‘{{ postcodeLookup }}’"
+        },
+        {
+          "name": "searchAgain",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\"><a href=\"order-risk-report-find-an-address\">Change your search</a> if the address you're looking for is not listed.</p>"
         },
         {
           "name": "selectedAddress",
           "options": {
             "hideTitle": true,
             "customValidationMessages": {
-              "any.required": "Select an address from the list"
+              "any.required": "Select an address"
             }
           },
           "type": "RadiosField",
@@ -171,17 +175,23 @@
     },
     {
       "path": "/no-addresses-found",
-      "title": "No addresses found",
+      "title": "No addresses found for {{ postcodeLookup }} and {{ buildingLookup }}",
       "components": [
         {
           "name": "noAddressesFoundMessage",
           "options": {},
           "type": "Para",
-          "content": "No addresses found for {{ postcodeLookup }} and {{ buildingLookup }}"
+          "content": "Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+        },
+        {
+          "name": "searchAgain",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\"><a href=\"order-risk-report-find-an-address\">Change your search</a> or <a href=\"enter-address-manually\">enter address manually</a></p>"
         }
       ],
       "next": [
-        { "path": "/find-an-address" },
+        { "path": "/order-risk-report-find-an-address" },
         { "path": "/enter-address-manually" }
       ]
     },
@@ -196,7 +206,8 @@
               "any.required": "Enter address line 1, typically the building and street",
               "any.only": "Enter address line 1, typically the building and street",
               "string.empty": "Enter address line 1, typically the building and street"
-            }
+            },
+            "exposeToContext": true
           },
           "type": "TextField",
           "title": "Address Line 1"
@@ -213,9 +224,9 @@
           "name": "townLookup",
           "options": {
             "customValidationMessages": {
-              "any.required": "Enter a town or city",
-              "any.only": "Enter a town or city",
-              "string.empty": "Enter a town or city"
+              "any.required": "Enter town or city",
+              "any.only": "Enter town or city",
+              "string.empty": "Enter town or city"
             }
           },
           "type": "TextField",
@@ -258,22 +269,34 @@
           "path": "/is-this-the-correct-address",
           "condition": "hasMatchedAddressCondition"
         },
-        { "path": "/select-an-address" }
+        { "path": "/select-an-address" },
+        {
+          "path": "/cannot-find-address",
+          "condition": "noAddressesCondition"
+        }
       ]
     },
     {
-      "path": "/how-would-you-like-to-receive-your-report",
-      "title": "filler page",
+      "path": "/cannot-find-address",
+      "title": "We cannot find your address",
       "components": [
         {
-          "name": "1sadfa",
+          "name": "noAddressesFoundMessage",
           "options": {},
-          "type": "TextField",
-          "title": "filler field",
-          "hint": "qweqew"
+          "type": "Para",
+          "content": "No addresses found for {{ addressLine1Lookup }}, {{ postcodeLookup }}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+        },
+        {
+          "name": "searchAgain",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\"><a href=\"order-risk-report-find-an-address\">Change your search</a> or <a href=\"enter-address-manually\">enter address manually</a></p>"
         }
       ],
-      "next": [{ "path": "/select-an-address" }]
+      "next": [
+        { "path": "/order-risk-report-find-an-address" },
+        { "path": "/enter-address-manually" }
+      ]
     },
     {
       "title": "How would you like to receive your report?",
@@ -382,22 +405,13 @@
       "type": "string",
       "items": [
         { "text": "Email (free)", "value": "Email" },
-        { "text": "Post (£X.XX)", "value": "Post" }
+        { "text": "Post (£X.XX)", "value": "Post" } ]
     },
     {
       "name": "addressesList",
       "title": "addressesList",
       "type": "string",
       "items": []
-    },
-    {
-      "name": "yesNoList",
-      "title": "Yes/No",
-      "type": "string",
-      "items": [
-        { "text": "Yes", "value": "Yes" },
-        { "text": "No", "value": "No" }
-      ]
     }
   ],
   "sections": [],
@@ -429,11 +443,11 @@
           {
             "field": {
               "name": "isCorrectAddress",
-              "type": "RadiosField",
+              "type": "YesNoField",
               "display": "isCorrectAddress"
             },
             "operator": "is",
-            "value": { "type": "Value", "value": "Yes", "display": "Yes" }
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
@@ -500,7 +514,7 @@
       "title": "webhookOutput",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "",
+        "url": "https://webho.ok",
         "allowRetry": true
       }
     }
@@ -515,7 +529,7 @@
   "addressLookupConfig": {
     "apimBaseUrl": "${RPSapimBaseUrl}",
     "callingApplication": "RPS",
-    "tenantId": "${RPStenantId}",
+    "tenantId": "${RPStenantID}",
     "clientId": "${RPSclientID}",
     "clientSecret": "${RPSclientSecret}",
     "scopes": ["${RPSscopes}"]

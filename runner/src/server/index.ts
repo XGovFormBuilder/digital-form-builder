@@ -194,14 +194,15 @@ async function createServer(routeConfig: RouteConfig) {
   });
 
   await server.register(pluginQueue);
-
+  const addressLookupServiceNames = new Set<string>();
   for (const form of forms.options.configs) {
     if (form.configuration.addressLookupConfig) {
-      console.log("form id: ", form.id);
-      console.log("alc config: ", form.configuration.addressLookupConfig);
       const addressLookupInstanceName = getLocationServiceInstanceName(form.configuration.addressLookupConfig);
-      const addressLookupService = new AddressLookupService(form.configuration.addressLookupConfig);
-      await server.registerService(Schmervice.withName(addressLookupInstanceName, addressLookupService));
+      if(!addressLookupServiceNames.has(addressLookupInstanceName)) {
+        const addressLookupService = new AddressLookupService(form.configuration.addressLookupConfig);
+        await server.registerService(Schmervice.withName(addressLookupInstanceName, addressLookupService));
+        addressLookupServiceNames.add(addressLookupInstanceName);
+      }
     }
   }
 

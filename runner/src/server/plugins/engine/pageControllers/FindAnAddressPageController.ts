@@ -1,13 +1,13 @@
 import { PageControllerBase } from "./PageControllerBase";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
-import { AddressLookupService } from "../../../services/addressLookupService";
+import { Address, AddressLookupService } from "../../../services/addressLookupService";
 import { getLocationServiceInstanceName, idFromFilename } from "../helpers";
-
+import Boom from "boom";
+import { List, Item } from "@xgovformbuilder/model/dist/module/data-model/types";
 export class FindAnAddressPageController extends PageControllerBase {
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const response = await this.handlePostRequest(request, h);
-
       console.log("=== FindAnAddress POST ===");
       console.log("Payload:", request.payload);
       if (response) {
@@ -20,7 +20,7 @@ export class FindAnAddressPageController extends PageControllerBase {
 
       const model = this.model;
       const config = model?.def?.addressLookupConfig;
-      if(typeof config === 'undefined'){
+      if (typeof config === 'undefined') {
         console.log("No config for address lookup error");
         return response;
       }
@@ -30,27 +30,32 @@ export class FindAnAddressPageController extends PageControllerBase {
       // 2. Only pull cacheService from Hapi request services
       const { cacheService, ...rest } = request.services([]);
       const addressLookupService = rest[addressLookupInstanceName] as AddressLookupService;
-      if(!addressLookupService) {
+      if (!addressLookupService) {
         if (response.source && response.source.context) {
           console.log("AddresLookupService not found:", response.source.context.errors);
         }
         return response;
       }
-      const state = await cacheService.getState(request);
-      
+      let state = await cacheService.getState(request);
+
       const postcode = state.postcodeLookup || "";
       const building = state.buildingLookup || "";
       const addressLine1 = state.addressLine1Lookup || "";
 
       // 4. Call the method on your new local instance
-      const addressResponse = await addressLookupService.lookupByPostcode(postcode);
+      let addressResponse;
+      try {
+        addressResponse = await addressLookupService.lookupByPostcode(postcode);
+      } catch (err) {
+        throw Boom.internal(err);
+      }
 
       let addresses = addressResponse.addresses;
       const numberOfAddresses = addresses.length;
 
       let hasMatchedAddress = false;
       let matchedAddress: any = null;
-      if(numberOfAddresses > 0) {
+      if (numberOfAddresses > 0) {
         if (building) {
           const houseNumber = building.trim();
           const houseNumberLower = houseNumber.toUpperCase();
@@ -82,7 +87,7 @@ export class FindAnAddressPageController extends PageControllerBase {
           return add;
         });
 
-        if(addressLine1) {
+        if (addressLine1) {
           const addressLine1Upper = addressLine1.trim().toUpperCase();
           const addressPattern = new RegExp(`^${addressLine1Upper}( |,)`);
           matchedAddress = addresses.find((address: any) => {
@@ -91,10 +96,15 @@ export class FindAnAddressPageController extends PageControllerBase {
 
           if (matchedAddress) {
             hasMatchedAddress = true;
+
           }
         }
       }
 
+      const list = this.model.lists.find((list) => list.name === "addressesList");
+      if (list) {
+        list.items = this.addressesToList(addresses);
+      }
       const updateState = {
         addresses,
         hasMatchedAddress,
@@ -103,10 +113,28 @@ export class FindAnAddressPageController extends PageControllerBase {
       };
 
       await cacheService.mergeState(request, updateState);
+      const savedState = await cacheService.getState(request);
+
+      let relevantState = this.getConditionEvaluationContext(
+        this.model,
+        savedState
+      );
 
       // Navigate to the next page
-      const nextPath = this.getNext({ ...state, hasMatchedAddress });
-      return h.redirect(nextPath);
+      return this.proceed(request, h, relevantState);
     };
+  }
+
+  addressesToList(addresses: Address[]) {
+    let addressItems: Item[] = [];
+    addresses.forEach((address) => {
+      const item: Item = {
+        text: address.address + ", " + address.postcode,
+        value: address.uprn
+      };
+      addressItems.push(item);
+    });
+
+    return addressItems;
   }
 }

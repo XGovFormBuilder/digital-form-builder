@@ -469,7 +469,7 @@ export class PageControllerBase {
     //Note: This function does not support repeatFields right now
 
     let relevantState: FormSubmissionState = {};
-    const virtualKeys = ["hasMatchedAddress", "numberOfAddresses", "matchedAddress", "addresses", "selectedAddress"];
+    const virtualKeys = ["hasMatchedAddress", "numberOfAddresses", "matchedAddress", "addresses"];
     for (const key of virtualKeys) {
       if (state && state[key] !== undefined) {
         relevantState[key] = state[key];
@@ -479,6 +479,7 @@ export class PageControllerBase {
     let nextPage = model.startPage;
 
     //While the current page isn't null
+    const checkedPages: any[] = [];
     while (nextPage != null) {
       //Either get the current state or the current state of the section if this page belongs to a section
       const currentState =
@@ -515,6 +516,11 @@ export class PageControllerBase {
       }
 
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
+      if(checkedPages.includes(nextPage)) {
+        nextPage = null;
+      } else {
+        checkedPages.push(nextPage);
+      }
     }
 
     return relevantState;
@@ -706,6 +712,8 @@ export class PageControllerBase {
       .map((component) => component.model);
     const progress = state.progress || [];
     const { num } = request.query;
+    const formData = this.getFormDataFromState(state, num - 1);
+    const combined = {...formData, ...payload } as FormData;
 
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {
@@ -717,7 +725,6 @@ export class PageControllerBase {
           text: `The selected files must be smaller than ${config.maxFileSizeStringInMb}MB`,
         };
       });
-
       formResult.errors = Object.is(formResult.errors, null)
         ? { titleText: "There is a problem" }
         : formResult.errors;
@@ -744,19 +751,16 @@ export class PageControllerBase {
           reformattedErrors.push(reformatted);
         }
       });
-
       formResult.errors = Object.is(formResult.errors, null)
         ? { titleText: "There is a problem" }
         : formResult.errors;
       formResult.errors.errorList = reformattedErrors;
     }
-
     Object.entries(payload).forEach(([key, value]) => {
       if (value && value === (originalFilenames[key] || {}).location) {
         payload[key] = originalFilenames[key].originalFilename;
       }
     });
-
     /**
      * If there are any errors, render the page with the parsed errors
      */
@@ -766,7 +770,7 @@ export class PageControllerBase {
       return this.renderWithErrors(
         request,
         h,
-        payload,
+        combined,
         num,
         progress,
         formResult.errors
@@ -779,7 +783,7 @@ export class PageControllerBase {
       return this.renderWithErrors(
         request,
         h,
-        payload,
+        combined,
         num,
         progress,
         stateResult.errors
@@ -807,7 +811,7 @@ export class PageControllerBase {
       update = modifyUpdate(update);
     }
     if (this.path === "/is-this-the-correct-address" && update.isCorrectAddress === "Yes" && state.matchedAddress) {
-      update.selectedAddress = state.matchedAddress.uprn;
+      update.matchedAddress = state.matchedAddress.uprn;
     }
     await cacheService.mergeState(request, update, nullOverride, arrayMerge);
   }
@@ -1041,7 +1045,6 @@ export class PageControllerBase {
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
     viewModel.allowExit = this.model.allowExit;
-
     return h.view(this.viewName, viewModel);
   }
 }

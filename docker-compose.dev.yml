@@ -3,6 +3,17 @@
 #    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 version: "3.9"
 services:
+  designer:
+    volumes:
+      - /usr/src/app/node_modules
+      - /usr/src/app/model/node_modules
+      - /usr/src/app/model/dist
+      - /usr/src/app/designer/node_modules
+      - /usr/src/app/designer/dist
+      - /usr/src/app/runner/node_modules
+      - /usr/src/app/runner/dist
+      - ./designer:/usr/src/app/designer:delegated
+    command: yarn designer dev
   runner:
     volumes:
       - /usr/src/app/node_modules

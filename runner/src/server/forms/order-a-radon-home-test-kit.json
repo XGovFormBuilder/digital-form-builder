@@ -45,30 +45,289 @@
         }
       ],
       "next": [
-        { "path": "/enter-the-address-you-want-to-measure-the-radon-level-of" }
+        { "path": "/measurement-address-postcode" }
       ],
       "controller": "./pages/start.js"
     },
     {
-      "path": "/enter-the-address-you-want-to-measure-the-radon-level-of",
+      "path": "/measurement-address-postcode",
       "title": "Enter the address you want to measure the radon level of",
       "components": [
         {
-          "name": "HfpLGx",
-          "options": {},
-          "type": "Para",
-          "content": "Postcode",
-          "schema": {}
-        },
-        {
-          "name": "ZjoOoy",
-          "options": {},
+          "name": "postcodeLookup",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode",
+              "string.max": "Postcode must be less than 10 characters"
+            },
+            "autocomplete": "postal-code",
+            "exposeToContext": true,
+            "format": {
+              "trim": true,
+              "case": "upper"
+            }
+          },
+          "schema": { 
+            "max": 10,
+            "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
+          },
           "type": "TextField",
           "title": "Postcode",
-          "hint": "For example AA3 1AB",
-          "schema": {}
+          "hint": "For example, AA3 1AB"
+        },
+        {
+          "name": "buildingLookup",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter building number or name",
+              "string.max": "Building name must be less than 100 characters"
+            },
+            "exposeToContext": true
+          },
+          "schema": { "max": 100 },
+          "type": "TextField",
+          "title": "Building number or name",
+          "hint": "For example, 15 or Prospect cottage"
         }
       ],
+      "customButtonText": "Find address",
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-report-address\">Enter address manually</a>"
+        }
+      ],
+      "controller": "FindAnAddressPageController",
+      "next": [
+        {
+          "path": "/correct-report-address",
+          "condition": "hasMatchedAddressCondition"
+        },
+        { "path": "/select-report-address" },
+        {
+          "path": "/no-addresses-found",
+          "condition": "noAddressesCondition"
+        }
+      ]
+    },
+    {
+      "path": "/correct-report-address",
+      "title": "Is this the correct address?",
+      "components": [
+        {
+          "name": "matchedAddressDisplay",
+          "options": {},
+          "type": "DisplayAddress",
+          "content": "{{ matchedAddress.address }}"
+        },
+        {
+          "name": "isCorrectAddress",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
+              "any.required": "Select Yes if this is the correct address"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Is this the correct address?"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-report-address\">Enter address manually</a>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/filler-page",
+          "condition": "isCorrectAddressYes"
+        },
+        { "path": "/order-risk-report-find-an-address" }
+      ]
+    },
+    {
+      "path": "/select-report-address",
+      "title": "Select an address",
+      "components": [
+        {
+          "name": "addressesFoundHeading",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\">{{ numberOfAddresses }} addresses found for <b>{{ postcodeLookup }}</b> and <b>{{ buildingLookup }}</b>. <a href=\"measurement-address-postcode\">Search again</a></p>"
+        },
+        {
+          "name": "selectedAddress",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
+              "any.required": "Select an address"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Select an address",
+          "list": "addressesList"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-report-address\">Enter address manually</a>"
+        }
+      ],
+      "next": [{ "path": "/filler-page" }]
+    },
+    {
+      "path": "/no-addresses-found",
+      "title": "No addresses found for {{ postcodeLookup }} and {{ buildingLookup }}",
+      "components": [
+        {
+          "name": "noAddressesFoundMessage",
+          "options": {},
+          "type": "Para",
+          "content": "Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+        },
+        {
+          "name": "searchAgain",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\"><a href=\"order-risk-report-find-an-address\">Change your search</a> or <a href=\"enter-report-address\">enter address manually</a></p>"
+        }
+      ],
+      "next": [
+        { "path": "/order-risk-report-find-an-address" },
+        { "path": "/enter-report-address" }
+      ]
+    },
+    {
+      "path": "/enter-report-address",
+      "title": "What is the address you want a risk report for?",
+      "components": [
+        {
+          "name": "addressLine1Lookup",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter address line 1, typically the building and street",
+              "any.only": "Enter address line 1, typically the building and street",
+              "string.empty": "Enter address line 1, typically the building and street"
+            },
+            "exposeToContext": true
+          },
+          "type": "TextField",
+          "title": "Address Line 1"
+        },
+        {
+          "name": "addressLine2Lookup",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Address Line 2"
+        },
+        {
+          "name": "townLookup",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter town or city",
+              "any.only": "Enter town or city",
+              "string.empty": "Enter town or city"
+            }
+          },
+          "type": "TextField",
+          "title": "Town or city"
+        },
+        {
+          "name": "countyLookup",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "County"
+        },
+        {
+          "name": "postcodeLookup",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode",
+              "string.max": "Postcode must be less than 10 characters"
+            },
+            "autocomplete": "postal-code",
+            "format": {
+              "trim": true,
+              "case": "upper"
+            }
+          },
+          "schema": { 
+            "max": 10,
+            "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
+          },
+          "type": "TextField",
+          "title": "Postcode",
+          "hint": "For example, AA3 1AB"
+        }
+      ],
+      "controller": "FindAnAddressPageController",
+      "next": [
+        {
+          "path": "/correct-report-address",
+          "condition": "hasMatchedAddressCondition"
+        },
+        { "path": "/select-report-address" },
+        {
+          "path": "/cannot-find-address",
+          "condition": "noAddressesCondition"
+        }
+      ]
+    },
+    {
+      "path": "/cannot-find-address",
+      "title": "We cannot find your address",
+      "components": [
+        {
+          "name": "noAddressesFoundMessage",
+          "options": {},
+          "type": "Para",
+          "content": "No addresses found for {{ addressLine1Lookup }}, {{ postcodeLookup }}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+        },
+        {
+          "name": "searchAgain",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\"><a href=\"order-risk-report-find-an-address\">Change your search</a> or <a href=\"enter-report-address\">enter address manually</a></p>"
+        }
+      ],
+      "next": [
+        { "path": "/order-risk-report-find-an-address" },
+        { "path": "/enter-report-address" }
+      ]
+    },
+    {
+      "path": "/filler-page",
+      "title": "filler page",
+      "components": [
+        {
+          "name": "1sadfa",
+          "options": {},
+          "type": "TextField",
+          "title": "filler field",
+          "hint": "qweqew"
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
       "next": []
     }
   ],
@@ -106,17 +365,96 @@
         },
         { "text": "payment details", "value": "payment details" }
       ]
+    },
+    {
+      "name": "addressesList",
+      "title": "addressesList",
+      "type": "string",
+      "items": []
     }
   ],
   "sections": [],
-  "conditions": [],
+  "conditions": [
+    {
+      "name": "hasMatchedAddressCondition",
+      "displayName": "Has Matched Address",
+      "value": {
+        "name": "hasMatchedAddressCondition",
+        "conditions": [
+          {
+            "field": {
+              "name": "hasMatchedAddress",
+              "type": "YesNoField",
+              "display": "hasMatchedAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "isCorrectAddressYes",
+      "displayName": "Is Correct Address Yes",
+      "value": {
+        "name": "isCorrectAddressYes",
+        "conditions": [
+          {
+            "field": {
+              "name": "isCorrectAddress",
+              "type": "YesNoField",
+              "display": "isCorrectAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "noAddressesCondition",
+      "displayName": "No Addresses Found",
+      "value": {
+        "name": "noAddressesCondition",
+        "conditions": [
+          {
+            "field": {
+              "name": "numberOfAddresses",
+              "type": "NumberField",
+              "display": "numberOfAddresses"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "0", "display": "0" }
+          }
+        ]
+      }
+    }
+  ],
   "fees": [],
-  "outputs": [],
+  "outputs": [
+    {
+      "name": "AgHhXn",
+      "title": "webhookOutput",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://webho.ok",
+        "allowRetry": true
+      }
+    }
+  ],
   "version": 2,
   "skipSummary": false,
-  "feeOptions": {
-    "allowSubmissionWithoutPayment": true,
-    "maxAttempts": 3,
-    "showPaymentSkippedWarningPage": false
+  "feeOptions": {},
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "addressLookupConfig": {
+    "apimBaseUrl": "${RPSapimBaseUrl}",
+    "callingApplication": "RPS",
+    "tenantId": "${RPStenantID}",
+    "clientId": "${RPSclientID}",
+    "clientSecret": "${RPSclientSecret}",
+    "scopes": ["${RPSscopes}"]
   }
 }

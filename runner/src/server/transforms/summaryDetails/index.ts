@@ -38,6 +38,7 @@ const rpsParams = {
     "isCorrectAddress"
   ],
   adjustParams: {
+    "matchedAddress": { label: "Risk Report Address"},
     "selectedAddress": { label: "Risk Report Address"}
   }
 };
@@ -156,6 +157,7 @@ const summaryDetailsTransformations: SummaryDetailsTransformationMap = {
   "order-a-radon-risk-report": (details) => {
     let firstTransform = removeRows(details, rpsParams.removeParams);
     const secondTransform = adjustRows(firstTransform, rpsParams.adjustParams);
+    console.log("secondTransform", secondTransform);
     return secondTransform;
   },
 };
