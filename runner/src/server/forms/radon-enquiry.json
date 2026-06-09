@@ -10,6 +10,13 @@
       "title": "What type of help or support are you looking for?",
       "components": [
         {
+          "name": "yeHVWq",
+          "options": {},
+          "type": "Para",
+          "content": "Select the option that best describes your enquiry",
+          "schema": {}
+        },
+        {
           "name": "requestRelation",
           "backLinkFallback": "https://www.google.com",
           "options": {
