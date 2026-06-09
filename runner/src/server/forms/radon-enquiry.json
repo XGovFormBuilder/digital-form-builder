@@ -17,9 +17,9 @@
             "exposeToContext": true,
             "divider": true,
             "customValidationMessages": {
-              "any.required": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else",
-              "any.only": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else",
-              "string.empty": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else"
+              "any.required": "Select an option for the help or support you are looking for",
+              "any.only": "Select an option for the help or support you are looking for",
+              "string.empty": "Select an option for the help or support you are looking for"
             }
           },
           "type": "RadiosField",
