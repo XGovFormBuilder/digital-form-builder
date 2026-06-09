@@ -433,6 +433,7 @@
       "title": "Support Types",
       "name": "supportTypesList",
       "type": "string",
+      "hint": "Select the option that best describes your enquiry",
       "items": [
         {
           "text": "I need radiation measurements, testing, or dosimetry",
