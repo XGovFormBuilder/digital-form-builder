@@ -482,22 +482,22 @@
       "items": [
         {
           "text": "Environmental Radiological Assessment Services",
-          "value": "chromosone", 
+          "value": "assessment", 
           "description": "Bespoke modelling tools and software products for assessing the impact of planned and accidental releases of radioactivity to the environment"
         },
         {
           "text": "PACE - Probabilistic Accident Consequence Evaluation",
-          "value": "nonIonising",
+          "value": "PACE",
           "description": "Level-3 Probabilistic Safety Analysis tool for evaluating off-site radiological consequences of accidental releases from nuclear facilities"
         },
         {
           "text": "PC-CREAM - Radiological Impact Assessment Software",
-          "value": "emergency",
+          "value": "PC-CREAM",
           "description": "Suite of models for assessing the radiological impact of routine, continuous discharges from nuclear and non-nuclear installations"
         },
         {
           "text": "Taurus and IMBA Internal Dosimetry Software",
-          "value": "protection",
+          "value": "IMBA",
           "description": "Software for calculating internal radiation doses from intakes of radionuclides"
         },
         {
