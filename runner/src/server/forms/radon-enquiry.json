@@ -1,13 +1,44 @@
 {
   "metadata": {},
-  "startPage": "/request-related-to",
+  "startPage": "/type-of-support",
   "name": "Contact us",
   "serviceName": "Contact us",
   "confirmationSessionTimeout": 2000,
   "pages": [
     {
-      "path": "/request-related-to",
-      "title": "What is your request related to?",
+      "path": "/type-of-support",
+      "title": "What type of help or support are you looking for?",
+      "components": [
+        {
+          "name": "supportType",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "divider": true,
+            "customValidationMessages": {
+              "any.required": "Select an option for the help or support you are looking for",
+              "any.only": "Select an option for the help or support you are looking for",
+              "string.empty": "Select an option for the help or support you are looking for"
+            }
+          },
+          "type": "RadiosField",
+          "title": "What type of help or support are you looking for?",
+          "hint": "Select the option that best describes your enquiry",
+          "list": "supportTypesList"
+        }
+      ],
+      "next": [
+        { "path": "/type-of-service-measurement", "condition": "yafSJD" },
+        { "path": "/type-of-service-working-with-radiation", "condition": "htFso" },
+        { "path": "/type-of-service-radiation", "condition": "gyWLL" },
+        { "path": "/software", "condition": "ffGGs" },
+        { "path": "/research", "condition":  "XaNsL" },
+        { "path": "/other", "condition":  "hpkaS" }
+      ]
+    },
+    {
+      "path": "/type-of-service-measurement",
+      "title": "Which service is your enquiry about?",
       "components": [
         {
           "name": "requestRelation",
@@ -16,20 +47,92 @@
             "exposeToContext": true,
             "divider": true,
             "customValidationMessages": {
-              "any.required": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else",
-              "any.only": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else",
-              "string.empty": "Select if your request is related to Radon Services, Personal Dosimetry Service or something else"
+              "any.required": "Select an option for the service your enquiry is about",
+              "any.only": "Select an option for the service your enquiry is about",
+              "string.empty": "Select an option for the service your enquiry is about"
             }
           },
           "type": "RadiosField",
-          "title": "What is your request related to?",
-          "list": "requestTypesList"
+          "title": "What type of help or support are you looking for?",
+          "hint": "Select the closest match and add detail in your message if needed",
+          "list": "testingTypesList"
         }
       ],
       "next": [
-        { "path": "/radon-enquiry-start", "condition": "yafSJD" },
-        { "path": "/other-contact-us-form", "condition": "QedsW" },
-        { "path": "/pds-enquiry-start", "condition":  "XaNsL" }
+        { "path": "/contact-us-details"}
+      ]
+    },
+    {
+      "path": "/type-of-service-working-with-radiation",
+      "title": "Which service is your enquiry about?",
+      "components": [
+        {
+          "name": "requestRelation",
+          "hint": "Select the closest match and add detail in your message if needed",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "divider": true,
+            "customValidationMessages": {
+              "any.required": "Select an option for the service your enquiry is about",
+              "any.only": "Select an option for the service your enquiry is about",
+              "string.empty": "Select an option for the service your enquiry is about"
+            }
+          },
+          "type": "RadiosField",
+          "title": "What type of help or support are you looking for?",
+          "list": "complianceTypesList"
+        }
+      ],
+      "next": [
+        { "path": "/radon-contact-us-form"}
+      ]
+    },
+    {
+      "path": "/type-of-service-radiation",
+      "title": "Which service is your enquiry about?",
+      "components": [
+        {
+          "name": "requestRelation",
+          "hint": "Select the closest match and add detail in your message if needed",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "divider": true,
+            "customValidationMessages": {
+              "any.required": "Select an option for the service your enquiry is about",
+              "any.only": "Select an option for the service your enquiry is about",
+              "string.empty": "Select an option for the service your enquiry is about"
+            }
+          },
+          "type": "RadiosField",
+          "title": "What type of help or support are you looking for?",
+          "list": "trainingTypesList"
+        }],
+      "next": [{"path":"/pds-contact-us-form"}]
+    },
+    {
+      "path": "/software",
+      "title": "Software",
+      "components": [],
+      "next": [
+        { "path": "/contact-us-details"}
+      ]
+    },
+    {
+      "path": "/research",
+      "title": "Research",
+      "components": [],
+      "next": [
+        { "path": "/contact-us-details"}
+      ]
+    },
+    {
+      "path": "/other",
+      "title": "Other",
+      "components": [],
+      "next": [
+        { "path": "/contact-us-details"}
       ]
     },
     {
@@ -52,10 +155,10 @@
           "conditions": ""
         }
       ],
-      "next": [{ "path": "/radon-contact-us-form" }]
+      "next": [{ "path": "/contact-us-details" }]
     },
     {
-      "path": "/radon-contact-us-form",
+      "path": "/contact-us-details",
       "title": "Contact us",
       "components": [
         {
@@ -372,16 +475,178 @@
   },
   "lists": [
     {
-      "title": "Request Types",
-      "name": "requestTypesList",
+      "title": "Support Types",
+      "name": "supportTypesList",
       "type": "string",
       "items": [
-        { "text": "Radon Services", "value": "Radon Services" },
+        {
+          "text": "I need radiation measurements, testing, or dosimetry",
+          "value": "testing", 
+          "description": "Including personal dose monitoring, instrument calibration, dental X-ray equipment testing, laboratory analysis, radon measurement, chromosome dosimetry, or whole body monitoring"
+        },
+        {
+          "text": "I work with radiation and need compliance or safety advice",
+          "value": "compliance",
+          "description": "Including Radiation Protection Advisor support, dangerous goods, non-ionising radiation, medical exposures, dental or environmental radiological assessments"
+        },
+        {
+          "text": "I want to enquire about training courses and facilities, or an existing course booking",
+          "value": "training",
+          "description": "Including workplace radiation safety, specialist professional training, emergency preparedness, laser safety, non-ionising radiation courses, or hiring our training facilities"
+        },
+        {
+          "text": "I need help with a software product or tool",
+          "value": "software",
+          "description": "Including PACE, PC-CREAM, Taurus, IMBA, or other dosimetry and radiological impact assessment software"
+        },
+        {
+          "text": "I'm interested in research, collaboration, or specialist consultancy",
+          "value": "research",
+          "description": "Including radiation effects research, medical dosimetry, emergency preparedness, and working with UKHSA"
+        },
+        {
+          "text": "I'm not sure, or my enquiry doesn't fit the above",
+          "value": "other",
+          "description": "If your enquiry does not fit any of the above, tell us in more detail in the next step" }
+      ]
+    },
+    {
+      "title": "Testing Types",
+      "name": "testingTypesList",
+      "type": "string",
+      "items": [
+        {
+          "text": "Radon Measurement Services (UKradon)",
+          "value": "UKradon", 
+          "description": "Measurement of radon gas levels in homes, workplaces, and other buildings, with advice on remediation"
+        },
         {
           "text": "Personal Dosimetry Service",
-          "value": "Personal Dosimetry Service"
+          "value": "personal",
+          "description": "Approved dosimetry service measuring and recording radiation doses received by customers and their employees"
         },
-        { "text": "Something else", "value": "Something else" }
+        {
+          "text": "Chromosome Dosimetry Services",
+          "value": "chromosome",
+          "description": "Assessing the damage to DNA, caused by ionising radiation exposures, in individual blood samples, in order to give an estimation of radiation dose"
+        },
+        {
+          "text": "Dental X-ray Protection Services",
+          "value": "dental",
+          "description": "X-ray equipment testing, quality assurance assessments, and radiation protection advice for dental practices and trade companies"
+        },
+        {
+          "text": "Dose Calculation Service",
+          "value": "dose",
+          "description": "Calculation of radiation doses to patients and staff from radiopharmaceuticals, with detailed reports for clinical and regulatory use"
+        },
+        {
+          "text": "Instrument Testing Services",
+          "value": "instrument",
+          "description": "Testing, calibration, and approval of radiation protection instruments"
+        },
+        {
+          "text": "Laboratory and Radiochemistry Services",
+          "value": "laboratory",
+          "description": "Analysis of environmental, biological, and other samples for radioactive content"
+        },
+        {
+          "text": "Whole Body Monitoring Service",
+          "value": "wholeBody",
+          "description": "Assessment of internal contamination by measuring gamma-emitting radionuclides in the body"
+        },
+        {
+          "text": "General enquiry",
+          "value": "other",
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
+        }
+      ]
+    },
+    {
+      "title": "Training Types",
+      "name": "trainingTypesList",
+      "type": "string",
+      "items": [
+        {
+          "text": "Chromosome Dosimetry Services",
+          "value": "chromosone", 
+          "description": "Specialist training in biological dosimetry techniques, including cytogenetic methods used for individual dose assessment and emergency triage."
+        },
+        {
+          "text": "Non-lonising Radiation Services",
+          "value": "nonIonising",
+          "description": "Training on the health effects of electromagnetic fields, optical radiation, and other non-ionising hazards and how to comply with relevant regulations"
+        },
+        {
+          "text": "Radiation Emergency Preparedness Service",
+          "value": "emergency",
+          "description": "Training courses for emergency responders and planners, including NAIR training, exercises, and preparedness for radiological or nuclear incidents"
+        },
+        {
+          "text": "Radiation Protection Services Facilities",
+          "value": "protection",
+          "description": "Hire of specialist training facilities at UKHSA sites. Suitable for organisations delivering their own radiation protection or related training courses"
+        },
+        {
+          "text": "Radiation Safety Training for the Workplace",
+          "value": "safety",
+          "description": "Face-to-face and online courses covering all aspects of radiation safety"
+        },
+        {
+          "text": "Training for Radiological Protection Professionals",
+          "value": "radiological",
+          "description": "Professional-level courses including the Radiological Protection Training Scheme, designed for graduates and practitioners seeking specialist qualifications"
+        },
+        {
+          "text": "General enquiry",
+          "value": "other",
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next" }
+      ]
+    },
+    {
+      "title": "Compliance Types",
+      "name": "complianceTypesList",
+      "type": "string",
+      "items": [
+        {
+          "text": "Dangerous Goods Safety Adviser Service",
+          "value": "dangerousGoods", 
+          "description": "Compliance advice for organisations transporting radioactive or other dangerous goods, covering legal requirements and practical safety measures"
+        },
+        {
+          "text": "Dental X-ray Protection Services",
+          "value": "dental",
+          "description": "Radiation Protection Advisor and medical physics expertise, quality assurance and equipment assessments for dental practices and X-ray equipment suppliers"
+        },
+        {
+          "text": "Environmental Radiological Assessment Services",
+          "value": "environmental",
+          "description": "Consultancy on the radiological impact of routine discharges and accidental releases, supporting discharge authorisations and regulatory submissions"
+        },
+        {
+          "text": "Laboratory and Radiochemistry Services",
+          "value": "laboratory",
+          "description": "Specialist analytical consultancy for organisations needing independent advice on radioactive sample analysis or measurement methodology"
+        },
+        {
+          "text": "Medical Exposures Group",
+          "value": "medical",
+          "description": "Guidance, reports, and expert advice on radiation doses from medical and diagnostic imaging exposures, supporting clinical and regulatory decision-making"
+        },
+        {
+          "text": "Non-lonising Radiation Services",
+          "value": "nonIonising",
+          "description": "Advice and consultancy on electromagnetic fields, optical radiation, lasers and other non-ionising radiation hazards in the workplace"
+        },
+        {
+          "text": "Radiation Protection Adviser Services (RPA)",
+          "value": "rpa",
+          "description": "Appointed RPA support under IRR17, covering industry, education, veterinary, dental, and medical workplaces"
+        },
+        {
+          "text": "General enquiry",
+          "value": "other",
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next" }
       ]
     },
     {
@@ -426,66 +691,132 @@
   "sections": [],
   "conditions": [
     {
-      "displayName": "RadonRequest",
+      "displayName": "testingSupport",
       "name": "yafSJD",
       "value": {
-        "name": "RadonRequest",
+        "name": "testingSupport",
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "supportType",
               "type": "RadiosField",
-              "display": "What is your request related to?"
+              "display": "What type of help or support are you looking for?"
             },
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Radon Services",
-              "display": "Radon Services"
+              "value": "testing",
+              "display": "testing"
             }
           }
         ]
       }
     },
     {
-      "displayName": "RadonRequest",
+      "displayName": "complianceSupport",
+      "name": "htFso",
+      "value": {
+        "name": "complianceSupport",
+        "conditions": [
+          {
+            "field": {
+              "name": "supportType",
+              "type": "RadiosField",
+              "display": "What type of help or support are you looking for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "compliance",
+              "display": "compliance"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "trainingSupport",
+      "name": "gyWLL",
+      "value": {
+        "name": "trainingSupport",
+        "conditions": [
+          {
+            "field": {
+              "name": "supportType",
+              "type": "RadiosField",
+              "display": "What type of help or support are you looking for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "training",
+              "display": "training"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "softwareSupport",
+      "name": "ffGGs",
+      "value": {
+        "name": "softwareSupport",
+        "conditions": [
+          {
+            "field": {
+              "name": "supportType",
+              "type": "RadiosField",
+              "display": "What type of help or support are you looking for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "software",
+              "display": "software"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "otherSupport",
+      "name": "hpkaS",
+      "value": {
+        "name": "otherSupport",
+        "conditions": [
+          {
+            "field": {
+              "name": "supportType",
+              "type": "RadiosField",
+              "display": "What type of help or support are you looking for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "other",
+              "display": "other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "researchSupport",
       "name": "XaNsL",
       "value": {
-        "name": "RadonRequest",
+        "name": "researchSupport",
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "supportType",
               "type": "RadiosField",
-              "display": "What is your request related to?"
+              "display": "What type of help or support are you looking for?"
             },
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "Personal Dosimetry Service",
-              "display": "Personal Dosimetry Service"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "displayName": "RadonRequest",
-      "name": "QedsW",
-      "value": {
-        "name": "RadonRequest",
-        "conditions": [
-          {
-            "field": {
-              "name": "requestRelation",
-              "type": "RadiosField",
-              "display": "What is your request related to?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "Something else",
-              "display": "Something else"
+              "value": "research",
+              "display": "research"
             }
           }
         ]
