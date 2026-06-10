@@ -63,11 +63,26 @@
     },
     {
       "path": "/software",
-      "title": "Software",
-      "components": [],
-      "next": [
-        { "path": "/radon-contact-us-form"}
-      ]
+      "title": "Which service is your enquiry about?",
+      "components": [
+        {
+          "name": "softwareRelation",
+          "hint": "Select the closest match and add detail in your message if needed",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "divider": true,
+            "customValidationMessages": {
+              "any.required": "Select an option for the service your enquiry is about",
+              "any.only": "Select an option for the service your enquiry is about",
+              "string.empty": "Select an option for the service your enquiry is about"
+            }
+          },
+          "type": "RadiosField",
+          "title": "What type of help or support are you looking for?",
+          "list": "softwareTypesList"
+        }],
+      "next": [{"path":"/pds-contact-us-form"}]
     },
     {
       "path": "/research",
@@ -458,6 +473,37 @@
           "text": "I'm not sure, or my enquiry doesn't fit the above",
           "value": "other",
           "description": "If your enquiry does not fit any of the above, tell us in more detail in the next step" }
+      ]
+    },
+    {
+      "title": "Software Types",
+      "name": "softwareTypesList",
+      "type": "string",
+      "items": [
+        {
+          "text": "Environmental Radiological Assessment Services",
+          "value": "chromosone", 
+          "description": "Bespoke modelling tools and software products for assessing the impact of planned and accidental releases of radioactivity to the environment"
+        },
+        {
+          "text": "PACE - Probabilistic Accident Consequence Evaluation",
+          "value": "nonIonising",
+          "description": "Level-3 Probabilistic Safety Analysis tool for evaluating off-site radiological consequences of accidental releases from nuclear facilities"
+        },
+        {
+          "text": "PC-CREAM - Radiological Impact Assessment Software",
+          "value": "emergency",
+          "description": "Suite of models for assessing the radiological impact of routine, continuous discharges from nuclear and non-nuclear installations"
+        },
+        {
+          "text": "Taurus and IMBA Internal Dosimetry Software",
+          "value": "protection",
+          "description": "Software for calculating internal radiation doses from intakes of radionuclides"
+        },
+        {
+          "text": "General enquiry",
+          "value": "other",
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next" }
       ]
     },
     {
