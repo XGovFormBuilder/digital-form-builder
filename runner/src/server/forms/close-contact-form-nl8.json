@@ -85,6 +85,7 @@
           "options": {
             "allowPrePopulation": true,
             "allowPrePopulationOverwrite": true,
+            "classes": "govuk-!-display-none",
             "exposeToContext": true,
             "hideTitle": true,
             "disableChangingFromSummary": true,
@@ -3624,22 +3625,7 @@
       ]
     },
     {
-      "title": "Check how I can use this list to store info about each disease",
-      "type": "string",
-      "name": "disease_data",
-      "items": [
-        {
-          "text": "Avian",
-          "value": "the name and contact details of people you live with"
-        },
-        {
-          "text": "AAA",
-          "value": "AAAAAAAAA"
-        }
-      ]
-    },
-    {
-      "title": "Who are you completing this form for?{{additionalContexts.diseaseInfo[disease_name].name | safe }} disease name",
+      "title": "Who are you completing this form for?",
       "name": "ApjoNd",
       "type": "string",
       "items": [

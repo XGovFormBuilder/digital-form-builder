@@ -10,11 +10,11 @@
     }
   },
   "diseaseInfo": {
-    "A": {
-      "disease_name": "Avian Bird Flu"
+    "001F00": {
+      "name": "bird (avian) flu"
     },
-    "B": {
-      "disease_name": "Mers-Cov"
+    "001F01": {
+      "name": "Mers-Cov"
     }
   }
 }
