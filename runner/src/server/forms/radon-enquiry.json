@@ -10,7 +10,7 @@
       "title": "What type of help or support are you looking for?",
       "components": [
         {
-          "name": "requestRelation",
+          "name": "requestRelationBase",
           "backLinkFallback": "https://www.google.com",
           "options": {
             "hideTitle": true,
@@ -66,7 +66,7 @@
       "title": "Which service is your enquiry about?",
       "components": [
         {
-          "name": "softwareRelation",
+          "name": "requestRelation",
           "hint": "Select the closest match and add detail in your message if needed",
           "options": {
             "hideTitle": true,
@@ -80,9 +80,10 @@
           },
           "type": "RadiosField",
           "title": "What type of help or support are you looking for?",
-          "list": "softwareTypesList"
+          "list": "softwareTypesList",
+          "exposeToContext": true
         }],
-      "next": [{"path":"/pds-contact-us-form"}]
+      "next": [{"path":"/other-contact-us-form"}]
     },
     {
       "path": "/research",
@@ -413,6 +414,12 @@
       ],
       "componentsAfter": [
         {
+          "name": "temp",
+          "options": {},
+          "type": "Para",
+          "content": "<div class=\"govuk-inset-text\">Your Enquiry will be sent to the <b>{{ requestRelation }}</b> team</div>"
+        },
+        {
           "name": "OtherContactDetails",
           "options": {},
           "type": "Para",
@@ -555,7 +562,7 @@
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "requestRelationBase",
               "type": "RadiosField",
               "display": "What is your request related to?"
             },
@@ -577,7 +584,7 @@
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "requestRelationBase",
               "type": "RadiosField",
               "display": "What is your request related to?"
             },
@@ -599,7 +606,7 @@
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "requestRelationBase",
               "type": "RadiosField",
               "display": "What is your request related to?"
             },
@@ -621,7 +628,7 @@
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "requestRelationBase",
               "type": "RadiosField",
               "display": "What is your request related to?"
             },
@@ -643,7 +650,7 @@
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "requestRelationBase",
               "type": "RadiosField",
               "display": "What is your request related to?"
             },
@@ -665,7 +672,7 @@
         "conditions": [
           {
             "field": {
-              "name": "requestRelation",
+              "name": "requestRelationBase",
               "type": "RadiosField",
               "display": "What is your request related to?"
             },
