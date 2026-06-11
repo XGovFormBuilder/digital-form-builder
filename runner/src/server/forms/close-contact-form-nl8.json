@@ -13,7 +13,7 @@
           "name": "para1",
           "options": {},
           "type": "Para",
-          "content": "To help us reduce the spread of {{additionalContexts.diseaseInfo[disease_code].disease_name | safe}}, it's important for us to know who you live with and who you've been in close contact with.",
+          "content": "To help us reduce the spread of {{additionalContexts.diseaseInfo[disease_name].name | safe }}, it's important for us to know who you live with and who you've been in close contact with.",
           "schema": {}
         },
         {
@@ -81,7 +81,7 @@
           "schema": {}
         },
         {
-          "name": "disease_code",
+          "name": "disease_name",
           "options": {
             "allowPrePopulation": true,
             "allowPrePopulationOverwrite": true,
@@ -347,7 +347,7 @@
           "name": "doYouLiveWithOtherPeopleExplanation",
           "options": {},
           "type": "Para",
-          "content": "As you've tested positive for {{ disease_code }}, it's important for us to know who you live with {{ PersonalInformation.first_name }}, so we can help them receive the right guidance, such as how to get tested and other health advice."
+          "content": "As you've tested positive for {{additionalContexts.diseaseInfo[disease_name].name | safe }}, it's important for us to know who you live with {{ PersonalInformation.first_name }}, so we can help them receive the right guidance, such as how to get tested and other health advice."
         },
         {
           "name": "AdEVNK",
@@ -380,7 +380,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with and may have passed {{ disease_code }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
+          "content": "We ask this to identify people you live with and may have passed {{additionalContexts.diseaseInfo[disease_name].name | safe }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         }
       ],
       "next": [
@@ -400,7 +400,7 @@
           "name": "doYouLiveWithOtherPeopleExplanation",
           "options": {},
           "type": "Para",
-          "content": "As the person you are completing the form for has tested positive for {{ disease_code }}, it's important for us to know who they live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
+          "content": "As the person you are completing the form for has tested positive for {{additionalContexts.diseaseInfo[disease_name].name | safe }}, it's important for us to know who they live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
         },
         {
           "name": "AdEVNK",
@@ -433,7 +433,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people they live with and may have passed {{ disease_code }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
+          "content": "We ask this to identify people they live with and may have passed {{additionalContexts.diseaseInfo[disease_name].name | safe }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         }
       ],
       "next": [
@@ -3639,7 +3639,7 @@
       ]
     },
     {
-      "title": "Who are you completing this form for?{{ disease_code }} disease name",
+      "title": "Who are you completing this form for?{{additionalContexts.diseaseInfo[disease_name].name | safe }} disease name",
       "name": "ApjoNd",
       "type": "string",
       "items": [
@@ -3652,9 +3652,8 @@
       "name": "disease_code_list",
       "type": "string",
       "items": [
-        { "text": "Avian Bird Flu", "value": "A" },
-        { "text": "Mers-Cov", "value": "B" },
-        { "text": "EXAMPLEDISEASEFOR", "value": "EXAMPLEDISEASEFOR" }
+        { "text": "Avian Bird Flu", "value": "001F00" },
+        { "text": "Mers-Cov", "value": "001F01" }
       ]
     },
     {
@@ -4638,7 +4637,7 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts you listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on avian flu</h2><p class='govuk-body'>If anyone you know develops symptoms of {{ disease_code }}, ask them to <a class='govuk-link' href='#'>order a test kit</a>. For urgent medical advice, you can call NHS 111 or visit <a class='govuk-link' href='https://111.nhs.uk/'>111.nhs.uk</a>. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit <a class='govuk-link' href='www.nhs.uk/conditions/bird-flu'>www.nhs.uk/conditions/bird-flu</a>.</p><h2 class='govuk-heading-m'>If you need to contact us</h2><p class='govuk-body'>If you have any concerns or questions about this form, you can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
+        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts you listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on avian flu</h2><p class='govuk-body'>If anyone you know develops symptoms of {{additionalContexts.diseaseInfo[disease_name].name | safe }}, ask them to <a class='govuk-link' href='#'>order a test kit</a>. For urgent medical advice, you can call NHS 111 or visit <a class='govuk-link' href='https://111.nhs.uk/'>111.nhs.uk</a>. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit <a class='govuk-link' href='www.nhs.uk/conditions/bird-flu'>www.nhs.uk/conditions/bird-flu</a>.</p><h2 class='govuk-heading-m'>If you need to contact us</h2><p class='govuk-body'>If you have any concerns or questions about this form, you can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
         "title": "Form submitted",
         "referenceTitle": "Your reference number"
       }
