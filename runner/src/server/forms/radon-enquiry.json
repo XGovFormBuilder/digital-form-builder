@@ -29,11 +29,14 @@
       ],
       "next": [
         { "path": "/type-of-service-measurement", "condition": "yafSJD" },
-        { "path": "/type-of-service-working-with-radiation", "condition": "htFso" },
+        {
+          "path": "/type-of-service-working-with-radiation",
+          "condition": "htFso"
+        },
         { "path": "/type-of-service-radiation", "condition": "gyWLL" },
-        { "path": "/software", "condition": "ffGGs" },
-        { "path": "/research", "condition":  "XaNsL" },
-        { "path": "/other", "condition":  "hpkaS" }
+        { "path": "/type-of-service-software", "condition": "ffGGs" },
+        { "path": "/type-of-service-collaboration", "condition": "XaNsL" },
+        { "path": "/contact-us-details", "condition": "hpkaS" }
       ]
     },
     {
@@ -41,7 +44,7 @@
       "title": "Which service is your enquiry about?",
       "components": [
         {
-          "name": "requestRelation",
+          "name": "service",
           "options": {
             "hideTitle": true,
             "exposeToContext": true,
@@ -58,16 +61,14 @@
           "list": "testingTypesList"
         }
       ],
-      "next": [
-        { "path": "/contact-us-details"}
-      ]
+      "next": [{ "path": "/contact-us-details" }]
     },
     {
       "path": "/type-of-service-working-with-radiation",
       "title": "Which service is your enquiry about?",
       "components": [
         {
-          "name": "requestRelation",
+          "name": "service",
           "hint": "Select the closest match and add detail in your message if needed",
           "options": {
             "hideTitle": true,
@@ -84,16 +85,14 @@
           "list": "complianceTypesList"
         }
       ],
-      "next": [
-        { "path": "/radon-contact-us-form"}
-      ]
+      "next": [{ "path": "/contact-us-details" }]
     },
     {
       "path": "/type-of-service-radiation",
       "title": "Which service is your enquiry about?",
       "components": [
         {
-          "name": "requestRelation",
+          "name": "service",
           "hint": "Select the closest match and add detail in your message if needed",
           "options": {
             "hideTitle": true,
@@ -108,58 +107,61 @@
           "type": "RadiosField",
           "title": "What type of help or support are you looking for?",
           "list": "trainingTypesList"
-        }],
-      "next": [{"path":"/pds-contact-us-form"}]
-    },
-    {
-      "path": "/software",
-      "title": "Software",
-      "components": [],
-      "next": [
-        { "path": "/contact-us-details"}
-      ]
-    },
-    {
-      "path": "/research",
-      "title": "Research",
-      "components": [],
-      "next": [
-        { "path": "/contact-us-details"}
-      ]
-    },
-    {
-      "path": "/other",
-      "title": "Other",
-      "components": [],
-      "next": [
-        { "path": "/contact-us-details"}
-      ]
-    },
-    {
-      "title": "Contact the Radon Services team",
-      "path": "/radon-enquiry-start",
-      "components": [
-        {
-          "name": "aNNjpD",
-          "options": {},
-          "type": "Para",
-          "content": "<p class=\"govuk-body-m\">Use this form to get in touch about any issues related to radon.</p><p class=\"govuk-body-m\">This could be</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>queries about radon</li><li>issues with an order</li><li>getting a quote</li></ul></p><h2 class=\"govuk-heading-m\">Before you continue</h2><p class=\"govuk-body-m\">You can <a href=\"https://www.ukradon.org/sectors/\">find guidance and information about radon in your home or workplace on our website</a>.</p>"
         }
       ],
-      "componentsAfter": [
+      "next": [{ "path": "/contact-us-details" }]
+    },
+    {
+      "path": "/type-of-service-software",
+      "title": "Which service is your enquiry about?",
+      "components": [
         {
-          "name": "radonContactDetails",
-          "options": {},
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 2622<br>Monday to Friday, 9:00am to 4:30pm</p></div>",
-          "conditions": ""
+          "name": "service",
+          "hint": "Select the closest match and add detail in your message if needed",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "divider": true,
+            "customValidationMessages": {
+              "any.required": "Select an option for the service your enquiry is about",
+              "any.only": "Select an option for the service your enquiry is about",
+              "string.empty": "Select an option for the service your enquiry is about"
+            }
+          },
+          "type": "RadiosField",
+          "title": "What type of help or support are you looking for?",
+          "list": "softwareTypesList"
+        }
+      ],
+      "next": [{ "path": "/contact-us-details" }]
+    },
+    {
+      "path": "/type-of-service-collaboration",
+      "title": "Which service is your enquiry about?",
+      "components": [
+        {
+          "name": "service",
+          "hint": "Select the closest match and add detail in your message if needed",
+          "options": {
+            "hideTitle": true,
+            "exposeToContext": true,
+            "divider": true,
+            "customValidationMessages": {
+              "any.required": "Select an option for the service your enquiry is about",
+              "any.only": "Select an option for the service your enquiry is about",
+              "string.empty": "Select an option for the service your enquiry is about"
+            }
+          },
+          "type": "RadiosField",
+          "title": "What type of help or support are you looking for?",
+          "list": "researchTypesList"
         }
       ],
       "next": [{ "path": "/contact-us-details" }]
     },
     {
       "path": "/contact-us-details",
-      "title": "Contact us",
+      "title": "Your enquiry details",
       "components": [
         {
           "name": "firstname",
@@ -170,228 +172,6 @@
               "string.empty": "Enter your first name"
             },
             "autocomplete": "given-name"
-          },
-          "type": "TextField",
-          "title": "Your first name"
-        },
-        {
-          "name": "lastname",
-          "options": {
-            "customValidationMessages": {
-              "any.required": "Enter your last name",
-              "any.only": "Enter your last name",
-              "string.empty": "Enter your last name"
-            },
-            "autocomplete": "family-name"
-          },
-          "type": "TextField",
-          "title": "Your last name"
-
-        },
-        {
-          "name": "organisation",
-          "options": { "required": false },
-          "type": "TextField",
-          "title": "Your organisation name"
-        },
-        {
-          "name": "email",
-          "options": {
-            "exposeToContext": true,
-            "customValidationMessages": {
-              "any.required": "Enter your email address",
-              "any.only": "Enter your email address",
-              "string.empty": "Enter your email address",
-              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Your email address",
-          "hint": "We'll send our reply to this email address"
-        },
-        {
-          "name": "requestInformation",
-          "options": {
-              "customValidationMessages": {
-              "any.required": "Enter more information about your request",
-              "any.only": "Enter more information about your request",
-              "string.empty": "Enter more information about your request",
-              "string.max": "Information about your request must be 1000 characters or less"
-            }
-          },
-          "type": "MultilineTextField",
-          "title": "Give us some more information about your request",
-          "schema": { "max": "1000" }
-        }
-      ],
-      "componentsAfter": [
-        {
-          "name": "radonContactDetails",
-          "options": {},
-          "type": "Para",
-          "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 2622<br>Monday to Friday, 9:00am to 4:30pm</p></div>"
-        }
-      ],
-      "next": [{ "path": "/summary" }]
-    },
-    {
-      "title": "Contact the Personal Dosimetry Service team",
-      "path": "/pds-enquiry-start",
-      "components": [
-        {
-          "name": "aNNjpD",
-          "options": {},
-          "type": "Para",
-          "content": "<p class=\"govuk-body-m\">Use this form to reach out to us about enquiries related to the Personal Dosimetry Service (PDS).</p><p class=\"govuk-body-m\">This could be</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>starting to use the service</li><li>getting a copy of your record</li><li>getting a quote</li><li>using the UKHSA Online Dosimetry Portal - CLARA</li><li>any other enquiries</li></ul></p><h2 class=\"govuk-heading-m\">Before you continue</h2><p class=\"govuk-body-m\">You can <a href=\"https://www.ukhsa-protectionservices.org.uk/pds/service/dosemeters/\">find information about our dose measurements, or assessment services</a>.</p><p class=\"govuk-body-m\">You can also for queries about CLARA send an email to <a href=\"mailto:clarasupport@ukhsa.gov.uk\">clarasupport@ukhsa.gov.uk</a>.</p>"
-        }
-      ],
-      "componentsAfter": [
-        {
-          "name": "PDSContactDetails",
-          "options": {},
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 5240<br>Monday to Thursday, 8:00am to 4:00pm<br>Friday, 8:00am to 3:30pm</div></p>"
-        }
-      ],
-      "next": [{"path": "/pds-contact-us-form"}]
-    },
-    {
-      "path": "/pds-contact-us-form",
-      "title": "Contact us",
-      "components": [
-        {
-          "name": "firstname",
-          "options": {
-            "customValidationMessages": {
-              "any.required": "Enter your first name",
-              "any.only": "Enter your first name",
-              "string.empty": "Enter your first name"
-            },
-            "autocomplete": "given-name"
-          },
-          "type": "TextField",
-          "title": "Your first name"
-        },
-        {
-          "name": "lastname",
-          "options": {
-            "customValidationMessages": {
-              "any.required": "Enter your last name",
-              "any.only": "Enter your last name",
-              "string.empty": "Enter your last name"
-            },
-            "autocomplete": "family-name"
-          },
-          "type": "TextField",
-          "title": "Your last name"
-        },
-        {
-          "name": "organisation",
-          "options": { "required": false },
-          "type": "TextField",
-          "title": "Your employer or organisation name"
-        },
-        {
-          "name": "email",
-          "options": {
-            "exposeToContext": true,
-            "customValidationMessages": {
-              "any.required": "Enter your email address",
-              "any.only": "Enter your email address",
-              "string.empty": "Enter your email address",
-              "string.pattern.base": "Enter an email address in the correct format, like name@example.com"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Your email address",
-          "hint": "We'll send our reply to this email address"
-        },
-        {
-          "name": "contactReason",
-          "options": {
-            "customValidationMessages": {
-              "any.required": "Select a reason for contacting option",
-              "any.only": "Select a reason for contacting option",
-              "string.empty": "Select a reason for contacting option"
-            },
-            "preselected": { "text": "Select an option", "value": "" }
-          },
-          "type": "SelectField",
-          "title": "Reason for contacting",
-          "list": "contactReasonList"
-        },
-        {
-          "name": "CustomerRefNo",
-          "options": {
-            "required": false
-          },
-          "type": "TextField",
-          "title": "Customer reference number",
-          "hint": "You might find this number on your dosemeter or PDS sent documents"
-        },
-        {
-          "name": "requestInformation",
-          "options": {
-            "customValidationMessages": {
-              "any.required": "Enter more information about your request",
-              "any.only": "Enter more information about your request",
-              "string.empty": "Enter more information about your request",
-              "string.max": "Information about your request must be 1000 characters or less"
-            }
-          },
-          "type": "MultilineTextField",
-          "title": "Give us some more information about your request",
-          
-          "schema": { "max": "1000" }
-        },
-        {
-          "name": "howHear",
-          "options": {
-            "customValidationMessages": {
-              "any.required": "Select a how did you hear about us option",
-              "any.only": "Select a how did you hear about us option",
-              "string.empty": "Select a how did you hear about us option"
-            },
-            "preselected": { "text": "Select an option", "value": "" }
-          },
-          "type": "SelectField",
-          "title": "How did you hear about us?",
-          "list": "howHearList"
-        },
-        {
-          "name": "newsletters",
-          "options": {
-            "required": false,
-            "hideTitle": true
-          },
-          "type": "CheckboxesField",
-          "title": "Newsletters preference",
-          "list": "newsPref"
-        }
-      ],
-      "componentsAfter": [
-        {
-          "name": "PDSContactDetails",
-          "options": {},
-          "type": "Para",
-          "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0123 582 5240<br>Monday to Thursday, 8:00am to 4:00pm<br>Friday, 8:00am to 3:30pm</p></div>"
-        }
-      ],
-      "next": [{ "path": "/summary" }]
-    },
-    {
-      "path": "/other-contact-us-form",
-      "title": "Contact us",
-      "components": [
-        {
-          "name": "firstname",
-          "options": {
-            "customValidationMessages": {
-              "any.required": "Enter your first name",
-              "any.only": "Enter your first name",
-              "string.empty": "Enter your first name"
-            },
-              "autocomplete": "given-name"
           },
           "type": "TextField",
           "title": "Your first name"
@@ -442,19 +222,32 @@
           },
           "type": "MultilineTextField",
           "title": "Give us some more information about your request",
-          
           "schema": { "max": "1000" }
         }
       ],
       "componentsAfter": [
         {
-          "name": "OtherContactDetails",
+          "name": "contactInset",
+          "options": {
+            "condition": "ojQCvt"
+          },
+          "type": "Para",
+          "content": "<div class=\"govuk-inset-text\">Your enquiry will be sent to the <b>{{ service }}</b> team</div><hr>"
+        },
+        {
+          "name": "otherWays",
           "options": {},
           "type": "Para",
-          "content": "<hr><h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><div class=\"govuk-inset-text\"><b>Phone</b><br>0113 267 9041<br>Monday to Friday, 8:30am to 5:00pm</p></div>"
+          "content": "<h2 class=\"govuk-heading-m\">Other ways to get in touch</h2><p class=\"govuk-body-m\"><p class=\"govuk-body-m\">Is your issue urgent? Would you prefer to call us? Find the appropriate phone number on our <a href=\"whp-contact-us\">contact us page</a>.</p>"
         }
       ],
       "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "WHP Contact Us Placeholder",
+      "path": "/whp-contact-us",
+      "components": [],
+      "next": []
     },
     {
       "title": "Summary",
@@ -481,7 +274,7 @@
       "items": [
         {
           "text": "I need radiation measurements, testing, or dosimetry",
-          "value": "testing", 
+          "value": "testing",
           "description": "Including personal dose monitoring, instrument calibration, dental X-ray equipment testing, laboratory analysis, radon measurement, chromosome dosimetry, or whole body monitoring"
         },
         {
@@ -507,7 +300,8 @@
         {
           "text": "I'm not sure, or my enquiry doesn't fit the above",
           "value": "other",
-          "description": "If your enquiry does not fit any of the above, tell us in more detail in the next step" }
+          "description": "If your enquiry does not fit any of the above, tell us in more detail in the next step"
+        }
       ]
     },
     {
@@ -517,42 +311,42 @@
       "items": [
         {
           "text": "Radon Measurement Services (UKradon)",
-          "value": "UKradon", 
+          "value": "Radon Measurement Services (UKradon)",
           "description": "Measurement of radon gas levels in homes, workplaces, and other buildings, with advice on remediation"
         },
         {
           "text": "Personal Dosimetry Service",
-          "value": "personal",
+          "value": "Personal Dosimetry Service",
           "description": "Approved dosimetry service measuring and recording radiation doses received by customers and their employees"
         },
         {
           "text": "Chromosome Dosimetry Services",
-          "value": "chromosome",
+          "value": "Chromosome Dosimetry Servicese",
           "description": "Assessing the damage to DNA, caused by ionising radiation exposures, in individual blood samples, in order to give an estimation of radiation dose"
         },
         {
           "text": "Dental X-ray Protection Services",
-          "value": "dental",
+          "value": "Dental X-ray Protection Services",
           "description": "X-ray equipment testing, quality assurance assessments, and radiation protection advice for dental practices and trade companies"
         },
         {
           "text": "Dose Calculation Service",
-          "value": "dose",
+          "value": "Dose Calculation Service",
           "description": "Calculation of radiation doses to patients and staff from radiopharmaceuticals, with detailed reports for clinical and regulatory use"
         },
         {
           "text": "Instrument Testing Services",
-          "value": "instrument",
+          "value": "Instrument Testing Services",
           "description": "Testing, calibration, and approval of radiation protection instruments"
         },
         {
           "text": "Laboratory and Radiochemistry Services",
-          "value": "laboratory",
+          "value": "Laboratory and Radiochemistry Services",
           "description": "Analysis of environmental, biological, and other samples for radioactive content"
         },
         {
           "text": "Whole Body Monitoring Service",
-          "value": "wholeBody",
+          "value": "Whole Body Monitoring Service",
           "description": "Assessment of internal contamination by measuring gamma-emitting radionuclides in the body"
         },
         {
@@ -569,38 +363,39 @@
       "items": [
         {
           "text": "Chromosome Dosimetry Services",
-          "value": "chromosone", 
+          "value": "Chromosome Dosimetry Services",
           "description": "Specialist training in biological dosimetry techniques, including cytogenetic methods used for individual dose assessment and emergency triage."
         },
         {
           "text": "Non-lonising Radiation Services",
-          "value": "nonIonising",
+          "value": "Non-lonising Radiation Service",
           "description": "Training on the health effects of electromagnetic fields, optical radiation, and other non-ionising hazards and how to comply with relevant regulations"
         },
         {
           "text": "Radiation Emergency Preparedness Service",
-          "value": "emergency",
+          "value": "Radiation Emergency Preparedness Service",
           "description": "Training courses for emergency responders and planners, including NAIR training, exercises, and preparedness for radiological or nuclear incidents"
         },
         {
           "text": "Radiation Protection Services Facilities",
-          "value": "protection",
+          "value": "Radiation Protection Services Facilitiesn",
           "description": "Hire of specialist training facilities at UKHSA sites. Suitable for organisations delivering their own radiation protection or related training courses"
         },
         {
           "text": "Radiation Safety Training for the Workplace",
-          "value": "safety",
+          "value": "Radiation Safety Training for the Workplace",
           "description": "Face-to-face and online courses covering all aspects of radiation safety"
         },
         {
           "text": "Training for Radiological Protection Professionals",
-          "value": "radiological",
+          "value": "Training for Radiological Protection Professionals",
           "description": "Professional-level courses including the Radiological Protection Training Scheme, designed for graduates and practitioners seeking specialist qualifications"
         },
         {
           "text": "General enquiry",
           "value": "other",
-          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next" }
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
+        }
       ]
     },
     {
@@ -610,80 +405,112 @@
       "items": [
         {
           "text": "Dangerous Goods Safety Adviser Service",
-          "value": "dangerousGoods", 
+          "value": "Dangerous Goods Safety Adviser Service",
           "description": "Compliance advice for organisations transporting radioactive or other dangerous goods, covering legal requirements and practical safety measures"
         },
         {
           "text": "Dental X-ray Protection Services",
-          "value": "dental",
+          "value": "Dental X-ray Protection Services",
           "description": "Radiation Protection Advisor and medical physics expertise, quality assurance and equipment assessments for dental practices and X-ray equipment suppliers"
         },
         {
           "text": "Environmental Radiological Assessment Services",
-          "value": "environmental",
+          "value": "Environmental Radiological Assessment Services",
           "description": "Consultancy on the radiological impact of routine discharges and accidental releases, supporting discharge authorisations and regulatory submissions"
         },
         {
           "text": "Laboratory and Radiochemistry Services",
-          "value": "laboratory",
+          "value": "Laboratory and Radiochemistry Services",
           "description": "Specialist analytical consultancy for organisations needing independent advice on radioactive sample analysis or measurement methodology"
         },
         {
           "text": "Medical Exposures Group",
-          "value": "medical",
+          "value": "Medical Exposures Group",
           "description": "Guidance, reports, and expert advice on radiation doses from medical and diagnostic imaging exposures, supporting clinical and regulatory decision-making"
         },
         {
           "text": "Non-lonising Radiation Services",
-          "value": "nonIonising",
+          "value": "Non-lonising Radiation Services",
           "description": "Advice and consultancy on electromagnetic fields, optical radiation, lasers and other non-ionising radiation hazards in the workplace"
         },
         {
           "text": "Radiation Protection Adviser Services (RPA)",
-          "value": "rpa",
+          "value": "Radiation Protection Adviser Services (RPA)",
           "description": "Appointed RPA support under IRR17, covering industry, education, veterinary, dental, and medical workplaces"
         },
         {
           "text": "General enquiry",
           "value": "other",
-          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next" }
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
+        }
       ]
     },
     {
-      "title": "Contact Reasons",
-      "name": "contactReasonList",
+      "title": "Software Types",
+      "name": "softwareTypesList",
       "type": "string",
       "items": [
-        { "text": "Clara support", "value": "Clara support" },
-        { "text": "Dose reports and records", "value": "Dose reports and records" },
-        { "text": "General queries", "value": "General queries" },
-        { "text": "New customers", "value": "New customers" },
-        { "text": "Orders", "value": "Orders" },
-        { "text": "Technical queries", "value": "Technical queries" },
-        { "text": "Other", "value": "Other" }
+        {
+          "text": "Environmental Radiological Assessment Services",
+          "value": "Environmental Radiological Assessment Services",
+          "description": "Bespoke modelling tools and software products for assessing the impact of planned and accidental releases of radioactivity to the environment"
+        },
+        {
+          "text": "PACE - Probabilistic Accident Consequence Evaluation",
+          "value": "PACE - Probabilistic Accident Consequence Evaluation",
+          "description": "Level-3 Probabilistic Safety Analysis tool for evaluating off-site radiological consequences of accidental releases from nuclear facilities"
+        },
+        {
+          "text": "PC-CREAM - Radiological Impact Assessment Software",
+          "value": "PC-CREAM - Radiological Impact Assessment Software",
+          "description": "Suite of models for assessing the radiological impact of routine, continuous discharges from nuclear and non-nuclear installations"
+        },
+        {
+          "text": "Taurus and IMBA Internal Dosimetry Software",
+          "value": "Taurus and IMBA Internal Dosimetry Softwar",
+          "description": "Software for calculating internal radiation doses from intakes of radionuclides"
+        },
+        {
+          "text": "General enquiry",
+          "value": "other",
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
+        }
       ]
     },
     {
-      "title": "Hear about us",
-      "name": "howHearList",
+      "title": "Research Types",
+      "name": "researchTypesList",
       "type": "string",
       "items": [
-        { "text": "Advertising", "value": "Advertising" },
-        { "text": "Conference or Exhibition", "value": "Conference or Exhibition" },
-        { "text": "Existing client", "value": "Existing client" },
-        { "text": "From your Radiation Protection Advisor", "value": "From your Radiation Protection Advisor" },
-        { "text": "Search engine", "value": "Search engine" },
-        { "text": "Word of mouth", "value": "Word of mouth" },
-        { "text": "Other", "value": "Other" }
-
-      ]
-    },
-    {
-      "title": "Newletter Preference",
-      "name": "newsPref",
-      "type": "string",
-      "items": [
-        { "text": "I would like to receive UKHSA Monitor newsletters. Sent twice a year with the latest news and information.", "value": "true" 
+        {
+          "text": "Chromosome Dosimetry Services",
+          "value": "Chromosome Dosimetry Services",
+          "description": "Research and development in biological dosimetry, including novel assay development and collaboration with international biodosimetry networks"
+        },
+        {
+          "text": "Medical Dosimetry Group",
+          "value": "Medical Dosimetry Group",
+          "description": "Specialist research, advice, and guidance on radiation doses from medical exposures, supporting clinical practice, regulation and radiation protection policy"
+        },
+        {
+          "text": "Radiation Effects",
+          "value": "Radiation Effects",
+          "description": "Research into the health effects of ionising radiation exposure, including epidemiological studies and mechanistic research underpinning radiation protection standards"
+        },
+        {
+          "text": "Radiation Emergency Preparedness Service",
+          "value": "Radiation Emergency Preparedness Service",
+          "description": "Research, consultancy, and collaborative work supporting UK readiness for radiological or nuclear emergencies, including post-accident recovery and environmental assessment"
+        },
+        {
+          "text": "Working with UK Health Security Agency",
+          "value": "Working with UK Health Security Agency",
+          "description": "Collaborative projects, access to specialist facilities, equipment, and intellectual property and longer-term partnership arrangements with UKHSA"
+        },
+        {
+          "text": "General enquiry",
+          "value": "other",
+          "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
         }
       ]
     }
@@ -779,6 +606,28 @@
       }
     },
     {
+      "displayName": "researchSupport",
+      "name": "XaNsL",
+      "value": {
+        "name": "researchSupport",
+        "conditions": [
+          {
+            "field": {
+              "name": "supportType",
+              "type": "RadiosField",
+              "display": "What type of help or support are you looking for?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "research",
+              "display": "research"
+            }
+          }
+        ]
+      }
+    },
+    {
       "displayName": "otherSupport",
       "name": "hpkaS",
       "value": {
@@ -801,22 +650,32 @@
       }
     },
     {
-      "displayName": "researchSupport",
-      "name": "XaNsL",
+      "displayName": "hasService",
+      "name": "ojQCvt",
       "value": {
-        "name": "researchSupport",
+        "name": "hasService",
         "conditions": [
           {
             "field": {
               "name": "supportType",
               "type": "RadiosField",
-              "display": "What type of help or support are you looking for?"
+              "display": "type"
             },
-            "operator": "is",
+            "operator": "is not",
+            "value": { "type": "Value", "value": "other", "display": "other" }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "service",
+              "type": "RadiosField",
+              "display": "service"
+            },
+            "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "research",
-              "display": "research"
+              "value": "other",
+              "display": "other"
             }
           }
         ]

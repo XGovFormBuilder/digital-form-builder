@@ -590,6 +590,17 @@ export class PageControllerBase {
         }
         return true;
       });
+
+      viewModel.componentsAfter = viewModel.componentsAfter.filter((component) => {
+        if (
+          (component.model.content || component.type === "Details") &&
+          component.model.condition
+        ) {
+          const condition = this.model.conditions[component.model.condition];
+          return condition.fn(relevantState);
+        }
+        return true;
+      });
       /**
        * For conditional reveal components (which we no longer support until GDS resolves the related accessibility issues {@link https://github.com/alphagov/govuk-frontend/issues/1991}
        */
