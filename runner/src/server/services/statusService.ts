@@ -2,19 +2,27 @@ import { HapiRequest, HapiServer } from "../types";
 import { createHmacRaw } from "../utils/hmac";
 import {
   CacheService,
+  FormSecurityService,
   NotifyService,
   PayService,
   WebhookService,
 } from "server/services";
 import { SendNotificationArgs } from "server/services/notifyService";
-import { Output, WebhookOutputConfiguration } from "@xgovformbuilder/model";
-import type { NotifyModel } from "../plugins/engine/models/submission";
+import {
+  ConfirmationPage,
+  WebhookOutputConfiguration,
+} from "@xgovformbuilder/model";
 import { ComponentCollection } from "server/plugins/engine/components/ComponentCollection";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
 import config from "server/config";
 import nunjucks from "nunjucks";
+import {
+  OutputData,
+  TNotifyModel,
+} from "../plugins/engine/models/submission/types";
+import { ComponentCollectionViewModel } from "../plugins/engine/components/types";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -25,20 +33,16 @@ type OutputArgs = {
   webhook: WebhookModel[];
 };
 
-type OutputModel = Output & {
-  outputData: NotifyModel | WebhookModel;
-};
-
 function isWebhookModel(
-  output: OutputModel["outputData"]
+  output: OutputData["outputData"]
 ): output is WebhookModel {
   return (output as WebhookModel)?.url !== undefined;
 }
 
 function isNotifyModel(
-  output: OutputModel["outputData"]
-): output is NotifyModel {
-  return (output as NotifyModel)?.emailAddress !== undefined;
+  output: OutputData["outputData"]
+): output is TNotifyModel {
+  return (output as TNotifyModel)?.emailAddress !== undefined;
 }
 
 export class StatusService {
@@ -50,6 +54,7 @@ export class StatusService {
   webhookService: WebhookService;
   notifyService: NotifyService;
   payService: PayService;
+  formSecurityService: FormSecurityService;
 
   constructor(server: HapiServer) {
     this.logger = server.logger;
@@ -58,11 +63,13 @@ export class StatusService {
       webhookService,
       notifyService,
       payService,
+      formSecurityService,
     } = server.services([]);
     this.cacheService = cacheService;
     this.webhookService = webhookService;
     this.notifyService = notifyService;
     this.payService = payService;
+    this.formSecurityService = formSecurityService;
   }
   async shouldShowPayErrorPage(request: HapiRequest): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
@@ -170,6 +177,10 @@ export class StatusService {
       }
     }
 
+    const additionalHeaders = await this.formSecurityService.getSecurityHeaders(
+      request
+    );
+
     const firstWebhook = outputs?.find((output) => output.type === "webhook");
     const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
     if (firstWebhook) {
@@ -178,7 +189,7 @@ export class StatusService {
         { ...formData },
         "POST",
         firstWebhook.outputData.sendAdditionalPayMetadata,
-        customSecurityHeaders
+        additionalHeaders
       );
       await this.cacheService.mergeState(request, {
         reference: newReference,
@@ -204,7 +215,7 @@ export class StatusService {
           },
           "POST",
           sendAdditionalPayMetadata,
-          customSecurityHeaders
+          additionalHeaders
         )
       ),
     ];
@@ -218,8 +229,8 @@ export class StatusService {
   /**
    * Appends `{paymentSkipped: true}` to the `metadata` property and drops the `fees` property if the user has chosen to skip payment
    */
-  webhookArgsFromState(state) {
-    const { pay = {}, webhookData } = state;
+  webhookArgsFromState(state: FormSubmissionState) {
+    const { pay = {} as FormSubmissionState["pay"], webhookData } = state;
     const { paymentSkipped } = pay;
     const webhookArgs = (() => {
       if (!webhookData) {
@@ -256,7 +267,7 @@ export class StatusService {
   }
 
   emailOutputsFromState(
-    outputData,
+    outputData: TNotifyModel,
     reference,
     payReference,
     hmacSignature,
@@ -294,7 +305,7 @@ export class StatusService {
   }
 
   outputArgs(
-    outputs: OutputModel[] = [],
+    outputs: OutputData[] = [],
     formData = {},
     reference,
     payReference,
@@ -303,7 +314,7 @@ export class StatusService {
   ): OutputArgs {
     this.logger.trace(["StatusService", "outputArgs"], JSON.stringify(outputs));
     return outputs.reduce<OutputArgs>(
-      (previousValue: OutputArgs, currentValue: OutputModel) => {
+      (previousValue: OutputArgs, currentValue: OutputData) => {
         let { notify, webhook } = previousValue;
         if (isNotifyModel(currentValue.outputData)) {
           const args = this.emailOutputsFromState(
@@ -354,6 +365,11 @@ export class StatusService {
     let model = {
       reference: referenceToDisplay,
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
+    } as {
+      reference: string;
+      paymentSkipped?: boolean;
+      components: ComponentCollectionViewModel;
+      customText: Partial<ConfirmationPage["customText"]>;
     };
 
     const confirmationPageDef = formModel.def.specialPages?.confirmationPage;

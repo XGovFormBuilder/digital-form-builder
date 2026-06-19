@@ -34,6 +34,7 @@ import {
   MockUploadService,
   WebhookService,
   ExitService,
+  FormSecurityService,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
@@ -116,9 +117,12 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     AddressService,
     ExitService,
+    FormSecurityService,
   ]);
-  if (!config.documentUploadApiUrl) {
+
+  if (config.isE2ETest) {
     server.registerService([
+      /* E2E tests uses MockUploadService */
       Schmervice.withName("uploadService", MockUploadService),
     ]);
   } else {

@@ -1,6 +1,6 @@
-$govuk-assets-path: "~govuk-frontend/govuk/assets/";
+$govuk-assets-path: "/assets/";
 @import "utils";
-@import "../node_modules/govuk-frontend/govuk/all.scss";
+@import "govuk-frontend/govuk/all";
 
 $color-orange: #ffbf47;
 
