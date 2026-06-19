@@ -74,8 +74,18 @@ export enum OutputType {
   Webhook = "webhook",
 }
 
+type BaseOutput = {
+  name: string;
+  title: string;
+};
+
 export type EmailOutputConfiguration = {
   emailAddress: string;
+};
+
+export type EmailOutput = BaseOutput & {
+  type: OutputType.Email;
+  outputConfiguration: EmailOutputConfiguration;
 };
 
 export type NotifyOutputConfiguration = {
@@ -94,23 +104,23 @@ export type NotifyOutputConfiguration = {
   escapeURLs?: boolean;
 };
 
+export type NotifyOutput = BaseOutput & {
+  type: OutputType.Notify;
+  outputConfiguration: NotifyOutputConfiguration;
+};
+
 export type WebhookOutputConfiguration = {
   url: string;
   sendAdditionalPayMetadata?: boolean;
   allowRetry?: boolean;
 };
 
-export type OutputConfiguration =
-  | EmailOutputConfiguration
-  | NotifyOutputConfiguration
-  | WebhookOutputConfiguration;
-
-export type Output = {
-  name: string;
-  title: string;
-  type: OutputType;
-  outputConfiguration: OutputConfiguration;
+export type WebhookOutput = BaseOutput & {
+  type: OutputType.Webhook;
+  outputConfiguration: WebhookOutputConfiguration;
 };
+
+export type Output = EmailOutput | NotifyOutput | WebhookOutput;
 
 export type ConfirmationPage = {
   customText: {

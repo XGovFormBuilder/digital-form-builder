@@ -33,6 +33,7 @@ import {
   MockUploadService,
   WebhookService,
   ExitService,
+  FormSecurityService,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
@@ -114,6 +115,7 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     AddressService,
     ExitService,
+    FormSecurityService,
   ]);
 
   if (config.isE2ETest) {

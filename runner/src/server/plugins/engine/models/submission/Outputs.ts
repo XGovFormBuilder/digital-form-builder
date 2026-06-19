@@ -6,17 +6,11 @@ import {
   NotifyModel,
 } from "server/plugins/engine/models/submission";
 import { WebhookData } from "server/plugins/engine/models/types";
-import {
-  EmailOutputConfiguration,
-  NotifyOutputConfiguration,
-  OutputType,
-  WebhookOutputConfiguration,
-} from "@xgovformbuilder/model";
 import { OutputData } from "server/plugins/engine/models/submission/types";
 
 export class Outputs {
   webhookData: WebhookData;
-  outputs: (OutputData | unknown)[];
+  outputs: OutputData[];
 
   constructor(model: FormModel, state: FormSubmissionState) {
     this.webhookData = WebhookModel(model, state);
@@ -28,15 +22,15 @@ export class Outputs {
           /**
            * Typescript does not support nested type discrimination {@link https://github.com/microsoft/TypeScript/issues/18758}
            */
-          const notifyOutputConfiguration = output.outputConfiguration as NotifyOutputConfiguration;
+          const notifyOutputConfiguration = output.outputConfiguration;
           return {
-            type: OutputType.Notify,
+            type: output.type,
             outputData: NotifyModel(model, notifyOutputConfiguration, state),
           };
         case "email":
-          const emailOutputConfiguration = output.outputConfiguration as EmailOutputConfiguration;
+          const emailOutputConfiguration = output.outputConfiguration;
           return {
-            type: OutputType.Email,
+            type: output.type,
             outputData: EmailModel(
               model,
               emailOutputConfiguration,
@@ -44,9 +38,9 @@ export class Outputs {
             ),
           };
         case "webhook":
-          const webhookOutputConfiguration = output.outputConfiguration as WebhookOutputConfiguration;
+          const webhookOutputConfiguration = output.outputConfiguration;
           return {
-            type: OutputType.Webhook,
+            type: output.type,
             outputData: {
               url: webhookOutputConfiguration.url,
               sendAdditionalPayMetadata:
@@ -55,7 +49,7 @@ export class Outputs {
             },
           };
         default:
-          return {} as unknown;
+          return {} as OutputData;
       }
     });
   }

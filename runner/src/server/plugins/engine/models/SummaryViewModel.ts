@@ -13,6 +13,7 @@ import { Outputs } from "server/plugins/engine/models/submission/Outputs";
 import { summaryDetailsTransformationMap } from "./SummaryViewModel.detailsTransformationMap";
 
 import pino from "pino";
+import { OutputData } from "./submission/types";
 const logger = pino().child({ name: "SummaryViewModel" });
 
 /**
@@ -52,7 +53,7 @@ export class SummaryViewModel {
       }[]
     | undefined;
 
-  _outputs: any; // TODO
+  _outputs: OutputData[] | undefined = undefined;
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
   showPaymentSkippedWarningPage: boolean = false;
