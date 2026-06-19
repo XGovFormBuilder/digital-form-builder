@@ -1,5 +1,4 @@
 import { HapiRequest, HapiServer } from "../types";
-import { createHmacRaw } from "../utils/hmac";
 import {
   CacheService,
   FormSecurityService,
@@ -138,29 +137,6 @@ export class StatusService {
 
     let newReference;
 
-    /**
-     * If the OPTIONAL config contains webhookHmacSharedKey, then we send HMAC Auth headers
-     * This is used to confirm ONLY X-Gov's backend is sending data to our API
-     * Everyone else will be Rejected
-     */
-    const id = request.params?.id;
-    const forms = request.server?.app?.forms;
-    const model = id && forms?.[id];
-    const hmacKey = model?.def?.webhookHmacSharedKey;
-    let customSecurityHeaders: Record<string, string> = {};
-
-    if (hmacKey) {
-      const [hmacSignature, requestTime, hmacExpiryTime] = await createHmacRaw(
-        request.yar.id,
-        hmacKey
-      );
-      customSecurityHeaders = {
-        "X-Request-ID": request.yar.id.toString(),
-        "X-HMAC-Signature": hmacSignature.toString(),
-        "X-HMAC-Time": requestTime.toString(),
-      };
-    }
-
     if (callback) {
       this.logger.info(
         ["StatusService", "outputRequests"],
@@ -200,9 +176,7 @@ export class StatusService {
       otherOutputs,
       formData,
       newReference,
-      state.pay,
-      state.hmacSignature,
-      state.hmacExpiryTime
+      state.pay
     );
 
     const requests = [
@@ -269,9 +243,7 @@ export class StatusService {
   emailOutputsFromState(
     outputData: TNotifyModel,
     reference,
-    payReference,
-    hmacSignature,
-    hmacExpiryTime
+    payReference
   ): SendNotificationArgs {
     const {
       apiKey,
@@ -292,8 +264,6 @@ export class StatusService {
           hasPaymentReference: !!payReference,
           paymentReference: payReference || "",
         }),
-        hmacSignature,
-        hmacExpiryTime,
       },
       reference,
       apiKey,
@@ -308,9 +278,7 @@ export class StatusService {
     outputs: OutputData[] = [],
     formData = {},
     reference,
-    payReference,
-    hmacSignature,
-    hmacExpiryTime
+    payReference
   ): OutputArgs {
     this.logger.trace(["StatusService", "outputArgs"], JSON.stringify(outputs));
     return outputs.reduce<OutputArgs>(
@@ -320,9 +288,7 @@ export class StatusService {
           const args = this.emailOutputsFromState(
             currentValue.outputData,
             reference,
-            payReference,
-            hmacSignature,
-            hmacExpiryTime
+            payReference
           );
           this.logger.trace(
             ["StatusService", "outputArgs", "notify"],

@@ -322,6 +322,19 @@ const exitSchema = joi.object().keys({
   format: joi.string().allow("STATE", "WEBHOOK"),
 });
 
+const msalAuthorizeConfigSchema = joi.object().keys({
+  tenantId: joi.string().required(),
+  clientId: joi.string().required(),
+  clientSecret: joi.string().required(),
+  scopes: joi.array().items(joi.string()).min(1).required(),
+});
+
+const secureFormSubmissionConfig = msalAuthorizeConfigSchema.concat(
+  joi.object().keys({
+    useAwsWafUserAgentWorkaround: joi.bool().optional(),
+  })
+);
+
 export const Schema = joi
   .object()
   .required()
@@ -366,6 +379,7 @@ export const Schema = joi
     confirmationSessionTimeout: joi.number().optional(),
     returnTo: joi.boolean().optional(),
     documentUploadApiUrl: joi.string().optional(),
+    secureFormSubmissionConfig: secureFormSubmissionConfig.optional(),
   });
 
 /**

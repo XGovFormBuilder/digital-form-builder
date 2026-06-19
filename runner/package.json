@@ -36,6 +36,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@azure/msal-node": "^5.2.1",
     "@babel/runtime": "^7.23.3",
     "@hapi/bell": "^13.0.1",
     "@hapi/boom": "^10.0.1",
