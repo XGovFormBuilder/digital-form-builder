@@ -1,0 +1,246 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [],
+      "next": [
+        {
+          "path": "/have-you-tested-this-address-before-using-a-gas-test-kit-purchased-from-us"
+        }
+      ]
+    },
+    {
+      "path": "/have-you-tested-this-address-before-using-a-gas-test-kit-purchased-from-us",
+      "title": "Have you tested this address before using a gas test kit purchased from us?",
+      "components": [
+        {
+          "name": "tfrTaV",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if this address has been tested before using a gas test kit purchased from us"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Have you tested this address before using a gas test kit purchaced from us?",
+          "schema": {},
+          "values": { "type": "listRef" }
+        }
+      ],
+      "next": [
+        {
+          "path": "/was-the-level-above-the-action-level-200-bqm-3",
+          "condition": "jCTvKA"
+        },
+        {
+          "path": "/enter-your-personal-details-placeholder",
+          "condition": "KTPJJd"
+        }
+      ]
+    },
+    {
+      "path": "/was-the-level-above-the-action-level-200-bqm-3",
+      "title": "Was the level above the action level 200 Bq m⁻³",
+      "components": [
+        {
+          "name": "vLGkYq",
+         "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if the level was above the action level of 200 Bq m⁻³"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Was the level above the action level 200 Bq m⁻³",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-taken-any-steps-to-reduce-the-radon-level-since-the-last-test",
+          "condition": "yYdSeb"
+        },
+        {
+          "path": "/enter-your-personal-details-placeholder",
+          "condition": "sxYJjS"
+        }
+      ]
+    },
+    {
+      "path": "/have-you-taken-any-steps-to-reduce-the-radon-level-since-the-last-test",
+      "title": "Have you taken any steps to reduce the radon level since the last test?",
+      "components": [
+        {
+          "name": "XOXigN",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if you have taken steps to reduce the radon level since the last test"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Have you taken any steps to reduce the radon level since the last test?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/you-may-be-eligible-for-a-free-test",
+          "condition": "cHAkee"
+        },
+        {
+          "path": "/enter-your-personal-details-placeholder",
+          "condition": "mUgnbI"
+        }
+      ]
+    },
+    {
+      "path": "/you-may-be-eligible-for-a-free-test",
+      "title": "You may be eligible for a free test",
+      "components": [
+        {
+          "name": "yuiyLN",
+          "options": {},
+          "type": "Para",
+          "content": "Contact the Radon team on 01235 822622 to find out.",
+          "schema": {}
+        },
+        {
+          "name": "EoUUVB",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.google.com\" target=\"_blank\">Continue without a free retest</a>",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/enter-your-personal-details-placeholder",
+      "title": "Enter your personal details placeholder",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "HasTested",
+      "name": "jCTvKA",
+      "value": {
+        "name": "HasTested",
+        "conditions": [
+          {
+            "field": {
+              "name": "tfrTaV",
+              "type": "YesNoField",
+              "display": "Have you tested this address before using a gas test kit purchaced from us?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "is200bqm",
+      "name": "yYdSeb",
+      "value": {
+        "name": "is200bqm",
+        "conditions": [
+          {
+            "field": {
+              "name": "vLGkYq",
+              "type": "YesNoField",
+              "display": "Was the level above the action level 200 Bqm-3"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "stepsTaken",
+      "name": "cHAkee",
+      "value": {
+        "name": "stepsTaken",
+        "conditions": [
+          {
+            "field": {
+              "name": "XOXigN",
+              "type": "YesNoField",
+              "display": "Have you taken any steps to reduce the radon level since the last test?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "hasNotTested",
+      "name": "KTPJJd",
+      "value": {
+        "name": "hasNotTested",
+        "conditions": [
+          {
+            "field": {
+              "name": "tfrTaV",
+              "type": "YesNoField",
+              "display": "Have you tested this address before using a gas test kit purchaced from us?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "isNot200bqm",
+      "name": "sxYJjS",
+      "value": {
+        "name": "isNot200bqm",
+        "conditions": [
+          {
+            "field": {
+              "name": "vLGkYq",
+              "type": "YesNoField",
+              "display": "Was the level above the action level 200 Bqm-3"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "stepsNotTaken",
+      "name": "mUgnbI",
+      "value": {
+        "name": "stepsNotTaken",
+        "conditions": [
+          {
+            "field": {
+              "name": "XOXigN",
+              "type": "YesNoField",
+              "display": "Have you taken any steps to reduce the radon level since the last test?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {
+    "allowSubmissionWithoutPayment": true,
+    "maxAttempts": 3,
+    "showPaymentSkippedWarningPage": false
+  }
+}
