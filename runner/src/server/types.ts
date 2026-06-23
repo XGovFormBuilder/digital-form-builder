@@ -11,6 +11,7 @@ import { Logger } from "pino";
 
 import { RateOptions } from "./plugins/rateLimit";
 import {
+  AddressService,
   CacheService,
   ExitService,
   MagicLinkCacheService,
@@ -19,10 +20,22 @@ import {
   StatusService,
   UploadService,
   WebhookService,
+  FormSecurityService,
 } from "./services";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { QueueService } from "./services/QueueService";
 import { FormModel } from "server/plugins/engine/models";
+
+type Service =
+  | typeof AddressService
+  | typeof CacheService
+  | typeof ExitService
+  | typeof NotifyService
+  | typeof PayService
+  | typeof StatusService
+  | typeof UploadService
+  | typeof WebhookService
+  | typeof FormSecurityService;
 
 type Services = (
   services: string[]
@@ -37,6 +50,7 @@ type Services = (
   queueService: QueueService;
   queueStatusService: QueueStatusService;
   exitService: ExitService;
+  formSecurityService: FormSecurityService;
 };
 
 export type RouteConfig = {
@@ -71,7 +85,7 @@ declare module "@hapi/hapi" {
   interface Server {
     logger: Logger;
     services: Services; // plugin schmervice
-    registerService: (services: any[]) => void; // plugin schmervice
+    registerService: (services: Service | Service[]) => void; // plugin schmervice
     yar: yar.ServerYar;
   }
 

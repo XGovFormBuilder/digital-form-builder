@@ -1,5 +1,8 @@
 import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
 import { ExitResponse } from "server/services/ExitService";
+import { WebhookData } from "server/plugins/engine/models/types";
+import { FeeState } from "server/services/payService";
+import { OutputData } from "server/plugins/engine/models/submission/types";
 
 /**
  * Used to track the user's state when exiting a form, as well as storing
@@ -58,6 +61,9 @@ export type FormSubmissionState = {
   [propName: string]: any;
   callback?: InitialiseSessionOptions;
   exitState?: ExitState;
+  webhookData: WebhookData;
+  outputs?: OutputData[];
+  pay: FeeState;
 };
 
 export type FormSubmissionErrors = {

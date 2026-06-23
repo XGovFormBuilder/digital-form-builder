@@ -5,14 +5,11 @@
       "@babel/preset-env",
       {
         "targets": {
-          "node": "16"
+          "node": "22"
         }
       }
     ]
   ],
   "exclude": ["node_modules/**"],
-  "plugins": [
-    "@babel/plugin-transform-runtime"
-  ]
+  "plugins": ["@babel/plugin-transform-runtime"]
 }
-

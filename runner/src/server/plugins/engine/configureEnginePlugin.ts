@@ -10,19 +10,17 @@ import config from "../../config";
 
 type ConfigureEnginePlugin = (
   formFileName?: string,
-  formFilePath?: string
+  formFilePath?: string,
+  options?: EngineOptions
 ) => {
   plugin: any;
   options: {
     modelOptions: {
       relativeTo: string;
-      previewMode: any;
+      previewMode: boolean | undefined;
     };
-    configs: {
-      configuration: any;
-      id: string;
-    }[];
-    previewMode: boolean;
+    configs: FormConfiguration[];
+    previewMode: boolean | undefined;
   };
 };
 

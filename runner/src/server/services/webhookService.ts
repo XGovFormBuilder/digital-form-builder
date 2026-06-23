@@ -21,6 +21,7 @@ export class WebhookService {
    * @param data - object to send to the webhook
    * @param method - POST or PUT request, defaults to POST
    * @param sendAdditionalPayMetadata - whether to include additional metadata in the request
+   * @param additionalHeaders - additional headers to include in the request
    * @returns object with the property `reference` webhook if the response returns with a reference number. If the call fails, the reference will be 'UNKNOWN'.
    */
   async postRequest(
@@ -28,7 +29,7 @@ export class WebhookService {
     data: object,
     method: "POST" | "PUT" = "POST",
     sendAdditionalPayMetadata: boolean = false,
-    authHeaders?: Record<string, string>
+    additionalHeaders?: Record<string, string>
   ) {
     // Commented out due to potential for logging PII
     // this.logger.info(
@@ -45,7 +46,7 @@ export class WebhookService {
         ...DEFAULT_OPTIONS,
         headers: {
           ...DEFAULT_OPTIONS.headers,
-          ...(authHeaders || {}),
+          ...(additionalHeaders || {}),
         },
         payload: JSON.stringify(data),
       });

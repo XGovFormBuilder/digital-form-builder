@@ -36,6 +36,9 @@ module.exports = {
   isTest: deferConfig(function () {
     return this.env === "test";
   }),
+  isE2ETest: deferConfig(function () {
+    return this.env === "e2e_test";
+  }),
   isSandbox: deferConfig(function () {
     return this.sandbox === true || this.sandbox === "true";
   }),

@@ -1,4 +1,6 @@
 import { HapiRequest, HapiResponseToolkit } from "server/types";
+import ServerConfig from "server/config";
+import { ReadableStreamEntry } from "src/server/services/upload/uploadService";
 
 const parsedError = (key: string, error?: string) => {
   return {
@@ -11,7 +13,8 @@ const parsedError = (key: string, error?: string) => {
 
 export async function handleUpload(
   request: HapiRequest,
-  h: HapiResponseToolkit
+  h: HapiResponseToolkit,
+  config?: { additionalHeaders?: Record<string, string> }
 ) {
   const { cacheService, uploadService } = request.services([]);
   const state = await cacheService.getState(request);
@@ -23,11 +26,18 @@ export async function handleUpload(
     return h.continue;
   }
 
+  const fileUploadUrl = uploadService.getFileUploadUrl(ServerConfig, request);
+
+  if (!fileUploadUrl) {
+    logger.error("No file upload url configured");
+    return h.continue;
+  }
+
   /**
    * files is an array of tuples containing key and value.
    * value may be an array of file data where multiple files have been uploaded
    */
-  const validFiles = request.pre.validFiles;
+  const validFiles = request.pre.validFiles as ReadableStreamEntry[];
 
   for (const entry of validFiles) {
     const [fieldName, streams] = entry;
@@ -46,7 +56,10 @@ export async function handleUpload(
     let response;
     let errors = new Set<any>();
     try {
-      response = await uploadService.uploadDocuments(streams, request);
+      response = await uploadService.uploadDocuments(streams, {
+        url: fileUploadUrl,
+        additionalHeaders: config?.additionalHeaders,
+      });
     } catch (err) {
       if (err.data?.res) {
         response = uploadService.parsedDocumentUploadResponse(err.data);

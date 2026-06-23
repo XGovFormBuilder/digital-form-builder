@@ -9,7 +9,9 @@
     "watch": "babel --watch --extensions '.ts' src -d dist --copy-files -s inline",
     "start": "node dist/index.js",
     "start:local": "NODE_ENV=development nodemon dist/index.js",
+    "start:e2e": "NODE_ENV=e2e_test nodemon dist/index.js",
     "dev": "concurrently 'yarn watch' 'yarn start:local'",
+    "dev:e2e": "concurrently 'yarn watch' 'yarn start:e2e'",
     "build": "yarn build:css && yarn babel-build && yarn run check-forms",
     "build:css": "yarn sass src/client/sass:public/build/stylesheets -s compressed -I . --no-source-map",
     "babel-build": "babel --extensions '.ts' src -d dist --copy-files -s inline",
@@ -30,7 +32,7 @@
     "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/main/builder"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
@@ -86,21 +88,20 @@
     "@babel/core": "^7.23.3",
     "@babel/eslint-parser": "^7.23.3",
     "@babel/eslint-plugin": "^7.22.10",
-    "@babel/plugin-proposal-export-default-from": "^7.23.3",
-    "@babel/plugin-transform-classes": "^7.23.3",
-    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
     "@babel/plugin-transform-runtime": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
     "@babel/register": "^7.22.15",
     "@hapi/code": "8.0.1",
-    "@hapi/lab": "24.0.0",
+    "@hapi/eslint-plugin": "^6.0.0",
+    "@hapi/lab": "^25.3.2",
     "@oclif/core": "^1.19.0",
     "@types/hapi": "^18.0.7",
     "@types/hapi__yar": "^10.1.1",
     "@types/hoek": "^4.1.4",
     "@types/mysql": "^2.15.21",
     "@types/nodemailer": "^6.4.4",
+    "@types/sinon": "^10.0.0",
     "@types/url-parse": "^1.4.8",
     "@types/wreck": "^14.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
@@ -112,7 +113,7 @@
     "cheerio": "^1.0.0-rc.10",
     "chrome-launcher": "^0.13.4",
     "code": "5.2.4",
-    "concurrently": "^8.0.0",
+    "concurrently": "^9.0.0",
     "date-fns": "^2.24.0",
     "eslint": "^8.11.0",
     "eslint-plugin-import": "^2.25.4",
@@ -125,7 +126,7 @@
     "prisma": "6.12.0",
     "sass": "^1.49.9",
     "sinon": "^13.0.1",
-    "typescript": "4.9.5"
+    "typescript": "^5.9.x"
   },
   "installConfig": {
     "hoistingLimits": "dependencies",
