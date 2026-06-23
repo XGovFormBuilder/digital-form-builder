@@ -12,6 +12,7 @@
   },
   "webhookHmacSharedKey": "${KLSkey}",
   "fileUploadHmacSharedKey": "${KLSFileUploadKey}",
+  "documentUploadApiUrl": "${KLSUploadAPILink}",
   "magicLinkConfig": "kls-magic-link",
   "name": "UKHSA Knowledge and Library Services (KLS)",
   "pages": [

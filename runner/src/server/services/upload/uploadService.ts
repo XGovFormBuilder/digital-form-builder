@@ -2,7 +2,6 @@ import FormData from "form-data";
 
 import config from "../../config";
 import { get, post, Response } from "../httpService";
-import { createHmacRaw } from "../../utils/hmac";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
 import { ServerConfiguration } from "src/server/utils/configSchema";
 
