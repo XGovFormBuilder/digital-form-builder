@@ -1,0 +1,62 @@
+{
+  "startPage": "/name",
+  "pages": [
+    {
+      "title": "Name",
+      "path": "/name",
+      "components": [
+        {
+          "name": "first_name",
+          "options": {},
+          "type": "TextField",
+          "title": "First name"
+        },
+        {
+          "name": "last_name",
+          "options": { "required": false, "optionalText": false },
+          "type": "TextField",
+          "title": "Last name"
+        }
+      ],
+      "controller": "RepeatingSectionPageController",
+      "next": [{ "path": "/repeating" }],
+      "section": "PeopleYouLiveWith"
+    },
+    {
+      "path": "/repeating",
+      "title": "Do you live with anyone else?",
+      "controller": "RepeatingSectionSummaryPageController",
+      "components": [
+        {
+          "name": "PeopleYouLiveWithContainer",
+          "options": {},
+          "type": "TextField",
+          "title": "Person you live with",
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [
+    {
+      "name": "PeopleYouLiveWith",
+      "title": "People you live with",
+      "hideTitle": false
+    }
+  ],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {}
+}

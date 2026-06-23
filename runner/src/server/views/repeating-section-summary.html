@@ -1,33 +1,62 @@
+{% from "partials/summary-detail.html" import summaryDetail %}
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "summary-list/macro.njk" import govukSummaryList %}
+{% from "radios/macro.njk" import govukRadios %}
+
 {% extends 'layout.html' %}
 
-{% block templateImports %}
-  {{ super() }}
-{% endblock %}}
-
-{% from "error-summary/macro.njk" import govukErrorSummary %}
-{% from "partials/components.html" import componentList with context %}
-{% from "partials/summary-card.html" import summaryCard %}
-
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {% if errors %}
-        {{ govukErrorSummary(errors) }}
-      {% endif %}
-
-      <h1 class="govuk-heading-l">
-        Check these details are correct before continuing
-      </h1>
-
-      {% for detail in details %}
-        {% if details.length === 1 %}
-          {{ summaryCard(detail, true) }}
-        {% else %}
-          {{ summaryCard(detail, false, returnUrl) }}
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% if errors %}
+          {{ govukErrorSummary(errors) }}
         {% endif %}
-      {% endfor %}
 
-      {% include "partials/form.html" %}
+        <h1 class="govuk-heading-l">Check these details are correct before continuing</h1>
+        {% for detail in details %}
+          <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+              <h2 class="govuk-summary-card__title">{{ detail.title }}</h2>
+              <ul class="govuk-summary-card__actions">
+                <li class="govuk-summary-card__action">
+                  <a class="govuk-link" href="?removeAtIndex={{ loop.index - 1 }}">Delete</a>
+                </li>
+              </ul>
+            </div>
+            <div class="govuk-summary-card__content">
+              {{ govukSummaryList(detail) }}
+            </div>
+          </div>
+        {% endfor %}
+        <form action=""  method="post" enctype="multipart/form-data">
+          <input type="hidden" name="crumb" value="{{crumb}}"/>
+          {{ govukRadios({
+            name: "next",
+            classes: "govuk-radios--inline",
+            fieldset: {
+              legend: {
+                text: pageTitle,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: [
+              {
+                value: "increment",
+                text: "Yes"
+              },
+              {
+                value: "next",
+                text: "No"
+              }
+            ],
+            errorMessage: {
+              text: errors.errorList[0].text
+            } if errors
+          }) }}
+          <button class="govuk-button" data-module="govuk-button">Continue</button>
+        </form>
+      </div>
     </div>
   </div>
 {% endblock %}
