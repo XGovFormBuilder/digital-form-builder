@@ -1,11 +1,17 @@
 # XGov Digital Form Builder
 
+## Project vision
+
+- Allow anyone to design and deploy GOV.UK-style forms quickly
+- Provide a low-code **designer** and a robust **runner** that stay in sync
+- Favour standards-compliant, accessible journeys over one-off customisations
+
 ## Support
 
 - Join the [community on slack](https://join.slack.com/t/xgov-digital-form-bld/shared_invite/zt-xn5ltztf-3_oBzZaziV4sCpDDOGuP6Q)
 - Contact [support@cautionyourblast.com](mailto:support@cautionyourblast.com) if you are unable to join Slack in your organisation.
 
-## contributions
+## Contributions
 
 Issues and pull requests are welcome. Please check [CONTRIBUTING.md](.github/CONTRIBUTING.md) first!
 

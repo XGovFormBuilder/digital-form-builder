@@ -1,3 +1,7 @@
+> **Are you a maintainer?**  
+> Please also read `MAINTAINERS.md` for project vision, quality expectations
+> and maintainer responsibilities.
+
 # Contributing Guide
 
 Contributions are welcome and are greatly appreciated! Every little bit helps.
