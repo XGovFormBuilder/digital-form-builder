@@ -1,3 +1,14 @@
+# This is a reusable workflow unit which can be used to deploy to heroku.
+# To deploy, add the following to your workflow
+#deploy:
+#  needs: [calculate-version, assign-semver, build-and-publish-images]
+#  uses: ./.github/workflows/deploy-development.yml
+#  secrets: inherit
+#  with:
+#    repository: # heroku repository to push to
+#    app: runner
+#    tag: ${{ needs.assign-semver.outputs.SEMVER }}
+
 name: Deploy Development Environment
 
 on:
@@ -9,6 +20,9 @@ on:
       tag:
         description: "Tag to use for heroku deployments"
         required: true
+      repository:
+        required: true
+        description: "The heroku repository to push to"
   workflow_call:
     inputs:
       app:
@@ -19,7 +33,6 @@ on:
         description: "Tag to use for heroku deployments"
         required: true
         type: string
-
 
 jobs:
   deploy:
@@ -36,12 +49,12 @@ jobs:
         run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:${{ inputs.tag }}
 
       - name: Tag Image
-        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:${{ inputs.tag }} registry.heroku.com/digital-form-builder-${{ inputs.app }}/web
+        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:${{ inputs.tag }} ${{ inputs.repository }}
 
       - name: Push to Heroku Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: docker push registry.heroku.com/digital-form-builder-${{ inputs.app }}/web
+        run: docker push ${{ inputs.repository }}
 
       - name: Release
         env:
