@@ -12,15 +12,20 @@ export class CheckboxesField extends SelectionControlField {
 
     let schema = joi.array().single().label(def.title.toLowerCase());
 
+    schema = schema.items(joi[this.listType]().allow(...this.values));
+
     if (options.required === false) {
-      // null or empty string is valid for optional fields
-      schema = schema
-        .empty(null)
-        .items(joi[this.listType]().allow(...this.values, ""));
+      schema = schema.empty(null).allow("");
     } else {
-      schema = schema
-        .items(joi[this.listType]().allow(...this.values))
-        .required();
+      schema = schema.required();
+    }
+
+    if (options.finalValue) {
+      schema = schema.custom((value, helpers) =>
+        value.includes(options.finalValue) && value.length > 1
+          ? helpers.error("any.invalid")
+          : value
+      );
     }
 
     if (options.customValidationMessages) {
@@ -51,9 +56,18 @@ export class CheckboxesField extends SelectionControlField {
       formDataItems = (formData[this.name] ?? "").split(",");
     }
 
-    viewModel.items = (viewModel.items ?? []).map((item) => ({
+    // Get the original items array
+    const items = viewModel.items ?? [];
+
+    // Uses https://github.com/alphagov/govuk-design-system/blob/main/src/components/checkboxes/with-none-option/index.njk
+    // to handle divider and "None" option
+    viewModel.items = (viewModel.items ?? items).map((item, index, arr) => ({
       ...item,
-      checked: !!formDataItems.find((i) => `${item.value}` === i),
+      checked: formDataItems.includes(`${item.value}`),
+      ...(this.options.divider &&
+        index === arr.length - 1 && { behaviour: "exclusive" }),
+      ...(this.options.divider &&
+        index === arr.length - 2 && { divider: "or" }),
     }));
 
     return viewModel;

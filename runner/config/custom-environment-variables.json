@@ -27,6 +27,7 @@
   "sessionTimeout": "SESSION_TIMEOUT",
   "confirmationSessionTimeout": "CONFIRMATION_SESSION_TIMEOUT",
   "sessionCookiePassword": "SESSION_COOKIE_PASSWORD",
+  "sessionCookieSecureAttribute": "SESSION_COOKIE_SECURE_ATTRIBUTE",
   "fromEmailAddress": "FROM_EMAIL_ADDRESS",
   "serviceStartPage": "SERVICE_START_PAGE",
   "privacyPolicyUrl": "PRIVACY_POLICY_URL",

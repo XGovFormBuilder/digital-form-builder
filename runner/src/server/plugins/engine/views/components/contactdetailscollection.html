@@ -1,0 +1,38 @@
+{% from "input/macro.njk" import govukInput %}
+{% from "fieldset/macro.njk" import govukFieldset %}
+
+{% macro ContactDetailsCollection(component) %}
+  <div class="govuk-form-group {{ 'govuk-form-group--error' if component.model.errorMessage }}">
+    {% call govukFieldset({
+      legend: {
+        text: component.model.fieldset.legend.text,
+        classes: "govuk-fieldset__legend--m"
+      }
+    }) %}
+      {% if component.model.hint %}
+        <div class="govuk-hint">{{ component.model.hint.html | safe }}</div>
+      {% endif %}
+
+      {% if component.model.errorMessage %}
+        <p id="{{ component.model.id }}-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span>
+          {{ component.model.errorMessage.text }}
+        </p>
+      {% endif %}
+
+      {% for item in component.model.items %}
+        {{ govukInput({
+          label: item.label,
+          hint: item.hint,
+          id: item.id,
+          name: item.name,
+          value: item.value,
+          type: item.type,
+          classes: item.classes,
+          autocomplete: item.autocomplete,
+          errorMessage: item.errorMessage
+        }) }}
+      {% endfor %}
+    {% endcall %}
+  </div>
+{% endmacro %}

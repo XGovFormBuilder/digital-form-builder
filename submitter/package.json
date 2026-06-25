@@ -50,7 +50,7 @@
     "jest": "^26.6.3",
     "jest-mock-extended": "^3.0.5",
     "nodemon": "^3.0.1",
-    "prisma": "5.22.0",
+    "prisma": "^6.1.0",
     "typescript": "^5.9.x"
   },
   "pkg": {

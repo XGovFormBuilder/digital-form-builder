@@ -206,16 +206,28 @@ export class StatusService {
   webhookArgsFromState(state: FormSubmissionState) {
     const { pay = {} as FormSubmissionState["pay"], webhookData } = state;
     const { paymentSkipped } = pay;
-    const { metadata, fees, ...rest } = webhookData;
-    const webhookArgs = {
-      ...rest,
-      ...(!paymentSkipped && { fees }),
-      metadata: {
-        ...metadata,
-        ...state.metadata,
-        paymentSkipped: paymentSkipped ?? false,
-      },
-    };
+    const webhookArgs = (() => {
+      if (!webhookData) {
+        // Handle the case when webhookData is undefined
+        return {
+          metadata: {
+            ...state.metadata,
+            paymentSkipped: paymentSkipped ?? false,
+          },
+        };
+      }
+
+      const { metadata, fees, ...rest } = webhookData;
+      return {
+        ...rest,
+        ...(!paymentSkipped && { fees }),
+        metadata: {
+          ...metadata,
+          ...state.metadata,
+          paymentSkipped: paymentSkipped ?? false,
+        },
+      };
+    })();
 
     if (pay) {
       webhookArgs.metadata.pay = {

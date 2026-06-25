@@ -26,7 +26,7 @@
     }
   ],
   "lists": [
-        {
+    {
       "title": "Yes",
       "name": "YesNo",
       "type": "string",

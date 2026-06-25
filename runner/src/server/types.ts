@@ -14,6 +14,7 @@ import {
   AddressService,
   CacheService,
   ExitService,
+  MagicLinkCacheService,
   NotifyService,
   PayService,
   StatusService,
@@ -40,6 +41,7 @@ type Services = (
   services: string[]
 ) => {
   cacheService: CacheService;
+  magicLinkCacheService: MagicLinkCacheService;
   notifyService: NotifyService;
   payService: PayService;
   uploadService: UploadService;

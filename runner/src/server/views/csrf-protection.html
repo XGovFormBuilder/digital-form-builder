@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-l">Something unexpected happened</h1>
+          <p class="govuk-body">In order to ensure the data you've inputted into the system is protected, please re-enter the form where you left off.</p><br>
+
+          <a href='/{{ url }}' role='button' draggable='false' class='govuk-button govuk-button--start' data-module='govuk-button' id='continue'>Back to start</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

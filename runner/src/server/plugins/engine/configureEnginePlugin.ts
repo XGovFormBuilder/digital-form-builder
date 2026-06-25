@@ -7,29 +7,15 @@ import {
 } from "./services/configurationService";
 import { idFromFilename } from "./helpers";
 import config from "../../config";
+import { FormDefinition } from "@xgovformbuilder/model";
 
-type ConfigureEnginePlugin = (
-  formFileName?: string,
-  formFilePath?: string,
-  options?: EngineOptions
-) => {
-  plugin: any;
-  options: {
-    modelOptions: {
-      relativeTo: string;
-      previewMode: boolean | undefined;
-    };
-    configs: FormConfiguration[];
-    previewMode: boolean | undefined;
-  };
-};
 
 const relativeTo = __dirname;
 
 type EngineOptions = {
   previewMode?: boolean;
 };
-export const configureEnginePlugin: ConfigureEnginePlugin = (
+export const configureEnginePlugin = (
   formFileName,
   formFilePath,
   options?: EngineOptions
@@ -39,7 +25,10 @@ export const configureEnginePlugin: ConfigureEnginePlugin = (
   if (formFileName && formFilePath) {
     configs = [
       {
-        configuration: require(path.join(formFilePath, formFileName)),
+        configuration: require(path.join(
+          formFilePath,
+          formFileName
+        )) as FormDefinition,
         id: idFromFilename(formFileName),
       },
     ];

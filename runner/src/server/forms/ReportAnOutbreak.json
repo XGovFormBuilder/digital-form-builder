@@ -1,0 +1,5114 @@
+{
+  "metadata": {},
+  "authentication": true,
+  "toggle": "${magicLinkToggle}",
+  "analytics": {
+    "gtmId1": "GTM-MM6VPCXX"
+  },
+  "startPage": "/start",
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Report an outbreak of acute respiratory infection in an adult social care setting",
+      "components": [
+        {
+          "name": "mainContent",
+          "options": {},
+          "type": "Para",
+          "content": "<p class=\"govuk-caption-l govuk-!-margin-bottom-6\">From: <a href=\"https://www.gov.uk/government/organisations/uk-health-security-agency\">UK Health Security Agency</a><br>Applies to England</p>\n<p class=\"govuk-body-m\">You can use this service if you provide adult social care. This includes a care home, supported living or extra care.</p>\n<p class=\"govuk-body-m\">Use this service to report:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>a single confirmed case of flu in your setting</li>\n<li>a new outbreak of acute respiratory infection (ARI) - 2 or more people in your setting with symptoms that started within 5 days of each other</li>\n</ul>\n<p class=\"govuk-body-m\">ARIs include COVID-19, flu, respiratory syncytial virus (RSV), and other respiratory infections.</p>\n<p class=\"govuk-body-m\">It should take about 10 minutes to complete.</p>\n<h3 class=\"govuk-heading-m\">Before you start</h3>\n<p class=\"govuk-body\">If possible, test all service users with symptoms who are <a href=\"https://www.nhs.uk/conditions/covid-19/treatments-for-covid-19/\" target=\"_blank\" class=\"govuk-link\">eligible for COVID-19 treatments</a> using a COVID-19 rapid lateral flow test. Staff with symptoms who are eligible for COVID-19 treatments should test themselves at home.</p>\n<p class=\"govuk-body\">If you cannot test people, do not wait. Report as soon as possible.</p>\n<p class=\"govuk-body\">You'll need to know the:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>setting postcode</li>\n<li>Care Quality Commission (CQC) location ID, if you are CQC registered</li>\n<li>total number of service users and staff in your setting</li>\n<li>number of service users and staff with symptoms</li>\n<li>dates when people's symptoms started</li>\n<li>test results for anyone tested for any ARI, for example COVID-19, flu or RSV</li>\n<li>number of service users and staff vaccinated for COVID-19 and flu</li>\n<li>number of service users vaccinated for RSV</li>\n</ul>\n<p>You’ll need to give your email address to access this service.</p>\n<a href='/ReportAnOutbreak/hpt-region' role='button' draggable='false' class='govuk-button govuk-button--start' data-module='govuk-button' id='submit'>Start now<svg class='govuk-button__start-icon' xmlns='http://www.w3.org/2000/svg' width='17.5' height='19' viewBox='0 0 33 40' aria-hidden='true' focusable='false'><path fill='currentColor' d='M0 0h13l20 20-20 20H0l20-20z'></path></svg></a>\n<h3 class=\"govuk-heading-m\">Updating about an existing outbreak</h3>\n<p class=\"govuk-body\">Do not use this online service to give an update on an outbreak that you have already reported. If you need to give an update, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a> or your community infection control team.</p>\n<h3 class=\"govuk-heading-m\">Identifying an ARI outbreak</h3>\n<p class=\"govuk-body\">You only need to report 2 or more ARI cases if they could be linked by spread in your setting. If the infection could not have been spread in your setting, you should not report it as an outbreak. If in doubt, report as an outbreak.</p>\n<h3 class=\"govuk-heading-m\">Why you should report</h3>\n<p class=\"govuk-body\">Your local UKHSA health protection team, or the community infection control team, will use your information to assess your outbreak. They will help you manage the outbreak and prevent further spread.</p>\n<h3 class=\"govuk-heading-m\">Get help</h3>\n<p class=\"govuk-body\">If you need help using the service or have any other questions, contact your local <a href=\"https://www.gov.uk/health-protection-team/\" target=\"_blank\" class=\"govuk-link\">UKHSA health protection team</a>.</p>\n<h3 class=\"govuk-heading-m\">If you need urgent medical advice</h3>\n<p class=\"govuk-body\">If you need urgent medical advice, you should call NHS 111 or <a href=\"https://111.nhs.uk/\" target=\"_blank\" class=\"govuk-link\">visit 111.nhs.uk</a>. For life-threatening emergencies, call 999.</p>"
+        }
+      ],
+      "sidebarContent": {
+        "title": "Related content",
+        "subtitle": "Detailed guidance",
+        "links": [
+          {
+            "title": "Infection prevention and control in adult social care: acute respiratory infection",
+            "link": "https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection"
+          },
+          {
+            "title": "Identifying and treating respiratory tract infections on the NHS website",
+            "link": "https://www.nhs.uk/conditions/respiratory-tract-infection/"
+          }
+        ]
+      },
+      "controller": "MultiStartPageController",
+      "showContinueButton": false,
+      "next": [
+        {
+          "path": "/hpt-region"
+        }
+      ]
+    },
+    {
+      "path": "/hpt-region",
+      "title": "Where is your adult social care setting?",
+      "sectionForEndSummaryPages": "SettingDetails",
+      "unauthenticated": true,
+      "components": [
+        {
+          "name": "IntroPara",
+          "type": "Para",
+          "content": "This service is only available in some regions of England."
+        },
+        {
+          "name": "HPT",
+          "options": {
+            "summaryTitle": "Local UKHSA health protection team",
+            "exposeToContext": true,
+            "customValidationMessages": {
+              "any.required": "Select where your adult social care setting is"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": " ",
+          "hint": "Select your local UKHSA health protection team",
+          "list": "HPTs",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "HPTLink",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>\n Use your postcode to find your local health protection team (opens in a new tab)</a>\n",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/magic-link-redirect", "condition": "HPTRegionActive" },
+        {
+          "path": "/service-not-available"
+        }
+      ]
+    },
+    {
+      "path": "/magic-link-redirect",
+      "unauthenticated": true,
+      "controller": "MagicLinkRedirectController",
+      "next": [
+        {
+          "path": "/setting"
+        }
+      ]
+    },
+    {
+      "path": "/service-not-available",
+      "unauthenticated": true,
+      "title": "This service is not available in the {{ HPT }} region",
+      "components": [
+        {
+          "name": "ServiceNotAvailableContent",
+          "type": "Para",
+          "content": "Phone your local <a href='https://www.gov.uk/health-protection-team'>UKHSA health protection team</a> to report:<br><ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other and that could be linked by spread in your setting</li>"
+        }
+      ]
+    },
+    {
+      "path": "/setting",
+      "title": "What type of adult social care do you provide?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
+      "sectionForEndSummaryPages": "SettingDetails",
+      "components": [
+        {
+          "name": "CareSettingType",
+          "options": {
+            "summaryTitle": "Setting type",
+            "conditionallyRevealedComponents": {
+              "OtherAdultSocialCare": {
+                "type": "TextField",
+                "name": "OtherAdultSocialCare",
+                "title": "Enter your setting type",
+                "options": {
+                  "customValidationMessages": {
+                    "string.empty": "Enter the type of adult social care you provide"
+                  }
+                },
+                "schema": {}
+              }
+            },
+            "customValidationMessages": {
+              "any.required": "Select the type of adult social care you provide"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "What type of adult social care do you provide?",
+          "list": "MpSRIP",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/setting-details"
+        }
+      ]
+    },
+    {
+      "path": "/2-or-more-ari",
+      "title": "How many cases of an acute respiratory infection are you reporting?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Include cases confirmed by a test and any other people with symptoms of acute respiratory infections, including chest infections</p>"
+        },
+        {
+          "name": "TwoOrMoreARI",
+          "options": {
+            "summaryTitle": "Number of cases",
+            "customValidationMessages": {
+              "any.required": "Select how many cases of an acute respiratory infection you are reporting"
+            },
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "list": "OneOrMoreBoolean",
+          "nameHasError": false,
+          "title": " ",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/positive-flu",
+          "condition": "TwoOrMoreARI:No"
+        },
+        {
+          "path": "/any-tests"
+        }
+      ]
+    },
+    {
+      "path": "/do-not-need-to-report",
+      "title": "You do not need to report",
+      "controller": "CheckpointSummaryPageController",
+      "options": {
+        "customText": {
+          "insetText": "Based on your answers, you do not need to report this acute respiratory infection.",
+          "details": "<p>You only need to report:<ul class=\"govuk-list govuk-list--bullet\"><li>single cases of confirmed flu</li><li>2 or more cases of an acute respiratory infection with symptoms that started within 5 days of each other</li></ul></p><p class=\"govuk-body\">Read guidance on <a href=\"https://www.gov.uk/government/publications/infection-prevention-and-control-in-adult-social-care-acute-respiratory-infection\">infection prevention and control in adult social care settings.</a></p>"
+        }
+      },
+      "components": []
+    },
+    {
+      "path": "/single-case-of-flu",
+      "title": "Who has the case of flu?",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "SingleCaseOfFluServiceOrStaff",
+          "options": {
+            "summaryTitle": "Who has the flu?"
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Who has the case of flu?",
+          "list": "ServiceOrStaff",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/flu-severity",
+          "condition": "SingleCaseOfFluServiceOrStaff:ServiceUser"
+        },
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+
+    {
+      "path": "/symptom-onset-flu",
+      "title": "Symptom onset for the case of flu",
+      "sectionForEndSummaryPages": "SymptomOnset",
+      "controller": "DateComparisonPageController",
+      "options": {
+        "firstDateComponent": "FluSymptomOnsetDate"
+      },
+      "components": [
+        {
+          "name": "intro",
+          "type": "Para",
+          "content": "If you do not know the exact date, give an estimate."
+        },
+        {
+          "name": "FluSymptomOnsetDate",
+          "errorLabel": "The date symptoms started",
+          "options": {
+            "maxDaysInFuture": "0",
+            "summaryTitle": "Symptoms started",
+            "customValidationMessages": {
+              "dayMonthYear": "Enter the date symptoms started",
+              "nonNumeric": "The date symptoms started must be a real date",
+              "date.max": "The date symptoms started must be in the past",
+              "date.base": "The date symptoms started must be a real date",
+              "date.min": "The date symptoms started must be in the past two months"
+            }
+          },
+          "type": "DatePartsField",
+          "nameHasError": false,
+          "title": "When did symptoms start?",
+          "hint": "For example, 31 3 2024",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/flu-severity",
+      "title": "Severity of the case of flu",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "SingleCaseOfFluSeverityCalledGP",
+          "options": {
+            "summaryTitle": "Have called the GP about",
+            "customValidationMessages": {
+              "any.required": "Select yes if you have called the GP because of the severity of illness"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Have you called the GP because of the severity of illness in this case?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "SingleCaseOfFluSeverityHospitalised",
+          "options": {
+            "summaryTitle": "Has been hospitalised",
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has been hospitalised with the flu"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Has the person been hospitalised with the flu?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "SingleCaseOfFluSeverityDeath",
+          "options": {
+            "summaryTitle": "Has died",
+            "customValidationMessages": {
+              "any.required": "Select yes if the person has died with flu"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Has the person died with flu in this case?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptom-onset-flu"
+        }
+      ]
+    },
+    {
+      "path": "/vaccination",
+      "title": "Vaccination among your service users and staff",
+      "sectionForEndSummaryPages": "Vaccinations",
+      "components": [
+        {
+          "name": "ServiceUsersCovid19Vaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: up to date with COVID-19 vaccinations",
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for COVID-19 must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Service users: how many are up to date with the current COVID-19 vaccination schedule?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "ServiceUsersFluVaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: had the current seasonal flu vaccine ",
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for flu must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Service users: how many have had the flu vaccine for this current winter season?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "ServiceUsersRSVVaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Service users: had the respiratory syncytial virus (RSV) vaccine",
+            "customValidationMessages": {
+              "number.max": "The number of service users vaccinated for RSV must be between 0 and 999",
+              "number.min": "The number of service users vaccinated for RSV must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Service users: how many have had the respiratory syncytial virus (RSV) vaccine?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "Spacing",
+          "type": "Para",
+          "content": "<br>"
+        },
+        {
+          "name": "StaffCovid19Vaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: up to date with COVID-19 vaccinations",
+            "customValidationMessages": {
+              "number.max": "The number of staff vaccinated for COVID-19 must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for COVID-19 must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Staff: how many are up to date with the current COVID-19 vaccination schedule?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "StaffFluVaccination",
+          "options": {
+            "required": false,
+            "summaryTitle": "Staff: had the current seasonal flu vaccine",
+            "customValidationMessages": {
+              "number.max": "The number of staff vaccinated for flu must be between 0 and 999",
+              "number.min": "The number of staff vaccinated for flu must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "Staff: how many have had the flu vaccine for this current winter season?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/ipc"
+        }
+      ]
+    },
+    {
+      "path": "/ari-confirmed-cases-setting",
+      "title": "Who has an acute respiratory infection?",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Include cases confirmed by a test and any other people with symptoms of acute respiratory infections."
+        },
+        {
+          "name": "ARIServiceOrStaff",
+          "type": "CheckboxesField",
+          "title": " ",
+          "hint": "You can select more than one option",
+          "list": "ServiceOrStaffMultiple",
+          "options": {
+            "summaryTitle": "Who has the infection",
+            "required": true,
+            "customValidationMessages": {
+              "any.required": "Select if your service users or staff have an acute respiratory infection"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "WithTests_ServiceUsers_Covid_Flu_Other",
+          "path": "/service-users-ari-confirmed-covid-flu-other"
+        },
+        {
+          "condition": "WithTests_Staff_Covid_Flu_Other",
+          "path": "/staff-ari-confirmed-covid-flu-other"
+        },
+
+        {
+          "condition": "WithTests_ServiceUsers_Flu_Covid",
+          "path": "/service-users-ari-confirmed-flu-covid"
+        },
+        {
+          "condition": "WithTests_Staff_Flu_Covid",
+          "path": "/staff-ari-confirmed-flu-covid"
+        },
+        {
+          "condition": "WithTests_ServiceUsers_Flu_Other",
+          "path": "/service-users-ari-confirmed-flu-other"
+        },
+        {
+          "condition": "WithTests_Staff_Flu_Other",
+          "path": "/staff-ari-confirmed-flu-other"
+        },
+
+        {
+          "condition": "WithTests_ServiceUsers_Covid_Other",
+          "path": "/service-users-ari-confirmed-covid-other"
+        },
+        {
+          "condition": "WithTests_Staff_Covid_Other",
+          "path": "/staff-ari-confirmed-covid-other"
+        },
+
+        {
+          "condition": "WithTests_ServiceUsers_Flu",
+          "path": "/service-users-ari-confirmed-flu"
+        },
+        {
+          "condition": "WithTests_Staff_Flu",
+          "path": "/staff-ari-confirmed-flu"
+        },
+
+        {
+          "condition": "WithoutTests_ServiceUsers",
+          "path": "/service-users-ari-unconfirmed"
+        },
+        {
+          "condition": "WithoutTests_Staff",
+          "path": "/staff-ari-unconfirmed"
+        },
+
+        {
+          "condition": "WithTests_ServiceUsers_NoPositive",
+          "path": "/service-users-ari-no-positive"
+        },
+        {
+          "condition": "WithTests_Staff_NoPositive",
+          "path": "/staff-ari-no-positive"
+        },
+        {
+          "condition": "WithTests_ServiceUsers_OnlyCovid",
+          "path": "/service-users-ari-confirmed-covid"
+        },
+        {
+          "condition": "WithTests_Staff_OnlyCovid",
+          "path": "/staff-ari-confirmed-covid"
+        },
+        {
+          "condition": "WithTests_ServiceUsers_Other",
+          "path": "/service-users-ari-confirmed-other"
+        },
+        {
+          "condition": "WithTests_Staff_Other",
+          "path": "/staff-ari-confirmed-other"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-confirmed-flu",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestPositive",
+          "options": {
+            "summaryTitle": "Service users: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive flu test result",
+              "number.max": "The number of service users that have a positive flu test must be between 0 and 999",
+              "number.min": "The number of service users that have a positive flu test must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If a service user has both positive and negative flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have been tested for COVID-19 and had a negative test result?",
+          "hint": "If a service user has a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test results",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-confirmed-flu"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-confirmed-flu",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestPositive",
+          "options": {
+            "summaryTitle": "Staff: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive flu test result",
+              "number.max": "The number of staff that have had a positive flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If staff have both positive and negative flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If staff have a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/ipc",
+      "title": "Infection prevention and control (IPC) and outbreak management in your setting",
+      "sectionForEndSummaryPages": "IPC",
+      "components": [
+        {
+          "name": "IPCPractices",
+          "options": {
+            "summaryTitle": "How often you monitor staff IPC practices",
+            "customValidationMessages": {
+              "any.required": "Select how often you monitor staff infection prevention and control practices"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How often do you monitor staff infection prevention and control practices?",
+          "hint": "For example, hand hygiene, use of personal protective equipment (PPE) and cleaning",
+          "list": "IPCPractices",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "Issues",
+          "options": {
+            "summaryTitle": "Issues you need support with",
+            "customValidationMessages": {
+              "any.required": "Select the issues you currently need support with",
+              "any.invalid": "Select the issues you currently need support with, or select ‘no issues’"
+            },
+            "divider": true,
+            "finalValue": "No issues"
+          },
+          "type": "CheckboxesField",
+          "nameHasError": false,
+          "title": "What issues do you currently need support with?",
+          "hint": "You can select more than one option",
+          "list": "Issues",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "AGPs",
+          "options": {
+            "summaryTitle": "Your setting undertakes aerosol generating procedures",
+            "customValidationMessages": {
+              "any.required": "Select yes if your setting undertakes aerosol generating procedures (AGPs)"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Does your setting undertake aerosol generating procedures (AGPs)?",
+          "hint": "For example, inserting or removing a tracheotomy or ostomy, sputum induction, respiratory tract suctioning below the oro-pharynx (mouth suctioning is not an AGP)",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "MediaInterest",
+          "options": {
+            "summaryTitle": "Media interest",
+            "required": false
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Are you aware of any media interest in this outbreak?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/agps",
+          "condition": "AGPs:yes"
+        },
+        {
+          "path": "/agency-staff"
+        }
+      ]
+    },
+
+    {
+      "path": "/severity-of-illness",
+      "title": "Severity of illness in this outbreak",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "name": "severityIntro",
+          "type": "Para",
+          "content": "Include cases confirmed by a test and any other people with symptoms of acute respiratory infections.",
+          "options": {}
+        },
+        {
+          "name": "SeverityGPCalls",
+          "type": "RadiosField",
+          "title": "How many service users have you called the GP about because of the severity of illness in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true,
+            "summaryTitle": "People you have called the GP about",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users you have called the GP about because of the severity of illness"
+            }
+          }
+        },
+        {
+          "name": "SeverityAntibiotics",
+          "title": "How many service users or staff have been given antibiotics for their respiratory symptoms?",
+          "type": "NumberField",
+          "options": {
+            "summaryTitle": "People who have been given antibiotics",
+            "required": false,
+            "customValidationMessages": {
+              "number.min": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999",
+              "number.max": "The number of service users or staff that have been given antibiotics for their respiratory symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "SeverityHospitalisations",
+          "type": "RadiosField",
+          "title": "How many service users or staff have been hospitalised because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true,
+            "summaryTitle": "People who have been hospitalised",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been hospitalised because of an acute respiratory infection"
+            }
+          }
+        },
+        {
+          "name": "SeverityDeaths",
+          "type": "RadiosField",
+          "title": "How many service users or staff have died because of an acute respiratory infection in this outbreak?",
+          "list": "CaseNumbers",
+          "options": {
+            "required": true,
+            "summaryTitle": "People who have died",
+            "customValidationMessages": {
+              "any.required": "Select the number of service users or staff that have been died because of an acute respiratory infection"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/symptom-onset"
+        }
+      ]
+    },
+    {
+      "path": "/symptom-onset",
+      "title": "Symptom onset of cases in this outbreak",
+      "sectionForEndSummaryPages": "SymptomOnset",
+      "controller": "DateComparisonPageController",
+      "options": {
+        "firstDateComponent": "FirstCaseOnset",
+        "secondDateComponent": "MostRecentCaseOnset"
+      },
+      "components": [
+        {
+          "name": "introText1",
+          "type": "Para",
+          "content": "Include cases confirmed by a test and any other service users and staff with symptoms of acute respiratory infections.",
+          "options": {}
+        },
+        {
+          "name": "introText2",
+          "type": "Para",
+          "content": "If you do not know the exact date, give an estimate.",
+          "options": {}
+        },
+        {
+          "name": "FirstCaseOnset",
+          "type": "DatePartsField",
+          "title": "When did symptoms start in the first case in this outbreak?",
+          "errorLabel": "The date symptoms started in the first case of this outbreak",
+          "hint": "For example, 31 3 2024",
+          "options": {
+            "summaryTitle": "First case: symptoms started",
+            "required": true,
+            "maxDaysInFuture": 0,
+            "customValidationMessages": {
+              "nonNumeric": "The date symptoms started in the first case of this outbreak must be a real date",
+              "dayMonthYear": "Enter the date symptoms started in the first case of this outbreak",
+              "date.max": "The date symptoms started in the first case of this outbreak must be in the past",
+              "date.base": "The date symptoms started in the first case of this outbreak must be a real date",
+              "date.min": "The date symptoms started in the first case of this outbreak must be in the past two months"
+            }
+          }
+        },
+        {
+          "name": "MostRecentCaseOnset",
+          "type": "DatePartsField",
+          "errorLabel": "The date symptoms started in the most recent case of this outbreak",
+          "title": "When did symptoms start in the most recent case in this outbreak?",
+          "hint": "For example, 31 3 2024",
+          "options": {
+            "summaryTitle": "Most recent case: symptoms started",
+            "required": true,
+            "maxDaysInFuture": 0,
+            "customValidationMessages": {
+              "dayMonthYear": "Enter the date symptoms started in the most recent case of this outbreak",
+              "nonNumeric": "The date symptoms started in the most recent case of this outbreak must be a real date",
+              "date.max": "The date symptoms started in the most recent case of this outbreak must be in the past",
+              "date.base": "The date symptoms started in the most recent case of this outbreak must be a real date",
+              "date.min": "The date symptoms started in the most recent case of this outbreak must be the same as or after the first case"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/vaccination"
+        }
+      ]
+    },
+    {
+      "path": "/agps",
+      "title": "Do staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks?",
+      "sectionForEndSummaryPages": "IPC",
+      "components": [
+        {
+          "name": "FFP3Masks",
+
+          "options": {
+            "summaryTitle": "Staff wear fit-tested FFP3 masks",
+            "customValidationMessages": {
+              "any.required": "Select if staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Do staff carrying out aerosol generating procedures (AGPs) wear fit-tested FFP3 masks?",
+          "list": "FFP3Masks",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/agency-staff"
+        }
+      ]
+    },
+    {
+      "path": "/agency-staff",
+      "title": "Do you use agency staff or share staff with other care settings?",
+      "sectionForEndSummaryPages": "Staffing",
+      "components": [
+        {
+          "name": "AgencyStaff",
+          "options": {
+            "summaryTitle": "You use agency staff or share staff with other settings",
+            "customValidationMessages": {
+              "any.required": "Select yes if you use agency staff or share staff with other care settings"
+            }
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": "Do you use agency staff or share staff with other care settings?",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details",
+          "condition": "AgencyStaff:No"
+        },
+        {
+          "path": "/additional-staff"
+        }
+      ]
+    },
+    {
+      "path": "/additional-staff",
+      "title": "How many additional agency staff or staff from other care settings have you used during this outbreak?",
+      "sectionForEndSummaryPages": "Staffing",
+      "components": [
+        {
+          "name": "AdditionalStaff",
+          "options": {
+            "summaryTitle": "Agency staff or staff from other settings",
+            "customValidationMessages": {
+              "any.required": "Select the number of additional agency staff or staff from other care settings you have used during this outbreak"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "How many additional agency staff or staff from other care settings have you used during this outbreak?",
+          "list": "AdditionalStaff",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/setting-details",
+      "title": "Setting details",
+      "sectionForEndSummaryPages": "SettingDetails",
+      "components": [
+        {
+          "name": "SettingName",
+          "options": {
+            "summaryTitle": "Setting name",
+            "customValidationMessages": {
+              "string.empty": "Enter your setting name",
+              "string.base": "Enter your setting name"
+            }
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Your setting name",
+
+          "hint": "The name of the setting where the cases are located, not the management company",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "SettingPostcode",
+          "options": {
+            "summaryTitle": "Setting postcode",
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode"
+            }
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Your setting postcode",
+          "hint": "The postcode of the setting where the cases are located, not the management company.",
+          "schema": {
+            "regex": "^[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}$"
+          }
+        },
+        {
+          "name": "CQCRegistered",
+          "options": {
+            "summaryTitle": "Registered with the Care Quality Commission (CQC)",
+            "customValidationMessages": {
+              "any.required": "Select yes if your setting is registered with the Care Quality Commission (CQC)"
+            },
+            "conditionallyRevealedComponents": {
+              "CQCLocationID": {
+                "type": "TextField",
+                "name": "CQCLocationID",
+                "title": "Enter your CQC location ID, for example, 1-123456789",
+                "sectionForEndSummaryPages": "SettingDetails",
+                "options": {
+                  "summaryTitle": "CQC location ID",
+                  "customValidationMessages": {
+                    "string.empty": "CQC location ID cannot be blank",
+                    "string.pattern.base": "Enter a CQC location ID in the correct format"
+                  }
+                },
+                "schema": {
+                  "regex": "^(?:1-\\d{9,11}|[A-Z][A-Z0-9]{4,6})$"
+                }
+              }
+            }
+          },
+          "type": "RadiosField",
+          "list": "CQCYesNo",
+          "nameHasError": false,
+          "title": "Is your care setting registered with the Care Quality Commission (CQC)?",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "nMOTdlmry",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"https://www.cqc.org.uk/search/all?filters%5B%5D=services%3Acare-home&radius=all\" target=”_blank”>\n Find your CQC location ID in the care directory on the CQC website (opens in a new tab)</a>. The CQC location ID is listed on the ‘Registration details’ page for your care setting.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/2-or-more-ari"
+        }
+      ]
+    },
+    {
+      "path": "/contact-details",
+      "title": "Contact details",
+      "sectionForEndSummaryPages": "ContactDetails",
+      "components": [
+        {
+          "name": "heading1",
+          "options": {
+            "required": false
+          },
+          "type": "Para",
+          "content": "<p>Enter a contact to receive: <ul class=\"govuk-list govuk-list--bullet\"><li>an acknowledgment email including a copy of the answers submitted</li><li>advice by email</li><li> a follow up phone call (depending on the risk level)</li></ul></p> <p> If possible, provide a work phone number and email address instead of personal contact details.</p><h2 class=\"govuk-heading-m\">Main contact</h2>",
+          "schema": {}
+        },
+        {
+          "name": "MainContactName",
+          "options": {
+            "summaryTitle": "Main contact",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's full name",
+              "string.max": "Main contact's name must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Full name",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "MainContactJobTitle",
+          "options": {
+            "required": false,
+            "summaryTitle": "Job title",
+            "customValidationMessages": {
+              "string.max": "Main contact's job title must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Job title",
+          "hint": "For example, manager, senior carer",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "MainContactPhoneNumber",
+          "options": {
+            "summaryTitle": "Phone number",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's phone number",
+              "string.pattern.base": "Enter a main contact's phone number, like 01632 960 001 or 07700 900 982"
+            }
+          },
+          "type": "TelephoneNumberField",
+          "nameHasError": false,
+          "title": "Phone number",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {
+            "regex": "^(?!\\s)(?!0+$)(?!.*(\\d)\\1{6,})(?=(?:\\D*\\d){10,12}\\D*(?:\\s?#\\d{3,4})?$)(?:\\+44|0|\\(0\\d{2,4}\\))[0-9\\s()]+(?:\\s?#\\d{3,4})?$"
+          }
+        },
+        {
+          "name": "MainContactEmailAddress",
+          "options": {
+            "exposeToContext": true,
+            "summaryTitle": "Email address",
+            "customValidationMessages": {
+              "string.empty": "Enter a main contact's email address",
+              "string.pattern.base": "Enter a main contact's email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "nameHasError": false,
+          "title": "Email address",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "heading1",
+          "options": {
+            "required": false
+          },
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-m\">Additional contact</h2><p>Enter another contact to also receive the emails. We will use this phone number if the main contact is not available.</p>",
+          "schema": {}
+        },
+        {
+          "name": "AltContactName",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional contact",
+            "customValidationMessages": {
+              "string.max": "Additional contact's name must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Full name",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "AltContactJobTitle",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional contact’s job title",
+            "customValidationMessages": {
+              "string.max": "Additional contact's job title must be 99 characters or less"
+            }
+          },
+          "schema": {
+            "max": 99
+          },
+          "type": "TextField",
+          "nameHasError": false,
+          "title": "Job title",
+          "hint": "For example, manager, senior carer",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "AltContactPhoneNumber",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional phone number",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an additional contact's phone number, like 01632 960 001 or 07700 900 982"
+            }
+          },
+          "type": "TelephoneNumberField",
+          "nameHasError": false,
+          "title": "Phone number",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {
+            "regex": "^(?!\\s)(?!0+$)(?!.*(\\d)\\1{6,})(?=(?:\\D*\\d){10,12}\\D*(?:\\s?#\\d{3,4})?$)(?:\\+44|0|\\(0\\d{2,4}\\))[0-9\\s()]+(?:\\s?#\\d{3,4})?$"
+          }
+        },
+        {
+          "name": "AltContactEmailAddress",
+          "options": {
+            "required": false,
+            "summaryTitle": "Additional email address",
+            "customValidationMessages": {
+              "string.pattern.base": "Enter an additional contact's email address in the correct format, like name@example.com"
+            }
+          },
+          "type": "EmailAddressField",
+          "nameHasError": false,
+          "title": "Email address",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-users"
+        }
+      ]
+    },
+    {
+      "path": "/service-users",
+      "title": "Service users and staff",
+      "sectionForEndSummaryPages": "ServiceUsersAndStaff",
+      "components": [
+        {
+          "name": "ServiceUsersTypes",
+          "options": {
+            "summaryTitle": "The majority of your service users",
+            "customValidationMessages": {
+              "any.required": "Select the options that best describe the majority of your service users"
+            }
+          },
+          "type": "CheckboxesField",
+          "nameHasError": false,
+          "title": "Select the options that best describe the majority of your service users",
+          "hint": "You can select more than one option",
+          "list": "ServiceUsersTypes",
+          "values": {
+            "type": "listRef"
+          }
+        },
+        {
+          "name": "ServiceUsersCurrentlyLive",
+          "options": {
+            "summaryTitle": "People that live in your setting or use your service",
+            "customValidationMessages": {
+              "number.base": "Enter the number of service users that currently live in your care setting or use your service",
+              "number.max": "The number of service users that currently live in your care setting or use your service must be between 0 and 999",
+              "number.min": "The number of service users that currently live in your care setting or use your service must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "nameHasError": false,
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "title": "How many service users currently live in your care setting or use your service?",
+          "hint": "Include those who are currently in hospital or on visits out",
+          "list": "ServiceUsersTypes"
+        },
+        {
+          "name": "StaffNumber",
+          "options": {
+            "summaryTitle": "Staff that work in your care setting or service",
+            "customValidationMessages": {
+              "number.base": "Enter the number of staff that currently work in your care setting or service",
+              "number.max": "The number of staff that currently work in your care setting or service must be between 0 and 999",
+              "number.min": "The number of staff that currently work in your care setting or service must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff currently work in your care setting or service?"
+        },
+        {
+          "name": "EmptyBeds",
+          "options": {
+            "required": false,
+            "summaryTitle": "Empty beds",
+            "customValidationMessages": {
+              "number.max": "The number of empty beds that you have in your care setting must be between 0 and 999",
+              "number.min": "The number of empty beds that you have in your care setting must be between 0 and 999"
+            }
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many empty beds do you have in your care setting?",
+          "hint": "If you do not know, leave this blank"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "CustomSummaryPageController",
+      "title": "Check your answers before sending your report",
+      "options": {
+        "customText": {
+          "insetText": "You will only see answers to questions that are relevant to your report.",
+          "endContent": "<h2 class='govuk-heading-m'>Now send your report</h2><p class='govuk-body'>Your responses will be shared with your local UKHSA health protection team, local authority, local community infection prevention control team and the NHS. They will use your information to help you manage your situation. <br><br>By submitting this report you confirm that the details are correct to the best of your knowledge. You confirm that you have not included any personally identifiable information for service users, for example names or dates of birth. </p>"
+        }
+      },
+      "next": []
+    },
+    {
+      "path": "/positive-flu",
+      "title": "Are you reporting a confirmed case of flu?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>The infection must have been confirmed by a test</p>"
+        },
+        {
+          "name": "PositiveARI",
+          "options": {
+            "summaryTitle": "Confirmed test result",
+            "customValidationMessages": {
+              "any.required": "Select yes if you are reporting a confirmed case of flu"
+            },
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": " ",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-not-need-to-report",
+          "condition": "PositiveARI:No"
+        },
+        {
+          "path": "/which-test-kit"
+        }
+      ]
+    },
+    {
+      "path": "/which-test-kit",
+      "title": "Did you use a combined COVID-19 and flu test kit supplied by UKHSA?",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class='govuk-hint'>This is a 2SAN combo rapid test supplied for use in your setting <img src='/assets/rao-2san-covid-flu-kit.png' alt='2SAN branded packaging for combined COVID-19 and flu test kit' width='224' height='461' /></p>"
+        },
+        {
+          "name": "TestKitsUsed",
+          "options": {
+            "summaryTitle": "Used UKHSA-supplied test kit",
+            "hideTitle": true,
+            "conditionallyRevealedComponents": {
+              "TestKitsUsed": {
+                "type": "NumberField",
+                "name": "TestKitsUsedNo",
+                "title": "Enter how many",
+                "options": {
+                  "summaryTitle": "Number of test kits used",
+                  "customValidationMessages": {
+                    "number.base": "Enter how many test kits you used"
+                  }
+                },
+                "schema": {}
+              }
+            },
+            "customValidationMessages": {
+              "any.required": "Select yes if you used a combined COVID-19 and flu test kit supplied by UKHSA"
+            }
+          },
+          "type": "RadiosField",
+          "list": "TestKitsUsed",
+          "nameHasError": false,
+          "title": " ",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/single-case-of-flu",
+          "condition": "TwoOrMoreARI:No"
+        },
+        {
+          "path": "/ari-confirmed-cases-setting"
+        }
+      ]
+    },
+    {
+      "path": "/any-tests",
+      "title": "Do you have any test results for an acute respiratory infection?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Select yes if you have at least one positive or negative test result. <br>This could be for a service user or a member of staff</p>"
+        },
+        {
+          "name": "AnyTests",
+          "options": {
+            "summaryTitle": "Any test results",
+            "customValidationMessages": {
+              "any.required": "Select if you have any test results"
+            },
+            "hideTitle": true
+          },
+          "type": "RadiosField",
+          "list": "YesNo",
+          "nameHasError": false,
+          "title": " ",
+          "schema": {},
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/which-ari",
+          "condition": "WithTests"
+        },
+        {
+          "path": "/ari-confirmed-cases-setting"
+        }
+      ]
+    },
+    {
+      "path": "/which-ari",
+      "title": "What do you have positive test results for?",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "InfectionsInYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>You can select more than one option</p>"
+        },
+        {
+          "name": "WhichARI",
+          "options": {
+            "summaryTitle": "Positive test results",
+            "customValidationMessages": {
+              "any.required": "Select which infection you have positive test results for"
+            },
+            "hideTitle": true,
+            "divider": true
+          },
+          "type": "CheckboxesField",
+          "nameHasError": false,
+          "title": "  ",
+          "list": "InfectionTypes",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/2-or-more-covid-details",
+          "condition": "OnlyCovid"
+        },
+        { "path": "/which-test-kit" }
+      ]
+    },
+    {
+      "path": "/service-users-ari-unconfirmed",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include those who are currently in hospital or on visits out<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-unconfirmed"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-unconfirmed",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include those who are currently in hospital<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-no-positive",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test results",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-no-positive"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+
+    {
+      "path": "/staff-ari-no-positive",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+
+    {
+      "path": "/2-or-more-covid-details",
+      "title": "Acute respiratory infections in your setting",
+      "sectionForExitJourneySummaryPages": "AcuteInfections",
+      "sectionForMultiSummaryPages": "Covid19InYourSetting",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Include cases confirmed by a test and any other people with symptoms of acute respiratory infections, including chest infections</p>"
+        },
+        {
+          "name": "TwoOrMoreCovid5days",
+          "options": {
+            "summaryTitle": "COVID-19: symptoms started within 5 days of each other",
+            "customValidationMessages": {
+              "any.required": "Select yes if symptoms in 2 or more cases started within 5 days of each other"
+            }
+          },
+          "type": "RadiosField",
+          "nameHasError": false,
+          "title": "Did symptoms in 2 or more cases start within 5 days of each other?",
+          "list": "YesNoSure",
+          "values": {
+            "type": "listRef"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-not-need-to-report",
+          "condition": "ReportCovid:No"
+        },
+        {
+          "path": "/which-test-kit"
+        }
+      ]
+    },
+
+    {
+      "path": "/service-users-ari-confirmed-covid",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestPositive",
+          "options": {
+            "summaryTitle": "Service users: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive COVID-19 test result",
+              "number.max": "The number of service users that have a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-confirmed-covid"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+
+    {
+      "path": "/staff-ari-confirmed-covid",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "StaffCovidTestPositive",
+          "options": {
+            "summaryTitle": "Staff: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive COVID-19 test result",
+              "number.max": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-confirmed-other",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "ServiceUsersOtherTestPositive",
+          "options": {
+            "summaryTitle": "Service users: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of service users that have had a positive rest result must be between 0 and 999",
+              "number.min": "The number of service users that have had a positive rest result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-confirmed-other"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+
+    {
+      "path": "/staff-ari-confirmed-other",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "StaffOtherTestPositive",
+          "options": {
+            "summaryTitle": "Staff: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of staff that have had a positive test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-confirmed-flu-covid",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestPositive",
+          "options": {
+            "summaryTitle": "Service users: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive flu test result",
+              "number.max": "The number of service users that have a positive flu test must be between 0 and 999",
+              "number.min": "The number of service users that have a positive flu test must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If a service user has both positive and negative flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestPositive",
+          "options": {
+            "summaryTitle": "Service users: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive COVID-19 test result",
+              "number.max": "The number of service users that have a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative COVID-19 test result?",
+          "hint": "If a service user has a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-confirmed-flu-covid"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/staff-ari-confirmed-flu-covid",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestPositive",
+          "options": {
+            "summaryTitle": "Staff: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive flu test result",
+              "number.max": "The number of staff that have had a positive flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If a staff have both a positive flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "StaffCovidTestPositive",
+          "options": {
+            "summaryTitle": "Staff: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive COVID-19 test result",
+              "number.max": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many staff have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If staff have a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-confirmed-flu-other",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestPositive",
+          "options": {
+            "summaryTitle": "Service users: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive flu test result",
+              "number.max": "The number of service users that have a positive flu test must be between 0 and 999",
+              "number.min": "The number of service users that have a positive flu test must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0"
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If a service user has both positive and negative flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "ServiceUsersOtherTestPositive",
+          "options": {
+            "summaryTitle": "Service users: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of service users that have had a positive rest result must be between 0 and 999",
+              "number.min": "The number of service users that have had a positive rest result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false,
+          "title": "How many service users have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0"
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative COVID-19 test result?",
+          "hint": "If a service user has a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-confirmed-flu-other"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+
+    {
+      "path": "/staff-ari-confirmed-flu-other",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestPositive",
+          "title": "How many staff have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive flu test result",
+              "number.max": "The number of staff that have had a positive flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If a staff have both a positive flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "StaffOtherTestPositive",
+          "title": "How many staff have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of staff that have had a positive test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If staff have a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-confirmed-covid-other",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestPositive",
+          "title": "How many service users have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive COVID-19 test result",
+              "number.max": "The number of service users that have a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "ServiceUsersOtherTestPositive",
+          "title": "How many service users have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of service users that have had a positive rest result must be between 0 and 999",
+              "number.min": "The number of service users that have had a positive rest result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-confirmed-covid-other"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+
+    {
+      "path": "/staff-ari-confirmed-covid-other",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+
+        {
+          "name": "StaffCovidTestPositive",
+          "title": "How many staff have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive COVID-19 test result",
+              "number.max": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If staff have a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "StaffOtherTestPositive",
+          "title": "How many staff have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of staff that have had a positive test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If a staff have both a positive flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+    {
+      "path": "/service-users-ari-confirmed-covid-flu-other",
+      "title": "Service users: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "disableSingleComponentAsHeading": true,
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter number of service users with symptoms in this outbreak.<br>Include those who are currently in hospital or on visits out.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "ServiceUsersSymptoms",
+          "type": "NumberField",
+          "title": "How many service users have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested service users<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have symptoms",
+              "number.max": "The number of service users that have symptoms must be between 0 and 999",
+              "number.min": "The number of service users that have symptoms must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+        {
+          "name": "ServiceUsersTested",
+          "type": "NumberField",
+          "title": "How many service users have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Service users: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have been tested",
+              "number.max": "The number of service users that have been tested must be between 0 and 999",
+              "number.min": "The number of service users that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "ServiceUsersFluTestPositive",
+          "title": "How many service users have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive flu test result",
+              "number.max": "The number of service users that have a positive flu test must be between 0 and 999",
+              "number.min": "The number of service users that have a positive flu test must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+        {
+          "name": "ServiceUsersFluTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative flu test result?",
+          "hint": "If a service user has both positive and negative flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative flu test result",
+              "number.max": "The number of service users that have have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of service users that have have had a negative flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+        {
+          "name": "ServiceUsersCovidTestPositive",
+          "title": "How many service users have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive COVID-19 test result",
+              "number.max": "The number of service users that have a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+        {
+          "name": "ServiceUsersCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many service users have had a negative COVID-19 test result?",
+          "hint": "If a service user has a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a negative COVID-19 test result",
+              "number.max": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of service users that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "ServiceUsersOtherTestPositive",
+          "title": "How many service users have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Service users: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many service users have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of service users that have had a positive rest result must be between 0 and 999",
+              "number.min": "The number of service users that have had a positive rest result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        }
+      ],
+      "next": [
+        {
+          "condition": "Staff",
+          "path": "/staff-ari-confirmed-covid-flu-other"
+        },
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    },
+
+    {
+      "path": "/staff-ari-confirmed-covid-flu-other",
+      "title": "Staff: number of cases",
+      "sectionForEndSummaryPages": "InfectionsInYourSetting",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class='govuk-hint'>Enter the number of staff with symptoms in this outbreak.<br>Include those who are currently in hospital.<br>You do not have to test your staff.</p>"
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Total number</h2>"
+        },
+        {
+          "name": "StaffSymptoms",
+          "type": "NumberField",
+          "title": "How many staff have symptoms of an acute respiratory infection, including chest infections?",
+          "hint": "Include all tested and untested staff<br>If none or you do not know, enter 0",
+          "options": {
+            "required": true,
+            "summaryTitle": "Staff: total number with symptoms",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have symptoms",
+              "number.max": "The number of staff that have symptoms must be between 0 and 999",
+              "number.min": "The number of staff that have symptoms must be between 0 and 999"
+            }
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "name": "StaffTested",
+          "type": "NumberField",
+          "title": "How many staff have been tested for any acute respiratory infection?",
+          "hint": "If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: tested for ARI",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have been tested",
+              "number.max": "The number of staff that have been tested must be between 0 and 999",
+              "number.min": "The number of staff that have been tested must be between 0 and 999"
+            },
+            "required": true
+          }
+        },
+
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Flu</h2>"
+        },
+        {
+          "name": "StaffFluTestPositive",
+          "title": "How many staff have had a positive flu test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: positive flu test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive flu test result",
+              "number.max": "The number of staff that have had a positive flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive flu test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+        {
+          "name": "StaffFluTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative flu test result?",
+          "hint": "If staff have both positive and negative flu strain results, do not include the negative result here<br>If none or you do not know, enter 0",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "options": {
+            "summaryTitle": "Staff: negative flu test",
+            "required": true,
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative flu test result",
+              "number.max": "The number of staff that have had a negative flu test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative flu test result must be between 0 and 999"
+            }
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>COVID-19</h2>"
+        },
+
+        {
+          "name": "StaffCovidTestPositive",
+          "title": "How many staff have had a positive COVID-19 test result?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: positive COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive COVID-19 test result",
+              "number.max": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        },
+        {
+          "name": "StaffCovidTestNegative",
+          "type": "NumberField",
+          "title": "How many staff have had a negative COVID-19 test result?",
+          "hint": "If staff have a positive flu result and a negative COVID-19 result, do not include the negative result here<br>If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: negative COVID-19 test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a negative COVID-19 test result",
+              "number.max": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a negative COVID-19 test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "schema": {
+            "min": 0,
+            "max": 999
+          }
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class='govuk-heading-m'>Other acute respiratory infections</h2>"
+        },
+        {
+          "name": "StaffOtherTestPositive",
+          "title": "How many staff have had a positive test result for another type of acute respiratory infection (not flu or COVID-19)?",
+          "hint": "If none or you do not know, enter 0",
+          "options": {
+            "summaryTitle": "Staff: positive other ARI test",
+            "customValidationMessages": {
+              "number.base": "Enter how many staff have had a positive test result for an acute respiratory infection that is not flu or COVID-19",
+              "number.max": "The number of staff that have had a positive test result must be between 0 and 999",
+              "number.min": "The number of staff that have had a positive test result must be between 0 and 999"
+            },
+            "required": true
+          },
+          "type": "NumberField",
+          "schema": {
+            "min": 0,
+            "max": 999
+          },
+          "nameHasError": false
+        }
+      ],
+      "next": [
+        {
+          "path": "/severity-of-illness"
+        }
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "title": "cqc-yes-no",
+      "name": "CQCYesNo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "CQCLocationID"
+        },
+        {
+          "text": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "title": "yes-no",
+      "name": "YesNo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "true"
+        },
+        {
+          "text": "No",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "title": "yes-no-sure",
+      "name": "YesNoSure",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        },
+        {
+          "text": "Not sure",
+          "value": "Not sure"
+        }
+      ]
+    },
+    {
+      "title": "test-kits-used",
+      "name": "TestKitsUsed",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "TestKitsUsed"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        },
+        {
+          "text": "I do not know",
+          "value": "I do not know"
+        }
+      ]
+    },
+    {
+      "title": "infection-types",
+      "name": "InfectionTypes",
+      "type": "string",
+      "items": [
+        {
+          "text": "Flu",
+          "value": "Flu"
+        },
+        {
+          "text": "COVID-19",
+          "value": "COVID-19"
+        },
+        {
+          "text": "Any other acute respiratory infection",
+          "value": "Any other acute respiratory infection",
+          "checkpointDisplayValue": "Other acute respiratory infection (not COVID-19 or flu)",
+          "description": "including viruses such as respiratory syncytial virus (RSV), adenovirus, human metapneumovirus (hMPV), parainfluenza and rhinovirus"
+        },
+        {
+          "text": "_placeholder_for_or_",
+          "value": "_placeholder_for_or_"
+        },
+        {
+          "text": "None, all test results were negative",
+          "value": "None"
+        }
+      ]
+    },
+    {
+      "title": "ari-infection-types",
+      "name": "ARIInfectionType",
+      "type": "string",
+      "items": [
+        {
+          "text": "Adenovirus",
+          "value": "Adenovirus"
+        },
+        {
+          "text": "Human Metapneumovirus (hMPV)",
+          "value": "Human Metapneumovirus (hMPV)"
+        },
+        {
+          "text": "Parainfluenza",
+          "value": "Parainfluenza"
+        },
+        {
+          "text": "Respiratory Syncytial Virus (RSV)",
+          "value": "Respiratory Syncytial Virus (RSV)"
+        },
+        {
+          "text": "Rhinovirus",
+          "value": "Rhinovirus"
+        },
+        {
+          "text": "Other acute respiratory infection",
+          "value": "Other acute respiratory infection"
+        }
+      ]
+    },
+    {
+      "title": "social-care-provider-type",
+      "name": "MpSRIP",
+      "type": "string",
+      "items": [
+        {
+          "text": "Residential care home",
+          "value": "Residential care home"
+        },
+        {
+          "text": "Nursing care home",
+          "value": "Nursing care home"
+        },
+        {
+          "text": "Residential and nursing care home",
+          "value": "Residential and nursing care home"
+        },
+        {
+          "text": "Supported living",
+          "value": "Supported living or extra care (not high risk)"
+        },
+        {
+          "text": "Extra care",
+          "value": "Extra care"
+        },
+        {
+          "text": "Rehabilitation, reablement or respite",
+          "value": "Rehabilitation, reablement or respite"
+        },
+        {
+          "text": "Other adult social care",
+          "value": "OtherAdultSocialCare"
+        }
+      ]
+    },
+    {
+      "title": "one-or-more",
+      "name": "OneOrMore",
+      "type": "string",
+      "items": [
+        {
+          "text": "1",
+          "value": "One"
+        },
+        {
+          "text": "2 or more",
+          "value": "2 or more"
+        }
+      ]
+    },
+    {
+      "title": "one-or-more-boolean",
+      "name": "OneOrMoreBoolean",
+      "type": "string",
+      "items": [
+        {
+          "text": "1",
+          "value": "false"
+        },
+        {
+          "text": "2 or more",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "title": "service-or-staff",
+      "name": "ServiceOrStaff",
+      "type": "string",
+      "items": [
+        {
+          "text": "Service user",
+          "value": "Service user"
+        },
+        {
+          "text": "Staff",
+          "value": "Staff"
+        }
+      ]
+    },
+    {
+      "title": "service-or-staff-multiple",
+      "name": "ServiceOrStaffMultiple",
+      "type": "string",
+      "items": [
+        {
+          "text": "Service users",
+          "value": "Service users"
+        },
+        {
+          "text": "Staff",
+          "value": "Staff"
+        }
+      ]
+    },
+    {
+      "title": "ipc-practices",
+      "name": "IPCPractices",
+      "type": "string",
+      "items": [
+        {
+          "text": "more than once a month",
+          "value": "more than once a month"
+        },
+        {
+          "text": "every 1 to 6 months",
+          "value": "every 1 to 6 months"
+        },
+        {
+          "text": "every 7 to 12 months",
+          "value": "every 7 to 12 months"
+        },
+        {
+          "text": "less than every 12 months",
+          "value": "less than every 12 months"
+        },
+        {
+          "text": "we do not monitor infection prevention and control practices",
+          "value": "we do not monitor infection prevention and control practices"
+        }
+      ]
+    },
+    {
+      "title": "case-numbers",
+      "name": "CaseNumbers",
+      "type": "string",
+      "items": [
+        {
+          "text": "0",
+          "value": "None"
+        },
+        {
+          "text": "1",
+          "value": "One"
+        },
+        {
+          "text": "2 to 3",
+          "value": "2 to 3"
+        },
+        {
+          "text": "4 to 5",
+          "value": "4 to 5"
+        },
+        {
+          "text": "More than 5",
+          "value": "More than 5"
+        },
+        {
+          "text": "I do not know",
+          "value": "I do not know"
+        }
+      ]
+    },
+    {
+      "title": "issues",
+      "name": "Issues",
+      "type": "string",
+      "items": [
+        {
+          "text": "COVID-19: access to treatments",
+          "value": "COVID-19 - access to treatments"
+        },
+        {
+          "text": "COVID-19: LFD test kit supply",
+          "value": "COVID-19 - LFD test kit supply"
+        },
+        {
+          "text": "Hand hygiene",
+          "value": "Hand hygiene"
+        },
+        {
+          "text": "Keeping symptomatic service users away from others",
+          "value": "Keeping symptomatic service users away from others"
+        },
+        {
+          "text": "New admissions or transfer of service users",
+          "value": "New admissions or transfer of service users"
+        },
+        {
+          "text": "Staffing",
+          "value": "Staffing"
+        },
+        {
+          "text": "Supply of PPE",
+          "value": "Supply of PPE"
+        },
+        {
+          "text": "Use of PPE",
+          "value": "Use of PPE"
+        },
+        {
+          "text": "Visits",
+          "value": "Visits"
+        },
+        {
+          "text": "Waste, cleaning or laundry",
+          "value": "Waste, cleaning or laundry"
+        },
+        {
+          "text": "No issues",
+          "value": "No issues"
+        }
+      ]
+    },
+    {
+      "title": "ffp3-masks",
+      "name": "FFP3Masks",
+      "type": "string",
+      "items": [
+        {
+          "text": "All",
+          "value": "All"
+        },
+        {
+          "text": "Some",
+          "value": "Some"
+        },
+        {
+          "text": "None",
+          "value": "None"
+        },
+        {
+          "text": "I do not know",
+          "value": "I do not know"
+        }
+      ]
+    },
+    {
+      "title": "additional-staff",
+      "name": "AdditionalStaff",
+      "type": "string",
+      "items": [
+        {
+          "text": "Fewer than 5",
+          "value": "Fewer than 5"
+        },
+        {
+          "text": "5 or more",
+          "value": "5 or more"
+        }
+      ]
+    },
+    {
+      "title": "service-users-types",
+      "name": "ServiceUsersTypes",
+      "type": "string",
+      "items": [
+        {
+          "text": "People with learning difficulties or learning disabilities",
+          "value": "People with learning difficulties or learning disabilities"
+        },
+        {
+          "text": "People with physical disabilities or severe medical conditions",
+          "value": "People with physical disabilities or severe medical conditions"
+        },
+        {
+          "text": "People with mental health needs",
+          "value": "People with mental health needs"
+        },
+        {
+          "text": "People with substance misuse issues",
+          "value": "People with substance misuse issues"
+        },
+        {
+          "text": "People living with dementia",
+          "value": "People living with dementia"
+        },
+        {
+          "text": "Under 65 years",
+          "value": "Under 65 years"
+        },
+        {
+          "text": "65 years or over",
+          "value": "65 years or over"
+        }
+      ]
+    },
+    {
+      "title": "HPTs",
+      "name": "HPTs",
+      "type": "string",
+      "items": [
+        {
+          "text": "North East",
+          "value": "North East"
+        },
+        {
+          "text": "North West",
+          "value": "North West"
+        },
+        {
+          "text": "Yorkshire and the Humber",
+          "value": "Yorkshire and the Humber HPT"
+        },
+        {
+          "text": "East Midlands",
+          "value": "East Midlands HPT"
+        },
+        {
+          "text": "West Midlands",
+          "value": "West Midlands HPT"
+        },
+        {
+          "text": "East of England",
+          "value": "East of England HPT"
+        },
+        {
+          "text": "London",
+          "value": "London HPT"
+        },
+        {
+          "text": "South East",
+          "value": "South East HPT"
+        },
+        {
+          "text": "South West",
+          "value": "South West HPT"
+        }
+      ]
+    },
+    {
+      "title": "flu-severity-specific-area",
+      "name": "FluSeveritySpecificArea",
+      "type": "string",
+      "items": [
+        {
+          "text": "Cases are all within one specific area",
+          "value": "Cases are all within one specific area"
+        },
+        {
+          "text": "Cases are across more than one area",
+          "value": "Cases are across more than one area"
+        },
+        {
+          "text": "Not sure",
+          "value": "Not sure"
+        },
+        {
+          "text": "Not applicable to my setting (for example, not residential)",
+          "value": "Not applicable to my setting (for example, not residential)"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "Staffing",
+      "title": "Staffing"
+    },
+    {
+      "name": "IPC",
+      "title": "Infection prevention and control (IPC) and outbreak management in your setting"
+    },
+    {
+      "name": "ServiceUsersAndStaff",
+      "title": "Service users and staff"
+    },
+    {
+      "name": "Vaccinations",
+      "title": "Vaccinations"
+    },
+    {
+      "name": "SymptomOnset",
+      "title": "Symptom onset"
+    },
+    {
+      "name": "ContactDetails",
+      "title": "Contact details"
+    },
+    {
+      "name": "SettingDetails",
+      "title": "Setting details"
+    },
+    {
+      "name": "AcuteInfections",
+      "title": "Acute respiratory infections in your setting"
+    },
+    {
+      "name": "Covid19InYourSetting",
+      "title": "COVID-19 in your setting"
+    },
+    {
+      "name": "OtherInYourSetting",
+      "title": "Other infections in your setting"
+    },
+    {
+      "name": "InfectionYouAreReporting",
+      "title": "Infection you are reporting"
+    },
+    {
+      "name": "InfectionsInYourSetting",
+      "title": "Infections in your setting"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "HPTRegionActive",
+      "name": "HPTRegionActive",
+      "value": {
+        "name": "HPTRegionActive",
+        "conditions": [
+          {
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "West Midlands HPT",
+              "display": "West Midlands"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "East of England HPT",
+              "display": "East of England"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "South West HPT",
+              "display": "South West"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Yorkshire and the Humber HPT",
+              "display": "Yorkshire and the Humber"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "London HPT",
+              "display": "London"
+            }
+          },
+          {
+            "coordinator": "or",
+            "field": {
+              "name": "HPT",
+              "type": "RadiosField",
+              "display": "region"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "East Midlands HPT",
+              "display": "East Midlands"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "PositiveARI:No",
+      "name": "PositiveARI:No",
+      "value": {
+        "name": "PositiveARI:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "PositiveARI",
+              "type": "RadiosField",
+              "display": "Do you have any positive test results for an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "TwoOrMoreARI:No",
+      "name": "TwoOrMoreARI:No",
+      "value": {
+        "name": "TwoOrMoreARI:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "TwoOrMoreARI",
+              "type": "RadiosField",
+              "display": "Are you reporting 2 or more cases of an acute respiratory infection?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ReportCovid:No",
+      "name": "ReportCovid:No",
+      "value": {
+        "name": "ReportCovid:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "TwoOrMoreCovid5days",
+              "type": "RadiosField",
+              "display": "Did symptoms in 2 or more cases of COVID-19 start within 5 days of each other?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "No",
+              "display": "No"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "SingleCaseOfFluServiceOrStaff:ServiceUser",
+      "name": "SingleCaseOfFluServiceOrStaff:ServiceUser",
+      "value": {
+        "name": "SingleCaseOfFluServiceOrStaff:ServiceUser",
+        "conditions": [
+          {
+            "field": {
+              "name": "SingleCaseOfFluServiceOrStaff",
+              "type": "RadiosField",
+              "display": "Who has the case of flu?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "Service user",
+              "display": "Service user"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "AGPs:yes",
+      "name": "AGPs:yes",
+      "value": {
+        "name": "AGPs:yes",
+        "conditions": [
+          {
+            "field": {
+              "name": "AGPs",
+              "type": "RadiosField",
+              "display": "Does your setting undertake aerosol generating procedures (AGPs)?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "AgencyStaff:No",
+      "name": "AgencyStaff:No",
+      "value": {
+        "name": "AgencyStaff:No",
+        "conditions": [
+          {
+            "field": {
+              "name": "AgencyStaff",
+              "type": "RadiosField",
+              "display": "Do you use agency staff or share staff with other care settings?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "false",
+              "display": "false"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers",
+      "name": "WithTests_ServiceUsers",
+      "value": {
+        "name": "WithTests_ServiceUsers",
+        "conditions": [
+          {
+            "conditionName": "WithTests",
+            "conditionDisplayName": "WithTests"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "ServiceUsers",
+            "conditionDisplayName": "ServiceUsers"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff",
+      "name": "WithTests_Staff",
+      "value": {
+        "name": "WithTests_Staff",
+        "conditions": [
+          {
+            "conditionName": "WithTests",
+            "conditionDisplayName": "WithTests"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "Staff",
+            "conditionDisplayName": "Staff"
+          }
+        ]
+      }
+    },
+
+    {
+      "displayName": "WithTests_ServiceUsers_Flu",
+      "name": "WithTests_ServiceUsers_Flu",
+      "value": {
+        "name": "WithTests_ServiceUsers_Flu",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers",
+            "conditionDisplayName": "WithTests_ServiceUsers"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "Flu",
+            "conditionDisplayName": "Flu"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_Flu",
+      "name": "WithTests_Staff_Flu",
+      "value": {
+        "name": "WithTests_Staff_Flu",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff",
+            "conditionDisplayName": "WithTests_Staff"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "Flu",
+            "conditionDisplayName": "Flu"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithoutTests_ServiceUsers",
+      "name": "WithoutTests_ServiceUsers",
+      "value": {
+        "name": "WithoutTests_ServiceUsers",
+        "conditions": [
+          {
+            "conditionName": "ServiceUsers",
+            "conditionDisplayName": "ServiceUsers"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "WithoutTests",
+            "conditionDisplayName": "WithoutTests"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithoutTests_Staff",
+      "name": "WithoutTests_Staff",
+      "value": {
+        "name": "WithoutTests_Staff",
+        "conditions": [
+          {
+            "conditionName": "Staff",
+            "conditionDisplayName": "Staff"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "WithoutTests",
+            "conditionDisplayName": "WithoutTests"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers_NoPositive",
+      "name": "WithTests_ServiceUsers_NoPositive",
+      "value": {
+        "name": "WithTests_ServiceUsers_NoPositive",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers",
+            "conditionDisplayName": "WithTests_ServiceUsers"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "NoARI",
+            "conditionDisplayName": "NoARI"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_NoPositive",
+      "name": "WithTests_Staff_NoPositive",
+      "value": {
+        "name": "WithTests_Staff_NoPositive",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff",
+            "conditionDisplayName": "WithTests_Staff"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "NoARI",
+            "conditionDisplayName": "NoARI"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers_Other",
+      "name": "WithTests_ServiceUsers_Other",
+      "value": {
+        "name": "WithTests_ServiceUsers_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers",
+            "conditionDisplayName": "WithTests_ServiceUsers"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "OtherARI",
+            "conditionDisplayName": "OtherARI"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_Other",
+      "name": "WithTests_Staff_Other",
+      "value": {
+        "name": "WithTests_Staff_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff",
+            "conditionDisplayName": "WithTests_Staff"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "OtherARI",
+            "conditionDisplayName": "OtherARI"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers_OnlyCovid",
+      "name": "WithTests_ServiceUsers_OnlyCovid",
+      "value": {
+        "name": "WithTests_ServiceUsers_OnlyCovid",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers",
+            "conditionDisplayName": "ServiceUsers"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "OnlyCovid",
+            "conditionDisplayName": "OnlyCovid"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_OnlyCovid",
+      "name": "WithTests_Staff_OnlyCovid",
+      "value": {
+        "name": "WithTests_Staff_OnlyCovid",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff",
+            "conditionDisplayName": "WithTests_Staff"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "OnlyCovid",
+            "conditionDisplayName": "OnlyCovid"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithTests",
+      "displayName": "WithTests",
+      "value": "AnyTests=='true'"
+    },
+    {
+      "name": "WithoutTests",
+      "displayName": "WithoutTests",
+      "value": "AnyTests=='false'"
+    },
+    {
+      "displayName": "Staff",
+      "name": "Staff",
+      "value": {
+        "name": "Staff",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Staff",
+              "display": "Staff"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "ServiceUsers",
+      "name": "ServiceUsers",
+      "value": {
+        "name": "ServiceUsers",
+        "conditions": [
+          {
+            "field": {
+              "name": "ARIServiceOrStaff",
+              "type": "CheckboxesField",
+              "display": "Who are you reporting cases or symptoms of an acute respiratory infection in?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Service users",
+              "display": "Service users"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Covid",
+      "name": "Covid",
+      "value": {
+        "name": "Covid",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "COVID-19",
+              "display": "COVID-19"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "OnlyCovid",
+      "name": "OnlyCovid",
+      "value": {
+        "name": "OnlyCovid",
+        "conditions": [
+          {
+            "conditionName": "Covid",
+            "conditionDisplayName": "Covid"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "NotFlu",
+            "conditionDisplayName": "NotFlu"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "NotOtherARI",
+            "conditionDisplayName": "NotOtherARI"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Flu",
+      "name": "Flu",
+      "value": {
+        "name": "Flu",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "NotFlu",
+      "name": "NotFlu",
+      "value": {
+        "name": "NotFlu",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "does not contain",
+            "value": {
+              "type": "Value",
+              "value": "Flu",
+              "display": "Flu"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "NoARI",
+      "name": "NoARI",
+      "value": {
+        "name": "NoARI",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "None",
+              "display": "None"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "OtherARI",
+      "name": "OtherARI",
+      "value": {
+        "name": "OtherARI",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "contains",
+            "value": {
+              "type": "Value",
+              "value": "Any other acute respiratory infection",
+              "display": "Any other acute respiratory infection"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "NotOtherARI",
+      "name": "NotOtherARI",
+      "value": {
+        "name": "NotOtherARI",
+        "conditions": [
+          {
+            "field": {
+              "name": "WhichARI",
+              "type": "CheckboxesField",
+              "display": "Which acute respiratory infection do you have a positive test result for?"
+            },
+            "operator": "does not contain",
+            "value": {
+              "type": "Value",
+              "value": "Any other acute respiratory infection",
+              "display": "Any other acute respiratory infection"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers_Flu_Covid",
+      "name": "WithTests_ServiceUsers_Flu_Covid",
+      "value": {
+        "name": "WithTests_ServiceUsers_Flu_Covid",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers_Flu",
+            "conditionDisplayName": "WithTests_ServiceUsers_Flu"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "Covid",
+            "conditionDisplayName": "Covid"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_Flu_Covid",
+      "name": "WithTests_Staff_Flu_Covid",
+      "value": {
+        "name": "WithTests_Staff_Flu_Covid",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff_Flu",
+            "conditionDisplayName": "WithTests_Staff_Flu"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "Covid",
+            "conditionDisplayName": "Covid"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers_Flu_Other",
+      "name": "WithTests_ServiceUsers_Flu_Other",
+      "value": {
+        "name": "WithTests_ServiceUsers_Flu_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers_Flu",
+            "conditionDisplayName": "WithTests_ServiceUsers_Flu"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "WithTests_ServiceUsers_Other",
+            "conditionDisplayName": "WithTests_ServiceUsers_Other"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_Flu_Other",
+      "name": "WithTests_Staff_Flu_Other",
+      "value": {
+        "name": "WithTests_Staff_Flu_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff_Flu",
+            "conditionDisplayName": "WithTests_Staff_Flu"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "WithTests_Staff_Other",
+            "conditionDisplayName": "WithTests_Staff_Other"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers_Covid_Other",
+      "name": "WithTests_ServiceUsers_Covid_Other",
+      "value": {
+        "name": "WithTests_ServiceUsers_Covid_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers_Other",
+            "conditionDisplayName": "WithTests_ServiceUsers_Other"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "Covid",
+            "conditionDisplayName": "Covid"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_Covid_Other",
+      "name": "WithTests_Staff_Covid_Other",
+      "value": {
+        "name": "WithTests_Staff_Covid_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff_Other",
+            "conditionDisplayName": "WithTests_Staff_Other"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "Covid",
+            "conditionDisplayName": "Covid"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_ServiceUsers_Covid_Flu_Other",
+      "name": "WithTests_ServiceUsers_Covid_Flu_Other",
+      "value": {
+        "name": "WithTests_ServiceUsers_Covid_Flu_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_ServiceUsers_Flu_Covid",
+            "conditionDisplayName": "WithTests_ServiceUsers_Flu_Covid"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "WithTests_ServiceUsers_Flu_Other",
+            "conditionDisplayName": "WithTests_ServiceUsers_Flu_Other"
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "WithTests_Staff_Covid_Flu_Other",
+      "name": "WithTests_Staff_Covid_Flu_Other",
+      "value": {
+        "name": "WithTests_Staff_Covid_Flu_Other",
+        "conditions": [
+          {
+            "conditionName": "WithTests_Staff_Flu_Covid",
+            "conditionDisplayName": "WithTests_Staff_Flu_Covid"
+          },
+          {
+            "coordinator": "and",
+            "conditionName": "WithTests_Staff_Flu_Other",
+            "conditionDisplayName": "WithTests_Staff_Flu_Other"
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "WEBHOOOK",
+      "title": "CareOBRA SalesForce",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "${Webhook.URL}"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Report an outbreak",
+  "feedback": {
+    "feedbackForm": true,
+    "url": "/feedback"
+  },
+  "phaseBanner": {
+    "phase": "beta"
+  },
+  "specialPages": {
+    "confirmationPage": {
+      "customText": {
+        "nextSteps": "<h2 class='govuk-heading-m'>If you used a UKHSA-supplied test kit</h2><p class='govuk-body'>If you used a UKHSA-supplied test kit, you must <a href='https://www.gov.uk/government/publications/combined-covid-19-and-flu-tests-use-in-ari-outbreaks-in-adult-social-care-homes-in-south-east-england' target='_blank'>report your service users' individual test results (opens in new tab)</a> to your local UKHSA health protection team.</p><h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We will send 2 automated emails to {{ MainContactEmailAddress }}.<br><br> An acknowledgement email will give you your reference number and a copy of the information you've provided. The email will tell you if you have a low-risk outbreak, a medium-risk outbreak, a high-priority outbreak, or a single case of flu. <br><br> An advice email will give you information specific to your situation to help you prevent the spread of infection. It explains what to expect from your local UKHSA health protection team or the community infection control team. <br><br>If these emails do not arrive within one hour, or you need urgent advice, telephone your local <a href='https://www.gov.uk/health-protection-team' target=”_blank”>UKHSA health protection team (opens in a new tab)</a> or community infection control team.</p><h2 class='govuk-heading-m'>If your outbreak is high priority on a weekend or bank holiday</h2><p class='govuk-body'>If your acknowledgement or advice email tells you that your outbreak is assessed as high priority on a weekend or a bank holiday, you also need to telephone your local <a href='https://www.gov.uk/health-protection-team' target=”_blank”>UKHSA health protection team (opens in a new tab)</a>. Call during the daytime if possible. If you do not call the health protection team, a member of the health protection team will only call you on the next working day. </p><h2 class='govuk-heading-m'>If you need urgent medical advice</h2><p class='govuk-body'>If you need urgent medical advice, you can call NHS 111 or visit <a href='https://111.nhs.uk' target=”_blank”>111.nhs.uk (opens in a new tab)</a>. For life-threatening emergencies, call 999.</p><h2 class='govuk-heading-m'>Give feedback on this service</h2><p class='govuk-body'>This is a new service. Help us improve it and <a href='/feedback' target=”_blank”>give your feedback (opens in new tab)</a>.</p>",
+        "title": "Report sent",
+        "referenceTitle": "Your outbreak reference number",
+        "referenceContent": "Use this number if you need to contact the UKHSA health protection team about your outbreak."
+      }
+    }
+  },
+  "jwtKey": "${jwtKey}"
+}

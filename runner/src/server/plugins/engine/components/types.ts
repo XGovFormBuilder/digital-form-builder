@@ -23,6 +23,9 @@ export type ListItem = {
   selected?: boolean;
   label?: ListItemLabel;
   condition?: string;
+  conditional?: {
+    html: string;
+  };
 };
 
 // TODO: Break this down for each component (Same as model/Component).

@@ -1,9 +1,7 @@
 import { FormModel } from "server/plugins/engine/models";
 import { TEmailModel } from "./types";
-import config from "server/config";
 import { EmailOutputConfiguration } from "@xgovformbuilder/model";
 import { WebhookData } from "server/plugins/engine/models/types";
-const { notifyTemplateId, notifyAPIKey } = config;
 
 /**
  * returns an object used for sending email requests. Used by {@link SummaryViewModel}
@@ -31,8 +29,8 @@ export function EmailModel(
       formName,
       formPayload: data.join("\r\n"),
     },
-    apiKey: notifyAPIKey,
-    templateId: notifyTemplateId,
+    apiKey: outputConfiguration.apiKey,
+    templateId: outputConfiguration.notifyTemplateId,
     emailAddress: outputConfiguration.emailAddress,
   };
 }

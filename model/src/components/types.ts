@@ -6,6 +6,7 @@ export enum ComponentTypeEnum {
   TimeField = "TimeField",
   DateTimeField = "DateTimeField",
   DatePartsField = "DatePartsField",
+  ContactDetailsCollection = "ContactDetailsCollection",
   MonthYearField = "MonthYearField",
   DateTimePartsField = "DateTimePartsField",
   SelectField = "SelectField",
@@ -24,6 +25,7 @@ export enum ComponentTypeEnum {
   FlashCard = "FlashCard",
   List = "List",
   ContextComponent = "ContextComponent",
+  ContentWithState = "ContentWithState",
 }
 
 export type ComponentType =
@@ -35,6 +37,7 @@ export type ComponentType =
   | "DateTimeField"
   | "MonthYearField"
   | "DatePartsField"
+  | "ContactDetailsCollection"
   | "DateTimePartsField"
   | "SelectField"
   | "AutocompleteField"
@@ -52,7 +55,8 @@ export type ComponentType =
   | "FlashCard"
   | "List"
   | "WebsiteField"
-  | "ContextComponent";
+  | "ContextComponent"
+  | "ContentWithState";
 
 export type ComponentSubType = "field" | "content";
 
@@ -112,6 +116,7 @@ interface NumberFieldBase {
     min?: number;
     max?: number;
     precision?: number;
+    integer?: boolean;
   };
 }
 
@@ -132,6 +137,9 @@ interface ListFieldBase {
     allowPrePopulationOverwrite?: boolean;
     disableChangingFromSummary?: boolean;
     customValidationMessages?: Record<string, string>;
+    summaryTitle?: string;
+    divider?: boolean;
+    finalValue?: string;
   };
   list: string;
   schema: {};
@@ -176,6 +184,9 @@ export interface TextFieldComponent extends TextFieldBase {
 
 export interface EmailAddressFieldComponent extends TextFieldBase {
   type: "EmailAddressField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
 }
 
 export interface NumberFieldComponent extends NumberFieldBase {
@@ -253,6 +264,9 @@ export interface DateTimeFieldComponent extends DateFieldBase {
 export interface DatePartsFieldFieldComponent extends DateFieldBase {
   type: "DatePartsField";
 }
+export interface ContactDetailsCollectionComponent extends DateFieldBase {
+  type: "ContactDetailsCollection";
+}
 
 export interface MonthYearFieldComponent extends DateFieldBase {
   type: "MonthYearField";
@@ -269,6 +283,10 @@ export interface TimeFieldComponent extends DateFieldBase {
 // Content Fields
 export interface ParaComponent extends ContentFieldBase {
   type: "Para";
+}
+
+export interface ContentWithStateComponent extends ContentFieldBase {
+  type: "ContentWithState";
 }
 
 export interface DetailsComponent extends ContentFieldBase {
@@ -325,6 +343,7 @@ export type ComponentDef =
   | CheckboxesFieldComponent
   | DateFieldComponent
   | DatePartsFieldFieldComponent
+  | ContactDetailsCollectionComponent
   | MonthYearFieldComponent
   | DateTimeFieldComponent
   | DateTimePartsFieldComponent
@@ -345,7 +364,8 @@ export type ComponentDef =
   | UkAddressFieldComponent
   | YesNoFieldComponent
   | WebsiteFieldComponent
-  | ContextComponent;
+  | ContextComponent
+  | ContentWithStateComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -371,7 +391,8 @@ export type ContentComponentsDef =
   | HtmlComponent
   | InsetTextComponent
   | ListComponent
-  | FlashCardComponent;
+  | FlashCardComponent
+  | ContentWithStateComponent;
 
 // Components that render Lists
 export type ListComponentsDef =

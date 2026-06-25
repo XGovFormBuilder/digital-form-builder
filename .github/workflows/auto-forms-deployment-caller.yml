@@ -1,0 +1,97 @@
+# This workflow automatically calls to deploy if a change is made to only the forms folder
+
+name: Automated Form Deployment
+
+# Workflow runs automatically when the form folder is updated
+on:
+  push:
+    branches:
+      - v2
+    paths:
+      - "runner/src/server/forms/**"
+  workflow_dispatch:
+    inputs:
+      success:
+        description: "Did the deployment succeed"
+        type: boolean
+        required: true
+        default: false
+      auto_deploy_status:
+        description: "Failure status message"
+        type: string
+        required: false
+      commit_message:
+        description: "Triggering commit message"
+        type: string
+        required: true
+      caller_run_id:
+        description: "Workflow Caller ID"
+        type: string
+        required: true
+
+jobs:
+  Trigger-Deployment:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    outputs:
+      should_deploy: ${{ steps.check_file_path.outputs.should_deploy }}
+    env:
+      FORMS_FOLDER: "runner/src/server/forms/"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Check file paths
+        id: check_file_path
+        run: |
+          NON_FORM_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- ":(exclude)${{ env.FORMS_FOLDER }}" | wc -l)
+          if [ "$NON_FORM_FILES" -eq 0 ]; then
+            echo "Only form changes found, able to deploy"
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+          else
+            echo "Non-form changes found, do not deploy"
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate token
+        if: steps.check_file_path.outputs.should_deploy == 'true'
+        uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ secrets.DEPLOYMENT_APP_ID }}
+          private-key: ${{ secrets.DEPLOYMENT_APP_KEY }}
+          owner: ${{ secrets.DEPLOYMENT_OWNER }}
+          repositories: ${{ secrets.DEPLOYMENT_REPO }}
+
+      - name: Call deployment repo
+        if: steps.check_file_path.outputs.should_deploy == 'true'
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: '${{ secrets.DEPLOYMENT_OWNER }}',
+              repo: '${{ secrets.DEPLOYMENT_REPO }}',
+              workflow_id: 'form-only-deployment.yml',
+              ref: 'trunk',
+              inputs: {
+                branch: 'v2',
+                commit_message: '${{ github.event.head_commit.message }}',
+                caller_run_id: '${{ github.run_id }}'
+              }
+            });
+
+  Print-Status:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Deployment Status
+        run: |
+          echo "Deployment Success: ${{ github.event.inputs.success }}"
+          echo "Deployment Status Message: ${{ github.event.inputs.auto_deploy_status }}"
+          echo "Triggering Commit Message: ${{ github.event.inputs.commit_message }}"
+          echo "Caller Run ID: ${{ github.event.inputs.caller_run_id }}"

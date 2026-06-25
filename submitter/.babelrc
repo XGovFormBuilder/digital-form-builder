@@ -11,8 +11,5 @@
     ]
   ],
   "exclude": ["node_modules/**"],
-  "plugins": [
-    "@babel/plugin-transform-runtime"
-  ]
+  "plugins": ["@babel/plugin-transform-runtime"]
 }
-

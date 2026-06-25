@@ -26,6 +26,8 @@ import { format, parseISO } from "date-fns";
 import config from "server/config";
 import nunjucks from "nunjucks";
 import Joi from "joi";
+import Jwt, { HapiJwt } from "@hapi/jwt";
+import { verifyHmacToken } from "../../initialiseSession/helpers";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -53,12 +55,19 @@ export class PageControllerBase {
   condition: any; // TODO
   repeatField: any; // TODO
   section: any; // TODO
+  sectionForExitJourneySummaryPages: any;
+  sectionForEndSummaryPages: any;
+  sectionForMultiSummaryPages: any;
+  sidebarContent: any;
   components: ComponentCollection;
+  disableSingleComponentAsHeading: boolean;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
   backLinkFallback?: string;
   details?: any;
+  disableBackLink?: boolean;
   returnUrl?: string;
+  buttonText?: string;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -75,11 +84,20 @@ export class PageControllerBase {
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
     this.backLinkFallback = pageDef.backLinkFallback;
+    this.disableBackLink = pageDef.disableBackLink;
+    this.disableSingleComponentAsHeading =
+      pageDef.disableSingleComponentAsHeading;
+    this.buttonText = pageDef.customButtonText ?? this.defaultButtonText;
 
     // Resolve section
     this.section = model.sections?.find(
       (section) => section.name === pageDef.section
     );
+    this.sectionForExitJourneySummaryPages =
+      pageDef.sectionForExitJourneySummaryPages;
+    this.sectionForMultiSummaryPages = pageDef.sectionForMultiSummaryPages;
+    this.sectionForEndSummaryPages = pageDef.sectionForEndSummaryPages;
+    this.sidebarContent = pageDef.sidebarContent;
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
@@ -164,20 +182,21 @@ export class PageControllerBase {
 
     if (singleFormComponent && singleFormComponentIsFirst) {
       const label: any = singleFormComponent.model.label;
+      if (!this.disableSingleComponentAsHeading) {
+        if (pageTitle) {
+          label.text = pageTitle;
+        }
 
-      if (pageTitle) {
-        label.text = pageTitle;
+        label.isPageHeading = true;
+        label.classes = "govuk-fieldset__legend--l";
+
+        if (singleFormComponent.model?.fieldset) {
+          singleFormComponent.model.fieldset.legend = label;
+        }
+
+        pageTitle = pageTitle || label.text;
+        showTitle = false;
       }
-
-      label.isPageHeading = true;
-      label.classes = "govuk-fieldset__legend--l";
-
-      if (singleFormComponent.model?.fieldset) {
-        singleFormComponent.model.fieldset.legend = label;
-      }
-
-      pageTitle = pageTitle || label.text;
-      showTitle = false;
     }
 
     return {
@@ -199,6 +218,10 @@ export class PageControllerBase {
    */
   get hasNext() {
     return Array.isArray(this.pageDef.next) && this.pageDef.next.length > 0;
+  }
+
+  get defaultButtonText() {
+    return "Continue";
   }
 
   get next() {
@@ -437,6 +460,15 @@ export class PageControllerBase {
       //Iterate all components on this page and pull out the saved values from the state
       for (const component of nextPage.components.items) {
         newValue[component.name] = currentState[component.name];
+
+        if (component.options.conditionallyRevealedComponents) {
+          for (const key in component.options.conditionallyRevealedComponents) {
+            const revealedComponent =
+              component.options.conditionallyRevealedComponents[key]; // Get the actual object
+            newValue[revealedComponent.name] =
+              currentState[revealedComponent.name];
+          }
+        }
       }
 
       if (nextPage.section) {
@@ -485,6 +517,35 @@ export class PageControllerBase {
         return startPage!.startsWith("http")
           ? redirectTo(request, h, startPage!)
           : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
+      }
+
+      if (
+        this.model.def.authentication &&
+        this.model.def.toggle === true &&
+        this.pageDef.unauthenticated !== true
+      ) {
+        const authCookie = request.state.auth_token; // Check for the auth cookie
+
+        if (!authCookie && !isStartPage && this.model.def.authentication) {
+          // If the auth cookie is missing and it's not the start page, redirect
+          if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+            return h.redirect(`/${this.model.basePath}${startPage!}`);
+          }
+        }
+        if (authCookie) {
+          const tokenArtifacts = Jwt.token.decode(authCookie);
+          const { isValid, error } = verifyHmacToken(
+            tokenArtifacts,
+            this.model.def.jwtKey
+          );
+
+          if (!isValid) {
+            // If the token is invalid, redirect to the start page
+            if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+              return h.redirect(`/${this.model.basePath}${startPage!}`);
+            }
+          }
+        }
       }
 
       formData.lang = lang;
@@ -565,10 +626,15 @@ export class PageControllerBase {
 
       await cacheService.mergeState(request, { progress });
 
-      viewModel.backLink =
-        progress[progress.length - 2] ?? this.backLinkFallback;
+      if (this.disableBackLink) {
+        viewModel.backLink = undefined;
+      } else {
+        viewModel.backLink =
+          progress[progress.length - 2] ?? this.backLinkFallback;
+      }
 
       viewModel.allowExit = this.model.allowExit;
+
       return h.view(this.viewName, viewModel);
     };
   }
@@ -714,6 +780,37 @@ export class PageControllerBase {
         return response;
       }
       const { cacheService } = request.services([]);
+
+      if (
+        this.model.def.authentication &&
+        this.model.def.toggle === true &&
+        this.pageDef.unauthenticated !== true
+      ) {
+        const startPage = this.model.def.startPage;
+        const isStartPage = this.path === `${startPage}`;
+        const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
+        const authCookie = request.state.auth_token; // Check for the auth cookie
+        if (!authCookie && !isStartPage) {
+          // If the auth cookie is missing and it's not the start page, redirect
+          if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+            return h.redirect(`/${this.model.basePath}${startPage!}`);
+          }
+        }
+
+        if (authCookie) {
+          const tokenArtifacts = Jwt.token.decode(authCookie);
+          const { isValid, error } = verifyHmacToken(
+            tokenArtifacts,
+            this.model.def.jwtKey
+          );
+          if (!isValid) {
+            // If the token is invalid, redirect to the start page
+            if (currentPath !== `/${this.model.basePath}${startPage!}`) {
+              return h.redirect(`/${this.model.basePath}${startPage!}`);
+            }
+          }
+        }
+      }
 
       const shouldGoToExitPage =
         this.model.allowExit && request.payload?.action === "exit";
@@ -892,7 +989,13 @@ export class PageControllerBase {
   private renderWithErrors(request, h, payload, num, progress, errors) {
     const viewModel = this.getViewModel(payload, num, errors);
 
-    viewModel.backLink = progress[progress.length - 2] ?? this.backLinkFallback;
+    if (this.disableBackLink) {
+      viewModel.backLink = undefined;
+    } else {
+      viewModel.backLink =
+        progress[progress.length - 2] ?? this.backLinkFallback;
+    }
+
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
     viewModel.allowExit = this.model.allowExit;

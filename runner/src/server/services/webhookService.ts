@@ -10,7 +10,8 @@ const DEFAULT_OPTIONS = {
 };
 
 export class WebhookService {
-  logger: any;
+  logger: HapiServer["logger"];
+
   constructor(server: HapiServer) {
     this.logger = server.logger;
   }
@@ -30,17 +31,19 @@ export class WebhookService {
     method: "POST" | "PUT" = "POST",
     sendAdditionalPayMetadata: boolean = false,
     additionalHeaders?: Record<string, string>
-  ) {
-    this.logger.info(
-      ["WebhookService", "postRequest body"],
-      JSON.stringify(data)
-    );
+  ): Promise<string> {
+    // Commented out due to potential for logging PII
+    // this.logger.info(
+    //   ["WebhookService", "postRequest body"],
+    //   JSON.stringify(data)
+    // );
+
     let request = method === "POST" ? post : put;
     try {
       if (!sendAdditionalPayMetadata) {
         delete data?.metadata?.pay;
       }
-      const { payload } = await request(url, {
+      const { payload, res } = await request(url, {
         ...DEFAULT_OPTIONS,
         headers: {
           ...DEFAULT_OPTIONS.headers,
@@ -52,17 +55,28 @@ export class WebhookService {
       if (typeof payload === "object" && !Buffer.isBuffer(payload)) {
         return payload.reference;
       }
+
+      const Name = JSON.parse(payload)[0]?.Name;
+
+      if (Name) {
+        return Name;
+      }
+
+      this.logger.info(`Request status code: ${res.statusCode}`);
+
       const { reference } = JSON.parse(payload);
+
       this.logger.info(
         ["WebhookService", "postRequest"],
         `Webhook request to ${url} submitted OK`
       );
-      this.logger.debug(
-        ["WebhookService", "postRequest", `REF: ${reference}`],
-        JSON.stringify(payload)
-      );
+      // Commented out due to potential for logging PII
+      // this.logger.debug(
+      //   ["WebhookService", "postRequest", `REF: ${reference}`],
+      //   JSON.stringify(payload)
+      // );
       return reference;
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error(["WebhookService", "postRequest"], error);
       return "UNKNOWN";
     }

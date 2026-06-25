@@ -47,7 +47,7 @@ module.exports = {
    * Analytics
    */
   // Google Tag Manager - you must amend the privacy notice if you use GTM to load analytics scripts.
-  // gtmId1: "",
+  gtmId1: "GTM-MM6VPCXX",
   // gtmId2: "",
 
   // Matomo (aka Piwik)
@@ -58,8 +58,8 @@ module.exports = {
    * Service
    */
   serviceUrl: "http://localhost:3009", //This is used for redirects back to the runner.
-  serviceName: "Digital Form Builder - Runner",
-  serviceStartPage: "",
+  serviceName: "Webforms",
+  serviceStartPage: "/ReportAnOutbreak/start",
   privacyPolicyUrl: "",
   feedbackLink: "#", // Used in your phase banner. Can be a URL or more commonly mailto mailto:feedback@department.gov.uk
   phaseTag: "beta", // Accepts "alpha" |"beta" | ""
@@ -68,14 +68,15 @@ module.exports = {
    * Session storage
    * Redis integration is optional, but recommended for production environments.
    */
-  sessionTimeout: 20 * minute,
+  sessionTimeout: 40 * minute,
   confirmationSessionTimeout: 20 * minute,
   paymentSessionTimeout: 90 * minute, // GOV.UK Pay sessions are 90 minutes. It is possible a user takes longer than 20 minutes to complete a payment.
-  // sessionCookiePassword: "",
-  // redisHost: "http://localhost",
-  // redisPort: 6379,
-  // redisPassword: nanoid.random(16), // This should be set if you are deploying replicas
-  // redisTls: true, //run in TLS mode
+  httpsCookieSecureAttribute: true, // Assumed usage of HTTPS. Set to false if you are using HTTP.
+  sessionCookiePassword: "${SessionCookies.Password}",
+  redisHost: "${Redis.Host}",
+  redisPort: 6379,
+  redisPassword: "${Redis.Password}", // This should be set if you are deploying replicas - SET AS SECRET
+  redisTls: true, //run in TLS mode
 
   /**
    * SSL
@@ -111,7 +112,7 @@ module.exports = {
   // If both the api env and node env are set to "production", the pay return url will need to be secure.
   // This is not the case if either are set to "test", or if the node env is set to "development"
   // payReturnUrl: "http://localhost:3009"
-  // documentUploadApiUrl: "",
+  // documentUploadApiUrl: "", // Deprecated - use form level documentUploadApiUrl
   // ordnanceSurveyKey: "", // deprecated - this API is deprecated
   // browserRefreshUrl: "", // deprecated - idk what this does
 
@@ -145,11 +146,12 @@ module.exports = {
   queueServicePollingInterval: "500", // How frequently to check the queue for a reference number
   queueServicePollingTimeout: "2000", // Total time to wait for a reference number
 
-  allowUserTemplates: false,
+  allowUserTemplates: true,
 
   /**
    * File size errors
    */
-  maxClientFileSize: 5 * 1024 * 1024, // 5MB
+
+  maxClientFileSize: Math.round(5.2 * 1024 * 1024), // 5452595 bytes
   maxFileSizeStringInMb: "5", // The file size to render if the file is too large in MB
 };

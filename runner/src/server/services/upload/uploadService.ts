@@ -192,9 +192,33 @@ export class UploadService {
     file: HapiReadableStream,
     customAcceptedTypes?: string[]
   ) {
+    const contentType = file?.hapi?.headers?.["content-type"];
+    const filename = file?.hapi?.filename;
     const acceptedTypes = customAcceptedTypes ?? this.validContentTypes;
 
-    return acceptedTypes.includes(file?.hapi?.headers?.["content-type"]);
+    let isValid = acceptedTypes.includes(contentType);
+
+    // Fallback: allow .ris files with 'application/octet-stream'
+    // API BACKEND - Will be used to scan if this is actually what it claims to be ...
+    if (!isValid && filename?.endsWith(".ris")) {
+      this.logger.warn("UPLOAD_WARNING", {
+        reason: "RIS file had generic content type",
+        filename,
+        contentType,
+      });
+      isValid = true;
+    }
+
+    // Fallback: allow .msg files with 'application/octet-stream'
+    if (!isValid && filename?.endsWith(".msg")) {
+      this.logger.warn("UPLOAD_WARNING", {
+        reason: "RIS file had generic content type",
+        filename,
+        contentType,
+      });
+      isValid = true;
+    }
+    return isValid;
   }
 
   invalidFileTypeError(fieldName: string, customAcceptedTypes?: string[]) {
@@ -252,16 +276,15 @@ export class UploadService {
 const contentTypeToName = {
   "image/jpeg": "jpg, jpeg",
   "image/png": "png",
+  "image/gif": "gif",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+  "text/csv": "csv",
+  "application/vnd.ms-excel.sheet.macroEnabled.12": "xlsm",
+  "application/xml": "xml",
   "application/pdf": "pdf",
   "application/vnd.oasis.opendocument.text": "odt",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
     "docx",
-  "text/csv": "csv",
-
-  "image/gif": "gif",
-  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
-  "application/vnd.ms-excel.sheet.macroEnabled.12": "xlsm",
-  "application/xml": "xml",
   "application/rtf": "rtf",
   "text/rtf": "rtf",
   "application/msword": "doc",
@@ -272,4 +295,5 @@ const contentTypeToName = {
   "application/vnd.openxmlformats-officedocument.presentationml.presentation":
     "pptx",
   "application/vnd.ms-excel": "xls",
+  // "application/zip": "zip"
 };

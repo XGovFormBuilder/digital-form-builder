@@ -42,13 +42,16 @@ export class CacheService {
     this.logger = server.logger;
   }
 
-  async getState(request: HapiRequest): Promise<FormSubmissionState> {
+  async getState(
+    request: Parameters<typeof this.Key>[0]
+  ): Promise<FormSubmissionState> {
     const cached = await this.cache.get(this.Key(request));
+
     return cached || {};
   }
 
   async mergeState(
-    request: HapiRequest,
+    request: Parameters<typeof this.Key>[0],
     value: object,
     nullOverride = true,
     arrayMerge = false
@@ -122,7 +125,7 @@ export class CacheService {
     return this.mergeState(request, { exitState });
   }
 
-  async clearState(request: HapiRequest) {
+  async clearState(request: Parameters<typeof this.Key>[0]) {
     if (request.yar?.id) {
       this.cache.drop(this.Key(request));
     }
@@ -135,10 +138,17 @@ export class CacheService {
    * @param request - hapi request object
    * @param additionalIdentifier - appended to the id
    */
-  Key(request: HapiRequest, additionalIdentifier?: ADDITIONAL_IDENTIFIER) {
+  Key(
+    request: {
+      yar: Pick<HapiRequest["yar"], "id">;
+      params: HapiRequest["params"];
+    },
+    additionalIdentifier?: ADDITIONAL_IDENTIFIER
+  ) {
     if (!request?.yar?.id) {
       throw Error("No session ID found");
     }
+
     return {
       segment: partition,
       id: `${request.yar.id}:${request.params.id}${additionalIdentifier ?? ""}`,

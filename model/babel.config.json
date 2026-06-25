@@ -12,19 +12,12 @@
           }
         ]
       ],
-      "plugins": [
-        "@babel/plugin-transform-runtime"
-      ],
+      "plugins": ["@babel/plugin-transform-runtime"],
       "sourceMaps": true
     },
     "browser": {
-      "presets": [
-        "@babel/typescript",
-        "@babel/preset-env"
-      ],
-      "plugins": [
-        "@babel/plugin-transform-runtime"
-      ],
+      "presets": ["@babel/typescript", "@babel/preset-env"],
+      "plugins": ["@babel/plugin-transform-runtime"],
       "sourceMaps": true
     }
   }

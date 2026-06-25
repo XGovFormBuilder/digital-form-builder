@@ -14,7 +14,7 @@ export class NumberField extends FormComponent {
 
     this.schemaOptions = schema;
     this.options = options;
-    const { min, max } = schema;
+    const { min, max, integer } = schema;
     let componentSchema = joi.number();
 
     componentSchema = componentSchema.label(def.title.toLowerCase());
@@ -25,6 +25,11 @@ export class NumberField extends FormComponent {
 
     if (max !== null && max !== undefined) {
       componentSchema = componentSchema.max(max);
+    }
+
+    // Add this block to enforce integer validation
+    if (integer === true) {
+      componentSchema = componentSchema.integer();
     }
 
     if (options.customValidationMessage) {
