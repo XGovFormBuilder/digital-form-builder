@@ -8,13 +8,5 @@
       "additionalInfo": "<p>This content is based on answer 2</p>",
       "listItems": "<li>Item 3</li><li>Item 4</li>"
     }
-  },
-  "diseaseInfo": {
-    "001F00": {
-      "name": "bird (avian) flu"
-    },
-    "001F01": {
-      "name": "Mers-Cov"
-    }
   }
 }
