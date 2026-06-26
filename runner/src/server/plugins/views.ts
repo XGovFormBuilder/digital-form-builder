@@ -7,6 +7,7 @@ import pkg from "../../../package.json";
 import config from "../config";
 import { HapiRequest } from "../types";
 import additionalContexts from "../templates/additionalContexts.json";
+import srsContexts from "../templates/srsContexts.json";
 
 const basedir = path.join(process.cwd(), "..");
 
@@ -42,6 +43,7 @@ export default {
             watch: false,
           });
           environment.addGlobal("additionalContexts", additionalContexts);
+          environment.addGlobal("srsContexts", srsContexts);
           environment.addFilter("isArray", (x) => Array.isArray(x));
           options.compileOptions.environment = environment;
 
@@ -70,10 +72,16 @@ export default {
         appVersion: pkg.version,
         assetPath: "/assets",
         cookiesPolicy: request?.state?.cookies_policy,
-        serviceName: request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName,
-        returnTo: request?.server?.app?.forms?.[request.params?.id]?.def?.returnTo || false,
+        serviceName:
+          request.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
+          config.serviceName,
+        returnTo:
+          request?.server?.app?.forms?.[request.params?.id]?.def?.returnTo ||
+          false,
         feedbackLink: config.feedbackLink,
-        pageTitle: (request.server?.app?.forms?.[request.params?.id]?.def?.serviceName || config.serviceName) + " - GOV.UK",
+        pageTitle:
+          (request.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
+            config.serviceName) + " - GOV.UK",
         analyticsAccount: config.analyticsAccount,
         gtmId1: analytics.gtmId1 || "",
         gtmId2: analytics.gtmId2 || "",
@@ -83,7 +91,12 @@ export default {
         BROWSER_REFRESH_URL: config.browserRefreshUrl,
         sessionTimeout: config.sessionTimeout,
         skipTimeoutWarning: false,
-        serviceStartPage: request.server?.app?.forms?.[request.params?.id]?.def?.fullStartPage || config.serviceStartPage || config.serviceName || "#",
+        serviceStartPage:
+          request.server?.app?.forms?.[request.params?.id]?.def
+            ?.fullStartPage ||
+          config.serviceStartPage ||
+          config.serviceName ||
+          "#",
         privacyPolicyUrl: config.privacyPolicyUrl || "/help/privacy",
         phaseTag: config.phaseTag,
         navigation: request?.auth.isAuthenticated
@@ -91,6 +104,5 @@ export default {
           : null,
       };
     },
-
   },
 };
