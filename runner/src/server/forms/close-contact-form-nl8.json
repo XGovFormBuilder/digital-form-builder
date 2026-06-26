@@ -348,7 +348,7 @@
           "name": "doYouLiveWithOtherPeopleExplanation",
           "options": {},
           "type": "Para",
-          "content": "As you've tested positive for {{additionalContexts.diseaseInfo[disease_name].name | safe }}, it's important for us to know who you live with {{ PersonalInformation.first_name }}, so we can help them receive the right guidance, such as how to get tested and other health advice."
+          "content": "As you've tested positive for {{additionalContext.diseaseInfo[disease_name].name | safe }}, it's important for us to know who you live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
         },
         {
           "name": "AdEVNK",
@@ -448,7 +448,7 @@
     },
     {
       "path": "/person-live-with-1",
-      "title": "Details of a person {{ PersonalInformation.for }} live with {{ PersonalInformation.first_name }},",
+      "title": "Details of a person {{ PersonalInformation.for }} live with",
       "components": [
         {
           "name": "iulooA",
