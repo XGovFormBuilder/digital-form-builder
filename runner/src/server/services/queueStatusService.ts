@@ -40,7 +40,10 @@ export class QueueStatusService extends StatusService {
           `Queue reference: ${queueReference}`
         );
       } catch (e) {
-        throw Boom.badRequest(e);
+        throw Boom.badRequest(
+          "QueueStatusService:queueService.sendToQueue threw an error",
+          e
+        );
       }
     }
 

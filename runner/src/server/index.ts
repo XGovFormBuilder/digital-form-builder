@@ -34,6 +34,9 @@ import {
   MockUploadService,
   WebhookService,
   ExitService,
+  FormSecurityService,
+  SecureFormSubmissionService,
+  getSecureFormSubmissionServiceInstance,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
@@ -41,6 +44,7 @@ import { pluginQueue } from "server/plugins/queue";
 import { QueueStatusService } from "server/services/queueStatusService";
 import { MySqlQueueService } from "server/services/mySqlQueueService";
 import { PgBossQueueService } from "server/services/pgBossQueueService";
+import { isValidSecureFormSubmissionConfig } from "./utils/isValidSecureFormSubmissionConfig";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -116,6 +120,7 @@ async function createServer(routeConfig: RouteConfig) {
     WebhookService,
     AddressService,
     ExitService,
+    FormSecurityService,
   ]);
   if (!config.documentUploadApiUrl) {
     server.registerService([
@@ -172,6 +177,30 @@ async function createServer(routeConfig: RouteConfig) {
 
     return h.continue;
   });
+
+  const enginePlugin = configureEnginePlugin(
+    formFileName,
+    formFilePath,
+    options
+  );
+
+  for (const form of enginePlugin.options.configs) {
+    const formId = form.id;
+
+    if (
+      isValidSecureFormSubmissionConfig(
+        form.configuration.secureFormSubmissionConfig
+      )
+    ) {
+      const instanceName = getSecureFormSubmissionServiceInstance(formId);
+      const namedService = new SecureFormSubmissionService(
+        form.configuration.secureFormSubmissionConfig
+      );
+      await server.registerService(
+        Schmervice.withName(instanceName, namedService)
+      );
+    }
+  }
 
   await server.register(pluginLocale);
   await server.register(pluginViews);

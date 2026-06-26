@@ -29,6 +29,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/msal-common@npm:16.8.0":
+  version: 16.8.0
+  resolution: "@azure/msal-common@npm:16.8.0"
+  checksum: 2b2044bd7d3658ebe4d49406e6429363522bf9803d92c99831443faa874747d092ad2a1086bf0ac0a0c796266484a6d81d98ad09ba105d534dd48028b15ea30a
+  languageName: node
+  linkType: hard
+
+"@azure/msal-node@npm:^5.2.1":
+  version: 5.2.4
+  resolution: "@azure/msal-node@npm:5.2.4"
+  dependencies:
+    "@azure/msal-common": 16.8.0
+    jsonwebtoken: ^9.0.0
+  checksum: 5f10eee328dd7d4f4449bed6aaa7bc43ac698a2d57814527f06284f2d4a820819fff58cd5d7c90710967f59aef57b58ed9f01c856c5e7eb132a3268302e2dc9f
+  languageName: node
+  linkType: hard
+
 "@babel/cli@npm:^7.23.3":
   version: 7.23.4
   resolution: "@babel/cli@npm:7.23.4"
@@ -5154,6 +5171,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/runner@workspace:runner"
   dependencies:
+    "@azure/msal-node": ^5.2.1
     "@babel/cli": ^7.23.3
     "@babel/core": ^7.23.3
     "@babel/eslint-parser": ^7.23.3
@@ -7016,9 +7034,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001538, caniuse-lite@npm:^1.0.30001565":
-  version: 1.0.30001576
-  resolution: "caniuse-lite@npm:1.0.30001576"
-  checksum: b8b332675fe703d5e57b02df5f100345f2a3796c537a42422f5bfc82d3256b8bad3f4e2788553656d2650006d13a4b5db99725e2a9462cc0c8035ba494ba1857
+  version: 1.0.30001799
+  resolution: "caniuse-lite@npm:1.0.30001799"
+  checksum: f2bc124c605b449bf0da14c6261dd13c7c808de3cd918c93ceb35b1bca9b3e69c1ff6dd7cdb73f0ce2b5c13e59e87b3eae85424980cf0ae5c3bedc692697809b
   languageName: node
   linkType: hard
 

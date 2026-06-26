@@ -2,19 +2,23 @@ import { HapiRequest, HapiServer } from "../types";
 import { createHmacRaw } from "../utils/hmac";
 import {
   CacheService,
+  FormSecurityService,
   NotifyService,
   PayService,
   WebhookService,
 } from "server/services";
 import { SendNotificationArgs } from "server/services/notifyService";
-import { Output, WebhookOutputConfiguration } from "@xgovformbuilder/model";
-import type { NotifyModel } from "../plugins/engine/models/submission";
+import { WebhookOutputConfiguration } from "@xgovformbuilder/model";
 import { ComponentCollection } from "server/plugins/engine/components/ComponentCollection";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
 import config from "server/config";
 import nunjucks from "nunjucks";
+import {
+  OutputData,
+  TNotifyModel,
+} from "../plugins/engine/models/submission/types";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -25,22 +29,17 @@ type OutputArgs = {
   webhook: WebhookModel[];
 };
 
-type OutputModel = Output & {
-  outputData: NotifyModel | WebhookModel;
-};
-
 function isWebhookModel(
-  output: OutputModel["outputData"]
+  output: OutputData["outputData"]
 ): output is WebhookModel {
   return (output as WebhookModel)?.url !== undefined;
 }
 
 function isNotifyModel(
-  output: OutputModel["outputData"]
-): output is NotifyModel {
-  return (output as NotifyModel)?.emailAddress !== undefined;
+  output: OutputData["outputData"]
+): output is TNotifyModel {
+  return (output as TNotifyModel)?.emailAddress !== undefined;
 }
-
 export class StatusService {
   /**
    * StatusService handles sending data at the end of the form to the configured `Outputs`
@@ -50,6 +49,7 @@ export class StatusService {
   webhookService: WebhookService;
   notifyService: NotifyService;
   payService: PayService;
+  formSecurityService: FormSecurityService;
 
   constructor(server: HapiServer) {
     this.logger = server.logger;
@@ -58,11 +58,13 @@ export class StatusService {
       webhookService,
       notifyService,
       payService,
+      formSecurityService,
     } = server.services([]);
     this.cacheService = cacheService;
     this.webhookService = webhookService;
     this.notifyService = notifyService;
     this.payService = payService;
+    this.formSecurityService = formSecurityService;
   }
   async shouldShowPayErrorPage(request: HapiRequest): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
@@ -152,6 +154,13 @@ export class StatusService {
         "X-HMAC-Signature": hmacSignature.toString(),
         "X-HMAC-Time": requestTime.toString(),
       };
+    } else {
+      const formSecurityHeaders = await this.formSecurityService.getSecurityHeaders(
+        request
+      );
+      if (formSecurityHeaders) {
+        customSecurityHeaders = formSecurityHeaders;
+      }
     }
 
     if (callback) {
@@ -166,7 +175,10 @@ export class StatusService {
           "PUT"
         );
       } catch (e) {
-        throw Boom.badRequest(e);
+        throw Boom.badRequest(
+          "StatusService:webhookService.postRequest threw an error",
+          e
+        );
       }
     }
 
@@ -294,7 +306,7 @@ export class StatusService {
   }
 
   outputArgs(
-    outputs: OutputModel[] = [],
+    outputs: OutputData[] = [],
     formData = {},
     reference,
     payReference,
@@ -303,7 +315,7 @@ export class StatusService {
   ): OutputArgs {
     this.logger.trace(["StatusService", "outputArgs"], JSON.stringify(outputs));
     return outputs.reduce<OutputArgs>(
-      (previousValue: OutputArgs, currentValue: OutputModel) => {
+      (previousValue: OutputArgs, currentValue: OutputData) => {
         let { notify, webhook } = previousValue;
         if (isNotifyModel(currentValue.outputData)) {
           const args = this.emailOutputsFromState(
