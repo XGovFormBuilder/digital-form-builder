@@ -171,7 +171,8 @@
               "any.only": "Enter your first name",
               "string.empty": "Enter your first name"
             },
-            "autocomplete": "given-name"
+            "autocomplete": "given-name",
+            "exposeToContext": "true"
           },
           "type": "TextField",
           "title": "Your first name"
@@ -184,6 +185,7 @@
               "any.only": "Enter your last name",
               "string.empty": "Enter your last name"
             },
+            "exposeToContext": true,
             "autocomplete": "family-name"
           },
           "type": "TextField",
@@ -260,10 +262,28 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "title": "Contact request submitted",
-        "nextSteps": "We have sent a confirmation email to {{ email }}.<p class=\"govuk-body-m\"><h2 class=\"govuk-heading-m\">What happens next</h2></p><p class=\"govuk-body-m\">We will review your request and get back to you within 5 days.</p>",
+        "title": "Enquiry request submitted",
+        "nextSteps": "We have sent a confirmation email to <b>{{ email }}</b>.",
         "hidePanel": false
-      }
+      },
+      "components": [
+        {
+          "name": "intro",
+          "type": "Para",
+          "content": "<p class=\"govuk-body-m\">The <b>{{service}}</b> team will review your enquiry and aim to respond within 5 days. If your enquiry is urgent, please <a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>call us</a></p>"
+        },
+        {
+          "name": "table",
+          "type": "Para",
+          "options": {},
+          "content": "<table class=\"govuk-table\"><caption class=\"govuk-table__caption govuk-table__caption--m\">Your enquiry details</caption><tbody class=\"govuk-table__body\"><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">First name</th><td class=\"govuk-table__cell\">{{ firstname }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Last Name</th><td class=\"govuk-table__cell\">{{ lastname }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Organisation</th><td class=\"govuk-table__cell\">{{ organisation }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Email</th><td class=\"govuk-table__cell\">{{ email }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Category</th><td class=\"govuk-table__cell\">{{ supportType }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Service</th><td class=\"govuk-table__cell\">{{ service }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Request information</th><td class=\"govuk-table__cell\">{{ requestInformation }}</td></tr></tbody></table>"
+        },
+        {
+          "name": "final links",
+          "type": "Para",
+          "content": "<p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>What did you think of this service?</a> (takes 30 seconds)</p></br><p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/health-protection-team\" target=”_blank”>Go to Radiation Protection Sciences homepage</a></p>"
+        }
+      ]
     }
   },
   "lists": [
@@ -299,7 +319,7 @@
         },
         {
           "text": "I'm not sure, or my enquiry doesn't fit the above",
-          "value": "other",
+          "value": "General",
           "description": "If your enquiry does not fit any of the above, tell us in more detail in the next step"
         }
       ]
@@ -351,7 +371,7 @@
         },
         {
           "text": "General enquiry",
-          "value": "other",
+          "value": "General",
           "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
         }
       ]
@@ -393,7 +413,7 @@
         },
         {
           "text": "General enquiry",
-          "value": "other",
+          "value": "General",
           "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
         }
       ]
@@ -440,7 +460,7 @@
         },
         {
           "text": "General enquiry",
-          "value": "other",
+          "value": "General",
           "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
         }
       ]
@@ -472,7 +492,7 @@
         },
         {
           "text": "General enquiry",
-          "value": "other",
+          "value": "General",
           "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
         }
       ]
@@ -509,7 +529,7 @@
         },
         {
           "text": "General enquiry",
-          "value": "other",
+          "value": "General",
           "description": "Your enquiry will be reviewed and directed to the most appropriate team, tell us in more detail in the next"
         }
       ]
@@ -642,8 +662,8 @@
             "operator": "is",
             "value": {
               "type": "Value",
-              "value": "other",
-              "display": "other"
+              "value": "General",
+              "display": "General"
             }
           }
         ]
@@ -662,7 +682,7 @@
               "display": "type"
             },
             "operator": "is not",
-            "value": { "type": "Value", "value": "other", "display": "other" }
+            "value": { "type": "Value", "value": "General", "display": "General" }
           },
           {
             "coordinator": "and",
@@ -674,8 +694,8 @@
             "operator": "is not",
             "value": {
               "type": "Value",
-              "value": "other",
-              "display": "other"
+              "value": "General",
+              "display": "General"
             }
           }
         ]

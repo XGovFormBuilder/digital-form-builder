@@ -96,7 +96,6 @@ export class FindAnAddressPageController extends PageControllerBase {
 
           if (matchedAddress) {
             hasMatchedAddress = true;
-
           }
         }
       }
@@ -129,7 +128,7 @@ export class FindAnAddressPageController extends PageControllerBase {
     let addressItems: Item[] = [];
     addresses.forEach((address) => {
       const item: Item = {
-        text: address.address + ", " + address.postcode,
+        text: address.address,
         value: address.uprn
       };
       addressItems.push(item);

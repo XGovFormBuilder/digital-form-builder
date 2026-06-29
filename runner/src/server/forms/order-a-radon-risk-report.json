@@ -14,7 +14,7 @@
           "name": "CCtnVb",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\">Use this service to find out the risk of radon at your address.</p><p class=\"govuk-body-m\">The report shows the liklihood, as a percentage, of a property having radon levels above the Action Level advised by the UK Health Security Agency</p>"
+          "content": "<p class=\"govuk-body-m\">Use this service to find out the risk of radon at your address.</p><p class=\"govuk-body-m\">The report shows the likelihood, as a percentage, of a property having radon levels above the Action Level advised by the UK Health Security Agency</p>"
         },
         {
           "name": "Nzuthm",
@@ -51,7 +51,7 @@
               "case": "upper"
             }
           },
-          "schema": { 
+          "schema": {
             "max": 10,
             "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
           },
@@ -191,8 +191,7 @@
         }
       ],
       "next": [
-        { "path": "/order-risk-report-find-an-address" },
-        { "path": "/enter-address-manually" }
+        { "path": "/order-risk-report-find-an-address" }
       ]
     },
     {
@@ -254,7 +253,7 @@
               "case": "upper"
             }
           },
-          "schema": { 
+          "schema": {
             "max": 10,
             "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
           },
@@ -294,7 +293,6 @@
         }
       ],
       "next": [
-        { "path": "/order-risk-report-find-an-address" },
         { "path": "/enter-address-manually" }
       ]
     },
@@ -304,11 +302,13 @@
       "components": [
         {
           "name": "DpJwOG",
-          "options": { "hideTitle": true,
-          "customValidationMessages": {
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
               "any.required": "Select if would like to receive your report by Email or Post",
               "any.only": "Select if would like to receive your report by Email or Post"
-            }},
+            }
+          },
           "type": "RadiosField",
           "title": "How would you like to receive your report",
           "list": "qYugsD",
@@ -317,7 +317,7 @@
       ],
       "next": [
         { "path": "/enter-your-details", "condition": "xVvzYK" },
-        { "path": "/post", "condition": "ELgEeU" }
+        { "path": "/order-risk-report-enter-your-details-post", "condition": "ELgEeU" }
       ]
     },
     {
@@ -364,13 +364,13 @@
             "optionalText": false,
             "autocomplete": true,
             "customValidationMessages": {
-              "string.empty": "Enter your email address",
-              "string.pattern.base": "Enter a valid email address"
+              "string.empty": "Enter an email address in the correct format",
+              "string.pattern.base": "Enter an email address in the correct format"
             }
           },
           "type": "EmailAddressField",
           "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
+          "hint": "For example, 'name@example.com'"
         },
         {
           "name": "wLwmDg",
@@ -382,9 +382,183 @@
       "next": [{ "path": "/summary" }]
     },
     {
-      "title": "Post",
-      "path": "/post",
+      "title": "Enter personal details",
+      "path": "/order-risk-report-enter-your-details-post",
       "components": [
+        {
+          "name": "BsASya",
+          "options": {},
+          "type": "Para",
+          "content": "<b>Enter your full name</b>"
+        },
+        {
+          "name": "cRzxRL",
+          "options": {
+            "hideTitle": true,
+            "autocomplete": "first name",
+            "customValidationMessages": {
+              "string.empty": "Enter your first name"
+            }
+          },
+          "type": "TextField",
+          "title": "First Name",
+          "hint": "First name",
+          "schema": {}
+        },
+        {
+          "name": "USKNbx",
+          "options": {
+            "hideTitle": true,
+            "autocomplete": "last name",
+            "customValidationMessages": {
+              "string.empty": "Enter your last name"
+            }
+          },
+          "type": "TextField",
+          "hint": "Last name",
+          "title": "Last name"
+        },
+        {
+          "name": "email_address",
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "autocomplete": true,
+            "customValidationMessages": {
+              "string.empty": "Enter an email address in the correct format",
+              "string.pattern.base": "Enter an email address in the correct format"
+            }
+          },
+          "type": "EmailAddressField",
+          "title": "Enter your email address",
+          "hint": "For example, 'name@example.com'"
+        },
+        {
+          "name": "wLwmDg",
+          "options": {},
+          "type": "InsetText",
+          "content": "We will send your payment confirmation and the report to the email address provided."
+        }
+      ],
+      "next": [
+        { "path": "/order-risk-report-correct-delivery-address" }
+      ]
+    },
+    {
+      "path": "/order-risk-report-correct-delivery-address",
+      "title": "Is this the correct delivery address?",
+      "components": [
+        {
+          "name": "matchedAddressDisplay",
+          "options": {},
+          "type": "DisplayAddress",
+          "content": "{{ matchedAddress.address }}"
+        },
+        {
+          "name": "isCorrectAddress2",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
+              "any.required": "Select Yes if this is the correct delivery address"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Is this the correct address?"
+        },
+        {
+          "name": "dainfo",
+          "options": {},
+          "type": "Para",
+          "content": "You will receive the report to your delivery address within 3 to 5 working days"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary",
+          "condition": "isCorrectAddressYes2"
+        },
+        { "path": "/order-risk-report-enter-delivery-address-manual" }
+      ]
+    },
+    {
+      "path": "/order-risk-report-enter-delivery-address-manual",
+      "title": "Enter the delivery address for the risk report",
+      "components": [
+        {
+          "name": "postcost",
+          "type": "Para",
+          "options": {},
+          "content": "It costs £5.24 to send your results by post"
+        },
+        {
+          "name": "addressLine1Lookup2",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter address line 1, typically the building and street",
+              "any.only": "Enter address line 1, typically the building and street",
+              "string.empty": "Enter address line 1, typically the building and street"
+            },
+            "exposeToContext": true
+          },
+          "type": "TextField",
+          "title": "Address Line 1"
+        },
+        {
+          "name": "addressLine2Lookup2",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Address Line 2"
+        },
+        {
+          "name": "townLookup2",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter town or city",
+              "any.only": "Enter town or city",
+              "string.empty": "Enter town or city"
+            }
+          },
+          "type": "TextField",
+          "title": "Town or city"
+        },
+        {
+          "name": "countyLookup",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "County"
+        },
+        {
+          "name": "postcodeLookup2",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode",
+              "string.max": "Postcode must be less than 10 characters"
+            },
+            "autocomplete": "postal-code",
+            "format": {
+              "trim": true,
+              "case": "upper"
+            }
+          },
+          "schema": { 
+            "max": 10,
+            "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
+          },
+          "type": "TextField",
+          "title": "Postcode",
+          "hint": "For example, AA3 1AB"
+        },
+        {
+          "name": "dainfo",
+          "options": {},
+          "type": "Para",
+          "content": "You will receive the report to your delivery address within 3 to 5 working days"
+        }
       ],
       "next": [
         { "path": "/summary" }
@@ -405,7 +579,8 @@
       "type": "string",
       "items": [
         { "text": "Email (free)", "value": "Email" },
-        { "text": "Post (£X.XX)", "value": "Post" } ]
+        { "text": "Post (£X.XX)", "value": "Post" }
+      ]
     },
     {
       "name": "addressesList",
@@ -445,6 +620,42 @@
               "name": "isCorrectAddress",
               "type": "YesNoField",
               "display": "isCorrectAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "isCorrectDeliveryAddressYes",
+      "displayName": "Is Correct Address Yes",
+      "value": {
+        "name": "isCorrectDeliveryAddressYes",
+        "conditions": [
+          {
+            "field": {
+              "name": "isCorrectDeliveryAddress",
+              "type": "YesNoField",
+              "display": "isCorrectDeliveryAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "isCorrectDeliveryAddressYes2",
+      "displayName": "Is Correct Address Yes",
+      "value": {
+        "name": "isCorrectDeliveryAddressYes2",
+        "conditions": [
+          {
+            "field": {
+              "name": "isCorrectDeliveryAddress2",
+              "type": "YesNoField",
+              "display": "isCorrectDeliveryAddress2"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "true", "display": "true" }
@@ -502,6 +713,24 @@
             },
             "operator": "is",
             "value": { "type": "Value", "value": "Post", "display": "Post" }
+          }
+        ]
+      }
+    },
+        {
+      "name": "isCorrectAddressYes2",
+      "displayName": "Is Correct Address Yes",
+      "value": {
+        "name": "isCorrectAddressYes2",
+        "conditions": [
+          {
+            "field": {
+              "name": "isCorrectAddress2",
+              "type": "YesNoField",
+              "display": "isCorrectAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
           }
         ]
       }
