@@ -1,0 +1,661 @@
+{
+  "metadata": {},
+  "startPage": "/test-kit-start",
+  "name": "Order a radon gas test kit",
+  "serviceName": "Order a radon risk report",
+  "confirmationSessionTimeout": 2000,
+  "pages": [
+    {
+      "path": "/test-kit-start",
+      "title": "Order a radon home test kit",
+      "backLinkFallback": "https://www.ukhsa-protectionservices.org.uk/",
+      "components": [
+        {
+          "name": "qwplwo",
+          "options": {},
+          "type": "Para",
+          "content": "Use this service to order a radon gas test kit for your home.\n</br></br>\nThis service costs £52.80 including VAT.\n</br></br>\nOrdering a kit takes around 5 minutes. It may take up to 10 working days after you order for the kit to be sent.\n</br></br>\nThe kit contains two detectors. one for the living area and one for the bedroom of a residential property.\n</br></br>\nIt doesn't matter how big the home is or how many rooms there are. The detectors just need to be placed in any regularly used living area and bedroom.\n</br></br>\nOnce your kit arrives, we'll send you instructions on how to carry out the test.\n</br></br>\nYou'll get the results and advice on what to do next within 20 working days after you return the kit.\n</br></br>\n<b>Important information before you continue</b>\n</br></br>\nThe test will not be valid if:</br>",
+          "schema": {}
+        },
+        {
+          "name": "VDzNQL",
+          "options": {},
+          "type": "List",
+          "hint": "",
+          "list": "wnGWzk",
+          "title": "The test will not be valid if",
+          "values": { "type": "listRef" },
+          "schema": {}
+        },
+        {
+          "name": "gkopdo",
+          "options": {},
+          "type": "Para",
+          "content": "\nThis is because the way people live in a home can affect the radon level. For example. how often they open windows and doors, or how they heat the house.\n</br></br>\n<b>Before you start</b>\n</br></br>\nYou'll need your:</br>",
+          "schema": {}
+        },
+        {
+          "name": "xOxwdQ",
+          "options": {},
+          "type": "List",
+          "hint": "",
+          "title": "You'll need your:",
+          "list": "DjwCMK",
+          "schema": {}
+        }
+      ],
+      "next": [
+        { "path": "/measurement-address-postcode" }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/measurement-address-postcode",
+      "title": "Enter the address you want to measure the radon level",
+      "components": [
+        {
+          "name": "postcodeLookup",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode",
+              "string.max": "Postcode must be less than 10 characters"
+            },
+            "autocomplete": "postal-code",
+            "exposeToContext": true,
+            "format": {
+              "trim": true,
+              "case": "upper"
+            }
+          },
+          "schema": { 
+            "max": 10,
+            "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
+          },
+          "type": "TextField",
+          "title": "Postcode",
+          "hint": "For example, AA3 1AB"
+        },
+        {
+          "name": "buildingLookup",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter building number or name",
+              "string.max": "Building name must be less than 100 characters"
+            },
+            "exposeToContext": true
+          },
+          "schema": { "max": 100 },
+          "type": "TextField",
+          "title": "Building number or name",
+          "hint": "For example, 15 or Prospect cottage"
+        }
+      ],
+      "customButtonText": "Find address",
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-report-address\">Enter address manually</a>"
+        }
+      ],
+      "controller": "FindAnAddressPageController",
+      "next": [
+        {
+          "path": "/correct-report-address",
+          "condition": "hasMatchedAddressCondition"
+        },
+        { "path": "/select-report-address" },
+        {
+          "path": "/no-addresses-found",
+          "condition": "noAddressesCondition"
+        }
+      ]
+    },
+    {
+      "path": "/correct-report-address",
+      "title": "Is this the correct address?",
+      "components": [
+        {
+          "name": "matchedAddressDisplay",
+          "options": {},
+          "type": "DisplayAddress",
+          "content": "{{ matchedAddress.address }}"
+        },
+        {
+          "name": "isCorrectAddress",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
+              "any.required": "Select Yes if this is the correct address"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Is this the correct address?"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-report-address\">Enter address manually</a>"
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-tested-this-address-before-using-a-gas-test-kit-purchased-from-us",
+          "condition": "isCorrectAddressYes"
+        },
+        { "path": "/order-risk-report-find-an-address" }
+      ]
+    },
+    {
+      "path": "/select-report-address",
+      "title": "Select an address",
+      "components": [
+        {
+          "name": "addressesFoundHeading",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\">{{ numberOfAddresses }} addresses found for <b>{{ postcodeLookup }}</b> and <b>{{ buildingLookup }}</b>. <a href=\"measurement-address-postcode\">Search again</a></p>"
+        },
+        {
+          "name": "selectedAddress",
+          "options": {
+            "hideTitle": true,
+            "customValidationMessages": {
+              "any.required": "Select an address"
+            }
+          },
+          "type": "RadiosField",
+          "title": "Select an address",
+          "list": "addressesList"
+        }
+      ],
+      "componentsAfter": [
+        {
+          "name": "Ayhiny2",
+          "options": {},
+          "type": "Html",
+          "content": "<br><a href=\"enter-report-address\">Enter address manually</a>"
+        }
+      ],
+      "next": [{ "path": "/have-you-tested-this-address-before-using-a-gas-test-kit-purchased-from-us" }]
+    },
+    {
+      "path": "/no-addresses-found",
+      "title": "No addresses found for {{ postcodeLookup }} and {{ buildingLookup }}",
+      "components": [
+        {
+          "name": "noAddressesFoundMessage",
+          "options": {},
+          "type": "Para",
+          "content": "Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+        },
+        {
+          "name": "searchAgain",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\"><a href=\"order-risk-report-find-an-address\">Change your search</a> or <a href=\"enter-report-address\">enter address manually</a></p>"
+        }
+      ],
+      "next": [
+        { "path": "/order-risk-report-find-an-address" }
+      ]
+    },
+    {
+      "path": "/enter-report-address",
+      "title": "Enter the address you want to measure the radon level",
+      "components": [
+        {
+          "name": "addressLine1Lookup",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter address line 1, typically the building and street",
+              "any.only": "Enter address line 1, typically the building and street",
+              "string.empty": "Enter address line 1, typically the building and street"
+            },
+            "exposeToContext": true
+          },
+          "type": "TextField",
+          "title": "Address Line 1"
+        },
+        {
+          "name": "addressLine2Lookup",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "Address Line 2"
+        },
+        {
+          "name": "townLookup",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Enter town or city",
+              "any.only": "Enter town or city",
+              "string.empty": "Enter town or city"
+            }
+          },
+          "type": "TextField",
+          "title": "Town or city"
+        },
+        {
+          "name": "countyLookup",
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "title": "County"
+        },
+        {
+          "name": "postcodeLookup",
+          "options": {
+            "customValidationMessages": {
+              "string.empty": "Enter postcode",
+              "string.pattern.base": "Enter a full UK postcode",
+              "string.max": "Postcode must be less than 10 characters"
+            },
+            "autocomplete": "postal-code",
+            "format": {
+              "trim": true,
+              "case": "upper"
+            }
+          },
+          "schema": { 
+            "max": 10,
+            "regex": "^[\\s]*[A-z]{1,2}[0-9][A-z0-9]?[\\s]*[0-9]{1,2}[ABD-hJLNP-uW-z]{2}[\\s]*$"
+          },
+          "type": "TextField",
+          "title": "Postcode",
+          "hint": "For example, AA3 1AB"
+        }
+      ],
+      "controller": "FindAnAddressPageController",
+      "next": [
+        {
+          "path": "/correct-report-address",
+          "condition": "hasMatchedAddressCondition"
+        },
+        { "path": "/select-report-address" },
+        {
+          "path": "/cannot-find-address",
+          "condition": "noAddressesCondition"
+        }
+      ]
+    },
+    {
+      "path": "/cannot-find-address",
+      "title": "We cannot find your address",
+      "components": [
+        {
+          "name": "noAddressesFoundMessage",
+          "options": {},
+          "type": "Para",
+          "content": "No addresses found for {{ addressLine1Lookup }}, {{ postcodeLookup }}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+        },
+        {
+          "name": "searchAgain",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body-m\"><a href=\"order-risk-report-find-an-address\">Change your search</a> or <a href=\"enter-report-address\">enter address manually</a></p>"
+        }
+      ],
+      "next": [ 
+        { "path": "/enter-report-address" }
+      ]
+    },
+{
+      "path": "/have-you-tested-this-address-before-using-a-gas-test-kit-purchased-from-us",
+      "title": "Have you tested this address before using a gas test kit purchased from us?",
+      "components": [
+        {
+          "name": "tfrTaV",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if this address has been tested before using a gas test kit purchased from us"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Have you tested this address before using a gas test kit purchaced from us?",
+          "schema": {},
+          "values": { "type": "listRef" }
+        }
+      ],
+      "next": [
+        {
+          "path": "/was-the-level-above-the-action-level-200-bqm-3",
+          "condition": "jCTvKA"
+        },
+        {
+          "path": "/enter-your-personal-details-placeholder",
+          "condition": "KTPJJd"
+        }
+      ]
+    },
+    {
+      "path": "/was-the-level-above-the-action-level-200-bqm-3",
+      "title": "Was the level above the action level 200 Bq m⁻³",
+      "components": [
+        {
+          "name": "vLGkYq",
+         "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if the level was above the action level of 200 Bq m⁻³"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Was the level above the action level 200 Bq m⁻³",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-taken-any-steps-to-reduce-the-radon-level-since-the-last-test",
+          "condition": "yYdSeb"
+        },
+        {
+          "path": "/enter-your-personal-details-placeholder",
+          "condition": "sxYJjS"
+        }
+      ]
+    },
+    {
+      "path": "/have-you-taken-any-steps-to-reduce-the-radon-level-since-the-last-test",
+      "title": "Have you taken any steps to reduce the radon level since the last test?",
+      "components": [
+        {
+          "name": "XOXigN",
+          "options": {
+            "customValidationMessages": {
+              "any.required": "Select yes if you have taken steps to reduce the radon level since the last test"
+            }
+          },
+          "type": "YesNoField",
+          "title": "Have you taken any steps to reduce the radon level since the last test?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/you-may-be-eligible-for-a-free-test",
+          "condition": "cHAkee"
+        },
+        {
+          "path": "/enter-your-personal-details-placeholder",
+          "condition": "mUgnbI"
+        }
+      ]
+    },
+    {
+      "path": "/you-may-be-eligible-for-a-free-test",
+      "title": "You may be eligible for a free test",
+      "components": [
+        {
+          "name": "yuiyLN",
+          "options": {},
+          "type": "Para",
+          "content": "Contact the Radon team on 01235 822622 to find out.",
+          "schema": {}
+        },
+        {
+          "name": "EoUUVB",
+          "options": {},
+          "type": "Para",
+          "content": "<a href=\"enter-your-personal-details-placeholder\" target=\"_blank\">Continue without a free retest</a>",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/enter-your-personal-details-placeholder",
+      "title": "Enter your personal details placeholder",
+      "components": [],
+      "next": [{"path": "/summary"}]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "The test will not be valid if:",
+      "name": "wnGWzk",
+      "type": "string",
+      "items": [
+        {
+          "text": "there's building work going on that changes the structure of the property such as a kitchen fitting or room refurbishment",
+          "description": "",
+          "value": "there's building work going on that changes the structure of the property such as a kitchen fitting or room refurbishment"
+        },
+        {
+          "description": "",
+          "text": "the property is empty for more than two weeks of the test",
+          "value": "the property is empty for more than two weeks of the test"
+        },
+        {
+          "text": "the people living there change during the test",
+          "value": "the people living there change during the test"
+        }
+      ]
+    },
+    {
+      "title": "You'll need your:",
+      "name": "DjwCMK",
+      "type": "string",
+      "items": [
+        { "text": "email address", "value": "email address" },
+        {
+          "text": "delivery address for the kit",
+          "value": "delivery address for the kit"
+        },
+        { "text": "payment details", "value": "payment details" }
+      ]
+    },
+    {
+      "name": "addressesList",
+      "title": "addressesList",
+      "type": "string",
+      "items": []
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "name": "hasMatchedAddressCondition",
+      "displayName": "Has Matched Address",
+      "value": {
+        "name": "hasMatchedAddressCondition",
+        "conditions": [
+          {
+            "field": {
+              "name": "hasMatchedAddress",
+              "type": "YesNoField",
+              "display": "hasMatchedAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "isCorrectAddressYes",
+      "displayName": "Is Correct Address Yes",
+      "value": {
+        "name": "isCorrectAddressYes",
+        "conditions": [
+          {
+            "field": {
+              "name": "isCorrectAddress",
+              "type": "YesNoField",
+              "display": "isCorrectAddress"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "name": "noAddressesCondition",
+      "displayName": "No Addresses Found",
+      "value": {
+        "name": "noAddressesCondition",
+        "conditions": [
+          {
+            "field": {
+              "name": "numberOfAddresses",
+              "type": "NumberField",
+              "display": "numberOfAddresses"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "0", "display": "0" }
+          }
+        ]
+      }
+    },
+{
+      "displayName": "HasTested",
+      "name": "jCTvKA",
+      "value": {
+        "name": "HasTested",
+        "conditions": [
+          {
+            "field": {
+              "name": "tfrTaV",
+              "type": "YesNoField",
+              "display": "Have you tested this address before using a gas test kit purchaced from us?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "is200bqm",
+      "name": "yYdSeb",
+      "value": {
+        "name": "is200bqm",
+        "conditions": [
+          {
+            "field": {
+              "name": "vLGkYq",
+              "type": "YesNoField",
+              "display": "Was the level above the action level 200 Bqm-3"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "stepsTaken",
+      "name": "cHAkee",
+      "value": {
+        "name": "stepsTaken",
+        "conditions": [
+          {
+            "field": {
+              "name": "XOXigN",
+              "type": "YesNoField",
+              "display": "Have you taken any steps to reduce the radon level since the last test?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "true", "display": "true" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "hasNotTested",
+      "name": "KTPJJd",
+      "value": {
+        "name": "hasNotTested",
+        "conditions": [
+          {
+            "field": {
+              "name": "tfrTaV",
+              "type": "YesNoField",
+              "display": "Have you tested this address before using a gas test kit purchaced from us?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "isNot200bqm",
+      "name": "sxYJjS",
+      "value": {
+        "name": "isNot200bqm",
+        "conditions": [
+          {
+            "field": {
+              "name": "vLGkYq",
+              "type": "YesNoField",
+              "display": "Was the level above the action level 200 Bqm-3"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "stepsNotTaken",
+      "name": "mUgnbI",
+      "value": {
+        "name": "stepsNotTaken",
+        "conditions": [
+          {
+            "field": {
+              "name": "XOXigN",
+              "type": "YesNoField",
+              "display": "Have you taken any steps to reduce the radon level since the last test?"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "false", "display": "false" }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "AgHhXn",
+      "title": "webhookOutput",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://webho.ok",
+        "allowRetry": true
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "feeOptions": {},
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "addressLookupConfig": {
+    "apimBaseUrl": "${RPSapimBaseUrl}",
+    "callingApplication": "RPS",
+    "tenantId": "${RPStenantID}",
+    "clientId": "${RPSclientID}",
+    "clientSecret": "${RPSclientSecret}",
+    "scopes": ["${RPSscopes}"]
+  }
+}

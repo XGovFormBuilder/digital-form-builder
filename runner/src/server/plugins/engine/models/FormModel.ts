@@ -292,6 +292,15 @@ export class FormModel {
       nextPage = nextPage.getNextPage(state, true);
     }
 
+    const correctAddressIdx = relevantPages.findIndex((p) => p.path === "/is-this-the-correct-address");
+    if (correctAddressIdx > -1 && state.isCorrectAddress === "Yes") {
+      const selectAddressPage = this.pages.find((p) => p.path === "/select-an-address");
+      if (selectAddressPage && !relevantPages.includes(selectAddressPage)) {
+        relevantPages.splice(correctAddressIdx + 1, 0, selectAddressPage);
+      }
+    }
+    
+
     return { relevantPages, endPage };
   }
 }

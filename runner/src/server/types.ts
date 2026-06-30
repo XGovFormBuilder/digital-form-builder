@@ -11,6 +11,7 @@ import { Logger } from "pino";
 
 import { RateOptions } from "./plugins/rateLimit";
 import {
+  AddressLookupService,
   CacheService,
   ExitService,
   MagicLinkCacheService,
@@ -37,6 +38,7 @@ type Services = (
   queueService: QueueService;
   queueStatusService: QueueStatusService;
   exitService: ExitService;
+  addressLookupService: AddressLookupService;
 };
 
 export type RouteConfig = {

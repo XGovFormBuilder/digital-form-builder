@@ -120,6 +120,7 @@ const pageSchema = joi.object().keys({
   sidebarContent: joi.object().optional(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
+  componentsAfter: joi.array().items(componentSchema).optional(),
   disableSingleComponentAsHeading: joi.boolean(),
   next: joi.array().items(nextSchema),
   repeatField: joi.string().optional(),
@@ -182,6 +183,7 @@ const listItemSchema = joi.object().keys({
   value: joi.alternatives().try(joi.number(), joi.string()),
   checkpointDisplayValue: joi.alternatives().try(joi.number(), joi.string()),
   description: localisedString.optional(),
+  selected: joi.boolean().optional(),
   conditional: joi
     .object()
     .keys({
@@ -322,6 +324,16 @@ const exitSchema = joi.object().keys({
   format: joi.string().allow("STATE", "WEBHOOK"),
 });
 
+const addressLookupConfigSchema = joi.object().keys({
+  apimBaseUrl: joi.string(),
+  callingApplication: joi.string(),
+  subscriptionKey: joi.string().optional(),
+  tenantId: joi.string(),
+  clientId: joi.string(),
+  clientSecret: joi.string(),
+  scopes: joi.array().items(joi.string()),
+});
+
 export const Schema = joi
   .object()
   .required()
@@ -365,6 +377,7 @@ export const Schema = joi
     serviceName: joi.string().optional(),
     confirmationSessionTimeout: joi.number().optional(),
     returnTo: joi.boolean().optional(),
+    addressLookupConfig: addressLookupConfigSchema.optional(),
   });
 
 /**

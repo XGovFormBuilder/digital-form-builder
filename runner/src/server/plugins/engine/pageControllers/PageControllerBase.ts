@@ -60,6 +60,7 @@ export class PageControllerBase {
   sectionForMultiSummaryPages: any;
   sidebarContent: any;
   components: ComponentCollection;
+  componentsAfter: ComponentCollection;
   disableSingleComponentAsHeading: boolean;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
@@ -123,6 +124,8 @@ export class PageControllerBase {
     this.hasFormComponents = !!components.formItems.length;
     this.hasConditionalFormComponents = !!conditionalFormComponents.length;
 
+    this.componentsAfter = new ComponentCollection(pageDef.componentsAfter ?? [], model)
+
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
 
@@ -151,6 +154,7 @@ export class PageControllerBase {
     sectionTitle: string;
     showTitle: boolean;
     components: ComponentCollectionViewModel;
+    componentsAfter: ComponentCollectionViewModel;
     errors: FormSubmissionErrors;
     isStartPage: boolean;
     startPage?: HapiResponseObject;
@@ -158,6 +162,7 @@ export class PageControllerBase {
     phaseTag?: string | undefined;
     details?: any;
     returnUrl?: string | undefined;
+    allowExit?: boolean;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -206,6 +211,7 @@ export class PageControllerBase {
       sectionTitle,
       showTitle,
       components,
+      componentsAfter: this.componentsAfter.getViewModel(formData, errors),
       errors,
       isStartPage: false,
       details: this.details || undefined,
@@ -342,6 +348,7 @@ export class PageControllerBase {
    */
   getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
+    let formData: any;
 
     if (this.repeatField) {
       const repeatedPageState =
@@ -352,7 +359,7 @@ export class PageControllerBase {
         ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
         : {};
 
-      return {
+      formData = {
         ...this.components.getFormDataFromState(
           newState as FormSubmissionState
         ),
@@ -360,11 +367,26 @@ export class PageControllerBase {
           newState as FormSubmissionState
         ),
       };
+    } else {
+      formData = {
+        ...this.components.getFormDataFromState(pageState || {}),
+        ...this.model.getContextState(state),
+      };
     }
-    return {
-      ...this.components.getFormDataFromState(pageState || {}),
-      ...this.model.getContextState(state),
-    };
+
+    if (state) {
+      if (state.matchedAddress) {
+        formData.matchedAddress = state.matchedAddress;
+      }
+      if (state.hasMatchedAddress !== undefined) {
+        formData.hasMatchedAddress = state.hasMatchedAddress;
+      }
+      if(state.numberOfAddresses !== undefined) {
+        formData.numberOfAddresses = state.numberOfAddresses;
+      }
+    }
+
+    return formData;
   }
 
   getStateFromValidForm(formData: FormPayload) {
@@ -447,10 +469,17 @@ export class PageControllerBase {
     //Note: This function does not support repeatFields right now
 
     let relevantState: FormSubmissionState = {};
+    const virtualKeys = ["hasMatchedAddress", "numberOfAddresses", "matchedAddress", "addresses"];
+    for (const key of virtualKeys) {
+      if (state && state[key] !== undefined) {
+        relevantState[key] = state[key];
+      }
+    }
     //Start at our startPage
     let nextPage = model.startPage;
 
     //While the current page isn't null
+    const checkedPages: any[] = [];
     while (nextPage != null) {
       //Either get the current state or the current state of the section if this page belongs to a section
       const currentState =
@@ -487,6 +516,11 @@ export class PageControllerBase {
       }
 
       //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
+      if(checkedPages.includes(nextPage)) {
+        nextPage = null;
+      } else {
+        checkedPages.push(nextPage);
+      }
     }
 
     return relevantState;
@@ -585,6 +619,17 @@ export class PageControllerBase {
         }
         return true;
       });
+
+      viewModel.componentsAfter = viewModel.componentsAfter.filter((component) => {
+        if (
+          (component.model.content || component.type === "Details") &&
+          component.model.condition
+        ) {
+          const condition = this.model.conditions[component.model.condition];
+          return condition.fn(relevantState);
+        }
+        return true;
+      });
       /**
        * For conditional reveal components (which we no longer support until GDS resolves the related accessibility issues {@link https://github.com/alphagov/govuk-frontend/issues/1991}
        */
@@ -667,6 +712,8 @@ export class PageControllerBase {
       .map((component) => component.model);
     const progress = state.progress || [];
     const { num } = request.query;
+    const formData = this.getFormDataFromState(state, num - 1);
+    const combined = {...formData, ...payload } as FormData;
 
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {
@@ -678,7 +725,6 @@ export class PageControllerBase {
           text: `The selected files must be smaller than ${config.maxFileSizeStringInMb}MB`,
         };
       });
-
       formResult.errors = Object.is(formResult.errors, null)
         ? { titleText: "There is a problem" }
         : formResult.errors;
@@ -705,19 +751,16 @@ export class PageControllerBase {
           reformattedErrors.push(reformatted);
         }
       });
-
       formResult.errors = Object.is(formResult.errors, null)
         ? { titleText: "There is a problem" }
         : formResult.errors;
       formResult.errors.errorList = reformattedErrors;
     }
-
     Object.entries(payload).forEach(([key, value]) => {
       if (value && value === (originalFilenames[key] || {}).location) {
         payload[key] = originalFilenames[key].originalFilename;
       }
     });
-
     /**
      * If there are any errors, render the page with the parsed errors
      */
@@ -727,7 +770,7 @@ export class PageControllerBase {
       return this.renderWithErrors(
         request,
         h,
-        payload,
+        combined,
         num,
         progress,
         formResult.errors
@@ -740,7 +783,7 @@ export class PageControllerBase {
       return this.renderWithErrors(
         request,
         h,
-        payload,
+        combined,
         num,
         progress,
         stateResult.errors
@@ -766,6 +809,9 @@ export class PageControllerBase {
     const { nullOverride, arrayMerge, modifyUpdate } = mergeOptions;
     if (modifyUpdate) {
       update = modifyUpdate(update);
+    }
+    if (this.path === "/is-this-the-correct-address" && update.isCorrectAddress === "Yes" && state.matchedAddress) {
+      update.matchedAddress = state.matchedAddress.uprn;
     }
     await cacheService.mergeState(request, update, nullOverride, arrayMerge);
   }
@@ -813,7 +859,7 @@ export class PageControllerBase {
       }
 
       const shouldGoToExitPage =
-        this.model.allowExit && request.payload?.action === "exit";
+        this.model.allowExit && (request.payload as any)?.action === "exit";
 
       if (shouldGoToExitPage) {
         await cacheService.setExitState(request, {
@@ -999,7 +1045,6 @@ export class PageControllerBase {
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
     viewModel.allowExit = this.model.allowExit;
-
     return h.view(this.viewName, viewModel);
   }
 }

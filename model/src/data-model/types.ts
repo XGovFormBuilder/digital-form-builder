@@ -16,6 +16,7 @@ export interface Page {
   disableBackLink?: boolean;
   controller: string;
   components?: ComponentDef[];
+  componentsAfter?: ComponentDef[];
   section?: string; // the section ID
   sectionForExitJourneySummaryPages?: string;
   sectionForMultiSummaryPages?: string;
@@ -196,6 +197,19 @@ export type Analytics = {
   matomoUrl: string;
 };
 
+export interface MsalAuthorizerConfig {
+  tenantId: string;
+  clientId: string;
+  clientSecret: string;
+  scopes: string[];
+}
+
+export interface AddressLookupConfig extends MsalAuthorizerConfig {
+  apimBaseUrl: string;
+  callingApplication: string;
+  subscriptionKey?: string;
+}
+
 /**
  * `FormDefinition` is a typescript representation of `Schema`
  */
@@ -232,4 +246,5 @@ export type FormDefinition = {
   serviceName?: string | undefined;
   confirmationSessionTimeout: number | undefined;
   returnTo?: boolean | undefined;
+  addressLookupConfig?: AddressLookupConfig;
 };
