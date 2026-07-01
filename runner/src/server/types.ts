@@ -13,6 +13,7 @@ import { RateOptions } from "./plugins/rateLimit";
 import {
   CacheService,
   ExitService,
+  FormSecurityService,
   MagicLinkCacheService,
   NotifyService,
   PayService,
@@ -37,6 +38,7 @@ type Services = (
   queueService: QueueService;
   queueStatusService: QueueStatusService;
   exitService: ExitService;
+  formSecurityService: FormSecurityService;
 };
 
 export type RouteConfig = {

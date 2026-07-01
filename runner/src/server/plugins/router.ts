@@ -10,6 +10,7 @@ import { FeedbackContextInfo, RelativeUrl } from "./engine/feedback";
 
 import fs from "fs";
 import path from "path";
+import { Server } from "@hapi/hapi";
 
 const routes = [...publicRoutes, healthCheckRoute];
 
@@ -30,7 +31,7 @@ interface CookiePayload {
 export default {
   plugin: {
     name: "router",
-    register: (server) => {
+    register: (server: Server) => {
       server.route(routes);
       server.route([
         {
