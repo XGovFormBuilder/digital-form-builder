@@ -213,9 +213,7 @@
       "options": {
         "changePath": "/order-risk-report-find-a-report-address"
       },
-      "next": [
-        { "path": "/order-risk-report-is-this-the-correct-report-address" }
-      ],
+      "next": [{ "path": "/how-would-you-like-to-receive-your-report" }],
       "componentsAfter": [
         {
           "name": "enterManuallyLink",
@@ -853,9 +851,7 @@
       "options": {
         "changePath": "/order-risk-report-find-a-delivery-address"
       },
-      "next": [
-        { "path": "/order-risk-report-is-this-the-correct-delivery-address" }
-      ],
+      "next": [{ "path": "/summary" }],
       "componentsAfter": [
         {
           "name": "enterManuallyLink",

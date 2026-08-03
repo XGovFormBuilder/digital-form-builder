@@ -115,7 +115,7 @@
       "title": "KLS FeedbackForm",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "https://webhook.site/e87402d7-a93e-406c-bf13-ca72f3973bbc",
+        "url": "https://webhook.site/b07736ab-3972-4a84-9283-8efec3d324aa",
         "allowRetry": true
       }
     }
