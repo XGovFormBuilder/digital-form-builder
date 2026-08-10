@@ -1,6 +1,7 @@
 import { Item } from "@xgovformbuilder/model/dist/module/data-model/types";
 import Joi from "joi";
 import { Address } from "src/server/services/addressLookupService";
+import * as Fuse from "fuse.js";
 
 export type AddressType =
   | "reportAddress"
@@ -82,15 +83,35 @@ const STREET_NUMBER_PATTERN = /(^|, )(\d+[A-Z]?([-\/]\d+)?[A-Z]?),/i;
  * @param addressLine1 - the 1st line of the address
  * @returns an address or undefined
  */
+
+export const getAddressQuery = (
+  addressLine1: string,
+  addressLine2: string,
+  town: string,
+  county: string,
+  postcode: string
+): string => {
+  const addressParts = [addressLine1, addressLine2, town, county, postcode];
+  return addressParts.filter((part) => part && part.trim() !== "").join(",%20");
+};
+
 export const findMatchingAddress = (
   addresses: Address[],
   building?: string,
-  addressLine1?: string
+  addressLine1?: string,
+  addressLine2?: string,
+  town?: string,
+  county?: string
 ): Address | undefined => {
   const normalizedBuilding = building?.trim().toUpperCase();
-  const addressLine1Pattern = addressLine1
-    ? new RegExp(`^${addressLine1.trim().toUpperCase()}( |,)`)
-    : null;
+  const normalizedAddressLine1 = addressLine1
+    ? addressLine1.trim().toUpperCase()
+    : undefined;
+  const normalizedAddressLine2 = addressLine2
+    ? addressLine2.trim().toUpperCase()
+    : undefined;
+  const normalizedTown = town ? town.trim().toUpperCase() : undefined;
+  const normalizedCounty = county ? county.trim().toUpperCase() : undefined;
 
   for (const address of addresses) {
     const firstPart = address.address.split(",")[0].trim().toUpperCase();
@@ -105,12 +126,17 @@ export const findMatchingAddress = (
       }
     }
 
-    if (
-      addressLine1Pattern &&
-      addressLine1Pattern.test(address.address.toUpperCase())
-    ) {
-      return address;
+    if (normalizedAddressLine1) {
+      const addressParts = [addressLine1, addressLine2, town, county];
+      const addressSearch = addressParts.join(", ").toUpperCase();
+      const fuse = new Fuse([address.address], {
+        useTokenSearch: true,
+        keys: ["address"],
+      });
+
+      fuse.search(addressSearch);
     }
+    return address;
   }
 
   return undefined;

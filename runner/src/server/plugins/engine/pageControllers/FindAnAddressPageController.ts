@@ -28,6 +28,9 @@ const extractInputFromSubmission = (data: FormSubmission) => {
     addressType,
     postcodeLookup: rest[`${addressType}_postcodeLookup`],
     addressLine1Lookup: rest[`${addressType}_addressLine1Lookup`],
+    addressLine2Lookup: rest[`${addressType}_addressLine2Lookup`],
+    townLookup: rest[`${addressType}_townLookup`],
+    countyLookup: rest[`${addressType}_countyLookup`],
     buildingLookup: rest[`${addressType}_buildingLookup`],
   };
 };
@@ -55,6 +58,9 @@ export class FindAnAddressPageController extends PageControllerBase {
         addressType,
         postcodeLookup,
         addressLine1Lookup,
+        addressLine2Lookup,
+        townLookup,
+        countyLookup,
         buildingLookup,
       } = extractInputFromSubmission(validation.value);
 
@@ -85,7 +91,10 @@ export class FindAnAddressPageController extends PageControllerBase {
         const matchedAddress = findMatchingAddress(
           addresses,
           buildingLookup,
-          addressLine1Lookup
+          addressLine1Lookup,
+          addressLine2Lookup,
+          townLookup,
+          countyLookup
         );
 
         const list = this.model.lists.find(
