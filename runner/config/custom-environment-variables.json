@@ -43,7 +43,10 @@
   "authClientAuthUrl": "AUTH_CLIENT_AUTH_URL",
   "authClientTokenUrl": "AUTH_CLIENT_TOKEN_URL",
   "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
-  "previewMode": "PREVIEW_MODE",
+  "previewMode": {
+    "__name": "PREVIEW_MODE",
+    "__format": "boolean"
+  },
   "enforceCsrf": "ENFORCE_CSRF",
   "safelist": {
     "__name": "SAFELIST",
