@@ -29,10 +29,59 @@ interface CookiePayload {
 }
 
 // Helper functions
-const resolvedUrl = (url: string) => {
-  // NOTE: allows to have multiple forms share thhe same cookie statement
+const getGroupByName = (url: string) => {
+  // NOTE: allows to have multiple forms share the same cookie statement
   if (url.startsWith("close-contact-form")) return "close-contact-form";
   return url;
+};
+
+const resolveUrl = (url: string, form: FormModel, view: string) => {
+  // views are looked up from most to least specific: form, form group, generic
+  const folders = [url, form.def?.formGroup, "help"].filter(
+    Boolean
+  ) as string[];
+
+  const resolvedUrl = findFirstView(folders, view);
+
+  return resolvedUrl;
+};
+
+/**
+ * Gets a view from a folder
+ *
+ * @param folder the folder where the view is located. If not provided the default folder is `views`.
+ * @param view the name of the view
+ * @returns
+ */
+export const getViewFromFolder = (folder: string, view: string) => {
+  const viewPath = path.join(__dirname, `../views/${folder}/${view}.html`);
+
+  if (!fs.existsSync(viewPath)) {
+    return undefined;
+  }
+
+  return `${folder}/${view}`;
+};
+
+/**
+ * Finds the first view that exists across a list of candidate folders,
+ * checked in order (e.g. form folder, then form group folder, then generic).
+ *
+ * @param folders the folders to check, in priority order
+ * @param view the name of the view
+ * @returns
+ */
+export const findFirstView = (
+  folders: (string | undefined)[],
+  view: string
+) => {
+  for (const folder of folders) {
+    const match = folder !== undefined && getViewFromFolder(folder, view);
+    if (match) {
+      return match;
+    }
+  }
+  return `/help/${view}`;
 };
 
 export default {
@@ -48,31 +97,24 @@ export default {
             const { url } = _request.params; // Extract the dynamic page parameter
             const form = server.app.forms[url]; // Gain requested form context
 
-            // Construct the file path for the view
-            const viewPath = path.join(
-              __dirname,
-              "../views",
-              resolvedUrl(url),
-              "privacy.html"
-            );
-
             // Catch the default help page before processing further
             if (url === "help") {
               return h.view("help/privacy");
             }
 
-            // Check if the file exists
-            if (!form || !fs.existsSync(viewPath)) {
-              return h.redirect("/help/privacy");
-            }
+            const resolvedUrl = resolveUrl(
+              getGroupByName(url),
+              form,
+              "privacy"
+            );
 
-            const title = `${resolvedUrl(url)}/privacy`;
-            return h.view(title, {
+            return h.view(resolvedUrl, {
               name: form.name,
               serviceName: form.def.serviceName,
               serviceStartPage: form.serviceStartPage,
-              feedbackLink: feedbackUrlFromRequest(_request, form, title),
+              feedbackLink: feedbackUrlFromRequest(_request, form, resolvedUrl),
               returnTo: form.returnTo,
+              footerLinks: form.def.footerLinks,
             });
           },
         },
@@ -87,38 +129,29 @@ export default {
 
             const form = server.app.forms[url]; // Gain requested form context
 
-            // Construct the file path for the view
-            const viewPath = path.join(
-              __dirname,
-              "../views",
-              resolvedUrl(url),
-              "cookies.html"
-            );
-
             // Catch the default help page before processing further
             if (url === "help") {
               return h.view("help/cookies");
             }
 
-            // Check if the file exists
-            if (!form || !fs.existsSync(viewPath)) {
-              return h.redirect("/help/cookies");
-            }
+            const resolvedUrl = resolveUrl(
+              getGroupByName(url),
+              form,
+              "cookies"
+            );
 
-            // const title = `${url}/cookies`;
-            const title = `${resolvedUrl(url)}/cookies`;
-
-            return h.view(title, {
+            return h.view(resolvedUrl, {
               analytics,
               name: form.name,
               serviceName: form.def.serviceName,
               serviceStartPage: form.serviceStartPage,
               returnTo: form.returnTo,
-              feedbackLink: feedbackUrlFromRequest(request, form, title),
+              feedbackLink: feedbackUrlFromRequest(request, form, resolvedUrl),
               matomoUrl: form.def.analytics?.matomoUrl,
               matomoId: form.def.analytics?.matomoId,
               gtmId1: form.def.analytics?.gtmId1,
               gtmId2: form.def.analytics?.gtmId2,
+              footerLinks: form.def.footerLinks,
             });
           },
         },
@@ -155,24 +188,13 @@ export default {
             const { referrer } = getRequestInfo(request);
             const form = server.app.forms[url]; // Gain requested form context
 
-            // Construct the file path for the view
-            const viewPath = path.join(
-              __dirname,
-              "../views",
-              url,
-              "cookies.html"
-            );
-
             let redirectPath = `/${url}/cookies`;
 
             // Catch the default help page before processing further
             if (url === "help") {
               redirectPath = "help/cookies";
-            }
-
-            // Check if the file exists
-            if (!form || !fs.existsSync(viewPath)) {
-              redirectPath = "/help/cookies";
+            } else {
+              redirectPath = resolveUrl(getGroupByName(url), form, "cookies");
             }
 
             if (referrer) {
@@ -209,30 +231,23 @@ export default {
 
           const form = server.app.forms[url]; // Gain requested form context
 
-          // Construct the file path for the view
-          const viewPath = path.join(
-            __dirname,
-            "../views",
-            url,
-            "terms-and-conditions.html"
-          );
-
           // Catch the default help page before processing further
           if (url === "help") {
             return h.view("help/terms-and-conditions");
           }
 
-          // Check if the file exists, if it doesn't, redirect to the default accessibility statement
-          if (!form || !fs.existsSync(viewPath)) {
-            return h.redirect("/help/terms-and-conditions");
-          }
+          const resolvedUrl = resolveUrl(
+            getGroupByName(url),
+            form,
+            "terms-and-conditions"
+          );
 
-          const title = `${url}/terms-and-conditions`;
           return h.view(title, {
             name: form.name,
             serviceName: form.def.serviceName,
             serviceStartPage: form.serviceStartPage,
             feedbackLink: feedbackUrlFromRequest(_request, form, title),
+            footerLinks: form.def.footerLinks,
           });
         },
       });
@@ -245,30 +260,24 @@ export default {
 
           const form = server.app.forms[url]; // Gain requested form context
 
-          // Construct the file path for the view
-          const viewPath = path.join(
-            __dirname,
-            "../views",
-            resolvedUrl(url),
-            "accessibility-statement.html"
-          );
-
           // Catch the default help page before processing further
           if (url === "help") {
             return h.view("help/accessibility-statement");
           }
-          // Check if the file exists, if it doesn't, redirect to the default accessibility statement
-          if (!form || !fs.existsSync(viewPath)) {
-            return h.redirect("/help/accessibility-statement");
-          }
 
-          const title = `${resolvedUrl(url)}/accessibility-statement`;
-          return h.view(title, {
+          const resolvedUrl = resolveUrl(
+            getGroupByName(url),
+            form,
+            "accessibility-statement"
+          );
+
+          return h.view(resolvedUrl, {
             name: form.name,
             serviceName: form.serviceName,
             serviceStartPage: form.serviceStartPage,
-            feedbackLink: feedbackUrlFromRequest(_request, form, title),
+            feedbackLink: feedbackUrlFromRequest(_request, form, resolvedUrl),
             returnTo: form.returnTo,
+            footerLinks: form.def.footerLinks,
           });
         },
       });

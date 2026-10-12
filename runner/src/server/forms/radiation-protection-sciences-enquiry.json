@@ -1,9 +1,10 @@
 {
+  "formGroup": "radon",
   "metadata": {},
   "startPage": "/type-of-support",
   "fullStartPage": "type-of-support",
+  "serviceName": "Contact Radiation Protection Sciences",
   "name": "Contact us",
-  "serviceName": "Contact us",
   "confirmationSessionTimeout": 2000,
   "analytics": {
     "gtmId1": "GTM-5ZD9GZWX"
@@ -814,11 +815,11 @@
       "text": "Privacy"
     },
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/cookies",
+      "href": "cookies",
       "text": "Cookies"
     },
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/accessibility-statement",
+      "href": "accessibility-statement",
       "text": "Accessibility Statement"
     },
     {
