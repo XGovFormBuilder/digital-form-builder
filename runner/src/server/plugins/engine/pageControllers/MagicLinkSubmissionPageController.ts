@@ -1,6 +1,8 @@
-import { SummaryViewModel } from "../models";
+import { NotifyOutputConfiguration, Page } from "@xgovformbuilder/model";
+import { FormModel, SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
 import { redirectTo } from "../helpers";
+import { FormSubmissionState } from "../types";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { createHmac } from "src/server/utils/hmac";
 import { isAllowedDomain } from "src/server/utils/domain";
@@ -24,10 +26,17 @@ const getCookieOptions = (timeRemaining: number) => {
 // Base controller class containing shared functionality
 export class MagicLinkSubmissionPageController extends PageController {
   RETRY_TIMEOUT_SECONDS: number;
+  request!: HapiRequest;
 
-  constructor(model, pageDef) {
+  constructor(model: FormModel, pageDef: Page) {
     super(model, pageDef);
     this.RETRY_TIMEOUT_SECONDS = this.model.def.retryTimeoutSeconds ?? 300;
+  }
+
+  private get hmacKey() {
+    // The signing key is on the form's first output, the notify output that emails the link.
+    const { outputConfiguration } = this.model.def.outputs[0];
+    return (outputConfiguration as NotifyOutputConfiguration).hmacKey;
   }
 
   // Template-specific configurations that can be overridden by child classes
@@ -43,7 +52,6 @@ export class MagicLinkSubmissionPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       this.request = request; // Store request for use in getter methods
       const { cacheService } = request.services([]);
-      const state = await cacheService.getState(request);
       const currentTime = Math.floor(Date.now() / 1000);
 
       // Check if there's a cookie with retry information
@@ -150,7 +158,6 @@ export class MagicLinkSubmissionPageController extends PageController {
         return redirectTo(request, h, InvalidDomainRedirectPage);
       }
 
-      const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
       const currentTime = Math.floor(Date.now() / 1000);
 
       // Check if the user already has an active HMAC link
@@ -185,6 +192,11 @@ export class MagicLinkSubmissionPageController extends PageController {
       }
 
       // Generate new HMAC for the email
+      const hmacKey = this.hmacKey;
+      if (!hmacKey) {
+        throw new Error(`Magic link form ${model.basePath} has no hmacKey`);
+      }
+
       const [hmac, currentTimestamp, hmacExpiryTime] = await createHmac(
         email,
         hmacKey
@@ -220,7 +232,7 @@ export class MagicLinkSubmissionPageController extends PageController {
       const currentState = await cacheService.getState(request);
 
       // Create new state object with all the values we want to set
-      const newStateValues = {
+      const newStateValues: FormSubmissionState = {
         hmacSignature: hmacUrl,
         hmacExpiryTime: hmacExpiryTime,
         outputs: summaryViewModel.outputs,
