@@ -4,11 +4,13 @@ import crypto from "crypto";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { ServerInjectResponse } from "@hapi/hapi";
+import Jwt from "@hapi/jwt";
 import {
   FormDefinition,
   NotifyOutputConfiguration,
 } from "@xgovformbuilder/model";
 import createServer from "src/server";
+import config from "src/server/config";
 import { HapiServer } from "src/server/types";
 import { SendNotificationArgs } from "src/server/services/notifyService";
 import { freezeNow } from "../../../../../clock-helper";
@@ -32,6 +34,21 @@ const answers = {
 const loadForm = (id: string): FormDefinition =>
   JSON.parse(fs.readFileSync(path.join(formsPath, `${id}.json`), "utf8"));
 
+// Valid answers for a page: the first item of each list and 1 for numbers. Other fields are left empty.
+const validAnswersFor = (form: FormDefinition, pagePath: string) => {
+  const page = form.pages.find(({ path }) => path === pagePath);
+  const values: Record<string, string> = {};
+  for (const component of page?.components ?? []) {
+    if ("list" in component) {
+      const list = form.lists.find(({ name }) => name === component.list);
+      values[component.name] = String(list?.items[0]?.value);
+    } else if (component.type === "NumberField") {
+      values[component.name] = "1";
+    }
+  }
+  return values;
+};
+
 const journeys = [
   ["magic-link", "ReportAnOutbreak"],
   ["kls-magic-link", "kls-enquiries"],
@@ -52,6 +69,7 @@ const journeys = [
     originatingFormId,
     redirectPath: redirectPage.path,
     continuePath,
+    continueAnswers: validAnswersFor(originatingForm, continuePath),
     allowedDomains: form.allowedDomains ?? [],
     invalidDomainRedirect: form.invalidDomainRedirect,
     // ReportAnOutbreak's toggle is an unresolved ${...} placeholder in tests, so sign-in isn't enforced for it here.
@@ -200,6 +218,7 @@ suite("Magic link journey", () => {
       originatingFormId,
       redirectPath,
       continuePath,
+      continueAnswers,
       allowedDomains,
       invalidDomainRedirect,
       signInEnforced,
@@ -445,6 +464,33 @@ suite("Magic link journey", () => {
             expect(sentEmails.length).to.equal(emailsSent + 1);
           });
 
+          test("sending a new link after the wait page clears the minutes left", async () => {
+            const browser = await openBrowser();
+            const email = newEmail();
+            await sendLinkFromEmailPage(browser, email);
+            const { state: waitPageState } = await sendLinkFromEmailPage(
+              browser,
+              email
+            );
+            expect(waitPageState.minutesRemaining).to.equal(5);
+            await services().magicLinkCacheService.updateMagicLinkRecord(
+              email,
+              "earlier-link",
+              nowInSeconds() - resendWaitSeconds - 1
+            );
+            // The retry cookie expires when the wait ends, so the browser stops sending it.
+            delete browser.cookies.magicLinkRetry;
+            const emailsSent = sentEmails.length;
+
+            const { res, state } = await sendLinkFromEmailPage(browser, email);
+
+            expect(res.headers.location).to.equal(
+              `/${formId}/check-your-email`
+            );
+            expect(sentEmails.length).to.equal(emailsSent + 1);
+            expect(state.minutesRemaining).to.be.undefined();
+          });
+
           test("a retry cookie whose wait has passed sends the user to the resend page", async () => {
             const browser = await openBrowser();
             browser.cookies.magicLinkRetry = retryCookie(
@@ -670,6 +716,50 @@ suite("Magic link journey", () => {
               const { res } = await get(
                 `/${originatingFormId}${continuePath}`,
                 { browser }
+              );
+
+              expect(res.headers.location).to.equal(
+                `/${originatingFormId}/start`
+              );
+            });
+
+            // Signs in by opening a link and shows the continue page, then swaps in a sign-in cookie signed with the wrong key.
+            const browserWithForgedSignIn = async () => {
+              const { requester, url, email } = await requestLinkWithAnswers();
+              await get(url, { browser: requester });
+              await get(`/${originatingFormId}${continuePath}`, {
+                browser: requester,
+              });
+              requester.cookies.auth_token = Jwt.token.generate(
+                { email },
+                {
+                  key: "not-the-form-jwt-key",
+                  algorithm: config.initialisedSessionAlgorithm,
+                }
+              );
+              return requester;
+            };
+
+            test(`with a sign-in cookie signed with the wrong key the user is sent from ${continuePath} back to the start`, async () => {
+              const browser = await browserWithForgedSignIn();
+
+              const { res } = await get(
+                `/${originatingFormId}${continuePath}`,
+                { browser }
+              );
+
+              expect(res.headers.location).to.equal(
+                `/${originatingFormId}/start`
+              );
+            });
+
+            test(`with a sign-in cookie signed with the wrong key, answering ${continuePath} sends the user back to the start`, async () => {
+              const browser = await browserWithForgedSignIn();
+
+              const { res } = await post(
+                `/${originatingFormId}${continuePath}`,
+                browser,
+                continueAnswers
               );
 
               expect(res.headers.location).to.equal(
