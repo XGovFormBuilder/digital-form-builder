@@ -4,7 +4,6 @@
   "startPage": "/type-of-support",
   "fullStartPage": "type-of-support",
   "serviceName": "Contact Radiation Protection Sciences",
-  "name": "Contact us",
   "confirmationSessionTimeout": 2000,
   "analytics": {
     "gtmId1": "GTM-5ZD9GZWX"
@@ -360,8 +359,8 @@
       "type": "string",
       "items": [
         {
-          "text": "Radon Measurement Services (UKradon)",
-          "value": "Radon Measurement Services (UKradon)",
+          "text": "Radon Services Team (UKradon)",
+          "value": "Radon Services Team (UKradon)",
           "description": "Measurement of radon gas levels in homes, workplaces, and other buildings, with advice on remediation"
         },
         {

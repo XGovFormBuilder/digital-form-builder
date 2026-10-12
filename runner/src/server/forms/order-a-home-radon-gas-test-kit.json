@@ -468,15 +468,15 @@
     },
     {
       "path": "/previous-test-action-level",
-      "title": "Was the level above the action level 200 Bq m⁻³?",
+      "title": "Was the level above the action level 100 Bq m⁻³?",
       "components": [
         {
           "name": "bqmYesNo",
           "type": "YesNoField",
-          "title": "Was the level above the action level 200 Bq m⁻³",
+          "title": "Was the level above the action level 100 Bq m⁻³?",
           "options": {
             "customValidationMessages": {
-              "any.required": "Select yes if the level was above the action level of 200 Bq m⁻³"
+              "any.required": "Select yes if the level was above the action level of 100 Bq m⁻³"
             }
           },
           "hint": "This information will be on your radon gas test results"
