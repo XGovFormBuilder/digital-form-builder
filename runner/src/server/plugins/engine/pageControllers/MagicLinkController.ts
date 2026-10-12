@@ -36,8 +36,6 @@ export class MagicLinkController extends PageController {
         return h.redirect(`/${this.model.basePath}/expired`).code(302);
       }
 
-      await magicLinkCacheService.deleteMagicLinkRecord(email);
-
       if (!validation.isValid) {
         // Handle different invalid token cases
         switch (validation.reason) {

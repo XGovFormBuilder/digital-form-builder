@@ -11,6 +11,7 @@ import {
 import createServer from "src/server";
 import { HapiServer } from "src/server/types";
 import { SendNotificationArgs } from "src/server/services/notifyService";
+import { freezeNow } from "../../../../../clock-helper";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -19,7 +20,9 @@ const { after, before, suite, test } = lab;
 
 const formsPath = path.join(__dirname, "../../../../../../src/server/forms");
 const browserUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)";
+const scannerUserAgent = "Mozilla/5.0 (compatible; email-security-scanner)";
 const removeUserAgentHeader = "x-test-remove-user-agent";
+const linkLifetimeSeconds = 20 * 60;
 const resendWaitSeconds = 5 * 60;
 const answers = {
   region: "London",
@@ -262,6 +265,14 @@ suite("Magic link journey", () => {
             signature,
             url: linkUrl(email, requestTime, signature),
           };
+        };
+
+        const requestLinkWithAnswers = async () => {
+          const requester = await openBrowser();
+          await answer(requester, originatingFormId, answers);
+          const link = await requestMagicLink(requester);
+          await answer(requester, formId, { email: link.email });
+          return { requester, ...link };
         };
 
         const sendLinkFromEmailPage = async (
@@ -547,6 +558,110 @@ suite("Magic link journey", () => {
           });
         });
 
+        suite(
+          "the same browser and a different browser behave the same",
+          () => {
+            const whereUsed = [
+              {
+                name: "the browser that requested the link",
+                browserFor: async (requester: Browser) => requester,
+              },
+              {
+                name: "a different browser",
+                browserFor: async (_requester: Browser) => openBrowser(),
+              },
+            ];
+
+            whereUsed.forEach(({ name, browserFor }) => {
+              suite(`using ${name}`, () => {
+                test("opening the link confirms the email and the user has their answers", async () => {
+                  const { requester, url, email } =
+                    await requestLinkWithAnswers();
+                  const browser = await browserFor(requester);
+
+                  const { res } = await get(url, { browser });
+
+                  expect(res.headers.location).to.equal(
+                    `/${formId}/email-confirmed`
+                  );
+                  expect(Object.keys(browser.cookies)).to.include("auth_token");
+                  expect(
+                    await answersIn(browser.sessionId, originatingFormId)
+                  ).to.equal(answers);
+                  expect(await answersIn(browser.sessionId, formId)).to.include(
+                    { email }
+                  );
+                });
+
+                test(`after opening the link the user can carry on to ${continuePath}`, async () => {
+                  const { requester, url } = await requestLinkWithAnswers();
+                  const browser = await browserFor(requester);
+                  await get(url, { browser });
+
+                  const { res } = await get(
+                    `/${originatingFormId}${continuePath}`,
+                    { browser }
+                  );
+
+                  expect(res.statusCode).to.equal(200);
+                });
+
+                test("after an email scanner has opened the link, the user can open it and has their answers", async () => {
+                  const { requester, url } = await requestLinkWithAnswers();
+                  await get(url, { userAgent: scannerUserAgent });
+                  const browser = await browserFor(requester);
+
+                  const { res } = await get(url, { browser });
+
+                  expect(res.headers.location).to.equal(
+                    `/${formId}/email-confirmed`
+                  );
+                  expect(
+                    await answersIn(browser.sessionId, originatingFormId)
+                  ).to.equal(answers);
+                });
+
+                test("a link older than 20 minutes goes to the expired page", async () => {
+                  const requester = await openBrowser();
+                  const { url } = await requestMagicLink(
+                    requester,
+                    newEmail(),
+                    nowInSeconds() - linkLifetimeSeconds - 1
+                  );
+                  const browser = await browserFor(requester);
+
+                  const { res } = await get(url, { browser });
+
+                  expect(res.headers.location).to.equal(`/${formId}/expired`);
+                });
+
+                test("requesting another link within 5 minutes shows the wait page", async () => {
+                  const email = newEmail();
+                  const requester = await openBrowser();
+                  await sendLinkFromEmailPage(requester, email);
+                  const browser = await browserFor(requester);
+
+                  const { res } = await sendLinkFromEmailPage(browser, email);
+
+                  expect(res.headers.location).to.equal(`/${formId}/email`);
+                });
+
+                test("after the link has been opened, requesting another link within 5 minutes shows the wait page", async () => {
+                  const email = newEmail();
+                  const requester = await openBrowser();
+                  const { url } = await sendLinkFromEmailPage(requester, email);
+                  await get(url, { browser: requester });
+                  const browser = await browserFor(requester);
+
+                  const { res } = await sendLinkFromEmailPage(browser, email);
+
+                  expect(res.headers.location).to.equal(`/${formId}/email`);
+                });
+              });
+            });
+          }
+        );
+
         if (signInEnforced) {
           suite("signing in", () => {
             test(`without opening a link the user is sent from ${continuePath} back to the start`, async () => {
@@ -563,6 +678,86 @@ suite("Magic link journey", () => {
             });
           });
         }
+
+        suite("INC0224140: links opened before the user clicks them", () => {
+          test("an email scanner opening the link does not remove the user's answers", async () => {
+            const { requester, url, email } = await requestLinkWithAnswers();
+
+            await get(url, { userAgent: scannerUserAgent });
+
+            expect(
+              await answersIn(requester.sessionId, originatingFormId)
+            ).to.equal(answers);
+            expect(await answersIn(requester.sessionId, formId)).to.include({
+              email,
+            });
+          });
+
+          test("a request with the wrong signature does not use up the user's link", async () => {
+            const browser = await openBrowser();
+            const { url } = await requestMagicLink(browser);
+
+            await get(url.replace(/signature=\w+/, "signature=0000"));
+            const { res } = await get(url, { browser });
+
+            expect(res.headers.location).to.equal(`/${formId}/email-confirmed`);
+          });
+
+          test("opening one link does not expire the other links sent to the same email", async () => {
+            const browser = await openBrowser();
+            const email = newEmail();
+            const { url: olderLink } = await requestMagicLink(
+              browser,
+              email,
+              nowInSeconds() - resendWaitSeconds - 60
+            );
+            const { url: newerLink } = await requestMagicLink(browser, email);
+            await get(newerLink, { browser });
+
+            const { res } = await get(olderLink, { browser });
+
+            expect(res.headers.location).to.equal(`/${formId}/email-confirmed`);
+          });
+
+          test("the link record expires with the link, 20 minutes after it was sent", async () => {
+            const browser = await openBrowser();
+            const { email } = await requestMagicLink(browser);
+            const { magicLinkCacheService } = services();
+            const clock = freezeNow();
+
+            try {
+              clock.tick((linkLifetimeSeconds - 1) * 1000);
+              expect(
+                await magicLinkCacheService.searchForMagicLinkRecord(email)
+              ).to.not.be.null();
+
+              clock.tick(2 * 1000);
+              expect(
+                await magicLinkCacheService.searchForMagicLinkRecord(email)
+              ).to.be.null();
+            } finally {
+              clock.restore();
+            }
+          });
+
+          test("the saved details for restoring answers expire with the link", async () => {
+            const browser = await openBrowser();
+            await answer(browser, originatingFormId, answers);
+            const { signature } = await requestMagicLink(browser);
+            const clock = freezeNow();
+
+            try {
+              clock.tick((linkLifetimeSeconds + 1) * 1000);
+              await restoreAnswersInto("late-browser-session", signature);
+            } finally {
+              clock.restore();
+            }
+
+            expect(
+              await answersIn("late-browser-session", originatingFormId)
+            ).to.equal({});
+          });
+        });
       });
     }
   );
