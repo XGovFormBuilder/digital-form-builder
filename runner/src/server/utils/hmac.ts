@@ -2,7 +2,8 @@ import crypto from "crypto";
 import { logger } from "./logger";
 
 // Configuration constants
-const TIME_THRESHOLD = 1200; // 5 minutes in seconds
+const TIME_THRESHOLD = 1200; // 20 minutes in seconds
+export const MAGIC_LINK_EXPIRY_SECONDS = 20 * 60;
 
 function lastSunday(month, year) {
   var d = new Date();
@@ -72,7 +73,7 @@ export async function createHmac(
       .update(dataToHash)
       .digest("hex");
 
-    const expiryTimestamp = currentTimestamp + TIME_THRESHOLD;
+    const expiryTimestamp = currentTimestamp + MAGIC_LINK_EXPIRY_SECONDS;
     const adjustedExpiryForDisplay = applyBSTIfRequired(expiryTimestamp);
 
     const hmacExpiryTime = formatUnixTimestamp(adjustedExpiryForDisplay);
@@ -123,7 +124,10 @@ export async function validateHmac(
     // Get the current UTC time
     const currentUtcUnixTimestamp = Math.floor(Date.now() / 1000);
 
-    if (currentUtcUnixTimestamp > parseInt(requestTime) + TIME_THRESHOLD) {
+    if (
+      currentUtcUnixTimestamp >
+      parseInt(requestTime) + MAGIC_LINK_EXPIRY_SECONDS
+    ) {
       return { isValid: false, reason: "expired" };
     }
 
