@@ -54,23 +54,15 @@
       const cookieForm = document.getElementById('global-cookie-message-form');
       cookieForm.addEventListener('submit', function (event) {
         if(event.submitter.value == 'accept') {
-          if(gtmId1) {
+          const gtmIds = [gtmId1, gtmId2].filter(Boolean);
+          gtmIds.forEach(function(gtmId) {
             // Google Tag Manager
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','{{ gtmId1 }}');
-          }
-
-          if(gtmId2) {
-            // Google Tag Manager -->
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','{{ gtmId2 }}');
-          }
+            })(window,document,'script','dataLayer', gtmId);
+          });
       }
     });
   })

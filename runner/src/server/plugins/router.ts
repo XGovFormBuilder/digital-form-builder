@@ -29,21 +29,21 @@ interface CookiePayload {
 }
 
 // Helper functions
-const resolvedUrl = (url: string) => {
+const getGroupByName = (url: string) => {
   // NOTE: allows to have multiple forms share the same cookie statement
   if (url.startsWith("close-contact-form")) return "close-contact-form";
   return url;
 };
 
-const resolveTitle = (url: string, form: any, view: string) => {
+const resolveUrl = (url: string, form: any, view: string) => {
   // views are looked up from most to least specific: form, form group, generic
   const folders = [url, form.def?.formGroup, "help"].filter(
     Boolean
   ) as string[];
 
-  const title = findTitle(folders, view);
+  const resolvedUrl = findFirstView(folders, view);
 
-  return title;
+  return resolvedUrl;
 };
 
 /**
@@ -53,7 +53,7 @@ const resolveTitle = (url: string, form: any, view: string) => {
  * @param view the name of the view
  * @returns
  */
-export const getTitle = (folder: string, view: string) => {
+export const getViewFromFolder = (folder: string, view: string) => {
   const viewPath = path.join(__dirname, `../views/${folder}/${view}.html`);
 
   if (!fs.existsSync(viewPath)) {
@@ -71,9 +71,12 @@ export const getTitle = (folder: string, view: string) => {
  * @param view the name of the view
  * @returns
  */
-export const findTitle = (folders: (string | undefined)[], view: string) => {
+export const findFirstView = (
+  folders: (string | undefined)[],
+  view: string
+) => {
   for (const folder of folders) {
-    const match = folder !== undefined && getTitle(folder, view);
+    const match = folder !== undefined && getViewFromFolder(folder, view);
     if (match) {
       return match;
     }
@@ -99,13 +102,17 @@ export default {
               return h.view("help/privacy");
             }
 
-            const title = resolveTitle(resolvedUrl(url), form, "privacy");
+            const resolvedUrl = resolveUrl(
+              getGroupByName(url),
+              form,
+              "privacy"
+            );
 
-            return h.view(title, {
+            return h.view(resolvedUrl, {
               name: form.name,
               serviceName: form.def.serviceName,
               serviceStartPage: form.serviceStartPage,
-              feedbackLink: feedbackUrlFromRequest(_request, form, title),
+              feedbackLink: feedbackUrlFromRequest(_request, form, resolvedUrl),
               returnTo: form.returnTo,
               footerLinks: form.def.footerLinks,
             });
@@ -127,15 +134,19 @@ export default {
               return h.view("help/cookies");
             }
 
-            const title = resolveTitle(resolvedUrl(url), form, "cookies");
+            const resolvedUrl = resolveUrl(
+              getGroupByName(url),
+              form,
+              "cookies"
+            );
 
-            return h.view(title, {
+            return h.view(resolvedUrl, {
               analytics,
               name: form.name,
               serviceName: form.def.serviceName,
               serviceStartPage: form.serviceStartPage,
               returnTo: form.returnTo,
-              feedbackLink: feedbackUrlFromRequest(request, form, title),
+              feedbackLink: feedbackUrlFromRequest(request, form, resolvedUrl),
               matomoUrl: form.def.analytics?.matomoUrl,
               matomoId: form.def.analytics?.matomoId,
               gtmId1: form.def.analytics?.gtmId1,
@@ -183,7 +194,7 @@ export default {
             if (url === "help") {
               redirectPath = "help/cookies";
             } else {
-              redirectPath = resolveTitle(resolvedUrl(url), form, "cookies");
+              redirectPath = resolveUrl(getGroupByName(url), form, "cookies");
             }
 
             if (referrer) {
@@ -225,8 +236,8 @@ export default {
             return h.view("help/terms-and-conditions");
           }
 
-          const title = resolveTitle(
-            resolvedUrl(url),
+          const resolvedUrl = resolveUrl(
+            getGroupByName(url),
             form,
             "terms-and-conditions"
           );
@@ -254,17 +265,17 @@ export default {
             return h.view("help/accessibility-statement");
           }
 
-          const title = resolveTitle(
-            resolvedUrl(url),
+          const resolvedUrl = resolveUrl(
+            getGroupByName(url),
             form,
             "accessibility-statement"
           );
 
-          return h.view(title, {
+          return h.view(resolvedUrl, {
             name: form.name,
             serviceName: form.serviceName,
             serviceStartPage: form.serviceStartPage,
-            feedbackLink: feedbackUrlFromRequest(_request, form, title),
+            feedbackLink: feedbackUrlFromRequest(_request, form, resolvedUrl),
             returnTo: form.returnTo,
             footerLinks: form.def.footerLinks,
           });
