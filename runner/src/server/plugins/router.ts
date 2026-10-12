@@ -35,7 +35,7 @@ const getGroupByName = (url: string) => {
   return url;
 };
 
-const resolveUrl = (url: string, form: any, view: string) => {
+const resolveUrl = (url: string, form: FormModel, view: string) => {
   // views are looked up from most to least specific: form, form group, generic
   const folders = [url, form.def?.formGroup, "help"].filter(
     Boolean
