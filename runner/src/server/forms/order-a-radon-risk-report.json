@@ -81,7 +81,7 @@
           "name": "reportDetailsText",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\">The report does not tell you the radon level inside the property. To find this out, you need to do a 3‑month test using a <a href=\"/order-a-radon-home-test-kit\">radon gas test kit</a>.</p><p class=\"govuk-body-m\">Basements and cellar rooms are at a higher risk of radon. If a room you use frequently is below ground level, such as a kitchen or office, you should do a radon test, even if the property is not in a radon Affected Area.</p><p class=\"govuk-body-m\">Each report costs £3.90 and will be sent to an email address you provide. Alternatively, you can request a physical report to be sent by Royal Mail 1st Class for £5.51.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/cms/assets/gfx/content/resource_5095cs45be58330c.pdf\">Read a sample report</a></p><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">This service is for buildings up to 25 metres in any direction (this does not refer to the height of the building or basement depth).</p><p class=\"govuk-body-m\">This report is not suitable for larger buildings. In this case, contact the <a href=\"https://www.bgs.ac.uk/\">British Geological Survey (BGS)</a>.</p><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>a valid UK address for the risk report</li><li>a valid email address or a UK postal delivery address</li><li>your payment details</li></ul></p>"
+          "content": "<p class=\"govuk-body-m\">The report does not tell you the radon level inside the property. To find this out, you need to do a 3‑month test using a <a href=\"/order-a-home-radon-gas-test-kit\">radon gas test kit</a>.</p><p class=\"govuk-body-m\">Basements and cellar rooms are at a higher risk of radon. If a room you use frequently is below ground level, such as a kitchen or office, you should do a radon test, even if the property is not in a radon Affected Area.</p><p class=\"govuk-body-m\">Each report costs £3.90 and will be sent to an email address you provide. Alternatively, you can request a physical report to be sent by Royal Mail 1st Class for £5.51.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/cms/assets/gfx/content/resource_5095cs45be58330c.pdf\">Read a sample report</a></p><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">This service is for buildings up to 25 metres in any direction (this does not refer to the height of the building or basement depth).</p><p class=\"govuk-body-m\">This report is not suitable for larger buildings. In this case, contact the <a href=\"https://www.bgs.ac.uk/\">British Geological Survey (BGS)</a>.</p><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>a valid UK address for the risk report</li><li>a valid email address or a UK postal delivery address</li><li>your payment details</li></ul></p>"
         }
       ],
       "next": [{ "path": "/find-a-report-address" }],
@@ -558,20 +558,60 @@
           "title": "Last name"
         },
         {
-          "name": "emailAddress",
+          "name": "contactInfo",
+          "type": "Fieldset",
+          "title": "Enter your contact information",
+          "hint": "To continue, enter an email address or phone number.",
           "options": {
+            "exposeToContext": true,
             "required": false,
             "optionalText": false,
-            "autocomplete": true,
-            "customValidationMessages": {
-              "string.empty": "Enter an email address in the correct format",
-              "string.pattern.base": "Enter an email address in the correct format"
-            },
-            "exposeToContext": true
+            "validation": [
+              {
+                "minRequired": 1,
+                "fields": ["emailAddressPost", "telephonePost"],
+                "errorMessage": "Enter an email address or a phone number"
+              }
+            ]
           },
-          "type": "EmailAddressField",
-          "title": "Enter your email address",
-          "hint": "For example, 'name@example.com'"
+          "components": [
+            {
+              "name": "emailAddressPost",
+              "options": {
+                "required": false,
+                "optionalText": false,
+                "autocomplete": true,
+                "customValidationMessages": {
+                  "string.empty": "Enter an email address in the correct format",
+                  "string.pattern.base": "Enter an email address in the correct format"
+                }
+              },
+              "type": "EmailAddressField",
+              "title": "Enter your email address",
+              "hint": "For example, 'name@example.com'"
+            },
+            {
+              "name": "telephonePost",
+              "options": {
+                "required": false,
+                "optionalText": false,
+                "customValidationMessages": {
+                  "string.pattern.base": "Enter a phone number in the correct format",
+                  "INVALID_COUNTRY_CODE": "Enter a phone number in the correct format",
+                  "TOO_SHORT": "Enter a phone number in the correct format",
+                  "TOO_LONG": "Enter a phone number in the correct format",
+                  "IS_POSSIBLE_LOCAL_ONLY": "Enter a phone number in the correct format",
+                  "INVALID_LENGTH": "Enter a phone number in the correct format",
+                  "INVALID_PHONE_NUMBER": "Enter a phone number in the correct format",
+                  "TOO_SHORT_NSN": "Enter a phone number in the correct format",
+                  "TOO_SHORT_AFTER_IDD": "Enter a phone number in the correct format"
+                }
+              },
+              "type": "TelephoneNumberField",
+              "title": "Phone number",
+              "hint": "For example, ‘01632 960 001, 07700 900 982 or +44 808 157 0192’"
+            }
+          ]
         },
         {
           "name": "emailConfirmationNote",
@@ -1056,12 +1096,22 @@
                   "value": "{{emailAddress}}",
                   "changeUrl": [
                     {
-                      "condition": "isEmailDelivery",
                       "value": "/enter-your-details"
-                    },
-                    { "value": "/enter-your-details-post" }
+                    }
                   ],
-                  "condition": "hasEmailAddress"
+                  "condition": "hasEmailAddressDigital"
+                },
+                {
+                  "title": "Email address",
+                  "value": "{{contactInfo.emailAddressPost}}",
+                  "changeUrl": [{ "value": "/enter-your-details-post" }],
+                  "condition": "hasEmailAddressPost"
+                },
+                {
+                  "title": "Phone number",
+                  "value": "{{contactInfo.telephonePost}}",
+                  "changeUrl": [{ "value": "/enter-your-details-post" }],
+                  "condition": "hasTelephoneNumberPost"
                 },
                 {
                   "type": "component",
@@ -1443,10 +1493,10 @@
       }
     },
     {
-      "displayName": "Has Email Address",
-      "name": "hasEmailAddress",
+      "displayName": "Has Email Address Digital",
+      "name": "hasEmailAddressDigital",
       "value": {
-        "name": "hasEmailAddress",
+        "name": "hasEmailAddressDigital",
         "conditions": [
           {
             "field": {
@@ -1456,6 +1506,72 @@
             },
             "operator": "is longer than",
             "value": { "type": "Value", "value": "0", "display": "0" }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "deliveryMethod",
+              "type": "RadiosField",
+              "display": "How would you like to receive your report"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "email", "display": "Email" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Has Email Address Post",
+      "name": "hasEmailAddressPost",
+      "value": {
+        "name": "hasEmailAddressPost",
+        "conditions": [
+          {
+            "field": {
+              "name": "contactInfo.emailAddressPost",
+              "type": "EmailAddressField",
+              "display": "emailAddress"
+            },
+            "operator": "is longer than",
+            "value": { "type": "Value", "value": "0", "display": "0" }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "deliveryMethod",
+              "type": "RadiosField",
+              "display": "How would you like to receive your report"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "post", "display": "Post" }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "Has Telephone Number",
+      "name": "hasTelephoneNumberPost",
+      "value": {
+        "name": "hasTelephoneNumberPost",
+        "conditions": [
+          {
+            "field": {
+              "name": "contactInfo.telephonePost",
+              "type": "TelephoneNumberField",
+              "display": "telephone"
+            },
+            "operator": "is longer than",
+            "value": { "type": "Value", "value": "0", "display": "0" }
+          },
+          {
+            "coordinator": "and",
+            "field": {
+              "name": "deliveryMethod",
+              "type": "RadiosField",
+              "display": "How would you like to receive your report"
+            },
+            "operator": "is",
+            "value": { "type": "Value", "value": "post", "display": "Post" }
           }
         ]
       }

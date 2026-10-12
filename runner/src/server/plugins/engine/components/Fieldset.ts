@@ -98,21 +98,55 @@ export class Fieldset extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema as Schema };
+    const childrenKeys = this.children.getStateSchemaKeys();
+    return {
+      ...childrenKeys,
+      [this.name]: this.stateSchema,
+    };
   }
 
   getFormDataFromState(state: FormSubmissionState) {
-    return this.children.getFormDataFromState(state);
+    let childState: FormSubmissionState = {};
+    if (this.name in state) {
+      childState = { ...state[this.name] };
+    } else {
+      return undefined;
+    }
+
+    const childData = this.children.getFormDataFromState(childState);
+
+    return {
+      [this.name]: childData,
+    };
   }
 
   getStateValueFromValidForm(payload: FormPayload) {
-    return this.children.getStateFromValidForm(payload);
+    const childData = this.children.getStateFromValidForm(payload);
+    delete childData[this.name]; // Remove the synthetic field used for validation
+    for (const key in childData) {
+      if (childData[key] === undefined || childData[key] === null) {
+        childData[key] = "";
+      }
+    }
+
+    return childData;
+  }
+
+  getStateFromValidForm(payload: FormPayload) {
+    return {
+      [this.name]: this.getStateValueFromValidForm(payload),
+    };
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
-    return this.children.items
-      .map((item: any) => item.getDisplayStringFromState?.(state))
-      .filter(Boolean)
+    let childState: FormSubmissionState = {};
+    if (this.name in state) {
+      childState = { ...state[this.name] };
+    }
+
+    return this.children.formItems
+      .map((item) => item.getDisplayStringFromState(childState))
+      .filter((str) => str && str.trim() !== "")
       .join(", ");
   }
 
@@ -126,8 +160,20 @@ export class Fieldset extends FormComponent {
         }
       : errors;
 
+    // When formData comes from state (e.g. a GET render), children's values
+    // are nested under this.name - as produced by getFormDataFromState - so
+    // lift them back to the top level the children expect. When formData is
+    // a raw submitted payload (e.g. re-rendering after a validation error),
+    // this.name is either absent or a flat string (the synthetic validation
+    // carrier field), so it's left untouched.
+    const nestedState = (formData as any)[this.name];
+    const childFormData =
+      nestedState && typeof nestedState === "object"
+        ? { ...formData, ...nestedState }
+        : formData;
+
     const componentViewModels = this.children
-      .getViewModel(formData, childErrors)
+      .getViewModel(childFormData, childErrors)
       .map((vm) => vm.model);
 
     componentViewModels.forEach((viewModel: any) => {
@@ -141,7 +187,7 @@ export class Fieldset extends FormComponent {
     return {
       ...viewModel,
       fieldset: { legend: viewModel.label },
-      items: (componentViewModels as unknown) as ListItem[],
+      items: componentViewModels as unknown as ListItem[],
     };
   }
 }

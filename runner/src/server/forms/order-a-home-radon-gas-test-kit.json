@@ -5,7 +5,7 @@
   "startPage": "/gas-test-kit-start",
   "fullStartPage": "gas-test-kit-start",
   "name": "Order a home radon gas test kit",
-  "serviceName": "Order a radon gas test kit",
+  "serviceName": "Order a home radon gas test kit",
   "confirmationSessionTimeout": 2000,
   "analytics": {
     "gtmId1": "GTM-5ZD9GZWX"
