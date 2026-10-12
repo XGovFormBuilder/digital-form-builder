@@ -1,5 +1,6 @@
 import { Policy, PolicyOptions } from "@hapi/catbox";
 import { HapiRequest, HapiServer } from "../types";
+import { FormSubmissionState } from "../plugins/engine/types";
 import { MAGIC_LINK_EXPIRY_SECONDS } from "../utils/hmac";
 import { CacheService } from "./cacheService";
 
@@ -72,7 +73,9 @@ export class MagicLinkCacheService {
     return await this.magicLinkRecordCache.drop(key);
   }
 
-  async saveFormIdBeforeMagicLinkRedirectToAllowResume(request: HapiRequest) {
+  async saveFormIdBeforeMagicLinkRedirectToAllowResume(
+    request: MagicLinkRequest
+  ) {
     /* Magic Link Session Resume Step 1: Save the form id before redirecting to the Magic Link form
        Saves form id by session id, to allow retrieval in the magic link form flow 
     */
@@ -96,7 +99,7 @@ export class MagicLinkCacheService {
   }
 
   async saveInformationToAllowMagicLinkResume(
-    request: HapiRequest,
+    request: MagicLinkRequest,
     hmac: string
   ) {
     /* Magic Link Session Resume Step 2: Save additional information when sending out the Magic Link
@@ -149,7 +152,7 @@ export class MagicLinkCacheService {
   }
 
   async repopulateFormStateUponMagicLinkReturn(
-    request: HapiRequest,
+    request: MagicLinkRequest,
     hmac: string
   ) {
     /* Magic Link Session Resume Step 3:
@@ -231,7 +234,7 @@ export class MagicLinkCacheService {
   private async mergeFormState(
     sessionId: string,
     formId: string,
-    value: Record<string, any>
+    value: FormSubmissionState
   ) {
     return await this.cacheService.mergeState(
       {
@@ -244,6 +247,12 @@ export class MagicLinkCacheService {
 }
 
 type TypedCache<T> = Policy<T, PolicyOptions<T>>;
+
+type MagicLinkRequest = {
+  yar: Pick<HapiRequest["yar"], "id">;
+  params: HapiRequest["params"];
+  logger: HapiRequest["logger"];
+};
 
 type MagicLinkRecord = { hmac: string; active: number };
 const getMagicLinkRecordKey = (email: string) => {

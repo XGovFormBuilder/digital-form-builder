@@ -5,10 +5,15 @@ import { logger } from "./logger";
 const TIME_THRESHOLD = 1200; // 20 minutes in seconds
 export const MAGIC_LINK_EXPIRY_SECONDS = 20 * 60;
 
-function lastSunday(month, year) {
-  var d = new Date();
-  var lastDayOfMonth = new Date(Date.UTC(year || d.getFullYear(), month, 0));
-  var day = lastDayOfMonth.getDay();
+export type HmacValidation = {
+  isValid: boolean;
+  reason: "valid" | "expired" | "invalid_signature" | "error";
+};
+
+function lastSunday(month: number, year?: number): Date {
+  const d = new Date();
+  const lastDayOfMonth = new Date(Date.UTC(year || d.getFullYear(), month, 0));
+  const day = lastDayOfMonth.getDay();
   return new Date(
     Date.UTC(
       lastDayOfMonth.getFullYear(),
@@ -18,16 +23,16 @@ function lastSunday(month, year) {
   );
 }
 
-function isBST(date) {
-  var d = date || new Date();
-  var starts = lastSunday(3, d.getFullYear());
+function isBST(date?: Date): boolean {
+  const d = date || new Date();
+  const starts = lastSunday(3, d.getFullYear());
   starts.setHours(1);
-  var ends = lastSunday(10, d.getFullYear());
+  const ends = lastSunday(10, d.getFullYear());
   ends.setHours(1);
   return d.getTime() >= starts.getTime() && d.getTime() < ends.getTime();
 }
 
-function applyBSTIfRequired(timestamp) {
+function applyBSTIfRequired(timestamp: number): number {
   const date = new Date(timestamp * 1000);
 
   if (isBST(date)) {
@@ -118,8 +123,8 @@ export async function validateHmac(
   email: string,
   signature: string,
   requestTime: string,
-  hmacKey: string
-) {
+  hmacKey: string | undefined
+): Promise<HmacValidation> {
   try {
     // Get the current UTC time
     const currentUtcUnixTimestamp = Math.floor(Date.now() / 1000);
@@ -129,6 +134,10 @@ export async function validateHmac(
       parseInt(requestTime) + MAGIC_LINK_EXPIRY_SECONDS
     ) {
       return { isValid: false, reason: "expired" };
+    }
+
+    if (!hmacKey) {
+      throw new Error("No HMAC key configured");
     }
 
     // Prepare the data for HMAC calculation
