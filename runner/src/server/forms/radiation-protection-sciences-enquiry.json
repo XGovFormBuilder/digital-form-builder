@@ -4,7 +4,6 @@
   "startPage": "/type-of-support",
   "fullStartPage": "type-of-support",
   "serviceName": "Contact Radiation Protection Sciences",
-  "name": "Contact us",
   "confirmationSessionTimeout": 2000,
   "analytics": {
     "gtmId1": "GTM-5ZD9GZWX"
@@ -33,7 +32,6 @@
         }
       ],
       "next": [
-        { "path": "/contact-us-details", "condition": "rrgHWG" },
         { "path": "/type-of-service-measurement", "condition": "yafSJD" },
         {
           "path": "/type-of-service-working-with-radiation",
@@ -244,14 +242,6 @@
           "content": "<div class=\"govuk-inset-text\">Your enquiry will be sent to the <b>{{ service }}</b> team</div><hr>"
         },
         {
-          "name": "contactRadonServicesTeam",
-          "options": {
-            "condition": "rrgHWG"
-          },
-          "type": "Para",
-          "content": "<div class=\"govuk-inset-text\">Your enquiry will be sent to the <b>Radon Services Team (UKradon)</b></div><hr>"
-        },
-        {
           "name": "otherWays",
           "options": {},
           "type": "Para",
@@ -294,14 +284,6 @@
           "content": "<p class=\"govuk-body-m\">The <b>{{service}}</b> team will review your enquiry and aim to respond within 5 working days. If your enquiry is urgent, call us using the relevant phone number from our <a href=\"https://www.gov.uk/government/guidance/contact-radiation-protection-sciences\" >contact page.</a></p>"
         },
         {
-          "name": "introServiceRadonServicesTeam",
-          "type": "Para",
-          "options": {
-            "condition": "ojQCvt"
-          },
-          "content": "<p class=\"govuk-body-m\">The <b>Radon Services Team (UKRadon)</b> team will review your enquiry and aim to respond within 5 working days. If your enquiry is urgent, call us using the relevant phone number from our <a href=\"https://www.gov.uk/government/guidance/contact-radiation-protection-sciences\" >contact page.</a></p>"
-        },
-        {
           "name": "introNoService",
           "type": "Para",
           "options": {
@@ -316,14 +298,6 @@
             "condition": "ojQCvt"
           },
           "content": "<table class=\"govuk-table\"><caption class=\"govuk-table__caption govuk-table__caption--m\">Your enquiry details</caption><tbody class=\"govuk-table__body\"><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">First name</th><td class=\"govuk-table__cell\">{{ firstName }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Last Name</th><td class=\"govuk-table__cell\">{{ lastName }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Organisation</th><td class=\"govuk-table__cell\">{{ organisation }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Email</th><td class=\"govuk-table__cell\">{{ email }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Category</th><td class=\"govuk-table__cell\">{{ supportType }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Service</th><td class=\"govuk-table__cell\">{{ service }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Request information</th><td class=\"govuk-table__cell\">{{ requestInformation }}</td></tr></tbody></table>"
-        },
-        {
-          "name": "tableRadonServicesTeam",
-          "type": "Para",
-          "options": {
-            "condition": "ojQCvt"
-          },
-          "content": "<table class=\"govuk-table\"><caption class=\"govuk-table__caption govuk-table__caption--m\">Your enquiry details</caption><tbody class=\"govuk-table__body\"><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">First name</th><td class=\"govuk-table__cell\">{{ firstName }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Last Name</th><td class=\"govuk-table__cell\">{{ lastName }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Organisation</th><td class=\"govuk-table__cell\">{{ organisation }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Email</th><td class=\"govuk-table__cell\">{{ email }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Category</th><td class=\"govuk-table__cell\">{{ supportType }}</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Service</th><td class=\"govuk-table__cell\">Radon Services Team (UKRadon)</td></tr><tr class=\"govuk-table__row\"><th scope=\"row\" class=\"govuk-table__header\">Request information</th><td class=\"govuk-table__cell\">{{ requestInformation }}</td></tr></tbody></table>"
         },
         {
           "name": "tableNoService",
@@ -347,11 +321,6 @@
       "name": "supportTypesList",
       "type": "string",
       "items": [
-        {
-          "text": "I need help with radon services",
-          "value": "I need help with radon services",
-          "description": "Including radon risk report results, measurement of radon gas in homes or workplaces and guidance on remediation"
-        },
         {
           "text": "I need radon services, radiation measurements, testing, or dosimetry",
           "value": "I need radon services, radiation measurements, testing, or dosimetry",
@@ -597,28 +566,6 @@
   ],
   "sections": [],
   "conditions": [
-    {
-      "displayName": "radonSupport",
-      "name": "rrgHWG",
-      "value": {
-        "name": "radonSupport",
-        "conditions": [
-          {
-            "field": {
-              "name": "supportType",
-              "type": "RadiosField",
-              "display": "What type of help or support are you looking for?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "I need help with radon services",
-              "display": "I need help with radon services"
-            }
-          }
-        ]
-      }
-    },
     {
       "displayName": "testingSupport",
       "name": "yafSJD",
