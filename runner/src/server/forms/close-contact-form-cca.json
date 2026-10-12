@@ -13,7 +13,7 @@
           "name": "para1",
           "options": {},
           "type": "Para",
-          "content": "This service is for agents to contact members of the public in order to record their close contact details after they have tested positive for bird (avian) flu.",
+          "content": "This service is for agents to contact members of the public in order to record their close contact details after they have tested positive for {{(srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}.",
           "schema": {}
         },
         {
@@ -81,21 +81,22 @@
           "schema": {}
         },
         {
-          "name": "disease_name",
+          "name": "d",
           "options": {
             "allowPrePopulation": true,
             "allowPrePopulationOverwrite": true,
             "classes": "govuk-!-display-none",
+            "exposeToContext": true,
             "hideTitle": true,
             "disableChangingFromSummary": true,
             "required": false
           },
-          "type": "TextField",
+          "type": "RadiosField",
           "title": "Disease",
-          "schema": {}
+          "list": "disease_code_list"
         },
         {
-          "name": "reference_id",
+          "name": "r",
           "options": {
             "allowPrePopulation": true,
             "allowPrePopulationOverwrite": true,
@@ -113,7 +114,7 @@
       "controller": "./pages/start.js"
     },
     {
-      "title": "Have you received a positive test result for bird (avian) flu?",
+      "title": "Have you received a positive test result for {{(srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}?",
       "path": "/completing-form-for",
       "components": [
         {
@@ -123,280 +124,35 @@
             "exposeToContext": true,
             "disableChangingFromSummary": true,
             "customValidationMessages": {
-              "any.required": "Select 'yes' if you have received a positive test result for bird (avian) flu"
+              "any.required": "Select 'yes' if you have received a positive test result"
             }
           },
           "type": "RadiosField",
-          "title": "Have you received a positive test result for bird (avian) flu?",
+          "title": "Have you received a positive test result for {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}?",
           "list": "ApjoNd"
         }
       ],
       "next": [
-        { "path": "/your-personal-details", "condition": "atPVdy" },
-        { "path": "/other-persons-details", "condition": "Dpirys" }
-      ],
-      "section": "PersonalInformation"
-    },
-    {
-      "path": "/your-personal-details",
-      "title": "Personal details",
-      "components": [
-        {
-          "name": "VnYxYj",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Full name</h2>"
-        },
-        {
-          "name": "first_name",
-          "options": {
-            "customValidationMessages": {
-              "string.pattern.base": "Enter a valid first (given) name"
-            }
-          },
-          "type": "TextField",
-          "title": "Your first (given) name",
-          "schema": {
-            "regex": "(?=.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*)^[\\sA-Za-zÀ-ÖØ-öø-ÿ'\\-,.]*$"
-          }
-        },
-        {
-          "name": "last_name",
-          "options": {
-            "customValidationMessages": {
-              "string.pattern.base": "Enter a valid last (family) name"
-            }
-          },
-          "type": "TextField",
-          "title": "Your last (family) name",
-          "schema": {
-            "regex": "(?=.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*)^[\\sA-Za-zÀ-ÖØ-öø-ÿ'\\-,.]*$"
-          }
-        },
-        {
-          "name": "VnYxYja",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Date of birth</h2>"
-        },
-        {
-          "name": "date_of_birth",
-          "options": { "hideTitle": true },
-          "type": "DatePartsField",
-          "title": "Your date of birth",
-          "hint": "For example, 27 3 2005"
-        },
-        {
-          "name": "VnYxYi",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m' id='at-least-one'>Provide at least one contact detail</h2>"
-        },
-        {
-          "name": "mobile_number",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
-            }
-          },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").style.color=\"#d4351c\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
-        }
-      ],
-      "next": [{ "path": "/check-your-details" }],
-      "section": "PersonalInformation"
-    },
-    {
-      "path": "/other-persons-details",
-      "title": "Details of the person they are completing this form on behalf of",
-      "components": [
-        {
-          "name": "CIzhtp",
-          "options": {},
-          "type": "Html",
-          "content": "<h2 class='govuk-heading-m'>Full name</h2>"
-        },
-        {
-          "name": "first_name",
-          "options": {
-            "customValidationMessages": {
-              "string.pattern.base": "Enter a valid first (given) name"
-            }
-          },
-          "type": "TextField",
-          "title": "Their first (given) name",
-          "schema": {
-            "regex": "(?=.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*)^[\\sA-Za-zÀ-ÖØ-öø-ÿ'\\-,.]*$"
-          }
-        },
-        {
-          "name": "last_name",
-          "options": {
-            "customValidationMessages": {
-              "string.pattern.base": "Enter a valid last (family) name"
-            }
-          },
-          "type": "TextField",
-          "title": "Their last (family) name",
-          "schema": {
-            "regex": "(?=.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*[A-Za-zÀ-ÖØ-öø-ÿ]{1}.*)^[\\sA-Za-zÀ-ÖØ-öø-ÿ'\\-,.]*$"
-          }
-        },
-        {
-          "name": "VnYxYja",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Date of birth</h2>"
-        },
-        {
-          "name": "date_of_birth",
-          "options": { "hideTitle": true },
-          "type": "DatePartsField",
-          "title": "Your date of birth",
-          "hint": "For example, 27 3 2005"
-        },
-        {
-          "name": "mWvTOY",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they over 16 and able to speak for themselves?</h2>"
-        },
-        {
-          "name": "iulooD",
-          "options": {},
-          "type": "Para",
-          "content": "If not, provide the contact details of a parent, carer or guardian."
-        },
-        {
-          "name": "contact_directly",
-          "type": "RadiosField",
-          "options": {
-            "hideTitle": true,
-            "customValidationMessages": {
-              "any.required": "Select how we should contact this person"
-            }
-          },
-          "title": "How should we contact this person?",
-          "list": "TQfrjB",
-          "schema": {}
-        },
-        {
-          "name": "CIzhto",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Contact details</h2>"
-        },
-        {
-          "name": "dieFHl",
-          "options": {},
-          "type": "Html",
-          "content": "<span id='at-least-one' class='govuk-body govuk-!-display-block govuk-!-margin-bottom-3'>Provide at least one contact detail below.</span>"
-        },
-        {
-          "name": "mobile_number",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.pattern.base": "Enter a mobile number in the correct format"
-            }
-          },
-          "type": "TelephoneNumberField",
-          "title": "Mobile number",
-          "hint": "For example, 07700 900999",
-          "schema": {
-            "regex": "^(((\\+44\\s?\\d{4}|\\(?0\\d{4}\\)?)\\s?\\d{3}\\s?\\d{3})|((\\+44\\s?\\d{3}|\\(?0\\d{3}\\)?)\\s?\\d{3}\\s?\\d{4})|((\\+44\\s?\\d{2}|\\(?0\\d{2}\\)?)\\s?\\d{4}\\s?\\d{4}))(\\s?#(\\d{4}|\\d{3}))?$"
-          }
-        },
-        {
-          "name": "landline_number",
-          "options": { "required": false, "optionalText": false },
-          "type": "TelephoneNumberField",
-          "title": "Landline number",
-          "hint": "For example, 020 7123 4567",
-          "schema": {
-            "regex": "^0([1-6][\\s\\d]{8,12})$"
-          }
-        },
-        {
-          "name": "email_address",
-          "options": {
-            "required": false,
-            "optionalText": false,
-            "customValidationMessages": {
-              "string.empty": "Enter a valid email address",
-              "string.pattern.base": "Enter a valid email address"
-            }
-          },
-          "type": "EmailAddressField",
-          "title": "Email address",
-          "hint": "For example, sarah.philips@example.com"
-        },
-        {
-          "name": "ValidationScript",
-          "options": {},
-          "type": "Html",
-          "content": "<script>document.querySelector(\"form[enctype='multipart/form-data']\").addEventListener(\"submit\",function(e){if(document.getElementById(\"mobile_number\").value===\"\"&&document.getElementById(\"landline_number\").value===\"\"&&document.getElementById(\"email_address\").value===\"\"){e.preventDefault();document.getElementById(\"at-least-one\").className=\"govuk-error-message\";document.getElementById(\"at-least-one\").setAttribute(\"role\",\"alert\");location.href=\"#at-least-one\"}else{window.location.hash=\"\"}});</script>"
-        }
-      ],
-      "next": [{ "path": "/check-your-details" }],
-      "section": "PersonalInformation"
-    },
-    {
-      "title": "Check these details are correct before continuing",
-      "path": "/check-your-details",
-      "components": [],
-      "next": [
         { "path": "/do-you-live-with-other-people", "condition": "atPVdy" },
         { "path": "/do-they-live-with-other-people", "condition": "Dpirys" }
       ],
-      "controller": "MiniSummaryPageController"
+      "section": "PersonalInformation"
     },
     {
       "path": "/do-you-live-with-other-people",
       "title": "Do you live with other people?",
       "components": [
         {
+          "name": "doYouLiveWithOtherPeopleExplanation",
+          "options": {},
+          "type": "Para",
+          "content": "As you've tested positive for {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}, it's important for us to know who you live with, so we can help them receive the right guidance, such as how to get tested and other health advice."
+        },
+        {
           "name": "AdEVNK",
           "options": {},
           "type": "Para",
-          "content": "This includes:"
+          "content": "This only includes people who:"
         },
         {
           "name": "kjpRbq",
@@ -423,7 +179,7 @@
           "options": {},
           "type": "Details",
           "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with who may be at risk. We may contact them to offer advice and guidance on how to keep themselves and others safe."
+          "content": "We ask this to identify people you live with and may have passed {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         }
       ],
       "next": [
@@ -3673,6 +3429,16 @@
       ]
     },
     {
+      "title": "Disease Code",
+      "name": "disease_code_list",
+      "type": "string",
+      "items": [
+        { "text": "01F0", "value": "01F0" },
+        { "text": "01F1", "value": "01F1" },
+        { "text": "01F2", "value": "01F2" }
+      ]
+    },
+    {
       "title": "How should we contact this person?",
       "name": "TQfrjB",
       "type": "string",
@@ -4626,7 +4392,7 @@
       "title": "Execute API",
       "type": "webhook",
       "outputConfiguration": {
-        "url": "${closeContactWebhookURL}",
+        "url": "${SRSOutputUrl}",
         "allowRetry": true
       }
     }
@@ -4645,10 +4411,18 @@
   "specialPages": {
     "confirmationPage": {
       "customText": {
-        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on bird (avian) flu</h2><p class='govuk-body'>If anyone they know develops symptoms of bird (avian) flu, ask them to order a test kit. For urgent medical advice, they can call NHS 111 or visit 111.nhs.uk. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit the NHS website.</p><h2 class='govuk-heading-m'>If they need to contact us</h2><p class='govuk-body'>If they have any concerns or questions they can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
+        "nextSteps": "<h2 class='govuk-heading-m'>What happens next</h2><p class='govuk-body'>We may contact the close contacts listed to ask for more information and to give them advice on what to do next.</p><h2 class='govuk-heading-m'>More information on avian flu</h2><p class='govuk-body'>If anyone they know develops symptoms of {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}, ask them to order a test kit. For urgent medical advice, they can call NHS 111 or visit 111.nhs.uk. For life-threatening emergencies, call 999.</p><p class='govuk-body'>For more advice and information on the virus visit the NHS website.</p><h2 class='govuk-heading-m'>If they need to contact us</h2><p class='govuk-body'>If they have any concerns or questions they can contact us at <a class='govuk-link' href='mailto:surgeresponse@ukhsa.gov.uk'>surgeresponse@ukhsa.gov.uk</a>.</p>",
         "title": "Form submitted",
         "referenceTitle": "Your reference number"
       }
     }
+  },
+  "secureFormSubmissionConfig": {
+    "tenantId": "${SRSCoreApimTenantId_MAIN}",
+    "clientId": "${SRSCoreApimClientId_MAIN}",
+    "clientSecret": "${SRSCoreApimClientSecret_MAIN}",
+    "scopes": ["${SRSCoreApimScope_MAIN}"],
+    "useAwsWafUserAgentWorkaround": true,
+    "routingKey": "${SRSRoutingKey_MAIN}"
   }
 }
