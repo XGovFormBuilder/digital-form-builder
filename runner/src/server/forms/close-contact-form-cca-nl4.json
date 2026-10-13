@@ -182,13 +182,6 @@
           "type": "Details",
           "title": "Why are we asking for this information?",
           "content": "We ask this to identify people you live with and may have passed {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
-        },
-        {
-          "name": "SUlWLU",
-          "options": {},
-          "type": "Details",
-          "title": "Why are we asking for this information?",
-          "content": "We ask this to identify people you live with and may have passed {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         }
       ],
       "next": [
