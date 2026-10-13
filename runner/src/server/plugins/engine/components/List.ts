@@ -23,7 +23,7 @@ export class List extends ComponentBase {
 
     viewModel.content = items.map((item) => {
       const contentItem: { text: string; condition?: any } = {
-        text: item.text,
+        text: this.renderUserTemplate(item.text, formData),
       };
       if (item.condition) {
         contentItem.condition = item.condition;

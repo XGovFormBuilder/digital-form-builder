@@ -1,10 +1,12 @@
 import { Schema as JoiSchema } from "joi";
+import nunjucks from "nunjucks";
 import {
   ComponentDef,
   ContentComponentsDef,
   InputFieldsComponentsDef,
 } from "@xgovformbuilder/model";
 
+import config from "../../../config";
 import { FormModel } from "../models";
 import { FormData, FormSubmissionErrors } from "../types";
 import { DataType, ViewModel } from "./types";
@@ -46,5 +48,21 @@ export class ComponentBase {
     return {
       attributes: {},
     };
+  }
+
+  /**
+   * Renders a user-authored string (title, content, hint, label) as a nunjucks
+   * template against the current form data. No-op unless templating is enabled
+   * and the string actually contains a `{{ }}` token.
+   */
+  renderUserTemplate(value: string, formData: FormData): string {
+    if (
+      !config.allowUserTemplates ||
+      typeof value !== "string" ||
+      !value.includes("{{")
+    ) {
+      return value;
+    }
+    return nunjucks.renderString(value, { ...formData });
   }
 }

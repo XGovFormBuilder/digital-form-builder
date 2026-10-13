@@ -3,6 +3,7 @@
   "startPage": "/start",
   "fullStartPage": "start",
   "name": "Contact tracing CCA",
+  "serviceName": "Contact tracing",
   "confirmationSessionTimeout": 2000,
   "pages": [
     {
@@ -140,7 +141,7 @@
     },
     {
       "path": "/do-you-live-with-other-people",
-      "title": "Do you live with other people?",
+      "title": "People you live with",
       "components": [
         {
           "name": "doYouLiveWithOtherPeopleExplanation",
@@ -165,14 +166,22 @@
         {
           "name": "live_with_others",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select 'yes' if you live with other people"
-            }
+            },
+            "classes": "govuk-radios--inline"
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "yes-no",
           "title": "Do you live with other people?",
           "schema": {}
+        },
+        {
+          "name": "SUlWLU",
+          "options": {},
+          "type": "Details",
+          "title": "Why are we asking for this information?",
+          "content": "We ask this to identify people you live with and may have passed {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }} on to. This is so we can provide the right guidance to them or someone on their behalf, such as how to get tested and other health advice."
         },
         {
           "name": "SUlWLU",
@@ -193,7 +202,7 @@
     },
     {
       "path": "/do-they-live-with-other-people",
-      "title": "Do they live with other people?",
+      "title": "People they live with",
       "components": [
         {
           "name": "AdEVNK",
@@ -212,12 +221,13 @@
         {
           "name": "live_with_others",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select 'yes' if they live with other people"
-            }
+            },
+            "classes": "govuk-radios--inline"
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "yes-no",
           "title": "Do they live with other people?",
           "schema": {}
         },
@@ -296,27 +306,15 @@
           }
         },
         {
-          "name": "mWvTOY",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
-        },
-        {
-          "name": "iulooD",
-          "options": {},
-          "type": "Para",
-          "content": "If not, provide the contact details of a parent, carer or guardian."
-        },
-        {
           "name": "contact_directly",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select how we should contact this person"
             }
           },
+          "hint": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian.",
           "type": "RadiosField",
-          "title": "How should we contact this person?",
+          "title": "How should we contact this person to provide them with advice and guidance?",
           "list": "TQfrjB",
           "schema": {}
         },
@@ -335,7 +333,7 @@
     },
     {
       "path": "/close-contact",
-      "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 14 days?",
+      "title": "Close contacts in the last 14 days",
       "components": [
         {
           "name": "EiNVay",
@@ -353,13 +351,14 @@
         {
           "name": "been_in_contact",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select 'yes' if you need to provide one or more close contacts"
-            }
+            },
+            "classes": "govuk-radios--inline"
           },
-          "type": "YesNoField",
-          "title": "Are there other close contacts from the last 14 days?",
+          "type": "RadiosField",
+          "list": "yes-no",
+          "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 14 days?",
           "schema": {}
         },
         {
@@ -444,7 +443,6 @@
         {
           "name": "contact_directly",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select how we should contact this person"
             }
@@ -575,6 +573,21 @@
         {
           "text": "traveled with in the same vehicle",
           "value": "traveled with in the same vehicle"
+        }
+      ]
+    },
+    {
+      "title": "Yes or No",
+      "name": "yes-no",
+      "type": "string",
+      "items": [
+        {
+          "text": "yes",
+          "value": "true"
+        },
+        {
+          "text": "no",
+          "value": "false"
         }
       ]
     }

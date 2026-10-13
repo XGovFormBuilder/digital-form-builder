@@ -3,6 +3,7 @@
   "startPage": "/start",
   "fullStartPage": "start",
   "name": "Contact tracing",
+  "serviceName": "Contact tracing",
   "confirmationSessionTimeout": 2000,
   "pages": [
     {
@@ -138,7 +139,7 @@
     },
     {
       "path": "/do-you-live-with-other-people",
-      "title": "Do you live with other people?",
+      "title": "People you live with",
       "components": [
         {
           "name": "doYouLiveWithOtherPeopleExplanation",
@@ -163,12 +164,13 @@
         {
           "name": "live_with_others",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select 'yes' if you live with other people"
-            }
+            },
+            "classes": "govuk-radios--inline"
           },
-          "type": "YesNoField",
+          "type": "RadiosField",
+          "list": "yes-no",
           "title": "Do you live with other people?",
           "schema": {}
         },
@@ -191,7 +193,7 @@
     },
     {
       "path": "/do-they-live-with-other-people",
-      "title": "Do they live with other people?",
+      "title": "People they live with",
       "components": [
         {
           "name": "AdEVNK",
@@ -210,13 +212,14 @@
         {
           "name": "live_with_others",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
-              "any.required": "Select 'yes' if they live with other people"
-            }
+              "any.required": "Select 'yes' if you live with other people"
+            },
+            "classes": "govuk-radios--inline"
           },
-          "type": "YesNoField",
-          "title": "Do they live with other people?",
+          "type": "RadiosField",
+          "list": "yes-no",
+          "title": "Do you live with other people?",
           "schema": {}
         },
         {
@@ -294,27 +297,15 @@
           }
         },
         {
-          "name": "mWvTOY",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>How should we contact this person to provide them with advice and guidance?</h2>"
-        },
-        {
-          "name": "iulooD",
-          "options": {},
-          "type": "Para",
-          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
-        },
-        {
           "name": "contact_directly",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select how we should contact this person"
             }
           },
+          "hint": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian.",
           "type": "RadiosField",
-          "title": "How should we contact this person?",
+          "title": "How should we contact this person to provide them with advice and guidance?",
           "list": "TQfrjB",
           "schema": {}
         },
@@ -345,7 +336,7 @@
     },
     {
       "path": "/close-contact",
-      "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 14 days?",
+      "title": "Close contacts in the last 14 days",
       "components": [
         {
           "name": "EiNVay",
@@ -363,13 +354,14 @@
         {
           "name": "been_in_contact",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select 'yes' if you need to provide one or more close contacts"
-            }
+            },
+            "classes": "govuk-radios--inline"
           },
-          "type": "YesNoField",
-          "title": "Are there other close contacts from the last 14 days?",
+          "type": "RadiosField",
+          "list": "yes-no",
+          "title": "Have {{ PersonalInformation.for }} been in close contact with other people in the last 14 days?",
           "schema": {}
         },
         {
@@ -443,27 +435,15 @@
           }
         },
         {
-          "name": "mWvTOY",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>How should we contact this person to provide them with advice and guidance?</h2>"
-        },
-        {
-          "name": "iulooD",
-          "options": {},
-          "type": "Para",
-          "content": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian."
-        },
-        {
           "name": "contact_directly",
           "options": {
-            "hideTitle": true,
             "customValidationMessages": {
               "any.required": "Select how we should contact this person"
             }
           },
+          "hint": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian.",
           "type": "RadiosField",
-          "title": "How should we contact this person?",
+          "title": "How should we contact this person to provide them with advice and guidance?",
           "list": "TQfrjB",
           "schema": {}
         },
@@ -595,6 +575,21 @@
           "value": "travelled with in the same vehicle"
         }
       ]
+    },
+    {
+      "title": "Yes or No",
+      "name": "yes-no",
+      "type": "string",
+      "items": [
+        {
+          "text": "yes",
+          "value": "true"
+        },
+        {
+          "text": "no",
+          "value": "false"
+        }
+      ]
     }
   ],
   "sections": [
@@ -669,7 +664,7 @@
           {
             "field": {
               "name": "PeopleYouLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do you live with other people?"
             },
             "operator": "is",
@@ -687,7 +682,7 @@
           {
             "field": {
               "name": "PeopleYouLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do you live with other people?"
             },
             "operator": "is",
@@ -705,7 +700,7 @@
           {
             "field": {
               "name": "PeopleTheyLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do they live with other people?"
             },
             "operator": "is",
@@ -723,7 +718,7 @@
           {
             "field": {
               "name": "PeopleTheyLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do they live with other people?"
             },
             "operator": "is",
@@ -741,7 +736,7 @@
           {
             "field": {
               "name": "OtherContacts.been_in_contact",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",
@@ -759,7 +754,7 @@
           {
             "field": {
               "name": "OtherContacts.been_in_contact",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",

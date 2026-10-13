@@ -91,7 +91,7 @@ export class FormComponent extends ComponentBase {
     const viewModel: ViewModel = {
       ...super.getViewModel(formData, errors),
       label: {
-        text: label,
+        text: this.renderUserTemplate(label, formData),
         classes: "govuk-label--s",
       },
       id: name,
@@ -101,7 +101,10 @@ export class FormComponent extends ComponentBase {
 
     if (this.hint) {
       viewModel.hint = {
-        html: this.localisedString(this.hint),
+        html: this.renderUserTemplate(
+          this.localisedString(this.hint),
+          formData
+        ),
       };
     }
 
