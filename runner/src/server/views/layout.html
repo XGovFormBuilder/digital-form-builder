@@ -202,6 +202,27 @@
     });
   </script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+      const navType = performance.getEntriesByType('navigation')[0].type;
+
+      if (navType === 'navigate' && !document.querySelector('.govuk-error-summary') &&
+           window.location.hash === "#main-content") {
+        history.replaceState(null, "", window.location.pathname);
+      }
+
+      if (navType === 'back_forward') {
+        const mainContent = document.getElementById('main-content');
+
+        if (mainContent) {
+          // reset tab index to allow focus on main content
+          mainContent.setAttribute('tabindex', '-1');
+          mainContent.focus({ focusVisible: false });
+        }
+      }
+    }, true)
+  </script>
+
   {% if BROWSER_REFRESH_URL %}
     <script src="{{ BROWSER_REFRESH_URL }}"></script>
   {% endif %}
