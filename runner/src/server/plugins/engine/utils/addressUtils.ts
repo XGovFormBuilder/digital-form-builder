@@ -197,6 +197,14 @@ export const findMatchingAddress = (
   addresses: Address[],
   address: AddressLookupFields
 ): Address | undefined => {
+  if (!addresses || addresses.length === 0) {
+    return undefined;
+  }
+
+  if (addresses.length === 1) {
+    return addresses[0];
+  }
+
   const addressFirstPart = (
     address.building ||
     address.addressLine1 ||
