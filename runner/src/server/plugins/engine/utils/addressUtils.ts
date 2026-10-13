@@ -202,6 +202,7 @@ export const findMatchingAddress = (
     address.addressLine1 ||
     ""
   ).trim();
+
   if (NO_LETTERS_STREET_NUMBER_PATTERN.test(addressFirstPart)) {
     return matchAddressNumber(addresses, addressFirstPart);
   }
@@ -219,6 +220,7 @@ export const findMatchingAddress = (
 
   return fuzzyMatchAddress(addresses, addressQuery);
 };
+
 const escapeRegex = (s: string): string =>
   s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -227,6 +229,7 @@ export const matchAddressNumber = (
   number: string
 ): Address | undefined => {
   const query = number.trim();
+
   if (!query) return undefined;
 
   const regex = new RegExp(
@@ -235,6 +238,7 @@ export const matchAddressNumber = (
   );
 
   const matches = addresses.filter((addr) => regex.test(addr.address));
+
   return matches.length === 1 ? matches[0] : undefined;
 };
 
