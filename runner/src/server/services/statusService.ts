@@ -19,11 +19,30 @@ import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
 import config from "server/config";
 import nunjucks from "nunjucks";
+import additionalContexts from "server/templates/additionalContexts.json";
+import srsContexts from "server/templates/srsContexts.json";
 import {
   OutputData,
   TNotifyModel,
 } from "../plugins/engine/models/submission/types";
 import { paymentProviderRegistry } from "./paymentProviders";
+
+const statusTemplateEnvironment = new nunjucks.Environment(undefined, {
+  autoescape: true,
+});
+statusTemplateEnvironment.addGlobal("additionalContexts", additionalContexts);
+statusTemplateEnvironment.addGlobal("srsContexts", srsContexts);
+
+function renderStatusTemplate(
+  value: string | boolean,
+  state: FormSubmissionState
+): string | boolean {
+  if (typeof value !== "string" || !value.includes("{{")) {
+    return value;
+  }
+
+  return statusTemplateEnvironment.renderString(value, state);
+}
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -446,13 +465,13 @@ export class StatusService {
 
     if (config.allowUserTemplates) {
       if (customText?.nextSteps) {
-        customText.nextSteps = nunjucks.renderString(
+        customText.nextSteps = renderStatusTemplate(
           customText.nextSteps,
           state
         );
       }
       if (customText?.paymentSkipped) {
-        customText.paymentSkipped = nunjucks.renderString(
+        customText.paymentSkipped = renderStatusTemplate(
           customText.paymentSkipped,
           state
         );

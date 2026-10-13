@@ -6,7 +6,7 @@ export class InsetText extends ComponentBase {
   getViewModel(formData: FormData, errors: FormSubmissionErrors): ViewModel {
     return {
       ...super.getViewModel(formData, errors),
-      content: this.content,
+      content: this.renderUserTemplate(this.content, formData),
     };
   }
 }
