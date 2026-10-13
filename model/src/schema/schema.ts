@@ -181,7 +181,7 @@ const specialPagesSchema = joi.object().keys({
 });
 
 const listItemBaseKeys = {
-  value: joi.alternatives().try(joi.number(), joi.string()),
+  value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()),
   checkpointDisplayValue: joi.alternatives().try(joi.number(), joi.string()),
   description: localisedString.optional(),
   selected: joi.boolean().optional(),
@@ -204,10 +204,13 @@ const listItemSchema = joi
   .object()
   .keys({
     ...listItemBaseKeys,
+    type: joi.string().valid("HiddenField", "TextField"),
+    label: localisedString,
+    divider: joi.string(),
     html: localisedString,
     text: localisedString,
   })
-  .oxor("html", "text");
+  .oxor("html", "text", "label", "divider");
 
 const listSchema = joi.object().keys({
   name: joi.string().required(),

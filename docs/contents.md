@@ -52,6 +52,8 @@ Features and configuration options for the runner.
 
 - [hidden field](runner/components/hidden-field.md)
   - Embed non-visible data in a form page for use in submissions or later pages
+- [conditional radios field](runner/components/conditional-radios-field.md)
+  - Display fixed radio options with an optional custom value
 - [display address](runner/components/display-address.md)
   - Render a previously collected address from form state with each line on its own line
 - [summary lists](runner/components/summary-lists.md)

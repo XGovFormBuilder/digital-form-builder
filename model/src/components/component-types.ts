@@ -132,6 +132,15 @@ export const ComponentTypes: ComponentDef[] = [
     list: "",
   },
   {
+    name: "ConditionalRadiosField",
+    type: "ConditionalRadiosField",
+    title: "Conditional radios field",
+    subType: "listField",
+    options: {},
+    schema: {},
+    list: "",
+  },
+  {
     name: "CheckboxesField",
     type: "CheckboxesField",
     title: "Checkboxes field",

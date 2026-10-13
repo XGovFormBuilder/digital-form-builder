@@ -13,6 +13,7 @@ export enum ComponentTypeEnum {
   SelectField = "SelectField",
   AutocompleteField = "AutocompleteField",
   RadiosField = "RadiosField",
+  ConditionalRadiosField = "ConditionalRadiosField",
   CheckboxesField = "CheckboxesField",
   NumberField = "NumberField",
   UkAddressField = "UkAddressField",
@@ -47,6 +48,7 @@ export type ComponentType =
   | "SelectField"
   | "AutocompleteField"
   | "RadiosField"
+  | "ConditionalRadiosField"
   | "CheckboxesField"
   | "NumberField"
   | "UkAddressField"
@@ -416,6 +418,11 @@ export interface RadiosFieldComponent extends ListFieldBase {
   subType?: "listField";
 }
 
+export interface ConditionalRadiosFieldComponent extends ListFieldBase {
+  type: "ConditionalRadiosField";
+  subType?: "listField";
+}
+
 export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
   options: ListFieldBase["options"] & { autocomplete?: string } & {
@@ -451,6 +458,7 @@ export type ComponentDef =
   | NumberFieldComponent
   | ParaComponent
   | RadiosFieldComponent
+  | ConditionalRadiosFieldComponent
   | SelectFieldComponent
   | TelephoneNumberFieldComponent
   | TextFieldComponent
@@ -499,4 +507,5 @@ export type ListComponentsDef =
   | CheckboxesFieldComponent
   | FlashCardComponent
   | RadiosFieldComponent
+  | ConditionalRadiosFieldComponent
   | SelectFieldComponent;
