@@ -154,6 +154,15 @@ export class ConditionalRadiosField extends ListFormComponent {
     viewModel.name = this.name;
     viewModel.id = this.name;
 
+    if (viewModel.label) {
+      viewModel.fieldset = {
+        legend: {
+          ...viewModel.label,
+          classes: "govuk-fieldset__legend govuk-fieldset__legend--s",
+        },
+      };
+    }
+
     const renderedItems: ListItem[] = [];
 
     this.items.forEach((item, index) => {
@@ -183,7 +192,7 @@ export class ConditionalRadiosField extends ListFormComponent {
         checked: isCustom ? Boolean(customText) : isSelected,
         ...(isCustom && {
           conditional: {
-            html: `<input class="govuk-input govuk-!-width-one-third" id="${
+            html: `<input class="govuk-input govuk-!-width-one-half" id="${
               this.name
             }-custom" name="${this.name}" type="text" value="${
               customText ?? ""
