@@ -186,13 +186,9 @@ export class MagicLinkCacheService {
       return;
     }
 
-    if (currentSessionId === previousSessionId) {
-      /* Continuing in same browser, no need to repopulate previous state */
-      return;
-    }
-
-    /* Continuing in different session (different browser / new browser / new instance / tab)
-       Re-instate form states from previous session 
+    /* Re-instate form states from the previous session. When continuing in the same session,
+       this merges each form's state onto itself: a no-op, but it keeps this path identical
+       regardless of whether the link is opened in the same browser or a different one.
     */
     await this.mergeFormStateFromPreviousSession({
       previousSessionId,
