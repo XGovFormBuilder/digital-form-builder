@@ -1,0 +1,5 @@
+{% from "radios/macro.njk" import govukRadios %}
+
+{% macro ConditionalRadiosField(component) %}
+  {{ govukRadios(component.model) }}
+{% endmacro %}
