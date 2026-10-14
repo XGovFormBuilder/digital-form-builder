@@ -59,6 +59,10 @@ describe("ConditionalRadiosField", () => {
     });
 
     const revisitViewModel = component.getViewModel({ title: "Mr" }, {} as any);
+    expect(revisitViewModel.fieldset?.legend?.text).to.equal("Title of person");
+    expect(revisitViewModel.fieldset?.legend?.classes).to.equal(
+      "govuk-fieldset__legend govuk-fieldset__legend--s"
+    );
     expect(revisitViewModel.items[0].checked).to.equal(true);
     expect(revisitViewModel.items[3].checked).to.equal(false);
   });
