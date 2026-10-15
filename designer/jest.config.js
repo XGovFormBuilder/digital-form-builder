@@ -1,40 +1,11 @@
+// This root config exists only so `jest:watch`, bare `npx jest` and IDE Jest
+// plugins can discover and run both projects. It must not define any settings itself —
+// each project's real settings (moduleNameMapper, coverage thresholds, etc.)
+// live in jest.client.config.js and jest.server.config.js, which are also
+// what the "jest:client" and "jest:server" scripts run directly.
 module.exports = {
   projects: [
-    {
-      roots: ["<rootDir>/client"],
-      displayName: "client",
-      setupFilesAfterEnv: ["<rootDir>/jest-setup.js"],
-      testMatch: ["<rootDir>/**/__tests__/*.jest.(ts|tsx)"],
-      testPathIgnorePatterns: ["<rootDir>/test/"],
-      moduleNameMapper: {
-        "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
-      },
-      transformIgnorePatterns: [
-        "<rootDir>/node_modules/(?!@xgovformbuilder/govuk-react-jsx/.*)",
-      ],
-      coverageThreshold: {
-        global: {
-          branches: 85,
-          functions: 83,
-          lines: 93,
-          statements: 92,
-        },
-      },
-    },
-    {
-      displayName: "server",
-      roots: ["<rootDir>/server"],
-      setupFilesAfterEnv: ["<rootDir>/jest-server-setup.js"],
-      testMatch: ["<rootDir>/**/__tests__/*.jest.(ts|tsx)"],
-      testPathIgnorePatterns: ["<rootDir>/test/"],
-      coverageThreshold: {
-        global: {
-          branches: 85,
-          functions: 83,
-          lines: 93,
-          statements: 92,
-        },
-      },
-    },
+    "<rootDir>/jest.client.config.js",
+    "<rootDir>/jest.server.config.js",
   ],
 };

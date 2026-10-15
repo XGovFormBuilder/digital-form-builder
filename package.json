@@ -36,7 +36,8 @@
     "type-check": "yarn workspaces foreach run tsc --noEmit",
     "type-check:watch": "yarn workspaces foreach run type-check --watch",
     "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'",
-    "clean:forms:nonprod": "node ./utils/cleanNonProdForms.js"
+    "clean:forms:nonprod": "node ./utils/cleanNonProdForms.js",
+    "test:utils": "jest --rootDir utils"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.3",
@@ -58,6 +59,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^4.3.0",
+    "jest": "^26.6.3",
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "prettier": "^2.8.4",

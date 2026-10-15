@@ -101,6 +101,8 @@ See [https://github.com/node-config/node-config#readme](https://github.com/node-
 
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`.
 
+Tests named `*.jest.ts` under `src/**/__tests__/` run with Jest instead of Lab: `yarn runner test:jest`. `yarn runner test` and `yarn runner test-cov` run both.
+
 ## End-to-end tests
 
 E2E tests use [Playwright](https://playwright.dev) and live in `runner/e2e/`. They run against a real built server on port 3009.
