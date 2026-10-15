@@ -3,11 +3,24 @@ import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { reach } from "@hapi/hoek";
 import _ from "lodash";
 import { FormSubmissionErrors } from "./types";
-import { AddressLookupConfig, FieldsetComponent } from "@xgovformbuilder/model";
 
 export const feedbackReturnInfoKey = "f_t";
 
 const paramsToCopy = [feedbackReturnInfoKey, "returnUrl"];
+
+/**
+ * Normalizes a URL path by removing leading and trailing slashes and preserving the query string.
+ * @param url The URL path to normalize, which may include a query string.
+ * @returns a normalized URL path with leading slash and query string intact.
+ */
+export function normalizeUrlPath(url: string): string {
+  const queryIndex = url.indexOf("?");
+  const pathname = queryIndex === -1 ? url : url.slice(0, queryIndex);
+  const query = queryIndex === -1 ? "" : url.slice(queryIndex);
+  const normalizedPathname = pathname.replace(/^\/+|\/+$/g, "");
+
+  return `/${normalizedPathname}${query}`;
+}
 
 /**
  * Checks if the url is internal
@@ -51,7 +64,20 @@ export function getBackLink(
     return returnUrl;
   }
 
-  return progress[progress.length - 2] ?? backLinkFallback;
+  if (!request.path) {
+    return progress[progress.length - 2] ?? backLinkFallback;
+  }
+
+  const currentPath = normalizeUrlPath(`${request.path}${request.url.search}`);
+  const normalizedProgress = progress.map(normalizeUrlPath);
+  const lastProgressEntry = normalizedProgress[normalizedProgress.length - 1];
+  const currentPageIsTracked = currentPath === lastProgressEntry;
+
+  return (
+    (currentPageIsTracked
+      ? normalizedProgress[normalizedProgress.length - 2]
+      : lastProgressEntry) ?? backLinkFallback
+  );
 }
 
 /**

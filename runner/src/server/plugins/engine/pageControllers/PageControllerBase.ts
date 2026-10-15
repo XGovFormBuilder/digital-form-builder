@@ -7,6 +7,7 @@ import {
   getBackLink,
   getReturnUrl,
   handleFieldsetErrors,
+  normalizeUrlPath,
   proceed,
   redirectTo,
 } from "../helpers";
@@ -721,18 +722,24 @@ export class PageControllerBase {
        * duplicate - otherwise the detour pages linger forever and the back link
        * cycles through stale pages instead of leaving the loop.
        */
-      const lastVisited = progress[progress.length - 1];
-      if (!lastVisited || !lastVisited.startsWith(currentPath)) {
-        const priorIndex = progress.lastIndexOf(currentPath);
+      const normalizedProgress = progress.map(normalizeUrlPath);
+      const normalizedCurrentPath = normalizeUrlPath(currentPath);
+      const lastVisited = normalizedProgress[normalizedProgress.length - 1];
+
+      if (!lastVisited || lastVisited !== normalizedCurrentPath) {
+        const priorIndex = normalizedProgress.lastIndexOf(
+          normalizedCurrentPath
+        );
+
         if (priorIndex !== -1) {
-          progress.length = priorIndex + 1;
+          normalizedProgress.length = priorIndex + 1;
         } else {
-          progress.push(currentPath);
+          normalizedProgress.push(normalizedCurrentPath);
         }
       }
 
       await cacheService.mergeState(request, {
-        progress,
+        progress: normalizedProgress,
         ...(this.model.def.provider && {
           paymentProvider: this.model.def.provider,
         }),
@@ -743,7 +750,7 @@ export class PageControllerBase {
       } else {
         viewModel.backLink = getBackLink(
           request,
-          progress,
+          normalizedProgress,
           this.backLinkFallback
         );
       }
