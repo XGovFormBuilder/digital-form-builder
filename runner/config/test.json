@@ -5,6 +5,7 @@
     "localhost"
   ],
   "isTest": true,
+  "disableLogRedaction": true,
   "previewMode": true,
   "enforceCsrf": true,
   "httpsCookieSecureAttribute": true,

@@ -57,7 +57,7 @@ describe("useFlyoutContext", () => {
     expect(decrement.calledOnce).to.equal(true);
   });
 
-  test.skip("flyout is offset by correct amount", () => {
+  test("flyout is offset by correct amount", () => {
     const flyoutContextProviderValue = {
       count: 1,
       increment,

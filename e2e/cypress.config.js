@@ -47,6 +47,5 @@ export default defineConfig({
      */
     DESIGNER_URL: "http://localhost:3000",
     RUNNER_URL: "http://localhost:3009",
-    TAGS: "not @wip",
   },
 });

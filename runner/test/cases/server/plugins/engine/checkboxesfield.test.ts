@@ -1,3 +1,7 @@
+// Forces the components barrel to resolve top-to-bottom before anything below
+// imports a specific component class out of order, which otherwise throws
+// "Class extends value undefined" when this file is run on its own.
+import "server/plugins/engine/components";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { CheckboxesField } from "server/plugins/engine/components/CheckboxesField";
