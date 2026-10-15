@@ -29,10 +29,13 @@ suite("TextField", () => {
 
     const component = new TextField(componentDefinition, formModel);
 
-    it("is required by default", () => {
-      expect(component.formSchema.describe().flags.presence).to.equal(
+    // Optional by default since #306; an empty answer is still rejected.
+    it("is not required by default, but rejects an empty answer", () => {
+      expect(component.formSchema.describe().flags.presence).to.not.equal(
         "required"
       );
+      expect(component.formSchema.validate(undefined).error).to.be.undefined();
+      expect(component.formSchema.validate("").error).to.exist();
     });
 
     it("is not required when explicitly configured", () => {
@@ -92,9 +95,8 @@ suite("TextField", () => {
       const tooFewCharsResult = component.formSchema.validate("AJ98");
       expect(tooFewCharsResult.error.details[0].type).to.be.equal("string.min");
 
-      const tooManyCharsResult = component.formSchema.validate(
-        "AJ98 7AXAJ98 7AX"
-      );
+      const tooManyCharsResult =
+        component.formSchema.validate("AJ98 7AXAJ98 7AX");
       expect(tooManyCharsResult.error.details[0].type).to.be.equal(
         "string.max"
       );

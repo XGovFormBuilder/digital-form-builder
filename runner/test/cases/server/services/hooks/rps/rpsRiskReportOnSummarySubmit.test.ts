@@ -14,6 +14,7 @@ describe("storeReportRequestSchema", () => {
     lastName: "Doe",
     deliveryMethod: "post",
     fullAddress: "10 Downing Street, London, SW1A 2AA",
+    amount: 551,
   };
 
   const baseEmailState = {
@@ -22,6 +23,7 @@ describe("storeReportRequestSchema", () => {
     lastName: "Doe",
     deliveryMethod: "email",
     email: "jane.doe@example.com",
+    amount: 390,
   };
 
   describe("valid payloads", () => {

@@ -21,8 +21,10 @@ const stubFsExistsSync = (
   pathPatterns: { [pattern: string]: boolean }
 ) => {
   return sandbox.stub(fs, "existsSync").callsFake((filePath: string) => {
+    // The patterns use "/", but path.join gives "\" on Windows.
+    const normalisedPath = filePath.replace(/\\/g, "/");
     for (const [pattern, exists] of Object.entries(pathPatterns)) {
-      if (filePath.includes(pattern)) {
+      if (normalisedPath.includes(pattern)) {
         return exists;
       }
     }
@@ -38,10 +40,10 @@ const createMockResponse = (): any => ({
 
 // Helper to create mock request
 const createMockRequest = (path: string) =>
-  (({
+  ({
     path,
     log: Sinon.stub(),
-  } as any) as HapiRequest);
+  } as any as HapiRequest);
 
 describe("extractFormIdFromPath", () => {
   const testCases = [

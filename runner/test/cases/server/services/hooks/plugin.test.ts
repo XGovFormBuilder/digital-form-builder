@@ -74,12 +74,12 @@ describe("hooks plugin (request.hook.run)", () => {
   });
 
   it("dispatches through the real registry for a configured action", async () => {
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves("wired" as any);
 
     const res = await server.inject({
       method: "GET",
-      url: "/test?action=rpsRiskReportInvalidPayment",
+      url: "/test?action=rpsGetBillingInformation",
     });
 
     expect(res.statusCode).to.equal(200);

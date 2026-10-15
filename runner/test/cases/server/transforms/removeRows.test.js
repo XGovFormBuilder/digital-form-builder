@@ -53,7 +53,7 @@ suite("removeRows", () => {
       ],
     },
   ];
-  const fields = ["organisation", "dob"];
+  const fields = ["organisation_1", "dob"];
 
   test("removeRows correctly transforms ", () => {
     expect(removeRows(details, fields)).to.equal([

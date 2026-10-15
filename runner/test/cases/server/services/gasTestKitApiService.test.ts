@@ -41,6 +41,7 @@ describe("GasTestKitApiService", () => {
     prevTestedAddress: false,
     prevAboveActionLevel: false,
     remediationComplete: false,
+    amount: 5280,
   };
 
   it("rejects invalid data without calling the backend", async () => {
@@ -70,8 +71,11 @@ describe("GasTestKitApiService", () => {
 
   it("throws when the backend responds with an error", async () => {
     sinon.stub(JsonApiIntegrationWithMsal.prototype, "request").resolves({
-      status: 200,
-      json: sinon.stub().resolves({ error: "backend rejected it" }),
+      status: 500,
+      json: sinon.stub().resolves({
+        success: false,
+        error: "backend rejected it",
+      }),
     } as any);
 
     const service = buildService();

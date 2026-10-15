@@ -48,6 +48,7 @@ describe("saveGasTestKitDetailsSchema", () => {
     prevTestedAddress: false,
     prevAboveActionLevel: false,
     remediationComplete: false,
+    amount: 5280,
   };
 
   describe("valid payloads", () => {
@@ -152,6 +153,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
   const toAddressDetails = (address: typeof measurementAddress) => ({
     fullAddress: address.address,
     postcode: address.postcode,
+    udprn: "00000000",
   });
 
   const baseState = {
@@ -165,8 +167,18 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
     stepsToReduceYesNo: false,
   };
 
+  // Only what FeesModel reads, with the fee from order-a-home-radon-gas-test-kit.json.
+  const model = {
+    def: { fees: [{ description: "Radon gas home test kit", amount: 5280 }] },
+    conditions: {},
+  };
+
   const buildRequest = () => {
-    const storeGtkStub = sinon.stub().resolves({ message: "", uuid: "" });
+    const storeGtkStub = sinon
+      .stub()
+      .resolves({ success: true, data: { message: "", uuid: "" } });
+
+    const cacheService = { isStateFrozen: sinon.stub().resolves(false) };
 
     const yarStore = new Map<string, unknown>();
 
@@ -174,6 +186,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
       service: {
         getServices: sinon.stub().returns({
           gasTestKitApiService: { storeGtk: storeGtkStub },
+          cacheService,
         }),
       },
       logger: { warn: sinon.stub(), trace: sinon.stub() },
@@ -193,6 +206,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
   it("uses the measurement address for both kit and results when both are confirmed as the same as the measurement address", async () => {
     const { request, storeGtkStub } = buildRequest();
     const context: any = {
+      model,
       state: {
         ...baseState,
         kitAddressConfirmation: true,
@@ -219,6 +233,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
   it("uses the measurement address for the kit but collects a separate results address when only the kit is confirmed as the same as the measurement address", async () => {
     const { request, storeGtkStub } = buildRequest();
     const context: any = {
+      model,
       state: {
         ...baseState,
         kitAddressConfirmation: true,
@@ -252,6 +267,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
   it("sends results to the measurement address when kit goes to a different address but results are confirmed as the same as measurement", async () => {
     const { request, storeGtkStub } = buildRequest();
     const context: any = {
+      model,
       state: {
         ...baseState,
         kitAddressConfirmation: false,
@@ -286,6 +302,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
   it("sends results to the kit address when kit goes to a different address and kitResultsConfirmation is yes", async () => {
     const { request, storeGtkStub } = buildRequest();
     const context: any = {
+      model,
       state: {
         ...baseState,
         kitAddressConfirmation: false,
@@ -315,6 +332,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
   it("sends results to a separate address when kit goes to a different address and kitResultsConfirmation is no", async () => {
     const { request, storeGtkStub } = buildRequest();
     const context: any = {
+      model,
       state: {
         ...baseState,
         kitAddressConfirmation: false,
@@ -354,6 +372,7 @@ describe("rpsGasTestKitOnSummarySubmit", () => {
   it("overrides any stale separately-entered kit/results addresses when both are confirmed as the same as the measurement address", async () => {
     const { request, storeGtkStub } = buildRequest();
     const context: any = {
+      model,
       state: {
         ...baseState,
         kitAddressConfirmation: true,

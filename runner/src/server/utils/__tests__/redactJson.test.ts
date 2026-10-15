@@ -14,7 +14,8 @@ suite("redactJson", () => {
       formId: "rps-risk-report",
     });
 
-    expect(result.email).to.match(/^\[EMAIL_\d+\]$/);
+    // "email" is in config.sensitiveLogKeys, so it's redacted by key, not by content.
+    expect(result.email).to.equal("[SENSITIVE_FIELD]");
     expect(result.formId).to.equal("rps-risk-report");
   });
 

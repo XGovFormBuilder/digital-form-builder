@@ -34,6 +34,7 @@ const testDetails = [
         title: "Approximate date of marriage",
         dataType: "monthYear",
         immutable: undefined,
+        filename: undefined,
       },
       {
         name: "caz",
@@ -47,6 +48,7 @@ const testDetails = [
         title: "caz zone",
         dataType: "list",
         immutable: undefined,
+        filename: undefined,
       },
     ],
     name: undefined,
@@ -68,6 +70,7 @@ const testDetails = [
         title: "full date",
         dataType: "date",
         immutable: undefined,
+        filename: undefined,
       },
     ],
   },

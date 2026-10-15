@@ -14,10 +14,13 @@ const cacheService = { getState: () => ({}), mergeState: () => {} },
   notifyService = { sendNotification: () => ({}) },
   payService = {
     payStatus: () => {},
-  };
+  },
+  formSecurityService = { getSecurityHeaders: () => undefined };
 
 const yar = {
   id: "session_id",
+  get: () => "correlation_id",
+  set: () => {},
 };
 
 const app = {
@@ -37,6 +40,7 @@ const server = {
     webhookService,
     payService,
     notifyService,
+    formSecurityService,
   }),
   logger: {
     info: () => {},

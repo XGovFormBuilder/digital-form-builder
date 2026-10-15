@@ -75,10 +75,10 @@ describe("runHook", () => {
     const { request, getStateStub } = buildRequest(cachedState);
     const model: any = {
       def: {
-        hooks: { "MyController.onSomething": "rpsRiskReportInvalidPayment" },
+        hooks: { "MyController.onSomething": "rpsGetBillingInformation" },
       },
     };
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves(undefined);
 
     await runHook("MyController.onSomething", request, { model });
@@ -94,11 +94,11 @@ describe("runHook", () => {
     const { request, getStateStub } = buildRequest();
     const model: any = {
       def: {
-        hooks: { "MyController.onSomething": "rpsRiskReportInvalidPayment" },
+        hooks: { "MyController.onSomething": "rpsGetBillingInformation" },
       },
     };
     const explicitState = { sessionId: "explicit" };
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves(undefined);
 
     await runHook("MyController.onSomething", request, {
@@ -117,10 +117,10 @@ describe("runHook", () => {
     const { request } = buildRequest();
     const model: any = {
       def: {
-        hooks: { "MyController.onSomething": "rpsRiskReportInvalidPayment" },
+        hooks: { "MyController.onSomething": "rpsGetBillingInformation" },
       },
     };
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves("hook result" as any);
 
     const result = await runHook("MyController.onSomething", request, {

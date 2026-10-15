@@ -25,15 +25,15 @@ const buildAddress = (overrides: Partial<Address> = {}): Address => ({
 
 suite("addressUtils", () => {
   suite("deriveSelectedFieldName", () => {
-    test("returns selectedReportAddress for reportAddress", () => {
+    test("returns reportAddress_addressSelection for reportAddress", () => {
       expect(deriveSelectedFieldName("reportAddress")).to.equal(
-        "selectedReportAddress"
+        "reportAddress_addressSelection"
       );
     });
 
-    test("returns selectedDeliveryAddress for deliveryAddress", () => {
+    test("returns deliveryAddress_addressSelection for deliveryAddress", () => {
       expect(deriveSelectedFieldName("deliveryAddress")).to.equal(
-        "selectedDeliveryAddress"
+        "deliveryAddress_addressSelection"
       );
     });
   });

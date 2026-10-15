@@ -139,7 +139,7 @@ describe("CheckpointSummaryPageController", () => {
     };
 
     controller = new CheckpointSummaryPageController(
-      new FormModel(formDef, {}),
+      new FormModel(formDef, { basePath: "test-form" }),
       mockPageDef
     );
   });
@@ -163,7 +163,7 @@ describe("CheckpointSummaryPageController", () => {
       const result = await handler(mockRequest, mockH);
 
       expect(result).to.be.a.string();
-      expect(result).to.equal("/summary");
+      expect(result).to.equal("/test-form/summary");
     });
   });
 
