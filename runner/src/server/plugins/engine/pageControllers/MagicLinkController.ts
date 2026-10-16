@@ -1,4 +1,5 @@
-import { SummaryViewModel } from "../models";
+import { NotifyOutputConfiguration, Page } from "@xgovformbuilder/model";
+import { FormModel, SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
 import { redirectTo, redirectUrl } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
@@ -7,8 +8,14 @@ import Jwt from "@hapi/jwt";
 import config from "server/config";
 
 export class MagicLinkController extends PageController {
-  constructor(model, pageDef) {
+  constructor(model: FormModel, pageDef: Page) {
     super(model, pageDef);
+  }
+
+  private get hmacKey() {
+    // The signing key is on the form's first output, the notify output that emails the link.
+    const { outputConfiguration } = this.model.def.outputs[0];
+    return (outputConfiguration as NotifyOutputConfiguration).hmacKey;
   }
 
   makeGetRouteHandler() {
@@ -16,9 +23,13 @@ export class MagicLinkController extends PageController {
       const email = request.query.email;
       const hmac = request.query.signature;
       const requestTime = request.query.request_time;
-      const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
-      const validation = await validateHmac(email, hmac, requestTime, hmacKey);
+      const validation = await validateHmac(
+        email,
+        hmac,
+        requestTime,
+        this.hmacKey
+      );
 
       //Outlook safelink consumes magic link - This bypasses it
       if (!request.headers["user-agent"]) {
@@ -35,8 +46,6 @@ export class MagicLinkController extends PageController {
       if (!isMagicLinkRecordActive) {
         return h.redirect(`/${this.model.basePath}/expired`).code(302);
       }
-
-      await magicLinkCacheService.deleteMagicLinkRecord(email);
 
       if (!validation.isValid) {
         // Handle different invalid token cases
@@ -56,6 +65,7 @@ export class MagicLinkController extends PageController {
 
       const model = this.model;
 
+      // Every magic link form sets skipSummary, so the summary handling below is unused and could be deleted.
       if (this.model.def.skipSummary) {
         return this.makePostRouteHandler()(request, h);
       }
@@ -130,19 +140,30 @@ export class MagicLinkController extends PageController {
       const email = request.query.email;
       const hmac = request.query.signature;
       const requestTime = request.query.request_time;
-      const hmacKey = this.model.def.outputs[0].outputConfiguration.hmacKey;
 
-      const validation = await validateHmac(email, hmac, requestTime, hmacKey);
+      const validation = await validateHmac(
+        email,
+        hmac,
+        requestTime,
+        this.hmacKey
+      );
 
       //Outlook safelink consumes magic link - This bypasses it
       if (!request.headers["user-agent"]) {
         return h.response("Ignored bot request").code(200);
       }
       if (validation.isValid) {
+        const { jwtKey } = this.model.def;
+        if (!jwtKey) {
+          throw new Error(
+            `Magic link form ${this.model.basePath} has no jwtKey`
+          );
+        }
+
         const token = Jwt.token.generate(
           { email: request.query.email },
           {
-            key: this.model.def.jwtKey,
+            key: jwtKey,
             algorithm: config.initialisedSessionAlgorithm,
           },
           {

@@ -2,7 +2,7 @@ import { Field, WebhookSchema } from "server/schemas/types";
 import { merge } from "@hapi/hoek";
 import { customAlphabet } from "nanoid";
 import config from "server/config";
-import Jwt from "@hapi/jwt";
+import Jwt, { HapiJwt } from "@hapi/jwt";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import joi from "joi";
 
@@ -84,8 +84,15 @@ export const callbackValidation = (safelist = config.safelist) =>
     return helpers.error("string.hostname");
   });
 
-export function verifyHmacToken(decodedToken, key) {
+export function verifyHmacToken(
+  decodedToken: HapiJwt.Artifacts,
+  key: string | undefined
+) {
   try {
+    if (!key) {
+      throw new Error("No JWT key configured");
+    }
+
     Jwt.token.verify(decodedToken, {
       key: key,
       algorithm: config.initialisedSessionAlgorithm,

@@ -1,9 +1,11 @@
+import { Page } from "@xgovformbuilder/model";
+import { FormModel } from "../models";
 import { PageController } from "./PageController";
 import { redirectTo } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 
 export class MagicLinkStartPageController extends PageController {
-  constructor(model, pageDef) {
+  constructor(model: FormModel, pageDef: Page) {
     super(model, pageDef);
   }
 

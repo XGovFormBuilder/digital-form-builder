@@ -1,6 +1,7 @@
 import { Policy, PolicyOptions } from "@hapi/catbox";
-import config from "../config";
 import { HapiRequest, HapiServer } from "../types";
+import { FormSubmissionState } from "../plugins/engine/types";
+import { MAGIC_LINK_EXPIRY_SECONDS } from "../utils/hmac";
 import { CacheService } from "./cacheService";
 
 export class MagicLinkCacheService {
@@ -15,7 +16,7 @@ export class MagicLinkCacheService {
 
   logger: HapiServer["logger"];
 
-  ttl = config.sessionTimeout ?? 1000 * 60 * 10; // 10 minutes
+  ttl = MAGIC_LINK_EXPIRY_SECONDS * 1000;
 
   constructor(server: HapiServer) {
     this.logger = server.logger;
@@ -23,17 +24,14 @@ export class MagicLinkCacheService {
     const { cacheService } = server.services([]);
     this.cacheService = cacheService;
 
-    this.magicLinkRecordCache = cacheService.cache as TypedCache<
-      MagicLinkRecord
-    >;
+    this.magicLinkRecordCache =
+      cacheService.cache as TypedCache<MagicLinkRecord>;
 
-    this.magicLinkFormIdBySessionCache = cacheService.cache as TypedCache<
-      FormIdBySessionIdRecord
-    >;
+    this.magicLinkFormIdBySessionCache =
+      cacheService.cache as TypedCache<FormIdBySessionIdRecord>;
 
-    this.magicLinkReturnDataByHmacCache = cacheService.cache as TypedCache<
-      ReturnDataByHmacRecord
-    >;
+    this.magicLinkReturnDataByHmacCache =
+      cacheService.cache as TypedCache<ReturnDataByHmacRecord>;
   }
 
   async createMagicLinkRecord(
@@ -69,12 +67,15 @@ export class MagicLinkCacheService {
     return emailCached ?? null;
   }
 
+  // Currently unused: opening a link no longer deletes its record, so links stay valid until they expire.
   async deleteMagicLinkRecord(email: string) {
     const key = getMagicLinkRecordKey(email);
     return await this.magicLinkRecordCache.drop(key);
   }
 
-  async saveFormIdBeforeMagicLinkRedirectToAllowResume(request: HapiRequest) {
+  async saveFormIdBeforeMagicLinkRedirectToAllowResume(
+    request: MagicLinkRequest
+  ) {
     /* Magic Link Session Resume Step 1: Save the form id before redirecting to the Magic Link form
        Saves form id by session id, to allow retrieval in the magic link form flow 
     */
@@ -98,7 +99,7 @@ export class MagicLinkCacheService {
   }
 
   async saveInformationToAllowMagicLinkResume(
-    request: HapiRequest,
+    request: MagicLinkRequest,
     hmac: string
   ) {
     /* Magic Link Session Resume Step 2: Save additional information when sending out the Magic Link
@@ -151,7 +152,7 @@ export class MagicLinkCacheService {
   }
 
   async repopulateFormStateUponMagicLinkReturn(
-    request: HapiRequest,
+    request: MagicLinkRequest,
     hmac: string
   ) {
     /* Magic Link Session Resume Step 3:
@@ -173,10 +174,8 @@ export class MagicLinkCacheService {
     const currentSessionId = request.yar.id;
     const magicLinkFormId = request.params.id;
 
-    const {
-      sessionId: previousSessionId,
-      formId: previousFormId,
-    } = magicLinkReturnEntry;
+    const { sessionId: previousSessionId, formId: previousFormId } =
+      magicLinkReturnEntry;
 
     if (!currentSessionId || !previousSessionId || !previousFormId) {
       request.logger.error("Magic Link: Missing data in step 3", {
@@ -187,13 +186,9 @@ export class MagicLinkCacheService {
       return;
     }
 
-    if (currentSessionId === previousSessionId) {
-      /* Continuing in same browser, no need to repopulate previous state */
-      return;
-    }
-
-    /* Continuing in different session (different browser / new browser / new instance / tab)
-       Re-instate form states from previous session 
+    /* Re-instate form states from the previous session. When continuing in the same session,
+       this merges each form's state onto itself: a no-op, but it keeps this path identical
+       regardless of whether the link is opened in the same browser or a different one.
     */
     await this.mergeFormStateFromPreviousSession({
       previousSessionId,
@@ -206,15 +201,6 @@ export class MagicLinkCacheService {
       currentSessionId,
       formId: previousFormId,
     });
-
-    /* Cleaning up state from previous session */
-    await this.clearFormState(previousSessionId, magicLinkFormId);
-    await this.clearFormState(previousSessionId, previousFormId);
-
-    /* Delete Magic Link Lookup Entry */
-    await this.magicLinkReturnDataByHmacCache.drop(
-      getReturnDataByHmacKey(hmac)
-    );
   }
 
   private async mergeFormStateFromPreviousSession({
@@ -244,7 +230,7 @@ export class MagicLinkCacheService {
   private async mergeFormState(
     sessionId: string,
     formId: string,
-    value: Record<string, any>
+    value: FormSubmissionState
   ) {
     return await this.cacheService.mergeState(
       {
@@ -254,18 +240,15 @@ export class MagicLinkCacheService {
       value
     );
   }
-
-  private async clearFormState(sessionId: string, formId: string) {
-    if (sessionId && formId) {
-      await this.cacheService.clearState({
-        params: { id: formId },
-        yar: { id: sessionId },
-      });
-    }
-  }
 }
 
 type TypedCache<T> = Policy<T, PolicyOptions<T>>;
+
+type MagicLinkRequest = {
+  yar: Pick<HapiRequest["yar"], "id">;
+  params: HapiRequest["params"];
+  logger: HapiRequest["logger"];
+};
 
 type MagicLinkRecord = { hmac: string; active: number };
 const getMagicLinkRecordKey = (email: string) => {
