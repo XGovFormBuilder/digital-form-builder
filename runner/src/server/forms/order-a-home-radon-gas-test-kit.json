@@ -672,6 +672,9 @@
     {
       "path": "/kit-recipient",
       "title": "Who is the recipient of the kit?",
+      "options": {
+        "honorReturnURL": false
+      },
       "components": [
         {
           "name": "kitTitle",
@@ -1073,6 +1076,9 @@
     {
       "path": "/results-recipient",
       "title": "Who is the recipient of the radon gas test results?",
+      "options": {
+        "honorReturnURL": false
+      },
       "components": [
         {
           "name": "resultsTitle",
@@ -1495,7 +1501,7 @@
                       "condition": "kitAddressIncorrect",
                       "value": "/kit-recipient"
                     },
-                    { "value": "/your-details" }
+                    { "value": "/kit-details" }
                   ],
                   "value": {
                     "name": "kitRecipient",
@@ -1519,7 +1525,7 @@
                       "condition": "kitAddressIncorrect",
                       "value": "/gas-test-kit-kit-address-postcode"
                     },
-                    { "value": "/gas-test-kit-property-address-postcode" }
+                    { "value": "/kit-details" }
                   ],
                   "value": {
                     "name": "displayKitAddress",
@@ -1545,7 +1551,7 @@
                       "condition": "resultAddressIncorrect",
                       "value": "/results-recipient"
                     },
-                    { "value": "/your-details" }
+                    { "value": "/kit-details" }
                   ],
                   "value": {
                     "name": "resultsRecipient",
@@ -1577,7 +1583,7 @@
                       "condition": "resultAddressIncorrect",
                       "value": "/gas-test-kit-result-address-postcode"
                     },
-                    { "value": "/gas-test-kit-property-address-postcode" }
+                    { "value": "/kit-details" }
                   ],
                   "value": {
                     "name": "displayResultAddress",
