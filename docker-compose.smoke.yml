@@ -35,6 +35,7 @@ services:
       - sandbox=true
       - PREVIEW_MODE=true
       - NODE_ENV=test
+      - ENFORCE_CSRF=false
       - ALLOW_USER_TEMPLATES=true
       - NODE_CONFIG={"documentUploadApiUrl":null}
     command: yarn runner start

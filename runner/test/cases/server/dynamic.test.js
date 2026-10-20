@@ -83,7 +83,7 @@ const FORMS = {
 const SESSION_ID = "TEST_ID";
 const VISIT_ID = "AvsfDdnkdns";
 
-suite("Dynamic pages", { skip: true }, () => {
+suite("Dynamic pages", () => {
   let server;
 
   // Create server before each test

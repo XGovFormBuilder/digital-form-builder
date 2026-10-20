@@ -82,4 +82,5 @@ const formDef = {
   sections: [],
   lists: [],
   conditions: [],
+  outputs: [],
 };

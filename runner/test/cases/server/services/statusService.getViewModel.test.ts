@@ -198,7 +198,7 @@ suite("StatusService getViewModel renders custom text correctly", () => {
   });
 
   //TODO - turning on allowUserTemplates breaks CSRF tests
-  test.skip("customText defined with nunjucks templates are not overwritten with a static value", async () => {
+  test("customText defined with nunjucks templates are not overwritten with a static value", async () => {
     // previously, the first render would overwrite formModel.def.specialPages.confirmationPage values with the first rendered value
     // and would render the same value for all subsequent values, as if it was a static value.
 

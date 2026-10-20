@@ -41,17 +41,16 @@ const state = {
   },
 };
 
-const summaryViewModel = new SummaryViewModel(
-  "summary",
-  form,
-  { ...state },
-  {
-    query: {},
-  }
-);
-
 suite("WebhookModel", () => {
   test("SummaryViewModel returns correct WebhookModel", () => {
+    const summaryViewModel = new SummaryViewModel(
+      "summary",
+      form,
+      { ...state },
+      {
+        query: {},
+      }
+    );
     const webhookData = summaryViewModel._webhookData;
     expect(webhookData).to.equal(expectedWebhookData);
   });

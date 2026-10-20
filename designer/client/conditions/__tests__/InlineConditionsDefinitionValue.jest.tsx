@@ -10,7 +10,7 @@ import {
 } from "@xgovformbuilder/model";
 import userEvent from "@testing-library/user-event";
 
-describe.skip("AbsoluteDateTimeValues", () => {
+describe("AbsoluteDateTimeValues", () => {
   afterEach(() => jest.resetAllMocks());
 
   it("should display a text input for fields without custom mappings or options", async () => {
@@ -80,8 +80,8 @@ describe.skip("AbsoluteDateTimeValues", () => {
 
   it("should display a select input for fields without custom mappings and with options", async () => {
     const values = [
-      { value: "value1", label: "Value 1" },
-      { value: "value2", label: "Value 2" },
+      { value: "value1", text: "Value 1" },
+      { value: "value2", text: "Value 2" },
     ];
     const fieldDef = {
       label: "Something",
@@ -105,8 +105,8 @@ describe.skip("AbsoluteDateTimeValues", () => {
 
   it("selecting a value from the select list should call update value", async () => {
     const values = [
-      { value: "value1", label: "Value 1" },
-      { value: "value2", label: "Value 2" },
+      { value: "value1", text: "Value 1" },
+      { value: "value2", text: "Value 2" },
     ];
     const fieldDef = {
       label: "Something",
@@ -134,8 +134,8 @@ describe.skip("AbsoluteDateTimeValues", () => {
 
   it("should correctly compare boolean string to boolean value", async () => {
     const values = [
-      { value: true, label: "Value 1" },
-      { value: false, label: "Value 2" },
+      { value: true, text: "Value 1" },
+      { value: false, text: "Value 2" },
     ];
     const fieldDef = {
       label: "Something",
@@ -163,8 +163,8 @@ describe.skip("AbsoluteDateTimeValues", () => {
 
   it("should correctly compare number string to number value", async () => {
     const values = [
-      { value: 42, label: "Value 1" },
-      { value: 43, label: "Value 2" },
+      { value: 42, text: "Value 1" },
+      { value: 43, text: "Value 2" },
     ];
     const fieldDef = {
       label: "Something",
@@ -192,8 +192,8 @@ describe.skip("AbsoluteDateTimeValues", () => {
 
   it("selecting a blank value from the select list should call update value with undefined", async () => {
     const values = [
-      { value: 42, label: "Value 1" },
-      { value: 43, label: "Value 2" },
+      { value: 42, text: "Value 1" },
+      { value: 43, text: "Value 2" },
     ];
     const fieldDef = {
       label: "Something",

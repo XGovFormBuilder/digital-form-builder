@@ -52,7 +52,7 @@ describe("RiskReportApiService", () => {
       const service = buildService();
 
       const result = await service.lookupAddress({
-        uuid: "00000000-0000-0000-0000-000000000001",
+        uuid: "3f2c1a9e-8b7d-4c6e-9f1a-2b3c4d5e6f70",
         udprn: "12345678",
         countryCode: "E",
         fullAddress: "10 Downing Street",
@@ -71,7 +71,7 @@ describe("RiskReportApiService", () => {
 
       await expect(
         service.lookupAddress({
-          uuid: "00000000-0000-0000-0000-000000000001",
+          uuid: "3f2c1a9e-8b7d-4c6e-9f1a-2b3c4d5e6f70",
           udprn: "12345678",
           countryCode: "E",
           fullAddress: "10 Downing Street",
@@ -98,6 +98,7 @@ describe("RiskReportApiService", () => {
         lastName: "Doe",
         deliveryMethod: "email",
         email: "jane.doe@example.com",
+        amount: 390,
       });
 
       expect(result.uuid).to.equal("00000000-0000-0000-0000-000000000002");

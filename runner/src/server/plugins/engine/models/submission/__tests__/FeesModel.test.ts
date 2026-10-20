@@ -22,6 +22,7 @@ suite("FeesModel", () => {
         { description: "car tax", amount: 5000 },
       ],
       total: 10000,
+      totalInPounds: "100.00",
       prefixes: [],
       referenceFormat: "FCDO-{{DATE}}",
     });
@@ -44,6 +45,7 @@ suite("FeesModel", () => {
         { description: "car tax", amount: 5000 },
       ],
       total: 10000,
+      totalInPounds: "100.00",
       prefixes: [],
       referenceFormat: "FCDO2-{{DATE}}",
     });
@@ -74,6 +76,7 @@ suite("FeesModel", () => {
         { description: "car tax", amount: 5000 },
       ],
       total: 10000,
+      totalInPounds: "100.00",
       prefixes: [],
       referenceFormat: "FCDO2-{{DATE}}",
       reportingColumns: {

@@ -150,8 +150,8 @@ describe("Server API", () => {
             ],
           },
           {
+            // Invalid: every page needs a path.
             title: "Summary",
-            path: "/summary",
             controller: "./pages/summary.js",
             components: [],
           },

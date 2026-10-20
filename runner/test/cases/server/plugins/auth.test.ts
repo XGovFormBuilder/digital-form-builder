@@ -75,9 +75,10 @@ suite("Server Auth", () => {
         method: "GET",
         url: "/",
       });
+      // A Cookie header carries only name=value, not the Set-Cookie attributes.
       const initialSessionCookie = prepResponse.headers["set-cookie"]
         .find((cookie) => cookie.startsWith("session="))
-        .replace("HttpOnly; ");
+        .split(";")[0];
 
       // We can first check the created session works as expected:
       const checkPrepResponse = await server.inject({

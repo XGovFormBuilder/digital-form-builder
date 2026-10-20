@@ -1,3 +1,7 @@
+// Forces the components barrel to resolve top-to-bottom before anything below
+// imports a specific component class out of order, which otherwise throws
+// "Class extends value undefined" when this file is run on its own.
+import "server/plugins/engine/components";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
@@ -71,10 +75,10 @@ describe("runHook", () => {
     const { request, getStateStub } = buildRequest(cachedState);
     const model: any = {
       def: {
-        hooks: { "MyController.onSomething": "rpsRiskReportInvalidPayment" },
+        hooks: { "MyController.onSomething": "rpsGetBillingInformation" },
       },
     };
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves(undefined);
 
     await runHook("MyController.onSomething", request, { model });
@@ -90,11 +94,11 @@ describe("runHook", () => {
     const { request, getStateStub } = buildRequest();
     const model: any = {
       def: {
-        hooks: { "MyController.onSomething": "rpsRiskReportInvalidPayment" },
+        hooks: { "MyController.onSomething": "rpsGetBillingInformation" },
       },
     };
     const explicitState = { sessionId: "explicit" };
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves(undefined);
 
     await runHook("MyController.onSomething", request, {
@@ -113,10 +117,10 @@ describe("runHook", () => {
     const { request } = buildRequest();
     const model: any = {
       def: {
-        hooks: { "MyController.onSomething": "rpsRiskReportInvalidPayment" },
+        hooks: { "MyController.onSomething": "rpsGetBillingInformation" },
       },
     };
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves("hook result" as any);
 
     const result = await runHook("MyController.onSomething", request, {

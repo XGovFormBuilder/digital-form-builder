@@ -1,6 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import createServer from "src/server";
+import config from "src/server/config";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -30,7 +31,7 @@ suite("Server Router", () => {
     expect(res.statusCode).to.equal(200);
     expect(
       res.result.indexOf(
-        `<h1 class="govuk-heading-l">Cookies on Digital Form Builder - Runner</h1>`
+        `<h1 class="govuk-heading-l">Cookies on ${config.serviceName}</h1>`
       ) > -1
     ).to.equal(true);
   });

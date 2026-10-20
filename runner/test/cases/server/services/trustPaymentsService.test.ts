@@ -28,7 +28,7 @@ function validHashFor(query: Record<string, string>): string {
 
 suite("Server TrustPaymentsService Service", () => {
   test("returns true when responsesitesecurity matches the computed hash", () => {
-    const service = new TrustPaymentsService({
+    const service = new TrustPaymentsService("trustPaymentsService", {
       siteReference: "site1234",
       hashPassword,
     });
@@ -45,7 +45,7 @@ suite("Server TrustPaymentsService Service", () => {
   });
 
   test("returns false when responsesitesecurity does not match the computed hash", () => {
-    const service = new TrustPaymentsService({
+    const service = new TrustPaymentsService("trustPaymentsService", {
       siteReference: "site1234",
       hashPassword,
     });
@@ -64,7 +64,7 @@ suite("Server TrustPaymentsService Service", () => {
   });
 
   test("returns false when query params have been tampered with", () => {
-    const service = new TrustPaymentsService({
+    const service = new TrustPaymentsService("trustPaymentsService", {
       siteReference: "site1234",
       hashPassword,
     });
@@ -85,7 +85,7 @@ suite("Server TrustPaymentsService Service", () => {
   });
 
   test("throws a ControllerError when responsesitesecurity is missing", () => {
-    const service = new TrustPaymentsService({
+    const service = new TrustPaymentsService("trustPaymentsService", {
       siteReference: "site1234",
       hashPassword,
     });

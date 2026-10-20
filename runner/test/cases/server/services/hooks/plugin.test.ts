@@ -1,3 +1,7 @@
+// Forces the components barrel to resolve top-to-bottom before anything below
+// imports a specific component class out of order, which otherwise throws
+// "Class extends value undefined" when this file is run on its own.
+import "server/plugins/engine/components";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import hapi from "@hapi/hapi";
@@ -70,12 +74,12 @@ describe("hooks plugin (request.hook.run)", () => {
   });
 
   it("dispatches through the real registry for a configured action", async () => {
-    const hookStub = sinon.stub(hookRegistry, "rpsRiskReportInvalidPayment");
+    const hookStub = sinon.stub(hookRegistry, "rpsGetBillingInformation");
     hookStub.resolves("wired" as any);
 
     const res = await server.inject({
       method: "GET",
-      url: "/test?action=rpsRiskReportInvalidPayment",
+      url: "/test?action=rpsGetBillingInformation",
     });
 
     expect(res.statusCode).to.equal(200);

@@ -1,3 +1,7 @@
+// Forces the components barrel to resolve top-to-bottom before anything below
+// imports a specific component class out of order, which otherwise throws
+// "Class extends value undefined" when this file is run on its own.
+import "server/plugins/engine/components";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
@@ -30,6 +34,7 @@ const testDetails = [
         title: "Approximate date of marriage",
         dataType: "monthYear",
         immutable: undefined,
+        filename: undefined,
       },
       {
         name: "caz",
@@ -43,6 +48,7 @@ const testDetails = [
         title: "caz zone",
         dataType: "list",
         immutable: undefined,
+        filename: undefined,
       },
     ],
     name: undefined,
@@ -64,6 +70,7 @@ const testDetails = [
         title: "full date",
         dataType: "date",
         immutable: undefined,
+        filename: undefined,
       },
     ],
   },

@@ -40,19 +40,26 @@ describe("postValidated", () => {
 
     await expect(
       postValidated(client, "/some-path", schema, { name: "a" }, "failed")
-    ).to.reject(ControllerError, "failed");
+    ).to.reject(ControllerError, "ControllerError: failed");
   });
 
-  it("throws the failure message when the response body has an error", async () => {
+  // Callers check `success` on the returned body; only non-200 statuses throw here.
+  it("returns the body when a 200 response has an error, for the caller to check", async () => {
     const client = buildClient();
     (client.request as sinon.SinonStub).resolves({
       status: 200,
       json: sinon.stub().resolves({ error: "backend rejected it" }),
     });
 
-    await expect(
-      postValidated(client, "/some-path", schema, { name: "a" }, "failed")
-    ).to.reject(ControllerError, "failed");
+    const result = await postValidated(
+      client,
+      "/some-path",
+      schema,
+      { name: "a" },
+      "failed"
+    );
+
+    expect(result).to.equal({ error: "backend rejected it" });
   });
 
   it("returns the parsed body on success", async () => {

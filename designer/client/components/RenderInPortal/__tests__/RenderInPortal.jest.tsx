@@ -1,54 +1,52 @@
-test.todo("RenderInPortal renders a single component in portal");
-test.todo("RenderInPortal renders a multiple components in parallel");
-/**
- suite("Component RenderInPortal", () => {
-  test("renders paragraph inside portal", () => {
-    let portalRoot = document.querySelector("#portal-root");
+import React from "react";
+import { render } from "@testing-library/react";
+import { RenderInPortal } from "../RenderInPortal";
 
-    expect(portalRoot.innerHTML).to.equal("");
+describe("RenderInPortal", () => {
+  let portalRoot: HTMLElement;
 
-    const wrapper = mount(
+  // jest-setup.js recreates #portal-root before each test.
+  beforeEach(() => {
+    portalRoot = document.getElementById("portal-root")!;
+  });
+
+  test("renders a single component in the portal, and removes it on unmount", () => {
+    const { unmount } = render(
       <RenderInPortal>
         <p id="test-paragraph">Test</p>
       </RenderInPortal>
     );
-    portalRoot = document.querySelector("#portal-root");
-    expect(portalRoot.innerHTML).to.equal(
+
+    expect(portalRoot.innerHTML).toBe(
       '<div><p id="test-paragraph">Test</p></div>'
     );
 
-    wrapper.unmount();
-    portalRoot = document.querySelector("#portal-root");
-    expect(portalRoot.innerHTML).to.equal("");
+    unmount();
+    expect(portalRoot.innerHTML).toBe("");
   });
 
-  test("renders multiple portals in parallel", () => {
-    const wrapper1 = mount(
+  test("renders multiple components in parallel, and removes each on unmount", () => {
+    const first = render(
       <RenderInPortal>
         <p id="test-paragraph1">Test 1</p>
       </RenderInPortal>
     );
-    const wrapper2 = mount(
+    const second = render(
       <RenderInPortal>
         <p id="test-paragraph2">Test 2</p>
       </RenderInPortal>
     );
 
-    let portalRoot = document.querySelector("#portal-root");
-    expect(portalRoot.innerHTML).to.equal(
+    expect(portalRoot.innerHTML).toBe(
       '<div><p id="test-paragraph1">Test 1</p></div><div><p id="test-paragraph2">Test 2</p></div>'
     );
 
-    wrapper1.unmount();
-    portalRoot = document.querySelector("#portal-root");
-    expect(portalRoot.innerHTML).to.equal(
+    first.unmount();
+    expect(portalRoot.innerHTML).toBe(
       '<div><p id="test-paragraph2">Test 2</p></div>'
     );
 
-    wrapper2.unmount();
-    portalRoot = document.querySelector("#portal-root");
-    expect(portalRoot.innerHTML).to.equal("");
+    second.unmount();
+    expect(portalRoot.innerHTML).toBe("");
   });
 });
-
- */
