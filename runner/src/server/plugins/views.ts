@@ -58,9 +58,12 @@ export default {
       `${path.dirname(resolve.sync("hmpo-components"))}/components`,
     ],
     isCached: !config.isDev,
-    context: (request: HapiRequest) => {
-      const id = request.params?.id;
-      const forms = request.server?.app?.forms;
+    // vision omits request for server.render()/request.render() (used by tests,
+    // and potentially a future non-HTTP render e.g. for an email or PDF): every
+    // request/form-specific value below must fall back to its config default.
+    context: (request?: HapiRequest) => {
+      const id = request?.params?.id;
+      const forms = request?.server?.app?.forms;
       const model = id && forms?.[id];
       const analytics = model?.def?.analytics || {};
 
@@ -69,15 +72,15 @@ export default {
         assetPath: "/assets",
         cookiesPolicy: request?.state?.cookies_policy,
         serviceName:
-          request.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
+          request?.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
           config.serviceName,
         returnTo:
           request?.server?.app?.forms?.[request.params?.id]?.def?.returnTo ||
           false,
         feedbackLink: config.feedbackLink,
         pageTitle:
-          (request.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
-            config.serviceName) + " - GOV.UK",
+          (request?.server?.app?.forms?.[request.params?.id]?.def
+            ?.serviceName || config.serviceName) + " - GOV.UK",
         analyticsAccount: config.analyticsAccount,
         gtmId1: analytics.gtmId1 || "",
         gtmId2: analytics.gtmId2 || "",
@@ -88,7 +91,7 @@ export default {
         sessionTimeout: config.sessionTimeout,
         skipTimeoutWarning: false,
         serviceStartPage:
-          request.server?.app?.forms?.[request.params?.id]?.def
+          request?.server?.app?.forms?.[request.params?.id]?.def
             ?.fullStartPage ||
           config.serviceStartPage ||
           config.serviceName ||
