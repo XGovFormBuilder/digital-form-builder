@@ -51,10 +51,11 @@ suite("GET /{id}/status", () => {
       url: `/${formId}/status`,
     });
 
+    const $ = cheerio.load(res.payload);
     expect(res.statusCode).to.equal(200);
-    expect(cheerio.load(res.payload)("title").text()).to.contain(
-      "Confirmation"
-    );
+    expect($("title").text()).to.contain("Confirmation");
+    expect($(".govuk-phase-banner").length).to.equal(1);
+    expect($(".govuk-phase-banner a").length).to.equal(0);
   });
 
   test("links to the form's feedback url", async () => {
