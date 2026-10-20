@@ -58,9 +58,11 @@ export default {
       `${path.dirname(resolve.sync("hmpo-components"))}/components`,
     ],
     isCached: !config.isDev,
-    // vision omits request for server.render()/request.render() (used by tests,
-    // and potentially a future non-HTTP render e.g. for an email or PDF): every
-    // request/form-specific value below must fall back to its config default.
+    // request can be undefined: vision calls this with no request via
+    // server.render()/request.render(), which this project's tests rely on.
+    // Keep every request-dependent value below guarded with `?.`, falling
+    // back to a config default -- #384 broke this by adding unguarded
+    // lookups, not realising request itself could be missing.
     context: (request?: HapiRequest) => {
       const id = request?.params?.id;
       const forms = request?.server?.app?.forms;
