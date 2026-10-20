@@ -458,7 +458,7 @@
           "title": "Contact Details"
         }
       ],
-      "next": [{ "path": "/close-contact-added-1" }]
+      "next": [{ "path": "/summary" }]
     },
     {
       "path": "/summary",

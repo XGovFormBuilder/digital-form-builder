@@ -35,8 +35,8 @@
           {% if detail.card %}
             {{ summaryCard(detail, true) }}
             {% if detail.addRepeatFieldButton %}
-            <!-- Behaviour created for repeatedMultiField edit functionality on final page -->
-            <a href="{{ detail.addRepeatFieldButton.href }}" class="govuk-button govuk-button--secondary">
+            <!-- Behaviour created for Repeat multifiled edit functionality on final page -->
+            <a type="submit" href="{{ detail.addRepeatFieldButton.href }}" class="govuk-button govuk-button--secondary">
               Add{% if detail.addRepeatFieldButton.canDelete %} or delete{% endif %} {{ detail.addRepeatFieldButton.label }}
             </a>
             {% endif %}
@@ -49,7 +49,7 @@
 
               <form action="{{ formAction }}" method="get">
                 <input type="hidden" name="returnUrl" value="{{ returnUrl }}" />
-                <button class="govuk-button govuk-button--secondary">
+                <button type="submit" class="govuk-button govuk-button--secondary">
                   Add {% if lastEntry !== "1" %} or delete {% endif %}
                   {{ detail.title.split(" ").slice(0, -1).join(" ") | lower }}
                 </button>
