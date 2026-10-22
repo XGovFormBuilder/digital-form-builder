@@ -42,20 +42,16 @@ Feature: Form pages
     * I delete the page
     Then I don't see the page "What is your address?"
 
-  #TODO:- cypress can't seem to detect this so putting it as @wip for now
-  @wip
   Scenario: Navigating away
     When I navigate away from the designer workspace
     Then I will see an alert warning me that ""
 
-  @wip
   Scenario: Confirm navigating away
-    When I navigate away from the designer workspace
-    And I choose confirm
+    When I choose confirm
+    And I navigate away from the designer workspace
     Then I will go back to my previous page
 
-  @wip
   Scenario: Cancel navigating away
-    When I navigate away from the designer workspace
-    And I choose cancel
+    When I choose cancel
+    And I navigate away from the designer workspace
     Then I will be on the same page

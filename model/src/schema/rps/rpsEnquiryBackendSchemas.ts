@@ -5,7 +5,10 @@ export const rpsEnquiryRequestSchema = joi
     uuid: joi.string().min(1).required(),
     firstName: joi.string().min(1).required(),
     lastName: joi.string().min(1).required(),
-    email: joi.string().email().required(),
+    email: joi
+      .string()
+      .email({ tlds: { allow: false } })
+      .required(),
     organisation: joi.string().min(1).optional(),
     subject: joi.string().min(1).required(),
     description: joi.string().min(1).required(),
