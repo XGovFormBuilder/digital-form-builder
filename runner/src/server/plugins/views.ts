@@ -58,9 +58,14 @@ export default {
       `${path.dirname(resolve.sync("hmpo-components"))}/components`,
     ],
     isCached: !config.isDev,
-    context: (request: HapiRequest) => {
-      const id = request.params?.id;
-      const forms = request.server?.app?.forms;
+    // request can be undefined: vision calls this with no request via
+    // server.render()/request.render(), which this project's tests rely on.
+    // Keep every request-dependent value below guarded with `?.`, falling
+    // back to a config default -- #384 broke this by adding unguarded
+    // lookups, not realising request itself could be missing.
+    context: (request?: HapiRequest) => {
+      const id = request?.params?.id;
+      const forms = request?.server?.app?.forms;
       const model = id && forms?.[id];
       const analytics = model?.def?.analytics || {};
 
@@ -69,15 +74,15 @@ export default {
         assetPath: "/assets",
         cookiesPolicy: request?.state?.cookies_policy,
         serviceName:
-          request.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
+          request?.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
           config.serviceName,
         returnTo:
           request?.server?.app?.forms?.[request.params?.id]?.def?.returnTo ||
           false,
         feedbackLink: config.feedbackLink,
         pageTitle:
-          (request.server?.app?.forms?.[request.params?.id]?.def?.serviceName ||
-            config.serviceName) + " - GOV.UK",
+          (request?.server?.app?.forms?.[request.params?.id]?.def
+            ?.serviceName || config.serviceName) + " - GOV.UK",
         analyticsAccount: config.analyticsAccount,
         gtmId1: analytics.gtmId1 || "",
         gtmId2: analytics.gtmId2 || "",
@@ -88,7 +93,7 @@ export default {
         sessionTimeout: config.sessionTimeout,
         skipTimeoutWarning: false,
         serviceStartPage:
-          request.server?.app?.forms?.[request.params?.id]?.def
+          request?.server?.app?.forms?.[request.params?.id]?.def
             ?.fullStartPage ||
           config.serviceStartPage ||
           config.serviceName ||

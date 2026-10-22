@@ -7,6 +7,9 @@ import { FormModel } from "src/server/plugins/engine/models";
 import createServer from "src/server";
 import cheerio from "cheerio";
 const form = require("./../status.test.json");
+// tests below mutate formModel.def.specialPages.confirmationPage directly;
+// clone first so they don't leak into each other via the shared require() fixture.
+const cloneForm = () => JSON.parse(JSON.stringify(form));
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -141,7 +144,7 @@ suite("StatusService getViewModel renders custom text correctly", () => {
   });
 
   test("with customText toggled", async () => {
-    let formModel = new FormModel(form, {});
+    let formModel = new FormModel(cloneForm(), {});
 
     formModel.def.specialPages.confirmationPage.customText = {
       nextSteps: false,
@@ -165,7 +168,7 @@ suite("StatusService getViewModel renders custom text correctly", () => {
     test("with callback override", async () => {});
   });
   test("with customText defined", async () => {
-    let formModel = new FormModel(form, {});
+    let formModel = new FormModel(cloneForm(), {});
 
     formModel.def.specialPages.confirmationPage.customText = {
       title: "Soup",
@@ -202,7 +205,7 @@ suite("StatusService getViewModel renders custom text correctly", () => {
     // previously, the first render would overwrite formModel.def.specialPages.confirmationPage values with the first rendered value
     // and would render the same value for all subsequent values, as if it was a static value.
 
-    let formModel = new FormModel(form, {});
+    let formModel = new FormModel(cloneForm(), {});
 
     const renderOne = statusService.getViewModel(
       {
@@ -210,9 +213,12 @@ suite("StatusService getViewModel renders custom text correctly", () => {
       },
       formModel
     );
+    // paymentSkipped must be false here: confirmation.html shows customText.paymentSkipped
+    // instead of customText.nextSteps when both paymentSkipped and customText.paymentSkipped
+    // are truthy, and this form's customText.paymentSkipped falls back to a truthy default.
     response = await server.render("confirmation", {
       ...renderOne,
-      paymentSkipped: true,
+      paymentSkipped: false,
     });
 
     $ = cheerio.load(response);
@@ -235,7 +241,7 @@ suite("StatusService getViewModel renders custom text correctly", () => {
   });
 
   test("with callback defined", async () => {
-    let formModel = new FormModel(form, {});
+    let formModel = new FormModel(cloneForm(), {});
 
     formModel.def.specialPages.confirmationPage.customText = {
       title: "Soup",
