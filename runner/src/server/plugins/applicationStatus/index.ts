@@ -1,5 +1,5 @@
 import { redirectTo } from "./../engine";
-import { HapiRequest, HapiResponseToolkit } from "../../types";
+import { HapiRequest, HapiResponseToolkit, HapiServer } from "../../types";
 import {
   getOrCreateCorrelationId,
   destroySession,
@@ -35,7 +35,7 @@ const index = {
     name: "applicationStatus",
     dependencies: "@hapi/vision",
     multiple: true,
-    register: (server) => {
+    register: (server: HapiServer) => {
       server.route({
         method: "get",
         path: "/{id}/status",
@@ -81,7 +81,7 @@ const index = {
             );
 
             viewModel.name = form.name;
-            viewModel.feedbackLink = form.def.feedback.url;
+            viewModel.feedbackLink = form.def.feedback?.url;
 
             const confirmationTimeout =
               form.def.confirmationSessionTimeout ??

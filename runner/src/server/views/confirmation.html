@@ -5,12 +5,20 @@
 {% from "partials/components.html" import componentList %}
 
 {% block beforeContent %}
-  {{ govukPhaseBanner({
-    tag: {
-      text: "beta"
-    },
-    html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
-  }) }}
+  {% if feedbackLink %}
+    {{ govukPhaseBanner({
+      tag: {
+        text: "beta"
+      },
+      html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
+    }) }}
+  {% else %}
+    {{ govukPhaseBanner({
+      tag: {
+        text: "beta"
+      }
+    }) }}
+  {% endif %}
 {% endblock %}
 
 {% block pageTitle %}
