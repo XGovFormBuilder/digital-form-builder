@@ -378,6 +378,10 @@
         "customText": {
           "cardTitle": "Close Contact {index}",
           "separatePageTitle": "Check these details are correct before continuing"
+        },
+        "summaryDisplayMode": {
+          "samePage": false,
+          "yesNoSummaryQuestion": "Have they been in close contact with anyone else?"
         }
       },
       "components": [
@@ -657,7 +661,7 @@
           {
             "field": {
               "name": "PeopleYouLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do you live with other people?"
             },
             "operator": "is",
@@ -675,7 +679,7 @@
           {
             "field": {
               "name": "PeopleYouLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do you live with other people?"
             },
             "operator": "is",
@@ -693,7 +697,7 @@
           {
             "field": {
               "name": "PeopleTheyLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do they live with other people?"
             },
             "operator": "is",
@@ -711,7 +715,7 @@
           {
             "field": {
               "name": "PeopleTheyLiveWith.live_with_others",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Do they live with other people?"
             },
             "operator": "is",
@@ -729,7 +733,7 @@
           {
             "field": {
               "name": "OtherContacts.been_in_contact",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",
@@ -747,7 +751,7 @@
           {
             "field": {
               "name": "OtherContacts.been_in_contact",
-              "type": "YesNoField",
+              "type": "RadiosField",
               "display": "Have you been in close contact with other people in the last 14 days?"
             },
             "operator": "is",
