@@ -284,7 +284,7 @@ export class RepeatedMultiFieldPageController extends PageController {
 
   private getSummaryViewModel(state: any, request: HapiRequest) {
     const baseViewModel = super.getViewModel(state);
-    let details = this.toSummaryDetails(state);
+    let details = this.toSummaryDetails(state, "repeat");
 
     // Replicates the behaviour of the standard summary view model.
     const transformDetails = summaryDetailsTransformations[this.model.basePath];
@@ -425,9 +425,16 @@ export class RepeatedMultiFieldPageController extends PageController {
     });
   }
 
-  toSummaryDetails(state: FormSubmissionState): Array<SummaryCard> {
+  toSummaryDetails(
+    state: FormSubmissionState,
+    summaryContext: "repeat" | "main" = "main"
+  ): Array<SummaryCard> {
     const entries =
       (this.getPartialState(state) as Array<Record<string, unknown>>) ?? [];
+    const hideFieldChangeLinks =
+      summaryContext === "main"
+        ? this.options.hideFieldChangeLinksOnMainSummary === true
+        : this.options.hideFieldChangeLinksOnRepeatSummary === true;
 
     return entries.map((entry, index) => ({
       name: String(index), // delete link → ?remove={{ data.name }}
@@ -439,6 +446,7 @@ export class RepeatedMultiFieldPageController extends PageController {
         label: (comp.title ?? comp.name) as string,
         value: this.formatValue(comp, entry[comp.name]),
         url: `/${this.model.basePath}${this.path}?view=${index}`,
+        immutable: hideFieldChangeLinks,
       })),
     }));
   }

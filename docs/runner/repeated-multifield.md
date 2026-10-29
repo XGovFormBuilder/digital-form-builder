@@ -93,6 +93,22 @@ Type: `string`
 
 Unique key used to store the repeated items in state and to identify them in the webhook payload. See [Usage](#usage).
 
+### `hideFieldChangeLinksOnRepeatSummary`
+
+Type: `boolean` — Default: `false`
+
+Set `options.hideFieldChangeLinksOnRepeatSummary` to `true` to hide the per-field **Change** links inside cards on the intermediate repeat summary page (`?view=summary`). This does not affect the final summary page.
+
+### `hideFieldChangeLinksOnMainSummary`
+
+Type: `boolean` — Default: `false`
+
+Set `options.hideFieldChangeLinksOnMainSummary` to `true` to hide the per-field **Change** links inside cards on the final summary page. This does not affect the intermediate repeat summary page.
+
+Both options go directly inside the page's `options`, alongside `sectionKey`. They are independent: set either one or both to `true` as needed. For example, setting `hideFieldChangeLinksOnRepeatSummary` to `true` and `hideFieldChangeLinksOnMainSummary` to `false` hides field links only on the intermediate summary; reversing those values hides them only on the final summary. Omitting either option keeps its field links visible.
+
+These options only hide per-field links. They do not disable editing or change the card-level **Change** action, **Delete** action, or **Add another** / **Add or delete** controls where available.
+
 ### `customText`
 
 Optional overrides for text shown by the controller. The summary view is open to extension if more custom text parameters are needed.
