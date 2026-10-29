@@ -301,8 +301,14 @@ export class RepeatedMultiFieldPageController extends PageController {
       }
     }
 
+    const separatePageTitle = (this.options?.customText as any)
+      ?.separatePageTitle;
+
     return {
       ...baseViewModel,
+      pageTitle: separatePageTitle
+        ? nunjucks.renderString(separatePageTitle, { ...state })
+        : baseViewModel.pageTitle,
       customText: this.options.customText,
       summaryDisplayMode: this.options.summaryDisplayMode,
       details,
