@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",
-    "test": "yarn test-cov",
+    "test": "jest",
     "test:dev": "jest --watch",
     "test-cov": "jest --coverage",
     "build": "yarn run build:types && yarn run build:node && yarn run build:browser",
