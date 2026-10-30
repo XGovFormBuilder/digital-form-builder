@@ -2,9 +2,7 @@ import { Request, ResponseObject, ResponseToolkit, Server } from "@hapi/hapi";
 import { PersistenceService } from "./lib/persistence/persistenceService";
 import { Logger } from "pino";
 
-type Services = (
-  services: string[]
-) => {
+type Services = (services: string[]) => {
   persistenceService: PersistenceService;
 };
 
