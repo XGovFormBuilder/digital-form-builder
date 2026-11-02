@@ -8,11 +8,13 @@ type Props = {
 };
 
 const EmailEdit = ({ output, errors = {} }: Props) => {
-  const outputConfiguration = (typeof output?.outputConfiguration === "object"
-    ? output?.outputConfiguration
-    : {
-        emailAddress: "",
-      }) as EmailOutputConfiguration;
+  const outputConfiguration = (
+    typeof output?.outputConfiguration === "object"
+      ? output?.outputConfiguration
+      : {
+          emailAddress: "",
+        }
+  ) as EmailOutputConfiguration;
 
   return (
     <div className="govuk-body email-edit">

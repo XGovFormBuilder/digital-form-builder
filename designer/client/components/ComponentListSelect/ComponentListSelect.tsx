@@ -16,9 +16,8 @@ import { Actions as ComponentActions } from "./../../reducers/component/types";
 import logger from "../../plugins/logger";
 export function ComponentListSelect() {
   const { data } = useContext(DataContext);
-  const { state: listsEditorState, dispatch: listsEditorDispatch } = useContext(
-    ListsEditorContext
-  );
+  const { state: listsEditorState, dispatch: listsEditorDispatch } =
+    useContext(ListsEditorContext);
 
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent, errors = {} } = state;

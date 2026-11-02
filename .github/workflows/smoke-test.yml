@@ -12,20 +12,17 @@ on:
 jobs:
   smoke-test:
     runs-on: ubuntu-latest
-    name: build app ${{inputs.app}}
-    outputs:
-      tag: ${{ steps.hashFile.outputs.tag }}
-      hash: ${{ steps.hashFile.outputs.hash }}
+    name: smoke test
     steps:
       - uses: actions/checkout@v5
       - name: Use Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: "16.x"
+          node-version-file: ".nvmrc"
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)

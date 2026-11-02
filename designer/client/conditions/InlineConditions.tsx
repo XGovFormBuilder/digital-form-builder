@@ -223,12 +223,8 @@ export class InlineConditions extends React.Component<Props, State> {
   };
 
   render() {
-    const {
-      conditions,
-      editView,
-      conditionString,
-      validationErrors,
-    } = this.state;
+    const { conditions, editView, conditionString, validationErrors } =
+      this.state;
     const hasConditions = conditions.hasConditions;
 
     const nameError = validationErrors.filter(

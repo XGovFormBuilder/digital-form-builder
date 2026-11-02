@@ -72,9 +72,8 @@ const SortableList = SortableContainer(
 );
 
 function ListItems() {
-  const { state: listEditorState, dispatch: listsEditorDispatch } = useContext(
-    ListsEditorContext
-  );
+  const { state: listEditorState, dispatch: listsEditorDispatch } =
+    useContext(ListsEditorContext);
   const { isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);
   const { state, dispatch } = useContext(ListContext);
