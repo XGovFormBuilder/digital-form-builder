@@ -34,14 +34,16 @@ class NotifyEdit extends Component<Props, State> {
   render() {
     const { data, output, onEdit, errors } = this.props;
     const { conditions, lists } = data;
-    const outputConfiguration = (typeof output.outputConfiguration === "object"
-      ? output.outputConfiguration
-      : {
-          templateId: "",
-          apiKey: "",
-          emailField: "",
-          personalisation: [],
-        }) as NotifyOutputConfiguration;
+    const outputConfiguration = (
+      typeof output.outputConfiguration === "object"
+        ? output.outputConfiguration
+        : {
+            templateId: "",
+            apiKey: "",
+            emailField: "",
+            personalisation: [],
+          }
+    ) as NotifyOutputConfiguration;
 
     const { templateId, apiKey, emailField } = outputConfiguration;
     const personalisation = outputConfiguration.personalisation;

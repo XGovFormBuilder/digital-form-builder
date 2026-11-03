@@ -17,9 +17,8 @@ type Props = {
 };
 
 const useListsEdit = () => {
-  const { state: listEditState, dispatch: listsEditorDispatch } = useContext(
-    ListsEditorContext
-  );
+  const { state: listEditState, dispatch: listsEditorDispatch } =
+    useContext(ListsEditorContext);
   const { isEditingList, isEditingListItem, showWarning } = listEditState;
   const { state } = useContext(ListContext);
   const { selectedList, selectedItem } = state;

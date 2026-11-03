@@ -8,13 +8,11 @@ name: "CodeQL"
 on:
   push:
     branches:
-      - master
-      - main
+      - v2
   pull_request:
     # The branches below must be a subset of the branches above
     branches:
-      - master
-      - main
+      - v2
   schedule:
     - cron: "0 14 * * 2"
 
@@ -28,7 +26,8 @@ jobs:
       matrix:
         # Override automatic language detection by changing the below list
         # Supported options are ['csharp', 'cpp', 'go', 'java', 'javascript', 'python']
-        language: ["javascript"]
+        # "actions" additionally scans the workflow files in .github/workflows
+        language: ["javascript", "actions"]
         # Learn more...
         # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
 

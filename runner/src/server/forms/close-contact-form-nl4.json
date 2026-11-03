@@ -117,12 +117,14 @@
         {
           "name": "for",
           "options": {
-            "hideTitle": true,
+            "hideTitle": false,
+            "legendAsPageHeading": true,
+            "legendClasses": "govuk-fieldset__legend--l",
             "exposeToContext": true,
             "disableChangingFromSummary": true
           },
+          "title": "Who are you completing this form for?",
           "type": "RadiosField",
-          "title": "Who this form is for",
           "list": "ApjoNd"
         }
       ],
@@ -481,7 +483,6 @@
       ]
     },
     {
-      "title": "Who are you completing this form for?",
       "name": "ApjoNd",
       "type": "string",
       "items": [
@@ -578,11 +579,11 @@
       "type": "string",
       "items": [
         {
-          "text": "yes",
+          "text": "Yes",
           "value": "true"
         },
         {
-          "text": "no",
+          "text": "No",
           "value": "false"
         }
       ]
