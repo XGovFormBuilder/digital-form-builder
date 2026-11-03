@@ -8,8 +8,10 @@
   "browserRefreshUrl": "BROWSER_REFRESH_URL",
   "feedbackLink": "FEEDBACK_LINK",
   "phaseTag": "PHASE_TAG",
-  "gtmId1": "GTM_ID_1",
-  "gtmId2": "GTM_ID_2",
+  "enableGoogleAnalytics": {
+    "__name": "ENABLE_GOOGLE_ANALYTICS",
+    "__format": "boolean"
+  },
   "matomoId": "MATOMO_ID",
   "matomoUrl": "MATOMO_URL",
   "payApiUrl": "PAY_API_URL",
