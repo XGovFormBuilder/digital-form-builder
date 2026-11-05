@@ -108,6 +108,32 @@
 }
 
 .govuk-list {
+  &--alpha {
+    padding-left: 20px;
+    list-style-type: lower-alpha;
+
+    > li {
+      margin-bottom: 0;
+
+      @include govuk-media-query($from: tablet) {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  &--roman {
+    padding-left: 20px;
+    list-style-type: lower-roman;
+
+    > li {
+      margin-bottom: 0;
+
+      @include govuk-media-query($from: tablet) {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
   &--multi-start-page li {
     list-style-type: none;
     padding-left: 25px;
