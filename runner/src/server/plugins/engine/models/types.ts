@@ -114,5 +114,6 @@ export type SummaryCard = {
     label: string;
     value: string;
     url: string;
+    immutable?: boolean;
   }>;
 };
