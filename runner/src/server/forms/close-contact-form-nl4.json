@@ -211,13 +211,13 @@
           "name": "live_with_others",
           "options": {
             "customValidationMessages": {
-              "any.required": "Select 'yes' if you live with other people"
+              "any.required": "Select 'yes' if they live with other people"
             },
             "classes": "govuk-radios--inline"
           },
           "type": "RadiosField",
           "list": "yes-no",
-          "title": "Do you live with other people?",
+          "title": "Do they live with other people?",
           "schema": {}
         },
         {
@@ -392,7 +392,7 @@
           "separatePageTitle": "Check these details are correct before continuing"
         },
         "summaryDisplayMode": {
-          "yesNoSummaryQuestion": "Have you been in close contact with anyone else"
+          "yesNoSummaryQuestion": "Have you been in close contact with anyone else?"
         }
       },
       "components": [

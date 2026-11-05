@@ -428,26 +428,15 @@
           }
         },
         {
-          "name": "mWvTOY",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
-        },
-        {
-          "name": "iulooD",
-          "options": {},
-          "type": "Para",
-          "content": "If not, provide the contact details of a parent, carer or guardian."
-        },
-        {
           "name": "contact_directly",
           "options": {
             "customValidationMessages": {
               "any.required": "Select how we should contact this person"
             }
           },
+          "hint": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian.",
           "type": "RadiosField",
-          "title": "How should we contact this person?",
+          "title": "How should we contact this person to provide them with advice and guidance?",
           "list": "TQfrjB",
           "schema": {}
         },
