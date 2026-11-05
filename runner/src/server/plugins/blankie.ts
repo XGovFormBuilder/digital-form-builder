@@ -4,8 +4,7 @@ import { ServerRegisterPluginObject } from "@hapi/hapi";
 import { isUrlSecure } from "src/server/utils/url";
 
 type Config = {
-  gtmId1?: string;
-  gtmId2?: string;
+  enableGoogleAnalytics?: boolean;
   matomoUrl?: string;
 };
 
@@ -21,7 +20,7 @@ type Google = {
 export const configureBlankiePlugin = (
   config: Config
 ): ServerRegisterPluginObject<Blankie> => {
-  const { gtmId1, gtmId2, matomoUrl } = config;
+  const { enableGoogleAnalytics, matomoUrl } = config;
   const google: Google = {
     connectSrc: [],
     fontSrc: [],
@@ -44,10 +43,12 @@ export const configureBlankiePlugin = (
     );
   }
 
-  if (gtmId1 || gtmId2) {
+  if (enableGoogleAnalytics) {
     google.connectSrc.push(
       "www.google-analytics.com",
-      "region1.google-analytics.com"
+      "region1.google-analytics.com",
+      "www.googletagmanager.com",
+      "region1.googletagmanager.com"
     );
     google.fontSrc.push("fonts.gstatic.com");
     google.frameSrc.push("www.googletagmanager.com");

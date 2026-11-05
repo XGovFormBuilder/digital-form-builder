@@ -246,6 +246,8 @@
       "section": "PeopleYouLiveWith",
       "options": {
         "sectionKey": "people_you_live_with",
+        "hideFieldChangeLinksOnRepeatSummary": true,
+        "hideFieldChangeLinksOnMainSummary": true,
         "customText": {
           "cardTitle": "Person {index}",
           "separatePageTitle": "Check these details are correct before continuing"
@@ -373,6 +375,8 @@
       "section": "OtherContacts",
       "options": {
         "sectionKey": "close_contacts",
+        "hideFieldChangeLinksOnRepeatSummary": true,
+        "hideFieldChangeLinksOnMainSummary": true,
         "customText": {
           "cardTitle": "Close Contact {index}",
           "separatePageTitle": "Check these details are correct before continuing"

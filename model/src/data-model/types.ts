@@ -42,6 +42,8 @@ export interface RepeatingMultiFieldPage extends Page {
   controller: "RepeatedMultiFieldPageController";
   options: {
     sectionKey: string;
+    hideFieldChangeLinksOnRepeatSummary?: boolean;
+    hideFieldChangeLinksOnMainSummary?: boolean;
     summaryDisplayMode?: {
       samePage?: boolean;
       yesNoSummaryQuestion?: string;
