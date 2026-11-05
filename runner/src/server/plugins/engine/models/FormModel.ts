@@ -23,6 +23,7 @@ import {
 } from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
 import { FormSubmissionState } from "../types";
+import { resolveFormActive } from "../utils/resolveFormActive";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -69,6 +70,7 @@ export class FormModel {
   showFilenamesOnSummaryPage: boolean = false;
 
   constructor(def, options) {
+    def = resolveFormActive(def);
     const result = Schema.validate(def, { abortEarly: false });
 
     if (result.error) {

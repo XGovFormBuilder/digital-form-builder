@@ -371,6 +371,7 @@ export const Schema = joi
   .keys({
     formGroup: localisedString.optional(),
     name: localisedString.optional(),
+    active: joi.boolean().default(true),
     feedback: feedbackSchema,
     startPage: joi.string().required(),
     authentication: joi.boolean().optional(),
