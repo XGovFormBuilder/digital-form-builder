@@ -79,7 +79,7 @@ test("NL4 adds household and close contacts and checks the final summary", async
   });
 
   await test.step("Add and check a household contact", async () => {
-    await page.getByRole("radio", { name: "yes", exact: true }).check();
+    await page.getByRole("radio", { name: "Yes", exact: true }).check();
     await page.getByRole("button", { name: "Continue", exact: true }).click();
     await expect(page).toHaveURL(`${formPath}/person-live-with`);
     await fillContact(page, householdContact, false);
@@ -94,7 +94,7 @@ test("NL4 adds household and close contacts and checks the final summary", async
   });
 
   await test.step("Add two close contacts using add another", async () => {
-    await page.getByRole("radio", { name: "yes", exact: true }).check();
+    await page.getByRole("radio", { name: "Yes", exact: true }).check();
     await page.getByRole("button", { name: "Continue", exact: true }).click();
     await expect(page).toHaveURL(`${formPath}/close-contacts`);
     await fillContact(page, closeContacts[0], true);

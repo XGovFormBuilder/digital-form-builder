@@ -2,9 +2,7 @@ import { Server } from "@hapi/hapi";
 import { Logger } from "pino";
 import { WebhookService, QueueService } from "./services";
 
-type Services = (
-  services: string[]
-) => {
+type Services = (services: string[]) => {
   webhookService: WebhookService;
   queueService: QueueService;
 };

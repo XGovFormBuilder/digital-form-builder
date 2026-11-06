@@ -50,7 +50,8 @@
           "name": "wVLIXA",
           "options": {
             "required": false,
-            "optionalText": false
+            "optionalText": false,
+            "autocomplete": "given-name"
           },
           "type": "TextField",
           "title": "Your name",
@@ -60,7 +61,8 @@
           "name": "FjmgiN",
           "options": {
             "required": false,
-            "optionalText": false
+            "optionalText": false,
+            "autocomplete": "given-email"
           },
           "type": "EmailAddressField",
           "title": "Your email address",

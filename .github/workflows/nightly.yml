@@ -1,0 +1,19 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - "release/**"
+
+# packages: read is for smoke-test.yml's ghcr.io login.
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  smoke-test:
+    uses: ./.github/workflows/smoke-test.yml
+    secrets: inherit

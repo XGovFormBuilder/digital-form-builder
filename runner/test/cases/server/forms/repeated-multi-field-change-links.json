@@ -1,0 +1,65 @@
+{
+  "metadata": {},
+  "startPage": "/people",
+  "pages": [
+    {
+      "path": "/people",
+      "title": "People",
+      "controller": "RepeatedMultiFieldPageController",
+      "options": {
+        "sectionKey": "people",
+        "hideFieldChangeLinksOnRepeatSummary": true,
+        "customText": {
+          "cardTitle": "Person {index}",
+          "separatePageTitle": "Check the {{ people | length }} people"
+        }
+      },
+      "components": [
+        {
+          "name": "personName",
+          "type": "TextField",
+          "title": "Person name",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/pets" }]
+    },
+    {
+      "path": "/pets",
+      "title": "Pets",
+      "controller": "RepeatedMultiFieldPageController",
+      "options": {
+        "sectionKey": "pets",
+        "hideFieldChangeLinksOnMainSummary": true,
+        "customText": {
+          "cardTitle": "Pet {index}"
+        }
+      },
+      "components": [
+        {
+          "name": "petName",
+          "type": "TextField",
+          "title": "Pet name",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false
+}

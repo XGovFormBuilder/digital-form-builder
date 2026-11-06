@@ -44,8 +44,7 @@ const data = {
           type: "TextField",
           name: "middleName",
           title: "Middle name",
-          hint:
-            "If you have a middle name on your passport you must include it here",
+          hint: "If you have a middle name on your passport you must include it here",
           schema: {},
         },
         {

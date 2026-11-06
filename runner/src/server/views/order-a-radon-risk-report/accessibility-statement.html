@@ -1,0 +1,134 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+    {{ name }} - Accessibility statement
+{% endblock %}
+
+{% block content %}
+<div class="govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l">Accessibility statement for Radiation Protection Service</h1>
+
+      <p class="govuk-body">This accessibility statement applies to two online services:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li><a class="govuk-link" href=".">Order a radon risk report</a></li>
+        <li><a class="govuk-link" href="../order-a-home-radon-gas-test-kit/" rel="noreferrer noopener" target="_blank">Order a home radon gas test kit (opens in new tab)</a></li>
+      </ul>
+
+      <p class="govuk-body">These services are run by the UK Health Security Agency (UKHSA). We want as many people as possible to be able to use them. For example, that means you should be able to:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>change colours, contrast levels and fonts using browser or device settings</li>
+        <li>zoom in up to 400% without the text spilling off the screen</li>
+        <li>navigate most of the service using just a keyboard or speech recognition software</li>
+        <li>listen to most of the service using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li>
+      </ul>
+
+      <p class="govuk-body">We've also made the text as simple as possible to understand. <a class="govuk-link" href="https://mcmw.abilitynet.org.uk/" rel="noreferrer noopener" target="_blank">AbilityNet (opens in new tab)</a> has advice on making your device easier to use if you have a disability.</p>
+
+      <h2 class="govuk-heading-m">How accessible these services are</h2>
+      <p class="govuk-body">We know some parts of these services are not fully accessible:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>some form fields and groups of options are not properly labelled for screen readers</li>
+        <li>some fields do not support autofill, so you may need to type your details in full</li>
+        <li>some page titles and headings are not structured correctly</li>
+        <li>the navigation on the confirmation page may be inconsistent or lead to unavailable pages</li>
+        <li>the payment page, provided by a third-party supplier, has several issues including low colour contrast, unclear keyboard focus and unlabelled fields</li>
+      </ul>
+
+      <h2 class="govuk-heading-m">Feedback and contact information</h2>
+      <p class="govuk-body">If you need information from these services in a different format, like accessible PDF, large print, easy read, audio recording or braille:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>email: <a class="govuk-link" href="mailto:enquiries@radiation.ukhsa.gov.uk">enquiries@radiation.ukhsa.gov.uk</a></li>
+        <li>call: 0113 267 9041, 8:30am to 4:30pm, Monday to Friday</li>
+      </ul>
+
+      <p class="govuk-body">We'll consider your request and get back to you in 5 working days.</p>
+
+      <h2 class="govuk-heading-m">Reporting accessibility problems with these services</h2>
+      <p class="govuk-body">We're always looking to improve the accessibility of these services. If you find any problems not listed on this page, or think we're not meeting accessibility requirements, contact <a class="govuk-link" href="mailto:enquiries@radiation.ukhsa.gov.uk">enquiries@radiation.ukhsa.gov.uk</a>.</p>
+
+      <h2 class="govuk-heading-m">Enforcement procedure</h2>
+      <p class="govuk-body">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations'). If you're not happy with how we respond to your complaint, contact the <a class="govuk-link" href="https://www.equalityadvisoryservice.com/" rel="noreferrer noopener" target="_blank">Equality Advisory and Support Service (EASS) (opens in new tab)</a>.</p>
+
+      <h2 class="govuk-heading-m">Technical information about these services' accessibility</h2>
+      <p class="govuk-body">UKHSA is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>
+
+      <h2 class="govuk-heading-m">Compliance status</h2>
+      <p class="govuk-body">These services are partially compliant with the <a class="govuk-link" href="https://www.w3.org/TR/WCAG22/" rel="noreferrer noopener" target="_blank">Web Content Accessibility Guidelines version 2.2 (opens in new tab)</a> AA standard, due to the non-compliances listed below.</p>
+
+      <h2 class="govuk-heading-m">Non-accessible content</h2>
+      <p class="govuk-body">The content listed below is non-accessible for the following reasons.</p>
+
+      <h2 class="govuk-heading-m">Non-compliance with the accessibility regulations</h2>
+
+      <h3 class="govuk-heading-s">Links</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>In the home radon gas test kit service, the 'Accessibility statement' and 'Help' links on every page lead to a 'Page not found' error. This fails WCAG 2.2 success criterion 2.4.4 (Link Purpose (In Context)).</li>
+        <li>In the home radon gas test kit service, 'Change' links on the check your answers page do not take you to the relevant part of the page you are changing. This fails WCAG 2.2 success criterion 2.4.4 (Link Purpose (In Context)).</li>
+        <li>Some link text does not make sense without the surrounding text. This fails WCAG 2.2 success criterion 2.4.4 (Link Purpose (In Context)).</li>
+        <li>The 'Privacy policy' and 'Terms and conditions' links open in a new tab without warning you. This fails WCAG 2.2 success criterion 2.4.4 (Link Purpose (In Context)).</li>
+      </ul>
+
+      <h3 class="govuk-heading-s">Forms and labels</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>The 'First name' and 'Last name' fields do not have labels that screen readers can announce. This fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships).</li>
+        <li>On the 'Select an address' and 'Is this address correct?' pages, the group of options does not have a heading (legend) that screen readers can announce. This fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships).</li>
+        <li>One page contains a form field that is not used, which may confuse people. This fails WCAG 2.2 success criterion 3.3.2 (Labels or Instructions).</li>
+      </ul>
+
+      <h3 class="govuk-heading-s">Autofill</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Some fields, including email address and building number, are missing autocomplete settings or have incorrect ones. This means your browser may not be able to fill in your details for you. This fails WCAG 2.2 success criterion 1.3.5 (Identify Input Purpose).</li>
+      </ul>
+
+      <h3 class="govuk-heading-s">Page titles, headings and structure</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Screen readers read out the page title twice. This fails WCAG 2.2 success criterion 2.4.2 (Page Titled).</li>
+        <li>Some headings use the wrong heading level, which makes the page structure harder to follow. This fails WCAG 2.2 success criterion 2.4.6 (Headings and Labels).</li>
+        <li>Some pages use line breaks and empty code elements to create spacing, which some assistive technologies may announce. This fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships).</li>
+      </ul>
+
+      <h3 class="govuk-heading-s">Consistency</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>The confirmation page looks different from the rest of the service. This fails WCAG 2.2 success criterion 3.2.3 (Consistent Navigation).</li>
+      </ul>
+
+      <h3 class="govuk-heading-s">Payment page provided by a third party</h3>
+      <p class="govuk-body">Both services use a payment page provided by our supplier, Trust Payments. We know this page has the following issues:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>The page title does not describe the page. This fails WCAG 2.2 success criterion 2.4.2 (Page Titled).</li>
+        <li>It's hard to see which element has keyboard focus. This fails WCAG 2.2 success criterion 2.4.7 (Focus Visible).</li>
+        <li>The page language is not set correctly, so screen readers may not read it in the right language. This fails WCAG 2.2 success criterion 3.1.1 (Language of Page).</li>
+        <li>Some text and the status message banners do not have enough colour contrast. This fails WCAG 2.2 success criterion 1.4.3 (Contrast (Minimum)).</li>
+        <li>The expiry date month and year dropdowns, and some other form labels, are not linked to their fields, so screen readers cannot announce them. This fails WCAG 2.2 success criteria 1.3.1 (Info and Relationships) and 4.1.2 (Name, Role, Value).</li>
+        <li>The Trust Payments logo has no text alternative. This fails WCAG 2.2 success criterion 1.1.1 (Non-text Content).</li>
+        <li>Payment fields are missing autocomplete settings or have incorrect ones, so your browser may not be able to fill in your card details. This fails WCAG 2.2 success criterion 1.3.5 (Identify Input Purpose).</li>
+      </ul>
+
+      <p class="govuk-body">We're working with Trust Payments to fix these issues. If you cannot use the payment page, contact us using the details above and we'll help you complete your order.</p>
+
+      <h2 class="govuk-heading-m">What we're doing to improve accessibility</h2>
+      <p class="govuk-body">We plan to fix the issues in our own pages in our future release cycles. We're working with Trust Payments to fix the issues on the payment page. We'll update this statement as issues are fixed.</p>
+
+      <h2 class="govuk-heading-m">Preparation of this accessibility statement</h2>
+      <p class="govuk-body">This statement was prepared on 29 October 2026. It was last reviewed on 29 October 2026.</p>
+
+      <p class="govuk-body">These services were last tested on 23 September 2026. The test was carried out by our internal UKHSA accessibility team. We tested all pages in both services, including the third-party payment page.</p>
+
+      <p class="govuk-body">We reviewed the page code, used the WAVE automated accessibility tool, and tested the service manually using:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the JAWS, NVDA, Windows Narrator and VoiceOver screen readers</li>
+        <li>the Chrome, Firefox and Edge browsers</li>
+        <li>keyboard-only navigation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

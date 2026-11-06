@@ -7,7 +7,12 @@ export const TextValues = (props) => {
   const onChangeTextInput = (e) => {
     const input = e.target;
     const newValue = input.value;
-    updateValue(new ConditionValue(newValue));
+
+    let value;
+    if (newValue && newValue.trim() !== "") {
+      value = new ConditionValue(newValue);
+    }
+    updateValue(value);
   };
 
   return (

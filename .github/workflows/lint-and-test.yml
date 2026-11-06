@@ -8,21 +8,23 @@ on:
         description: the workspace to run the linting and tests for. Input one of "runner", "designer", or "model"
         type: string
 
+# Lint and test are separate jobs so each reports its own check, and the test
+# check can be required without the lint check.
 jobs:
-  lint-and-test:
+  lint:
     if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
     runs-on: ubuntu-latest
-    name: lint and test ${{inputs.workspace}}
+    name: lint ${{inputs.workspace}}
     steps:
       - uses: actions/checkout@v5
       - name: Use Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: "16.x"
+          node-version-file: ".nvmrc"
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
 
       - uses: actions/cache@v5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -35,34 +37,52 @@ jobs:
       - name: Install project deps
         run: yarn
 
-      - name: Install dependencies
-        run: yarn ${{inputs.workspace}} install
-
-      - name: Check existing forms
-        if: ${{ inputs.workspace == 'runner' }}
-        run: yarn runner check-forms
-
       - name: Build dependencies
         run: yarn build:dependencies
 
       - name: Lint
         run: yarn ${{inputs.workspace}} lint
 
+  test:
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
+    runs-on: ubuntu-latest
+    name: test ${{inputs.workspace}}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Use Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v5
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{inputs.workspace}}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{inputs.workspace}}
+
+      - name: Install project deps
+        run: yarn
+
+      - name: Build dependencies
+        id: build
+        run: yarn build:dependencies
+
+      - name: Check existing forms
+        if: ${{ inputs.workspace == 'runner' }}
+        run: yarn runner check-forms
+
+      # Run whenever the build succeeded, so one failing step doesn't hide
+      # the others' results.
       - name: Test
-        run: yarn ${{inputs.workspace}} test-cov
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: yarn ${{inputs.workspace}} test
 
-      - name: Upload test results artifacts
-        uses: actions/upload-artifact@v6
-        if: ${{ success() || failure() }}
-        with:
-          name: test-results-${{inputs.workspace}}
-          path: ${{inputs.workspace}}/test-results
-          retention-days: 14
-
-      - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v6
-        if: ${{ success() || failure() }}
-        with:
-          name: test-coverage-${{inputs.workspace}}
-          path: ${{inputs.workspace}}/test-coverage
-          retention-days: 14
+      - name: Test utils
+        if: ${{ inputs.workspace == 'runner' && !cancelled() && steps.build.outcome == 'success' }}
+        run: yarn test:utils

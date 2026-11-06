@@ -47,7 +47,7 @@
       "text": "Cookies"
     },
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/accessibility-statement",
+      "href": "./accessibility-statement",
       "text": "Accessibility Statement"
     },
     {
@@ -239,7 +239,7 @@
           "name": "addressesFoundHeading",
           "options": {},
           "type": "Para",
-          "content": "{{ reportAddress_numberOfAddresses }} addresses found for ‘{{ reportAddress_postcodeLookup }}’"
+          "content": "{{ reportAddress_numberOfAddresses }} addresses found for ‘{{ reportAddress_postcodeLookup or reportAddress_postcodeLookupManual }}’"
         },
         {
           "name": "searchAgain",
@@ -276,7 +276,7 @@
     },
     {
       "path": "/no-report-addresses-found",
-      "title": "No addresses found for ‘{{ reportAddress_postcode }}’ and ‘{{ reportAddress_buildingLookup }}’",
+      "title": "No addresses found for ‘{{ reportAddress_postcodeLookup or reportAddress_postcodeLookupManual }}’ and ‘{{ reportAddress_buildingLookup }}’",
       "options": {
         "hideContinueButton": true
       },
@@ -404,7 +404,7 @@
           "name": "noAddressesFoundMessage",
           "options": {},
           "type": "Para",
-          "content": "No address found for {{ reportAddress_addressLine1Lookup }}{% if reportAddress_addressLine2Lookup %}, {{ reportAddress_addressLine2Lookup }}{% endif %}{% if reportAddress_townLookup %}, {{ reportAddress_townLookup }}{% endif %}{% if reportAddress_countyLookup %}, {{ reportAddress_countyLookup }}{% endif %}{% if reportAddress_postcode %}, {{ reportAddress_postcode }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+          "content": "No address found for {{ reportAddress_addressLine1Lookup }}{% if reportAddress_addressLine2Lookup %}, {{ reportAddress_addressLine2Lookup }}{% endif %}{% if reportAddress_townLookup %}, {{ reportAddress_townLookup }}{% endif %}{% if reportAddress_countyLookup %}, {{ reportAddress_countyLookup }}{% endif %}{% if reportAddress_postcodeLookup or reportAddress_postcodeLookupManual %}, {{ reportAddress_postcodeLookup or reportAddress_postcodeLookupManual }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
         },
         {
           "name": "searchAgain",
@@ -800,7 +800,7 @@
           "name": "noAddressesFoundMessage",
           "options": {},
           "type": "Para",
-          "content": "No address found for {{ deliveryAddress_addressLine1Lookup }}{% if deliveryAddress_addressLine2Lookup %}, {{ deliveryAddress_addressLine2Lookup }}{% endif %}{% if deliveryAddress_townLookup %}, {{ deliveryAddress_townLookup }}{% endif %}{% if deliveryAddress_countyLookup %}, {{ deliveryAddress_countyLookup }}{% endif %}{% if deliveryAddress_postcodeLookup %}, {{ deliveryAddress_postcodeLookup }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+          "content": "No address found for {{ deliveryAddress_addressLine1Lookup }}{% if deliveryAddress_addressLine2Lookup %}, {{ deliveryAddress_addressLine2Lookup }}{% endif %}{% if deliveryAddress_townLookup %}, {{ deliveryAddress_townLookup }}{% endif %}{% if deliveryAddress_countyLookup %}, {{ deliveryAddress_countyLookup }}{% endif %}{% if deliveryAddress_postcodeLookup or deliveryAddress_postcodeLookupManual %}, {{ deliveryAddress_postcodeLookup or deliveryAddress_postcodeLookupManual }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
         },
         {
           "name": "searchAgain",
@@ -965,7 +965,7 @@
           "name": "addressesFoundHeading",
           "options": {},
           "type": "Para",
-          "content": "{{ deliveryAddress_numberOfAddresses }} addresses found for '{{ deliveryAddress_postcodeLookup }}'"
+          "content": "{{ deliveryAddress_numberOfAddresses }} addresses found for '{{ deliveryAddress_postcodeLookup or deliveryAddress_postcodeLookupManual }}'"
         },
         {
           "name": "searchAgain",
@@ -1003,7 +1003,7 @@
     },
     {
       "path": "/no-delivery-addresses-found",
-      "title": "No addresses found for ‘{{ deliveryAddress_postcodeLookup }}’ and ‘{{ deliveryAddress_buildingLookup }}’",
+      "title": "No addresses found for ‘{{ deliveryAddress_postcodeLookup or deliveryAddress_postcodeLookupManual }}’ and ‘{{ deliveryAddress_buildingLookup }}’",
       "options": {
         "hideContinueButton": true
       },

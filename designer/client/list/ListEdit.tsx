@@ -36,9 +36,8 @@ const useListItemActions = (state, dispatch) => {
 };
 
 function useListEdit() {
-  const { state: listEditorState, dispatch: listsEditorDispatch } = useContext(
-    ListsEditorContext
-  );
+  const { state: listEditorState, dispatch: listsEditorDispatch } =
+    useContext(ListsEditorContext);
   const { state, dispatch } = useContext(ListContext);
   const { showWarning } = listEditorState;
   const { data, save } = useContext(DataContext);

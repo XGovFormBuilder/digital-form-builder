@@ -271,8 +271,7 @@ export function FieldEdit({
                   checked={allowPrePopulationOverwrite}
                   onChange={(e) =>
                     dispatch({
-                      type:
-                        Actions.EDIT_OPTIONS_ALLOW_OVERWRITE_FROM_QUERY_PARAM,
+                      type: Actions.EDIT_OPTIONS_ALLOW_OVERWRITE_FROM_QUERY_PARAM,
                       payload: e.target.checked,
                     })
                   }

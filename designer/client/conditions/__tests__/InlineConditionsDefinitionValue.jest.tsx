@@ -132,6 +132,35 @@ describe("AbsoluteDateTimeValues", () => {
     });
   });
 
+  it("falls back to the option's label when it has no text", async () => {
+    const values = [
+      { value: "value1", label: "Value 1" },
+      { value: "value2", label: "Value 2" },
+    ];
+    const fieldDef = {
+      label: "Something",
+      name: "field1",
+      values: values,
+      type: "SelectField",
+    };
+    const updateValueCallback = jest.fn();
+    render(
+      <InlineConditionsDefinitionValue
+        updateValue={updateValueCallback}
+        value={new ConditionValue("my-value")}
+        fieldDef={fieldDef}
+        operator="is"
+      />
+    );
+    const select = await screen.findByTestId("cond-value");
+    userEvent.selectOptions(select, "value1");
+    expect(updateValueCallback).toHaveBeenLastCalledWith({
+      display: "Value 1",
+      type: "Value",
+      value: "value1",
+    });
+  });
+
   it("should correctly compare boolean string to boolean value", async () => {
     const values = [
       { value: true, text: "Value 1" },

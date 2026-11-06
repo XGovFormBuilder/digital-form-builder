@@ -46,7 +46,7 @@ suite("Server Blankie Plugin", () => {
 
   test("configuration options with GTM (1) is correct", () => {
     const config = {
-      gtmId2: "ABC",
+      enableGoogleAnalytics: true,
     };
 
     const { options } = configureBlankiePlugin(config);
@@ -59,6 +59,8 @@ suite("Server Blankie Plugin", () => {
         "self",
         "www.google-analytics.com",
         "region1.google-analytics.com",
+        "www.googletagmanager.com",
+        "region1.googletagmanager.com",
       ],
       scriptSrc: [
         "self",
@@ -94,7 +96,7 @@ suite("Server Blankie Plugin", () => {
 
   test("configuration options with GTM (2) is correct", () => {
     const config = {
-      gtmId2: "ABC",
+      enableGoogleAnalytics: true,
     };
 
     const { options } = configureBlankiePlugin(config);
@@ -107,6 +109,8 @@ suite("Server Blankie Plugin", () => {
         "self",
         "www.google-analytics.com",
         "region1.google-analytics.com",
+        "www.googletagmanager.com",
+        "region1.googletagmanager.com",
       ],
       scriptSrc: [
         "self",

@@ -20,7 +20,7 @@
     "test:jest": "jest",
     "test:dev": "lab -T test/.transform.js -P test -v test src --coverage-exclude",
     "test:file": "node_modules/.bin/lab -T test/.transform.js -v",
-    "unit-test": "lab -T test/.transform.js -P test -v test src -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
+    "unit-test": "lab -T test/.transform.js -P test -v test src -S -v -I version -l",
     "unit-test-pattern": "lab -T test/.transform.js -g 'Email' -v test",
     "unit-test-cov": "lab -T test/.transform.js -P test -v test src -t 83 -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l",
     "a11y": "node test/audit/components && node lighthouse",

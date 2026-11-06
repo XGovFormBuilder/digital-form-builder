@@ -78,7 +78,7 @@
           "name": "jmslVl",
           "options": {},
           "type": "Para",
-          "content": "If you need help completing this form, contact <a href=\"tel:111\">111</a>.",
+          "content": "If you need help completing this form, contact <a class=\"govuk-link mobile-only\" href=\"tel:111\">111</a><span class=\"tablet-and-up-only\">111</span>.",
           "schema": {}
         },
         {
@@ -111,21 +111,23 @@
       "controller": "./pages/start.js"
     },
     {
-      "title": "Have you received a positive test result for {{(srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}?",
+      "title": "Who has received a positive test result for {{(srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}?",
       "path": "/completing-form-for",
       "components": [
         {
           "name": "for",
           "options": {
-            "hideTitle": true,
+            "hideTitle": false,
+            "legendAsPageHeading": true,
+            "legendClasses": "govuk-fieldset__legend--l",
             "exposeToContext": true,
             "disableChangingFromSummary": true,
             "customValidationMessages": {
-              "any.required": "Select 'yes' if you have received a positive test result"
+              "any.required": "Select who has received a positive test result"
             }
           },
           "type": "RadiosField",
-          "title": "Have you received a positive test result for {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}",
+          "title": "Who has received a positive test result for {{ (srsContexts.diseaseInfo[d].name if srsContexts.diseaseInfo[d]) | default('bird (avian) flu', true) }}",
           "list": "ApjoNd"
         }
       ],
@@ -244,6 +246,8 @@
       "section": "PeopleYouLiveWith",
       "options": {
         "sectionKey": "people_you_live_with",
+        "hideFieldChangeLinksOnRepeatSummary": true,
+        "hideFieldChangeLinksOnMainSummary": true,
         "customText": {
           "cardTitle": "Person {index}",
           "separatePageTitle": "Check these details are correct before continuing"
@@ -371,6 +375,8 @@
       "section": "OtherContacts",
       "options": {
         "sectionKey": "close_contacts",
+        "hideFieldChangeLinksOnRepeatSummary": true,
+        "hideFieldChangeLinksOnMainSummary": true,
         "customText": {
           "cardTitle": "Close Contact {index}",
           "separatePageTitle": "Check these details are correct before continuing"
@@ -422,26 +428,15 @@
           }
         },
         {
-          "name": "mWvTOY",
-          "options": {},
-          "type": "Html",
-          "content": "<br/><h2 class='govuk-heading-m'>Are they 16 and able to speak for themselves?</h2>"
-        },
-        {
-          "name": "iulooD",
-          "options": {},
-          "type": "Para",
-          "content": "If not, provide the contact details of a parent, carer or guardian."
-        },
-        {
           "name": "contact_directly",
           "options": {
             "customValidationMessages": {
               "any.required": "Select how we should contact this person"
             }
           },
+          "hint": "If the person is under 16 or unable to speak to us themselves, provide the contact details of a parent, carer or guardian.",
           "type": "RadiosField",
-          "title": "How should we contact this person?",
+          "title": "How should we contact this person to provide them with advice and guidance?",
           "list": "TQfrjB",
           "schema": {}
         },
@@ -483,13 +478,12 @@
       ]
     },
     {
-      "title": "Who are you completing this form for?",
       "name": "ApjoNd",
       "type": "string",
       "items": [
-        { "text": "Yes", "value": "you" },
+        { "text": "The person I am speaking to", "value": "you" },
         {
-          "text": "They are completing it on behalf of someone who has",
+          "text": "Someone they're acting on behalf of",
           "value": "they"
         }
       ]
@@ -575,11 +569,11 @@
       "type": "string",
       "items": [
         {
-          "text": "yes",
+          "text": "Yes",
           "value": "true"
         },
         {
-          "text": "no",
+          "text": "No",
           "value": "false"
         }
       ]

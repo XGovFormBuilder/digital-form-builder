@@ -36,7 +36,7 @@
       "text": "Cookies"
     },
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/accessibility-statement",
+      "href": "./accessibility-statement",
       "text": "Accessibility Statement"
     },
     {
@@ -264,7 +264,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "{{ propertyAddress_numberOfAddresses }} addresses found for '{{ propertyAddress_postcodeLookup }}'"
+          "content": "{{ propertyAddress_numberOfAddresses }} addresses found for '{{ propertyAddress_postcodeLookup or propertyAddress_postcodeLookupManual }}'"
         },
         {
           "name": "searchAgain",
@@ -301,7 +301,7 @@
     },
     {
       "path": "/property-address-not-found",
-      "title": "No addresses found for ‘{{ propertyAddress_postcodeLookup }}’ and ‘{{ propertyAddress_buildingLookup }}’",
+      "title": "No addresses found for ‘{{ propertyAddress_postcodeLookup or propertyAddress_postcodeLookupManual }}’ and ‘{{ propertyAddress_buildingLookup }}’",
       "components": [
         {
           "type": "Para",
@@ -431,7 +431,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "No address found for {{ propertyAddress_addressLine1Lookup }}{% if propertyAddress_addressLine2Lookup %}, {{ propertyAddress_addressLine2Lookup }}{% endif %}{% if propertyAddress_townLookup %}, {{ propertyAddress_townLookup }}{% endif %}{% if propertyAddress_countyLookup %}, {{ propertyAddress_countyLookup }}{% endif %}{% if propertyAddress_postcodeLookup %}, {{ propertyAddress_postcodeLookup }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+          "content": "No address found for {{ propertyAddress_addressLine1Lookup }}{% if propertyAddress_addressLine2Lookup %}, {{ propertyAddress_addressLine2Lookup }}{% endif %}{% if propertyAddress_townLookup %}, {{ propertyAddress_townLookup }}{% endif %}{% if propertyAddress_countyLookup %}, {{ propertyAddress_countyLookup }}{% endif %}{% if propertyAddress_postcodeLookup or propertyAddress_postcodeLookupManual %}, {{ propertyAddress_postcodeLookup or propertyAddress_postcodeLookupManual }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
         },
         {
           "type": "Html",
@@ -643,7 +643,7 @@
         {
           "name": "resultAddressConfirmation",
           "type": "YesNoField",
-          "title": "Is this the address you want your radon gas test results to?",
+          "title": "Is this the address you want your radon gas test results delivered to?",
           "options": {
             "legendClasses": "govuk-fieldset__legend--m govuk-heading-m govuk-!-font-weight-bold",
             "exposeToContext": true
@@ -857,7 +857,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "{{ kitAddress_numberOfAddresses }} addresses found for '{{ kitAddress_postcodeLookup }}'"
+          "content": "{{ kitAddress_numberOfAddresses }} addresses found for '{{ kitAddress_postcodeLookup or kitAddress_postcodeLookupManual }}'"
         },
         {
           "name": "searchAgain",
@@ -894,7 +894,7 @@
     },
     {
       "path": "/kit-address-not-found",
-      "title": "No addresses found for ‘{{ kitAddress_postcodeLookup }}’ and ‘{{ kitAddress_buildingLookup }}’",
+      "title": "No addresses found for ‘{{ kitAddress_postcodeLookup or kitAddress_postcodeLookupManual }}’ and ‘{{ kitAddress_buildingLookup }}’",
       "components": [
         {
           "type": "Para",
@@ -1020,7 +1020,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "No address found for {{ kitAddress_addressLine1Lookup }}{% if kitAddress_addressLine2Lookup %}, {{ kitAddress_addressLine2Lookup }}{% endif %}{% if kitAddress_townLookup %}, {{ kitAddress_townLookup }}{% endif %}{% if kitAddress_countyLookup %}, {{ kitAddress_countyLookup }}{% endif %}{% if kitAddress_postcodeLookup %}, {{ kitAddress_postcodeLookup }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+          "content": "No address found for {{ kitAddress_addressLine1Lookup }}{% if kitAddress_addressLine2Lookup %}, {{ kitAddress_addressLine2Lookup }}{% endif %}{% if kitAddress_townLookup %}, {{ kitAddress_townLookup }}{% endif %}{% if kitAddress_countyLookup %}, {{ kitAddress_countyLookup }}{% endif %}{% if kitAddress_postcodeLookup or kitAddress_postcodeLookupManual %}, {{ kitAddress_postcodeLookup or kitAddress_postcodeLookupManual }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
         },
         {
           "type": "Html",
@@ -1257,7 +1257,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "{{ resultAddress_numberOfAddresses }} addresses found for '{{ resultAddress_postcodeLookup }}'"
+          "content": "{{ resultAddress_numberOfAddresses }} addresses found for '{{ resultAddress_postcodeLookup or resultAddress_postcodeLookupManual }}'"
         },
         {
           "name": "searchAgain",
@@ -1294,7 +1294,7 @@
     },
     {
       "path": "/result-address-not-found",
-      "title": "No addresses found for ‘{{ resultAddress_postcodeLookup }}’ and ‘{{ resultAddress_buildingLookup }}’",
+      "title": "No addresses found for ‘{{ resultAddress_postcodeLookup or resultAddress_postcodeLookupManual }}’ and ‘{{ resultAddress_buildingLookup }}’",
       "components": [
         {
           "type": "Para",
@@ -1420,7 +1420,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "No address found for {{ resultAddress_addressLine1Lookup }}{% if resultAddress_addressLine2Lookup %}, {{ resultAddress_addressLine2Lookup }}{% endif %}{% if resultAddress_townLookup %}, {{ resultAddress_townLookup }}{% endif %}{% if resultAddress_countyLookup %}, {{ resultAddress_countyLookup }}{% endif %}{% if resultAddress_postcodeLookup %}, {{ resultAddress_postcodeLookup }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
+          "content": "No address found for {{ resultAddress_addressLine1Lookup }}{% if resultAddress_addressLine2Lookup %}, {{ resultAddress_addressLine2Lookup }}{% endif %}{% if resultAddress_townLookup %}, {{ resultAddress_townLookup }}{% endif %}{% if resultAddress_countyLookup %}, {{ resultAddress_countyLookup }}{% endif %}{% if resultAddress_postcodeLookup or resultAddress_postcodeLookupManual %}, {{ resultAddress_postcodeLookup or resultAddress_postcodeLookupManual }}{% endif %}<br><br>Check your address for mistakes, then try again.<br><br>Check you have entered the address correctly, then try again."
         },
         {
           "type": "Html",
@@ -1993,7 +1993,7 @@
             "field": {
               "name": "resultAddressConfirmation",
               "type": "YesNoField",
-              "display": "Is this the address you want your radon gas test results to?"
+              "display": "Is this the address you want your radon gas test results delivered to?"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "false", "display": "false" }
@@ -2021,7 +2021,7 @@
             "field": {
               "name": "resultAddressConfirmation",
               "type": "YesNoField",
-              "display": "Is this the address you want your radon gas test results to?"
+              "display": "Is this the address you want your radon gas test results delivered to?"
             },
             "operator": "is",
             "value": { "type": "Value", "value": "false", "display": "false" }

@@ -78,7 +78,7 @@
           "name": "jmslVl",
           "options": {},
           "type": "Para",
-          "content": "If you need help to complete this form, contact <a href=\"tel:111\">111</a>.",
+          "content": "If you need help to complete this form, contact <a class=\"govuk-link mobile-only\" href=\"tel:111\">111</a><span class=\"tablet-and-up-only\">111</span>",
           "schema": {}
         },
         {
@@ -117,12 +117,14 @@
         {
           "name": "for",
           "options": {
-            "hideTitle": true,
+            "hideTitle": false,
+            "legendAsPageHeading": true,
+            "legendClasses": "govuk-fieldset__legend--l",
             "exposeToContext": true,
             "disableChangingFromSummary": true
           },
+          "title": "Who are you completing this form for?",
           "type": "RadiosField",
-          "title": "Who this form is for",
           "list": "ApjoNd"
         }
       ],
@@ -209,13 +211,13 @@
           "name": "live_with_others",
           "options": {
             "customValidationMessages": {
-              "any.required": "Select 'yes' if you live with other people"
+              "any.required": "Select 'yes' if they live with other people"
             },
             "classes": "govuk-radios--inline"
           },
           "type": "RadiosField",
           "list": "yes-no",
-          "title": "Do you live with other people?",
+          "title": "Do they live with other people?",
           "schema": {}
         },
         {
@@ -242,6 +244,8 @@
       "section": "PeopleYouLiveWith",
       "options": {
         "sectionKey": "people_you_live_with",
+        "hideFieldChangeLinksOnRepeatSummary": true,
+        "hideFieldChangeLinksOnMainSummary": true,
         "customText": {
           "cardTitle": "Person {index}",
           "separatePageTitle": "Check these details are correct before continuing"
@@ -381,12 +385,14 @@
       "section": "OtherContacts",
       "options": {
         "sectionKey": "close_contacts",
+        "hideFieldChangeLinksOnRepeatSummary": true,
+        "hideFieldChangeLinksOnMainSummary": true,
         "customText": {
           "cardTitle": "Close Contact {index}",
           "separatePageTitle": "Check these details are correct before continuing"
         },
         "summaryDisplayMode": {
-          "yesNoSummaryQuestion": "Have you been in close contact with anyone else"
+          "yesNoSummaryQuestion": "Have you been in close contact with anyone else?"
         }
       },
       "components": [
@@ -481,7 +487,6 @@
       ]
     },
     {
-      "title": "Who are you completing this form for?",
       "name": "ApjoNd",
       "type": "string",
       "items": [
@@ -578,11 +583,11 @@
       "type": "string",
       "items": [
         {
-          "text": "yes",
+          "text": "Yes",
           "value": "true"
         },
         {
-          "text": "no",
+          "text": "No",
           "value": "false"
         }
       ]
