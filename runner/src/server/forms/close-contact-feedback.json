@@ -126,10 +126,6 @@
     "showPaymentSkippedWarningPage": false
   },
   "name": "Feedback",
-  "feedback": {
-    "feedbackForm": false,
-    "url": "/close-contact-feedback"
-  },
   "phaseBanner": {},
   "specialPages": {
     "confirmationPage": {
