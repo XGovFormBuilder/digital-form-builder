@@ -256,7 +256,7 @@ export type FormDefinition = {
   formGroup?: string;
   name?: string | undefined;
   /** Disables all traffic to the form when resolved to `false`. Defaults to `true`. */
-  active?: boolean | string;
+  active?: boolean | undefined;
   pages: Array<Page | RepeatingFieldPage>;
   conditions: ConditionRawData[];
   lists: List[];
