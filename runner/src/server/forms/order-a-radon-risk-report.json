@@ -1039,6 +1039,10 @@
       },
       "components": [
         {
+          "type": "Html",
+          "content": "<div class=\"govuk-warning-text\"><span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span><strong class=\"govuk-warning-text__text\"><span class=\"govuk-visually-hidden\">Warning</span>Check your answers before you continue to payment. You cannot return to this page once you proceed.</strong></div>"
+        },
+        {
           "type": "SummaryLists",
           "options": { "enableCards": "false" },
           "content": [
