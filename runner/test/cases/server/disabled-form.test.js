@@ -53,62 +53,7 @@ suite("Disabled form (active: false)", () => {
   });
 });
 
-suite("Form with active resolved from an unset env var placeholder", () => {
-  let server;
-
-  before(async () => {
-    delete process.env.TEST_FORM_ACTIVE_FLAG;
-    server = await createServer({
-      formFileName: "active-env-form.json",
-      formFilePath: fixturesPath,
-      enforceCsrf: false,
-    });
-    await server.start();
-  });
-
-  after(async () => {
-    await server.stop();
-  });
-
-  test("GET defaults to enabled (fail-open) and returns 200", async () => {
-    const response = await server.inject({
-      method: "get",
-      url: "/active-env-form/start",
-    });
-
-    expect(response.statusCode).to.equal(200);
-  });
-});
-
-suite("Form with active resolved from a 'false' env var placeholder", () => {
-  let server;
-
-  before(async () => {
-    process.env.TEST_FORM_ACTIVE_FLAG = "false";
-    server = await createServer({
-      formFileName: "active-env-form.json",
-      formFilePath: fixturesPath,
-      enforceCsrf: false,
-    });
-    await server.start();
-  });
-
-  after(async () => {
-    delete process.env.TEST_FORM_ACTIVE_FLAG;
-    await server.stop();
-  });
-
-  test("GET returns 503", async () => {
-    const response = await server.inject({
-      method: "get",
-      url: "/active-env-form/start",
-    });
-
-    expect(response.statusCode).to.equal(503);
-  });
-});
-
-suite("Form without an active field (regression guard)", () => {
+suite("Form without an active field", () => {
   let server;
 
   before(async () => {

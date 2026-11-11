@@ -8,7 +8,7 @@
   "analytics": {
     "gtmId1": "GTM-5ZD9GZWX"
   },
-  "active": "${RPS_ENABLE_ENQUIRY_FORM}",
+  "active": "false",
   "pages": [
     {
       "path": "/type-of-support",
