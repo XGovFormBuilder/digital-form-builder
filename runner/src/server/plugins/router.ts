@@ -242,11 +242,11 @@ export default {
             "terms-and-conditions"
           );
 
-          return h.view(title, {
+          return h.view(resolvedUrl, {
             name: form.name,
             serviceName: form.def.serviceName,
             serviceStartPage: form.serviceStartPage,
-            feedbackLink: feedbackUrlFromRequest(_request, form, title),
+            feedbackLink: feedbackUrlFromRequest(_request, form, resolvedUrl),
             footerLinks: form.def.footerLinks,
           });
         },
