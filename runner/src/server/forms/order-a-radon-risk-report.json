@@ -1161,7 +1161,12 @@
           }
         }
       ],
-      "componentsAfter": [],
+      "componentsAfter": [
+        {
+          "type": "Para",
+          "content": "You will be redirected to Trust Payments, UKHSA approved payment system."
+        }
+      ],
       "next": []
     }
   ],
