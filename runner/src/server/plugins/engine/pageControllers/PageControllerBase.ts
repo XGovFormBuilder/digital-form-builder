@@ -739,7 +739,7 @@ export class PageControllerBase {
         // truncate the progress to the last occurrence of this page to avoid duplicates.
         if (priorIndex !== -1 && !isChangeLinkVisit) {
           normalizedProgress.length = priorIndex + 1;
-        } else if (priorIndex === -1) {
+        } else {
           normalizedProgress.push(normalizedCurrentPath);
         }
       }
