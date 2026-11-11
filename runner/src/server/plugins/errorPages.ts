@@ -110,6 +110,11 @@ export default {
               const formGroup = form?.def.formGroup;
               const formName = form?.name;
 
+              // Determine service name and start page for the form
+              const serviceName = form?.def.serviceName || config.serviceName;
+              const serviceStartPage =
+                form?.serviceStartPage || config.serviceStartPage;
+
               request.log("error", {
                 statusCode: statusCode,
                 data: response.data,
@@ -124,6 +129,8 @@ export default {
                     url: formId,
                     name: formName,
                     footerLinks: form?.def.footerLinks,
+                    serviceName,
+                    serviceStartPage,
                   })
                   .code(statusCode);
               }
@@ -137,6 +144,8 @@ export default {
                 const globalPageState = {
                   feedbackLink: feedbackUrlFromRequest(request, form, page),
                   footerLinks: form?.def.footerLinks,
+                  serviceName,
+                  serviceStartPage,
                 };
 
                 const applicationErrorData: ApplicationErrorMetadata = {
@@ -160,6 +169,8 @@ export default {
                   name: formName || config.serviceName,
                   contactEmail: form?.def.error500ContactEmail,
                   footerLinks: form?.def.footerLinks,
+                  serviceName,
+                  serviceStartPage,
                 })
                 .code(statusCode);
             } catch (error) {

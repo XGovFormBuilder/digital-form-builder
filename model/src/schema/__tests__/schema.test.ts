@@ -16,6 +16,36 @@ const baseConfiguration = {
   phaseBanner: {},
 };
 
+describe("active", () => {
+  test("defaults to true when omitted", () => {
+    const { value, error } = Schema.validate(baseConfiguration, {
+      abortEarly: false,
+    });
+
+    expect(error).toEqual(undefined);
+    expect(value.active).toEqual(true);
+  });
+
+  test("accepts an explicit boolean value", () => {
+    const { value, error } = Schema.validate(
+      { ...baseConfiguration, active: false },
+      { abortEarly: false }
+    );
+
+    expect(error).toEqual(undefined);
+    expect(value.active).toEqual(false);
+  });
+
+  test("rejects non-boolean values", () => {
+    const { error } = Schema.validate(
+      { ...baseConfiguration, active: "not-a-boolean" },
+      { abortEarly: false }
+    );
+
+    expect(error).toBeDefined();
+  });
+});
+
 test("allows feedback URL to be an empty string when feedbackForm is false", () => {
   const goodConfiguration = {
     ...baseConfiguration,
