@@ -128,6 +128,7 @@ export default {
                   .view("csrf-protection", {
                     url: formId,
                     name: formName,
+                    footerLinks: form?.def.footerLinks,
                     serviceName,
                     serviceStartPage,
                   })
@@ -142,6 +143,7 @@ export default {
 
                 const globalPageState = {
                   feedbackLink: feedbackUrlFromRequest(request, form, page),
+                  footerLinks: form?.def.footerLinks,
                   serviceName,
                   serviceStartPage,
                 };
@@ -166,6 +168,7 @@ export default {
                 .view("500", {
                   name: formName || config.serviceName,
                   contactEmail: form?.def.error500ContactEmail,
+                  footerLinks: form?.def.footerLinks,
                   serviceName,
                   serviceStartPage,
                 })

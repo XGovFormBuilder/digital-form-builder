@@ -35,11 +35,7 @@
   },
   "footerLinks": [
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/help",
-      "text": "Help"
-    },
-    {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/privacy-policy",
+      "href": "privacy",
       "text": "Privacy"
     },
     {
@@ -47,7 +43,7 @@
       "text": "Cookies"
     },
     {
-      "href": "./accessibility-statement",
+      "href": "accessibility-statement",
       "text": "Accessibility Statement"
     },
     {
@@ -55,7 +51,7 @@
       "text": "Contact"
     },
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/terms-conditions",
+      "href": "terms-and-conditions",
       "text": "Terms and Conditions"
     }
   ],
@@ -81,7 +77,7 @@
           "name": "reportDetailsText",
           "options": {},
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\">The report does not tell you the radon level inside the property. To find this out, you need to do a 3‑month test using a <a href=\"/order-a-home-radon-gas-test-kit\">radon gas test kit</a>.</p><p class=\"govuk-body-m\">Basements and cellar rooms are at a higher risk of radon. If a room you use frequently is below ground level, such as a kitchen or office, you should do a radon test, even if the property is not in a radon Affected Area.</p><p class=\"govuk-body-m\">Each report costs £3.90 and will be sent to an email address you provide. Alternatively, you can request a physical report to be sent by Royal Mail 1st Class for £5.51.</p><p class=\"govuk-body-m\"><a href=\"https://www.ukradon.org/cms/assets/gfx/content/resource_5095cs45be58330c.pdf\">Read a sample report</a></p><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">This service is for buildings up to 25 metres in any direction (this does not refer to the height of the building or basement depth).</p><p class=\"govuk-body-m\">This report is not suitable for larger buildings. In this case, contact the <a href=\"https://www.bgs.ac.uk/\">British Geological Survey (BGS)</a>.</p><p class=\"govuk-body-m\">If you have a pre-paid credit account with us, you will need to <a href=\"https://www.ukradon.org/customer_area\">log in to access your credits</a>.</p><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>a valid UK address for the risk report</li><li>a valid email address or a UK postal delivery address</li><li>your payment details</li></ul></p>"
+          "content": "<p class=\"govuk-body-m\">The report does not tell you the radon level inside the property. To find this out, you need to do a 3‑month test using a <a href=\"/order-a-home-radon-gas-test-kit\">radon gas test kit</a>.</p><p class=\"govuk-body-m\">Basements and cellar rooms are at a higher risk of radon. If a room you use frequently is below ground level, such as a kitchen or office, you should do a radon test, even if the property is not in a radon Affected Area.</p><p class=\"govuk-body-m\">Each report costs £3.90 and will be sent to an email address you provide. Alternatively, you can request a physical report to be sent by Royal Mail 1st Class for £5.51.</p><p class=\"govuk-body-m\"><a href=\"https://assets.publishing.service.gov.uk/media/6af484e7b83b3cae0d0a221e/Sample_radon_risk_report.pdf\">Read a sample report</a></p><h3 class=\"govuk-heading-m\">Before you start</h3><p class=\"govuk-body-m\">This service is for buildings up to 25 metres in any direction (this does not refer to the height of the building or basement depth).</p><p class=\"govuk-body-m\">This report is not suitable for larger buildings. In this case, contact the <a href=\"https://www.bgs.ac.uk/\">British Geological Survey (BGS)</a>.</p><p class=\"govuk-body-m\">If you have a pre-paid credit account with us, you will need to <a href=\"https://www.ukradon.org/customer_area\">log in to access your credits</a>.</p><p class=\"govuk-body-m\">You'll need:</p><p class=\"govuk-body-m\"><ul class=\"govuk-list govuk-list--bullet\"><li>a valid UK address for the risk report</li><li>a valid email address or a UK postal delivery address</li><li>your payment details</li></ul></p>"
         }
       ],
       "next": [{ "path": "/find-a-report-address" }],
@@ -1039,6 +1035,10 @@
       },
       "components": [
         {
+          "type": "Html",
+          "content": "<div class=\"govuk-warning-text\"><span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span><strong class=\"govuk-warning-text__text\"><span class=\"govuk-visually-hidden\">Warning</span>Check your answers before you continue to payment. You cannot return to this page once you proceed.</strong></div>"
+        },
+        {
           "type": "SummaryLists",
           "options": { "enableCards": "false" },
           "content": [
@@ -1161,7 +1161,12 @@
           }
         }
       ],
-      "componentsAfter": [],
+      "componentsAfter": [
+        {
+          "type": "Para",
+          "content": "You will be redirected to Trust Payments, UKHSA approved payment system."
+        }
+      ],
       "next": []
     }
   ],

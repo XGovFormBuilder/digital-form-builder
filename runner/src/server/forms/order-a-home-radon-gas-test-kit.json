@@ -24,11 +24,7 @@
   },
   "footerLinks": [
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/help",
-      "text": "Help"
-    },
-    {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/privacy-policy",
+      "href": "privacy",
       "text": "Privacy"
     },
     {
@@ -36,7 +32,7 @@
       "text": "Cookies"
     },
     {
-      "href": "./accessibility-statement",
+      "href": "accessibility-statement",
       "text": "Accessibility Statement"
     },
     {
@@ -44,7 +40,7 @@
       "text": "Contact"
     },
     {
-      "href": "https://www.ukhsa-protectionservices.org.uk/tc/terms-conditions",
+      "href": "terms-and-conditions",
       "text": "Terms and Conditions"
     }
   ],
