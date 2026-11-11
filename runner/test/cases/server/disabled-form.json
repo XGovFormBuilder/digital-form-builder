@@ -1,0 +1,23 @@
+{
+  "startPage": "/start",
+  "active": false,
+  "pages": [
+    {
+      "path": "/start",
+      "title": "Start",
+      "components": [],
+      "next": [{ "path": "/summary" }]
+    },
+    {
+      "path": "/summary",
+      "title": "Summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "sections": [],
+  "lists": [],
+  "outputs": [],
+  "fees": [],
+  "conditions": []
+}

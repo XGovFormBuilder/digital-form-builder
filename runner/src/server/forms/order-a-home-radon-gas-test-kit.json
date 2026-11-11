@@ -92,7 +92,7 @@
         },
         {
           "type": "Html",
-          "content": "<ul class=\"govuk-list govuk-list--bullet\"><li>if you are a landlord, you have a duty of Care under the Housing Act (2004) to provide a safe home - you can find more information on the need for action with regards to radon gas defined by the <a href=\"https://www.gov.uk/government/guidance/guidance-on-radon-for-landlords\">Housing Health and Safety Rating System (HHSRS)</a></li><li>if your property's radon level has been measure before using UKHSA, you may be eligible for a free retest - you will be asked your name, address, and the method of remediaton you have used to determine your eligibility</li><li>if you would like 20 or more radon detectors, or are a public sector organisation, <a href=\"https://www.gov.uk/government/guidance/contact-radiation-protection-sciences\">contact us</a> as discounts may be available</li></ul>"
+          "content": "<ul class=\"govuk-list govuk-list--bullet\"><li>if you are a landlord, you have a duty of Care under the Housing Act (2004) to provide a safe home - you can find more information on the need for action with regards to radon gas defined by the <a href=\"https://www.gov.uk/government/guidance/guidance-on-radon-for-landlords\">Housing Health and Safety Rating System (HHSRS)</a></li><li>if your property's radon level has been measure before using UKHSA, you may be eligible for a free retest - you will be asked your name, address, and the method of remediaton you have used to determine your eligibility</li><li>if you would like 20 or more radon detectors, or are a public sector organisation, <a href=\"https://www.ukhsa-protectionservices.org.uk/contact/\">contact us</a> as discounts may be available</li></ul>"
         },
         {
           "type": "Para",
@@ -1655,7 +1655,7 @@
         {
           "name": "final links",
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\"><a href=\"https://submit.forms.service.gov.uk/form/266710/radon-services-feedback-form\">What did you think of this service?</a> (takes 30 seconds)</p><p class=\"govuk-body-m\"><a href=\"gas-test-kit-start\">Order another radon gas test kit</a></p><p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/government/guidance/contact-radiation-protection-sciences\">Contact Radon Measurement Service team</a></p><p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/government/guidance/radon-services-for-homeowners-or-householders\">Go to Radon services for homeowners or householders</a></p>"
+          "content": "<p class=\"govuk-body-m\"><a href=\"https://submit.forms.service.gov.uk/form/266710/radon-services-feedback-form\">What did you think of this service?</a> (takes 30 seconds)</p><p class=\"govuk-body-m\"><a href=\"gas-test-kit-start\">Order another radon gas test kit</a></p><p class=\"govuk-body-m\"><a href=\"https://www.ukhsa-protectionservices.org.uk/contact/\">Contact Radon services team</a></p><p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/government/guidance/radon-services-for-homeowners-or-householders\">Go to Radon services for homeowners or householders</a></p>"
         }
       ]
     }

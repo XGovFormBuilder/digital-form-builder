@@ -263,6 +263,10 @@ export const plugin = {
         const { path, id } = request.params;
         const model = forms[id];
 
+        if (model?.def.active === false) {
+          throw new RenderingError("Form is disabled", { code: 503 });
+        }
+
         const page = model?.pages.find(
           (page) => normalisePath(page.path) === normalisePath(path)
         );
@@ -298,6 +302,10 @@ export const plugin = {
     ) => {
       const { path, id } = request.params;
       const model = forms[id];
+
+      if (model?.def.active === false) {
+        throw new RenderingError("Form is disabled", { code: 503 });
+      }
 
       if (model) {
         const page = model.pages.find(

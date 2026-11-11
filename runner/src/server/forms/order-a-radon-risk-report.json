@@ -1193,7 +1193,7 @@
         {
           "name": "final links",
           "type": "Para",
-          "content": "<p class=\"govuk-body-m\"><a href=\"https://submit.forms.service.gov.uk/form/266710/radon-services-feedback-form\">What did you think of this service?</a> (takes 30 seconds)</p><p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/government/guidance/contact-radiation-protection-sciences\">Contact Radon Measurement Service team</a></p><p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/government/guidance/radon-services-for-homeowners-or-householders\">Go to radon services for homeowners or householders</a></p>"
+          "content": "<p class=\"govuk-body-m\"><a href=\"https://submit.forms.service.gov.uk/form/266710/radon-services-feedback-form\">What did you think of this service?</a> (takes 30 seconds)</p><p class=\"govuk-body-m\"><a href=\"https://www.ukhsa-protectionservices.org.uk/contact/\">Contact Radon services team</a></p><p class=\"govuk-body-m\"><a href=\"https://www.gov.uk/government/guidance/radon-services-for-homeowners-or-householders\">Go to radon services for homeowners or householders</a></p>"
         }
       ]
     }
